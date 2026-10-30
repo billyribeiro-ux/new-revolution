@@ -359,6 +359,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/blogs</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/indicators</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
@@ -704,6 +705,73 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(blogsGraphTypes).toContain('BreadcrumbList');
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /blogs
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /store/indicators route metadata, JSON-LD, and DOM parity
+		const expectedIndicatorsUrl = `${origin}/store/indicators`;
+		await page.goto('/store/indicators');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const indicatorsTitle = await page.title();
+		expect(indicatorsTitle).toBe('Custom Trading Indicators | Revolution Trading Pros');
+		expect(indicatorsTitle.length).toBe(51);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const indicatorsDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(indicatorsDesc).toBe(
+			'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.'
+		);
+		expect(indicatorsDesc?.length).toBe(151);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedIndicatorsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedIndicatorsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedIndicatorsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedIndicatorsUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.indicator-card')).toHaveCount(8);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('.proof-card')).toHaveCount(3);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const indicatorsJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const indicatorsSchema = JSON.parse(indicatorsJsonLdText!);
+		const indicatorsFaqNode = indicatorsSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleIndicatorsFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(indicatorsFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleIndicatorsFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

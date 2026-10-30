@@ -87,4 +87,3 @@ describe('/blogs page', () => {
 		expect(document.querySelectorAll('.blog-card').length).toBe(6);
 	});
 });
-

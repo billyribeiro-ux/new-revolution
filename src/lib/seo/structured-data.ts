@@ -1037,3 +1037,142 @@ export function buildBlogsHubJsonLd(origin: string) {
 		]
 	};
 }
+
+export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'never-repaint',
+		question: 'Do your indicators ever repaint or change past signals after the bar closes?',
+		answer:
+			'Never. Every indicator in our Store is 100% non-repainting. Once a candle closes and a signal, squeeze dot, abandoned bar, or gamma level prints on your chart, it stays there permanently. We built Revolution Trading Pros to destroy the fake "holy grail" indicator scam, not participate in it.'
+	},
+	{
+		id: 'platforms-markets',
+		question: 'Which trading platforms and markets do these indicators work on?',
+		answer:
+			'Our custom indicators are built for ThinkorSwim (thinkScript) and TradingView. They work across all liquid US stocks, sector and index ETFs (see our free ETF Stocks List and Stock Indexes List), SPX/NDX index charts, and options contracts on intraday, daily, and weekly timeframes.'
+	},
+	{
+		id: 'small-accounts-working-pros',
+		question: 'Are these indicators suitable for $500+ small accounts or working professionals?',
+		answer:
+			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Explosive Swings alert tier.'
+	},
+	{
+		id: 'pair-with-scanners-courses',
+		question: 'How do your indicators pair with your Scanners and Trading Courses?',
+		answer:
+			'Our Institutional Scanners automatically scan the entire market in real time to find tickers triggering our indicator conditions (such as Multi-Timeframe Squeezes or Liquidity Sweeps), while our Trading Courses teach you the complete Goldman Sachs-mentored execution rules behind every setup.'
+	}
+];
+
+export const INDICATORS_CATALOG_SCHEMA_ITEMS = [
+	{
+		position: 1,
+		name: 'The Move Prior to The Move (MP_EarlyInNOut)',
+		description:
+			'Anticipate institutional accumulation and distribution before the retail breakout candle prints.'
+	},
+	{
+		position: 2,
+		name: 'Institutional Liquidity Sweep & Trap Detector',
+		description:
+			'Spot exact price zones where Wall Street algorithms sweep retail stops and reverse the tape.'
+	},
+	{
+		position: 3,
+		name: 'Multi-Timeframe Volatility Squeeze Matrix',
+		description:
+			'Get in on the most powerful volatility compressions earlier across synchronized timeframes.'
+	},
+	{
+		position: 4,
+		name: 'Dynamic SPX & Index Gamma Inflection Levels',
+		description:
+			'Expose dynamic institutional support, resistance, and dealer gamma walls on SPX, SPY, and QQQ.'
+	},
+	{
+		position: 5,
+		name: 'Abandoned Price Bar & Exhaustion Telemetry',
+		description:
+			'Identify trapped buyers at structural tops and trapped sellers at capitulation bottoms in real time.'
+	},
+	{
+		position: 6,
+		name: 'Smart-Money Relative Volume & Absorption Oscillator',
+		description:
+			'A non-repainting volume oscillator that shows whether institutions are buying dips or selling rips.'
+	},
+	{
+		position: 7,
+		name: 'Institutional Hot-Zone & Opening Drive Windows',
+		description:
+			'See within seconds the highest-probability institutional trading windows and avoid midday chop.'
+	},
+	{
+		position: 8,
+		name: 'Institutional Trend Thrust & Structure Ribbon',
+		description:
+			'Combine price structure, thrust, and regime momentum to identify high-probability trend setups.'
+	}
+] as const;
+
+export function buildIndicatorsStoreJsonLd(origin: string) {
+	const pageUrl = `${origin}/store/indicators`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Custom Trading Indicators | Revolution Trading Pros',
+				description:
+					'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#catalog` },
+				mainEntity: { '@id': `${pageUrl}#catalog` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Store', item: pageUrl },
+					{ '@type': 'ListItem', position: 3, name: 'Indicators', item: pageUrl }
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#catalog`,
+				name: 'Revolution Trading Pros Proprietary Non-Repainting Indicators',
+				numberOfItems: INDICATORS_CATALOG_SCHEMA_ITEMS.length,
+				itemListElement: INDICATORS_CATALOG_SCHEMA_ITEMS.map((item) => ({
+					'@type': 'ListItem',
+					position: item.position,
+					name: item.name,
+					description: item.description
+				}))
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: INDICATORS_STORE_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

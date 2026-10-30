@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
 	ABOUT_FAQ_ITEMS,
 	DAY_TRADING_ROOM_FAQ_ITEMS,
+	INDICATORS_STORE_FAQ_ITEMS,
 	MENTORSHIP_FAQ_ITEMS,
 	MISSION_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
@@ -9,6 +10,7 @@ import {
 	buildAboutJsonLd,
 	buildBlogsHubJsonLd,
 	buildDayTradingRoomJsonLd,
+	buildIndicatorsStoreJsonLd,
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
 	buildSmallAccountsRoomJsonLd,
@@ -288,5 +290,41 @@ describe('buildBlogsHubJsonLd', () => {
 		const blog = graph.find((n) => n['@id'] === `${ORIGIN}/blogs#blog`) as Node;
 		expect(blog['@type']).toBe('Blog');
 		expect(blog.publisher).toEqual({ '@id': `${ORIGIN}/#organization` });
+	});
+});
+
+describe('buildIndicatorsStoreJsonLd', () => {
+	const graph = buildIndicatorsStoreJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Indicators Store as a CollectionPage with an 8-item ItemList', () => {
+		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/indicators#webpage`) as Node;
+		expect(page['@type']).toBe('CollectionPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/indicators#catalog` });
+
+		const catalog = graph.find((n) => n['@id'] === `${ORIGIN}/store/indicators#catalog`) as Node;
+		expect(catalog['@type']).toBe('ItemList');
+		expect(catalog.numberOfItems).toBe(8);
+		expect((catalog.itemListElement as unknown[]).length).toBe(8);
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(4);
+		expect(questions.map((q) => q.name)).toEqual(INDICATORS_STORE_FAQ_ITEMS.map((i) => i.question));
 	});
 });

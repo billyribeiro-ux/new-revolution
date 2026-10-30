@@ -1148,6 +1148,31 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
 			expect(scrollWidth).toBeLessThanOrEqual(width);
 		}
+
+		// ETF Stock List Page (/resources/etf-stocks-list)
+		await page.goto('/resources/etf-stocks-list');
+		const etfTitle = await page.title();
+		expect(etfTitle).toBe('ETF Stock List & Sector Guide | Revolution Trading Pros');
+		expect(etfTitle.length).toBe(55);
+
+		const etfDesc = await page.locator('meta[name="description"]').getAttribute('content');
+		expect(etfDesc).toBe(
+			'Comprehensive ETF stock list and sector guide. Explore top liquid ETFs (SPY, QQQ, IWM, XLK, XLF), benefits, and ETF vs. mutual fund comparisons.'
+		);
+		expect(etfDesc!.length).toBe(144);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('.benefit-card')).toHaveCount(5);
+		await expect(page.locator('.type-card')).toHaveCount(5);
+		await expect(page.locator('.etf-card')).toHaveCount(12);
+		await expect(page.locator('.sector-card')).toHaveCount(9);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(7);
+
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
 	});
 
 	test('scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow', async ({

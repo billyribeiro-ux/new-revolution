@@ -69,6 +69,7 @@
 		'/store/indicators',
 		'/store/courses',
 		'/store/scanners',
+		'/resources/etf-stocks-list',
 		'/sitemap.xml'
 	]);
 

@@ -12,11 +12,13 @@ import {
 	SINGLE_SCANNER_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
 	SPX_PROFIT_PULSE_FAQ_ITEMS,
+	STOCK_INDEXES_LIST_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
 	buildBlogsHubJsonLd,
 	buildCoursesStoreJsonLd,
 	buildDayTradingRoomJsonLd,
+	buildEtfStocksListJsonLd,
 	buildIndicatorsStoreJsonLd,
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
@@ -26,6 +28,7 @@ import {
 	buildSingleScannerJsonLd,
 	buildSmallAccountsRoomJsonLd,
 	buildSpxProfitPulseJsonLd,
+	buildStockIndexesListJsonLd,
 	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
 
@@ -580,5 +583,76 @@ describe('buildSingleScannerJsonLd', () => {
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions).toHaveLength(5);
 		expect(questions.map((q) => q.name)).toEqual(SINGLE_SCANNER_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildEtfStocksListJsonLd', () => {
+	const graph = buildEtfStocksListJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the ETF Stock List page as a CollectionPage with a 12-item ItemList', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/resources/etf-stocks-list#webpage`
+		) as Node;
+		expect(page['@type']).toBe('CollectionPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/resources/etf-stocks-list#etf-list` });
+
+		const list = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/resources/etf-stocks-list#etf-list`
+		) as Node;
+		expect(list['@type']).toBe('ItemList');
+		expect(list.numberOfItems).toBe(12);
+	});
+});
+
+describe('buildStockIndexesListJsonLd', () => {
+	const graph = buildStockIndexesListJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Stock Indexes List page as a CollectionPage with a 10-item ItemList and 5 FAQs', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/resources/stock-indexes-list#webpage`
+		) as Node;
+		expect(page['@type']).toBe('CollectionPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/resources/stock-indexes-list#index-list` });
+
+		const list = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/resources/stock-indexes-list#index-list`
+		) as Node;
+		expect(list['@type']).toBe('ItemList');
+		expect(list.numberOfItems).toBe(10);
+
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(
+			STOCK_INDEXES_LIST_FAQ_ITEMS.map((i) => i.question)
+		);
 	});
 });

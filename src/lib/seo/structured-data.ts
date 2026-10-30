@@ -1892,3 +1892,189 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 		]
 	};
 }
+
+const ETF_STOCKS_LIST_ITEMS = [
+	{ symbol: 'SPY', name: 'SPDR S&P 500 ETF' },
+	{ symbol: 'QQQ', name: 'Invesco QQQ Trust' },
+	{ symbol: 'VTI', name: 'Vanguard Total Stock Market ETF' },
+	{ symbol: 'EEM', name: 'iShares MSCI Emerging Markets ETF' },
+	{ symbol: 'IWM', name: 'iShares Russell 2000 ETF' },
+	{ symbol: 'VEA', name: 'Vanguard FTSE Developed Markets ETF' },
+	{ symbol: 'AGG', name: 'iShares Core U.S. Aggregate Bond ETF' },
+	{ symbol: 'VIG', name: 'Vanguard Dividend Appreciation ETF' },
+	{ symbol: 'GLD', name: 'SPDR Gold Shares' },
+	{ symbol: 'ARKK', name: 'ARK Innovation ETF' },
+	{ symbol: 'EFA', name: 'iShares MSCI EAFE ETF' },
+	{ symbol: 'SCHB', name: 'Schwab U.S. Broad Market ETF' }
+] as const;
+
+export function buildEtfStocksListJsonLd(origin: string) {
+	const pageUrl = `${origin}/resources/etf-stocks-list`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'ETF Stock List & Sector Guide | Revolution Trading Pros',
+				description:
+					'Comprehensive ETF stock list and sector guide. Explore top liquid ETFs (SPY, QQQ, IWM, XLK, XLF), benefits, and ETF vs. mutual fund comparisons.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#etf-list` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Resources',
+						item: pageUrl
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'ETF Stock List',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#etf-list`,
+				name: 'Featured Exchange-Traded Funds (ETFs)',
+				numberOfItems: ETF_STOCKS_LIST_ITEMS.length,
+				itemListElement: ETF_STOCKS_LIST_ITEMS.map((etf, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: `${etf.symbol} — ${etf.name}`
+				}))
+			}
+		]
+	};
+}
+
+export const STOCK_INDEXES_LIST_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'three-major-stock-indexes',
+		question: 'What are the three major stock indexes?',
+		answer:
+			'1. S&P 500: measures 500 large-caps in U.S. stock market\n2. Dow Jones 30: measures the top 30 U.S. large-cap stocks\n3. Nasdaq 100: measures the top 100 largest non-financial companies'
+	},
+	{
+		id: 'difference-between-stock-and-index',
+		question: 'What is the difference between a stock and an index?',
+		answer:
+			'A stock allows investors partial ownership in a company. An index gives investors the option of investing in a basket of companies through products like ETFs, mutual funds, and derivatives.'
+	},
+	{
+		id: 'invest-directly-in-index',
+		question: 'Can you invest directly in an index?',
+		answer:
+			'An index cannot be traded or invested in directly. Many different products, such as ETFs, mutual funds, and derivatives, are available to investors to gain exposure to index performance.'
+	},
+	{
+		id: 'ticker-symbols-major-indexes',
+		question: 'What are the ticker symbols for major indexes?',
+		answer:
+			'1. S&P 500 – SPX or $SPX\n2. Dow Jones Industrial Average (DJIA) – $DJI\n3. Nasdaq Composite – COMPQ or $COMPQ\n4. NYSE Composite – (DJ)\n5. Russell 2000 – RUT or $RUT'
+	},
+	{
+		id: 'most-widely-cited-us-index',
+		question: 'What is the most widely cited US stock market index?',
+		answer:
+			'The most widely cited US stock market index is the S&P 500, which measures 500 large-cap stocks and is considered the best representation of the overall U.S. stock market.'
+	}
+];
+
+const STOCK_INDEXES_LIST_ITEMS = [
+	{ symbol: 'SPX', name: 'S&P 500' },
+	{ symbol: 'DJI', name: 'Dow Jones Industrial Average' },
+	{ symbol: 'COMPQ', name: 'NASDAQ Composite' },
+	{ symbol: 'NDX', name: 'NASDAQ 100' },
+	{ symbol: 'RUT', name: 'Russell 2000' },
+	{ symbol: 'VIX', name: 'CBOE Volatility Index' },
+	{ symbol: 'FTSE', name: 'FTSE 100' },
+	{ symbol: 'DAX', name: 'DAX 40' },
+	{ symbol: 'N225', name: 'Nikkei 225' },
+	{ symbol: 'HSI', name: 'Hang Seng Index' }
+] as const;
+
+export function buildStockIndexesListJsonLd(origin: string) {
+	const pageUrl = `${origin}/resources/stock-indexes-list`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Stock Market Indexes List | Revolution Trading Pros',
+				description:
+					'Comprehensive stock market indexes list and guide. Track S&P 500 ($SPX), Dow Jones ($DJI), Nasdaq ($NDX), Russell 2000 ($RUT), VIX, and global benchmarks.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#index-list` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Resources',
+						item: pageUrl
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'Stock Indexes List',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#index-list`,
+				name: 'Major Global Stock Market Indexes',
+				numberOfItems: STOCK_INDEXES_LIST_ITEMS.length,
+				itemListElement: STOCK_INDEXES_LIST_ITEMS.map((idx, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: `${idx.symbol} — ${idx.name}`
+				}))
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: STOCK_INDEXES_LIST_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

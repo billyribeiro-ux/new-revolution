@@ -57,4 +57,3 @@ export const load: PageLoad = ({ url, params }) => {
 		jsonLdSchema: buildSingleScannerJsonLd(SITE_ORIGIN, slug)
 	};
 };
-

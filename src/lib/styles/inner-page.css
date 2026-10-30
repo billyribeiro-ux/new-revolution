@@ -7641,3 +7641,642 @@
 		grid-column: span 9;
 	}
 }
+
+/* ============================================================================
+   ETF Stock List Page (/resources/etf-stocks-list)
+   ============================================================================ */
+
+.etf-page {
+	background: var(--rtp-bg, #0a0f1a);
+	color: var(--rtp-text, #e5e7eb);
+	overflow-x: hidden;
+}
+
+.etf-page .container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 1.5rem;
+}
+
+.etf-page .hero {
+	position: relative;
+	padding: 5rem 1rem 3rem;
+	padding-top: calc(5rem + env(safe-area-inset-top, 0px));
+	padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+	padding-right: calc(1rem + env(safe-area-inset-right, 0px));
+	overflow: hidden;
+}
+
+.etf-page .hero__bg {
+	position: absolute;
+	inset: 0;
+}
+
+.etf-page .hero__gradient {
+	position: absolute;
+	top: -50%;
+	right: -20%;
+	width: 800px;
+	height: 800px;
+	background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+	border-radius: 50%;
+}
+
+.etf-page .hero__grid {
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+	opacity: 0.5;
+}
+
+.etf-page .hero__content {
+	position: relative;
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.etf-page .hero__badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: rgba(16, 185, 129, 0.1);
+	border: 1px solid rgba(16, 185, 129, 0.2);
+	border-radius: 9999px;
+	color: #10b981;
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-bottom: 1.5rem;
+}
+
+.etf-page .hero__title {
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 8vw, 4.5rem);
+	font-weight: 800;
+	background: linear-gradient(135deg, #fff 0%, #10b981 50%, #fff 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin: 0 0 1.5rem;
+	line-height: 1.1;
+}
+
+.etf-page .hero__subtitle {
+	font-size: clamp(1rem, 3vw, 1.25rem);
+	color: #94a3b8;
+	line-height: 1.7;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.etf-page .section {
+	padding: 2.5rem 1rem;
+	padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+	padding-right: calc(1rem + env(safe-area-inset-right, 0px));
+}
+
+.etf-page .section--dark {
+	background: rgba(16, 185, 129, 0.02);
+	border-top: 1px solid rgba(16, 185, 129, 0.1);
+	border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.etf-page .section__header {
+	text-align: center;
+	margin-bottom: 3rem;
+}
+
+.etf-page .section__title {
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 5vw, 2.5rem);
+	font-weight: 700;
+	color: #fff;
+	margin: 0 0 1rem;
+}
+
+.etf-page .section__description {
+	font-size: clamp(0.9375rem, 2.5vw, 1.125rem);
+	color: #94a3b8;
+	max-width: 800px;
+	margin: 0 auto;
+	line-height: 1.7;
+}
+
+.etf-page .benefits-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+	margin-bottom: 4rem;
+}
+
+.etf-page .benefit-card {
+	background: rgba(16, 185, 129, 0.05);
+	border: 1px solid rgba(16, 185, 129, 0.1);
+	border-radius: 1rem;
+	padding: 1.25rem;
+	transition: all 0.3s ease;
+}
+
+.etf-page .benefit-card:hover {
+	border-color: rgba(16, 185, 129, 0.3);
+	transform: translateY(-2px);
+}
+
+.etf-page .benefit-card__icon {
+	width: 40px;
+	height: 40px;
+	background: rgba(16, 185, 129, 0.1);
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #10b981;
+	margin-bottom: 1rem;
+}
+
+.etf-page .benefit-card__title {
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 0.5rem;
+}
+
+.etf-page .benefit-card__text {
+	font-size: 0.875rem;
+	color: #94a3b8;
+	line-height: 1.6;
+	margin: 0;
+}
+
+.etf-page .types-section {
+	margin-top: 3rem;
+}
+
+.etf-page .types-title {
+	font-family: var(--font-display);
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 1.5rem;
+	text-align: center;
+}
+
+.etf-page .types-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 0.75rem;
+}
+
+.etf-page .type-card {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	border-radius: 0.75rem;
+	padding: 1rem;
+	transition: all 0.3s ease;
+}
+
+.etf-page .type-card:hover {
+	border-color: rgba(16, 185, 129, 0.2);
+}
+
+.etf-page .type-card__title {
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 600;
+	color: #10b981;
+	margin: 0 0 0.5rem;
+}
+
+.etf-page .type-card__text {
+	font-size: 0.875rem;
+	color: #94a3b8;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.etf-page .etf-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.etf-page .etf-card {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 1rem;
+	padding: 1.25rem;
+	transition: all 0.3s ease;
+}
+
+.etf-page .etf-card:hover {
+	border-color: rgba(16, 185, 129, 0.3);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);
+}
+
+.etf-page .etf-card__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.75rem;
+}
+
+.etf-page .etf-card__symbol {
+	font-family: var(--font-display);
+	font-size: 1.25rem;
+	font-weight: 800;
+	color: #10b981;
+}
+
+.etf-page .etf-card__chart-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	background: rgba(16, 185, 129, 0.1);
+	border-radius: 8px;
+	color: #10b981;
+	transition: all 0.2s ease;
+}
+
+.etf-page .etf-card__chart-link:hover {
+	background: rgba(16, 185, 129, 0.2);
+}
+
+.etf-page .etf-card__name {
+	font-family: var(--font-display);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 0.75rem;
+}
+
+.etf-page .etf-card__description {
+	font-size: 0.8125rem;
+	color: #94a3b8;
+	line-height: 1.6;
+	margin: 0 0 1rem;
+}
+
+.etf-page .etf-card__features {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.etf-page .etf-card__feature {
+	font-size: 0.6875rem;
+	padding: 0.25rem 0.625rem;
+	background: rgba(16, 185, 129, 0.1);
+	border: 1px solid rgba(16, 185, 129, 0.2);
+	border-radius: 9999px;
+	color: #10b981;
+}
+
+.etf-page .sector-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.etf-page .sector-card {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 1rem;
+	padding: 1.25rem;
+	transition: all 0.3s ease;
+}
+
+.etf-page .sector-card:hover {
+	border-color: rgba(255, 255, 255, 0.15);
+	transform: translateY(-2px);
+}
+
+.etf-page .sector-card__icon {
+	width: 48px;
+	height: 48px;
+	border-radius: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	margin-bottom: 1rem;
+	background: linear-gradient(to bottom right, #64748b, #475569);
+}
+
+.etf-page .sector-card__icon--blue {
+	background: linear-gradient(to bottom right, #3b82f6, #06b6d4);
+}
+.etf-page .sector-card__icon--pink {
+	background: linear-gradient(to bottom right, #ec4899, #f43f5e);
+}
+.etf-page .sector-card__icon--orange {
+	background: linear-gradient(to bottom right, #f97316, #f59e0b);
+}
+.etf-page .sector-card__icon--green {
+	background: linear-gradient(to bottom right, #22c55e, #10b981);
+}
+.etf-page .sector-card__icon--teal {
+	background: linear-gradient(to bottom right, #14b8a6, #22c55e);
+}
+.etf-page .sector-card__icon--yellow {
+	background: linear-gradient(to bottom right, #eab308, #f97316);
+}
+.etf-page .sector-card__icon--slate {
+	background: linear-gradient(to bottom right, #64748b, #6b7280);
+}
+.etf-page .sector-card__icon--purple {
+	background: linear-gradient(to bottom right, #a855f7, #8b5cf6);
+}
+.etf-page .sector-card__icon--indigo {
+	background: linear-gradient(to bottom right, #6366f1, #3b82f6);
+}
+
+.etf-page .sector-card__title {
+	font-family: var(--font-display);
+	font-size: 1.125rem;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 1rem;
+}
+
+.etf-page .sector-card__etfs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.etf-page .sector-card__etf {
+	font-size: 0.8rem;
+	font-weight: 600;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	padding: 0.5rem 0.875rem;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 6px;
+	color: #e5e7eb;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.etf-page .sector-card__etf:hover {
+	background: rgba(16, 185, 129, 0.1);
+	border-color: rgba(16, 185, 129, 0.3);
+	color: #10b981;
+}
+
+.etf-page .comparison-table-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	margin-bottom: 2rem;
+}
+
+.etf-page .comparison-table {
+	width: 100%;
+	min-width: 600px;
+	border-collapse: collapse;
+	background: rgba(255, 255, 255, 0.02);
+	border-radius: 1rem;
+	overflow: hidden;
+}
+
+.etf-page .comparison-table th {
+	padding: 0.625rem 0.75rem;
+	font-size: 0.75rem;
+	text-align: left;
+	font-weight: 600;
+	color: #fff;
+	background: rgba(16, 185, 129, 0.1);
+	border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.etf-page .comparison-table td {
+	padding: 0.625rem 0.75rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	color: #94a3b8;
+	font-size: 0.75rem;
+}
+
+.etf-page .comparison-table__feature {
+	font-weight: 600;
+	color: #fff;
+}
+
+.etf-page .comparison-table__cell--better {
+	color: #10b981;
+}
+
+.etf-page .comparison-table__icon {
+	display: inline-block;
+	margin-right: 0.5rem;
+	vertical-align: middle;
+}
+
+.etf-page .comparison-table__icon--check {
+	color: #10b981;
+}
+
+.etf-page .comparison-summary {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.etf-page .comparison-summary__item {
+	background: rgba(16, 185, 129, 0.05);
+	border: 1px solid rgba(16, 185, 129, 0.1);
+	border-radius: 1rem;
+	padding: 1.25rem;
+}
+
+.etf-page .comparison-summary__item h3 {
+	font-family: var(--font-display);
+	font-size: 1rem;
+	font-weight: 600;
+	color: #10b981;
+	margin: 0 0 0.5rem;
+}
+
+.etf-page .comparison-summary__item p {
+	font-size: 0.9rem;
+	color: #94a3b8;
+	line-height: 1.6;
+	margin: 0;
+}
+
+.etf-page .cta-section {
+	padding: 3rem 1rem;
+	padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+	background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);
+}
+
+.etf-page .cta-content {
+	max-width: 700px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.etf-page .cta-title {
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 5vw, 2.5rem);
+	font-weight: 700;
+	color: #fff;
+	margin: 0 0 1rem;
+}
+
+.etf-page .cta-text {
+	font-size: 1rem;
+	color: #94a3b8;
+	margin: 0 0 2rem;
+	line-height: 1.7;
+}
+
+.etf-page .cta-buttons {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: center;
+}
+
+.etf-page .cta-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 44px;
+	gap: 0.5rem;
+	padding: 0.875rem 1.5rem;
+	border-radius: 9999px;
+	font-weight: 600;
+	font-size: 1rem;
+	text-decoration: none;
+	transition: all 0.3s ease;
+	box-sizing: border-box;
+}
+
+.etf-page .cta-btn--primary {
+	background: linear-gradient(135deg, #10b981, #059669);
+	color: #fff;
+	box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+}
+
+.etf-page .cta-btn--primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+}
+
+.etf-page .cta-btn--secondary {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: #e5e7eb;
+}
+
+.etf-page .cta-btn--secondary:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 640px) {
+	.etf-page .hero {
+		padding: 6rem 1.5rem 4rem;
+	}
+
+	.etf-page .section {
+		padding: 3.5rem 1.5rem;
+	}
+
+	.etf-page .benefits-grid,
+	.etf-page .types-grid,
+	.etf-page .etf-grid,
+	.etf-page .sector-grid,
+	.etf-page .comparison-summary {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem;
+	}
+
+	.etf-page .cta-buttons {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.etf-page .cta-btn {
+		width: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.etf-page .hero {
+		padding: 8rem 2rem 5rem;
+	}
+
+	.etf-page .section {
+		padding: 4rem 2rem;
+	}
+
+	.etf-page .benefits-grid,
+	.etf-page .sector-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.etf-page .etf-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.5rem;
+	}
+
+	.etf-page .etf-card {
+		padding: 1.5rem;
+	}
+
+	.etf-page .comparison-table th,
+	.etf-page .comparison-table td {
+		padding: 1rem 1.5rem;
+		font-size: 0.9rem;
+	}
+
+	.etf-page .cta-section {
+		padding: 4rem 2rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.etf-page .hero {
+		padding: 10rem 2rem 6rem;
+	}
+
+	.etf-page .section {
+		padding: 5rem 2rem;
+	}
+
+	.etf-page .benefits-grid {
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	}
+
+	.etf-page .types-grid {
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	}
+
+	.etf-page .etf-grid {
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	}
+
+	.etf-page .sector-grid {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	}
+
+	.etf-page .cta-section {
+		padding: 5rem 2rem;
+	}
+}
+
+@media (min-width: 1280px) {
+	.etf-page .etf-grid,
+	.etf-page .sector-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}

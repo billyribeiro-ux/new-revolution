@@ -1201,18 +1201,21 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// Free Trading Resources Hub Page (/resources)
 		await page.goto('/resources');
 		const resourcesTitle = await page.title();
-		expect(resourcesTitle).toBe('Free Trading Resources & Tools | Revolution Trading Pros');
+		expect(resourcesTitle).toBe('Free Stock & Options Resources | Revolution Trading Pros');
 		expect(resourcesTitle.length).toBe(56);
 
 		const resourcesDesc = await page.locator('meta[name="description"]').getAttribute('content');
 		expect(resourcesDesc).toBe(
-			'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.'
+			'Access free stock and options trading resources: our interactive Options Calculator, ETF Stocks List, Stock Indexes List, and institutional guides.'
 		);
-		expect(resourcesDesc!.length).toBe(148);
+		expect(resourcesDesc!.length).toBe(147);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('.resource-card')).toHaveCount(6);
-		await expect(page.locator('.resource-card__item')).toHaveCount(24);
+		await expect(page.locator('.utility-card')).toHaveCount(3);
+		await expect(page.locator('.vault-card')).toHaveCount(6);
+		await expect(page.locator('.vault-link')).toHaveCount(24);
+		await expect(page.locator('.faq-item')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
 
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });

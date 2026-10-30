@@ -1787,3 +1787,108 @@ export function buildScannersStoreJsonLd(origin: string) {
 		]
 	};
 }
+
+export const SINGLE_SCANNER_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'supported-platforms-and-devices',
+		question: 'Which platforms and devices work with the High Octane Scanner™?',
+		answer:
+			'The High Octane Scanner™ works seamlessly with ThinkorSwim (Desktop and ThinkorSwim Mobile App via shared scan queries and dynamic watchlist alerts) and TradingView, plus instant SMS and email notifications.'
+	},
+	{
+		id: 'non-repainting-real-time-triggers',
+		question: 'Do any of the High Octane Scanner triggers repaint or use delayed data?',
+		answer:
+			'Never. Every scan condition is 100% non-repainting and processes real-time market data. Once a compression, liquidity sweep, or Relative Volume anomaly triggers at bar close, it is permanent.'
+	},
+	{
+		id: 'small-account-filter-benefit',
+		question: 'How does the High Octane Scanner help if I only have $500 to $2,500 in my account?',
+		answer:
+			'We built Mode 03 ($500+ Small Account Affordable Contract Filter) specifically so small accounts never get priced out. It automatically filters for deeply liquid stocks and ETFs whose options contracts and vertical spreads fit safely within a $500+ risk rule.'
+	},
+	{
+		id: 'installation-for-non-programmers',
+		question: 'Is installation difficult if I am not a programmer?',
+		answer:
+			'No coding is required. You receive one-click import links for ThinkorSwim and TradingView plus a step-by-step Quick-Start installation video. Most members have all scan presets and watchlist columns running in under 5 minutes.'
+	},
+	{
+		id: 'monthly-vs-annual-access',
+		question: 'What is the difference between Monthly and Annual access?',
+		answer:
+			'Both Monthly and Annual access unlock the complete High Octane Scanner™ suite, all 50+ institutional filters, mobile/desktop alerts, and the 5 recorded live-scanning training sessions. Annual access is designed for committed traders who want uninterrupted year-round access across all four quarterly earnings cycles.'
+	}
+];
+
+export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-scanner') {
+	const pageUrl = `${origin}/store/scanners/${slug}`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'High Octane Options Scanner | Revolution Trading Pros',
+				description:
+					'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#software` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Scanners',
+						item: `${origin}/store/scanners`
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'High Octane Scanner™',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'SoftwareApplication',
+				'@id': `${pageUrl}#software`,
+				name: 'High Octane Scanner™',
+				applicationCategory: 'FinanceApplication',
+				operatingSystem: 'ThinkorSwim Desktop, ThinkorSwim Mobile App, TradingView, Web',
+				description:
+					'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.',
+				creator: {
+					'@type': 'Person',
+					'@id': `${origin}/#founder`,
+					name: 'Billy Ribeiro'
+				}
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SINGLE_SCANNER_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

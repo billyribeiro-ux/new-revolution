@@ -51,7 +51,7 @@ describe('/store/scanners/+page.svelte', () => {
 
 		const h1s = document.querySelectorAll('h1');
 		expect(h1s.length).toBe(1);
-		expect(h1s[0].querySelector('.seo-kicker')?.textContent?.trim()).toContain(
+		expect(h1s[0].querySelector('.seo-kicker')?.textContent?.replace(/\s+/g, ' ').trim()).toContain(
 			'Live Stock, ETF & Options Trading Scanners • Institutional Order Flow & Squeeze Radar'
 		);
 		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain(

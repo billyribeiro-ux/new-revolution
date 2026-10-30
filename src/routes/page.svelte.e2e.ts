@@ -1118,6 +1118,36 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
 			expect(scrollWidth).toBeLessThanOrEqual(width);
 		}
+
+		// Single Scanner Product Page (/store/scanners/high-octane-scanner)
+		await page.goto('/store/scanners/high-octane-scanner');
+		const singleScannerTitle = await page.title();
+		expect(singleScannerTitle).toBe('High Octane Options Scanner | Revolution Trading Pros');
+		expect(singleScannerTitle.length).toBe(53);
+
+		const singleScannerDesc = await page
+			.locator('meta[name="description"]')
+			.getAttribute('content');
+		expect(singleScannerDesc).toBe(
+			'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.'
+		);
+		expect(singleScannerDesc!.length).toBe(149);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.feature-card')).toHaveCount(6);
+		await expect(page.locator('.suitability-card')).toHaveCount(3);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('.package-card')).toHaveCount(2);
+		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
 	});
 
 	test('scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow', async ({

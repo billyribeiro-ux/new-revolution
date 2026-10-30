@@ -9,6 +9,7 @@ import {
 	SCANNERS_STORE_FAQ_ITEMS,
 	SINGLE_COURSE_FAQ_ITEMS,
 	SINGLE_INDICATOR_FAQ_ITEMS,
+	SINGLE_SCANNER_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
 	SPX_PROFIT_PULSE_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
@@ -22,6 +23,7 @@ import {
 	buildScannersStoreJsonLd,
 	buildSingleCourseJsonLd,
 	buildSingleIndicatorJsonLd,
+	buildSingleScannerJsonLd,
 	buildSmallAccountsRoomJsonLd,
 	buildSpxProfitPulseJsonLd,
 	buildSwingTradingRoomJsonLd
@@ -532,5 +534,51 @@ describe('buildScannersStoreJsonLd', () => {
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions).toHaveLength(4);
 		expect(questions.map((q) => q.name)).toEqual(SCANNERS_STORE_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildSingleScannerJsonLd', () => {
+	const graph = buildSingleScannerJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the High Octane Scanner as a SoftwareApplication linked to the Founder', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/store/scanners/high-octane-scanner#webpage`
+		) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.mainEntity).toEqual({
+			'@id': `${ORIGIN}/store/scanners/high-octane-scanner#software`
+		});
+
+		const software = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/store/scanners/high-octane-scanner#software`
+		) as Node;
+		expect(software['@type']).toBe('SoftwareApplication');
+		expect(software.name).toBe('High Octane Scanner™');
+		expect(software.creator).toEqual({
+			'@type': 'Person',
+			'@id': `${ORIGIN}/#founder`,
+			name: 'Billy Ribeiro'
+		});
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(SINGLE_SCANNER_FAQ_ITEMS.map((i) => i.question));
 	});
 });

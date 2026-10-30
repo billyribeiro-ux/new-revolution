@@ -42,6 +42,7 @@ export const GET: RequestHandler = async () => {
 	const dynamicRoutes = [
 		{ path: '/store/courses/move-prior-to-the-move-ultra', lastmod: today },
 		{ path: '/store/indicators/move-prior-to-the-move-system', lastmod: today },
+		{ path: '/store/scanners/high-octane-scanner', lastmod: today },
 		{ path: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight', lastmod: '2026-10-28' },
 		{
 			path: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',

@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { computeRenderedTitle } from './meta-budget';
-import {
-	generateSlug,
-	isReservedSlug,
-	isValidSlug,
-	normaliseSlug,
-	SLUG_MAX_LEN
-} from './slug';
+import { generateSlug, isReservedSlug, isValidSlug, normaliseSlug, SLUG_MAX_LEN } from './slug';
 import { isCategoryIndexable, isTagIndexable } from './taxonomy';
 
 describe('Slug, Meta Budget & Taxonomy Helpers (Sections 7.3, 7.6, 10.5)', () => {

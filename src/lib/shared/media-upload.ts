@@ -72,7 +72,10 @@ export interface MediaItem {
  */
 export function normaliseMediaFolder(rawFolder: string | null | undefined): string {
 	if (!rawFolder) return '';
-	const trimmed = rawFolder.trim().replace(/^\/+|\/+$/g, '').replace(/\/{2,}/g, '/');
+	const trimmed = rawFolder
+		.trim()
+		.replace(/^\/+|\/+$/g, '')
+		.replace(/\/{2,}/g, '/');
 	if (!trimmed || trimmed === 'root' || trimmed === 'Root') return '';
 	return trimmed.slice(0, 120);
 }

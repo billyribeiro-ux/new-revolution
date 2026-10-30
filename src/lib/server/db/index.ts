@@ -101,7 +101,10 @@ export async function createTestDatabase(): Promise<{
 	};
 }
 
-export function setActiveDbForTest(customDb: AppDatabase, customPglite: PGlite | null = null): void {
+export function setActiveDbForTest(
+	customDb: AppDatabase,
+	customPglite: PGlite | null = null
+): void {
 	activeDb = customDb;
 	activePglite = customPglite;
 	initPromise = Promise.resolve();

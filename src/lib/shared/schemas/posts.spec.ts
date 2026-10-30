@@ -32,7 +32,8 @@ describe('Shared Zod Schemas (Section 7.2)', () => {
 			faqItems: JSON.stringify([
 				{
 					question: 'What is Delta in options trading?',
-					answer: 'Delta measures the expected change in option price per $1 move in the underlying asset.'
+					answer:
+						'Delta measures the expected change in option price per $1 move in the underlying asset.'
 				}
 			])
 		});

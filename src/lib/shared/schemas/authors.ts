@@ -24,10 +24,10 @@ export const authorCreateSchema = z.object({
 	avatarAlt: z.string().max(300).nullish(),
 	isActive: z.boolean().optional().default(true)
 });
-export type AuthorCreateInput = z.infer<typeof authorCreateSchema>;
+export type AuthorCreateInput = z.input<typeof authorCreateSchema>;
 
 export const authorUpdateSchema = authorCreateSchema.omit({ isActive: true }).extend({
 	id: z.number().int().positive(),
 	isActive: z.boolean().optional()
 });
-export type AuthorUpdateInput = z.infer<typeof authorUpdateSchema>;
+export type AuthorUpdateInput = z.input<typeof authorUpdateSchema>;

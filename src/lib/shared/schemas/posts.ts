@@ -16,17 +16,13 @@ export const POST_STATUS_VALUES = [
 	'published',
 	'archived'
 ] as const;
+export const POST_STATUSES = POST_STATUS_VALUES;
 export type PostStatus = (typeof POST_STATUS_VALUES)[number];
 
 export const POST_VISIBILITY_VALUES = ['public', 'members', 'password_protected'] as const;
 export type PostVisibility = (typeof POST_VISIBILITY_VALUES)[number];
 
-export const POST_SCHEMA_TYPE_VALUES = [
-	'Article',
-	'BlogPosting',
-	'NewsArticle',
-	'HowTo'
-] as const;
+export const POST_SCHEMA_TYPE_VALUES = ['Article', 'BlogPosting', 'NewsArticle', 'HowTo'] as const;
 export type PostSchemaType = (typeof POST_SCHEMA_TYPE_VALUES)[number];
 
 export const TWITTER_CARD_TYPE_VALUES = ['summary', 'summary_large_image'] as const;
@@ -322,7 +318,7 @@ function applyPostLifecycleRefinements<
 }
 
 export const postCreateSchema = applyPostLifecycleRefinements(postBaseObjectSchema);
-export type PostCreateInput = z.infer<typeof postCreateSchema>;
+export type PostCreateInput = z.input<typeof postBaseObjectSchema>;
 
 /**
  * Full-replace update schema (PUT semantics).
@@ -336,19 +332,19 @@ export const postUpdateObjectSchema = postBaseObjectSchema.extend({
 });
 
 export const postUpdateSchema = applyPostLifecycleRefinements(postUpdateObjectSchema);
-export type PostUpdateInput = z.infer<typeof postUpdateSchema>;
+export type PostUpdateInput = z.input<typeof postUpdateObjectSchema>;
 
 /**
  * Partial update schema (PATCH semantics) where omitted arrays leave pivots untouched.
  */
-export const postPatchSchema = applyPostLifecycleRefinements(
-	postBaseObjectSchema.partial().extend({
-		id: z.number().int().positive(),
-		expectedUpdatedAt: z.string().nullish(),
-		forceOverwrite: z.boolean().optional().default(false)
-	})
-);
-export type PostPatchInput = z.infer<typeof postPatchSchema>;
+export const postPatchObjectSchema = postBaseObjectSchema.partial().extend({
+	id: z.number().int().positive(),
+	expectedUpdatedAt: z.string().nullish(),
+	forceOverwrite: z.boolean().optional().default(false)
+});
+
+export const postPatchSchema = applyPostLifecycleRefinements(postPatchObjectSchema);
+export type PostPatchInput = z.input<typeof postPatchObjectSchema>;
 
 /**
  * Autosave schema: allows empty `title` and `content` so untitled drafts can be autosaved.
@@ -360,7 +356,7 @@ export const postAutosaveSchema = z.object({
 	excerpt: z.string().nullish(),
 	expectedUpdatedAt: z.string().nullish()
 });
-export type PostAutosaveInput = z.infer<typeof postAutosaveSchema>;
+export type PostAutosaveInput = z.input<typeof postAutosaveSchema>;
 
 export const postQuickUpdateSchema = z
 	.object({
@@ -411,4 +407,4 @@ export const postQuickUpdateSchema = z
 			}
 		}
 	});
-export type PostQuickUpdateInput = z.infer<typeof postQuickUpdateSchema>;
+export type PostQuickUpdateInput = z.input<typeof postQuickUpdateSchema>;

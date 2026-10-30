@@ -115,8 +115,7 @@ const ALLOWED_IFRAME_PERMISSIONS = new Set([
 	'web-share'
 ]);
 
-const DATA_IMAGE_REGEX =
-	/^data:image\/(?:png|jpe?g|gif|webp|avif);base64,[a-zA-Z0-9+/]+={0,2}$/;
+const DATA_IMAGE_REGEX = /^data:image\/(?:png|jpe?g|gif|webp|avif);base64,[a-zA-Z0-9+/]+={0,2}$/;
 
 const TWEET_URL_REGEX = /^https:\/\/(?:www\.)?(?:twitter\.com|x\.com)\/[a-zA-Z0-9_]+\/status\/\d+/;
 
@@ -134,19 +133,22 @@ export function isGoogleDocsHtml(html: string): boolean {
 }
 
 function decodeHtmlEntitiesForSchemeCheck(raw: string): string {
-	return raw
-		.replace(/&#x([0-9a-f]+);?/gi, (_, hex) => {
-			const code = parseInt(hex, 16);
-			return Number.isNaN(code) ? '' : String.fromCodePoint(code);
-		})
-		.replace(/&#(\d+);?/g, (_, dec) => {
-			const code = parseInt(dec, 10);
-			return Number.isNaN(code) ? '' : String.fromCodePoint(code);
-		})
-		.replace(/&colon;/gi, ':')
-		.replace(/&tab;/gi, '')
-		.replace(/&newline;/gi, '')
-		.replace(/[\u0000-\u0020\u007f-\u009f]+/g, '');
+	return (
+		raw
+			.replace(/&#x([0-9a-f]+);?/gi, (_, hex) => {
+				const code = parseInt(hex, 16);
+				return Number.isNaN(code) ? '' : String.fromCodePoint(code);
+			})
+			.replace(/&#(\d+);?/g, (_, dec) => {
+				const code = parseInt(dec, 10);
+				return Number.isNaN(code) ? '' : String.fromCodePoint(code);
+			})
+			.replace(/&colon;/gi, ':')
+			.replace(/&tab;/gi, '')
+			.replace(/&newline;/gi, '')
+			// eslint-disable-next-line no-control-regex
+			.replace(/[\u0000-\u0020\u007f-\u009f]+/g, '')
+	);
 }
 
 function isSafeUrl(
@@ -269,10 +271,7 @@ function isSafeCssColor(val: string): boolean {
 	if (/^[a-zA-Z]{3,24}$/.test(v) && !/^(?:expression|url|javascript|inherit)$/i.test(v)) {
 		return true;
 	}
-	if (
-		/^(?:rgb|rgba|hsl|hsla|oklch)\(\s*[-+\d.,%\s/deg]+\s*\)$/i.test(v) &&
-		v.length <= 64
-	) {
+	if (/^(?:rgb|rgba|hsl|hsla|oklch)\(\s*[-+\d.,%\s/deg]+\s*\)$/i.test(v) && v.length <= 64) {
 		return true;
 	}
 	return false;
@@ -610,7 +609,10 @@ function runSanitizePass(inputHtml: string): string {
 						if (isSafeUrl(attribs.cite, ['http', 'https'], true, false)) {
 							cleanAttribs.cite = attribs.cite.trim();
 						}
-						if (attribs['data-tweet-url'] && TWEET_URL_REGEX.test(attribs['data-tweet-url'].trim())) {
+						if (
+							attribs['data-tweet-url'] &&
+							TWEET_URL_REGEX.test(attribs['data-tweet-url'].trim())
+						) {
 							cleanAttribs['data-tweet-url'] = attribs['data-tweet-url'].trim();
 						}
 						break;
@@ -652,10 +654,7 @@ function runSanitizePass(inputHtml: string): string {
 						if (attribs['data-type'] === 'taskItem') {
 							cleanAttribs['data-type'] = 'taskItem';
 						}
-						if (
-							attribs['data-checked'] === 'true' ||
-							attribs['data-checked'] === 'false'
-						) {
+						if (attribs['data-checked'] === 'true' || attribs['data-checked'] === 'false') {
 							cleanAttribs['data-checked'] = attribs['data-checked'];
 						}
 						break;
@@ -747,10 +746,7 @@ function postProcessParagraphsAndBreaks(html: string): string {
 	});
 
 	// 2. Remove empty or NBSP-only paragraphs
-	processed = processed.replace(
-		/<p(?:\b[^>]*)?>(?:\s|&nbsp;|\u00a0|<br\s*\/?>)*<\/p>/gi,
-		''
-	);
+	processed = processed.replace(/<p(?:\b[^>]*)?>(?:\s|&nbsp;|\u00a0|<br\s*\/?>)*<\/p>/gi, '');
 
 	return processed;
 }

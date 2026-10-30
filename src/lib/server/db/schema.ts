@@ -75,7 +75,10 @@ export const categories = pgTable(
 			foreignColumns: [table.id],
 			name: 'categories_parent_id_fkey'
 		}).onDelete('set null'),
-		check('categories_no_self_parent_check', sql`${table.parentId} IS NULL OR ${table.parentId} <> ${table.id}`)
+		check(
+			'categories_no_self_parent_check',
+			sql`${table.parentId} IS NULL OR ${table.parentId} <> ${table.id}`
+		)
 	]
 );
 
@@ -183,7 +186,10 @@ export const posts = pgTable(
 			'posts_visibility_check',
 			sql`${table.visibility} IN ('public', 'members', 'password_protected')`
 		),
-		check('posts_published_mirror_check', sql`(${table.status} = 'published') = ${table.published}`),
+		check(
+			'posts_published_mirror_check',
+			sql`(${table.status} = 'published') = ${table.published}`
+		),
 		check(
 			'posts_schedule_expiry_check',
 			sql`${table.expiresAt} IS NULL OR ${table.scheduledAt} IS NULL OR ${table.expiresAt} > ${table.scheduledAt}`

@@ -15,10 +15,7 @@ export const categoryCreateSchema = z.object({
 		.nullish(),
 	metaDescription: z
 		.string()
-		.max(
-			META_DESCRIPTION_MAX,
-			`Meta description cannot exceed ${META_DESCRIPTION_MAX} characters.`
-		)
+		.max(META_DESCRIPTION_MAX, `Meta description cannot exceed ${META_DESCRIPTION_MAX} characters.`)
 		.nullish(),
 	pillarContent: z.string().nullish(),
 	icon: z.string().max(80).nullish(),
@@ -33,7 +30,7 @@ export const categoryCreateSchema = z.object({
 	sortOrder: z.number().int().optional().default(0),
 	isActive: z.boolean().optional().default(true)
 });
-export type CategoryCreateInput = z.infer<typeof categoryCreateSchema>;
+export type CategoryCreateInput = z.input<typeof categoryCreateSchema>;
 
 export const categoryUpdateSchema = categoryCreateSchema
 	.omit({ isActive: true })
@@ -46,16 +43,16 @@ export const categoryUpdateSchema = categoryCreateSchema
 		path: ['parentId'],
 		message: 'A category cannot be its own parent.'
 	});
-export type CategoryUpdateInput = z.infer<typeof categoryUpdateSchema>;
+export type CategoryUpdateInput = z.input<typeof categoryUpdateSchema>;
 
 export const tagCreateSchema = z.object({
 	name: z.string().trim().min(1, 'Tag name is required.').max(100),
 	slug: slugSchema,
 	description: z.string().max(500).nullish()
 });
-export type TagCreateInput = z.infer<typeof tagCreateSchema>;
+export type TagCreateInput = z.input<typeof tagCreateSchema>;
 
 export const tagUpdateSchema = tagCreateSchema.extend({
 	id: z.number().int().positive()
 });
-export type TagUpdateInput = z.infer<typeof tagUpdateSchema>;
+export type TagUpdateInput = z.input<typeof tagUpdateSchema>;

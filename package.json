@@ -66,7 +66,11 @@
 	},
 	"imports": {
 		"#lib": "./src/lib/index.js",
-		"#lib/*": "./src/lib/*"
+		"#lib/*": [
+			"./src/lib/*",
+			"./src/lib/*.ts",
+			"./src/lib/*/index.ts"
+		]
 	},
 	"dependencies": {
 		"@fontsource-variable/montserrat": "^5.3.0",

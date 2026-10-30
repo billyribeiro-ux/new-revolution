@@ -671,7 +671,9 @@
 										: 'Inspect Specs & Timeframes +'}
 								</button>
 								<a
-									href={resolve('/contact' as '/')}
+									href={resolve(
+										`/store/indicators/${indicator.id === 'move-prior-to-the-move-pro' ? 'move-prior-to-the-move-system' : indicator.id}` as '/'
+									)}
 									class="btn btn--solid btn--full"
 									aria-label={`Learn more and get access to ${indicator.name}`}
 								>

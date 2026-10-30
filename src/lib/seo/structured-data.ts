@@ -1434,3 +1434,104 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 		]
 	};
 }
+
+export const SINGLE_INDICATOR_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'step-by-step-install-desktop-mobile',
+		question:
+			'Are there step-by-step instructions for installing the indicators on desktop and mobile?',
+		answer:
+			'Yes. You get instant access to our Quick-Start Indicator Installation Video and written setup guide the moment you enroll—covering ThinkorSwim Desktop, the ThinkorSwim Mobile App, and TradingView. If you ever want a hand, our support desk is available by phone or email.'
+	},
+	{
+		id: 'platforms-and-devices',
+		question: 'What charting platforms and devices work with these indicators?',
+		answer:
+			'The complete indicator suite is available for ThinkorSwim and TradingView on Windows, Mac, and Web—and the core Move Prior to The Move™ indicator is also fully compatible with the ThinkorSwim Mobile App (iOS and Android) so working professionals can monitor setups from anywhere.'
+	},
+	{
+		id: 'signals-non-repainting',
+		question: 'Do any of the Buy/Sell or Early In/Out signals repaint?',
+		answer:
+			'Never. Unlike predatory "holy grail" scripts that erase losing signals in hindsight, 100% of our code is non-repainting. Once a candle closes, the compression level, Early In/Out marker, and Buy/Sell trigger remain on your chart permanently.'
+	},
+	{
+		id: 'access-and-duration',
+		question:
+			'Where do I get access, and how long will I have access to the indicators and training?',
+		answer:
+			'Immediately upon enrollment, all indicator scripts, workspace templates, the Strategy Class, the Precision Entries bonus session, and the 5 recorded live-trading days are unlocked in your member dashboard with lifetime on-demand access.'
+	}
+];
+
+export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to-the-move-system') {
+	const pageUrl = `${origin}/store/indicators/${slug}`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'MP Early In & Out Indicator | Revolution Trading Pros',
+				description:
+					'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#software` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Indicators',
+						item: `${origin}/store/indicators`
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'The Move Prior to The Move™ Pro System',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'SoftwareApplication',
+				'@id': `${pageUrl}#software`,
+				name: 'The Move Prior to The Move™ Pro System',
+				applicationCategory: 'FinanceApplication',
+				operatingSystem: 'ThinkorSwim Desktop, ThinkorSwim Mobile App, TradingView',
+				description:
+					'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.',
+				creator: {
+					'@type': 'Person',
+					'@id': `${origin}/#founder`,
+					name: 'Billy Ribeiro'
+				}
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SINGLE_INDICATOR_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

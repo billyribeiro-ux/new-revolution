@@ -7,6 +7,7 @@ import {
 	MENTORSHIP_FAQ_ITEMS,
 	MISSION_FAQ_ITEMS,
 	SINGLE_COURSE_FAQ_ITEMS,
+	SINGLE_INDICATOR_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
@@ -17,6 +18,7 @@ import {
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
 	buildSingleCourseJsonLd,
+	buildSingleIndicatorJsonLd,
 	buildSmallAccountsRoomJsonLd,
 	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
@@ -404,5 +406,47 @@ describe('buildSingleCourseJsonLd', () => {
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions).toHaveLength(5);
 		expect(questions.map((q) => q.name)).toEqual(SINGLE_COURSE_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildSingleIndicatorJsonLd', () => {
+	const slug = 'move-prior-to-the-move-system';
+	const graph = buildSingleIndicatorJsonLd(ORIGIN, slug)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Single Indicator page as a WebPage with SoftwareApplication mainEntity and Billy Ribeiro as creator', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/store/indicators/${slug}#webpage`
+		) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/indicators/${slug}#software` });
+
+		const software = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/store/indicators/${slug}#software`
+		) as Node;
+		expect(software['@type']).toBe('SoftwareApplication');
+		expect(software.name).toBe('The Move Prior to The Move™ Pro System');
+		expect(software.applicationCategory).toBe('FinanceApplication');
+		expect((software.creator as Node).name).toBe('Billy Ribeiro');
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(4);
+		expect(questions.map((q) => q.name)).toEqual(SINGLE_INDICATOR_FAQ_ITEMS.map((i) => i.question));
 	});
 });

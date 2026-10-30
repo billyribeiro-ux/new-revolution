@@ -38,9 +38,10 @@ export const GET: RequestHandler = async () => {
 			return a.localeCompare(b);
 		});
 
-	// 2. Dynamic Blog Posts & Course Pages (Fetch from your Laravel API in production)
+	// 2. Dynamic Blog Posts & Course/Indicator Pages (Fetch from your Laravel API in production)
 	const dynamicRoutes = [
 		{ path: '/store/courses/move-prior-to-the-move-ultra', lastmod: today },
+		{ path: '/store/indicators/move-prior-to-the-move-system', lastmod: today },
 		{ path: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight', lastmod: '2026-10-28' },
 		{
 			path: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',

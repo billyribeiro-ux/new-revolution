@@ -365,6 +365,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/indicators</loc>');
 		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system</loc>'
+		);
+		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
 		expect(sitemapXml).toContain(
@@ -908,6 +911,73 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses/move-prior-to-the-move-ultra
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /store/indicators/move-prior-to-the-move-system route metadata, JSON-LD, and DOM parity
+		const expectedSingleIndicatorUrl = `${origin}/store/indicators/move-prior-to-the-move-system`;
+		await page.goto('/store/indicators/move-prior-to-the-move-system');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const singleIndicatorTitle = await page.title();
+		expect(singleIndicatorTitle).toBe('MP Early In & Out Indicator | Revolution Trading Pros');
+		expect(singleIndicatorTitle.length).toBe(53);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const singleIndicatorDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(singleIndicatorDesc).toBe(
+			'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.'
+		);
+		expect(singleIndicatorDesc?.length).toBe(150);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedSingleIndicatorUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedSingleIndicatorUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedSingleIndicatorUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedSingleIndicatorUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.comp-card')).toHaveCount(6);
+		await expect(page.locator('.suitability-card')).toHaveCount(3);
+		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const singleIndicatorJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const singleIndicatorSchema = JSON.parse(singleIndicatorJsonLdText!);
+		const singleIndicatorFaqNode = singleIndicatorSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleSingleIndicatorFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(singleIndicatorFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleSingleIndicatorFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators/move-prior-to-the-move-system
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

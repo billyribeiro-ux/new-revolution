@@ -72,6 +72,12 @@
 	color: var(--acid);
 }
 
+.inner-page .btn {
+	white-space: normal;
+	min-inline-size: 0;
+	max-inline-size: 100%;
+}
+
 .inner-page .btn--full {
 	white-space: normal;
 	inline-size: 100%;
@@ -4773,7 +4779,7 @@
 
 .inner-page .packages-grid {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: minmax(0, 1fr);
 	gap: 28px;
 	align-items: stretch;
 }
@@ -4910,7 +4916,7 @@
 
 .inner-page .component-block__grid {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: minmax(0, 1fr);
 	gap: 32px;
 	align-items: center;
 }
@@ -5002,6 +5008,7 @@
 	color: var(--text);
 	padding: 10px 14px;
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 	gap: 8px;
@@ -5028,6 +5035,7 @@
 	border-top: 1px solid var(--border);
 	background: rgba(17, 22, 29, 0.95);
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
 	gap: 8px;
@@ -5056,7 +5064,7 @@
 
 .inner-page .modules-grid {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: minmax(0, 1fr);
 	gap: 24px;
 }
 
@@ -5158,7 +5166,7 @@
 
 .inner-page .instructor-box__grid {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: minmax(0, 1fr);
 	gap: 32px;
 	align-items: center;
 }
@@ -5221,7 +5229,7 @@
 
 .inner-page .reviews-grid {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: minmax(0, 1fr);
 	gap: 24px;
 }
 
@@ -5379,5 +5387,651 @@
 @media (min-width: 1280px) {
 	.inner-page .component-block__grid {
 		gap: 56px;
+	}
+}
+
+/* ==========================================================================
+   Store — Single Indicator Product Page (/store/indicators/[slug])
+   ========================================================================== */
+.inner-page .breadcrumb-bar__member {
+	margin: 0;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--text-secondary);
+}
+
+.inner-page .breadcrumb-bar__member a {
+	color: var(--gold-bright);
+	text-decoration: underline;
+	margin-left: 6px;
+}
+
+.inner-page .check-icon {
+	font-family: var(--font-display);
+	font-weight: 900;
+	color: var(--teal);
+	flex-shrink: 0;
+}
+
+.inner-page .btn--large {
+	min-height: 56px;
+	padding: 16px 36px;
+	font-size: 0.875rem;
+}
+
+.inner-page .instructor-strip {
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 16px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-lg);
+	background: rgba(17, 22, 29, 0.85);
+}
+
+.inner-page .instructor-strip__avatar {
+	width: 54px;
+	height: 54px;
+	border-radius: 50%;
+	border: 2px solid var(--gold);
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.inner-page .instructor-strip__name {
+	display: block;
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1rem;
+	color: var(--text);
+}
+
+.inner-page .instructor-strip__role {
+	display: block;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	color: var(--gold-bright);
+}
+
+.inner-page .capabilities-box {
+	margin-top: 24px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-lg);
+	background: rgba(17, 22, 29, 0.85);
+	padding: 20px 24px;
+}
+
+.inner-page .capabilities-box__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.0625rem;
+	margin: 0 0 12px;
+	color: var(--text);
+}
+
+.inner-page .capabilities-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.inner-page .capabilities-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+/* Right Column Preview + What's Included Sidebar */
+.inner-page .preview-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.inner-page .preview-box {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	box-shadow: var(--shadow-lg);
+	overflow: hidden;
+}
+
+.inner-page .preview-box__header {
+	padding: 12px 16px;
+	background: rgba(9, 12, 16, 0.95);
+	color: var(--text);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .preview-box__tag {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	letter-spacing: 0.08em;
+	color: var(--gold-bright);
+}
+
+.inner-page .preview-tabs {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	border-bottom: 1px solid var(--border-strong);
+}
+
+.inner-page .preview-tab {
+	padding: 10px 6px;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	border: none;
+	border-right: 1px solid var(--border-strong);
+	background: rgba(21, 26, 34, 0.88);
+	color: var(--text-secondary);
+	cursor: pointer;
+	transition:
+		background-color 0.15s var(--ease-out),
+		color 0.15s var(--ease-out);
+}
+
+.inner-page .preview-tab:last-child {
+	border-right: none;
+}
+
+.inner-page .preview-tab--active {
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+}
+
+.inner-page .preview-canvas {
+	padding: 12px;
+	background-color: #ffffff;
+}
+
+.inner-page .preview-svg {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+.inner-page .included-summary-card {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 24px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .included-summary-card__header {
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+	margin-bottom: 16px;
+}
+
+.inner-page .included-summary-card__title {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1.25rem;
+	margin: 4px 0 0;
+	color: var(--text);
+}
+
+.inner-page .included-summary-list {
+	list-style: none;
+	margin: 0 0 20px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.inner-page .included-summary-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 0.90625rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+}
+
+/* 3. 6 Included Components & Bonuses Grid */
+.inner-page .components-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+	background:
+		radial-gradient(640px 280px at 85% 0%, rgba(46, 211, 166, 0.05), transparent 70%),
+		linear-gradient(180deg, rgba(16, 20, 26, 0.55), rgba(11, 14, 18, 0.92));
+}
+
+.inner-page .components-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+}
+
+.inner-page .comp-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 28px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .comp-card--bonus {
+	border-color: var(--gold);
+	box-shadow:
+		0 20px 56px rgba(0, 0, 0, 0.4),
+		0 0 0 1px rgba(212, 168, 83, 0.3);
+}
+
+.inner-page .comp-card__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .comp-card__core-pill,
+.inner-page .comp-card__bonus-pill {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 3px 10px;
+	border-radius: 999px;
+}
+
+.inner-page .comp-card__core-pill {
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	background: rgba(46, 211, 166, 0.14);
+	color: var(--teal);
+}
+
+.inner-page .comp-card__bonus-pill {
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+}
+
+.inner-page .comp-card__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.25rem;
+	line-height: 1.25;
+	margin: 16px 0 6px;
+	color: var(--text);
+}
+
+.inner-page .comp-card__platform {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--gold-bright);
+	margin: 0 0 14px;
+}
+
+.inner-page .comp-card__desc {
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	color: var(--text-secondary);
+	margin: 0 0 20px;
+}
+
+.inner-page .comp-card__advantage {
+	margin-top: auto;
+	border-left: 3px solid var(--gold);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	background: rgba(11, 14, 18, 0.65);
+	padding: 12px 16px;
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+.inner-page .comp-card__advantage strong {
+	color: var(--gold-bright);
+}
+
+/* 4. 3-Pillar Suitability Matrix */
+.inner-page .suitability-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .suitability-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+}
+
+.inner-page .suitability-card {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 28px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .suitability-card__title {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1.3rem;
+	margin: 6px 0 4px;
+	color: var(--text);
+}
+
+.inner-page .suitability-card__sub {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--gold-bright);
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--border);
+	margin: 0 0 16px;
+}
+
+.inner-page .suitability-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.inner-page .suitability-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+	color: var(--text-secondary);
+}
+
+/* 5. Consolidated Enrollment Package Dossier */
+.inner-page .enrollment-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+	background:
+		radial-gradient(640px 280px at 20% 10%, rgba(46, 211, 166, 0.06), transparent 70%),
+		linear-gradient(180deg, rgba(16, 20, 26, 0.6), rgba(11, 14, 18, 0.92));
+}
+
+.inner-page .enrollment-box {
+	border: 1px solid var(--gold);
+	border-radius: var(--radius-xl);
+	background:
+		radial-gradient(520px 260px at 88% 0%, rgba(212, 168, 83, 0.14), transparent 70%),
+		linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	padding: 32px 24px;
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .enrollment-box__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .enrollment-box__sub {
+	margin: 8px 0 0;
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-size: 0.9375rem;
+	color: var(--gold-bright);
+}
+
+.inner-page .enrollment-box__seal {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	background: rgba(46, 211, 166, 0.14);
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	color: var(--teal);
+	padding: 6px 14px;
+	border-radius: 999px;
+}
+
+.inner-page .enrollment-box__grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 28px;
+	margin: 28px 0;
+}
+
+.inner-page .enrollment-box__col-title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin: 0 0 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--border);
+	color: var(--text);
+}
+
+.inner-page .enrollment-checklist {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.inner-page .enrollment-checklist li {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	font-family: var(--font-body);
+	font-size: 0.96875rem;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+.inner-page .enrollment-checklist li strong {
+	color: var(--text);
+}
+
+.inner-page .enrollment-box__cta-bar {
+	padding-top: 24px;
+	border-top: 1px solid var(--border);
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+}
+
+.inner-page .enrollment-box__support {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .enrollment-box__support strong {
+	color: var(--text);
+}
+
+.inner-page .enrollment-box__support a {
+	color: var(--gold-bright);
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+/* 6. Instructor Bio Section */
+.inner-page .bio-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .bio-card {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 32px 24px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .bio-card__grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 32px;
+	align-items: center;
+}
+
+.inner-page .bio-card__left {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+.inner-page .bio-card__avatar {
+	width: 170px;
+	height: 170px;
+	border-radius: 50%;
+	border: 3px solid var(--gold);
+	object-fit: cover;
+}
+
+.inner-page .bio-card__tag {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	padding: 4px 12px;
+	border-radius: 999px;
+}
+
+.inner-page .bio-card__role {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.84375rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--gold-bright);
+	margin: 6px 0 0;
+}
+
+/* 8. Support Callout */
+.inner-page .support-callout {
+	margin-top: 32px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-lg);
+	background: rgba(17, 22, 29, 0.85);
+	padding: 24px;
+	text-align: center;
+}
+
+.inner-page .support-callout__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.15rem;
+	margin: 0 0 8px;
+	color: var(--text);
+}
+
+.inner-page .support-callout__copy {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .support-callout__copy strong {
+	color: var(--text);
+}
+
+.inner-page .support-callout__copy a {
+	color: var(--gold-bright);
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+	.inner-page .components-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 768px) {
+	.inner-page .enrollment-box {
+		padding: 40px;
+	}
+
+	.inner-page .enrollment-box__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.inner-page .preview-sidebar {
+		grid-column: span 5;
+	}
+
+	.inner-page .suitability-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.inner-page .bio-card__grid {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 40px;
+	}
+
+	.inner-page .bio-card__left {
+		grid-column: span 3;
+	}
+
+	.inner-page .bio-card__right {
+		grid-column: span 9;
+	}
+}
+
+@media (min-width: 1280px) {
+	.inner-page.indicator-product-page .reviews-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }

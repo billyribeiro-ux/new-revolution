@@ -2109,8 +2109,8 @@
 }
 
 /* ==========================================================================
-   /live-trading-rooms/day-trading-room & /live-trading-rooms/swing-trading-room
-   additions — same language, new components
+   /live-trading-rooms/day-trading-room, /live-trading-rooms/swing-trading-room,
+   & /live-trading-rooms/small-accounts-room additions — same language, new components
    ========================================================================== */
 
 /* Hero 4-Column Floor Telemetry Strip */
@@ -2143,9 +2143,10 @@
 	color: var(--text);
 }
 
-/* Right Column: Live Trading Floor Execution Ticket & Swing Blueprint Card */
+/* Right Column: Live Trading Floor Execution Ticket, Swing Blueprint, & Small Account Survival Card */
 .inner-page .execution-ticket,
-.inner-page .swing-blueprint {
+.inner-page .swing-blueprint,
+.inner-page .survival-card {
 	position: relative;
 	inline-size: 100%;
 	border: 1px solid #394149;
@@ -2154,7 +2155,8 @@
 }
 
 .inner-page .execution-ticket::before,
-.inner-page .swing-blueprint::before {
+.inner-page .swing-blueprint::before,
+.inner-page .survival-card::before {
 	content: '';
 	position: absolute;
 	inset: -5px -5px auto auto;
@@ -2166,7 +2168,8 @@
 }
 
 .inner-page .execution-ticket__header,
-.inner-page .swing-blueprint__header {
+.inner-page .swing-blueprint__header,
+.inner-page .survival-card__header {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
@@ -2176,14 +2179,16 @@
 }
 
 .inner-page .execution-ticket__title,
-.inner-page .swing-blueprint__title {
+.inner-page .swing-blueprint__title,
+.inner-page .survival-card__title {
 	font-size: clamp(1.25rem, 1.8vw, 1.5rem);
 	line-height: 1.15;
 	margin-block: 6px 0;
 }
 
 .inner-page .execution-ticket__status,
-.inner-page .swing-blueprint__tag {
+.inner-page .swing-blueprint__tag,
+.inner-page .survival-card__tag {
 	flex: none;
 	padding: 5px 8px;
 	background: #2e3328;
@@ -2199,7 +2204,8 @@
 }
 
 .inner-page .execution-ticket__intro,
-.inner-page .swing-blueprint__intro {
+.inner-page .swing-blueprint__intro,
+.inner-page .survival-card__intro {
 	margin: 0;
 	padding: 16px 20px 8px;
 	font-size: 0.90625rem;
@@ -2209,21 +2215,24 @@
 }
 
 .inner-page .ticket-steps,
-.inner-page .blueprint-items {
+.inner-page .blueprint-items,
+.inner-page .survival-rules {
 	display: grid;
 	gap: 12px;
 	padding: 8px 20px 20px;
 }
 
 .inner-page .ticket-step,
-.inner-page .blueprint-item {
+.inner-page .blueprint-item,
+.inner-page .survival-rule {
 	padding: 14px 16px;
 	border: 1px solid #333b43;
 	background: #141a20;
 }
 
 .inner-page .ticket-step__head,
-.inner-page .blueprint-item__top {
+.inner-page .blueprint-item__top,
+.inner-page .survival-rule__head {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -2234,7 +2243,8 @@
 }
 
 .inner-page .ticket-step__code,
-.inner-page .blueprint-item__code {
+.inner-page .blueprint-item__code,
+.inner-page .survival-rule__code {
 	font-family: var(--font-display);
 	font-weight: 800;
 	font-size: 0.75rem;
@@ -2244,7 +2254,8 @@
 }
 
 .inner-page .ticket-step__tag,
-.inner-page .blueprint-item__pill {
+.inner-page .blueprint-item__pill,
+.inner-page .survival-rule__pill {
 	font-family: var(--font-sans);
 	font-weight: 700;
 	font-stretch: 87.5%;
@@ -2258,7 +2269,8 @@
 }
 
 .inner-page .ticket-step p,
-.inner-page .blueprint-item p {
+.inner-page .blueprint-item p,
+.inner-page .survival-rule p {
 	margin: 10px 0 0;
 	font-size: 0.875rem;
 	line-height: 1.6;
@@ -2267,19 +2279,22 @@
 }
 
 .inner-page .ticket-step p strong,
-.inner-page .blueprint-item p strong {
+.inner-page .blueprint-item p strong,
+.inner-page .survival-rule p strong {
 	color: var(--text);
 }
 
 .inner-page .execution-ticket__footer,
-.inner-page .swing-blueprint__footer {
+.inner-page .swing-blueprint__footer,
+.inner-page .survival-card__footer {
 	padding: 16px 20px;
 	border-block-start: 1px solid #30363c;
 	text-align: center;
 }
 
 .inner-page .execution-ticket__note,
-.inner-page .swing-blueprint__note {
+.inner-page .swing-blueprint__note,
+.inner-page .survival-card__note {
 	margin: 0;
 	font-size: 0.875rem;
 	line-height: 1.55;
@@ -2288,21 +2303,24 @@
 }
 
 .inner-page .execution-ticket__note a,
-.inner-page .swing-blueprint__note a {
+.inner-page .swing-blueprint__note a,
+.inner-page .survival-card__note a {
 	color: var(--acid);
 	font-weight: 700;
 	text-decoration: underline;
 	text-underline-offset: 4px;
 }
 
-/* Section 3: Bell-to-Bell Daily Schedule & Working Pro Workflow (dark surface) */
+/* Section 3: Bell-to-Bell Daily Schedule, Working Pro Workflow, & Compounding Roadmap (dark surface) */
 .inner-page .schedule-section,
-.inner-page .workflow-section {
+.inner-page .workflow-section,
+.inner-page .roadmap-section {
 	background: var(--surface-cases);
 }
 
 .inner-page .schedule-grid,
 .inner-page .workflow-grid,
+.inner-page .roadmap-grid,
 .inner-page .setups-grid,
 .inner-page .playbooks-grid,
 .inner-page .routing-cards,
@@ -2313,7 +2331,8 @@
 }
 
 .inner-page .schedule-card,
-.inner-page .workflow-card {
+.inner-page .workflow-card,
+.inner-page .roadmap-card {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -2326,13 +2345,15 @@
 }
 
 .inner-page .schedule-card:hover,
-.inner-page .workflow-card:hover {
+.inner-page .workflow-card:hover,
+.inner-page .roadmap-card:hover {
 	transform: translateY(-4px);
 	border-color: #66764d;
 }
 
 .inner-page .schedule-card__top,
-.inner-page .workflow-card__top {
+.inner-page .workflow-card__top,
+.inner-page .roadmap-card__top {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -2344,7 +2365,8 @@
 }
 
 .inner-page .schedule-card__badge,
-.inner-page .workflow-card__badge {
+.inner-page .workflow-card__badge,
+.inner-page .roadmap-card__bracket {
 	padding: 4px 8px;
 	background: var(--acid);
 	color: var(--ink);
@@ -2353,16 +2375,19 @@
 	font-size: 0.6875rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
+	font-variant-numeric: tabular-nums;
 }
 
 .inner-page .schedule-card__title,
-.inner-page .workflow-card__title {
+.inner-page .workflow-card__title,
+.inner-page .roadmap-card__title {
 	margin-block: 0 12px;
 	max-inline-size: 32ch;
 }
 
 .inner-page .schedule-card__desc,
-.inner-page .workflow-card__desc {
+.inner-page .workflow-card__desc,
+.inner-page .roadmap-card__desc {
 	font-size: 0.9375rem;
 	line-height: 1.7;
 	color: #b3bbc0;
@@ -2370,7 +2395,8 @@
 }
 
 .inner-page .schedule-card__deliverables,
-.inner-page .workflow-card__deliverables {
+.inner-page .workflow-card__deliverables,
+.inner-page .roadmap-card__rules {
 	margin-block-start: auto;
 	padding-block-start: 16px;
 	border-block-start: 1px solid #333b43;
@@ -2394,7 +2420,7 @@
 	max-inline-size: 58ch;
 }
 
-/* Section 4: The 4 Intraday Setups & 4 Swing Playbooks (light surface, white cards) */
+/* Section 4: The 4 Intraday Setups & 4 Swing/Small Account Playbooks (light surface, white cards) */
 .inner-page .setup-card,
 .inner-page .playbook-card {
 	display: flex;
@@ -2426,7 +2452,8 @@
 }
 
 .inner-page .setup-card__badge,
-.inner-page .playbook-card__window {
+.inner-page .playbook-card__window,
+.inner-page .playbook-card__badge {
 	font-family: var(--font-sans);
 	font-weight: 700;
 	font-stretch: 87.5%;
@@ -2661,6 +2688,7 @@
 @media (min-width: 768px) {
 	.inner-page .schedule-grid,
 	.inner-page .workflow-grid,
+	.inner-page .roadmap-grid,
 	.inner-page .setups-grid,
 	.inner-page .playbooks-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2668,19 +2696,24 @@
 
 	.inner-page .execution-ticket__header,
 	.inner-page .swing-blueprint__header,
+	.inner-page .survival-card__header,
 	.inner-page .execution-ticket__intro,
 	.inner-page .swing-blueprint__intro,
+	.inner-page .survival-card__intro,
 	.inner-page .ticket-steps,
 	.inner-page .blueprint-items,
+	.inner-page .survival-rules,
 	.inner-page .execution-ticket__footer,
-	.inner-page .swing-blueprint__footer {
+	.inner-page .swing-blueprint__footer,
+	.inner-page .survival-card__footer {
 		padding-inline: 25px;
 	}
 }
 
 @media (min-width: 1024px) {
 	.inner-page .execution-ticket,
-	.inner-page .swing-blueprint {
+	.inner-page .swing-blueprint,
+	.inner-page .survival-card {
 		grid-column: span 5;
 		position: sticky;
 		inset-block-start: calc(var(--nav-height) + 24px);
@@ -2695,6 +2728,7 @@
 @media (min-width: 1536px) {
 	.inner-page .schedule-grid,
 	.inner-page .workflow-grid,
+	.inner-page .roadmap-grid,
 	.inner-page .setups-grid,
 	.inner-page .playbooks-grid,
 	.inner-page .routing-cards,
@@ -2706,6 +2740,7 @@
 @media (prefers-reduced-motion: reduce) {
 	.inner-page .schedule-card:hover,
 	.inner-page .workflow-card:hover,
+	.inner-page .roadmap-card:hover,
 	.inner-page .setup-card:hover,
 	.inner-page .playbook-card:hover,
 	.inner-page .route-card:hover {

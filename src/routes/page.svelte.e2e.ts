@@ -362,6 +362,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
 		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/live-trading-rooms/small-accounts-room</loc>'
+		);
+		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/swing-trading-room</loc>'
 		);
 		expect(sitemapXml).not.toContain('/demo/');
@@ -575,6 +578,73 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/swing-trading-room
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /live-trading-rooms/small-accounts-room route metadata, JSON-LD, and DOM parity
+		const expectedSmallRoomUrl = `${origin}/live-trading-rooms/small-accounts-room`;
+		await page.goto('/live-trading-rooms/small-accounts-room');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const smallRoomTitle = await page.title();
+		expect(smallRoomTitle).toBe('Small Accounts Trading Room | Revolution Trading Pros');
+		expect(smallRoomTitle.length).toBe(53);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const smallRoomDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(smallRoomDesc).toBe(
+			'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.'
+		);
+		expect(smallRoomDesc?.length).toBe(152);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedSmallRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedSmallRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedSmallRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedSmallRoomUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.roadmap-card')).toHaveCount(4);
+		await expect(page.locator('.playbook-card')).toHaveCount(4);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('.route-card')).toHaveCount(3);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
+
+		const smallRoomJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const smallRoomSchema = JSON.parse(smallRoomJsonLdText!);
+		const smallRoomFaqNode = smallRoomSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleSmallRoomFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(smallRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleSmallRoomFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/small-accounts-room
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

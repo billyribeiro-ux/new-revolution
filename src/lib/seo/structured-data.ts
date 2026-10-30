@@ -891,3 +891,103 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 		]
 	};
 }
+
+export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
+	{
+		id: 'starting-capital-500',
+		question: 'Is $500 really enough starting capital to join the Small Accounts Room?',
+		answer:
+			'Yes. We specifically built the Small Accounts Room so traders starting with as little as $500 have an honest, institutional home. Instead of calling expensive contracts that require a $25,000 account, we focus on liquid, affordable stock, ETF, and options structures (including defined-risk vertical spreads) where your risk per trade is strictly capped.'
+	},
+	{
+		id: 'cash-vs-margin-account-under-25k',
+		question: 'Should I use a Cash Account or a Margin Account if I have less than $25,000?',
+		answer:
+			'We teach you how to navigate both. In the United States, a Cash Account is exempt from the Pattern Day Trader (PDT) 3-day-trade limit—and because options and equities settle overnight on a T+1 schedule, your settled cash refreshes every single market morning. If you prefer a small margin account (or trade from Canada where PDT rules differ), we also execute multi-day swing setups and defined-risk spreads.'
+	},
+	{
+		id: 'goldman-sachs-pedigree-small-accounts',
+		question:
+			'Why do you care about $500 small accounts when you have Goldman Sachs mentorship pedigree?',
+		answer:
+			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and banking 600% overnight on OXY Put Options live opposite Warren Buffett, our founder built Revolution Trading Pros to put people over making money—protecting everyday traders from the fake gurus who prey on small accounts.'
+	},
+	{
+		id: 'full-time-job-small-account',
+		question: 'What if I work a full-time job and also have a small $500+ account?',
+		answer:
+			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops—and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Explosive Swings (/alert-services/explosive-swings) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
+	},
+	{
+		id: 'graduating-past-10k-25k',
+		question: 'What happens once my small account grows past $10,000 or $25,000?',
+		answer:
+			'Our entire goal is to graduate you. As your account compounds through our 4-Stage Roadmap, you seamlessly transition into our Day Trading Room (/live-trading-rooms/day-trading-room), Swing Trading Room (/live-trading-rooms/swing-trading-room), or apply for our application-only 1-on-1 Mentorship (/mentorship).'
+	}
+] as const;
+
+export function buildSmallAccountsRoomJsonLd(origin: string) {
+	const pageUrl = `${origin}/live-trading-rooms/small-accounts-room`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Small Accounts Trading Room | Revolution Trading Pros',
+				description:
+					'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#service` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
+				name: 'Small Accounts Stock & Options Trading Room ($500+ Starting Capital)',
+				url: pageUrl,
+				provider: { '@id': `${origin}/#organization` },
+				serviceType: 'Small Account Stock and Options Trading Room and Risk Mentorship',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				],
+				audience: {
+					'@type': 'Audience',
+					audienceType: 'Traders Starting With Small Accounts ($500 to $5,000+)'
+				},
+				description:
+					'Dedicated live trading room and compounding framework engineered specifically for accounts starting as low as $500—covering affordable options contracts, T+1 cash account rotation, PDT navigation, and strict stop-loss discipline.'
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
+					{ '@type': 'ListItem', position: 3, name: 'Small Accounts Room', item: pageUrl }
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SMALL_ACCOUNTS_ROOM_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

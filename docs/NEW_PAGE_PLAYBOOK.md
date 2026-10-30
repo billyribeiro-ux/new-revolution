@@ -47,7 +47,7 @@ If you are _editing_ an existing page, stay in its archetype. Migrating a page b
 
 Read, in this order. Do not rely on memory.
 
-1. `AGENTS.md` (all of it) and `docs/CSS_STANDARDS.md` (all of it).
+1. `AGENTS.md` (all of it), `docs/CSS_STANDARDS.md` (all of it), and `docs/SEO_EVIDENCE.md` (the official-source log behind every SEO rule).
 2. A **sibling page of the same archetype** end to end. Good references:
    - Archetype A, content page: `src/routes/mentorship/` (`+page.ts`, `+page.svelte`) and `buildMentorshipJsonLd` + `MENTORSHIP_FAQ_ITEMS` in `src/lib/seo/structured-data.ts`.
    - Archetype B, data-driven hub: `src/routes/resources/etf-stocks-list/` with `src/lib/data/etf-stocks-list.ts`.
@@ -118,7 +118,7 @@ export function buildYourPageJsonLd(origin: string) {
 				]
 			},
 			// domain node(s): Service / Course / SoftwareApplication / ItemList …
-			// FAQPage only if the page shows a visible FAQ:
+			// FAQPage only if the page shows a visible FAQ (Google retired FAQ rich results in May 2026; this is not a ranking tactic):
 			{
 				'@type': 'FAQPage',
 				'@id': `${pageUrl}#faq`,
@@ -183,7 +183,7 @@ export const load: PageLoad = ({ url }) => {
 };
 ```
 
-Hard limits (verify by counting, do not eyeball):
+House rules (count them, do not eyeball). **Titles and descriptions have no length limit in Google's docs**; these windows are our own convention (`docs/SEO_EVIDENCE.md` rows 4-5). Do not justify them as "Google requires":
 
 - `title` ≤ **33** characters (the layout appends ` | Revolution Trading Pros`, +26, rendered title must be 30–60).
 - `description` **140–158** characters, unique per route, and **the same string** is used in the JSON-LD `WebPage.description`.
@@ -273,15 +273,15 @@ Vitest browser project (`client`). Copy `src/routes/resources/etf-stocks-list/pa
 
 Do all that apply. Each item names the exact file.
 
-| Step                      | File                                                                                                   | Action                                                                                                                                                                                                         |
-| ------------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Sitemap                   | `src/routes/sitemap.xml/+server.ts`                                                                    | Automatic: it globs `src/routes/**/+page.svelte` (excluding `[slug]`, `/demo`, `/lp`, auth/admin). Verify after build that `<loc>` appears. Dynamic slugs need an explicit entry in its `dynamicRoutes` array. |
-| Homepage preview toast    | `src/routes/+page.svelte` → `LIVE_ROUTES`                                                              | Add the new path so homepage links navigate instead of showing the "preview route" toast. (Only the homepage uses this.)                                                                                       |
-| Header menu               | `src/lib/data/homepage.ts` → `MAIN_NAVIGATION`                                                         | Add/adjust the `NavItem` child if the page belongs in the menu (`label`, `href`, `previewTarget`, `icon`, `description`). Icons come from `src/lib/components/layout/nav-icons.ts`.                            |
-| Footer                    | `src/lib/data/homepage.ts` → `FOOTER_COLUMNS` (and `bottomLinks` in `Footer.svelte` for legal/contact) | Add the link where appropriate.                                                                                                                                                                                |
-| Counts in tests           | `src/lib/data/homepage.spec.ts`, `src/routes/page.svelte.e2e.ts`                                       | If you changed navigation/footer entries, update the exact counts those tests assert.                                                                                                                          |
-| Planned-route bookkeeping | `vite.config.ts` → `PLANNED_ROUTE_PATTERN`                                                             | See below.                                                                                                                                                                                                     |
-| Remove casts              | every `resolve('<route>' as '/')`                                                                      | Once the route exists, drop the cast so the compiler checks it from now on.                                                                                                                                    |
+| Step                      | File                                                                                                   | Action                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sitemap                   | `src/routes/sitemap.xml/+server.ts`                                                                    | Static routes: automatic (it globs `src/routes/**/+page.svelte`, excluding `[slug]`, `/demo`, `/lp`, auth/admin). Slug pages: add an entry to `dynamicRoutes`; it is listed **only if a matching `[param]` route template exists** (no 404s in the sitemap). `lastmod` only with a real recorded date; never today's date (Google ignores unverifiable `lastmod`; `priority`/`changefreq` are ignored, do not emit). The e2e fetches every `<loc>` and expects 200. |
+| Homepage preview toast    | `src/routes/+page.svelte` → `LIVE_ROUTES`                                                              | Add the new path so homepage links navigate instead of showing the "preview route" toast. (Only the homepage uses this.)                                                                                                                                                                                                                                                                                                                                            |
+| Header menu               | `src/lib/data/homepage.ts` → `MAIN_NAVIGATION`                                                         | Add/adjust the `NavItem` child if the page belongs in the menu (`label`, `href`, `previewTarget`, `icon`, `description`). Icons come from `src/lib/components/layout/nav-icons.ts`.                                                                                                                                                                                                                                                                                 |
+| Footer                    | `src/lib/data/homepage.ts` → `FOOTER_COLUMNS` (and `bottomLinks` in `Footer.svelte` for legal/contact) | Add the link where appropriate.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Counts in tests           | `src/lib/data/homepage.spec.ts`, `src/routes/page.svelte.e2e.ts`                                       | If you changed navigation/footer entries, update the exact counts those tests assert.                                                                                                                                                                                                                                                                                                                                                                               |
+| Planned-route bookkeeping | `vite.config.ts` → `PLANNED_ROUTE_PATTERN`                                                             | See below.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Remove casts              | every `resolve('<route>' as '/')`                                                                      | Once the route exists, drop the cast so the compiler checks it from now on.                                                                                                                                                                                                                                                                                                                                                                                         |
 
 **`PLANNED_ROUTE_PATTERN` is a section-prefix regex, not a per-page list.** It lets a 404 under a whole section
 (`live-trading-rooms|alert-services|store|resources|blogs|memberships|login|signup|register|contact|privacy-policy|terms-of-service`)
@@ -370,7 +370,9 @@ Rules live in `docs/CSS_STANDARDS.md`; these are the traps that actually happene
 
 - `pnpm check:pages` after `pnpm build` verifies: one h1, a valid skip link, canonical on `https://revolutiontradingpros.com`, no
   `localhost`/`sveltekit-prerender`, parseable JSON-LD, and FAQ JSON-LD text present in the visible HTML.
-- Description/title lengths are asserted in the page spec (§3.5).
+- Description/title lengths are asserted in the page spec (§3.5); they are house conventions, not Google rules.
+- Before making **any** SEO claim or adding markup "for Google", read `docs/SEO_EVIDENCE.md` (official sources, quoted, dated). Key facts: FAQ rich results are gone (May 2026); structured data must match visible text; no special markup is needed for AI Overviews; no confirmed ranking update exists for Oct 30, 2026. Anything not in that log must be fetched from the official page and added there first.
+- Sitemap rules are in §4. URLs: lowercase, hyphens, never change content by `#fragment`.
 
 ---
 
@@ -398,7 +400,7 @@ pnpm check
 pnpm lint            # prettier --check . && eslint .  (includes svelte/no-navigation-without-resolve)
 pnpm test:unit --run
 pnpm build
-pnpm check:pages     # all prerendered pages (see known debt for the current baseline)
+pnpm check:pages     # all prerendered pages; must be fully green (50/50 at last run)
 pnpm exec playwright test   # e2e; `pnpm test:e2e` also runs `playwright install` (a download), avoid unless browsers are missing
 ```
 
@@ -430,26 +432,29 @@ Compare real screenshots before and after. Procedure:
 
 ## 8. Known debt and gotchas (verified; do not "fix" by accident, do not copy)
 
-Do not spread these patterns. Fix them only as an explicit, scoped task and re-run §7.3.
+Do not spread these patterns. Fix them only as an explicit, scoped task and re-run §7.3. (Resolved 2026-10-30, with evidence: skip links on all 50 pages, `stock-indexes-list` FAQ parity, dead `font-stretch`/`wdth` declarations removed with 100/100 screenshots identical, sitemap `lastmod`/404 entries.)
 
-1. **Missing skip link** on 41 prerendered pages as of this writing: `/blogs`, `/alert-services/spx-profit-pulse`,
-   `/resources/stock-indexes-list`, and every `/store/**` page. `pnpm check:pages` lists them. New pages must not add to the list.
-2. **`/resources/stock-indexes-list` FAQ parity gap:** its JS accordion renders only the expanded answer, so 4 of 5 answers are absent
-   from the prerendered HTML while present in JSON-LD. Fix = render all answers with native `<details>` fed from the single
-   `STOCK_INDEXES_LIST_FAQ_ITEMS` source (and delete its local `faqItems`).
-3. **`src/lib/styles/inner-page.css` contains `font-stretch: 87.5%` / `'wdth'` declarations** that do nothing (wght-only fonts). Remove
-   them in a dedicated change with a pixel diff on every Archetype A page.
-4. **Near-duplicate greys** (`#333b43`, `#2b3239`, `#30363c`, `#2f363d`, `#3e454c`, …) repeat in `inner-page.css` and store pages.
+1. **Near-duplicate greys** (`#333b43`, `#2b3239`, `#30363c`, `#2f363d`, `#3e454c`, …) repeat in `inner-page.css` and store pages.
    Consolidating them shifts pixels and needs a visual sign-off; do not merge them silently.
-5. **Hub JSON-LD wording** (`RESOURCES_HUB_UTILITIES`) differs from the visible utility names on `/resources`. Aligning them changes SEO output;
+2. **Hub JSON-LD wording** (`RESOURCES_HUB_UTILITIES`) differs from the visible utility names on `/resources`. Aligning them changes SEO output;
    needs an owner decision.
-6. **Planned-route links** (`as '/'` casts) exist wherever a target page is missing (§4). The cast hides route typos; remove it as soon as the
+3. **Planned-route links** (`as '/'` casts) exist wherever a target page is missing (§4). The cast hides route typos; remove it as soon as the
    route exists.
-7. `resolve()` is typed per route. A `RouteId` _union_ is not accepted, so `Breadcrumb.svelte` has one contained, commented `as '/'` cast.
-8. **Safari keyboard scrolling** of wide `overflow-x: auto` tables (e.g. the ETF comparison table) is unverified; Chromium/Firefox make
+4. `resolve()` is typed per route. A `RouteId` _union_ is not accepted, so `Breadcrumb.svelte` has one contained, commented `as '/'` cast.
+5. **Safari keyboard scrolling** of wide `overflow-x: auto` tables (e.g. the ETF comparison table) is unverified; Chromium/Firefox make
    scroll containers focusable natively.
-9. Prettier will rewrite attribute layout in `.svelte` files; never hand-edit around it, and never use `sed` for multi-line attribute edits
+6. Prettier will rewrite attribute layout in `.svelte` files; never hand-edit around it, and never use `sed` for multi-line attribute edits
    (an edit once removed a closing `>`). Use a script with an exact-match assertion, then Prettier, then `pnpm check`.
+7. **Shared checkout, concurrent sessions.** On 2026-10-30 another actor committed (and merged, as PR #2) this work's _uncommitted_
+   edits mid-session under an unrelated message, and `git switch` then silently replaced files. Do all verification in an isolated
+   `git worktree add /tmp/<name> -b <branch> origin/main` (+ `pnpm install --frozen-lockfile --offline`), never `git stash` in a shared
+   checkout, and re-read `git status` before trusting a baseline.
+8. **Keep non-source files out of `src/`.** A 578-line prompt `.md` committed under `src/` made `pnpm lint` fail on `main`
+   (`prettier --check .`). Put docs and prompts in `docs/`.
+9. **Do not trust a template you have not compiled.** The old `AGENTS.md` `+page.ts` template imported a nonexistent `SITE_NAME` and a
+   nonexistent `/og-default.png`; it never type-checked. When you change a template, paste it into a temp route and run `pnpm check`.
+10. **FAQ markup is not a Google feature anymore** (retired May 2026). Do not add FAQ sections or `FAQPage` nodes for SEO; keep parity
+    on the ones that exist (`docs/SEO_EVIDENCE.md` rows 1-2).
 
 ---
 
@@ -478,5 +483,6 @@ Do not spread these patterns. Fix them only as an explicit, scoped task and re-r
 
 **Report**
 
+- [ ] Every SEO statement is backed by `docs/SEO_EVIDENCE.md` or you added a sourced row there.
 - [ ] State exactly what was run, with results, what was skipped and why, and any gap or limitation. Never claim a check passed unless it was executed.
 - [ ] Update this playbook (§8) if you discovered a new landmine or retired a known one.

@@ -6,28 +6,13 @@
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
+	import CourseCard from '#lib/components/store/CourseCard.svelte';
+	import FilterChips from '#lib/components/ui/FilterChips.svelte';
+	import { coursesCatalog, trackFilters, type CourseTrackFilter } from '#lib/data/courses.ts';
 	import { COURSES_STORE_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
-
-	type CourseTrack =
-		'all' | 'small-accounts' | 'options-greeks' | 'intraday-orderflow' | 'swing-macro';
-
-	interface TradingCourse {
-		id: string;
-		code: string;
-		title: string;
-		track: CourseTrack;
-		trackLabel: string;
-		level: string;
-		modulesCount: string;
-		hook: string;
-		coreOutcome: string;
-		syllabus: string[];
-		recommendedRoomLabel: string;
-		recommendedRoomHref: string;
-	}
 
 	interface LearningDeliverable {
 		num: string;
@@ -49,177 +34,6 @@
 		ctaLabel: string;
 		href: string;
 	}
-
-	const trackFilters: { id: CourseTrack; label: string }[] = [
-		{ id: 'all', label: 'All Courses (8)' },
-		{ id: 'small-accounts', label: '$500+ Small Accounts & Foundation' },
-		{ id: 'options-greeks', label: 'Options & Greeks Mastery' },
-		{ id: 'intraday-orderflow', label: 'Intraday Order Flow & Scalping' },
-		{ id: 'swing-macro', label: 'Swing Trading & Macro Cycles' }
-	];
-
-	const coursesCatalog: TradingCourse[] = [
-		{
-			id: 'move-prior-to-the-move-masterclass',
-			code: 'Course 01 // Flagship Institutional System',
-			title: 'The Move Prior to The Move™: Institutional Order Flow & Price Action',
-			track: 'intraday-orderflow',
-			trackLabel: 'Intraday Order Flow & Scalping',
-			level: 'All Levels to Pro',
-			modulesCount: '12 Modules • On-Demand HD',
-			hook: 'Discover how Billy Ribeiro anticipates institutional accumulation and distribution before the retail breakout candle even prints.',
-			coreOutcome:
-				'Master the proprietary system praised by former Goldman Sachs legend Mark "Goldfinger" McGoldrick—replacing lagging retail patterns with real-time liquidity and volume structure.',
-			syllabus: [
-				'Module 1: Why 95% of Retail Chart Patterns Are Engineered Liquidity Traps',
-				'Module 2: Reading Institutional Absorption, Abandoned Bars & Exhaustion Sweeps',
-				'Module 3: Mapping Pre-Trade Entry Triggers, Tiered Profit Targets & Hard Stops',
-				'Module 4: Live Tape Execution Across Liquid Stocks, ETFs & Index Options'
-			],
-			recommendedRoomLabel: 'Pairs With: Day Trading Room →',
-			recommendedRoomHref: '/live-trading-rooms/day-trading-room'
-		},
-		{
-			id: 'small-account-compounding-blueprint',
-			code: 'Course 02 // $500+ Capital Engineering',
-			title: 'The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint',
-			track: 'small-accounts',
-			trackLabel: '$500+ Small Accounts & Foundation',
-			level: 'Beginner to Intermediate',
-			modulesCount: '8 Modules • Includes Workbook',
-			hook: 'Proven mathematical strategies for protecting and growing a small trading account starting as low as $500 without gambling.',
-			coreOutcome:
-				'Eliminate small-account blowups by mastering T+1 cash-account settlement rotation, Pattern Day Trader (PDT) bypass rules, contract price ceilings, and strict drawdown caps.',
-			syllabus: [
-				'Module 1: The Mathematics of $500 Account Survival & Why "All-In" Challenges Fail',
-				'Module 2: T+1 Cash Account Partitioning for Daily Buying Power Without $25K Margin',
-				'Module 3: Selecting Affordable, High-Liquidity Options Contracts & Tight Spreads',
-				'Module 4: The 4-Stage Scaling Roadmap from $500 to $25,000+ Institutional Sizing'
-			],
-			recommendedRoomLabel: 'Pairs With: Small Accounts Room →',
-			recommendedRoomHref: '/live-trading-rooms/small-accounts-room'
-		},
-		{
-			id: 'options-greeks-and-volatility-mastery',
-			code: 'Course 03 // Options Pricing & Asymmetry',
-			title: 'Options Greeks Mastery: Delta, Gamma, Theta & Vega Execution',
-			track: 'options-greeks',
-			trackLabel: 'Options & Greeks Mastery',
-			level: 'Beginner to Advanced',
-			modulesCount: '10 Modules • Cheat Sheets Included',
-			hook: 'Stop losing money when you are right on direction. Master the four primary Greeks to structure asymmetric options trades.',
-			coreOutcome:
-				'Learn how to select optimal strikes and expirations, avoid post-earnings implied volatility (Vega) crush, and harness 30–45 DTE Theta decay like an institutional desk.',
-			syllabus: [
-				'Module 1: Delta as Directional Speedometer, Probability Gauge & Position Sizer',
-				'Module 2: Harnessing Gamma Acceleration on Long Plays & Avoiding Expiration Blowups',
-				'Module 3: The Theta Time-Decay Machine: Structuring 15–20 Delta Credit Spreads',
-				'Module 4: Vega & Volatility Regimes: Buying Low IV vs. Selling High IV'
-			],
-			recommendedRoomLabel: 'Try Free: Options Calculator →',
-			recommendedRoomHref: '/resources/options-calculator'
-		},
-		{
-			id: 'working-pro-swing-trading-system',
-			code: 'Course 04 // 9-to-5 Schedule Architecture',
-			title: 'Multi-Day Swing Trading for Working Professionals (20-Minute Routine)',
-			track: 'swing-macro',
-			trackLabel: 'Swing Trading & Macro Cycles',
-			level: 'All Levels',
-			modulesCount: '9 Modules • Conditional Order Templates',
-			hook: 'Learn how to capture explosive 3-to-15 day stock and options moves in 20 minutes a day without watching screens at work.',
-			coreOutcome:
-				'Install a repeatable evening and pre-market routine using conditional triggers, multi-day options structures that survive overnight Theta, and trailing structural stops.',
-			syllabus: [
-				'Module 1: Building Your Sunday & Evening 20-Minute Institutional Watchlist',
-				'Module 2: Multi-Timeframe Volatility Squeeze & Sector Rotation Alignment',
-				'Module 3: Structuring Multi-Day Calls, Puts, Verticals & Diagonals',
-				'Module 4: Automated Order Execution (Limit, Stop-Limit & OCO Bracket Orders)'
-			],
-			recommendedRoomLabel: 'Pairs With: Swing Trading Room →',
-			recommendedRoomHref: '/live-trading-rooms/swing-trading-room'
-		},
-		{
-			id: 'spx-0dte-and-index-gamma-execution',
-			code: 'Course 05 // High-Velocity Index Options',
-			title: 'SPX & Index Options Execution: Dealer Gamma Walls & Intraday Flow',
-			track: 'options-greeks',
-			trackLabel: 'Options & Greeks Mastery',
-			level: 'Intermediate to Pro',
-			modulesCount: '8 Modules • Live Tape Replays',
-			hook: 'Identify institutional dealer hedging levels, gamma magnet strikes, and A+ intraday reversals on SPX, SPY, and QQQ.',
-			coreOutcome:
-				'Understand how market-maker Delta and Gamma hedging drives intraday index moves—and how to structure defined-risk index options trades during key session windows.',
-			syllabus: [
-				'Module 1: How Dealer Gamma Exposure (GEX) Pins or Accelerates the S&P 500',
-				'Module 2: Mapping Pre-Market Call Walls, Put Walls & Liquidity Sweep Zones',
-				'Module 3: Single-Leg vs. Vertical Spread Structuring on SPX Index Options',
-				'Module 4: Avoiding Midday Theta Chop & Executing Power-Hour Inflections'
-			],
-			recommendedRoomLabel: 'Pairs With: SPX Profit Pulse →',
-			recommendedRoomHref: '/alert-services/spx-profit-pulse'
-		},
-		{
-			id: 'contrarian-distribution-and-shorting',
-			code: 'Course 06 // The +600% OXY Put Playbook',
-			title: 'Contrarian Distribution & Put Options: Fading Retail Euphoria Live',
-			track: 'intraday-orderflow',
-			trackLabel: 'Intraday Order Flow & Scalping',
-			level: 'Intermediate to Pro',
-			modulesCount: '7 Modules • Full OXY Case Autopsy',
-			hook: 'Deconstruct the exact institutional distribution playbook behind our live +600% overnight OXY Put Options trade vs. Warren Buffett.',
-			coreOutcome:
-				'Learn how to spot when breaking news and retail buying frenzy are actually institutional exit liquidity—and how to strike with defined-risk Put Options.',
-			syllabus: [
-				'Module 1: Anatomy of a Liquidity Trap: Why Retail Chases Headlines at the Top',
-				'Module 2: Tick-by-Tick Autopsy of Our +600% Overnight OXY Put Options Execution',
-				'Module 3: Identifying climax Volume, Abandoned Tops & Failed Breakout Candles',
-				'Module 4: Structuring Put Contracts & Debit Spreads for Asymmetric Downside Velocity'
-			],
-			recommendedRoomLabel: 'Pairs With: Explosive Swings →',
-			recommendedRoomHref: '/alert-services/explosive-swings'
-		},
-		{
-			id: 'macro-cycle-inflection-mastery',
-			code: 'Course 07 // 2020 & 2022 Top/Bottom Playbook',
-			title: 'Macro Cycle Inflection Timing: Calling Generational Tops & Bottoms',
-			track: 'swing-macro',
-			trackLabel: 'Swing Trading & Macro Cycles',
-			level: 'Intermediate to Institutional',
-			modulesCount: '10 Modules • Macro Case Ledger',
-			hook: 'Learn the exact top-down macro breadth, liquidity, and volatility framework that called the 2020 COVID and 2022 market tops and bottoms.',
-			coreOutcome:
-				'Protect your portfolio before major bear market liquidations and position aggressively at generational capitulation bottoms when mainstream pundits are paralyzed.',
-			syllabus: [
-				'Module 1: The Goldman Sachs Prop Framework for Macro Regime Detection',
-				'Module 2: Case Study: How We Called the Feb 2020 Crash Top & March 2020 Bottom',
-				'Module 3: Case Study: Calling the Jan 2022 Bull Top & Oct 2022 Accumulation Low',
-				'Module 4: Portfolio Hedging & Sector Rotation Across Bull and Bear Regimes'
-			],
-			recommendedRoomLabel: 'Pairs With: 1-on-1 Mentorship →',
-			recommendedRoomHref: '/mentorship'
-		},
-		{
-			id: 'institutional-risk-and-trader-psychology',
-			code: 'Course 08 // Mechanical Discipline & Mindset',
-			title: 'Ironclad Risk Architecture & Eradicating Retail Self-Sabotage',
-			track: 'small-accounts',
-			trackLabel: '$500+ Small Accounts & Foundation',
-			level: 'Mandatory for All Traders',
-			modulesCount: '6 Modules • Pre-Trade Checklists',
-			hook: 'Eliminate FOMO, revenge trading, hesitation, and early profit-taking by installing a mechanical pre-trade execution protocol.',
-			coreOutcome:
-				'Built by a founder who stood on the losing end in the past—this course replaces emotional guessing with mathematical position sizing and drawdown circuit breakers.',
-			syllabus: [
-				'Module 1: Why Smart People Self-Sabotage in Live Markets (And How to Stop)',
-				'Module 2: The Pre-Trade Checklist: Never Entering Without Entry, Target & Stop',
-				'Module 3: Daily & Weekly Drawdown Circuit Breakers to Prevent Tilt Days',
-				'Module 4: Journaling & Expectancy Audits: Scaling Size Without Scaling Emotion'
-			],
-			recommendedRoomLabel: 'Read: Our Anti-Guru Mission →',
-			recommendedRoomHref: '/our-mission'
-		}
-	];
 
 	const courseDeliverables: LearningDeliverable[] = [
 		{
@@ -345,8 +159,7 @@
 		}
 	];
 
-	let activeTrack = $state<CourseTrack>('all');
-	let openSyllabusId = $state<string | null>('move-prior-to-the-move-masterclass');
+	let activeTrack = $state<CourseTrackFilter>('all');
 
 	const filteredCourses = $derived(
 		activeTrack === 'all'
@@ -354,16 +167,12 @@
 			: coursesCatalog.filter((course) => course.track === activeTrack)
 	);
 
-	function selectTrackAndScroll(track: CourseTrack) {
+	function selectTrackAndScroll(track: CourseTrackFilter) {
 		activeTrack = track;
 		const gridEl = document.getElementById('popular-courses-catalog');
 		if (gridEl) {
 			gridEl.scrollIntoView({ behavior: 'smooth' });
 		}
-	}
-
-	function toggleSyllabus(id: string) {
-		openSyllabusId = openSyllabusId === id ? null : id;
 	}
 </script>
 
@@ -581,112 +390,26 @@
 					</div>
 				</div>
 
-				<!-- Interactive Track Filter Bar -->
-				<div class="filter-bar" role="tablist" aria-label="Filter courses by learning track">
-					{#each trackFilters as tab (tab.id)}
-						<button
-							type="button"
-							role="tab"
-							aria-selected={activeTrack === tab.id}
-							class="filter-tab"
-							class:filter-tab--active={activeTrack === tab.id}
-							onclick={() => (activeTrack = tab.id)}
-						>
-							{tab.label}
-						</button>
-					{/each}
-				</div>
+				<FilterChips
+					label="Filter courses by learning track"
+					options={trackFilters}
+					bind:value={activeTrack}
+				/>
 
-				<!-- 8-Card Course Catalog Grid (Crawlable H3 Titles + Expandable 4-Module Syllabus) -->
-				<div class="courses-grid">
+				<p class="courses-status" role="status">
+					Showing {filteredCourses.length} of {coursesCatalog.length} courses
+				</p>
+
+				<!-- Catalog: crawlable h3 titles; every syllabus is in the server-rendered HTML (native <details>). -->
+				<ul class="courses-grid">
 					{#each filteredCourses as course (course.id)}
-						<article id={course.id} class="course-card">
-							<!-- Card Top Banner -->
-							<div class="course-card__banner">
-								<div class="course-card__banner-top">
-									<span class="course-card__code">{course.code}</span>
-									<span class="course-card__level">{course.level}</span>
-								</div>
-								<div class="course-card__banner-bottom">
-									<span class="course-card__track">{course.trackLabel}</span>
-									<span class="course-card__modules">{course.modulesCount}</span>
-								</div>
-							</div>
-
-							<!-- Card Body -->
-							<div class="course-card__body">
-								<h3 class="course-card__title">
-									{course.title}
-								</h3>
-
-								<!-- Punchy 1-Sentence Hook -->
-								<p class="course-card__hook">
-									{course.hook}
-								</p>
-
-								<!-- Core Curriculum Outcome Box -->
-								<div class="course-card__outcome-box">
-									<strong>What You Will Master:</strong>
-									<p>{course.coreOutcome}</p>
-								</div>
-
-								<!-- Expandable 4-Module Syllabus -->
-								{#if openSyllabusId === course.id}
-									<div class="course-card__syllabus">
-										<span class="meta-label">Included Course Syllabus:</span>
-										<ul class="syllabus-list">
-											{#each course.syllabus as mod (mod)}
-												<li>{mod}</li>
-											{/each}
-										</ul>
-									</div>
-								{/if}
-
-								<div class="course-card__room-bridge">
-									<a href={resolve(course.recommendedRoomHref as '/')} class="bridge-link">
-										{course.recommendedRoomLabel}
-									</a>
-								</div>
-							</div>
-
-							<!-- Card Footer -->
-							<div class="course-card__footer">
-								<button
-									type="button"
-									class="btn btn--outline btn--full course-card__syllabus-btn"
-									aria-expanded={openSyllabusId === course.id}
-									onclick={() => toggleSyllabus(course.id)}
-								>
-									{openSyllabusId === course.id
-										? 'Hide Course Syllabus −'
-										: 'Inspect 4-Module Syllabus +'}
-								</button>
-								<a
-									href={resolve(
-										`/store/courses/${course.id === 'move-prior-to-the-move-masterclass' ? 'move-prior-to-the-move-ultra' : course.id}` as '/'
-									)}
-									class="btn btn--solid btn--full"
-									aria-label={`Learn more and enroll in ${course.title}`}
-								>
-									Learn More →
-								</a>
-							</div>
-						</article>
+						<li class={['courses-grid__item', { 'is-featured': course.featured }]}>
+							<CourseCard {course} />
+						</li>
+					{:else}
+						<li class="courses-grid__empty">No courses match this track.</li>
 					{/each}
-				</div>
-
-				<!-- Bottom Store Navigation Bar -->
-				<div class="catalog-bottom-bar">
-					<button type="button" class="btn btn--solid" onclick={() => selectTrackAndScroll('all')}>
-						See All Courses ({coursesCatalog.length})
-					</button>
-					<a href={resolve('/store/indicators' as '/')} class="btn btn--outline">
-						Explore Custom Indicators →
-					</a>
-					<a href={resolve('/store/scanners' as '/')} class="btn btn--outline">
-						Explore Institutional Scanners →
-					</a>
-				</div>
+				</ul>
 			</div>
 		</section>
 
@@ -937,3 +660,70 @@
 
 	<Footer />
 </div>
+
+<style>
+	/*
+	 * Catalog layout. Mobile-first on the SSOT breakpoints (docs/CSS_STANDARDS.md 5.1):
+	 * 1 column below 768px, 2 columns from 768px, 3 columns from 1280px (a 4th column would starve the text-heavy cards).
+	 * The featured course takes a full row on tablets and two of three columns on desktop.
+	 */
+	.courses-status {
+		margin: 16px 0;
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-size: 0.8125rem;
+		line-height: 1.5rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--text-secondary);
+	}
+
+	.courses-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 16px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.courses-grid__item {
+		min-inline-size: 0;
+	}
+
+	.courses-grid__empty {
+		padding: 32px 16px;
+		border: 2px dashed var(--line-strong);
+		text-align: center;
+		color: var(--text-secondary);
+	}
+
+	@media (min-width: 480px) {
+		.courses-grid {
+			gap: 20px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.courses-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 24px;
+		}
+
+		.courses-grid__item.is-featured,
+		.courses-grid__empty {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.courses-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 28px;
+		}
+
+		.courses-grid__item.is-featured {
+			grid-column: span 2;
+		}
+	}
+</style>

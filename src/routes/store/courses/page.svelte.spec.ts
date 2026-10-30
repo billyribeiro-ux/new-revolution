@@ -8,6 +8,7 @@ import {
 } from '#lib/seo/structured-data.ts';
 import { load } from './+page.ts';
 import CoursesStorePage from './+page.svelte';
+import { coursesCatalog } from '#lib/data/courses.ts';
 
 describe('/store/courses page', () => {
 	it('returns character-locked SEO metadata (57-char title, 148-char description) and JSON-LD from load()', () => {
@@ -51,18 +52,42 @@ describe('/store/courses page', () => {
 
 		await expect.element(page.getByText('Not Sure Where to Start?')).toBeInTheDocument();
 
-		// 8 course cards initially rendered
+		// 8 course cards in a semantic list, one h3 title link each, pointing at the typed detail route
+		expect(document.querySelectorAll('ul.courses-grid > li').length).toBe(8);
 		expect(document.querySelectorAll('.course-card').length).toBe(8);
+		const titleLinks = [...document.querySelectorAll<HTMLAnchorElement>('.course-card h3 a')];
+		expect(titleLinks.length).toBe(8);
+		expect(titleLinks.map((a) => a.getAttribute('href'))).toEqual(
+			coursesCatalog.map((c) => `/store/courses/${c.slug}`)
+		);
 
-		// Course 01 syllabus is open by default
-		expect(document.querySelectorAll('.course-card__syllabus').length).toBe(1);
+		// Exactly one featured (lead) card: Course 01
+		const featured = document.querySelectorAll('.courses-grid__item.is-featured');
+		expect(featured.length).toBe(1);
+		expect(featured[0].querySelector('.course-card__code')?.textContent).toContain('Course 01');
 
-		// Filter by "$500+ Small Accounts & Foundation" -> 2 courses
-		const smallAccountTab = page.getByRole('tab', {
-			name: '$500+ Small Accounts & Foundation'
-		});
-		await smallAccountTab.click();
+		// Every syllabus is in the HTML without interaction (native <details>); only the lead card opens by default
+		const syllabi = [
+			...document.querySelectorAll<HTMLDetailsElement>('details.course-card__syllabus')
+		];
+		expect(syllabi.length).toBe(8);
+		expect(syllabi.filter((d) => d.open).length).toBe(1);
+		expect(syllabi[0].open).toBe(true);
+		expect(syllabi.every((d) => d.querySelectorAll('ol > li').length === 4)).toBe(true);
+		(syllabi[1].querySelector('summary') as HTMLElement).click();
+		expect(syllabi[1].open).toBe(true);
+
+		// Filter: accessible pressed state, live count, and filtered list
+		const allBtn = page.getByRole('button', { name: /^All Courses \(8\)$/ });
+		await expect.element(allBtn).toHaveAttribute('aria-pressed', 'true');
+		const smallAccountBtn = page.getByRole('button', { name: '$500+ Small Accounts & Foundation' });
+		await smallAccountBtn.click();
+		await expect.element(smallAccountBtn).toHaveAttribute('aria-pressed', 'true');
+		await expect.element(allBtn).toHaveAttribute('aria-pressed', 'false');
 		expect(document.querySelectorAll('.course-card').length).toBe(2);
+		await expect.element(page.getByRole('status')).toHaveTextContent('Showing 2 of 8 courses');
+		// The featured card is filtered out: no lead card remains
+		expect(document.querySelectorAll('.courses-grid__item.is-featured').length).toBe(0);
 
 		// Reset to all 8 courses
 		const seeAllBtn = page.getByRole('button', { name: 'See All Courses (8) →' });

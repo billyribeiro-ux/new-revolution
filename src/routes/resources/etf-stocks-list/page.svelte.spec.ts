@@ -55,4 +55,41 @@ describe('/resources/etf-stocks-list page', () => {
 		expect(document.querySelectorAll('.faq-item').length).toBe(4);
 		expect(document.querySelectorAll('.room-cta-card').length).toBe(5);
 	});
+
+	it('filters the directory with accessible pressed state, a live result count, and an empty state', async () => {
+		render(Page, {
+			data: { pageMetaTags: {}, jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN) } as never
+		});
+
+		const all = page.getByRole('button', { name: /All Popular ETFs \(12\)/ });
+		await expect.element(all).toHaveAttribute('aria-pressed', 'true');
+
+		const core = page.getByRole('button', { name: /Core U\.S\. Index ETFs/ });
+		await core.click();
+		await expect.element(core).toHaveAttribute('aria-pressed', 'true');
+		await expect.element(all).toHaveAttribute('aria-pressed', 'false');
+		const shown = document.querySelectorAll('.etf-card').length;
+		expect(shown).toBeGreaterThan(0);
+		expect(shown).toBeLessThan(12);
+		await expect.element(page.getByRole('status')).toHaveTextContent(`Showing ${shown} of 12 ETFs`);
+
+		await page.getByRole('searchbox').fill('zzzz-no-such-ticker');
+		expect(document.querySelectorAll('.etf-card').length).toBe(0);
+		await expect.element(page.getByText(/No ETFs match your search/)).toBeInTheDocument();
+	});
+
+	it('renders a skip link to the main landmark and a breadcrumb whose last item is the current page', async () => {
+		render(Page, {
+			data: { pageMetaTags: {}, jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN) } as never
+		});
+
+		const skip = document.querySelector('a.skip');
+		expect(skip?.getAttribute('href')).toBe('#etf-stocks-list-page');
+		expect(document.getElementById('etf-stocks-list-page')?.tagName).toBe('MAIN');
+
+		const crumbs = document.querySelectorAll('.breadcrumb-list li');
+		expect(crumbs.length).toBe(3);
+		expect(crumbs[2].querySelector('[aria-current="page"]')?.textContent).toBe('ETF Stocks List');
+		expect(crumbs[2].querySelector('a')).toBeNull();
+	});
 });

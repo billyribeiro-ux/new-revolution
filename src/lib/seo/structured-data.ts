@@ -6,6 +6,7 @@ import {
 	STORE_TOOLS,
 	type FaqItem
 } from '#lib/data/homepage.ts';
+import { featuredETFs } from '#lib/data/etf-stocks-list.ts';
 import { SOCIAL_LINKS } from '#lib/data/site.ts';
 
 export const BRAND_NAME = 'Revolution Trading Pros';
@@ -1921,21 +1922,6 @@ export const ETF_STOCKS_LIST_FAQ_ITEMS: FaqItem[] = [
 	}
 ];
 
-const ETF_STOCKS_LIST_ITEMS = [
-	{ symbol: 'SPY', name: 'SPDR S&P 500 ETF Trust' },
-	{ symbol: 'QQQ', name: 'Invesco QQQ Trust (Nasdaq-100)' },
-	{ symbol: 'VTI', name: 'Vanguard Total Stock Market ETF' },
-	{ symbol: 'IWM', name: 'iShares Russell 2000 ETF' },
-	{ symbol: 'EEM', name: 'iShares MSCI Emerging Markets ETF' },
-	{ symbol: 'VEA', name: 'Vanguard FTSE Developed Markets ETF' },
-	{ symbol: 'AGG', name: 'iShares Core U.S. Aggregate Bond ETF' },
-	{ symbol: 'VIG', name: 'Vanguard Dividend Appreciation ETF' },
-	{ symbol: 'GLD', name: 'SPDR Gold Shares' },
-	{ symbol: 'ARKK', name: 'ARK Innovation ETF' },
-	{ symbol: 'EFA', name: 'iShares MSCI EAFE ETF' },
-	{ symbol: 'SCHB', name: 'Schwab U.S. Broad Market ETF' }
-] as const;
-
 export function buildEtfStocksListJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/etf-stocks-list`;
 
@@ -1981,8 +1967,8 @@ export function buildEtfStocksListJsonLd(origin: string) {
 				'@type': 'ItemList',
 				'@id': `${pageUrl}#etf-list`,
 				name: 'Most Liquid U.S. Index, Sector, Commodity & International ETFs',
-				numberOfItems: ETF_STOCKS_LIST_ITEMS.length,
-				itemListElement: ETF_STOCKS_LIST_ITEMS.map((etf, index) => ({
+				numberOfItems: featuredETFs.length,
+				itemListElement: featuredETFs.map((etf, index) => ({
 					'@type': 'ListItem',
 					position: index + 1,
 					name: `${etf.symbol} — ${etf.name}`

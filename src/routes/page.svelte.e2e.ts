@@ -358,6 +358,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('hreflang="x-default"');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
+		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
+		);
+		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/live-trading-rooms/swing-trading-room</loc>'
+		);
 		expect(sitemapXml).not.toContain('/demo/');
 
 		// Verify homepage blog card hrefs match sitemap.xml canonical blog routes
@@ -442,6 +448,138 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'noindex, nofollow'
 		);
 		await expect(page.locator('head link[rel="alternate"]')).toHaveCount(0);
+
+		// Verify /live-trading-rooms/day-trading-room route metadata, JSON-LD, and DOM parity
+		const expectedDayRoomUrl = `${origin}/live-trading-rooms/day-trading-room`;
+		await page.goto('/live-trading-rooms/day-trading-room');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const dayRoomTitle = await page.title();
+		expect(dayRoomTitle).toBe('Live Day Trading Room | Revolution Trading Pros');
+		expect(dayRoomTitle.length).toBe(47);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const dayRoomDesc = await page.locator('head meta[name="description"]').getAttribute('content');
+		expect(dayRoomDesc).toBe(
+			'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.'
+		);
+		expect(dayRoomDesc?.length).toBe(147);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedDayRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedDayRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedDayRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedDayRoomUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.schedule-card')).toHaveCount(4);
+		await expect(page.locator('.setup-card')).toHaveCount(4);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('.route-card')).toHaveCount(3);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
+
+		const dayRoomJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const dayRoomSchema = JSON.parse(dayRoomJsonLdText!);
+		const dayRoomFaqNode = dayRoomSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleDayRoomFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(dayRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleDayRoomFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/day-trading-room
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /live-trading-rooms/swing-trading-room route metadata, JSON-LD, and DOM parity
+		const expectedSwingRoomUrl = `${origin}/live-trading-rooms/swing-trading-room`;
+		await page.goto('/live-trading-rooms/swing-trading-room');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const swingRoomTitle = await page.title();
+		expect(swingRoomTitle).toBe('Live Swing Trading Room | Revolution Trading Pros');
+		expect(swingRoomTitle.length).toBe(49);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const swingRoomDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(swingRoomDesc).toBe(
+			'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.'
+		);
+		expect(swingRoomDesc?.length).toBe(144);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedSwingRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedSwingRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedSwingRoomUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedSwingRoomUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.workflow-card')).toHaveCount(4);
+		await expect(page.locator('.playbook-card')).toHaveCount(4);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('.route-card')).toHaveCount(3);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
+
+		const swingRoomJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const swingRoomSchema = JSON.parse(swingRoomJsonLdText!);
+		const swingRoomFaqNode = swingRoomSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleSwingRoomFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(swingRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleSwingRoomFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/swing-trading-room
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
 	});
 
 	test('scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow', async ({

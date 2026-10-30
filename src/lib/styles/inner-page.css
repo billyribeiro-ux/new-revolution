@@ -126,7 +126,8 @@
 
 .inner-page .breadcrumb-list,
 .inner-page .breadcrumb-bar__status,
-.inner-page .breadcrumb-bar__mandate {
+.inner-page .breadcrumb-bar__mandate,
+.inner-page .breadcrumb-bar__telemetry {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -143,6 +144,7 @@
 
 .inner-page .breadcrumb-list {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	gap: 8px;
 }
@@ -164,7 +166,8 @@
 }
 
 .inner-page .breadcrumb-bar__status span:first-child,
-.inner-page .breadcrumb-bar__mandate span:first-child {
+.inner-page .breadcrumb-bar__mandate span:first-child,
+.inner-page .breadcrumb-bar__telemetry span:first-child {
 	color: var(--acid);
 }
 
@@ -211,7 +214,8 @@
 }
 
 .inner-page .eyebrow-box__badge,
-.inner-page .eyebrow-pill__tag {
+.inner-page .eyebrow-pill__tag,
+.inner-page .eyebrow-pill__badge {
 	padding: 4px 8px;
 	background: var(--acid);
 	color: var(--ink);
@@ -2100,6 +2104,611 @@
 @media (prefers-reduced-motion: reduce) {
 	.inner-page .btn:hover svg,
 	.inner-page .text-link:hover svg {
+		transform: none;
+	}
+}
+
+/* ==========================================================================
+   /live-trading-rooms/day-trading-room & /live-trading-rooms/swing-trading-room
+   additions — same language, new components
+   ========================================================================== */
+
+/* Hero 4-Column Floor Telemetry Strip */
+.inner-page .hero-metrics {
+	margin: 32px 0 0;
+	padding-block-start: 22px;
+	border-block-start: 1px solid #2b3239;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px 20px;
+}
+
+.inner-page .hero-metrics__item dt {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--muted);
+}
+
+.inner-page .hero-metrics__item dd {
+	margin: 4px 0 0;
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 0.9375rem;
+	line-height: 1.3;
+	color: var(--text);
+}
+
+/* Right Column: Live Trading Floor Execution Ticket & Swing Blueprint Card */
+.inner-page .execution-ticket,
+.inner-page .swing-blueprint {
+	position: relative;
+	inline-size: 100%;
+	border: 1px solid #394149;
+	background: linear-gradient(155deg, #1d242a, #12171b 68%);
+	box-shadow: 0 28px 72px rgba(0, 0, 0, 0.31);
+}
+
+.inner-page .execution-ticket::before,
+.inner-page .swing-blueprint::before {
+	content: '';
+	position: absolute;
+	inset: -5px -5px auto auto;
+	inline-size: 110px;
+	block-size: 110px;
+	border-block-start: 1px solid rgba(220, 255, 101, 0.5);
+	border-inline-end: 1px solid rgba(220, 255, 101, 0.5);
+	pointer-events: none;
+}
+
+.inner-page .execution-ticket__header,
+.inner-page .swing-blueprint__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 20px;
+	border-block-end: 1px solid #30363c;
+}
+
+.inner-page .execution-ticket__title,
+.inner-page .swing-blueprint__title {
+	font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+	line-height: 1.15;
+	margin-block: 6px 0;
+}
+
+.inner-page .execution-ticket__status,
+.inner-page .swing-blueprint__tag {
+	flex: none;
+	padding: 5px 8px;
+	background: #2e3328;
+	color: #d2e79a;
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.75rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.inner-page .execution-ticket__intro,
+.inner-page .swing-blueprint__intro {
+	margin: 0;
+	padding: 16px 20px 8px;
+	font-size: 0.90625rem;
+	line-height: 1.65;
+	color: #b3bbc0;
+	max-inline-size: none;
+}
+
+.inner-page .ticket-steps,
+.inner-page .blueprint-items {
+	display: grid;
+	gap: 12px;
+	padding: 8px 20px 20px;
+}
+
+.inner-page .ticket-step,
+.inner-page .blueprint-item {
+	padding: 14px 16px;
+	border: 1px solid #333b43;
+	background: #141a20;
+}
+
+.inner-page .ticket-step__head,
+.inner-page .blueprint-item__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-block-end: 8px;
+	border-block-end: 1px solid #2b3239;
+}
+
+.inner-page .ticket-step__code,
+.inner-page .blueprint-item__code {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--acid);
+}
+
+.inner-page .ticket-step__tag,
+.inner-page .blueprint-item__pill {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 3px 7px;
+	border: 1px solid var(--status-amber-border);
+	color: var(--status-amber-text);
+}
+
+.inner-page .ticket-step p,
+.inner-page .blueprint-item p {
+	margin: 10px 0 0;
+	font-size: 0.875rem;
+	line-height: 1.6;
+	color: #aeb4b6;
+	max-inline-size: none;
+}
+
+.inner-page .ticket-step p strong,
+.inner-page .blueprint-item p strong {
+	color: var(--text);
+}
+
+.inner-page .execution-ticket__footer,
+.inner-page .swing-blueprint__footer {
+	padding: 16px 20px;
+	border-block-start: 1px solid #30363c;
+	text-align: center;
+}
+
+.inner-page .execution-ticket__note,
+.inner-page .swing-blueprint__note {
+	margin: 0;
+	font-size: 0.875rem;
+	line-height: 1.55;
+	color: #b3bbc0;
+	max-inline-size: none;
+}
+
+.inner-page .execution-ticket__note a,
+.inner-page .swing-blueprint__note a {
+	color: var(--acid);
+	font-weight: 700;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+
+/* Section 3: Bell-to-Bell Daily Schedule & Working Pro Workflow (dark surface) */
+.inner-page .schedule-section,
+.inner-page .workflow-section {
+	background: var(--surface-cases);
+}
+
+.inner-page .schedule-grid,
+.inner-page .workflow-grid,
+.inner-page .setups-grid,
+.inner-page .playbooks-grid,
+.inner-page .routing-cards,
+.inner-page .routing-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 16px;
+}
+
+.inner-page .schedule-card,
+.inner-page .workflow-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 28px;
+	border: 1px solid #333b43;
+	background: var(--surface-case-card);
+	transition:
+		transform 0.25s var(--ease-out),
+		border-color 0.25s var(--ease-out);
+}
+
+.inner-page .schedule-card:hover,
+.inner-page .workflow-card:hover {
+	transform: translateY(-4px);
+	border-color: #66764d;
+}
+
+.inner-page .schedule-card__top,
+.inner-page .workflow-card__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding-block-end: 16px;
+	margin-block-end: 18px;
+	border-block-end: 1px solid #333b43;
+}
+
+.inner-page .schedule-card__badge,
+.inner-page .workflow-card__badge {
+	padding: 4px 8px;
+	background: var(--acid);
+	color: var(--ink);
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.inner-page .schedule-card__title,
+.inner-page .workflow-card__title {
+	margin-block: 0 12px;
+	max-inline-size: 32ch;
+}
+
+.inner-page .schedule-card__desc,
+.inner-page .workflow-card__desc {
+	font-size: 0.9375rem;
+	line-height: 1.7;
+	color: #b3bbc0;
+	margin-block: 0 22px;
+}
+
+.inner-page .schedule-card__deliverables,
+.inner-page .workflow-card__deliverables {
+	margin-block-start: auto;
+	padding-block-start: 16px;
+	border-block-start: 1px solid #333b43;
+}
+
+.inner-page .check-list {
+	list-style: none;
+	margin: 12px 0 0;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+.inner-page .check-list li {
+	display: grid;
+	grid-template-columns: 18px minmax(0, 1fr);
+	gap: 8px;
+	font-size: 0.875rem;
+	line-height: 1.6;
+	color: #aab3b7;
+	max-inline-size: 58ch;
+}
+
+/* Section 4: The 4 Intraday Setups & 4 Swing Playbooks (light surface, white cards) */
+.inner-page .setup-card,
+.inner-page .playbook-card {
+	display: flex;
+	flex-direction: column;
+	padding: 28px;
+	background: var(--card-white);
+	border: 1px solid var(--card-light-border);
+	transition:
+		transform 0.25s var(--ease-out),
+		border-color 0.25s var(--ease-out);
+}
+
+.inner-page .setup-card:hover,
+.inner-page .playbook-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--card-featured-border);
+}
+
+.inner-page .setup-card__header,
+.inner-page .playbook-card__header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding-block-end: 16px;
+	margin-block-end: 18px;
+	border-block-end: 1px solid var(--card-light-border);
+}
+
+.inner-page .setup-card__badge,
+.inner-page .playbook-card__window {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 4px 8px;
+	background: var(--card-featured-badge);
+	color: var(--ink);
+}
+
+.inner-page .setup-card__title,
+.inner-page .playbook-card__title {
+	margin-block: 0 18px;
+	max-inline-size: 32ch;
+	color: var(--ink);
+}
+
+.inner-page .setup-card__specs,
+.inner-page .playbook-card__specs {
+	margin: 0;
+	display: grid;
+	gap: 16px;
+}
+
+.inner-page .setup-card__specs dt,
+.inner-page .playbook-card__specs dt {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #4b5f1d;
+}
+
+.inner-page .setup-card__specs dd,
+.inner-page .playbook-card__specs dd {
+	margin: 6px 0 0;
+	font-size: 0.9375rem;
+	line-height: 1.65;
+	max-inline-size: 58ch;
+	color: #3e454c;
+}
+
+.inner-page .setup-card__risk-box,
+.inner-page .playbook-card__risk {
+	padding: 14px 16px;
+	background: var(--card-featured-bg);
+	border-inline-start: 2px solid var(--card-featured-border);
+}
+
+/* Section 5: Comparison Matrix Table (dark surface) */
+.inner-page .comparison-section {
+	background: var(--surface-audience);
+}
+
+.inner-page .table-wrapper {
+	inline-size: 100%;
+	overflow-x: auto;
+	border: 1px solid #333b43;
+	background: #141a20;
+}
+
+.inner-page .comparison-table {
+	inline-size: 100%;
+	min-inline-size: 680px;
+	border-collapse: collapse;
+	text-align: start;
+}
+
+.inner-page .comparison-table th,
+.inner-page .comparison-table td {
+	padding: 18px 20px;
+	border-block-end: 1px solid #2b3239;
+	border-inline-end: 1px solid #2b3239;
+	vertical-align: top;
+}
+
+.inner-page .comparison-table th:last-child,
+.inner-page .comparison-table td:last-child {
+	border-inline-end: 0;
+}
+
+.inner-page .comparison-table tbody tr:last-child th,
+.inner-page .comparison-table tbody tr:last-child td {
+	border-block-end: 0;
+}
+
+.inner-page .comparison-table thead th {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.8125rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	background: #1b2229;
+	color: var(--text);
+	border-block-end: 1px solid #394149;
+}
+
+.inner-page .comparison-table thead th:last-child {
+	color: var(--acid);
+}
+
+.inner-page .comparison-table__feature {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.875rem;
+	inline-size: 22%;
+	background: #161d24;
+	color: var(--text);
+}
+
+.inner-page .comparison-table__negative {
+	font-family: var(--font-sans);
+	font-size: 0.9375rem;
+	line-height: 1.65;
+	color: #9fa7ad;
+	inline-size: 39%;
+}
+
+.inner-page .comparison-table__negative .ic-mark--no {
+	color: var(--coral);
+}
+
+.inner-page .comparison-table__positive {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 0.9375rem;
+	line-height: 1.65;
+	color: var(--text);
+	background: rgba(220, 255, 101, 0.04);
+	inline-size: 39%;
+}
+
+/* Section 6: Trader Fit & Room Routing Section (light surface) */
+.inner-page .routing-cards,
+.inner-page .routing-grid {
+	margin-block-start: 32px;
+}
+
+.inner-page .route-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 28px;
+	background: var(--card-white);
+	border: 1px solid var(--card-light-border);
+	transition:
+		transform 0.25s var(--ease-out),
+		border-color 0.25s var(--ease-out);
+}
+
+.inner-page .route-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--card-featured-border);
+}
+
+.inner-page .route-card--primary,
+.inner-page .route-card--featured {
+	background: var(--card-featured-bg);
+	border-color: var(--card-featured-border);
+	border-block-start: 4px solid var(--card-featured-strip);
+}
+
+.inner-page .route-card__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-block-end: 14px;
+	border-block-end: 1px solid var(--card-light-border);
+}
+
+.inner-page .route-card__pill,
+.inner-page .route-card__badge {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 4px 8px;
+	background: var(--ink);
+	color: var(--acid);
+}
+
+.inner-page .route-card__title {
+	margin-block: 16px 10px;
+	color: var(--ink);
+	max-inline-size: none;
+}
+
+.inner-page .route-card__copy {
+	font-size: 0.9375rem;
+	line-height: 1.7;
+	color: #3e454c;
+	margin-block: 0 24px;
+}
+
+.inner-page .route-card__copy a {
+	color: var(--ink);
+	font-weight: 700;
+	text-decoration: underline;
+	text-decoration-color: var(--card-featured-strip);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 3px;
+}
+
+.inner-page .faq-item__answer a {
+	color: var(--acid);
+	font-weight: 700;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.inner-page .faq-item__answer strong {
+	color: var(--text);
+}
+
+.inner-page .faq-item__answer em {
+	font-style: italic;
+	color: #d2e79a;
+}
+
+@media (min-width: 640px) {
+	.inner-page .hero-metrics {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 768px) {
+	.inner-page .schedule-grid,
+	.inner-page .workflow-grid,
+	.inner-page .setups-grid,
+	.inner-page .playbooks-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.inner-page .execution-ticket__header,
+	.inner-page .swing-blueprint__header,
+	.inner-page .execution-ticket__intro,
+	.inner-page .swing-blueprint__intro,
+	.inner-page .ticket-steps,
+	.inner-page .blueprint-items,
+	.inner-page .execution-ticket__footer,
+	.inner-page .swing-blueprint__footer {
+		padding-inline: 25px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.inner-page .execution-ticket,
+	.inner-page .swing-blueprint {
+		grid-column: span 5;
+		position: sticky;
+		inset-block-start: calc(var(--nav-height) + 24px);
+	}
+
+	.inner-page .routing-cards,
+	.inner-page .routing-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1536px) {
+	.inner-page .schedule-grid,
+	.inner-page .workflow-grid,
+	.inner-page .setups-grid,
+	.inner-page .playbooks-grid,
+	.inner-page .routing-cards,
+	.inner-page .routing-grid {
+		gap: 24px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.inner-page .schedule-card:hover,
+	.inner-page .workflow-card:hover,
+	.inner-page .setup-card:hover,
+	.inner-page .playbook-card:hover,
+	.inner-page .route-card:hover {
 		transform: none;
 	}
 }

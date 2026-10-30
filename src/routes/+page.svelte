@@ -57,7 +57,14 @@
 	}
 
 	// Routes that are built; links to these navigate normally instead of showing the preview toast.
-	const LIVE_ROUTES = new Set(['/about', '/our-mission', '/mentorship', '/sitemap.xml']);
+	const LIVE_ROUTES = new Set([
+		'/about',
+		'/our-mission',
+		'/mentorship',
+		'/live-trading-rooms/day-trading-room',
+		'/live-trading-rooms/swing-trading-room',
+		'/sitemap.xml'
+	]);
 
 	function handlePreviewLink(href: string, targetId?: string, event?: MouseEvent) {
 		if (LIVE_ROUTES.has(href)) return;

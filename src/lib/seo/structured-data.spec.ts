@@ -1,11 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
 	ABOUT_FAQ_ITEMS,
+	DAY_TRADING_ROOM_FAQ_ITEMS,
 	MENTORSHIP_FAQ_ITEMS,
 	MISSION_FAQ_ITEMS,
+	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
+	buildDayTradingRoomJsonLd,
 	buildMentorshipJsonLd,
-	buildMissionJsonLd
+	buildMissionJsonLd,
+	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
 
 const ORIGIN = 'https://example.com';
@@ -126,5 +130,89 @@ describe('buildMentorshipJsonLd', () => {
 		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions.map((q) => q.name)).toEqual(MENTORSHIP_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildDayTradingRoomJsonLd', () => {
+	const graph = buildDayTradingRoomJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Day Trading Room as a Service linked from the WebPage', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/day-trading-room#webpage`
+		) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.about).toEqual({
+			'@id': `${ORIGIN}/live-trading-rooms/day-trading-room#service`
+		});
+
+		const service = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/day-trading-room#service`
+		) as Node;
+		expect(service['@type']).toBe('Service');
+		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(DAY_TRADING_ROOM_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildSwingTradingRoomJsonLd', () => {
+	const graph = buildSwingTradingRoomJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Swing Trading Room as a Service linked from the WebPage', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/swing-trading-room#webpage`
+		) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.about).toEqual({
+			'@id': `${ORIGIN}/live-trading-rooms/swing-trading-room#service`
+		});
+
+		const service = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/swing-trading-room#service`
+		) as Node;
+		expect(service['@type']).toBe('Service');
+		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(
+			SWING_TRADING_ROOM_FAQ_ITEMS.map((i) => i.question)
+		);
 	});
 });

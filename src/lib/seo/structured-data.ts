@@ -687,3 +687,207 @@ export function buildMentorshipJsonLd(origin: string) {
 		]
 	};
 }
+
+export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
+	{
+		id: 'liquid-institutional-stocks-options',
+		question: 'Do you trade micro-float penny stocks or liquid institutional stocks and options?',
+		answer:
+			'We strictly trade high-liquidity US stocks, ETFs, and options. We never touch illiquid micro-float penny stocks. In penny-stock chatrooms, the host buys shares early and alerts 5,000 members who drive the price up for 10 seconds before getting dumped on. By trading deeply liquid institutional equities, ETFs, and options contracts, every member in our room can enter and exit cleanly without slippage traps.'
+	},
+	{
+		id: 'live-voice-and-screen-share',
+		question:
+			'Will I actually see your screen and hear your voice live, or is it just text alerts?',
+		answer:
+			'You get live voice commentary and real-time screen sharing every market morning, paired with written level posts. Text-only rooms only tell you what someone bought after the fact. Watching our charts live and hearing our institutional thesis before the trigger price is hit teaches you why the trade works so you become a self-sufficient trader.'
+	},
+	{
+		id: 'goldman-sachs-mentorship-lineage',
+		question: 'How does your Goldman Sachs mentorship lineage change how you day trade?',
+		answer:
+			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." Instead of chasing retail breakout candles, we track institutional order flow, liquidity sweeps, and buyer/seller exhaustion—the exact methodology behind our 2020 COVID top and bottom calls, our 2022 bull top and bear bottom calls, and our live 600% overnight gain on OXY Put Options opposite Warren Buffett.'
+	},
+	{
+		id: 'spx-alerts-video-watchlists',
+		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
+		answer:
+			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Explosive Swings (/alert-services/explosive-swings), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+	},
+	{
+		id: 'custom-non-repainting-indicators-scanners',
+		question:
+			'Can I also use your custom non-repainting indicators and scanners alongside the room?',
+		answer:
+			'Yes. The exact 100% non-repainting indicators and institutional order-flow scanners you see on our shared screens every morning are available in our Store (/store/indicators, /store/scanners, and /store/courses), alongside our free Options Calculator (/resources/options-calculator).'
+	}
+] as const;
+
+export function buildDayTradingRoomJsonLd(origin: string) {
+	const pageUrl = `${origin}/live-trading-rooms/day-trading-room`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Live Day Trading Room | Revolution Trading Pros',
+				description:
+					'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#service` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
+				name: 'Real-Time Live Stock, ETF & Options Day Trading Room',
+				url: pageUrl,
+				provider: { '@id': `${origin}/#organization` },
+				serviceType: 'Live Intraday Stock and Options Trading Room',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				],
+				audience: {
+					'@type': 'Audience',
+					audienceType: 'Active Day Traders, Options Scalpers, and Full-Time Traders'
+				},
+				description:
+					'Daily live pre-market preparation, real-time voice commentary, live screen sharing, and institutional order-flow execution across liquid US stocks, ETFs, and options.'
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
+					{ '@type': 'ListItem', position: 3, name: 'Day Trading Room', item: pageUrl }
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: DAY_TRADING_ROOM_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}
+
+export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
+	{
+		id: 'working-pro-daily-time',
+		question:
+			'How much time per day do I need to follow the Swing Trading Room if I have a full-time job?',
+		answer:
+			'Most working professionals in our room spend 15 to 20 minutes in the evening or before work. Because our swing setups focus on multi-day and multi-week institutional moves, we map out exact entry trigger prices, profit targets, and hard stop-losses ahead of time so you can set conditional orders with your broker without watching intraday ticks.'
+	},
+	{
+		id: 'stocks-etfs-options-coverage',
+		question: 'Do you swing trade shares of stock, ETFs, or options contracts?',
+		answer:
+			'We cover all three: liquid US stocks, sector and index ETFs (See our ETF Stocks List (/resources/etf-stocks-list) and Stock Indexes List (/resources/stock-indexes-list)), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
+	},
+	{
+		id: 'swing-room-vs-explosive-swings',
+		question: 'How is the Swing Trading Room different from your Explosive Swings alert service?',
+		answer:
+			'The Swing Trading Room gives you full interactive room access—including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Explosive Swings (/alert-services/explosive-swings) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+	},
+	{
+		id: 'methodology-2020-2022-oxy',
+		question:
+			'How did your methodology call the 2020 and 2022 tops/bottoms and the +600% OXY trade?',
+		answer:
+			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." By tracking institutional liquidity exhaustion, volume anomalies, and smart-money distribution rather than lagging retail indicators, we called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and shorted Occidental Petroleum (OXY) live with Put Options for a 600% overnight gain while Warren Buffett bought millions long.'
+	},
+	{
+		id: 'non-repainting-indicators-courses-mentorship',
+		question:
+			'Can I pair the Swing Trading Room with your custom non-repainting indicators and courses?',
+		answer:
+			'Yes. All of the 100% non-repainting indicators and institutional scanners we use to spot multi-day accumulation and distribution are available in our Store (/store/indicators, /store/scanners, and /store/courses). If you want private, personalized coaching, you can also apply for our application-only 1-on-1 Mentorship (/mentorship).'
+	}
+] as const;
+
+export function buildSwingTradingRoomJsonLd(origin: string) {
+	const pageUrl = `${origin}/live-trading-rooms/swing-trading-room`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Live Swing Trading Room | Revolution Trading Pros',
+				description:
+					'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#service` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
+				name: 'Stock, ETF & Options Swing Trading Room for Working Professionals',
+				url: pageUrl,
+				provider: { '@id': `${origin}/#organization` },
+				serviceType: 'Multi-Day Stock and Options Swing Trading Room',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				],
+				audience: {
+					'@type': 'Audience',
+					audienceType:
+						'Working Professionals, 9-to-5 Careers, and Multi-Day Stock and Options Swing Traders'
+				},
+				description:
+					'Institutional multi-day stock, ETF, and options swing trading room delivering pre-planned entry triggers, tiered profit targets, hard stop-losses, and evening video chart reviews.'
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
+					{ '@type': 'ListItem', position: 3, name: 'Swing Trading Room', item: pageUrl }
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SWING_TRADING_ROOM_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

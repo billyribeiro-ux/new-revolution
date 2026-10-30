@@ -524,11 +524,10 @@
 							>I know the frustration of missing A+ moves or buying late at the top, because I stood
 							on the losing end myself in the past.</strong
 						>
-						Retail traders lose because they waste hours hunting for setups manually while Wall
-						Street algorithms scan the entire market in milliseconds. When former Goldman Sachs
-						proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong> mentored me
-						directly and called me <em>"the future of trading,"</em> I learned how institutional desks
-						filter the tape.
+						Retail traders lose because they waste hours hunting for setups manually while Wall Street
+						algorithms scan the entire market in milliseconds. When former Goldman Sachs proprietary trading
+						legend <strong>Mark "Goldfinger" McGoldrick</strong> mentored me directly and called me
+						<em>"the future of trading,"</em> I learned how institutional desks filter the tape.
 					</p>
 
 					<p class="body-copy">
@@ -996,7 +995,7 @@
 					</h2>
 				</div>
 
-				<div class="table-wrapper" role="region" aria-labelledby="comparison-h2" tabindex="0">
+				<div class="table-wrapper" role="region" aria-labelledby="comparison-h2">
 					<table class="comparison-table">
 						<thead>
 							<tr>

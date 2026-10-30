@@ -251,11 +251,10 @@
 		padding-block: 25px 20px;
 		border-block-start: 1px solid #2c333a;
 		border-block-end: 1px solid #2c333a;
-	}
-
-	.risk-box-title {
-		color: #d8dfd1;
-		margin-block: 0 8px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 	}
 
 	.risk-box p {
@@ -268,7 +267,26 @@
 		letter-spacing: 0.01em;
 		max-inline-size: min(110ch, 1200px);
 		color: #949b9e;
-		margin: 0;
+		margin-block: 0;
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.risk-box .risk-box-title {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-stretch: 87.5%;
+		font-variation-settings: 'wdth' 87.5;
+		font-size: 0.75rem;
+		line-height: 1.5;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #d8dfd1;
+		inline-size: 100%;
+		max-inline-size: min(110ch, 1200px);
+		margin-block: 0 10px;
+		margin-inline: auto;
+		text-align: center;
 	}
 
 	.footer-bottom {

@@ -1166,6 +1166,7 @@
 			Roboto,
 			sans-serif;
 		line-height: 1.65;
+		overflow-x: clip;
 	}
 
 	.container {
@@ -1335,7 +1336,7 @@
 
 	.hero-section__grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 2.5rem;
 		align-items: start;
 	}
@@ -1409,6 +1410,7 @@
 
 	.quick-ref-card__header {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: 1rem;
@@ -1487,7 +1489,7 @@
 
 	.benefits-grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.25rem;
 		margin-bottom: 2.75rem;
 	}
@@ -1560,7 +1562,7 @@
 
 	.types-grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.25rem;
 	}
 
@@ -1665,7 +1667,7 @@
 
 	.etf-grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.5rem;
 	}
 
@@ -1809,7 +1811,7 @@
 
 	.sector-grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.5rem;
 	}
 
@@ -1971,7 +1973,7 @@
 	.comparison-summary {
 		margin-top: 1.75rem;
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.5rem;
 	}
 
@@ -2107,7 +2109,7 @@
 
 	.room-cta-grid {
 		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1.25rem;
 	}
 
@@ -2181,7 +2183,7 @@
 		.sector-grid,
 		.comparison-summary,
 		.room-cta-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
@@ -2210,7 +2212,7 @@
 			padding: 4.5rem 0;
 		}
 		.hero-section__grid {
-			grid-template-columns: repeat(12, 1fr);
+			grid-template-columns: repeat(12, minmax(0, 1fr));
 			gap: 2.5rem;
 		}
 		.hero-section__main {
@@ -2224,7 +2226,7 @@
 		.etf-grid,
 		.sector-grid,
 		.room-cta-grid {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 
@@ -2233,10 +2235,10 @@
 			gap: 3.5rem;
 		}
 		.etf-grid {
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 		.room-cta-grid {
-			grid-template-columns: repeat(5, 1fr);
+			grid-template-columns: repeat(5, minmax(0, 1fr));
 		}
 	}
 

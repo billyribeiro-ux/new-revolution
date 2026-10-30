@@ -191,6 +191,20 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(inputFocusOutline.outlineWidth).toBe('3px');
 		expect(inputFocusOutline.outlineColor).toBe('rgb(220, 255, 101)');
 		expect(inputFocusOutline.outlineOffset).toBe('4px');
+
+		// Verify Footer .risk-box and its paragraphs are centered
+		const riskBoxAlign = await page.locator('.risk-box').evaluate((el) => {
+			const title = el.querySelector('.risk-box-title');
+			const body = el.querySelector('p:not(.risk-box-title)');
+			return {
+				boxTextAlign: getComputedStyle(el).textAlign,
+				titleTextAlign: title ? getComputedStyle(title).textAlign : null,
+				bodyTextAlign: body ? getComputedStyle(body).textAlign : null
+			};
+		});
+		expect(riskBoxAlign.boxTextAlign).toBe('center');
+		expect(riskBoxAlign.titleTextAlign).toBe('center');
+		expect(riskBoxAlign.bodyTextAlign).toBe('center');
 	});
 
 	test('handles desktop dropdown keyboard focus traversal and outside-click dismissal', async ({

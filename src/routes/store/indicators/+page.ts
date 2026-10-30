@@ -46,4 +46,3 @@ export const load: PageLoad = ({ url }) => {
 		jsonLdSchema: buildIndicatorsStoreJsonLd(SITE_ORIGIN)
 	};
 };
-

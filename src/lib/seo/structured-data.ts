@@ -1176,3 +1176,149 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 		]
 	};
 }
+
+export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'beginner-500-account',
+		question:
+			'I am a complete beginner or starting with a $500 account—which course should I take first?',
+		answer:
+			'Start with Course 02 (The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint) paired with Course 08 (Ironclad Risk Architecture). They give you the exact mathematical position-sizing rules, cash-account settlement rotation, and pre-trade checklists we execute daily inside our Small Accounts Room.'
+	},
+	{
+		id: 'indicators-scanners-optional',
+		question:
+			'Do I need to buy your custom indicators or scanners to use what is taught in the courses?',
+		answer:
+			'No—raw price, volume, and Options Greeks come first. Every course teaches you how to read institutional market structure on any standard charting platform. Our 100% non-repainting Custom Indicators and Institutional Scanners are optional accelerators designed to spot those exact setups faster across multiple timeframes.'
+	},
+	{
+		id: 'courses-vs-mentorship-rooms',
+		question:
+			'How is a self-paced course different from your 1-on-1 Mentorship or Live Trading Rooms?',
+		answer:
+			'Our Courses give you permanent, on-demand video modules and written playbooks to study at your own pace. Our Live Trading Rooms and Alert Services let you execute those playbooks alongside our desk in real time. Our 1-on-1 Mentorship is an application-and-approval-only private coaching partnership for Portfolio Managers, Pro Traders, and Struggling Traders seeking direct personal transformation.'
+	},
+	{
+		id: 'us-canadian-brokerages',
+		question: 'Do your courses cover both US and Canadian brokerage accounts?',
+		answer:
+			'Yes. Our curriculum covers US-listed stocks, ETFs, and options contracts traded by members across both the United States and Canada—including US Pattern Day Trader (PDT) and T+1 cash settlement rules as well as Canadian margin and registered account considerations.'
+	}
+];
+
+export const COURSES_CATALOG_SCHEMA_ITEMS = [
+	{
+		position: 1,
+		name: 'The Move Prior to The Move: Institutional Order Flow & Price Action',
+		description:
+			'Anticipate institutional accumulation and distribution before the retail breakout candle prints.'
+	},
+	{
+		position: 2,
+		name: 'The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint',
+		description:
+			'Mathematical strategies for protecting and growing a small trading account starting as low as $500.'
+	},
+	{
+		position: 3,
+		name: 'Options Greeks Mastery: Delta, Gamma, Theta & Vega Execution',
+		description:
+			'Master the four primary Options Greeks to structure high-probability spreads and directional trades.'
+	},
+	{
+		position: 4,
+		name: 'Multi-Day Swing Trading for Working Professionals (20-Minute Routine)',
+		description:
+			'Capture explosive 3-to-15 day stock and options moves in 20 minutes a day around a 9-to-5 career.'
+	},
+	{
+		position: 5,
+		name: 'SPX & Index Options Execution: Dealer Gamma Walls & Intraday Flow',
+		description:
+			'Identify institutional dealer hedging levels, gamma magnet strikes, and A+ intraday reversals on SPX, SPY, and QQQ.'
+	},
+	{
+		position: 6,
+		name: 'Contrarian Distribution & Put Options: Fading Retail Euphoria Live',
+		description:
+			'Deconstruct the exact institutional distribution playbook behind our live +600% overnight OXY Put Options trade vs. Warren Buffett.'
+	},
+	{
+		position: 7,
+		name: 'Macro Cycle Inflection Timing: Calling Generational Tops & Bottoms',
+		description:
+			'Learn the exact top-down macro breadth, liquidity, and volatility framework that called the 2020 COVID and 2022 market tops and bottoms.'
+	},
+	{
+		position: 8,
+		name: 'Ironclad Risk Architecture & Eradicating Retail Self-Sabotage',
+		description:
+			'Eliminate FOMO, revenge trading, hesitation, and early profit-taking by installing a mechanical pre-trade execution protocol.'
+	}
+] as const;
+
+export function buildCoursesStoreJsonLd(origin: string) {
+	const pageUrl = `${origin}/store/courses`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Stock & Options Trading Courses | Revolution Trading Pros',
+				description:
+					'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#catalog` },
+				mainEntity: { '@id': `${pageUrl}#catalog` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Store', item: pageUrl },
+					{ '@type': 'ListItem', position: 3, name: 'Courses', item: pageUrl }
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#catalog`,
+				name: 'Revolution Trading Pros Institutional Stock & Options Curriculum',
+				numberOfItems: COURSES_CATALOG_SCHEMA_ITEMS.length,
+				itemListElement: COURSES_CATALOG_SCHEMA_ITEMS.map((course) => ({
+					'@type': 'ListItem',
+					position: course.position,
+					item: {
+						'@type': 'Course',
+						name: course.name,
+						description: course.description,
+						provider: { '@id': `${origin}/#organization` }
+					}
+				}))
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: COURSES_STORE_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

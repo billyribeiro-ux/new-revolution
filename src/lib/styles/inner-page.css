@@ -4091,3 +4091,517 @@
 		transform: none;
 	}
 }
+
+/* ==========================================================================
+   Store — Stock & Options Trading Courses (/store/courses)
+   ========================================================================== */
+.inner-page .starter-router {
+	position: relative;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background:
+		radial-gradient(460px 260px at 88% 0%, rgba(212, 168, 83, 0.14), transparent 68%),
+		linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	padding: 28px;
+	box-shadow: var(--shadow-lg);
+	overflow: hidden;
+}
+
+.inner-page .starter-router::before {
+	content: '';
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 2px;
+	background: linear-gradient(90deg, var(--gold), var(--teal), transparent);
+}
+
+.inner-page .starter-router__header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .starter-router__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.25rem;
+	line-height: 1.2;
+	margin: 4px 0 0;
+	color: var(--text);
+}
+
+.inner-page .starter-router__badge {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.68rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	white-space: nowrap;
+}
+
+.inner-page .starter-router__intro {
+	font-family: var(--font-body);
+	font-size: 0.91rem;
+	line-height: 1.55;
+	margin: 16px 0;
+	color: var(--text-secondary);
+}
+
+.inner-page .router-options {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.inner-page .router-option {
+	width: 100%;
+	text-align: left;
+	background: rgba(11, 14, 18, 0.68);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	padding: 14px 16px;
+	color: var(--text);
+	cursor: pointer;
+	transition:
+		background-color 0.18s var(--ease-out),
+		border-color 0.18s var(--ease-out),
+		transform 0.18s var(--ease-out);
+}
+
+.inner-page .router-option:hover {
+	background: rgba(212, 168, 83, 0.1);
+	border-color: rgba(212, 168, 83, 0.45);
+	transform: translateY(-1px);
+}
+
+.inner-page .router-option__top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+
+.inner-page .router-option__tag {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--gold-bright);
+}
+
+.inner-page .router-option__arrow {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--gold-bright);
+}
+
+.inner-page .router-option strong {
+	display: block;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.94rem;
+	margin-bottom: 4px;
+	color: var(--text);
+}
+
+.inner-page .router-option p {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.82rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+}
+
+/* Course Cards Grid */
+.inner-page .courses-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+}
+
+.inner-page .course-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
+	transition:
+		transform 0.2s var(--ease-out),
+		border-color 0.2s var(--ease-out),
+		box-shadow 0.2s var(--ease-out);
+}
+
+.inner-page .course-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--border-strong);
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .course-card__banner {
+	background: rgba(9, 12, 16, 0.92);
+	color: var(--text);
+	padding: 14px 18px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .course-card__banner-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .course-card__code {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--text-muted);
+}
+
+.inner-page .course-card__level {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	padding: 3px 8px;
+	border-radius: 999px;
+}
+
+.inner-page .course-card__banner-bottom {
+	margin-top: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--gold-bright);
+}
+
+.inner-page .course-card__modules {
+	color: var(--text-secondary);
+}
+
+.inner-page .course-card__body {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.inner-page .course-card__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.12rem;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+	margin: 0 0 10px;
+	color: var(--text);
+}
+
+.inner-page .course-card__hook {
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 0.94rem;
+	line-height: 1.5;
+	color: var(--text);
+	margin: 0 0 16px;
+}
+
+.inner-page .course-card__outcome-box {
+	background: rgba(11, 14, 18, 0.65);
+	border-left: 3px solid var(--gold);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	padding: 10px 12px;
+	margin-bottom: 14px;
+}
+
+.inner-page .course-card__outcome-box strong {
+	display: block;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-bottom: 4px;
+	color: var(--gold-bright);
+}
+
+.inner-page .course-card__outcome-box p {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.82rem;
+	line-height: 1.48;
+	color: var(--text-secondary);
+}
+
+.inner-page .course-card__syllabus {
+	margin: 4px 0 14px;
+	padding: 12px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-md);
+	background: rgba(11, 14, 18, 0.72);
+}
+
+.inner-page .syllabus-list {
+	margin: 8px 0 0;
+	padding-left: 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-family: var(--font-body);
+	font-size: 0.82rem;
+	line-height: 1.42;
+	color: var(--text-secondary);
+}
+
+.inner-page .course-card__room-bridge {
+	margin-top: auto;
+	padding-top: 8px;
+}
+
+.inner-page .bridge-link {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--gold-bright);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.inner-page .course-card__footer {
+	padding: 0 20px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.inner-page .course-card__syllabus-btn {
+	min-height: 40px;
+	font-size: 0.6875rem;
+	padding: 8px;
+}
+
+/* 4. Unified Lineage Section */
+.inner-page .lineage-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .lineage-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 40px;
+	align-items: start;
+}
+
+.inner-page .lineage-list {
+	margin: 20px 0 0;
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.inner-page .lineage-list li {
+	font-family: var(--font-body);
+	font-size: 0.97rem;
+	line-height: 1.6;
+	max-width: 60ch;
+	color: var(--text-secondary);
+}
+
+.inner-page .lineage-list li strong {
+	color: var(--text);
+	font-weight: 700;
+}
+
+.inner-page .lineage-card {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background:
+		radial-gradient(420px 220px at 88% 0%, rgba(212, 168, 83, 0.14), transparent 70%),
+		linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	padding: 28px;
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .lineage-card__name {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.5rem;
+	margin: 4px 0;
+	color: var(--text);
+}
+
+.inner-page .lineage-card__role {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--gold-bright);
+	margin: 0 0 16px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .lineage-card__copy {
+	font-family: var(--font-body);
+	font-size: 0.94rem;
+	line-height: 1.6;
+	margin: 0 0 24px;
+	color: var(--text-secondary);
+}
+
+.inner-page .lineage-card__copy strong {
+	color: var(--text);
+	font-weight: 700;
+}
+
+.inner-page .lineage-card__links {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+/* 5. What You Get Deliverables Section */
+.inner-page .deliverables-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+	background:
+		radial-gradient(640px 280px at 20% 10%, rgba(46, 211, 166, 0.06), transparent 70%),
+		linear-gradient(180deg, rgba(16, 20, 26, 0.6), rgba(11, 14, 18, 0.92));
+}
+
+.inner-page .deliverables-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+}
+
+.inner-page .deliverable-card {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 24px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .deliverable-card__top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .deliverable-card__num {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.35);
+	color: var(--gold-bright);
+	padding: 3px 8px;
+	border-radius: 999px;
+}
+
+.inner-page .deliverable-card__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.15rem;
+	line-height: 1.3;
+	margin: 16px 0 8px;
+	color: var(--text);
+}
+
+.inner-page .deliverable-card__desc {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.94rem;
+	line-height: 1.55;
+	color: var(--text-secondary);
+}
+
+@media (min-width: 640px) {
+	.inner-page .courses-grid,
+	.inner-page .deliverables-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.inner-page .lineage-grid {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 40px;
+	}
+
+	.inner-page .lineage-content {
+		grid-column: span 7;
+	}
+
+	.inner-page .starter-router,
+	.inner-page .lineage-card {
+		grid-column: span 5;
+	}
+
+	.inner-page .courses-grid,
+	.inner-page .deliverables-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1280px) {
+	.inner-page .lineage-grid {
+		gap: 56px;
+	}
+
+	.inner-page .courses-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.inner-page .course-card:hover,
+	.inner-page .router-option:hover {
+		transform: none;
+	}
+}

@@ -66,6 +66,7 @@
 		'/live-trading-rooms/small-accounts-room',
 		'/blogs',
 		'/store/indicators',
+		'/store/courses',
 		'/sitemap.xml'
 	]);
 

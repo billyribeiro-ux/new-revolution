@@ -359,6 +359,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/blogs</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/courses</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/indicators</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
@@ -772,6 +773,71 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /store/courses route metadata, JSON-LD, and DOM parity
+		const expectedCoursesUrl = `${origin}/store/courses`;
+		await page.goto('/store/courses');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const coursesTitle = await page.title();
+		expect(coursesTitle).toBe('Stock & Options Trading Courses | Revolution Trading Pros');
+		expect(coursesTitle.length).toBe(57);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const coursesDesc = await page.locator('head meta[name="description"]').getAttribute('content');
+		expect(coursesDesc).toBe(
+			'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.'
+		);
+		expect(coursesDesc?.length).toBe(148);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedCoursesUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedCoursesUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedCoursesUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedCoursesUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.course-card')).toHaveCount(8);
+		await expect(page.locator('.deliverable-card')).toHaveCount(6);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const coursesJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const coursesSchema = JSON.parse(coursesJsonLdText!);
+		const coursesFaqNode = coursesSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleCoursesFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(coursesFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleCoursesFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

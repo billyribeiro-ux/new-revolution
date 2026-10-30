@@ -3,6 +3,14 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "pnpm@12.16.1",
+	"engines": {
+		"node": ">=24.0.0",
+		"pnpm": ">=10.0.0",
+		"npm": "please-use-pnpm",
+		"yarn": "please-use-pnpm",
+		"bun": "please-use-pnpm"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -13,7 +21,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run && npm run test:e2e",
+		"test": "pnpm run test:unit --run && pnpm run test:e2e",
 		"test:e2e": "playwright install && playwright test",
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",

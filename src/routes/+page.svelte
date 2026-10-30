@@ -68,6 +68,7 @@
 		'/blogs',
 		'/store/indicators',
 		'/store/courses',
+		'/store/scanners',
 		'/sitemap.xml'
 	]);
 

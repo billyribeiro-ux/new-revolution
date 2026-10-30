@@ -370,6 +370,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system</loc>'
 		);
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/scanners</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
@@ -1045,6 +1046,73 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(spxFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(visibleSpxFaqs);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /alert-services/spx-profit-pulse
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /store/scanners route metadata, JSON-LD, and DOM parity
+		const expectedScannersUrl = `${origin}/store/scanners`;
+		await page.goto('/store/scanners');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const scannersTitle = await page.title();
+		expect(scannersTitle).toBe('Live Stock & Options Scanners | Revolution Trading Pros');
+		expect(scannersTitle.length).toBe(55);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const scannersDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(scannersDesc).toBe(
+			'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.'
+		);
+		expect(scannersDesc?.length).toBe(148);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedScannersUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedScannersUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedScannersUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedScannersUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.scanner-card')).toHaveCount(8);
+		await expect(page.locator('.workflow-card')).toHaveCount(3);
+		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const scannersJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const scannersSchema = JSON.parse(scannersJsonLdText!);
+		const scannersFaqNode = scannersSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleScannersFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(scannersFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleScannersFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/scanners
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

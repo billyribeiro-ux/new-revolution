@@ -1166,7 +1166,6 @@
 			Roboto,
 			sans-serif;
 		line-height: 1.65;
-		overflow-x: clip;
 	}
 
 	.container {
@@ -1336,7 +1335,7 @@
 
 	.hero-section__grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 2.5rem;
 		align-items: start;
 	}
@@ -1410,7 +1409,6 @@
 
 	.quick-ref-card__header {
 		display: flex;
-		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: 1rem;
@@ -1489,7 +1487,7 @@
 
 	.benefits-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.25rem;
 		margin-bottom: 2.75rem;
 	}
@@ -1562,7 +1560,7 @@
 
 	.types-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.25rem;
 	}
 
@@ -1667,7 +1665,7 @@
 
 	.etf-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}
 
@@ -1811,7 +1809,7 @@
 
 	.sector-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}
 
@@ -1973,7 +1971,7 @@
 	.comparison-summary {
 		margin-top: 1.75rem;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}
 
@@ -2109,7 +2107,7 @@
 
 	.room-cta-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: 1fr;
 		gap: 1.25rem;
 	}
 

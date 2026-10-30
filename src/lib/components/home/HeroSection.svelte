@@ -240,8 +240,6 @@
 	.hero-note {
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-stretch: 92%;
-		font-variation-settings: 'wdth' 92;
 		font-size: 0.75rem;
 		line-height: 1.65;
 		letter-spacing: 0.01em;
@@ -317,8 +315,6 @@
 		inset-inline-start: 20px;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		color: #8b938e;
 		letter-spacing: 0.06em;

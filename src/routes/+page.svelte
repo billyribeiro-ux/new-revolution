@@ -204,8 +204,6 @@
 		border-block-end: 0;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;

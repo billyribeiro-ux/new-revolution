@@ -476,7 +476,6 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 900;
-		font-stretch: 100%;
 		font-size: 0.9375rem;
 		line-height: 1.02;
 		letter-spacing: -0.025em;
@@ -489,8 +488,6 @@
 		display: block;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 90%;
-		font-variation-settings: 'wdth' 90;
 		font-size: 0.52rem;
 		line-height: 1.1;
 		letter-spacing: 0.08em;
@@ -517,7 +514,6 @@
 	.nav-dropdown-trigger {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-stretch: 100%;
 		font-size: 0.875rem;
 		line-height: 1.2;
 		letter-spacing: 0.01em;

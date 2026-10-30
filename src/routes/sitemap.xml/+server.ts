@@ -4,21 +4,27 @@ import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
 	const baseUrl = 'https://revolutiontradingpros.com';
-	const today = new Date().toISOString().split('T')[0];
 
 	// 1. Automatically discover every +page.svelte route in src/routes/
 	const pageModules = import.meta.glob('/src/routes/**/+page.svelte');
 
-	const discoveredRoutes = Object.keys(pageModules)
-		.map((filePath) => {
-			return (
-				filePath
-					.replace('/src/routes', '')
-					.replace('/+page.svelte', '')
-					.replace(/\/\([^)]+\)/g, '') || // Strip SvelteKit route groups like /(marketing)
-				'/'
-			);
-		})
+	const allRoutes = Object.keys(pageModules).map((filePath) => {
+		return (
+			filePath
+				.replace('/src/routes', '')
+				.replace('/+page.svelte', '')
+				.replace(/\/\([^)]+\)/g, '') || // Strip SvelteKit route groups like /(marketing)
+			'/'
+		);
+	});
+
+	// Dynamic `[param]` templates that exist in the build; a slug URL is only listable if one matches it.
+	const dynamicTemplates = allRoutes
+		.filter((route) => route.includes('['))
+		.map((route) => new RegExp(`^${route.replace(/\[[^\]]+\]/g, '[^/]+')}$`));
+	const hasRoute = (path: string) => dynamicTemplates.some((template) => template.test(path));
+
+	const discoveredRoutes = allRoutes
 		.filter((route) => {
 			// Exclude dynamic [slug] templates, demo/ad squeeze routes, and private/auth routes
 			return (
@@ -38,11 +44,13 @@ export const GET: RequestHandler = async () => {
 			return a.localeCompare(b);
 		});
 
-	// 2. Dynamic Blog Posts & Course/Indicator Pages (Fetch from your Laravel API in production)
-	const dynamicRoutes = [
-		{ path: '/store/courses/move-prior-to-the-move-ultra', lastmod: today },
-		{ path: '/store/indicators/move-prior-to-the-move-system', lastmod: today },
-		{ path: '/store/scanners/high-octane-scanner', lastmod: today },
+	// 2. Dynamic slug pages. `lastmod` is optional and is only emitted when it is a real, recorded date:
+	//    Google uses it only if it is consistently and verifiably accurate, so a build-date stamp is worse than none.
+	//    An entry is listed only when a route template for it exists in the build (no 404s in the sitemap).
+	const dynamicRoutes: { path: string; lastmod?: string }[] = [
+		{ path: '/store/courses/move-prior-to-the-move-ultra' },
+		{ path: '/store/indicators/move-prior-to-the-move-system' },
+		{ path: '/store/scanners/high-octane-scanner' },
 		{ path: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight', lastmod: '2026-10-28' },
 		{
 			path: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',
@@ -52,22 +60,20 @@ export const GET: RequestHandler = async () => {
 			path: '/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine',
 			lastmod: '2026-10-20'
 		}
+	].filter(({ path }) => hasRoute(path));
+
+	const entries: { path: string; lastmod?: string }[] = [
+		...discoveredRoutes.map((path) => ({ path })),
+		...dynamicRoutes
 	];
 
-	const staticEntries = discoveredRoutes.map((path) => ({
-		path,
-		lastmod: today
-	}));
-
-	const allRoutes = [...staticEntries, ...dynamicRoutes];
-
-	const urlNodes = allRoutes
+	const urlNodes = entries
 		.map(({ path, lastmod }) => {
 			const fullUrl = `${baseUrl}${path === '/' ? '' : path}`;
 			return [
 				'  <url>',
 				`    <loc>${fullUrl}</loc>`,
-				`    <lastmod>${lastmod}</lastmod>`,
+				...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
 				`    <xhtml:link rel="alternate" hreflang="en-us" href="${fullUrl}" />`,
 				`    <xhtml:link rel="alternate" hreflang="en-ca" href="${fullUrl}" />`,
 				`    <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}" />`,

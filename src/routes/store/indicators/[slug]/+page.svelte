@@ -262,6 +262,8 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
+<a class="skip" href="#indicator-product-page">Skip to content</a>
+
 <div class="app-shell">
 	<Navbar />
 

@@ -69,7 +69,6 @@
 		cursor: pointer;
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-stretch: 100%;
 		font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
 		line-height: 1.45;
 		letter-spacing: -0.01em;
@@ -83,7 +82,6 @@
 	.faqs summary .faq-question {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-stretch: 100%;
 		font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
 		line-height: 1.45;
 		letter-spacing: -0.01em;
@@ -111,7 +109,6 @@
 		color: var(--text-secondary);
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-stretch: 100%;
 		font-size: 0.96875rem;
 		line-height: 1.8;
 		letter-spacing: 0.005em;

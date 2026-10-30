@@ -456,6 +456,8 @@
 	<JsonLd schema={data.jsonLdSchema} />
 {/if}
 
+<a class="skip" href="#scanners-store-page">Skip to content</a>
+
 <div class="app-shell">
 	<Navbar />
 

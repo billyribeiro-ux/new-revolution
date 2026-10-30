@@ -3220,7 +3220,6 @@
 }
 
 .inner-page .sidebar-lead-form__input:focus {
-	outline: none;
 	border-color: var(--acid);
 }
 
@@ -7906,7 +7905,6 @@
 }
 
 .indexes-page .filter-select:focus {
-	outline: none;
 	border-color: var(--acid);
 }
 

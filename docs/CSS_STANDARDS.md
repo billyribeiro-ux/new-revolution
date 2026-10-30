@@ -114,7 +114,8 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
      - **Fast 3G (1.6 Mbps, 150 ms RTT):** `/` FCP/LCP regressed from **400 ms → 744 ms** (+344 ms); `/about` regressed from **512 ms → 940 ms** (+428 ms), with **0.0000 CLS** in both configurations.
      - **4G (9 Mbps, 40 ms RTT):** `/` FCP/LCP regressed from **152 ms → 240 ms** (+88 ms); `/about` regressed from **168 ms → 256 ms** (+88 ms), with **0.0000 CLS** in both configurations.
    - Do not add font preloads unless a future benchmark proves a net FCP/LCP improvement.
-5. **Licensing:** Full OFL-1.1 license attributions for Montserrat and Sofia Sans are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
+5. **Never Hardcode Family Names:** Fontsource registers only `'Montserrat Variable'` and `'Sofia Sans Variable'`. A literal `'Montserrat'` or `'Sofia Sans'` matches no loaded face and silently falls back to a system font. Always use `var(--font-display)` / `var(--font-sans)`; `pnpm check:css` fails on the bare names.
+6. **Licensing:** Full OFL-1.1 license attributions for Montserrat and Sofia Sans are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
 
 ---
 
@@ -133,6 +134,11 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
    ```
 3. **Minimal `:global(...)` Usage:** Use `:global(...)` only when styling child component roots or framework states (such as `body.menu-open` or `.reveal.in-view`), and always scope it to a local parent selector when inside a component.
 4. **Sharp Architectural Geometry:** The Revolution Trading Pros visual system uses crisp `0px` (`border-radius: 0`) corners on primary cards, buttons, and structural panels, paired with `1px solid var(--line)` hairlines. Do not introduce arbitrary pill-rounded buttons or blue SaaS cards on marketing pages.
+5. **Share Repeated Page Chrome as Scoped Components, Not Copied CSS:** `src/lib/components/layout/Breadcrumb.svelte` is the reference: scoped `<style>`, content through a snippet (`children`), and a `class` prop typed `ClassValue` applied to the inner box. Pass custom properties or `class`; never reach into a child with `:global`. It is for pages that do **not** use the `.inner-page` system (`/resources`, `/resources/etf-stocks-list`). Pages wrapped in `.inner-page` keep the inline breadcrumb markup styled by `src/lib/styles/inner-page.css`; using the component there would double-style it.
+6. **Static Page Content Lives in `src/lib/data/*.ts`, Not the Component:** Module-scope data is created once and can be shared with the JSON-LD builders in `src/lib/seo/structured-data.ts` (see `etf-stocks-list.ts`, `resources-hub.ts`). FAQ copy has exactly one owner (an `*_FAQ_ITEMS` export in `structured-data.ts`); the page renders from it so visible text and `FAQPage` JSON-LD cannot drift.
+7. **State Belongs in ARIA, Styling Follows It:** Style toggles from `aria-pressed` / `aria-current` (`.filter-tab[aria-pressed='true']`) so the visual and accessible state cannot diverge. Use `role="group"` + `aria-pressed` for filter buttons; only use `role="tablist"` with real `tabpanel`s and arrow-key handling.
+8. **Every Page Ships a Skip Link:** `<a class="skip" href="#<main id>">Skip to content</a>` before the shell (the `.skip` styles are global in `src/app.css`).
+9. **Internal Links Use `resolve()`.** Routes that do not exist yet are linked through the single `as '/'` cast and 404 at prerender only because `PLANNED_ROUTE_PATTERN` in `vite.config.ts` is a section-prefix regex. When you build one of those pages, follow the wiring steps in [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md) §4 (the regex entry can only be removed when its whole section is complete) and drop the cast at its call sites.
 
 ---
 
@@ -169,9 +175,12 @@ Base styles target `320px+` viewports first, scaling upward via `min-width` medi
 Before committing any CSS or component change, run:
 
 ```bash
-pnpm check:css       # Verifies 0 undeclared CSS custom properties across src/**/*.{css,svelte}
+pnpm check:css       # Verifies 0 undeclared CSS custom properties and 0 hardcoded font family names across src/
 pnpm check           # svelte-check (0 errors, 0 warnings, including unused CSS selectors)
 pnpm lint            # Prettier + ESLint
 pnpm test:unit --run # Vitest unit tests
 pnpm test:e2e        # Playwright end-to-end verification
+pnpm check:pages     # after `pnpm build`: prerendered-page contract (h1, skip link, canonical, FAQ parity)
 ```
+
+For the step-by-step procedure to add a page or component (files, wiring, tests, visual diff, known debt), follow [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md).

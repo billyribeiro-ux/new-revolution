@@ -34,13 +34,25 @@ pnpm dlx sv add tailwindcss
 
 ## Developing
 
-Once you've created a project and installed dependencies with `pnpm install`, start a development server:
+> **Note:** This project strictly enforces **`pnpm` (`pnpm@12.16.1`)** via `.npmrc` (`engine-strict=true`) and `package.json#engines`. Running `npm`, `yarn`, or `bun` is blocked.
+
+Once you've installed dependencies with `pnpm install`, start the development server:
 
 ```sh
 pnpm run dev
 
 # or start the server and open the app in a new browser tab
 pnpm run dev --open
+```
+
+## Typechecking, Linting & Testing
+
+```sh
+pnpm run check
+pnpm run lint
+pnpm run format
+pnpm run test:unit --run
+pnpm run test:e2e
 ```
 
 ## Building
@@ -52,3 +64,21 @@ pnpm run build
 ```
 
 You can preview the production build with `pnpm run preview`.
+
+## Key Dependency Versions
+
+| Package            | Version    |
+| :----------------- | :--------- |
+| `svelte`           | `^5.57.3`  |
+| `@sveltejs/kit`    | `^3.1.0`   |
+| `vite`             | `^8.3.5`   |
+| `typescript`       | `6.0.3`    |
+| `@types/node`      | `^26.6.6`  |
+| `@threlte/core`    | `^8.6.1`   |
+| `@threlte/extras`  | `^9.22.4`  |
+| `three`            | `^0.186.1` |
+| `gsap`             | `^3.15.0`  |
+| `phosphor-svelte`  | `^3.1.1`   |
+| `svelte-meta-tags` | `^5.0.3`   |
+| `drizzle-orm`      | `^0.45.4`  |
+| `better-auth`      | `^1.7.14`  |

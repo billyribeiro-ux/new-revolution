@@ -1,6 +1,6 @@
 # REVOLUTION TRADING PROS — MASTER ARCHITECTURE, COPYWRITING & OCT 2026 SEO DIRECTIVE (FOR ARGON AI)
 
-> **SYSTEM MANDATE FOR ARGON:** You are building and maintaining **Revolution Trading Pros** (`https://revolutiontradingpros.com`) using **Svelte 5 (Runes: `$state`, `$derived`, `$props`, `$effect`)** and **SvelteKit**. You must strictly obey every architectural, SEO, routing, sitemap, landing page, copywriting, and native CSS rule in this document without deviation.
+> **SYSTEM MANDATE FOR ARGON:** You are building and maintaining **Revolution Trading Pros** (`https://revolutiontradingpros.com`) using **Svelte 5 (Runes: `$state`, `$derived`, `$props`, `$effect`)**, **SvelteKit (`^3.1.0`)**, and **`pnpm` (`pnpm@12.16.1` strictly enforced — never use `npm`, `npx`, `yarn`, or `bun`)**. You must strictly obey every architectural, SEO, routing, sitemap, landing page, copywriting, and native CSS rule in this document without deviation.
 
 ---
 

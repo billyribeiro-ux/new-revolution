@@ -1535,3 +1535,108 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 		]
 	};
 }
+
+export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'watch-market-all-day',
+		question: 'Do I have to watch the market all day to follow SPX Profit Pulse alerts?',
+		answer:
+			'No. SPX Profit Pulse is specifically designed for traders who want institutional S&P 500 options execution without sitting in a 6-hour chatroom. Because we publish detailed video watchlists mapping our exact trigger levels ahead of time—and dispatch real-time API alerts the moment a trade opens, scales out, or adjusts its stop—both full-time traders and 9-to-5 working professionals can follow seamlessly.'
+	},
+	{
+		id: 'zero-dte-or-multi-day',
+		question:
+			'Do you only trade 0DTE (Zero Days to Expiration), or do you also alert multi-day SPX setups?',
+		answer:
+			'We trade both. When intraday volatility and dealer Gamma walls align, we execute high-asymmetry 0DTE and 1DTE setups. When macro structure favors multi-day expansion or high-probability Theta collection, we structure 2-to-14 DTE directional plays and defined-risk vertical spreads.'
+	},
+	{
+		id: 'small-account-compatibility',
+		question: 'Can I follow SPX Profit Pulse if I have a small account ($500 to $2,500)?',
+		answer:
+			'Yes. While a single full-sized SPX option contract can be expensive, every SPX Profit Pulse alert can be executed in a smaller account using three methods we teach in the Learning Center: (1) Defined-risk 5-wide SPX vertical spreads, (2) XSP (Mini-SPX index options at 1/10th the notional size with the same cash settlement and Section 1256 tax perks), or (3) SPY ETF options.'
+	},
+	{
+		id: 'difference-from-day-room-explosive-swings',
+		question:
+			'How is SPX Profit Pulse different from the Live Day Trading Room or Explosive Swings?',
+		answer:
+			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Explosive Swings (/alert-services/explosive-swings) is our multi-day stock and options swing alert service.'
+	}
+];
+
+export function buildSpxProfitPulseJsonLd(origin: string) {
+	const pageUrl = `${origin}/alert-services/spx-profit-pulse`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'SPX Profit Pulse Options Alerts | Revolution Trading Pros',
+				description:
+					'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#service` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Alert Services',
+						item: pageUrl
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'SPX Profit Pulse',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
+				name: 'SPX Profit Pulse — Real-Time S&P 500 & 0DTE Index Options Alert Service',
+				provider: { '@id': `${origin}/#organization` },
+				serviceType: 'SPX and 0DTE Index Options Trade Alert and Video Watchlist Service',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				],
+				audience: {
+					'@type': 'Audience',
+					audienceType:
+						'Full-Time and Part-Time SPX Index Options Traders, Working Professionals, and Small Accounts'
+				},
+				description:
+					'Real-time SPX and 0DTE index options trade alerts paired with pre-market video watchlists, institutional dealer gamma walls, and exact entry, profit target, and hard stop-loss levels.'
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SPX_PROFIT_PULSE_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

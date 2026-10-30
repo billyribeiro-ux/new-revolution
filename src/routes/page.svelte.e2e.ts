@@ -358,6 +358,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('hreflang="x-default"');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
+		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/alert-services/spx-profit-pulse</loc>'
+		);
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/blogs</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/courses</loc>');
 		expect(sitemapXml).toContain(
@@ -978,6 +981,70 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators/move-prior-to-the-move-system
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /alert-services/spx-profit-pulse route metadata, JSON-LD, and DOM parity
+		const expectedSpxUrl = `${origin}/alert-services/spx-profit-pulse`;
+		await page.goto('/alert-services/spx-profit-pulse');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const spxTitle = await page.title();
+		expect(spxTitle).toBe('SPX Profit Pulse Options Alerts | Revolution Trading Pros');
+		expect(spxTitle.length).toBe(57);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const spxDesc = await page.locator('head meta[name="description"]').getAttribute('content');
+		expect(spxDesc).toBe(
+			'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.'
+		);
+		expect(spxDesc?.length).toBe(149);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedSpxUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedSpxUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedSpxUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedSpxUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.deliverable-card')).toHaveCount(6);
+		await expect(page.locator('.advantage-card')).toHaveCount(4);
+		await expect(page.locator('.package-card')).toHaveCount(3);
+		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const spxJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const spxSchema = JSON.parse(spxJsonLdText!);
+		const spxFaqNode = spxSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleSpxFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(spxFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(visibleSpxFaqs);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /alert-services/spx-profit-pulse
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

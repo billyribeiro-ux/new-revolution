@@ -9,6 +9,7 @@ import {
 	SINGLE_COURSE_FAQ_ITEMS,
 	SINGLE_INDICATOR_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
+	SPX_PROFIT_PULSE_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
 	buildBlogsHubJsonLd,
@@ -20,6 +21,7 @@ import {
 	buildSingleCourseJsonLd,
 	buildSingleIndicatorJsonLd,
 	buildSmallAccountsRoomJsonLd,
+	buildSpxProfitPulseJsonLd,
 	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
 
@@ -448,5 +450,49 @@ describe('buildSingleIndicatorJsonLd', () => {
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions).toHaveLength(4);
 		expect(questions.map((q) => q.name)).toEqual(SINGLE_INDICATOR_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildSpxProfitPulseJsonLd', () => {
+	const graph = buildSpxProfitPulseJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes SPX Profit Pulse as a Service linked from the WebPage', () => {
+		const page = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/alert-services/spx-profit-pulse#webpage`
+		) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.about).toEqual({
+			'@id': `${ORIGIN}/alert-services/spx-profit-pulse#service`
+		});
+
+		const service = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/alert-services/spx-profit-pulse#service`
+		) as Node;
+		expect(service['@type']).toBe('Service');
+		expect(service.name).toBe(
+			'SPX Profit Pulse — Real-Time S&P 500 & 0DTE Index Options Alert Service'
+		);
+		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(4);
+		expect(questions.map((q) => q.name)).toEqual(SPX_PROFIT_PULSE_FAQ_ITEMS.map((i) => i.question));
 	});
 });

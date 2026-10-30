@@ -6035,3 +6035,493 @@
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }
+
+/* ==========================================================================
+   Alert Services — SPX Profit Pulse (/alert-services/spx-profit-pulse)
+   ========================================================================== */
+.inner-page .check-mark {
+	font-family: var(--font-display);
+	font-weight: 900;
+	color: var(--teal);
+	flex-shrink: 0;
+}
+
+/* "Who SPX Profit Pulse Is Engineered For" Box */
+.inner-page .good-for-box {
+	margin-top: 24px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-lg);
+	background: rgba(17, 22, 29, 0.85);
+	padding: 20px;
+}
+
+.inner-page .good-for-grid {
+	margin-top: 12px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 12px;
+}
+
+.inner-page .good-for-item {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background: rgba(21, 26, 34, 0.92);
+	padding: 12px 14px;
+}
+
+.inner-page .good-for-item strong {
+	display: block;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.84375rem;
+	color: var(--text);
+}
+
+.inner-page .good-for-item span {
+	display: block;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+	margin-top: 3px;
+}
+
+/* Right Column Interactive Alert Simulator */
+.inner-page .alert-simulator {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	padding: 24px;
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .alert-simulator__header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .alert-simulator__title {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1.2rem;
+	margin: 4px 0 0;
+	color: var(--text);
+}
+
+.inner-page .alert-simulator__badge {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(46, 211, 166, 0.14);
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	color: var(--teal);
+	padding: 4px 10px;
+	border-radius: 999px;
+	white-space: nowrap;
+}
+
+.inner-page .alert-simulator__intro {
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	margin: 14px 0;
+	color: var(--text-secondary);
+}
+
+.inner-page .sim-tabs {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	margin-bottom: 16px;
+}
+
+.inner-page .sim-tab {
+	padding: 10px 6px;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(21, 26, 34, 0.88);
+	color: var(--text-secondary);
+	border: none;
+	border-right: 1px solid var(--border-strong);
+	cursor: pointer;
+	transition:
+		background-color 0.15s var(--ease-out),
+		color 0.15s var(--ease-out);
+}
+
+.inner-page .sim-tab:last-child {
+	border-right: none;
+}
+
+.inner-page .sim-tab--active {
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+}
+
+.inner-page .ticket-body {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: rgba(11, 14, 18, 0.78);
+	padding: 18px;
+}
+
+.inner-page .ticket-body__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .ticket-body__code {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	color: var(--gold-bright);
+}
+
+.inner-page .ticket-body__live {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	background: rgba(46, 211, 166, 0.14);
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	color: var(--teal);
+	padding: 3px 8px;
+	border-radius: 999px;
+}
+
+.inner-page .ticket-body__name {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1.0625rem;
+	margin: 12px 0;
+	color: var(--text);
+}
+
+.inner-page .ticket-specs {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.inner-page .ticket-specs__row {
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .ticket-specs__row dt {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--gold-bright);
+}
+
+.inner-page .ticket-specs__row dd {
+	margin: 3px 0 0;
+	font-family: var(--font-body);
+	font-size: 0.84375rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+}
+
+.inner-page .ticket-specs__row dd strong {
+	color: var(--text);
+}
+
+.inner-page .ticket-specs__row--stop {
+	background: rgba(212, 168, 83, 0.08);
+	border-left: 3px solid var(--gold);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	padding: 8px 10px;
+	border-bottom: none;
+}
+
+.inner-page .ticket-body__thesis {
+	margin-top: 12px;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	line-height: 1.45;
+	color: var(--text-secondary);
+}
+
+.inner-page .ticket-body__thesis strong {
+	color: var(--gold-bright);
+}
+
+.inner-page .alert-simulator__footer {
+	margin-top: 16px;
+}
+
+/* 3. Deliverables Card Extras */
+.inner-page .deliverable-card__badge {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	padding: 3px 8px;
+	border-radius: 999px;
+}
+
+.inner-page .deliverable-card__benefit {
+	margin-top: auto;
+	border-left: 3px solid var(--gold);
+	border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	background: rgba(11, 14, 18, 0.65);
+	padding: 12px 16px;
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+.inner-page .deliverable-card__benefit strong {
+	color: var(--gold-bright);
+}
+
+/* 4. SPX Structural Advantages Grid */
+.inner-page .advantages-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .advantages-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+}
+
+.inner-page .advantage-card {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 24px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .advantage-card__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .advantage-card__num {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+	padding: 3px 8px;
+	border-radius: 4px;
+}
+
+.inner-page .advantage-card__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.1875rem;
+	line-height: 1.25;
+	margin: 16px 0 8px;
+	color: var(--text);
+}
+
+.inner-page .advantage-card__detail {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.58;
+	color: var(--text-secondary);
+}
+
+/* 5. Package Card Extras */
+.inner-page .package-card__sub {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .package-list {
+	list-style: none;
+	margin: 12px 0 24px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.inner-page .package-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-size: 0.90625rem;
+	line-height: 1.5;
+	color: var(--text-secondary);
+}
+
+/* 6. Single Clean Trader Bio Section */
+.inner-page .trader-section {
+	padding-block: clamp(56px, 8vw, 96px);
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .trader-box {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	padding: 32px 24px;
+	box-shadow: var(--shadow-md);
+}
+
+.inner-page .trader-box__grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 32px;
+	align-items: center;
+}
+
+.inner-page .trader-box__profile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+.inner-page .trader-box__avatar {
+	width: 170px;
+	height: 170px;
+	border-radius: 50%;
+	border: 3px solid var(--gold);
+	object-fit: cover;
+}
+
+.inner-page .trader-box__seal {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	padding: 4px 12px;
+	border-radius: 999px;
+}
+
+.inner-page .trader-box__subtitle {
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: 0.84375rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--gold-bright);
+	margin: 6px 0 0;
+}
+
+/* 7. Review Card Strategy Label */
+.inner-page .review-card__strategy {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	color: var(--teal);
+}
+
+/* 8. Support Banner */
+.inner-page .support-banner {
+	margin-top: 32px;
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-lg);
+	background: rgba(17, 22, 29, 0.85);
+	padding: 24px;
+	text-align: center;
+}
+
+.inner-page .support-banner__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.15rem;
+	margin: 0 0 8px;
+	color: var(--text);
+}
+
+.inner-page .support-banner__copy {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .support-banner__copy strong {
+	color: var(--text);
+}
+
+.inner-page .support-banner__copy a {
+	color: var(--gold-bright);
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+	.inner-page .good-for-grid,
+	.inner-page .advantages-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 768px) {
+	.inner-page .trader-box {
+		padding: 40px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.inner-page .alert-simulator {
+		grid-column: span 5;
+	}
+
+	.inner-page .trader-box__grid {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 40px;
+	}
+
+	.inner-page .trader-box__profile {
+		grid-column: span 3;
+	}
+
+	.inner-page .trader-box__content {
+		grid-column: span 9;
+	}
+}
+
+@media (min-width: 1280px) {
+	.inner-page .advantages-grid,
+	.inner-page.spx-page .reviews-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}

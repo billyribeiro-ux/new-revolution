@@ -64,6 +64,7 @@
 		'/live-trading-rooms/day-trading-room',
 		'/live-trading-rooms/swing-trading-room',
 		'/live-trading-rooms/small-accounts-room',
+		'/alert-services/spx-profit-pulse',
 		'/blogs',
 		'/store/indicators',
 		'/store/courses',

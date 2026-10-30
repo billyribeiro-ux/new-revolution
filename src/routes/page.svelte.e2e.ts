@@ -360,6 +360,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/blogs</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/courses</loc>');
+		expect(sitemapXml).toContain(
+			'<loc>https://revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra</loc>'
+		);
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/store/indicators</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
@@ -838,6 +841,73 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /store/courses/move-prior-to-the-move-ultra route metadata, JSON-LD, and DOM parity
+		const expectedSingleCourseUrl = `${origin}/store/courses/move-prior-to-the-move-ultra`;
+		await page.goto('/store/courses/move-prior-to-the-move-ultra');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const singleCourseTitle = await page.title();
+		expect(singleCourseTitle).toBe('Move Prior to The Move Course | Revolution Trading Pros');
+		expect(singleCourseTitle.length).toBe(55);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const singleCourseDesc = await page
+			.locator('head meta[name="description"]')
+			.getAttribute('content');
+		expect(singleCourseDesc).toBe(
+			'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.'
+		);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedSingleCourseUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedSingleCourseUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedSingleCourseUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedSingleCourseUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.package-card')).toHaveCount(2);
+		await expect(page.locator('.component-block')).toHaveCount(5);
+		await expect(page.locator('.module-card')).toHaveCount(6);
+		await expect(page.locator('.review-card')).toHaveCount(6);
+		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const singleCourseJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const singleCourseSchema = JSON.parse(singleCourseJsonLdText!);
+		const singleCourseFaqNode = singleCourseSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		);
+		const visibleSingleCourseFaqs = (
+			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
+		).map((t) => t.trim());
+		expect(singleCourseFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
+			visibleSingleCourseFaqs
+		);
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses/move-prior-to-the-move-ultra
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

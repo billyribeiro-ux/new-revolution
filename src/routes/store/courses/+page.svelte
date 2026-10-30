@@ -660,7 +660,9 @@
 										: 'Inspect 4-Module Syllabus +'}
 								</button>
 								<a
-									href={resolve('/contact' as '/')}
+									href={resolve(
+										`/store/courses/${course.id === 'move-prior-to-the-move-masterclass' ? 'move-prior-to-the-move-ultra' : course.id}` as '/'
+									)}
 									class="btn btn--solid btn--full"
 									aria-label={`Learn more and enroll in ${course.title}`}
 								>

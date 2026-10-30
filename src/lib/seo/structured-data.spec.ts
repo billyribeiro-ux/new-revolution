@@ -6,6 +6,7 @@ import {
 	INDICATORS_STORE_FAQ_ITEMS,
 	MENTORSHIP_FAQ_ITEMS,
 	MISSION_FAQ_ITEMS,
+	SINGLE_COURSE_FAQ_ITEMS,
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
@@ -15,6 +16,7 @@ import {
 	buildIndicatorsStoreJsonLd,
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
+	buildSingleCourseJsonLd,
 	buildSmallAccountsRoomJsonLd,
 	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
@@ -364,5 +366,43 @@ describe('buildCoursesStoreJsonLd', () => {
 		const questions = faq.mainEntity as { name: string }[];
 		expect(questions).toHaveLength(4);
 		expect(questions.map((q) => q.name)).toEqual(COURSES_STORE_FAQ_ITEMS.map((i) => i.question));
+	});
+});
+
+describe('buildSingleCourseJsonLd', () => {
+	const slug = 'move-prior-to-the-move-ultra';
+	const graph = buildSingleCourseJsonLd(ORIGIN, slug)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Single Course page as a WebPage with Course mainEntity and Billy Ribeiro as instructor', () => {
+		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/courses/${slug}#webpage`) as Node;
+		expect(page['@type']).toBe('WebPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/courses/${slug}#course` });
+
+		const course = graph.find((n) => n['@id'] === `${ORIGIN}/store/courses/${slug}#course`) as Node;
+		expect(course['@type']).toBe('Course');
+		expect(course.name).toBe('Get the NEW Automated Move Prior to The Move™ Ultra System');
+		expect(course.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
+		expect((course.instructor as Node).name).toBe('Billy Ribeiro');
+	});
+
+	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(SINGLE_COURSE_FAQ_ITEMS.map((i) => i.question));
 	});
 });

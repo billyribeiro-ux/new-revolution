@@ -1322,3 +1322,115 @@ export function buildCoursesStoreJsonLd(origin: string) {
 		]
 	};
 }
+
+export const SINGLE_COURSE_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'package-1-vs-package-2',
+		question:
+			'What is the difference between Package 1 (Indicator Suite) and Package 2 (Indicators + Accelerator Class)?',
+		answer:
+			'Package 1 gives you the complete 4-tool non-repainting indicator suite (Move Prior to The Move™ Ultra, Multi-Timeframe Matrix, On-Chart Stats Engine, and Bonus MP_EarlyInNOut™ Pro) plus our step-by-step installation session for ThinkorSwim and TradingView. Package 2 includes the entire indicator suite PLUS the 6-Module Accelerator Class where Billy Ribeiro teaches you the complete Goldman Sachs-mentored execution playbook, Options Greeks structuring, and bar-by-bar case studies.'
+	},
+	{
+		id: 'non-repainting-guarantee',
+		question: 'Do any of the indicators in this package repaint after the candle closes?',
+		answer:
+			'Never. Every indicator engineered by Revolution Trading Pros is 100% non-repainting. Once a price bar closes, every compression dot, liquidity sweep marker, early in/out trigger, and historical stat is permanently locked on your chart.'
+	},
+	{
+		id: 'platforms-tickers-timeframes',
+		question: 'Which platforms, tickers, and timeframes do these tools and strategies work on?',
+		answer:
+			'All indicators and workspace templates are built for ThinkorSwim and TradingView. They work on any liquid instrument—including US stocks, ETFs, SPX/NDX indexes, and futures—across all timeframes from 1-minute scalping charts to Daily and Weekly swing charts.'
+	},
+	{
+		id: 'working-pro-and-500-account',
+		question:
+			'Can I use this course and indicator suite if I work a 9-to-5 job or have a $500 small account?',
+		answer:
+			'Yes. Module 04 of the Accelerator Class is dedicated specifically to 9-to-5 working professionals (using a 20-minute evening routine and conditional orders) and $500+ small accounts (using T+1 cash account rotation and affordable, defined-risk options structures).'
+	},
+	{
+		id: 'lifetime-on-demand-access',
+		question: 'Is the Accelerator Class live or recorded, and how long do I keep access?',
+		answer:
+			'You receive immediate, lifetime on-demand access to all HD training modules, downloadable PDF playbooks, and workspace files so you can study and review them at your own pace 24/7.'
+	}
+] as const;
+
+export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-the-move-ultra') {
+	const pageUrl = `${origin}/store/courses/${slug}`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Move Prior to The Move Course | Revolution Trading Pros',
+				description:
+					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#course` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Courses',
+						item: `${origin}/store/courses`
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'The Move Prior to The Move™ Ultra Class & Indicator Suite',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'Course',
+				'@id': `${pageUrl}#course`,
+				name: 'Get the NEW Automated Move Prior to The Move™ Ultra System',
+				description:
+					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.',
+				provider: { '@id': `${origin}/#organization` },
+				instructor: {
+					'@type': 'Person',
+					'@id': `${origin}/#founder`,
+					name: 'Billy Ribeiro',
+					jobTitle: 'Founder & Head Institutional Trader'
+				},
+				hasCourseInstance: {
+					'@type': 'CourseInstance',
+					courseMode: 'Online',
+					courseWorkload: 'Self-Paced On-Demand HD Modules'
+				}
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SINGLE_COURSE_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

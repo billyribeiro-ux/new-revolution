@@ -1,0 +1,458 @@
+<script lang="ts">
+	/**
+	 * MarketingFooter - Apple Principal Engineer ICT Grade
+	 * Svelte 5 / SvelteKit 2.x Best Practices (November/December 2025)
+	 *
+	 * PATTERNS IMPLEMENTED:
+	 * ✅ $state() for reactive variables
+	 * ✅ IntersectionObserver for viewport detection
+	 * ✅ Conditional rendering with {#if isVisible}
+	 * ✅ heavySlide transition matching MentorshipSection
+	 * ✅ cubicOut easing for smooth animations
+	 * ✅ Proper cleanup with observer.disconnect()
+	 * ✅ SSR-safe browser check
+	 *
+	 */
+	import { onMount } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
+	import {
+		IconBrandTwitter,
+		IconBrandInstagram,
+		IconBrandYoutube,
+		IconBrandFacebook
+	} from '#lib/icons/index.js';
+
+	// --- State (Svelte 5 Runes) ---
+	let currentYear = $state(new Date().getFullYear());
+	// Footer always renders from first paint — no lazy-load gate.
+	// Starting false caused a dark-background flash on dashboard pages where
+	// the footer is immediately in view and the IntersectionObserver fires
+	// async (after a microtask), leaving an empty dark wrapper visible briefly.
+	let isVisible = $state(true);
+
+	// --- Transition Function (matching MentorshipSection exactly) ---
+	function heavySlide(_node: Element, { delay = 0, duration = 1000 }) {
+		return {
+			delay,
+			duration,
+			css: (t: number) => {
+				const eased = cubicOut(t);
+				return `opacity: ${eased}; transform: translateY(${(1 - eased) * 20}px);`;
+			}
+		};
+	}
+
+	onMount(() => {
+		// Ensures correct year even if the page is prerendered at build time.
+		currentYear = new Date().getFullYear();
+	});
+
+	const footerLinks = {
+		products: [
+			{ href: '/indicators', label: 'Indicators' },
+			{ href: '/classes', label: 'Classes' },
+			{ href: '/dashboard', label: 'Dashboard' },
+			{ href: '/pricing', label: 'Pricing' }
+		],
+		company: [
+			{ href: '/about', label: 'About Us' },
+			{ href: '/blog', label: 'Blog' },
+			{ href: '/contact', label: 'Contact' },
+			{ href: '/careers', label: 'Careers' }
+		],
+		legal: [
+			{ href: '/terms', label: 'Terms of Service' },
+			{ href: '/privacy', label: 'Privacy Policy' },
+			{ href: '/disclaimer', label: 'Risk Disclaimer' },
+			{ href: '/refund', label: 'Refund Policy' }
+		]
+	};
+
+	const socialLinks = [
+		{
+			href: 'https://facebook.com/revolutiontradingpros',
+			icon: IconBrandFacebook,
+			label: 'Facebook'
+		},
+		{
+			href: 'https://twitter.com/revtradingpros',
+			icon: IconBrandTwitter,
+			label: 'X (Twitter)'
+		},
+		{
+			href: 'https://instagram.com/revolutiontradingpros',
+			icon: IconBrandInstagram,
+			label: 'Instagram'
+		},
+		{
+			href: 'https://youtube.com/@RevolutionTradingPros',
+			icon: IconBrandYoutube,
+			label: 'YouTube'
+		}
+	];
+</script>
+
+{#if isVisible}
+<footer in:heavySlide={{ delay: 0, duration: 800 }} class="marketing-footer">
+<div class="footer-container">
+<div class="footer-grid">
+<div class="footer-brand">
+<a href="/" class="footer-logo" aria-label="Revolution Trading Pros home">
+<img
+							src="/revolution-trading-pros.png"
+							alt="Revolution Trading Pros"
+							width="160"
+							height="40"
+							loading="lazy"
+							decoding="async"
+						/>
+</a>
+
+    				<p class="footer-tagline">
+    					Professional trading education and tools for disciplined traders.
+    				</p>
+
+    				<div class="social-links" aria-label="Social links">
+    					{#each socialLinks as social (social.label)}
+    						{@const IconComponent = social.icon}
+    						<a
+    							href={social.href}
+    							target="_blank"
+    							rel="noopener noreferrer"
+    							class="social-link"
+    							aria-label={social.label}
+    							title={social.label}
+    						>
+    							<IconComponent size={20} />
+    						</a>
+    					{/each}
+    				</div>
+    			</div>
+
+    			<nav class="footer-column" aria-labelledby="footer-products">
+    				<h2 class="footer-heading" id="footer-products">Products</h2>
+    				<ul class="footer-list">
+    					{#each footerLinks.products as link (link.href)}
+    						<li><a href={link.href}>{link.label}</a></li>
+    					{/each}
+    				</ul>
+    			</nav>
+
+    			<nav class="footer-column" aria-labelledby="footer-company">
+    				<h2 class="footer-heading" id="footer-company">Company</h2>
+    				<ul class="footer-list">
+    					{#each footerLinks.company as link (link.href)}
+    						<li><a href={link.href}>{link.label}</a></li>
+    					{/each}
+    				</ul>
+    			</nav>
+
+    			<nav class="footer-column" aria-labelledby="footer-legal">
+    				<h2 class="footer-heading" id="footer-legal">Legal</h2>
+    				<ul class="footer-list">
+    					{#each footerLinks.legal as link (link.href)}
+    						<li><a href={link.href}>{link.label}</a></li>
+    					{/each}
+    				</ul>
+    			</nav>
+    		</div>
+
+    		<div class="risk-disclaimer">
+    			<p>
+    				<strong>Risk Disclaimer:</strong> Trading involves substantial risk of loss and is not suitable
+    				for all investors. Past performance is not indicative of future results. The content provided
+    				is for educational purposes only and should not be considered financial advice.
+    			</p>
+    		</div>
+
+    		<div class="footer-bottom">
+    			<p>&copy; {currentYear} Revolution Trading Pros. All rights reserved.</p>
+    		</div>
+    	</div>
+    </footer>
+
+{/if}
+
+<style>
+	/* Scoped box-sizing reset for footer */
+	.marketing-footer,
+	.marketing-footer *,
+	.marketing-footer *::before,
+	.marketing-footer *::after {
+		box-sizing: border-box;
+	}
+
+	/* Footer-local tokens.
+	   The slate-blue gradient (#1e293b → #0f172a) is deliberately distinct
+	   from --rtp-bg (#0a0a0a) — it visually pairs with the NavBar's slate
+	   identity to bracket the page. Do not unify with --rtp-bg. */
+	.marketing-footer {
+		--footer-grid-line: rgba(99, 102, 241, 0.04);
+		--footer-gradient-top: #1e293b;
+		--footer-gradient-bottom: #0f172a;
+		--footer-indigo-faint: color-mix(in oklab, var(--rtp-indigo) 10%, transparent);
+		--footer-indigo-soft: color-mix(in oklab, var(--rtp-indigo) 20%, transparent);
+		--footer-indigo-hover: #818cf8; /* indigo-400, footer-only hover accent */
+		--footer-focus-ring: color-mix(in oklab, var(--footer-indigo-hover) 90%, transparent);
+		--footer-heading-color: #f1f5f9; /* slate-100, footer-only heading shade */
+		--footer-disclaimer-strong: #fbbf24; /* amber-400, risk disclaimer emphasis */
+		--footer-disclaimer-tint: color-mix(in oklab, var(--rtp-amber) 5%, transparent);
+		--footer-disclaimer-border: color-mix(in oklab, var(--rtp-amber) 20%, transparent);
+
+		background: linear-gradient(
+			180deg,
+			var(--footer-gradient-top) 0%,
+			var(--footer-gradient-bottom) 100%
+		);
+		border-top: 1px solid var(--footer-indigo-faint);
+		padding: 4rem 0 2rem;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		flex-shrink: 0;
+		overflow-x: clip;
+		position: relative;
+	}
+
+	.marketing-footer::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(var(--footer-grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--footer-grid-line) 1px, transparent 1px);
+		background-size: 60px 60px;
+		mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 20%, transparent 80%);
+		-webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 20%, transparent 80%);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.footer-container {
+		position: relative;
+		z-index: 1;
+		max-width: 1400px;
+		width: 100%;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+		min-width: 0;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr 1fr;
+		gap: 3rem;
+		margin-bottom: 3rem;
+		min-width: 0;
+	}
+
+	.footer-brand {
+		max-width: 320px;
+		min-width: 0;
+	}
+
+	.footer-logo {
+		display: inline-block;
+		line-height: 0;
+	}
+
+	.footer-logo img {
+		height: 40px;
+		width: auto;
+		max-width: 100%;
+		margin-bottom: 1rem;
+		display: block;
+		object-fit: contain;
+	}
+
+	.footer-tagline {
+		color: var(--rtp-text-subtle);
+		font-size: 0.9375rem;
+		line-height: 1.6;
+		margin: 0 0 1.5rem 0;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
+	}
+
+	.social-links {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.social-link {
+		width: 40px;
+		height: 40px;
+		min-width: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--footer-indigo-faint);
+		border: 1px solid var(--footer-indigo-soft);
+		border-radius: var(--rtp-radius-md);
+		color: var(--rtp-text-muted);
+		transition:
+			background var(--rtp-dur-fast) var(--rtp-ease-out),
+			color var(--rtp-dur-fast) var(--rtp-ease-out),
+			translate var(--rtp-dur-fast) var(--rtp-ease-out);
+		text-decoration: none;
+		flex-shrink: 0;
+	}
+
+	.social-link:hover {
+		background: var(--footer-indigo-soft);
+		color: var(--footer-indigo-hover);
+		translate: 0 -2px;
+	}
+
+	.social-link:focus-visible {
+		outline: 2px solid var(--footer-focus-ring);
+		outline-offset: 2px;
+	}
+
+	/* Ensure icons don't overflow */
+	.social-link :global(svg) {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+	}
+
+	.footer-column {
+		display: block;
+		min-width: 0;
+	}
+
+	.footer-heading {
+		color: var(--footer-heading-color);
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0 0 1.25rem 0;
+	}
+
+	.footer-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.footer-list li {
+		margin-bottom: 0.75rem;
+		display: block;
+	}
+
+	.footer-list li:last-child {
+		margin-bottom: 0;
+	}
+
+	.footer-list a {
+		color: var(--rtp-text-muted);
+		text-decoration: none;
+		font-size: 0.9375rem;
+		transition: color var(--rtp-dur-fast) var(--rtp-ease-out);
+		display: inline-block;
+	}
+
+	.footer-list a:hover {
+		color: var(--footer-heading-color);
+	}
+
+	.footer-list a:focus-visible {
+		outline: 2px solid var(--footer-focus-ring);
+		outline-offset: 3px;
+		border-radius: var(--rtp-radius-sm);
+	}
+
+	.risk-disclaimer {
+		padding: 1.5rem;
+		background: var(--footer-disclaimer-tint);
+		border: 1px solid var(--footer-disclaimer-border);
+		border-radius: var(--rtp-radius-md);
+		margin-bottom: 2rem;
+	}
+
+	.risk-disclaimer p {
+		color: var(--rtp-text-muted);
+		font-size: 0.8125rem;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.risk-disclaimer strong {
+		color: var(--footer-disclaimer-strong);
+	}
+
+	.footer-bottom {
+		padding-top: 2rem;
+		border-top: 1px solid var(--footer-indigo-faint);
+		text-align: center;
+	}
+
+	.footer-bottom p {
+		color: var(--rtp-text-subtle);
+		font-size: 0.875rem;
+		margin: 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.social-link,
+		.footer-list a {
+			transition: none;
+		}
+
+		.social-link:hover {
+			translate: 0 0;
+		}
+	}
+
+	/* Tablet breakpoint */
+	@media (max-width: 1023.98px) {
+		.marketing-footer {
+			padding: 3rem 0 1.5rem;
+		}
+
+		.footer-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem;
+		}
+
+		.footer-brand {
+			grid-column: 1 / -1;
+			max-width: 100%;
+		}
+
+		.social-links {
+			justify-content: flex-start;
+		}
+	}
+
+	/* Mobile breakpoint */
+	@media (max-width: 639.98px) {
+		.marketing-footer {
+			padding: 2.5rem 0 1.5rem;
+		}
+
+		.footer-container {
+			padding: 0 1rem;
+		}
+
+		.footer-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.footer-brand {
+			grid-column: 1;
+		}
+
+		.risk-disclaimer {
+			padding: 1rem;
+		}
+
+		.risk-disclaimer p {
+			font-size: 0.75rem;
+		}
+	}
+</style>

@@ -1,0 +1,24 @@
+<script lang="ts">
+	import '@fontsource-variable/montserrat';
+	import '@fontsource-variable/montserrat/wght-italic.css';
+	import '@fontsource-variable/sofia-sans';
+	import '@fontsource-variable/sofia-sans/wght-italic.css';
+	import '../app.css';
+
+	import { page } from '$app/state';
+	import { MetaTags, deepMerge } from 'svelte-meta-tags';
+	import favicon from '#lib/assets/favicon.svg';
+	import type { LayoutProps } from './$types';
+
+	let { data, children }: LayoutProps = $props();
+
+	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
+</script>
+
+<svelte:head>
+	<link rel="icon" href={favicon} />
+</svelte:head>
+
+<MetaTags {...metaTags} />
+
+{@render children()}

@@ -1,0 +1,618 @@
+@layer reset, tokens, base, typography, layout, components, utilities, responsive;
+
+/* ==========================================================================
+   1. CANONICAL DESIGN TOKENS (SSOT — revolution-trading-pros-color-style-guide.md)
+   ========================================================================== */
+@layer tokens {
+	:root {
+		color-scheme: dark;
+
+		/* Canonical Brand & Surface Tokens */
+		--bg: #0b0e12;
+		--bg-soft: #11151a;
+		--panel: #151a20;
+		--panel2: #1b2027;
+		--line: #2b313a;
+
+		--off: #f3f2ed;
+		--off2: #eae9e2;
+		--ink: #11151a;
+
+		--acid: #dcff65;
+		--acid2: #b9e64f;
+		--coral: #ff7969;
+
+		--text: #f4f5f0;
+		--muted: #a0a7ad;
+		--lightmuted: #58616b;
+
+		/* Audited Contextual Surface & Interaction Tokens */
+		--btn-acid-hover: #efffae;
+		--btn-dark-hover: #30373e;
+		--btn-outline-border: #5a6067;
+		--btn-outline-light-border: #8b9088;
+
+		--surface-cases: #12171c;
+		--surface-case-card: #191f25;
+		--surface-audience: #0d1115;
+		--surface-tools: #12171d;
+		--surface-tool-card: #1a2026;
+		--surface-tool-visual: #0f151a;
+		--surface-mentorship: #0b0f12;
+		--surface-mentor-frame: #151a1e;
+		--surface-faq: #10151a;
+		--surface-ebook-form: #10171a;
+		--surface-closing: #cffe57;
+		--surface-footer: #0a0d10;
+
+		--card-white: #ffffff;
+		--card-light-border: #d7d9d4;
+		--card-featured-bg: #faffec;
+		--card-featured-border: #879e46;
+		--card-featured-strip: #b3e354;
+		--card-featured-badge: #ddf3b1;
+
+		--card-negative-bg: #e2e1da;
+		--card-negative-border: #d5d4cc;
+		/* Darkened from #9c544b to #7e3c34 per Style Guide §8 QA action (>5.8:1 WCAG AA contrast on #e2e1da) */
+		--card-negative-label: #7e3c34;
+
+		--status-amber-text: #dec3a1;
+		--status-amber-border: #77664a;
+
+		/* Fontsource Institutional Pairing: Montserrat (Authority) + Sofia Sans (High-Speed Data/Copy) */
+		--font-display: 'Montserrat Variable', 'Montserrat', system-ui, -apple-system, sans-serif;
+		--font-sans: 'Sofia Sans Variable', 'Sofia Sans', system-ui, -apple-system, sans-serif;
+		--font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+		/* Layout & Rhythm (Mobile-First Base: 320px+) */
+		--max: 100%;
+		--gutter: 24px;
+		--nav-height: 73px;
+		--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	}
+}
+
+/* ==========================================================================
+   2. MODERN RESET & BASE ACCESSIBILITY
+   ========================================================================== */
+@layer reset {
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--text);
+		font-family: var(--font-sans);
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 1.72;
+		letter-spacing: 0.005em;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		overflow-x: clip;
+	}
+
+	body.menu-open {
+		overflow: hidden;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+	}
+
+	button {
+		cursor: pointer;
+	}
+
+	button:disabled {
+		cursor: not-allowed;
+	}
+
+	svg,
+	img,
+	picture {
+		display: block;
+		max-width: 100%;
+	}
+
+	h1,
+	h2,
+	h3,
+	p {
+		margin-block-start: 0;
+	}
+
+	::selection {
+		background: var(--acid);
+		color: var(--ink);
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--acid);
+		outline-offset: 4px;
+	}
+}
+
+/* ==========================================================================
+   3. INSTITUTIONAL TYPOGRAPHY MATRIX PRIMITIVES (Montserrat × Sofia Sans)
+   ========================================================================== */
+@layer typography {
+	/* 08 / Primary Hero Display (<h1>) */
+	h1,
+	.hero-h1 {
+		font-family: var(--font-display);
+		font-weight: 900;
+		font-stretch: 100%;
+		font-size: clamp(2rem, 4.2vw, 3.35rem);
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		max-inline-size: min(24ch, 780px);
+		margin-block: 0 1.75rem;
+		text-wrap: balance;
+	}
+
+	/* 09 / Section Headings (<h2>) */
+	h2 {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-stretch: 100%;
+		font-size: clamp(1.65rem, 3vw, 2.5rem);
+		line-height: 1.08;
+		letter-spacing: -0.025em;
+		max-inline-size: min(28ch, 760px);
+		margin-block: 1.25rem 1.375rem;
+		text-wrap: balance;
+	}
+
+	/* 10 / Card & Tier Headings (<h3>) */
+	h3 {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-stretch: 100%;
+		font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+		line-height: 1.18;
+		letter-spacing: -0.015em;
+		max-inline-size: 34ch;
+		margin-block-end: 0.875rem;
+		text-wrap: balance;
+	}
+
+	/* 12 / Standard Body Copy (<p>) */
+	p {
+		font-family: var(--font-sans);
+		font-weight: 400;
+		font-stretch: 100%;
+		font-size: 1rem;
+		line-height: 1.72;
+		letter-spacing: 0.005em;
+		max-inline-size: min(70ch, 680px);
+		text-wrap: pretty;
+	}
+
+	/* 13 / Inline Bold Emphasis (<strong> inside <p>) */
+	p strong {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-stretch: 100%;
+		font-size: inherit;
+		letter-spacing: 0em;
+		max-inline-size: inherit;
+	}
+
+	/* 07 / Section Eyebrows / Kickers (incl. <h1> SEO Kicker) */
+	.eyebrow,
+	.h1-query,
+	.seo-kicker {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-stretch: 100%;
+		font-size: clamp(0.75rem, 0.8vw, 0.8125rem);
+		line-height: 1.55;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		max-inline-size: 65ch;
+		color: var(--acid);
+	}
+
+	.eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.eyebrow::before {
+		content: '';
+		display: block;
+		inline-size: 23px;
+		block-size: 2px;
+		background: currentColor;
+		flex-shrink: 0;
+	}
+
+	.eyebrow.dark {
+		color: #4b5f1d;
+	}
+
+	/* 11 / Hero Lead Paragraph (Anti-Guru Empathy Hook) */
+	.hero-lead {
+		font-family: var(--font-sans);
+		font-weight: 500;
+		font-stretch: 100%;
+		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
+		line-height: 1.75;
+		letter-spacing: 0em;
+		max-inline-size: min(68ch, 700px);
+		color: #c4c8c7;
+		margin-block-end: 1.1875rem;
+	}
+
+	/* 14 / Slogan Blockquote Callouts */
+	.hero-slogan,
+	.mentor-quote {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-style: italic;
+		font-stretch: 100%;
+		font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+		line-height: 1.65;
+		letter-spacing: -0.01em;
+		max-inline-size: min(58ch, 640px);
+		border-inline-start: 2px solid var(--acid);
+		padding-block: 0.25rem;
+		padding-inline: 1.125rem 0;
+		color: #e9eadf;
+		margin-inline: 0;
+	}
+
+	/* 15 / Proof Metrics & Callouts (+600% Overnight, $500+) */
+	.persona-graphic,
+	.trust-value {
+		font-family: var(--font-display);
+		font-weight: 900;
+		font-stretch: 100%;
+		font-size: clamp(1.25rem, 2vw, 1.75rem);
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		inline-size: fit-content;
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* 17 / Dossier Tags / Meta Pills / Blog Timestamps */
+	.panel-top-title,
+	.panel-badge,
+	.case-kicker,
+	.case-state,
+	.comparison-label,
+	.persona-tag,
+	.member-tag,
+	.membership-index,
+	.tool-tag,
+	.blog-meta,
+	.trust-label,
+	.evidence-flag,
+	.form-caption,
+	.footer-col-title,
+	.risk-box-title {
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-stretch: 87.5%;
+		font-variation-settings: 'wdth' 87.5;
+		font-size: 0.75rem;
+		line-height: 1.5;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		inline-size: fit-content;
+	}
+
+	.copy {
+		color: var(--muted);
+		font-family: var(--font-sans);
+		font-weight: 400;
+		font-size: 1rem;
+		letter-spacing: 0.005em;
+		max-inline-size: min(70ch, 680px);
+	}
+
+	.copy.dark {
+		color: var(--lightmuted);
+	}
+
+	.highlight {
+		color: var(--acid);
+	}
+
+	.manifesto-accent {
+		color: #4f641f;
+	}
+}
+
+/* ==========================================================================
+   4. LAYOUT PRIMITIVES
+   ========================================================================== */
+@layer layout {
+	.skip {
+		position: fixed;
+		inset-block-start: -100px;
+		inset-inline-start: 20px;
+		z-index: 999;
+		padding: 12px 18px;
+		background: var(--acid);
+		color: var(--ink);
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.8125rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.skip:focus {
+		inset-block-start: 20px;
+	}
+
+	.container {
+		inline-size: min(calc(100% - var(--gutter)), var(--max));
+		margin-inline: auto;
+	}
+
+	.section {
+		padding-block: 70px;
+		position: relative;
+	}
+
+	.section-heading {
+		max-inline-size: 830px;
+		margin-block-end: 33px;
+	}
+
+	.section-heading .copy {
+		margin-block-end: 0;
+	}
+}
+
+/* ==========================================================================
+   5. SHARED CTA BUTTON & LINK PRIMITIVES
+   ========================================================================== */
+@layer components {
+	/* 06 / Primary & Secondary CTA Buttons (Mobile-First Base: 320px+) */
+	.btn {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 14px 16px;
+		min-block-size: 52px;
+		min-inline-size: 0;
+		inline-size: 100%;
+		max-inline-size: 100%;
+		border: 1px solid transparent;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-stretch: 100%;
+		font-size: clamp(0.875rem, 0.9vw, 0.9375rem);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		transition:
+			transform 0.22s var(--ease-out),
+			border-color 0.22s var(--ease-out),
+			background-color 0.22s var(--ease-out),
+			color 0.22s var(--ease-out);
+		white-space: normal;
+		text-align: center;
+	}
+
+	.btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.btn-primary {
+		background: var(--acid);
+		color: var(--ink);
+	}
+
+	.btn-primary:hover {
+		background: var(--btn-acid-hover);
+	}
+
+	.btn-outline {
+		border-color: var(--btn-outline-border);
+		color: var(--text);
+		background: transparent;
+	}
+
+	.btn-outline:hover {
+		border-color: var(--acid);
+		color: var(--acid);
+	}
+
+	.btn-dark {
+		background: var(--ink);
+		color: #ffffff;
+	}
+
+	.btn-dark:hover {
+		background: var(--btn-dark-hover);
+	}
+
+	.btn-outline-dark {
+		border-color: var(--btn-outline-light-border);
+		color: var(--ink);
+		background: transparent;
+	}
+
+	.btn-outline-dark:hover {
+		border-color: var(--ink);
+	}
+
+	.btn .arrow,
+	.text-link .arrow {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-display);
+		font-weight: 800;
+		margin-inline-start: 2px;
+	}
+
+	.text-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.8125rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		transition: gap 0.2s var(--ease-out);
+	}
+
+	.text-link:hover {
+		gap: 0.95rem;
+	}
+
+	.text-link.acid {
+		color: var(--acid);
+	}
+
+	.text-link.dark {
+		color: var(--ink);
+	}
+}
+
+/* ==========================================================================
+   6. UTILITIES & REVEAL ANIMATION
+   ========================================================================== */
+@layer utilities {
+	@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+		.reveal {
+			opacity: 0;
+			transform: translateY(18px);
+			transition:
+				opacity 0.75s var(--ease-out),
+				transform 0.75s var(--ease-out);
+		}
+
+		.reveal.in-view {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+/* ==========================================================================
+   7. ENTERPRISE-GRADE GLOBAL BREAKPOINTS & REDUCED MOTION (ARCHCITECURE_AND_SEO.md §4.3)
+   ========================================================================== */
+@layer responsive {
+	/* 1. Large Mobile (>= 480px) */
+	@media (min-width: 480px) {
+		:root {
+			--gutter: 36px;
+		}
+
+		.btn {
+			min-inline-size: 220px;
+			inline-size: auto;
+			max-inline-size: 380px;
+			white-space: nowrap;
+			padding: 16px 22px;
+			gap: 0.875rem;
+		}
+	}
+
+	/* 2. Small Tablet / Phablet (>= 640px) */
+	@media (min-width: 640px) {
+		:root {
+			--gutter: 44px;
+			--nav-height: 80px;
+		}
+	}
+
+	/* 3. Tablet Portrait (>= 768px) */
+	@media (min-width: 768px) {
+		:root {
+			--gutter: 56px;
+			--nav-height: 87px;
+		}
+
+		.section {
+			padding-block: 88px;
+		}
+
+		.section-heading {
+			margin-block-end: 42px;
+		}
+	}
+
+	/* 4. Enterprise Desktop (>= 1024px) */
+	@media (min-width: 1024px) {
+		:root {
+			--max: 1320px;
+			--gutter: 40px;
+		}
+
+		.section {
+			padding-block: 110px;
+		}
+
+		.section-heading {
+			margin-block-end: 48px;
+		}
+	}
+
+	/* 5. Wide Desktop (>= 1280px — 1440px max container) */
+	@media (min-width: 1280px) {
+		:root {
+			--max: 1440px;
+			--gutter: 64px;
+		}
+
+		.section {
+			padding-block: 122px;
+		}
+
+		.section-heading {
+			margin-block-end: 52px;
+		}
+	}
+
+	/* 6. Ultra-Wide / Multi-Monitor Trading Desk (>= 1536px — 1536px max container) */
+	@media (min-width: 1536px) {
+		:root {
+			--max: 1536px;
+			--gutter: 112px;
+		}
+	}
+
+	/* Reduced Motion Accessibility */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			scroll-behavior: auto !important;
+			transition-duration: 0.01ms !important;
+			animation-duration: 0.01ms !important;
+		}
+
+		.reveal {
+			opacity: 1;
+			transform: none;
+		}
+	}
+}

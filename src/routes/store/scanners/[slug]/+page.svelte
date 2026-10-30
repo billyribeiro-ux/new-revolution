@@ -437,6 +437,8 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
+<a class="skip" href="#main-content">Skip to content</a>
+
 <div class="app-shell">
 	<Navbar />
 

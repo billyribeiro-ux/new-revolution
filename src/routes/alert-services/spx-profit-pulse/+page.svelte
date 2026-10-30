@@ -330,6 +330,8 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
+<a class="skip" href="#spx-profit-pulse-page">Skip to content</a>
+
 <div class="app-shell">
 	<Navbar />
 

@@ -405,9 +405,20 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',
 			'/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine'
 		]);
-		for (const slug of blogHrefs) {
-			expect(sitemapXml).toContain(`https://revolutiontradingpros.com${slug}`);
+
+		// The sitemap must only list live URLs, and must not stamp unverifiable dates on them.
+		const locs = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+			(m) => new URL(m[1]).pathname
+		);
+		expect(locs.length).toBeGreaterThan(10);
+		for (const path of locs) {
+			expect(
+				(await request.get(path)).status(),
+				`sitemap lists ${path} but it does not return 200`
+			).toBe(200);
 		}
+		const todayIso = new Date().toISOString().split('T')[0];
+		expect(sitemapXml).not.toContain(`<lastmod>${todayIso}</lastmod>`);
 
 		// Verify footer legal links and mandatory US (SEC/CFTC/FINRA) & Canadian (OSC/BCSC/ASC) YMYL disclosure
 		const legalHrefs = await page

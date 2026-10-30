@@ -991,3 +991,48 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 		]
 	};
 }
+
+export function buildBlogsHubJsonLd(origin: string) {
+	const pageUrl = `${origin}/blogs`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Stock & Options Trading Blog | Revolution Trading Pros',
+				description:
+					'Free institutional stock and options trading articles, Options Greeks guides, $500+ small account strategies, and macro analysis by Billy Ribeiro.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#blog` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'Blog',
+				'@id': `${pageUrl}#blog`,
+				url: pageUrl,
+				name: 'Stock & Options Trading Blog | Revolution Trading Pros',
+				description:
+					'Free institutional stock and options trading articles, Options Greeks guides, $500+ small account strategies, and macro analysis by Billy Ribeiro.',
+				inLanguage: 'en-US',
+				publisher: { '@id': `${origin}/#organization` },
+				author: { '@id': `${origin}/#founder` }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Blogs', item: pageUrl }
+				]
+			}
+		]
+	};
+}

@@ -5,6 +5,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 > **Companion References:**
 >
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
+> - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
 
 ---
@@ -97,8 +98,9 @@ Every public route under `src/routes/<route-path>/` requires two files:
    };
    ```
 
-2. **`+page.svelte`** — Renders `<JsonLd>`, skip-link, `<Navbar />`, `<main id="main-content" class="inner-page">`, `<HaveQuestions />`, `<SocialShareBar />`, and `<Footer />`:
+2. **`+page.svelte`** — Renders `<JsonLd>`, the skip link (`<a class="skip" href="#<main id>">`, styled globally in `src/app.css`), `<Navbar />`, `<main id="<slug>-page" class="inner-page <slug>-page">` (any unique id is fine as long as the skip link targets it), and `<Footer />` (which supplies `<HaveQuestions />` and `<SocialShareBar />`):
    - Use Svelte 5 runes (`$props()`, `$state()`, `$derived()`, `$effect()`) — never legacy `export let` or `$:`.
+   - Do not add `<HaveQuestions />` / `<SocialShareBar />` to a page; `<Footer />` renders them through `PreFooter`.
    - Wrap all internal `href` attributes with `resolve('/path')` from `$app/paths`.
    - Use a single `<h1>` per page inside `.page-hero` with a strictly descending `h1 → h2 → h3` hierarchy.
 
@@ -124,7 +126,7 @@ When adding any new marketing route to the repository, complete every step in or
 
 1. **Create Route Files:**
    - Create `src/routes/<route>/+page.ts` with `export const prerender = true;` and `definePageMetaTags(...)` (verify `title` + suffix ≤ 60 chars, `description` 140–158 chars, and `canonical` via `getCanonicalUrl(url)`).
-   - Create `src/routes/<route>/+page.svelte` importing `$lib/styles/inner-page.css`, rendering `<JsonLd>`, `<a class="skip-link" href="#main-content">`, `<Navbar />`, `<main id="main-content" class="inner-page ...">`, `<HaveQuestions />`, `<SocialShareBar />`, and `<Footer />`.
+   - Create `src/routes/<route>/+page.svelte` importing `$lib/styles/inner-page.css`, rendering `<JsonLd>`, `<a class="skip" href="#<slug>-page">`, `<Navbar />`, `<main id="<slug>-page" class="inner-page ...">`, and `<Footer />`. Full templates and the complete procedure: [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md).
 2. **Add Structured Data Builder & Unit Test:**
    - Add a typed `@graph` builder in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) (including `BreadcrumbList`, `WebPage`/`CollectionPage`/`ItemPage`, and domain-specific `Service`/`Course`/`SoftwareApplication`/`FAQPage` nodes).
    - Add unit test coverage in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts).

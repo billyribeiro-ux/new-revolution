@@ -3,7 +3,7 @@ import { buildResourcesHubJsonLd, getCanonicalUrl, SITE_ORIGIN } from '#lib/seo/
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Access free stock and options trading resources: our interactive Options Calculator, ETF Stocks List, Stock Indexes List, and institutional guides.';
+	'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.';
 
 export const prerender = true;
 
@@ -11,11 +11,11 @@ export const load: PageLoad = ({ url }) => {
 	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
-		// 30 chars before suffix -> "Free Stock & Options Resources | Revolution Trading Pros" (56 chars total)
-		title: 'Free Stock & Options Resources',
+		// 30 chars before suffix -> "Free Trading Resources & Tools | Revolution Trading Pros" (56 chars total)
+		title: 'Free Trading Resources & Tools',
 		description: DESCRIPTION,
 		keywords: [
-			'free stock and options resources',
+			'free trading resources',
 			'options profit calculator',
 			'etf stocks list',
 			'stock indexes list',
@@ -24,11 +24,11 @@ export const load: PageLoad = ({ url }) => {
 		openGraph: {
 			type: 'website',
 			url: canonicalUrl,
-			title: 'Free Stock & Options Resources | Revolution Trading Pros',
+			title: 'Free Trading Resources & Tools | Revolution Trading Pros',
 			description: DESCRIPTION
 		},
 		twitter: {
-			title: 'Free Stock & Options Resources | Revolution Trading Pros',
+			title: 'Free Trading Resources & Tools | Revolution Trading Pros',
 			description: DESCRIPTION
 		}
 	});

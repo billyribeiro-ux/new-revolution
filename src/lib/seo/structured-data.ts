@@ -2139,30 +2139,6 @@ export const RESOURCES_HUB_UTILITIES = [
 	}
 ] as const;
 
-export const RESOURCES_HUB_FAQ_ITEMS = [
-	{
-		question:
-			'Are the Options Calculator, ETF Stocks List, and Stock Indexes List 100% free to use?',
-		answer:
-			'Yes. Because Revolution Trading Pros focuses on people over making money, our interactive Options Calculator (/resources/options-calculator), our ETF Stocks & 11-Sector Directory (/resources/etf-stocks-list), our Stock Indexes List (/resources/stock-indexes-list), and our educational blog articles (/blogs) are 100% free public utilities with no credit card required.'
-	},
-	{
-		question: 'Where should I start if I am a beginner or trading with a $500 small account?',
-		answer:
-			'Start by bookmarking our free Options Calculator so you always know your exact dollar risk before entering a trade. Next, read our Ultimate Guide to Options Greeks and our $500+ Small Account Blueprint on the Blog, and explore our dedicated Small Accounts Room (/live-trading-rooms/small-accounts-room).'
-	},
-	{
-		question: 'Which free resources are best for 9-to-5 working professionals?',
-		answer:
-			'Working professionals should start with our ETF Stocks List (/resources/etf-stocks-list)—specifically the 11 S&P 500 GICS Sector ETFs (XLK, XLE, XLF, XLV, SMH), which allow you to trade multi-day institutional sector rotations without single-stock overnight earnings gap risk. Pair that with our Swing Trading Room (/live-trading-rooms/swing-trading-room) or Explosive Swings video watchlists (/alert-services/explosive-swings).'
-	},
-	{
-		question: 'Who created the educational frameworks and tools inside the Resources hub?',
-		answer:
-			'Every calculator, directory, and trading playbook at Revolution Trading Pros is engineered by founder Billy Ribeiro—who stood on the losing end early in his career before being mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called Billy "the future of trading").'
-	}
-] as const;
-
 export function buildResourcesHubJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources`;
 
@@ -2176,9 +2152,9 @@ export function buildResourcesHubJsonLd(origin: string) {
 				'@type': 'CollectionPage',
 				'@id': `${pageUrl}#webpage`,
 				url: pageUrl,
-				name: 'Free Stock & Options Resources | Revolution Trading Pros',
+				name: 'Free Trading Resources & Tools | Revolution Trading Pros',
 				description:
-					'Access free stock and options trading resources: our interactive Options Calculator, ETF Stocks List, Stock Indexes List, and institutional guides.',
+					'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${origin}/#organization` },
@@ -2194,7 +2170,7 @@ export function buildResourcesHubJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Resources',
+						name: 'Free Trading Resources',
 						item: pageUrl
 					}
 				]
@@ -2202,7 +2178,7 @@ export function buildResourcesHubJsonLd(origin: string) {
 			{
 				'@type': 'ItemList',
 				'@id': `${pageUrl}#utilities`,
-				name: 'Free Public Trading Utilities & Directories',
+				name: 'Free Public Trading Utilities & Resource Vault',
 				numberOfItems: RESOURCES_HUB_UTILITIES.length,
 				itemListElement: RESOURCES_HUB_UTILITIES.map((util, idx) => ({
 					'@type': 'ListItem',
@@ -2210,19 +2186,6 @@ export function buildResourcesHubJsonLd(origin: string) {
 					name: util.name,
 					description: util.description,
 					url: `${origin}${util.path}`
-				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: RESOURCES_HUB_FAQ_ITEMS.map((f) => ({
-					'@type': 'Question',
-					name: f.question,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: f.answer
-					}
 				}))
 			}
 		]

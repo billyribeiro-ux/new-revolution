@@ -19,46 +19,62 @@ describe('/resources/+page.ts load()', () => {
 		};
 
 		// 30 chars before suffix -> 56 chars total with " | Revolution Trading Pros"
-		expect(pageMetaTags.title).toBe('Free Stock & Options Resources');
+		expect(pageMetaTags.title).toBe('Free Trading Resources & Tools');
 		expect(pageMetaTags.openGraph.title).toBe(
-			'Free Stock & Options Resources | Revolution Trading Pros'
+			'Free Trading Resources & Tools | Revolution Trading Pros'
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(56);
 
-		// 147 chars description
+		// 148 chars description
 		expect(pageMetaTags.description).toBe(
-			'Access free stock and options trading resources: our interactive Options Calculator, ETF Stocks List, Stock Indexes List, and institutional guides.'
+			'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.'
 		);
-		expect(pageMetaTags.description.length).toBe(147);
+		expect(pageMetaTags.description.length).toBe(148);
 		expect(pageMetaTags.openGraph.url).toBe('https://revolutiontradingpros.com/resources');
 		expect(result.jsonLdSchema).toBeDefined();
 	});
 });
 
 describe('/resources/+page.svelte component', () => {
-	it('renders the hero H1, 3 flagship utilities, 6 vault categories, 24 resource links, 4 FAQs, and 5 bottom room cards', async () => {
+	it('renders the hero H1, 3 flagship utilities, 6 resource categories with exact H3 headings, 24 resource items, and bottom CTA banner', async () => {
 		const data = runLoad();
 		render(Page, { data: data as never });
 
 		const h1 = page.getByRole('heading', {
 			level: 1,
-			name: /Free Stock, ETF & Options Trading Resources/i
+			name: /Free Trading Resources/i
 		});
 		await expect.element(h1).toBeInTheDocument();
 
-		const utilityCards = document.querySelectorAll('.utility-card');
+		const utilityCards = document.querySelectorAll('.flagship-utility-card');
 		expect(utilityCards.length).toBe(3);
 
-		const vaultCards = document.querySelectorAll('.vault-card');
-		expect(vaultCards.length).toBe(6);
+		const resourceCards = document.querySelectorAll('.resource-card');
+		expect(resourceCards.length).toBe(6);
 
-		const vaultLinks = document.querySelectorAll('.vault-link');
-		expect(vaultLinks.length).toBe(24);
+		const expectedCategories = [
+			'Beginner Guides',
+			'Free Tools',
+			'Video Tutorials',
+			'Market Analysis',
+			'Trading Psychology',
+			'FAQ & Support'
+		];
+		for (const cat of expectedCategories) {
+			const h3 = page.getByRole('heading', { level: 3, name: cat });
+			await expect.element(h3).toBeInTheDocument();
+		}
 
-		const faqItems = document.querySelectorAll('.faq-item');
-		expect(faqItems.length).toBe(4);
+		const resourceItems = document.querySelectorAll('.resource-card__item');
+		expect(resourceItems.length).toBe(24);
 
-		const roomCards = document.querySelectorAll('.room-cta-card');
-		expect(roomCards.length).toBe(5);
+		const ctaH2 = page.getByRole('heading', {
+			level: 2,
+			name: /Ready to Take the Next Step\?/i
+		});
+		await expect.element(ctaH2).toBeInTheDocument();
+
+		const ctaLink = page.getByRole('link', { name: /Get Started Free/i });
+		await expect.element(ctaLink).toHaveAttribute('href', '/signup');
 	});
 });

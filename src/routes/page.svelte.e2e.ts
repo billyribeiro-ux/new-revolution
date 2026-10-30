@@ -1215,21 +1215,31 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// Free Trading Resources Hub Page (/resources)
 		await page.goto('/resources');
 		const resourcesTitle = await page.title();
-		expect(resourcesTitle).toBe('Free Stock & Options Resources | Revolution Trading Pros');
+		expect(resourcesTitle).toBe('Free Trading Resources & Tools | Revolution Trading Pros');
 		expect(resourcesTitle.length).toBe(56);
 
 		const resourcesDesc = await page.locator('meta[name="description"]').getAttribute('content');
 		expect(resourcesDesc).toBe(
-			'Access free stock and options trading resources: our interactive Options Calculator, ETF Stocks List, Stock Indexes List, and institutional guides.'
+			'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.'
 		);
-		expect(resourcesDesc!.length).toBe(147);
+		expect(resourcesDesc!.length).toBe(148);
+
+		// Verify zero duplicate head tags (unified svelte-meta-tags layer)
+		await expect(page.locator('head title')).toHaveCount(1);
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('.utility-card')).toHaveCount(3);
-		await expect(page.locator('.vault-card')).toHaveCount(6);
-		await expect(page.locator('.vault-link')).toHaveCount(24);
-		await expect(page.locator('.faq-item')).toHaveCount(4);
-		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+		await expect(page.locator('.flagship-utility-card')).toHaveCount(3);
+		await expect(page.locator('.resource-card')).toHaveCount(6);
+		await expect(page.locator('.resource-card__item')).toHaveCount(24);
+		await expect(
+			page.getByRole('heading', { level: 2, name: /Ready to Take the Next Step\?/i })
+		).toBeVisible();
+		await expect(page.getByRole('link', { name: /Get Started Free/i })).toHaveAttribute(
+			'href',
+			'/signup'
+		);
 
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });

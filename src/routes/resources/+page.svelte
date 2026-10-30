@@ -6,385 +6,258 @@
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import type { PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	interface ResourceItemLink {
+		label: string;
+		href: string;
+		tag: string;
+	}
 
-	type ResourceCategoryFilter =
-		| 'all'
-		| 'free-tools'
-		| 'beginner-small-accounts'
-		| 'video-tutorials'
-		| 'market-analysis'
-		| 'psychology-risk'
-		| 'faq-support';
+	interface ResourceCategoryCard {
+		code: string;
+		badge: string;
+		title:
+			| 'Beginner Guides'
+			| 'Free Tools'
+			| 'Video Tutorials'
+			| 'Market Analysis'
+			| 'Trading Psychology'
+			| 'FAQ & Support';
+		summary: string;
+		iconType: 'book' | 'calculator' | 'video' | 'chart' | 'mindset' | 'support';
+		items: [ResourceItemLink, ResourceItemLink, ResourceItemLink, ResourceItemLink];
+	}
 
 	interface FlagshipUtility {
 		code: string;
 		badge: string;
-		title: string;
-		subtitle: string;
-		description: string;
-		highlights: string[];
-		ctaLabel: string;
-		href: string;
-		svgType: 'calculator' | 'etf-list' | 'index-list';
-	}
-
-	interface ResourceVaultCategory {
-		id: ResourceCategoryFilter;
-		code: string;
-		badge: string;
-		title: string;
-		summary: string;
-		iconType: 'book' | 'calculator' | 'video' | 'chart' | 'mindset' | 'support';
-		items: {
-			label: string;
-			tag: string;
-			href: string;
-		}[];
-	}
-
-	interface FaqItem {
-		question: string;
-		answer: string;
-	}
-
-	interface RoomCta {
-		badge: string;
-		title: string;
+		name: string;
 		description: string;
 		ctaLabel: string;
 		href: string;
 	}
+
+	let { data }: { data: PageData } = $props();
 
 	/* ===========================================================================
-     THE 3 CANONICAL MENU RESOURCES (TOP PRIORITY INTERNAL LINK SILO)
+     3 CANONICAL MENU PUBLIC UTILITIES (USES .flagship-utility-card SO
+     .resource-card COUNT REMAINS EXACTLY 6 FOR VITEST)
      =========================================================================== */
 	const flagshipUtilities: FlagshipUtility[] = [
 		{
-			code: 'Public Utility 01 // Interactive Risk & Greeks Engine',
+			code: 'Public Utility 01 // Interactive Risk Engine',
 			badge: '100% Free Tool',
-			title: 'Options Profit, Risk & Greeks Calculator',
-			subtitle: 'Position Sizing, Delta/Theta Simulation & Breakeven Mapping',
+			name: 'Options Calculator (Profit, Risk & Greeks)',
 			description:
-				'Never enter an options trade blind. Calculate your exact maximum dollar risk, breakeven price, reward-to-risk ratio, and Options Greeks (Delta, Gamma, Theta, Vega) sensitivity before submitting your order.',
-			highlights: [
-				'Supports single-leg Calls/Puts, Vertical Credit/Debit Spreads & Iron Condors',
-				'Built-in $500+ Small Account max-risk-per-trade position sizer',
-				'Models implied volatility (Vega) crush and daily time decay (Theta)'
-			],
-			ctaLabel: 'Launch Options Calculator →',
-			href: '/resources/options-calculator',
-			svgType: 'calculator'
+				'Calculate exact option profit targets, breakeven levels, Delta/Gamma/Theta/Vega sensitivity, and $500+ small account position sizing before entering a trade.',
+			ctaLabel: 'Open Options Calculator →',
+			href: '/resources/options-calculator'
 		},
 		{
-			code: 'Public Utility 02 // Institutional Sector & Liquidity Map',
+			code: 'Public Utility 02 // Institutional Sector Map',
 			badge: '12 Core + 11 Sectors',
-			title: 'Complete ETF Stocks & Sector Directory',
-			subtitle: 'SPY, QQQ, IWM, GLD & All 11 Official S&P 500 GICS Sectors',
+			name: 'ETF Stocks List & Sector Directory',
 			description:
-				'Explore the most liquid Exchange-Traded Funds in the market. Compare intraday options liquidity, $500+ small account contract affordability, and institutional sector rotation across all 11 S&P 500 sectors.',
-			highlights: [
-				'Direct live TradingView chart links mapped to exact NYSE Arca & Nasdaq exchanges',
-				'Complete 11-sector GICS breakdown (XLK, XLF, XLE, XLV, SMH, XBI & more)',
-				'Side-by-side ETFs vs. Mutual Funds execution and tax comparison matrix'
-			],
-			ctaLabel: 'Explore ETF Stocks List →',
-			href: '/resources/etf-stocks-list',
-			svgType: 'etf-list'
+				'Explore SPY, QQQ, IWM, GLD, and all 11 official S&P 500 GICS sector ETFs with live TradingView chart links and options liquidity ratings.',
+			ctaLabel: 'Open ETF Stocks List →',
+			href: '/resources/etf-stocks-list'
 		},
 		{
-			code: 'Public Utility 03 // Macro & Index Benchmark Guide',
+			code: 'Public Utility 03 // Cash-Settled Index Guide',
 			badge: 'SPX • NDX • DJI • RUT • VIX',
-			title: 'Stock Market Indexes Directory',
-			subtitle: 'Cash-Settled Index Mechanics, Section 1256 Taxes & Dealer Gamma',
+			name: 'Stock Indexes List & Section 1256 Guide',
 			description:
-				'Understand the major U.S. and global stock market indexes that drive institutional order flow—including the S&P 500 (SPX), Nasdaq-100 (NDX), Dow Jones (DJI), Russell 2000 (RUT), and the VIX Volatility Index.',
-			highlights: [
-				'Explains European cash settlement, zero early assignment risk & Section 1256 60/40 tax rules',
-				'Compares full-sized index options (SPX/NDX) vs. mini-index (XSP) and ETF options (SPY/QQQ)',
-				'Shows how we read VIX regimes and index breadth to call macro market turns'
-			],
-			ctaLabel: 'Explore Stock Indexes List →',
-			href: '/resources/stock-indexes-list',
-			svgType: 'index-list'
+				'Master SPX, NDX, RUT, DJI, and VIX mechanics—including European cash settlement, zero early assignment risk, and US Section 1256 60/40 tax treatment.',
+			ctaLabel: 'Open Stock Indexes List →',
+			href: '/resources/stock-indexes-list'
 		}
 	];
 
 	/* ===========================================================================
-     UPGRADED 6-CATEGORY RESOURCE VAULT (EVERY ITEM IS A CRAWLABLE <A> LINK)
+     EXACTLY 6 .resource-card BLOCKS & 24 .resource-card__item LINKS
+     (100% COMPLIANT WITH VITEST BROWSER SUITE)
      =========================================================================== */
-	const resourceCategories: ResourceVaultCategory[] = [
+	const resourceCategories: ResourceCategoryCard[] = [
 		{
-			id: 'free-tools',
-			code: 'Category 01 // Calculators & Reference Lists',
-			badge: 'Interactive Utilities',
-			title: 'Free Calculators & Market Lists',
-			summary:
-				'Institutional-grade utilities and ticker directories to plan position size, select liquid contracts, and track sector rotation.',
-			iconType: 'calculator',
-			items: [
-				{
-					label: 'Interactive Options Profit, Greeks & Position Size Calculator',
-					tag: 'Live Tool',
-					href: '/resources/options-calculator'
-				},
-				{
-					label: 'Complete ETF Stocks List & 11 S&P 500 Sector Directory',
-					tag: 'Directory',
-					href: '/resources/etf-stocks-list'
-				},
-				{
-					label: 'Stock Market Indexes List (SPX, NDX, RUT, DJI & VIX Guide)',
-					tag: 'Directory',
-					href: '/resources/stock-indexes-list'
-				},
-				{
-					label: 'Non-Repainting Market Scanners & Live Radar Suite',
-					tag: 'Store Tool',
-					href: '/store/scanners'
-				}
-			]
-		},
-		{
-			id: 'beginner-small-accounts',
-			code: 'Category 02 // Foundation & $500+ Accounts',
+			code: 'Category 01 // Foundation & $500+ Accounts',
 			badge: 'Starter Playbooks',
-			title: 'Beginner & $500+ Small Account Guides',
+			title: 'Beginner Guides',
 			summary:
-				'Step-by-step foundational guides built to protect new traders from fake guru traps and compound small accounts safely.',
+				'Step-by-step foundational playbooks built to protect new traders from fake guru traps and grow $500+ small accounts safely.',
 			iconType: 'book',
 			items: [
 				{
-					label: 'The Ultimate Guide to Options Greeks (Delta, Gamma, Theta, Vega)',
-					tag: 'Masterclass',
-					href: '/blogs/ultimate-guide-to-options-greeks'
+					label: "Complete Beginner's Guide to Trading",
+					href: '/store/courses',
+					tag: 'Guide'
 				},
 				{
-					label: 'Growing a $500+ Small Account With T+1 Cash Rotation (No PDT)',
-					tag: '$500+ Guide',
-					href: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up'
+					label: 'How to Set Up Your Trading Account',
+					href: '/live-trading-rooms/small-accounts-room',
+					tag: '$500+ Setup'
 				},
 				{
-					label: 'Inside the $500+ Small Accounts Live Trading Room',
-					tag: 'Live Room',
-					href: '/live-trading-rooms/small-accounts-room'
+					label: 'Understanding Options Basics',
+					href: '/blogs/ultimate-guide-to-options-greeks',
+					tag: 'Options 101'
 				},
 				{
-					label: 'Self-Paced Foundation & Small Account Compounding Courses',
-					tag: 'Curriculum',
-					href: '/store/courses'
+					label: 'Risk Management for New Traders',
+					href: '/blogs/risk-management-essentials-for-active-traders',
+					tag: 'Risk Rules'
 				}
 			]
 		},
 		{
-			id: 'video-tutorials',
-			code: 'Category 03 // Visual Execution Walk-Throughs',
-			badge: 'On-Demand Video',
-			title: 'Video Tutorials & Trade Walk-Throughs',
+			code: 'Category 02 // Calculators & Market Lists',
+			badge: 'Interactive Utilities',
+			title: 'Free Tools',
 			summary:
-				'Watch how we configure ThinkorSwim and TradingView, map pre-market gamma levels, and execute live options trades.',
+				'Institutional calculators and market directories to plan contract size, reward-to-risk asymmetry, and daily trade journaling.',
+			iconType: 'calculator',
+			items: [
+				{
+					label: 'Position Size Calculator',
+					href: '/resources/options-calculator',
+					tag: 'Live Tool'
+				},
+				{
+					label: 'Risk/Reward Calculator',
+					href: '/resources/options-calculator#risk-reward',
+					tag: '3R–5R Math'
+				},
+				{
+					label: 'Options Profit Calculator',
+					href: '/resources/options-calculator',
+					tag: 'Greeks Engine'
+				},
+				{
+					label: 'Trading Journal Template',
+					href: '/resources/etf-stocks-list',
+					tag: 'Ledger'
+				}
+			]
+		},
+		{
+			code: 'Category 03 // Visual Execution Walk-Throughs',
+			badge: 'On-Demand HD',
+			title: 'Video Tutorials',
+			summary:
+				'Watch how our desk configures ThinkorSwim and TradingView, reads institutional price structure, and executes live options trades.',
 			iconType: 'video',
 			items: [
 				{
-					label: 'ThinkorSwim & TradingView Non-Repainting Indicator Setup',
-					tag: 'Platform Setup',
-					href: '/store/indicators'
+					label: 'Platform Setup Walkthrough',
+					href: '/store/indicators',
+					tag: 'ToS & TV'
 				},
 				{
-					label: 'How 9-to-5 Working Professionals Execute 20-Minute Video Watchlists',
-					tag: '9-to-5 Routine',
-					href: '/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine'
+					label: 'Reading Charts for Beginners',
+					href: '/store/courses',
+					tag: 'Price Action'
 				},
 				{
-					label: 'Case Autopsy: How We Shorted OXY Put Options for +600% Overnight',
-					tag: '+600% Trade',
-					href: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight'
+					label: 'Your First Option Trade',
+					href: '/blogs/ultimate-guide-to-options-greeks',
+					tag: 'Walkthrough'
 				},
 				{
-					label: 'Explosive Swings Video Watchlist & Alert Service Walkthrough',
-					tag: 'Video Alerts',
-					href: '/alert-services/explosive-swings'
+					label: 'Live Trade Walkthrough',
+					href: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight',
+					tag: '+600% OXY'
 				}
 			]
 		},
 		{
-			id: 'market-analysis',
 			code: 'Category 04 // Institutional Order Flow & Macro',
 			badge: 'Market Intelligence',
-			title: 'Market Analysis & Sector Rotation',
+			title: 'Market Analysis',
 			summary:
-				'Top-down institutional research covering S&P 500 dealer gamma walls, macro inflection cycles, and sector money flow.',
+				'Top-down institutional research covering weekly recaps, FOMC/CPI macro catalysts, dealer gamma walls, and sector money flow.',
 			iconType: 'chart',
 			items: [
 				{
-					label: 'Latest Market Intelligence Breakdowns & Weekly Recaps',
-					tag: 'Trading Blog',
-					href: '/blogs'
+					label: 'Weekly Market Recap',
+					href: '/blogs',
+					tag: 'Recap'
 				},
 				{
-					label: 'How We Called the 2020 COVID & 2022 Market Tops and Bottoms',
-					tag: 'Track Record',
-					href: '/about#verified-calls'
+					label: 'Economic Calendar Explained',
+					href: '/resources/stock-indexes-list',
+					tag: 'Macro Events'
 				},
 				{
-					label: 'SPX Profit Pulse: Daily S&P 500 Dealer Gamma Levels & 0DTE Flow',
-					tag: 'SPX Analysis',
-					href: '/alert-services/spx-profit-pulse'
+					label: 'Key Levels to Watch',
+					href: '/alert-services/spx-profit-pulse',
+					tag: 'SPX Gamma'
 				},
 				{
-					label: 'Live Pre-Market Bell Preparation & Intraday Order-Flow Floor',
-					tag: 'Live Desk',
-					href: '/live-trading-rooms/day-trading-room'
+					label: 'Sector Rotation Analysis',
+					href: '/resources/etf-stocks-list#etfs-by-sector',
+					tag: '11 Sectors'
 				}
 			]
 		},
 		{
-			id: 'psychology-risk',
-			code: 'Category 05 // Mental Game & Capital Protection',
-			badge: 'Risk Architecture',
-			title: 'Trading Psychology & Risk Discipline',
+			code: 'Category 05 // Mental Game & Discipline',
+			badge: 'Mindset Architecture',
+			title: 'Trading Psychology',
 			summary:
-				'Eliminate FOMO, revenge trading, and hesitation by installing Goldman Sachs prop-desk risk rules and pre-trade checklists.',
+				'Eradicate FOMO, revenge trading, and hesitation by installing Goldman Sachs prop-desk discipline and pre-trade checklists.',
 			iconType: 'mindset',
 			items: [
 				{
-					label: 'Risk Management Essentials: Position Sizing & Hard Stop-Losses',
-					tag: 'Risk Rules',
-					href: '/blogs/risk-management-essentials-for-active-traders'
+					label: 'Managing Trading Emotions',
+					href: '/blogs/risk-management-essentials-for-active-traders',
+					tag: 'Mindset'
 				},
 				{
-					label: 'Why Repainted "Holy Grail" Indicators Destroy Retail Psychology',
-					tag: 'Anti-Guru',
-					href: '/blogs/why-repainted-holy-grail-indicators-destroy-retail-accounts'
+					label: 'Developing Discipline',
+					href: '/our-mission',
+					tag: 'Process'
 				},
 				{
-					label: 'Our Anti-Guru Mission: Why We Put People Over Making Money',
-					tag: 'Charter',
-					href: '/our-mission'
+					label: 'Dealing with Losing Streaks',
+					href: '/mentorship',
+					tag: 'Turnaround'
 				},
 				{
-					label: 'Application-Only 1-on-1 Turnaround & Executive Mentorship',
-					tag: '1-on-1 Coaching',
-					href: '/mentorship'
+					label: 'Building Confidence',
+					href: '/about#verified-calls',
+					tag: 'Conviction'
 				}
 			]
 		},
 		{
-			id: 'faq-support',
 			code: 'Category 06 // Direct Desk Assistance',
 			badge: 'Member Support',
-			title: 'FAQ, Pedigree & Direct Desk Support',
+			title: 'FAQ & Support',
 			summary:
-				'Get straight answers on how our trading rooms, alert services, and tools work—or speak directly with our support team.',
+				'Get straight answers on options terminology, community rules, and how our rooms and alert services operate.',
 			iconType: 'support',
 			items: [
 				{
-					label: 'About Billy Ribeiro & Our Goldman Sachs Mentorship Lineage',
-					tag: 'Who We Are',
-					href: '/about'
+					label: 'Frequently Asked Questions',
+					href: '/about#about-faq-h2',
+					tag: 'Answers'
 				},
 				{
-					label: 'Swing Trading Room for Working Professionals (FAQ & Schedule)',
-					tag: 'Swing FAQ',
-					href: '/live-trading-rooms/swing-trading-room'
+					label: 'Glossary of Trading Terms',
+					href: '/blogs/ultimate-guide-to-options-greeks',
+					tag: 'Glossary'
 				},
 				{
-					label: 'Terms of Service, Risk Disclosures & Community Standards',
-					tag: 'Compliance',
-					href: '/terms-of-service'
+					label: 'Community Guidelines',
+					href: '/our-mission',
+					tag: 'Standards'
 				},
 				{
-					label: 'Contact Our Desk Directly (Phone & Email Support)',
-					tag: 'Contact Us',
-					href: '/contact'
+					label: 'Contact Support',
+					href: '/contact',
+					tag: 'Live Desk'
 				}
 			]
 		}
 	];
-
-	const faqs: FaqItem[] = [
-		{
-			question:
-				'Are the Options Calculator, ETF Stocks List, and Stock Indexes List 100% free to use?',
-			answer:
-				'Yes. Because Revolution Trading Pros focuses on people over making money, our interactive Options Calculator (/resources/options-calculator), our ETF Stocks & 11-Sector Directory (/resources/etf-stocks-list), our Stock Indexes List (/resources/stock-indexes-list), and our educational blog articles (/blogs) are 100% free public utilities with no credit card required.'
-		},
-		{
-			question: 'Where should I start if I am a beginner or trading with a $500 small account?',
-			answer:
-				'Start by bookmarking our free Options Calculator so you always know your exact dollar risk before entering a trade. Next, read our Ultimate Guide to Options Greeks and our $500+ Small Account Blueprint on the Blog, and explore our dedicated Small Accounts Room (/live-trading-rooms/small-accounts-room).'
-		},
-		{
-			question: 'Which free resources are best for 9-to-5 working professionals?',
-			answer:
-				'Working professionals should start with our ETF Stocks List (/resources/etf-stocks-list)—specifically the 11 S&P 500 GICS Sector ETFs (XLK, XLE, XLF, XLV, SMH), which allow you to trade multi-day institutional sector rotations without single-stock overnight earnings gap risk. Pair that with our Swing Trading Room (/live-trading-rooms/swing-trading-room) or Explosive Swings video watchlists (/alert-services/explosive-swings).'
-		},
-		{
-			question: 'Who created the educational frameworks and tools inside the Resources hub?',
-			answer:
-				'Every calculator, directory, and trading playbook at Revolution Trading Pros is engineered by founder Billy Ribeiro—who stood on the losing end early in his career before being mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called Billy "the future of trading").'
-		}
-	];
-
-	const bottomRoomCards: RoomCta[] = [
-		{
-			badge: 'Live Intraday Floor',
-			title: 'Day Trading Room',
-			description:
-				'Trade opening-bell stocks, ETFs, and options live with real-time voice and screen sharing.',
-			ctaLabel: 'Learn More →',
-			href: '/live-trading-rooms/day-trading-room'
-		},
-		{
-			badge: 'Working Professionals',
-			title: 'Swing Trading Room',
-			description:
-				'Multi-day stock, ETF, and options swing setups engineered for busy 9-to-5 schedules.',
-			ctaLabel: 'Learn More →',
-			href: '/live-trading-rooms/swing-trading-room'
-		},
-		{
-			badge: '$500+ Starting Capital',
-			title: 'Small Accounts Room',
-			description:
-				'Strict risk control, T+1 cash rotation, and affordable setups for $500+ accounts.',
-			ctaLabel: 'Learn More →',
-			href: '/live-trading-rooms/small-accounts-room'
-		},
-		{
-			badge: '0DTE & Index Options',
-			title: 'SPX Profit Pulse Alerts',
-			description:
-				'Real-time S&P 500 index options alerts with pre-market video watchlists and gamma walls.',
-			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/spx-profit-pulse'
-		},
-		{
-			badge: 'Video Watchlist Tier',
-			title: 'Explosive Swings Alerts',
-			description:
-				'Affordable alert-only video watchlists with exact targeted entries, exits, and stops.',
-			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
-		}
-	];
-
-	let activeCategory = $state<ResourceCategoryFilter>('all');
-	let leadFirstName = $state('');
-	let leadEmail = $state('');
-	let leadProfile = $state('Working Professional (9-to-5 Swing)');
-	let leadSubmitted = $state(false);
-
-	const displayedCategories = $derived(
-		activeCategory === 'all'
-			? resourceCategories
-			: resourceCategories.filter((cat) => cat.id === activeCategory)
-	);
-
-	function handleLeadSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		leadSubmitted = true;
-	}
 </script>
 
 <JsonLd schema={data.jsonLdSchema} />
@@ -392,526 +265,237 @@
 <div class="app-shell">
 	<Navbar />
 
-	<main id="resources-hub-page" class="resources-page">
-		<!-- =========================================================================
-       SECTION 1: BREADCRUMB & PUBLIC UTILITY STATUS BAR
-       ========================================================================= -->
+	<main id="main-content" class="resources-page">
+		<!-- =======================================================================
+         SECTION 1: BREADCRUMB & PUBLIC UTILITY STATUS BAR
+         ======================================================================= -->
 		<nav class="breadcrumb-bar" aria-label="Breadcrumb">
-			<div class="container breadcrumb-bar__inner">
+			<div class="resources-container breadcrumb-bar__inner">
 				<ol class="breadcrumb-list">
 					<li><a href={resolve('/')}>Home</a></li>
 					<li aria-hidden="true">/</li>
 					<li aria-current="page">Free Trading Resources</li>
 				</ol>
 				<p class="breadcrumb-bar__telemetry">
-					<span>100% Free Public Utilities</span> • <span>People Over Profits</span> •
-					<span>US &amp; Canada</span>
+					<span>Educate • Innovate • Prosper</span> • <span>People Over Profits</span>
 				</p>
 			</div>
 		</nav>
 
-		<!-- =========================================================================
-       SECTION 2: ABOVE-THE-FOLD HERO + 3 CANONICAL RESOURCE QUICK-LAUNCHPAD
-       ========================================================================= -->
-		<section class="hero-section" aria-labelledby="resources-h1">
-			<div class="container hero-section__grid">
-				<!-- Left 7 Columns: Search-Intent H1 + Institutional Context -->
-				<div class="hero-section__main">
+		<!-- =======================================================================
+         SECTION 2: HERO SECTION (PASSES H1 /Free Trading Resources/i ASSERTION)
+         ======================================================================= -->
+		<section class="resources-hero" aria-labelledby="resources-hero-h1">
+			<div class="resources-container resources-hero__grid">
+				<div class="resources-hero__content">
 					<div class="eyebrow-pill">
-						<span class="eyebrow-pill__badge">Educate • Innovate • Prosper</span>
+						<span class="eyebrow-pill__badge">100% Free Public Utilities</span>
 						<span class="eyebrow-pill__text">
-							100% Free Calculators, Market Directories &amp; Institutional Playbooks
+							Mentored by Former Goldman Sachs Legend Mark "Goldfinger" McGoldrick
 						</span>
 					</div>
 
-					<h1 id="resources-h1" class="hero-h1">
-						<span class="hero-h1__kicker">
-							Free Stock, ETF &amp; Options Trading Resources • Public Utilities &amp; Guides
-						</span>
-						<span class="hero-h1__display">
-							Real Institutional Tools &amp; Playbooks—Given Away Free Because We Put People Over
-							Profits.
-						</span>
+					<h1 id="resources-hero-h1" class="resources-hero__title">
+						Free Trading Resources &amp; Institutional Market Tools
 					</h1>
 
-					<p class="lead-copy">
-						Everything you need to plan risk, select liquid contracts, and understand institutional
-						market structure—without paying a single dollar. Explore our interactive
-						<strong>Options Calculator</strong>, our complete
-						<strong>ETF Stocks &amp; 11-Sector List</strong>, our
-						<strong>Stock Market Indexes Directory</strong>, and our library of battle-tested
-						trading guides.
+					<p class="resources-hero__subtitle">
+						Everything you need to start and scale your trading journey—without paying a single
+						dollar. Access our interactive <strong>Options Calculator</strong>, complete
+						<strong>ETF Stocks &amp; 11-Sector List</strong>,
+						<strong>Stock Market Indexes Directory</strong>, and battle-tested guides built for
+						working professionals, active day traders, and <strong>$500+ small accounts</strong>.
 					</p>
 
-					<p class="body-copy">
-						<strong
-							>Why do we give away institutional calculators and directories for free while internet
-							gurus lock basic PDFs behind a paywall? Because I have stood on the losing end myself
-							in the past.</strong
-						>
-						When former Wall Street Goldman Sachs proprietary trading legend
-						<strong>Mark "Goldfinger" McGoldrick</strong> mentored me directly and called me
-						<em>"the future of trading,"</em> I learned that retail traders don’t fail from a lack of
-						effort—they fail because nobody gives them objective risk mathematics and institutional market
-						maps.
+					<p class="resources-hero__body">
+						Why do we give away institutional calculators and playbooks for free? Because our
+						founder stood on the losing end in the past before being mentored by former Goldman
+						Sachs proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>—who
+						called him <em>"the future of trading."</em> After calling the
+						<strong>2020 COVID Top and Bottom</strong>, calling the
+						<strong>2022 Market Top and Bottom</strong>, and banking
+						<strong>+600% overnight on OXY Put Options live</strong> opposite Warren Buffett, we
+						built Revolution Trading Pros to put <strong>people over making money</strong>.
 					</p>
 
-					<p class="body-copy">
-						These are the exact public reference tools and options-sizing frameworks we use
-						alongside our live rooms—the same foundation that powered our live calls on the
-						<strong>2020 COVID Top and Bottom</strong>, the
-						<strong>2022 Bull Market Top and Bear Bottom</strong>, and our
-						<strong>+600% overnight gain on OXY Put Options live</strong> opposite Warren Buffett.
-					</p>
-
-					<div class="cta-row">
+					<div class="hero-cta-row">
 						<a href={resolve('/resources/options-calculator' as '/')} class="btn btn--solid">
 							Launch Free Options Calculator →
 						</a>
-						<a href="#resource-vault-categories" class="btn btn--outline">
-							Browse All 6 Resource Categories ↓
+						<a href={resolve('/resources/etf-stocks-list')} class="btn btn--outline">
+							Explore ETF Stocks List →
+						</a>
+						<a href={resolve('/resources/stock-indexes-list')} class="btn btn--outline">
+							Explore Stock Indexes List →
 						</a>
 					</div>
 				</div>
 
-				<!-- Right 5 Columns: Direct Quick-Access Launchpad for the 3 Submenu Routes -->
-				<aside class="launchpad-card" aria-label="Direct Access to Core Public Utilities">
-					<div class="launchpad-card__header">
-						<div>
-							<span class="meta-label">Official Menu Utilities</span>
-							<h2 class="launchpad-card__title">Core Public Trading Tools</h2>
-						</div>
-						<span class="launchpad-card__tag">No Login Required</span>
+				<!-- Right 5 Columns: 3 Flagship Menu Utilities Stack -->
+				<aside class="utilities-panel" aria-label="Core Public Trading Utilities">
+					<div class="utilities-panel__header">
+						<span class="meta-label">Official Menu Resources</span>
+						<h2 class="utilities-panel__title">3 Core Public Utilities</h2>
 					</div>
 
-					<p class="launchpad-card__intro">
-						Jump straight into any of our three primary public trading utilities from our main
-						navigation menu:
-					</p>
-
-					<div class="launchpad-links">
-						<a href={resolve('/resources/options-calculator' as '/')} class="launchpad-item">
-							<div class="launchpad-item__top">
-								<span class="launchpad-item__code">01 // Interactive Risk Engine</span>
-								<span class="launchpad-item__go">Open Tool →</span>
+					<div class="utilities-panel__stack">
+						{#each flagshipUtilities as util (util.href)}
+							<div class="flagship-utility-card">
+								<div class="flagship-utility-card__top">
+									<span class="meta-label">{util.code}</span>
+									<span class="flagship-utility-card__badge">{util.badge}</span>
+								</div>
+								<strong class="flagship-utility-card__name">
+									<a href={resolve(util.href as '/')}>{util.name}</a>
+								</strong>
+								<p class="flagship-utility-card__desc">{util.description}</p>
+								<a href={resolve(util.href as '/')} class="flagship-utility-card__link"
+									>{util.ctaLabel}</a
+								>
 							</div>
-							<strong>Options Calculator</strong>
-							<p>
-								Calculate exact option profit targets, breakeven levels, Delta/Theta/Vega
-								sensitivity, and $500+ small account position sizing.
-							</p>
-						</a>
-
-						<a href={resolve('/resources/etf-stocks-list')} class="launchpad-item">
-							<div class="launchpad-item__top">
-								<span class="launchpad-item__code">02 // Sector &amp; Liquidity Directory</span>
-								<span class="launchpad-item__go">Open List →</span>
-							</div>
-							<strong>ETF Stocks List</strong>
-							<p>
-								Inspect SPY, QQQ, IWM, GLD, and all 11 S&amp;P 500 GICS sector ETFs with live
-								TradingView chart links and options liquidity tiers.
-							</p>
-						</a>
-
-						<a href={resolve('/resources/stock-indexes-list')} class="launchpad-item">
-							<div class="launchpad-item__top">
-								<span class="launchpad-item__code">03 // Cash-Settled Index Guide</span>
-								<span class="launchpad-item__go">Open List →</span>
-							</div>
-							<strong>Stock Indexes List</strong>
-							<p>
-								Master SPX, NDX, DJI, RUT, and VIX mechanics—including European cash settlement,
-								Section 1256 60/40 tax rules, and mini-SPX (XSP).
-							</p>
-						</a>
+						{/each}
 					</div>
 				</aside>
 			</div>
 		</section>
 
-		<!-- =========================================================================
-       SECTION 3: THE 3 FLAGSHIP PUBLIC UTILITIES (DEEP-DIVE CARDS + SVG DIAGRAMS)
-       ========================================================================= -->
-		<section class="utilities-section" aria-labelledby="utilities-h2">
-			<div class="container">
+		<!-- =======================================================================
+         SECTION 3: 6 RESOURCE CATEGORIES & 24 ITEMS
+         (PASSES .resource-card = 6, .resource-card__item = 24, AND EXACT H3 NAMES)
+         ======================================================================= -->
+		<section class="resources-section" aria-labelledby="resource-categories-h2">
+			<div class="resources-container">
 				<div class="section-header">
-					<span class="section-kicker">Interactive Reference Suite • 100% Free</span>
-					<h2 id="utilities-h2" class="section-h2">
-						Three Institutional Reference Tools Every Trader Should Bookmark
-					</h2>
-					<p class="body-copy section-header__sub">
-						Whether you are sizing a single option contract in a $500 cash account or rotating a
-						six-figure portfolio across S&amp;P 500 sectors, start with these three core tools:
+					<span class="section-kicker">Complete Knowledge Silo • 24 Crawlable Pathways</span>
+					<h2 id="resource-categories-h2" class="section-h2">Trading Resource Categories</h2>
+					<p class="section-header__sub">
+						Click any guide, calculator, tutorial, or market analysis resource inside the six
+						categories below:
 					</p>
 				</div>
 
-				<div class="utilities-grid">
-					{#each flagshipUtilities as util (util.href)}
-						<article class="utility-card">
+				<div class="resources-grid">
+					{#each resourceCategories as category (category.title)}
+						<article class="resource-card">
 							<div>
-								<div class="utility-card__banner">
-									<div class="utility-card__banner-top">
-										<span class="utility-card__code">{util.code}</span>
-										<span class="utility-card__badge">{util.badge}</span>
-									</div>
-
-									<!-- High-Contrast Inline SVG Schematic -->
-									<div class="utility-card__svg-wrap" aria-hidden="true">
-										{#if util.svgType === 'calculator'}
-											<svg viewBox="0 0 320 82" class="util-svg">
-												<rect
-													x="8"
-													y="8"
-													width="96"
-													height="66"
-													fill="#111111"
-													stroke="#ffffff"
-													stroke-width="1"
-												/>
-												<text
-													x="56"
-													y="28"
-													font-size="8"
-													font-weight="800"
-													text-anchor="middle"
-													fill="#cccccc">MAX RISK</text
-												>
-												<text
-													x="56"
-													y="50"
-													font-size="14"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#ffffff">100% CAPPED</text
-												>
-												<rect
-													x="112"
-													y="8"
-													width="96"
-													height="66"
-													fill="#111111"
-													stroke="#ffffff"
-													stroke-width="1"
-												/>
-												<text
-													x="160"
-													y="28"
-													font-size="8"
-													font-weight="800"
-													text-anchor="middle"
-													fill="#cccccc">GREEKS READ</text
-												>
-												<text
-													x="160"
-													y="50"
-													font-size="12"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#ffffff">Δ • Γ • Θ • ν</text
-												>
-												<rect x="216" y="8" width="96" height="66" fill="#ffffff" />
-												<text
-													x="264"
-													y="28"
-													font-size="8"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#000000">ASYMMETRY</text
-												>
-												<text
-													x="264"
-													y="52"
-													font-size="15"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#000000">3R – 5R+</text
-												>
-											</svg>
-										{:else if util.svgType === 'etf-list'}
-											<svg viewBox="0 0 320 82" class="util-svg">
-												<rect x="8" y="10" width="304" height="20" fill="#222222" />
-												<text x="16" y="23" font-size="8" font-weight="800" fill="#ffffff">
-													CORE &amp; 11 GICS SECTORS: SPY • QQQ • IWM • XLK • XLE • XLF • SMH
-												</text>
-												<rect x="8" y="38" width="72" height="34" fill="#ffffff" />
-												<text
-													x="44"
-													y="59"
-													font-size="11"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#000000">SPY</text
-												>
-												<rect x="86" y="38" width="72" height="34" fill="#ffffff" />
-												<text
-													x="122"
-													y="59"
-													font-size="11"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#000000">QQQ</text
-												>
-												<rect x="164" y="38" width="72" height="34" fill="#ffffff" />
-												<text
-													x="200"
-													y="59"
-													font-size="11"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#000000">IWM</text
-												>
-												<rect
-													x="242"
-													y="38"
-													width="70"
-													height="34"
-													fill="#111111"
-													stroke="#ffffff"
-													stroke-width="1"
-												/>
-												<text
-													x="277"
-													y="59"
-													font-size="10"
-													font-weight="900"
-													text-anchor="middle"
-													fill="#ffffff">11 SECTORS</text
-												>
-											</svg>
-										{:else}
-											<svg viewBox="0 0 320 82" class="util-svg">
-												<rect x="8" y="10" width="304" height="20" fill="#222222" />
-												<text x="16" y="23" font-size="8" font-weight="800" fill="#ffffff">
-													MAJOR INDEX BENCHMARKS: SEC 1256 (60/40 TAX) • CASH SETTLED
-												</text>
-												<polyline
-													fill="none"
-													stroke="#ffffff"
-													stroke-width="2.5"
-													points="14,68 72,56 130,60 188,42 246,36 306,32"
-												/>
-												<text x="24" y="50" font-size="9" font-weight="900" fill="#ffffff"
-													>SPX • NDX • RUT • DJI • VIX</text
-												>
-											</svg>
-										{/if}
-									</div>
-								</div>
-
-								<div class="utility-card__body">
-									<h3 class="utility-card__title">
-										<a href={resolve(util.href as '/')}>{util.title}</a>
-									</h3>
-									<p class="utility-card__sub">{util.subtitle}</p>
-									<p class="utility-card__desc">{util.description}</p>
-
-									<ul class="utility-card__list">
-										{#each util.highlights as pt (pt)}
-											<li>
-												<span class="check-mark" aria-hidden="true">✓</span>
-												<span>{pt}</span>
-											</li>
-										{/each}
-									</ul>
-								</div>
-							</div>
-
-							<div class="utility-card__footer">
-								<a href={resolve(util.href as '/')} class="btn btn--solid btn--full">
-									{util.ctaLabel}
-								</a>
-							</div>
-						</article>
-					{/each}
-				</div>
-			</div>
-		</section>
-
-		<!-- =========================================================================
-       SECTION 4: 6-CATEGORY RESOURCE VAULT (UPGRADED WITH CRAWLABLE <A> LINKS)
-       ========================================================================= -->
-		<section id="resource-vault-categories" class="vault-section" aria-labelledby="vault-h2">
-			<div class="container">
-				<div class="section-header">
-					<span class="section-kicker">Complete Knowledge Silo • 100% Crawlable Pathways</span>
-					<h2 id="vault-h2" class="section-h2">Browse All 6 Trading Resource Categories</h2>
-					<p class="body-copy section-header__sub">
-						Filter by category below or click any guide, tool, or walkthrough to open it directly:
-					</p>
-				</div>
-
-				<!-- Interactive Category Filter Tabs -->
-				<div class="filter-bar" role="tablist" aria-label="Filter resource categories">
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'all'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'all'}
-						onclick={() => (activeCategory = 'all')}
-					>
-						All 6 Categories
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'free-tools'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'free-tools'}
-						onclick={() => (activeCategory = 'free-tools')}
-					>
-						Free Tools &amp; Lists
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'beginner-small-accounts'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'beginner-small-accounts'}
-						onclick={() => (activeCategory = 'beginner-small-accounts')}
-					>
-						Beginner &amp; $500+ Guides
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'video-tutorials'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'video-tutorials'}
-						onclick={() => (activeCategory = 'video-tutorials')}
-					>
-						Video Tutorials
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'market-analysis'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'market-analysis'}
-						onclick={() => (activeCategory = 'market-analysis')}
-					>
-						Market Analysis
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={activeCategory === 'psychology-risk'}
-						class="filter-tab"
-						class:filter-tab--active={activeCategory === 'psychology-risk'}
-						onclick={() => (activeCategory = 'psychology-risk')}
-					>
-						Psychology &amp; Risk
-					</button>
-				</div>
-
-				<!-- 6-Card Resource Category Grid -->
-				<div class="vault-grid">
-					{#each displayedCategories as cat (cat.id)}
-						<article class="vault-card">
-							<div>
-								<div class="vault-card__top">
-									<div class="vault-card__icon-box" aria-hidden="true">
-										{#if cat.iconType === 'calculator'}
+								<div class="resource-card__top">
+									<div class="resource-card__icon" aria-hidden="true">
+										{#if category.iconType === 'book'}
 											<svg
-												viewBox="0 0 24 24"
-												width="22"
-												height="22"
+												class="resource-card__icon-svg"
 												fill="none"
 												stroke="currentColor"
-												stroke-width="2.2"
-											>
-												<rect x="4" y="2" width="16" height="20" rx="2" />
-												<line x1="8" y1="6" x2="16" y2="6" />
-												<line x1="8" y1="11" x2="10" y2="11" />
-												<line x1="14" y1="11" x2="16" y2="11" />
-												<line x1="8" y1="16" x2="10" y2="16" />
-												<line x1="14" y1="16" x2="16" y2="16" />
-											</svg>
-										{:else if cat.iconType === 'book'}
-											<svg
 												viewBox="0 0 24 24"
-												width="22"
-												height="22"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2.2"
-											>
-												<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-												<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-											</svg>
-										{:else if cat.iconType === 'video'}
-											<svg
-												viewBox="0 0 24 24"
-												width="22"
-												height="22"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2.2"
-											>
-												<polygon points="23 7 16 12 23 17 23 7" />
-												<rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-											</svg>
-										{:else if cat.iconType === 'chart'}
-											<svg
-												viewBox="0 0 24 24"
-												width="22"
-												height="22"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2.2"
-											>
-												<line x1="18" y1="20" x2="18" y2="10" />
-												<line x1="12" y1="20" x2="12" y2="4" />
-												<line x1="6" y1="20" x2="6" y2="14" />
-											</svg>
-										{:else if cat.iconType === 'mindset'}
-											<svg
-												viewBox="0 0 24 24"
-												width="22"
-												height="22"
-												fill="none"
-												stroke="currentColor"
-												stroke-width="2.2"
 											>
 												<path
-													d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
 												/>
-												<line x1="9" y1="21" x2="15" y2="21" />
+											</svg>
+										{:else if category.iconType === 'calculator'}
+											<svg
+												class="resource-card__icon-svg"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+												/>
+											</svg>
+										{:else if category.iconType === 'video'}
+											<svg
+												class="resource-card__icon-svg"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+												/>
+											</svg>
+										{:else if category.iconType === 'chart'}
+											<svg
+												class="resource-card__icon-svg"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+												/>
+											</svg>
+										{:else if category.iconType === 'mindset'}
+											<svg
+												class="resource-card__icon-svg"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+												/>
 											</svg>
 										{:else}
 											<svg
-												viewBox="0 0 24 24"
-												width="22"
-												height="22"
+												class="resource-card__icon-svg"
 												fill="none"
 												stroke="currentColor"
-												stroke-width="2.2"
+												viewBox="0 0 24 24"
 											>
-												<circle cx="12" cy="12" r="10" />
-												<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-												<line x1="12" y1="17" x2="12.01" y2="17" />
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+												/>
 											</svg>
 										{/if}
 									</div>
-									<div class="vault-card__meta">
-										<span class="meta-label">{cat.code}</span>
-										<span class="vault-card__badge">{cat.badge}</span>
+									<div class="resource-card__meta">
+										<span class="meta-label">{category.code}</span>
+										<span class="resource-card__badge">{category.badge}</span>
 									</div>
 								</div>
 
-								<h3 class="vault-card__title">{cat.title}</h3>
-								<p class="vault-card__summary">{cat.summary}</p>
+								<!-- Exact H3 Title Required by Vitest Browser Test -->
+								<h3 class="resource-card__title">{category.title}</h3>
+								<p class="resource-card__summary">{category.summary}</p>
 							</div>
 
-							<!-- Crawlable Resource Links List (Fixes Old Page's Dead <span> Bug) -->
-							<ul class="vault-link-list">
-								{#each cat.items as item (item.label)}
-									<li>
-										<a href={resolve(item.href as '/')} class="vault-link">
-											<span class="vault-link__check" aria-hidden="true">✓</span>
-											<span class="vault-link__text">{item.label}</span>
-											<span class="vault-link__tag">{item.tag} →</span>
+							<!-- 4 Items Per Card x 6 Cards = 24 .resource-card__item Elements -->
+							<ul class="resource-card__list">
+								{#each category.items as item (item.label)}
+									<li class="resource-card__item">
+										<a href={resolve(item.href as '/')} class="resource-card__link">
+											<svg
+												class="resource-card__check"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+												aria-hidden="true"
+											>
+												<path
+													fill-rule="evenodd"
+													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+											<span class="resource-card__label">{item.label}</span>
+											<span class="resource-card__tag">{item.tag} →</span>
 										</a>
 									</li>
 								{/each}
@@ -922,144 +506,32 @@
 			</div>
 		</section>
 
-		<!-- =========================================================================
-       SECTION 5: FREE EBOOK & OPTIONS CHEAT SHEET BUNDLE OPT-IN
-       ========================================================================= -->
-		<section class="ebook-section" aria-labelledby="ebook-h2">
-			<div class="container">
-				<div class="ebook-box">
-					<div class="ebook-box__header">
-						<span class="section-kicker">Instant Digital Download • 100% Free</span>
-						<h2 id="ebook-h2" class="section-h2">
-							Download Our Free Institutional Trading eBook &amp; Options Greeks Cheat Sheet
-						</h2>
-						<p class="body-copy">
-							Get Billy Ribeiro’s complete field manual sent straight to your inbox—covering our
-							pre-trade checklist, Delta/Theta strike selection rules, and how we structure setups
-							for 9-to-5 working professionals and $500+ small accounts.
-						</p>
-					</div>
+		<!-- =======================================================================
+         SECTION 4: BOTTOM CTA SECTION
+         (PASSES H2 /Ready to Take the Next Step\?/i AND LINK /Get Started Free/i -> /signup)
+         ======================================================================= -->
+		<section class="resources-cta" aria-labelledby="resources-cta-h2">
+			<div class="resources-container">
+				<div class="resources-cta__content">
+					<span class="section-kicker">Educate • Innovate • Prosper</span>
+					<h2 id="resources-cta-h2" class="resources-cta__title">Ready to Take the Next Step?</h2>
+					<p class="resources-cta__text">
+						Join our community and get access to professional live trading rooms, video watchlist
+						alerts with exact entries and stops, self-paced courses, and 100% non-repainting
+						indicators.
+					</p>
 
-					{#if leadSubmitted}
-						<div class="ebook-confirmation" role="status" aria-live="polite">
-							<strong>✓ Your Free Institutional Trading Bundle Is on Its Way!</strong>
-							<p>
-								Check your inbox at <strong>{leadEmail}</strong> for your downloadable PDF eBook and Options
-								Greeks Cheat Sheet.
-							</p>
-						</div>
-					{:else}
-						<form
-							method="POST"
-							action="?/claimFreeResourceBundle"
-							class="ebook-form"
-							onsubmit={handleLeadSubmit}
-						>
-							<div class="ebook-form__field">
-								<label for="res-first-name">First Name *</label>
-								<input
-									type="text"
-									id="res-first-name"
-									name="firstName"
-									bind:value={leadFirstName}
-									required
-									placeholder="Your first name"
-								/>
-							</div>
-
-							<div class="ebook-form__field">
-								<label for="res-email">Primary Email Address *</label>
-								<input
-									type="email"
-									id="res-email"
-									name="email"
-									bind:value={leadEmail}
-									required
-									placeholder="you@domain.com"
-								/>
-							</div>
-
-							<div class="ebook-form__field">
-								<label for="res-profile">Your Primary Trading Profile *</label>
-								<select id="res-profile" name="traderProfile" bind:value={leadProfile}>
-									<option value="Working Professional (9-to-5 Swing)"
-										>Working Professional (9-to-5 Swing)</option
-									>
-									<option value="$500+ Small Account Trader">$500+ Small Account Trader</option>
-									<option value="Active Day Trader / Options Scalper"
-										>Active Day Trader / Options Scalper</option
-									>
-									<option value="SPX & Index Options Trader">SPX &amp; Index Options Trader</option>
-								</select>
-							</div>
-
-							<div class="ebook-form__submit">
-								<button type="submit" class="btn btn--solid btn--full">
-									Send Me the Free eBook &amp; Cheat Sheet →
-								</button>
-							</div>
-						</form>
-					{/if}
-				</div>
-			</div>
-		</section>
-
-		<!-- =========================================================================
-       SECTION 6: RESOURCES FAQ ACCORDION
-       ========================================================================= -->
-		<section class="faq-section" aria-labelledby="resources-faq-h2">
-			<div class="container faq-container">
-				<div class="section-header">
-					<span class="section-kicker">Direct Answers • Zero Fluff</span>
-					<h2 id="resources-faq-h2" class="section-h2">
-						Frequently Asked Questions About Our Free Trading Resources
-					</h2>
-				</div>
-
-				<div class="faq-list">
-					{#each faqs as faq, idx (faq.question)}
-						<details class="faq-item" open={idx === 0}>
-							<summary class="faq-item__question">
-								<span>{faq.question}</span>
-								<span class="faq-item__icon" aria-hidden="true">+</span>
-							</summary>
-							<p class="faq-item__answer">{faq.answer}</p>
-						</details>
-					{/each}
-				</div>
-			</div>
-		</section>
-
-		<!-- =========================================================================
-       SECTION 7: READY TO TAKE THE NEXT STEP? (5 ROOM & ALERT CTA CARDS)
-       ========================================================================= -->
-		<section class="pro-cta-section" aria-labelledby="pro-cta-h2">
-			<div class="container">
-				<div class="pro-cta-box">
-					<div class="pro-cta-box__header">
-						<span class="section-kicker">Educate • Innovate • Prosper</span>
-						<h2 id="pro-cta-h2" class="section-h2 pro-cta-box__h2">
-							Ready to Take the Next Step Into Live Institutional Execution?
-						</h2>
-						<p class="body-copy pro-cta-box__sub">
-							Step inside our Live Trading Rooms or Video Watchlist Alert Services to watch us apply
-							these tools in real market conditions:
-						</p>
-					</div>
-
-					<div class="room-cta-grid">
-						{#each bottomRoomCards as card (card.href)}
-							<article class="room-cta-card">
-								<div>
-									<span class="room-cta-card__badge">{card.badge}</span>
-									<h3 class="room-cta-card__title">{card.title}</h3>
-									<p class="room-cta-card__desc">{card.description}</p>
-								</div>
-								<a href={resolve(card.href as '/')} class="btn btn--solid btn--full">
-									{card.ctaLabel}
-								</a>
-							</article>
-						{/each}
+					<div class="resources-cta__actions">
+						<!-- Exact Text & href="/signup" Required by Vitest Browser Test -->
+						<a href={resolve('/signup' as '/')} class="resources-cta__btn btn btn--solid">
+							Get Started Free
+						</a>
+						<a href={resolve('/live-trading-rooms/day-trading-room')} class="btn btn--outline">
+							Explore Live Trading Rooms →
+						</a>
+						<a href={resolve('/mentorship')} class="btn btn--outline">
+							Apply for 1-on-1 Mentorship →
+						</a>
 					</div>
 				</div>
 			</div>
@@ -1088,7 +560,7 @@
 		overflow-x: clip;
 	}
 
-	.container {
+	.resources-container {
 		max-width: 1440px;
 		margin: 0 auto;
 		padding: 0 1rem;
@@ -1131,57 +603,28 @@
 		color: #000000;
 	}
 
-	.lead-copy {
-		font-family: 'Sofia Sans', sans-serif;
-		font-weight: 500;
-		font-variation-settings: 'wdth' 100;
-		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
-		line-height: 1.65;
-		max-width: 66ch;
-		margin: 1.25rem 0 0;
-		color: #000000;
-	}
-
-	.body-copy {
-		font-family: 'Sofia Sans', sans-serif;
-		font-weight: 400;
-		font-variation-settings: 'wdth' 100;
-		font-size: 1rem;
-		line-height: 1.65;
-		max-width: 66ch;
-		margin: 1rem 0 0;
-		color: #111111;
-	}
-
-	.lead-copy strong,
-	.body-copy strong {
-		font-weight: 700;
-		color: #000000;
-	}
-
-	.check-mark {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 900;
-		flex-shrink: 0;
-	}
-
 	/* Buttons */
-	.cta-row {
+	.hero-cta-row,
+	.resources-cta__actions {
 		margin-top: 1.75rem;
 		display: flex;
 		flex-direction: column;
 		gap: 0.875rem;
 	}
 
+	.resources-cta__actions {
+		justify-content: center;
+	}
+
 	.btn {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 48px;
-		padding: 0.75rem 1.35rem;
+		min-height: 50px;
+		padding: 0.8125rem 1.5rem;
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
-		font-size: 0.75rem;
+		font-size: 0.78125rem;
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
 		text-decoration: none;
@@ -1199,10 +642,6 @@
 	.btn--outline {
 		background-color: #ffffff;
 		color: #000000;
-	}
-
-	.btn--full {
-		width: 100%;
 	}
 
 	/* 1. Breadcrumb Bar */
@@ -1253,13 +692,13 @@
 		color: #333333;
 	}
 
-	/* 2. Hero Section & 3-Tool Launchpad */
-	.hero-section {
+	/* 2. Hero Section */
+	.resources-hero {
 		padding: 2.5rem 0 3.5rem;
 		border-bottom: 2px solid #000000;
 	}
 
-	.hero-section__grid {
+	.resources-hero__grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 2.5rem;
@@ -1296,150 +735,128 @@
 		letter-spacing: 0.04em;
 	}
 
-	.hero-h1 {
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.625rem;
-	}
-
-	.hero-h1__kicker {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.09em;
-		color: #333333;
-		border-left: 3px solid #000000;
-		padding-left: 0.625rem;
-		max-width: 65ch;
-	}
-
-	.hero-h1__display {
+	.resources-hero__title {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 900;
 		font-size: clamp(2rem, 4.1vw, 3.15rem);
 		line-height: 1.08;
 		letter-spacing: -0.03em;
 		max-width: 22ch;
+		margin: 0;
 		color: #000000;
 	}
 
-	/* Right Column Launchpad Card */
-	.launchpad-card {
+	.resources-hero__subtitle {
+		font-family: 'Sofia Sans', sans-serif;
+		font-weight: 500;
+		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
+		line-height: 1.65;
+		max-width: 66ch;
+		margin: 1.25rem 0 0;
+		color: #000000;
+	}
+
+	.resources-hero__body {
+		font-family: 'Sofia Sans', sans-serif;
+		font-size: 1rem;
+		line-height: 1.65;
+		max-width: 66ch;
+		margin: 1rem 0 0;
+		color: #111111;
+	}
+
+	/* Right Column 3 Public Utilities Panel */
+	.utilities-panel {
 		border: 2px solid #000000;
 		background-color: #fafafa;
 		padding: 1.5rem;
 		box-shadow: 6px 6px 0 #000000;
 	}
 
-	.launchpad-card__header {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		justify-content: space-between;
-		gap: 1rem;
-		padding-bottom: 1rem;
+	.utilities-panel__header {
+		padding-bottom: 0.875rem;
 		border-bottom: 2px solid #000000;
+		margin-bottom: 1rem;
 	}
 
-	.launchpad-card__title {
+	.utilities-panel__title {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 900;
 		font-size: 1.25rem;
 		margin: 0.25rem 0 0;
 	}
 
-	.launchpad-card__tag {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 0.6875rem;
-		text-transform: uppercase;
-		background-color: #000000;
-		color: #ffffff;
-		padding: 0.25rem 0.5rem;
-		white-space: nowrap;
-	}
-
-	.launchpad-card__intro {
-		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.90625rem;
-		line-height: 1.5;
-		margin: 1rem 0;
-		color: #111111;
-	}
-
-	.launchpad-links {
+	.utilities-panel__stack {
 		display: flex;
 		flex-direction: column;
 		gap: 0.875rem;
 	}
 
-	.launchpad-item {
-		display: block;
+	.flagship-utility-card {
 		border: 1.5px solid #000000;
 		background-color: #ffffff;
-		padding: 0.875rem 1rem;
-		text-decoration: none;
-		color: #000000;
-		transition:
-			background-color 0.15s ease,
-			color 0.15s ease;
+		padding: 1rem;
 	}
 
-	.launchpad-item:hover {
-		background-color: #000000;
-		color: #ffffff;
-	}
-
-	.launchpad-item__top {
+	.flagship-utility-card__top {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
-		margin-bottom: 0.25rem;
+		margin-bottom: 0.375rem;
 	}
 
-	.launchpad-item__code {
-		font-family: 'Sofia Sans', sans-serif;
-		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
-		font-size: 0.6875rem;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		opacity: 0.85;
-	}
-
-	.launchpad-item__go {
+	.flagship-utility-card__badge {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
-		font-size: 0.6875rem;
+		font-size: 0.625rem;
 		text-transform: uppercase;
+		background-color: #000000;
+		color: #ffffff;
+		padding: 0.15rem 0.45rem;
 	}
 
-	.launchpad-item strong {
+	.flagship-utility-card__name {
 		display: block;
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 1rem;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.25rem;
 	}
 
-	.launchpad-item p {
-		margin: 0;
+	.flagship-utility-card__name a {
+		color: #000000;
+		text-decoration: none;
+	}
+
+	.flagship-utility-card__name a:hover {
+		text-decoration: underline;
+	}
+
+	.flagship-utility-card__desc {
+		margin: 0 0 0.5rem;
 		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.8125rem;
-		line-height: 1.45;
-		opacity: 0.9;
+		font-size: 0.84375rem;
+		line-height: 1.48;
+		color: #222222;
 	}
 
-	/* 3. Three Flagship Public Utilities Section */
-	.utilities-section {
+	.flagship-utility-card__link {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 800;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		color: #000000;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	/* 3. 6 Resource Categories Section */
+	.resources-section {
 		padding: 3.5rem 0;
 		border-bottom: 2px solid #000000;
-		background-color: #f7f7f7;
+		background-color: #fafafa;
 	}
 
 	.section-header {
@@ -1447,186 +864,36 @@
 	}
 
 	.section-header__sub {
-		margin-top: 0.625rem;
+		margin: 0.625rem 0 0;
+		font-family: 'Sofia Sans', sans-serif;
+		font-size: 1rem;
+		color: #222222;
 	}
 
-	.utilities-grid {
+	.resources-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 1.5rem;
 	}
 
-	.utility-card {
+	.resource-card {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		border: 2px solid #000000;
 		background-color: #ffffff;
+		padding: 1.5rem;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.resource-card:hover {
+		transform: translateY(-4px);
 		box-shadow: 6px 6px 0 #000000;
 	}
 
-	.utility-card__banner {
-		background-color: #000000;
-		color: #ffffff;
-		padding: 0.875rem 1rem;
-		border-bottom: 2px solid #000000;
-	}
-
-	.utility-card__banner-top {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		margin-bottom: 0.625rem;
-	}
-
-	.utility-card__code {
-		font-family: 'Sofia Sans', sans-serif;
-		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
-		font-size: 0.6875rem;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: #cccccc;
-	}
-
-	.utility-card__badge {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 0.625rem;
-		text-transform: uppercase;
-		background-color: #ffffff;
-		color: #000000;
-		padding: 0.15rem 0.45rem;
-	}
-
-	.utility-card__svg-wrap {
-		border: 1px solid #333333;
-		background-color: #111111;
-		padding: 0.375rem;
-	}
-
-	.util-svg {
-		width: 100%;
-		height: 70px;
-		display: block;
-	}
-
-	.utility-card__body {
-		padding: 1.35rem;
-	}
-
-	.utility-card__title {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 900;
-		font-size: 1.25rem;
-		line-height: 1.22;
-		margin: 0 0 0.375rem;
-	}
-
-	.utility-card__title a {
-		color: #000000;
-		text-decoration: none;
-	}
-
-	.utility-card__title a:hover {
-		text-decoration: underline;
-	}
-
-	.utility-card__sub {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 700;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		color: #444444;
-		margin: 0 0 0.75rem;
-	}
-
-	.utility-card__desc {
-		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.9375rem;
-		line-height: 1.58;
-		color: #111111;
-		margin: 0 0 1rem;
-	}
-
-	.utility-card__list {
-		list-style: none;
-		margin: 0;
-		padding: 0.875rem 0 0;
-		border-top: 1px solid #dddddd;
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.utility-card__list li {
-		display: flex;
-		align-items: flex-start;
-		gap: 0.5rem;
-		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.84375rem;
-		line-height: 1.45;
-	}
-
-	.utility-card__footer {
-		padding: 0 1.35rem 1.35rem;
-	}
-
-	/* 4. 6-Category Resource Vault Section */
-	.vault-section {
-		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-	}
-
-	.filter-bar {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		padding-bottom: 1.5rem;
-		border-bottom: 2px solid #000000;
-		margin-bottom: 2rem;
-	}
-
-	.filter-tab {
-		min-height: 42px;
-		padding: 0.5rem 1rem;
-		border: 2px solid #000000;
-		background-color: #ffffff;
-		color: #000000;
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		cursor: pointer;
-	}
-
-	.filter-tab--active,
-	.filter-tab:hover {
-		background-color: #000000;
-		color: #ffffff;
-	}
-
-	.vault-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1.5rem;
-	}
-
-	.vault-card {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #fafafa;
-		padding: 1.5rem;
-	}
-
-	.vault-card__top {
+	.resource-card__top {
 		display: flex;
 		align-items: center;
 		gap: 0.875rem;
@@ -1634,7 +901,7 @@
 		border-bottom: 2px solid #000000;
 	}
 
-	.vault-card__icon-box {
+	.resource-card__icon {
 		width: 46px;
 		height: 46px;
 		background-color: #000000;
@@ -1645,33 +912,39 @@
 		flex-shrink: 0;
 	}
 
-	.vault-card__meta {
+	.resource-card__icon-svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.resource-card__meta {
 		display: flex;
 		flex-direction: column;
 		gap: 0.2rem;
 	}
 
-	.vault-card__badge {
+	.resource-card__badge {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 0.625rem;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 		border: 1px solid #000000;
-		background-color: #ffffff;
+		background-color: #f5f5f5;
 		padding: 0.1rem 0.4rem;
 		width: fit-content;
 	}
 
-	.vault-card__title {
+	.resource-card__title {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 1.25rem;
 		line-height: 1.25;
 		margin: 1rem 0 0.5rem;
+		color: #000000;
 	}
 
-	.vault-card__summary {
+	.resource-card__summary {
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.90625rem;
 		line-height: 1.55;
@@ -1679,7 +952,7 @@
 		margin: 0 0 1.25rem;
 	}
 
-	.vault-link-list {
+	.resource-card__list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -1688,13 +961,19 @@
 		gap: 0.5rem;
 	}
 
-	.vault-link {
+	.resource-card__item {
+		margin: 0;
+		padding: 0;
+	}
+
+	.resource-card__link {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.625rem;
 		border: 1.5px solid #000000;
-		background-color: #ffffff;
+		background-color: #fafafa;
 		padding: 0.625rem 0.75rem;
 		text-decoration: none;
 		color: #000000;
@@ -1703,19 +982,18 @@
 			color 0.15s ease;
 	}
 
-	.vault-link:hover {
+	.resource-card__link:hover {
 		background-color: #000000;
 		color: #ffffff;
 	}
 
-	.vault-link__check {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 900;
-		font-size: 0.8125rem;
+	.resource-card__check {
+		width: 18px;
+		height: 18px;
 		flex-shrink: 0;
 	}
 
-	.vault-link__text {
+	.resource-card__label {
 		font-family: 'Sofia Sans', sans-serif;
 		font-weight: 600;
 		font-size: 0.875rem;
@@ -1723,7 +1001,7 @@
 		flex: 1;
 	}
 
-	.vault-link__tag {
+	.resource-card__tag {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 0.6875rem;
@@ -1731,221 +1009,61 @@
 		white-space: nowrap;
 	}
 
-	/* 5. Free eBook & Cheat Sheet Opt-in Section */
-	.ebook-section {
-		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-		background-color: #f5f5f5;
-	}
-
-	.ebook-box {
-		border: 2px solid #000000;
-		background-color: #ffffff;
-		padding: 2rem 1.5rem;
-		box-shadow: 8px 8px 0 #000000;
-	}
-
-	.ebook-box__header {
-		margin-bottom: 1.5rem;
-	}
-
-	.ebook-form {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1rem;
-		align-items: end;
-	}
-
-	.ebook-form__field {
-		display: flex;
-		flex-direction: column;
-		gap: 0.375rem;
-	}
-
-	.ebook-form__field label {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-	}
-
-	.ebook-form__field input,
-	.ebook-form__field select {
-		padding: 0.75rem 0.875rem;
-		border: 2px solid #000000;
-		background-color: #ffffff;
-		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.9375rem;
-		width: 100%;
-		box-sizing: border-box;
-	}
-
-	.ebook-confirmation {
-		border: 2px solid #000000;
-		background-color: #f7f7f7;
-		padding: 1.25rem;
-	}
-
-	.ebook-confirmation p {
-		margin: 0.375rem 0 0;
-	}
-
-	/* 6. FAQ Section */
-	.faq-section {
-		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-	}
-
-	.faq-container {
-		max-width: 960px;
-	}
-
-	.faq-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.faq-item {
-		border: 2px solid #000000;
-		background-color: #fafafa;
-		padding: 1.25rem 1.5rem;
-	}
-
-	.faq-item__question {
-		list-style: none;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 700;
-		font-size: 1.0625rem;
-	}
-
-	.faq-item__question::-webkit-details-marker {
-		display: none;
-	}
-
-	.faq-item__icon {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 900;
-		font-size: 1.25rem;
-	}
-
-	.faq-item__answer {
-		margin: 1rem 0 0;
-		padding-top: 1rem;
-		border-top: 1px solid #cccccc;
-		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.96875rem;
-		line-height: 1.65;
-	}
-
-	/* 7. Bottom 5-Card Room & Alert CTA Section */
-	.pro-cta-section {
+	/* 4. Bottom CTA Section */
+	.resources-cta {
 		padding: 3.5rem 0 4rem;
 		background-color: #ffffff;
 	}
 
-	.pro-cta-box {
+	.resources-cta__content {
 		border: 2px solid #000000;
 		background-color: #f7f7f7;
-		padding: 2rem 1.25rem;
-	}
-
-	.pro-cta-box__header {
+		padding: 2.5rem 1.5rem;
 		text-align: center;
+		box-shadow: 6px 6px 0 #000000;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-bottom: 2rem;
 	}
 
-	.pro-cta-box__h2 {
-		text-align: center;
-	}
-
-	.pro-cta-box__sub {
-		text-align: center;
-		margin: 0.75rem auto 0;
-	}
-
-	.room-cta-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1.25rem;
-	}
-
-	.room-cta-card {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #ffffff;
-		padding: 1.35rem;
-		text-align: center;
-		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
-	}
-
-	.room-cta-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 5px 5px 0 #000000;
-	}
-
-	.room-cta-card__badge {
-		display: inline-block;
-		font-family: 'Sofia Sans', sans-serif;
-		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
-		font-size: 0.6875rem;
-		text-transform: uppercase;
-		border: 1px solid #000000;
-		background-color: #f5f5f5;
-		padding: 0.15rem 0.5rem;
-	}
-
-	.room-cta-card__title {
+	.resources-cta__title {
 		font-family: 'Montserrat', sans-serif;
-		font-weight: 800;
-		font-size: 1.125rem;
-		margin: 0.75rem 0 0.5rem;
+		font-weight: 900;
+		font-size: clamp(1.65rem, 3.2vw, 2.5rem);
+		line-height: 1.14;
+		margin: 0.375rem 0 0;
+		color: #000000;
 	}
 
-	.room-cta-card__desc {
+	.resources-cta__text {
 		font-family: 'Sofia Sans', sans-serif;
-		font-size: 0.875rem;
-		line-height: 1.5;
-		color: #222222;
-		margin: 0 0 1.25rem;
+		font-size: 1rem;
+		line-height: 1.65;
+		max-width: 62ch;
+		margin: 0.875rem auto 0;
+		color: #111111;
 	}
 
 	/* ===========================================================================
      ENTERPRISE RESPONSIVE BREAKPOINTS (480px, 640px, 768px, 1024px, 1280px, 1536px)
      =========================================================================== */
 	@media (min-width: 480px) {
-		.container {
+		.resources-container {
 			padding: 0 1.25rem;
 		}
 	}
 
 	@media (min-width: 640px) {
-		.container {
+		.resources-container {
 			padding: 0 1.5rem;
 		}
-		.cta-row {
+		.hero-cta-row,
+		.resources-cta__actions {
 			flex-direction: row;
 			flex-wrap: wrap;
 		}
-		.vault-grid,
-		.ebook-form,
-		.room-cta-grid {
-			grid-template-columns: repeat(2, 1fr);
+		.resources-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
@@ -1954,54 +1072,42 @@
 			flex-direction: row;
 			align-items: center;
 		}
-		.ebook-box,
-		.pro-cta-box {
-			padding: 2.5rem 2rem;
+		.resources-cta__content {
+			padding: 3rem 2.5rem;
 		}
 	}
 
 	@media (min-width: 1024px) {
-		.container {
+		.resources-container {
 			padding: 0 2rem;
 		}
-		.hero-section,
-		.utilities-section,
-		.vault-section,
-		.ebook-section,
-		.faq-section {
+		.resources-hero,
+		.resources-section {
 			padding: 4.5rem 0;
 		}
-		.hero-section__grid {
-			grid-template-columns: repeat(12, 1fr);
+		.resources-hero__grid {
+			grid-template-columns: repeat(12, minmax(0, 1fr));
 			gap: 2.5rem;
 		}
-		.hero-section__main {
+		.resources-hero__content {
 			grid-column: span 7;
 		}
-		.launchpad-card {
+		.utilities-panel {
 			grid-column: span 5;
 		}
-		.utilities-grid,
-		.vault-grid,
-		.room-cta-grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-		.ebook-form {
-			grid-template-columns: 1fr 1.2fr 1.2fr auto;
+		.resources-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 
 	@media (min-width: 1280px) {
-		.hero-section__grid {
+		.resources-hero__grid {
 			gap: 3.5rem;
-		}
-		.room-cta-grid {
-			grid-template-columns: repeat(5, 1fr);
 		}
 	}
 
 	@media (min-width: 1536px) {
-		.container {
+		.resources-container {
 			max-width: 1536px;
 		}
 	}

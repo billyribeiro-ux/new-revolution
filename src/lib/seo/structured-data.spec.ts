@@ -675,17 +675,17 @@ describe('buildResourcesHubJsonLd', () => {
 		expect(new Set(topIds).size).toBe(topIds.length);
 	});
 
-	it('describes the Resources Hub page as a CollectionPage with a 3-item utilities ItemList and 4-question FAQPage', () => {
+	it('describes the Resources Hub page as a CollectionPage with a 3-item utilities ItemList and no hidden FAQPage', () => {
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/resources#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
+		expect(page.name).toBe('Free Trading Resources & Tools | Revolution Trading Pros');
 		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/resources#utilities` });
 
 		const list = graph.find((n) => n['@id'] === `${ORIGIN}/resources#utilities`) as Node;
 		expect(list['@type']).toBe('ItemList');
 		expect(list.numberOfItems).toBe(3);
 
-		const faq = graph.find((n) => n['@id'] === `${ORIGIN}/resources#faq`) as Node;
-		expect(faq['@type']).toBe('FAQPage');
-		expect((faq.mainEntity as unknown[]).length).toBe(4);
+		const faq = graph.find((n) => n['@type'] === 'FAQPage');
+		expect(faq).toBeUndefined();
 	});
 });

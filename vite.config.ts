@@ -10,7 +10,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
  * A 404 for these paths must not fail the build; any other broken link still does.
  */
 const PLANNED_ROUTE_PATTERN =
-	/^\/(live-trading-rooms|alert-services|store|resources|blogs|memberships|login|contact|privacy-policy|terms-of-service)(\/|$)/;
+	/^\/(live-trading-rooms|alert-services|store|resources|blogs|memberships|login|signup|register|contact|privacy-policy|terms-of-service)(\/|$)/;
 
 export default defineConfig({
 	plugins: [

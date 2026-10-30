@@ -22,6 +22,7 @@ import {
 	buildIndicatorsStoreJsonLd,
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
+	buildResourcesHubJsonLd,
 	buildScannersStoreJsonLd,
 	buildSingleCourseJsonLd,
 	buildSingleIndicatorJsonLd,
@@ -654,5 +655,33 @@ describe('buildStockIndexesListJsonLd', () => {
 		expect(questions.map((q) => q.name)).toEqual(
 			STOCK_INDEXES_LIST_FAQ_ITEMS.map((i) => i.question)
 		);
+	});
+});
+
+describe('buildResourcesHubJsonLd', () => {
+	const graph = buildResourcesHubJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('describes the Resources Hub page as a CollectionPage with a 6-item ItemList', () => {
+		const page = graph.find((n) => n['@id'] === `${ORIGIN}/resources#webpage`) as Node;
+		expect(page['@type']).toBe('CollectionPage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/resources#resources-list` });
+
+		const list = graph.find((n) => n['@id'] === `${ORIGIN}/resources#resources-list`) as Node;
+		expect(list['@type']).toBe('ItemList');
+		expect(list.numberOfItems).toBe(6);
 	});
 });

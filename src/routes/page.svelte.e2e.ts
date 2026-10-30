@@ -1152,21 +1152,67 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// ETF Stock List Page (/resources/etf-stocks-list)
 		await page.goto('/resources/etf-stocks-list');
 		const etfTitle = await page.title();
-		expect(etfTitle).toBe('ETF Stock List & Sector Guide | Revolution Trading Pros');
-		expect(etfTitle.length).toBe(55);
+		expect(etfTitle).toBe('ETF Stocks List & Sector Guide | Revolution Trading Pros');
+		expect(etfTitle.length).toBe(56);
 
 		const etfDesc = await page.locator('meta[name="description"]').getAttribute('content');
 		expect(etfDesc).toBe(
-			'Comprehensive ETF stock list and sector guide. Explore top liquid ETFs (SPY, QQQ, IWM, XLK, XLF), benefits, and ETF vs. mutual fund comparisons.'
+			'Complete ETF stocks list covering SPY, QQQ, IWM, and all 11 S&P 500 sector ETFs. Compare options liquidity, expense ratios, and institutional setups.'
 		);
-		expect(etfDesc!.length).toBe(144);
+		expect(etfDesc!.length).toBe(149);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('.benefit-card')).toHaveCount(5);
 		await expect(page.locator('.type-card')).toHaveCount(5);
 		await expect(page.locator('.etf-card')).toHaveCount(12);
-		await expect(page.locator('.sector-card')).toHaveCount(9);
+		await expect(page.locator('.sector-card')).toHaveCount(11);
 		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(7);
+		await expect(page.locator('.faq-item')).toHaveCount(4);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Stock Indexes List Page (/resources/stock-indexes-list)
+		await page.goto('/resources/stock-indexes-list');
+		const indexesTitle = await page.title();
+		expect(indexesTitle).toBe('Stock Market Indexes List | Revolution Trading Pros');
+		expect(indexesTitle.length).toBe(51);
+
+		const indexesDesc = await page.locator('meta[name="description"]').getAttribute('content');
+		expect(indexesDesc).toBe(
+			'Comprehensive stock market indexes list and guide. Track S&P 500 ($SPX), Dow Jones ($DJI), Nasdaq ($NDX), Russell 2000 ($RUT), VIX, and global benchmarks.'
+		);
+		expect(indexesDesc!.length).toBe(154);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('.index-card')).toHaveCount(10);
+		await expect(page.locator('.faq-item')).toHaveCount(5);
+
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Free Trading Resources Hub Page (/resources)
+		await page.goto('/resources');
+		const resourcesTitle = await page.title();
+		expect(resourcesTitle).toBe('Free Trading Resources & Tools | Revolution Trading Pros');
+		expect(resourcesTitle.length).toBe(56);
+
+		const resourcesDesc = await page.locator('meta[name="description"]').getAttribute('content');
+		expect(resourcesDesc).toBe(
+			'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.'
+		);
+		expect(resourcesDesc!.length).toBe(148);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('.resource-card')).toHaveCount(6);
+		await expect(page.locator('.resource-card__item')).toHaveCount(24);
 
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });

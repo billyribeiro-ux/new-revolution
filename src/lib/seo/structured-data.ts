@@ -1893,12 +1893,40 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 	};
 }
 
+export const ETF_STOCKS_LIST_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'small-account-etf-options',
+		question: 'Which ETFs are best for trading options in a $500+ small account?',
+		answer:
+			'For accounts starting between $500 and $2,500, we focus on ETFs that combine penny-wide bid-ask spreads with affordable contract prices: IWM (Russell 2000), XLF (Financials), XLE (Energy), GLD (Gold), and EEM (Emerging Markets)—as well as defined-risk vertical spreads on SPY and QQQ.'
+	},
+	{
+		id: 'sector-etfs-vs-single-stocks',
+		question:
+			'Why do institutional traders and working professionals prefer Sector ETFs over single stocks?',
+		answer:
+			'Single stocks carry overnight idiosyncratic risk (such as an unexpected FDA rejection, SEC probe, or earnings gap). Sector ETFs like XLK, XLE, XLF, and SMH allow 9-to-5 working professionals to trade the dominant institutional money flow with smooth technical structure and zero single-company blowup risk.'
+	},
+	{
+		id: 'spy-vs-spx-options',
+		question: 'What is the difference between SPY and SPX when trading S&P 500 options?',
+		answer:
+			'SPY is an Exchange-Traded Fund (ETF) priced at roughly 1/10th the S&P 500 Index with American-style share settlement and dividend payments. SPX is the cash-settled S&P 500 Index itself (10x the notional size of SPY) with European-style exercise and US Section 1256 60/40 tax treatment. We trade SPY in our Day, Swing, and Small Accounts rooms and SPX inside SPX Profit Pulse.'
+	},
+	{
+		id: 'sp500-11-gics-sectors',
+		question: 'How many official sectors are in the S&P 500, and which ETFs track them?',
+		answer:
+			'There are 11 official GICS (Global Industry Classification Standard) sectors in the S&P 500, tracked by the 11 Select Sector SPDR ETFs: XLK (Technology), XLV (Healthcare), XLF (Financials), XLY (Consumer Discretionary), XLC (Communication Services), XLI (Industrials), XLP (Consumer Staples), XLE (Energy), XLU (Utilities), XLRE (Real Estate), and XLB (Materials).'
+	}
+];
+
 const ETF_STOCKS_LIST_ITEMS = [
-	{ symbol: 'SPY', name: 'SPDR S&P 500 ETF' },
-	{ symbol: 'QQQ', name: 'Invesco QQQ Trust' },
+	{ symbol: 'SPY', name: 'SPDR S&P 500 ETF Trust' },
+	{ symbol: 'QQQ', name: 'Invesco QQQ Trust (Nasdaq-100)' },
 	{ symbol: 'VTI', name: 'Vanguard Total Stock Market ETF' },
-	{ symbol: 'EEM', name: 'iShares MSCI Emerging Markets ETF' },
 	{ symbol: 'IWM', name: 'iShares Russell 2000 ETF' },
+	{ symbol: 'EEM', name: 'iShares MSCI Emerging Markets ETF' },
 	{ symbol: 'VEA', name: 'Vanguard FTSE Developed Markets ETF' },
 	{ symbol: 'AGG', name: 'iShares Core U.S. Aggregate Bond ETF' },
 	{ symbol: 'VIG', name: 'Vanguard Dividend Appreciation ETF' },
@@ -1921,9 +1949,9 @@ export function buildEtfStocksListJsonLd(origin: string) {
 				'@type': 'CollectionPage',
 				'@id': `${pageUrl}#webpage`,
 				url: pageUrl,
-				name: 'ETF Stock List & Sector Guide | Revolution Trading Pros',
+				name: 'ETF Stocks List & Sector Guide | Revolution Trading Pros',
 				description:
-					'Comprehensive ETF stock list and sector guide. Explore top liquid ETFs (SPY, QQQ, IWM, XLK, XLF), benefits, and ETF vs. mutual fund comparisons.',
+					'Complete ETF stocks list covering SPY, QQQ, IWM, and all 11 S&P 500 sector ETFs. Compare options liquidity, expense ratios, and institutional setups.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#etf-list` },
@@ -1939,12 +1967,12 @@ export function buildEtfStocksListJsonLd(origin: string) {
 						'@type': 'ListItem',
 						position: 2,
 						name: 'Resources',
-						item: pageUrl
+						item: `${origin}/resources`
 					},
 					{
 						'@type': 'ListItem',
 						position: 3,
-						name: 'ETF Stock List',
+						name: 'ETF Stocks List',
 						item: pageUrl
 					}
 				]
@@ -1952,12 +1980,26 @@ export function buildEtfStocksListJsonLd(origin: string) {
 			{
 				'@type': 'ItemList',
 				'@id': `${pageUrl}#etf-list`,
-				name: 'Featured Exchange-Traded Funds (ETFs)',
+				name: 'Most Liquid U.S. Index, Sector, Commodity & International ETFs',
 				numberOfItems: ETF_STOCKS_LIST_ITEMS.length,
 				itemListElement: ETF_STOCKS_LIST_ITEMS.map((etf, index) => ({
 					'@type': 'ListItem',
 					position: index + 1,
 					name: `${etf.symbol} — ${etf.name}`
+				}))
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: ETF_STOCKS_LIST_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: {
+						'@type': 'Answer',
+						text: item.answer
+					}
 				}))
 			}
 		]
@@ -2073,6 +2115,65 @@ export function buildStockIndexesListJsonLd(origin: string) {
 					'@id': `${pageUrl}#faq-${item.id}`,
 					name: item.question,
 					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}
+
+const RESOURCES_HUB_CATEGORIES = [
+	'Beginner Guides',
+	'Free Tools',
+	'Video Tutorials',
+	'Market Analysis',
+	'Trading Psychology',
+	'FAQ & Support'
+] as const;
+
+export function buildResourcesHubJsonLd(origin: string) {
+	const pageUrl = `${origin}/resources`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Free Trading Resources & Tools | Revolution Trading Pros',
+				description:
+					'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#resources-list` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Free Trading Resources',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#resources-list`,
+				name: 'Free Trading Resources & Tools Categories',
+				numberOfItems: RESOURCES_HUB_CATEGORIES.length,
+				itemListElement: RESOURCES_HUB_CATEGORIES.map((category, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: category
 				}))
 			}
 		]

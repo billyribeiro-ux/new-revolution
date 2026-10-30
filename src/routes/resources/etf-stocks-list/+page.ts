@@ -7,7 +7,7 @@ import {
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Comprehensive ETF stock list and sector guide. Explore top liquid ETFs (SPY, QQQ, IWM, XLK, XLF), benefits, and ETF vs. mutual fund comparisons.';
+	'Complete ETF stocks list covering SPY, QQQ, IWM, and all 11 S&P 500 sector ETFs. Compare options liquidity, expense ratios, and institutional setups.';
 
 export const prerender = true;
 
@@ -15,25 +15,24 @@ export const load: PageLoad = ({ url }) => {
 	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
-		// 29 chars before suffix -> "ETF Stock List & Sector Guide | Revolution Trading Pros" (55 chars total)
-		title: 'ETF Stock List & Sector Guide',
+		// 30 chars before suffix -> "ETF Stocks List & Sector Guide | Revolution Trading Pros" (56 chars total)
+		title: 'ETF Stocks List & Sector Guide',
 		description: DESCRIPTION,
 		keywords: [
-			'ETF stock list',
-			'exchange traded funds list',
+			'ETF stocks list',
 			'sector ETFs list',
-			'SPY QQQ IWM VTI ETFs',
-			'ETF vs mutual fund comparison',
-			'options trading ETFs'
+			'SPY QQQ IWM options',
+			'S&P 500 GICS sector ETFs',
+			'ETFs vs mutual funds'
 		],
 		openGraph: {
 			type: 'website',
 			url: canonicalUrl,
-			title: 'ETF Stock List & Sector Guide | Revolution Trading Pros',
+			title: 'ETF Stocks List & Sector Guide | Revolution Trading Pros',
 			description: DESCRIPTION
 		},
 		twitter: {
-			title: 'ETF Stock List & Sector Guide | Revolution Trading Pros',
+			title: 'ETF Stocks List & Sector Guide | Revolution Trading Pros',
 			description: DESCRIPTION
 		}
 	});
@@ -43,4 +42,3 @@ export const load: PageLoad = ({ url }) => {
 		jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN)
 	};
 };
-

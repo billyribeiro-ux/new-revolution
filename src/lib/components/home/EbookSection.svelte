@@ -238,7 +238,6 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-stretch: 100%;
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -259,7 +258,6 @@
 		padding-inline: 14px;
 		font-family: var(--font-sans);
 		font-weight: 500;
-		font-stretch: 100%;
 		font-size: 0.9375rem;
 		letter-spacing: 0em;
 	}
@@ -306,8 +304,6 @@
 		color: #9fa9a7;
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-stretch: 92%;
-		font-variation-settings: 'wdth' 92;
 		font-size: 0.75rem;
 		line-height: 1.7;
 		letter-spacing: 0.01em;

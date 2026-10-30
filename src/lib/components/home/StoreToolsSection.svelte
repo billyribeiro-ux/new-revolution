@@ -166,8 +166,6 @@
 		inset-block-end: 19px;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -182,8 +180,6 @@
 		color: #859e5a;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;

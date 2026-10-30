@@ -150,7 +150,6 @@
 		gap: 11px;
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-stretch: 100%;
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;

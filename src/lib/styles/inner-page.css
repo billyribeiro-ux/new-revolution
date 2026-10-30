@@ -19,8 +19,6 @@
 	display: inline-block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	line-height: 1.5;
 	letter-spacing: 0.06em;
@@ -215,8 +213,6 @@
 	list-style: none;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -312,8 +308,6 @@
 .inner-page .eyebrow-pill__text {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -422,8 +416,6 @@
 	color: #d2e79a;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -657,8 +649,6 @@
 	color: var(--status-amber-text);
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -817,8 +807,6 @@
 	color: var(--card-negative-label);
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1286,8 +1274,6 @@
 .inner-page .eyebrow-banner__text {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1365,8 +1351,6 @@
 	color: #d2e79a;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1483,8 +1467,6 @@
 	color: var(--status-amber-text);
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1839,8 +1821,6 @@
 .inner-page .track-radio-card__tag {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -2208,8 +2188,6 @@
 .inner-page .hero-metrics__item dt {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -2277,8 +2255,6 @@
 	color: #d2e79a;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -2340,8 +2316,6 @@
 .inner-page .survival-rule__pill {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -2538,8 +2512,6 @@
 .inner-page .playbook-card__badge {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -2839,8 +2811,6 @@
 	margin: 0;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -2980,8 +2950,6 @@
 .inner-page .meta-time {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -2991,8 +2959,6 @@
 .inner-page .audio-pill {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -3140,8 +3106,6 @@
 	display: block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -3164,8 +3128,6 @@
 	gap: 6px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	color: var(--muted);
@@ -3363,8 +3325,6 @@
 .inner-page .blog-card__audio-badge {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	background: var(--card-white);
@@ -3386,8 +3346,6 @@
 	gap: 6px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -3479,8 +3437,6 @@
 .inner-page .blog-card__author-meta {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	color: #5b636a;
@@ -3594,8 +3550,6 @@
 	display: inline-block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -3683,8 +3637,6 @@
 	margin: 0;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.72rem;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
@@ -3913,8 +3865,6 @@
 .inner-page .indicator-card__code {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.68rem;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
@@ -3954,8 +3904,6 @@
 	gap: 8px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -4262,8 +4210,6 @@
 .inner-page .router-option__tag {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
@@ -4342,8 +4288,6 @@
 .inner-page .course-card__code {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -4371,8 +4315,6 @@
 	gap: 8px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -4737,8 +4679,6 @@
 	display: block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
@@ -4884,8 +4824,6 @@
 	margin: 0;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -5087,8 +5025,6 @@
 	gap: 8px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	color: var(--text-secondary);
@@ -5313,8 +5249,6 @@
 .inner-page .review-card__tag {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	color: var(--acid);
@@ -5722,8 +5656,6 @@
 .inner-page .comp-card__platform {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -6207,8 +6139,6 @@
 .inner-page .ticket-body__code {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	color: var(--acid);
@@ -6458,8 +6388,6 @@
 .inner-page .review-card__strategy {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	color: var(--acid);
@@ -6702,8 +6630,6 @@
 	display: block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	color: var(--acid);
@@ -6806,8 +6732,6 @@
 .inner-page .scanner-card__code {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
@@ -6846,8 +6770,6 @@
 	gap: 8px;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -7273,8 +7195,6 @@
 	display: block;
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	color: #444444;
@@ -7439,8 +7359,6 @@
 .inner-page.scanner-product-page .feature-card__platform {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.75rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -7573,8 +7491,6 @@
 .inner-page.scanner-product-page .review-card__mode {
 	font-family: var(--font-sans);
 	font-weight: 700;
-	font-stretch: 87.5%;
-	font-variation-settings: 'wdth' 87.5;
 	font-size: 0.6875rem;
 	text-transform: uppercase;
 	color: var(--acid);
@@ -8059,7 +7975,7 @@
 	flex-shrink: 0;
 }
 
-.indexes-page .faq-item__question span {
+.indexes-page .faq-item__question > span:not(.faq-item__chevron) {
 	flex: 1;
 	font-size: 0.9375rem;
 }

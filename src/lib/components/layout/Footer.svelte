@@ -187,7 +187,6 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 900;
-		font-stretch: 100%;
 		font-size: 0.9375rem;
 		line-height: 1.02;
 		letter-spacing: -0.025em;
@@ -200,8 +199,6 @@
 		display: block;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 90%;
-		font-variation-settings: 'wdth' 90;
 		font-size: 0.52rem;
 		line-height: 1.1;
 		letter-spacing: 0.08em;
@@ -260,8 +257,6 @@
 	.risk-box p {
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-stretch: 92%;
-		font-variation-settings: 'wdth' 92;
 		font-size: 0.75rem;
 		line-height: 1.85;
 		letter-spacing: 0.01em;
@@ -275,8 +270,6 @@
 	.risk-box .risk-box-title {
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		line-height: 1.5;
 		letter-spacing: 0.06em;

@@ -1153,18 +1153,12 @@
 <style>
 	/* ===========================================================================
      PURE NATIVE SCOPED CSS — BLACK & WHITE EDITORIAL ETF DIRECTORY
-     Typography: Montserrat (Headings/Tickers/CTAs) + Sofia Sans (Body/Data)
+     Typography: --font-display (Headings/Tickers/CTAs) + --font-sans (Body/Data)
      =========================================================================== */
 	.etf-page {
 		background-color: var(--bg-soft);
 		color: var(--text);
-		font-family:
-			'Sofia Sans',
-			-apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			Roboto,
-			sans-serif;
+		font-family: var(--font-sans);
 		line-height: 1.65;
 		overflow-x: clip;
 	}
@@ -1178,10 +1172,8 @@
 	/* Shared Typography Tokens */
 	.meta-label {
 		display: inline-block;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -1190,7 +1182,7 @@
 
 	.section-kicker {
 		display: inline-block;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		letter-spacing: 0.1em;
@@ -1202,7 +1194,7 @@
 	}
 
 	.section-h2 {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: clamp(1.65rem, 3vw, 2.45rem);
 		line-height: 1.14;
@@ -1213,9 +1205,8 @@
 	}
 
 	.lead-copy {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 500;
-		font-variation-settings: 'wdth' 100;
 		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
 		line-height: 1.65;
 		max-width: 66ch;
@@ -1224,9 +1215,8 @@
 	}
 
 	.body-copy {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 400;
-		font-variation-settings: 'wdth' 100;
 		font-size: 1rem;
 		line-height: 1.65;
 		max-width: 66ch;
@@ -1254,7 +1244,7 @@
 		justify-content: center;
 		min-height: 48px;
 		padding: 0.75rem 1.35rem;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		letter-spacing: 0.05em;
@@ -1302,10 +1292,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -1318,10 +1306,8 @@
 
 	.breadcrumb-bar__telemetry {
 		margin: 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -1353,7 +1339,7 @@
 	}
 
 	.eyebrow-pill__badge {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
@@ -1364,7 +1350,7 @@
 	}
 
 	.eyebrow-pill__text {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1379,7 +1365,7 @@
 	}
 
 	.hero-h1__kicker {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1391,7 +1377,7 @@
 	}
 
 	.hero-h1__display {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(2rem, 4.1vw, 3.15rem);
 		line-height: 1.08;
@@ -1419,14 +1405,14 @@
 	}
 
 	.quick-ref-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 		margin: 0.25rem 0 0;
 	}
 
 	.quick-ref-card__stamp {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
@@ -1451,7 +1437,7 @@
 	}
 
 	.quick-ref-list__row dt {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1461,7 +1447,7 @@
 
 	.quick-ref-list__row dd {
 		margin: 0.25rem 0 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.90625rem;
 		line-height: 1.5;
 		color: #c4c8c7;
@@ -1510,7 +1496,7 @@
 	}
 
 	.benefit-card__num {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1520,13 +1506,13 @@
 	}
 
 	.benefit-card__check {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1rem;
 	}
 
 	.benefit-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.125rem;
 		line-height: 1.28;
@@ -1535,7 +1521,7 @@
 
 	.benefit-card__text {
 		margin: 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.9375rem;
 		line-height: 1.58;
 		color: var(--text);
@@ -1554,7 +1540,7 @@
 	}
 
 	.types-box__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.35rem;
 		margin: 0.25rem 0 0;
@@ -1582,7 +1568,7 @@
 	}
 
 	.type-card__tickers {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		background-color: var(--panel2);
@@ -1591,7 +1577,7 @@
 	}
 
 	.type-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.0625rem;
 		margin: 0 0 0.375rem;
@@ -1599,7 +1585,7 @@
 
 	.type-card__text {
 		margin: 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.875rem;
 		line-height: 1.55;
 		color: #c4c8c7;
@@ -1632,7 +1618,7 @@
 		padding: 0.625rem 0.875rem;
 		border: 2px solid var(--line-strong);
 		background-color: var(--bg-soft);
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.9375rem;
 	}
 
@@ -1651,7 +1637,7 @@
 		border: 2px solid var(--line-strong);
 		background-color: var(--bg-soft);
 		color: var(--text);
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1704,7 +1690,7 @@
 	}
 
 	.etf-card__symbol {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 		background-color: var(--panel2);
@@ -1714,10 +1700,8 @@
 	}
 
 	.etf-card__cat {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
 		color: #c4c8c7;
@@ -1727,7 +1711,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.3rem;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
@@ -1744,7 +1728,7 @@
 	}
 
 	.etf-card__name {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.125rem;
 		line-height: 1.25;
@@ -1752,10 +1736,8 @@
 	}
 
 	.etf-card__options-tier {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.72rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -1764,7 +1746,7 @@
 	}
 
 	.etf-card__description {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.90625rem;
 		line-height: 1.55;
 		color: var(--text);
@@ -1775,7 +1757,7 @@
 		background-color: var(--panel);
 		border-left: 3px solid var(--line-strong);
 		padding: 0.625rem 0.75rem;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.8125rem;
 		line-height: 1.45;
 		color: var(--text);
@@ -1792,10 +1774,8 @@
 	}
 
 	.etf-card__feature {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
 		border: 1px solid var(--line-strong);
@@ -1834,7 +1814,7 @@
 	}
 
 	.sector-card__primary-ticker {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 0.875rem;
 		background-color: var(--panel2);
@@ -1843,14 +1823,14 @@
 	}
 
 	.sector-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 		margin: 0.875rem 0 0.25rem;
 	}
 
 	.sector-card__weight {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -1860,7 +1840,7 @@
 	}
 
 	.sector-card__role {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.90625rem;
 		line-height: 1.55;
 		color: var(--text);
@@ -1884,7 +1864,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		border: 1.5px solid var(--line-strong);
@@ -1929,7 +1909,7 @@
 	}
 
 	.comparison-table thead th {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.8125rem;
 		text-transform: uppercase;
@@ -1939,7 +1919,7 @@
 	}
 
 	.comparison-table__feature {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.875rem;
 		width: 24%;
@@ -1947,7 +1927,7 @@
 	}
 
 	.comparison-table__etf {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.9375rem;
 		width: 38%;
 	}
@@ -1958,13 +1938,13 @@
 	}
 
 	.winner-check {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		margin-right: 0.35rem;
 	}
 
 	.comparison-table__mf {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.9375rem;
 		color: #c4c8c7;
 		width: 38%;
@@ -1988,7 +1968,7 @@
 	}
 
 	.comparison-summary__card h3 {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.2rem;
 		margin: 0.375rem 0 0.5rem;
@@ -1996,7 +1976,7 @@
 
 	.comparison-summary__card p {
 		margin: 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.9375rem;
 		line-height: 1.55;
 	}
@@ -2030,7 +2010,7 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 1.0625rem;
 	}
@@ -2040,7 +2020,7 @@
 	}
 
 	.faq-item__icon {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 	}
@@ -2049,7 +2029,7 @@
 		margin: 1rem 0 0;
 		padding-top: 1rem;
 		border-top: 1px solid var(--line);
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.96875rem;
 		line-height: 1.65;
 	}
@@ -2066,7 +2046,7 @@
 	}
 
 	.resources-bridge__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.2rem;
 		margin: 0.25rem 0 0;
@@ -2133,10 +2113,8 @@
 
 	.room-cta-card__badge {
 		display: inline-block;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
 		border: 1px solid var(--line-strong);
@@ -2145,14 +2123,14 @@
 	}
 
 	.room-cta-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.125rem;
 		margin: 0.75rem 0 0.5rem;
 	}
 
 	.room-cta-card__desc {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.875rem;
 		line-height: 1.5;
 		color: #c4c8c7;

@@ -549,13 +549,7 @@
 	.resources-page {
 		background-color: var(--bg-soft);
 		color: var(--text);
-		font-family:
-			'Sofia Sans',
-			-apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			Roboto,
-			sans-serif;
+		font-family: var(--font-sans);
 		line-height: 1.65;
 		overflow-x: clip;
 	}
@@ -569,10 +563,8 @@
 	/* Shared Typography Tokens */
 	.meta-label {
 		display: inline-block;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -581,7 +573,7 @@
 
 	.section-kicker {
 		display: inline-block;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		letter-spacing: 0.1em;
@@ -593,7 +585,7 @@
 	}
 
 	.section-h2 {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: clamp(1.65rem, 3vw, 2.45rem);
 		line-height: 1.14;
@@ -622,7 +614,7 @@
 		justify-content: center;
 		min-height: 50px;
 		padding: 0.8125rem 1.5rem;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.78125rem;
 		letter-spacing: 0.05em;
@@ -666,10 +658,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -682,10 +672,8 @@
 
 	.breadcrumb-bar__telemetry {
 		margin: 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
-		font-stretch: 87.5%;
-		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
@@ -717,7 +705,7 @@
 	}
 
 	.eyebrow-pill__badge {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
@@ -728,7 +716,7 @@
 	}
 
 	.eyebrow-pill__text {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 700;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -736,7 +724,7 @@
 	}
 
 	.resources-hero__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(2rem, 4.1vw, 3.15rem);
 		line-height: 1.08;
@@ -747,7 +735,7 @@
 	}
 
 	.resources-hero__subtitle {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 500;
 		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
 		line-height: 1.65;
@@ -757,7 +745,7 @@
 	}
 
 	.resources-hero__body {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 1rem;
 		line-height: 1.65;
 		max-width: 66ch;
@@ -780,7 +768,7 @@
 	}
 
 	.utilities-panel__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 		margin: 0.25rem 0 0;
@@ -808,7 +796,7 @@
 	}
 
 	.flagship-utility-card__badge {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.625rem;
 		text-transform: uppercase;
@@ -819,7 +807,7 @@
 
 	.flagship-utility-card__name {
 		display: block;
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1rem;
 		margin-bottom: 0.25rem;
@@ -836,14 +824,14 @@
 
 	.flagship-utility-card__desc {
 		margin: 0 0 0.5rem;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.84375rem;
 		line-height: 1.48;
 		color: #c4c8c7;
 	}
 
 	.flagship-utility-card__link {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.75rem;
 		text-transform: uppercase;
@@ -865,7 +853,7 @@
 
 	.section-header__sub {
 		margin: 0.625rem 0 0;
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 1rem;
 		color: #c4c8c7;
 	}
@@ -924,7 +912,7 @@
 	}
 
 	.resource-card__badge {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.625rem;
 		text-transform: uppercase;
@@ -936,7 +924,7 @@
 	}
 
 	.resource-card__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 1.25rem;
 		line-height: 1.25;
@@ -945,7 +933,7 @@
 	}
 
 	.resource-card__summary {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 0.90625rem;
 		line-height: 1.55;
 		color: #c4c8c7;
@@ -994,7 +982,7 @@
 	}
 
 	.resource-card__label {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-weight: 600;
 		font-size: 0.875rem;
 		line-height: 1.35;
@@ -1002,7 +990,7 @@
 	}
 
 	.resource-card__tag {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
@@ -1027,7 +1015,7 @@
 	}
 
 	.resources-cta__title {
-		font-family: 'Montserrat', sans-serif;
+		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(1.65rem, 3.2vw, 2.5rem);
 		line-height: 1.14;
@@ -1036,7 +1024,7 @@
 	}
 
 	.resources-cta__text {
-		font-family: 'Sofia Sans', sans-serif;
+		font-family: var(--font-sans);
 		font-size: 1rem;
 		line-height: 1.65;
 		max-width: 62ch;

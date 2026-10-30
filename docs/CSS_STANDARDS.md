@@ -114,7 +114,8 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
      - **Fast 3G (1.6 Mbps, 150 ms RTT):** `/` FCP/LCP regressed from **400 ms → 744 ms** (+344 ms); `/about` regressed from **512 ms → 940 ms** (+428 ms), with **0.0000 CLS** in both configurations.
      - **4G (9 Mbps, 40 ms RTT):** `/` FCP/LCP regressed from **152 ms → 240 ms** (+88 ms); `/about` regressed from **168 ms → 256 ms** (+88 ms), with **0.0000 CLS** in both configurations.
    - Do not add font preloads unless a future benchmark proves a net FCP/LCP improvement.
-5. **Licensing:** Full OFL-1.1 license attributions for Montserrat and Sofia Sans are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
+5. **Never Hardcode Family Names:** Fontsource registers only `'Montserrat Variable'` and `'Sofia Sans Variable'`. A literal `'Montserrat'` or `'Sofia Sans'` matches no loaded face and silently falls back to a system font. Always use `var(--font-display)` / `var(--font-sans)`; `pnpm check:css` fails on the bare names.
+6. **Licensing:** Full OFL-1.1 license attributions for Montserrat and Sofia Sans are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
 
 ---
 
@@ -169,7 +170,7 @@ Base styles target `320px+` viewports first, scaling upward via `min-width` medi
 Before committing any CSS or component change, run:
 
 ```bash
-pnpm check:css       # Verifies 0 undeclared CSS custom properties across src/**/*.{css,svelte}
+pnpm check:css       # Verifies 0 undeclared CSS custom properties and 0 hardcoded font family names across src/
 pnpm check           # svelte-check (0 errors, 0 warnings, including unused CSS selectors)
 pnpm lint            # Prettier + ESLint
 pnpm test:unit --run # Vitest unit tests

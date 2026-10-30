@@ -78,4 +78,3 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 		}
 	});
 });
-

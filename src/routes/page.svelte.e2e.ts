@@ -358,6 +358,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapXml).toContain('hreflang="x-default"');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/blogs</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
@@ -645,6 +646,64 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/small-accounts-room
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+			await page.setViewportSize({ width, height: 900 });
+			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+			expect(scrollWidth).toBeLessThanOrEqual(width);
+		}
+
+		// Verify /blogs hub route metadata, JSON-LD, and DOM parity
+		const expectedBlogsUrl = `${origin}/blogs`;
+		await page.goto('/blogs');
+
+		await expect(page.locator('head title')).toHaveCount(1);
+		const blogsTitle = await page.title();
+		expect(blogsTitle).toBe('Stock & Options Trading Blog | Revolution Trading Pros');
+		expect(blogsTitle.length).toBe(54);
+
+		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
+		const blogsDesc = await page.locator('head meta[name="description"]').getAttribute('content');
+		expect(blogsDesc).toBe(
+			'Free institutional stock and options trading articles, Options Greeks guides, $500+ small account strategies, and macro analysis by Billy Ribeiro.'
+		);
+
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			expectedBlogsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
+			'href',
+			expectedBlogsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
+			'href',
+			expectedBlogsUrl
+		);
+		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
+			'href',
+			expectedBlogsUrl
+		);
+
+		await expect(page.locator('h1')).toHaveCount(1);
+		await expect(page.locator('h1 .hub-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h4')).toHaveCount(0);
+		await expect(page.locator('.hero-post-card')).toHaveCount(1);
+		await expect(page.locator('.featured-topic-item')).toHaveCount(4);
+		await expect(page.locator('.blog-card')).toHaveCount(6);
+		await expect(page.locator('.room-cta-card')).toHaveCount(5);
+
+		const blogsJsonLdText = await page
+			.locator('script[type="application/ld+json"]')
+			.first()
+			.textContent();
+		const blogsSchema = JSON.parse(blogsJsonLdText!);
+		const blogsGraphTypes = blogsSchema['@graph'].map((n: { '@type': string }) => n['@type']);
+		expect(blogsGraphTypes).toContain('CollectionPage');
+		expect(blogsGraphTypes).toContain('Blog');
+		expect(blogsGraphTypes).toContain('BreadcrumbList');
+
+		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /blogs
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
 			await page.setViewportSize({ width, height: 900 });
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);

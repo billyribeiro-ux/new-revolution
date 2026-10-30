@@ -44,4 +44,3 @@ export const load: PageLoad = ({ url }) => {
 		jsonLdSchema: buildSmallAccountsRoomJsonLd(SITE_ORIGIN)
 	};
 };
-

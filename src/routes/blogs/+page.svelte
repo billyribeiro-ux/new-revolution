@@ -75,8 +75,7 @@
 		},
 		{
 			category: 'Macro Cycle Timing',
-			title:
-				'Inside "The Move Prior to The Move": How We Called the 2020 & 2022 Tops and Bottoms',
+			title: 'Inside "The Move Prior to The Move": How We Called the 2020 & 2022 Tops and Bottoms',
 			href: '/blogs/the-move-prior-to-the-move-2020-2022-market-calls',
 			readTime: '11 min read',
 			publishedDisplay: 'Oct 15, 2026'
@@ -106,8 +105,7 @@
 			slug: 'how-we-shorted-oxy-put-options-600-percent-overnight',
 			category: 'Institutional Order Flow',
 			categorySlug: 'institutional-execution',
-			title:
-				'Anatomy of a 600% Overnight Options Trade: Shorting OXY Live Opposite Warren Buffett',
+			title: 'Anatomy of a 600% Overnight Options Trade: Shorting OXY Live Opposite Warren Buffett',
 			excerpt:
 				'When mainstream headlines celebrated Warren Buffett buying millions in Occidental Petroleum (OXY), retail chased the top. Here is how we spotted institutional distribution and banked 600% overnight on OXY Puts.',
 			keyTakeaway:
@@ -155,8 +153,7 @@
 			slug: 'why-repainted-holy-grail-indicators-destroy-retail-accounts',
 			category: 'Institutional Order Flow',
 			categorySlug: 'institutional-execution',
-			title:
-				'Exposed: How Repainted "Holy Grail" Indicators Trick Traders—And What Works Instead',
+			title: 'Exposed: How Repainted "Holy Grail" Indicators Trick Traders—And What Works Instead',
 			excerpt:
 				'Predatory marketers charge $2,500 for scripts that erase losing arrows after the candle closes. Learn how to spot repainting code and how non-repainting volume and liquidity telemetry works.',
 			keyTakeaway:
@@ -166,16 +163,14 @@
 			readTime: '8 min read',
 			imageUrl:
 				'https://placehold.co/800x450/111111/ffffff?text=Zero-Repaint+Institutional+Telemetry',
-			imageAlt:
-				'Comparison of repainted guru indicators vs non-repainting institutional telemetry',
+			imageAlt: 'Comparison of repainted guru indicators vs non-repainting institutional telemetry',
 			hasAudio: false
 		},
 		{
 			slug: '3-best-options-strategies-for-consistent-income',
 			category: 'Options & Greeks Mastery',
 			categorySlug: 'options-mastery',
-			title:
-				'3 Institutional Options Strategies for Consistent Theta Income in Any Market Regime',
+			title: '3 Institutional Options Strategies for Consistent Theta Income in Any Market Regime',
 			excerpt:
 				'Stop buying out-of-the-money weekly lottery tickets that expire worthless 85% of the time. Here are the three Theta-positive credit and diagonal structures we use to get paid while time passes.',
 			keyTakeaway:
@@ -192,8 +187,7 @@
 			slug: 'risk-management-essentials-for-active-traders',
 			category: 'Risk & Psychology',
 			categorySlug: 'trading-psychology',
-			title:
-				'Risk Management Essentials: The Goldman Sachs Prop Sizing Rules That Prevent Blowups',
+			title: 'Risk Management Essentials: The Goldman Sachs Prop Sizing Rules That Prevent Blowups',
 			excerpt:
 				'Having stood on the losing end early in my career before being mentored by Mark "Goldfinger" McGoldrick, I learned that offense wins trades, but risk mathematics saves careers.',
 			keyTakeaway:
@@ -302,9 +296,7 @@
 						<span class="hub-h1__kicker">
 							Revolution Trading Pros Market Intelligence &amp; Education Hub
 						</span>
-						<span class="hub-h1__display">
-							Institutional Stock &amp; Options Trading Blog
-						</span>
+						<span class="hub-h1__display"> Institutional Stock &amp; Options Trading Blog </span>
 					</h1>
 					<p class="hub-intro__sub">
 						No recycled textbook fluff. Read battle-tested breakdowns on Options Greeks,
@@ -338,11 +330,7 @@
 						<div class="hero-post-card__body">
 							<div class="card-meta-row">
 								<span class="category-pill">{heroPost.category}</span>
-								<time
-									datetime={heroPost.publishedDate}
-									itemprop="datePublished"
-									class="meta-time"
-								>
+								<time datetime={heroPost.publishedDate} itemprop="datePublished" class="meta-time">
 									{heroPost.publishedDisplay}
 								</time>
 								<span class="meta-time">• {heroPost.readTime}</span>
@@ -388,10 +376,7 @@
 									</div>
 								</div>
 
-								<a
-									href={resolve(`/blogs/${heroPost.slug}` as '/')}
-									class="btn btn--solid"
-								>
+								<a href={resolve(`/blogs/${heroPost.slug}` as '/')} class="btn btn--solid">
 									Read Full Guide →
 								</a>
 							</div>
@@ -399,10 +384,7 @@
 					</article>
 
 					<!-- Right 5 Columns: Featured Topics Stack + Free Cheat Sheet Opt-in -->
-					<aside
-						class="featured-sidebar"
-						aria-label="Featured Trading Topics and Free Cheat Sheet"
-					>
+					<aside class="featured-sidebar" aria-label="Featured Trading Topics and Free Cheat Sheet">
 						<div class="featured-topics-box">
 							<div class="featured-topics-box__header">
 								<span class="meta-label">Must-Read Pillars</span>
@@ -464,9 +446,7 @@
 				<div class="recent-header">
 					<div>
 						<span class="section-kicker">People Over Profits • 100% Free Education</span>
-						<h2 id="recent-blogs-h2" class="section-h2">
-							Recent Blogs &amp; Market Breakdowns
-						</h2>
+						<h2 id="recent-blogs-h2" class="section-h2">Recent Blogs &amp; Market Breakdowns</h2>
 					</div>
 
 					<div class="search-box">
@@ -520,10 +500,7 @@
 								<div class="blog-card__badges">
 									<span class="blog-card__cat-badge">{post.category}</span>
 									{#if post.hasAudio}
-										<span
-											class="blog-card__audio-badge"
-											title="Includes Audio Narration"
-										>
+										<span class="blog-card__audio-badge" title="Includes Audio Narration">
 											🎧 Audio
 										</span>
 									{/if}
@@ -572,9 +549,7 @@
 										class="blog-card__avatar"
 									/>
 									<div class="blog-card__author-info">
-										<span class="blog-card__author-name" itemprop="name">
-											Billy Ribeiro
-										</span>
+										<span class="blog-card__author-name" itemprop="name"> Billy Ribeiro </span>
 										<span class="blog-card__author-meta">{post.readTime}</span>
 									</div>
 								</div>
@@ -602,10 +577,7 @@
 					</a>
 					<a href={resolve('/blogs?page=2' as '/')} class="pagination-link">2</a>
 					<a href={resolve('/blogs?page=3' as '/')} class="pagination-link">3</a>
-					<a
-						href={resolve('/blogs?page=2' as '/')}
-						class="pagination-link pagination-link--next"
-					>
+					<a href={resolve('/blogs?page=2' as '/')} class="pagination-link pagination-link--next">
 						Next Page →
 					</a>
 				</nav>

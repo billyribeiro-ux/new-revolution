@@ -1,9 +1,5 @@
 import { definePageMetaTags } from 'svelte-meta-tags';
-import {
-	buildBlogsHubJsonLd,
-	getCanonicalUrl,
-	SITE_ORIGIN
-} from '#lib/seo/structured-data.ts';
+import { buildBlogsHubJsonLd, getCanonicalUrl, SITE_ORIGIN } from '#lib/seo/structured-data.ts';
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =

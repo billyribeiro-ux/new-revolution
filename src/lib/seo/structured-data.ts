@@ -1011,6 +1011,7 @@ export function buildBlogsHubJsonLd(origin: string) {
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#blog` },
+				mainEntity: { '@id': `${pageUrl}#blog` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
 				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},

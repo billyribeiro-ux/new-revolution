@@ -29,25 +29,26 @@ Out of scope unless the repo already has them: comments UI, member auth, i18n, s
 
 ## 2. Target stack (verify against this repo, adapt where it differs)
 
-| Layer | Source system used | Notes |
-|---|---|---|
-| Framework | SvelteKit 3 + Svelte 5 runes, TypeScript | Runes mode compiler option on |
-| Editor | TipTap 3 (`^3.32.0`), HTML string in and out | Not JSON |
-| Sanitizer | `sanitize-html`, one shared config | Used on server write, server read, editor paste, HTML source mode |
-| DB | Postgres (Neon HTTP driver) + Drizzle | Source used `neon-http`, which has no interactive transactions; see 5.5 |
-| Validation | Zod 4 | Schemas live in a shared (client + server) folder |
-| Images | `sharp`, Vercel Blob (`@vercel/blob`) | |
-| Code highlighting | Shiki, server side at render time | Theme `github-dark` |
-| Icons | `phosphor-svelte`, per-icon imports | |
-| CSS | Hand-authored, design tokens, cascade layers | No utility framework |
-| Tests | Vitest (jsdom client config, node server config), `@testing-library/svelte`, Playwright | |
-| Hosting | Vercel serverless, cron | |
+| Layer             | Source system used                                                                      | Notes                                                                   |
+| ----------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Framework         | SvelteKit 3 + Svelte 5 runes, TypeScript                                                | Runes mode compiler option on                                           |
+| Editor            | TipTap 3 (`^3.32.0`), HTML string in and out                                            | Not JSON                                                                |
+| Sanitizer         | `sanitize-html`, one shared config                                                      | Used on server write, server read, editor paste, HTML source mode       |
+| DB                | Postgres (Neon HTTP driver) + Drizzle                                                   | Source used `neon-http`, which has no interactive transactions; see 5.5 |
+| Validation        | Zod 4                                                                                   | Schemas live in a shared (client + server) folder                       |
+| Images            | `sharp`, Vercel Blob (`@vercel/blob`)                                                   |                                                                         |
+| Code highlighting | Shiki, server side at render time                                                       | Theme `github-dark`                                                     |
+| Icons             | `phosphor-svelte`, per-icon imports                                                     |                                                                         |
+| CSS               | Hand-authored, design tokens, cascade layers                                            | No utility framework                                                    |
+| Tests             | Vitest (jsdom client config, node server config), `@testing-library/svelte`, Playwright |                                                                         |
+| Hosting           | Vercel serverless, cron                                                                 |                                                                         |
 
 If this repo differs (different ORM, host, storage), keep every behavioural contract below and swap the plumbing.
 
 ## 3. Architecture
 
 ### 3.1 Routes
+
 - Admin posts is **one route** with five in-page views: Posts, Trash, Authors, Categories, Tags. The editor is a lazy-loaded component (`await import(...)`) with a spinner and a visible failure fallback ("Failed to load editor", with retry).
   - Improvement over source: make the editor **URL-addressable** (`/admin/posts/new`, `/admin/posts/[id]`). The source kept it as in-page state, so a reload dropped the user back to the list. If you do this, the unsaved-changes guard must still work (section 8.6).
 - Admin pages load posts, trashed posts, authors, categories, tags in parallel, each with a 15 second timeout wrapper and a visible error state.
@@ -55,6 +56,7 @@ If this repo differs (different ORM, host, storage), keep every behavioural cont
 - Public routes: `/blog`, `/blog/[slug]`, `/blog/category/[slug]`, `/blog/tag/[slug]`, `/blog/+error.svelte`, `/rss.xml`, `/sitemap.xml`, `/blogs` (301 to `/blog`).
 
 ### 3.2 Server code layout
+
 - `src/lib/server/services/posts.ts` (create, update, quick update, autosave, revisions, trash, restore, lists), `categories.ts`, `tags.ts`, `authors.ts`, `media.ts`
 - `src/lib/server/posts/` (`visibility.ts`, `cache.ts`, `highlight.ts`)
 - `src/lib/server/db/save-post.ts` (atomic post save plus redirect writes)
@@ -69,11 +71,13 @@ If this repo differs (different ORM, host, storage), keep every behavioural cont
 Component tree: `PostEditor` (state owner) -> `PostEditorTopBar`, `PostEditorMainColumn`, `PostEditorSidebar`, plus panels. A pure helper module `post-editor/form-actions.ts` holds `PostFormState`, `createEmptyForm()`, `buildPostPayload()`, `hydrateFromFullPost()`, `canonicalFieldsAfterSave()`, `attachEditorShortcuts()`, `attachBeforeUnloadGuard()`. Keep this split so the logic is unit-testable without rendering.
 
 ### 4.1 Layout
+
 - Two-column grid: `minmax(0, 1fr)` main, `minmax(280px, 320px)` sidebar. Collapse to one column at 960px. Extra tweaks at 768px and 640px. The top bar must wrap rather than overflow on a 393px-wide phone.
 - **Improvement:** when collapsed to one column, keep a sticky bottom action bar with Save and Publish. In the source, the Publish box dropped below all content on mobile and only the top bar Save remained.
 - Do not set `container-type` unless a `@container` query uses it (the source set it and never used it).
 
 ### 4.2 Main column (top to bottom)
+
 1. **Title**: `#post-title`, sr-only label "Post Title", placeholder "Add title".
 2. **Permalink/slug**: input `#post-slug`, `aria-label="Post slug"`, `maxlength=75`, live counter `n/75`, amber outside 3 to 75. **Always render the input** (defect in source: `{#if slug}` made the field vanish when emptied). Normalise on typing with a light normaliser, and on blur and save with the full one (section 7.3).
 3. **Add Media** button (cover image picker).
@@ -83,6 +87,7 @@ Component tree: `PostEditor` (state owner) -> `PostEditorTopBar`, `PostEditorMai
 7. **Collapsible panels**, one open at a time: SEO, Social (Twitter), FAQ, Advanced, Readability. Use real disclosures exactly as the source does: an `<h3>` containing a `<button aria-expanded aria-controls>`, with panel bodies kept in the DOM and hidden via `hidden` (not an ARIA tablist). The source already does this in both the main column and the sidebar; keep it. Persistence uses TWO keys with different roles: `wp-editor-panels` stores the open state of the eight SIDEBAR panels only (publish, author, categories, featuredImage, tags, postAttributes, toc, customFields; defaults: first six open, toc and customFields closed), and `wp-editor-active-tab` stores the single open MAIN-COLUMN panel, validated against the known list (`content, seo, faq, twitter, advanced, readability`; `content` means all metaboxes collapsed). Source bug: only NEW posts read the stored tab, existing posts always open on `content` because `loadFullPost` never calls `loadActiveTab()`. REQUIREMENT: open every post, new or existing, on the stored tab, falling back to `content` only when the stored value is missing or invalid.
 
 ### 4.3 SEO panel
+
 - Score gauge: class `good` at 80 and above, `warning` 50 to 79, `bad` below 50. Labels: "Excellent", "Needs Work", "Poor". If no issues: "All checks passed!". Below the gauge, a plain list of issue messages (source: a `<ul>` of strings with no icons or severities; REQUIREMENT here: add severity icons plus text, never colour alone, and surface blocking issues first). **Use one set of thresholds everywhere**: the panel badge in the collapsed header used 70 in the source while the gauge used 50/80 and the gate 80. Use 80 as the single "good" line and derive the badge from the same function.
 - Inputs: Meta Title, Meta Description, Google search preview (title, `host › blog › slug` line, description), OG Image, Canonical URL, Secondary Keywords (chip input: comma or Enter commits, Backspace on empty removes last chip, blur commits, case-insensitive de-dupe), OG Title, OG Description, `noindex` and `nofollow` checkboxes, Schema Type select (Article, BlogPosting, NewsArticle, HowTo).
 - Meta title counter measures the **rendered** title: the brand suffix `" | <Brand>"` is appended only if the total stays within 60 characters. Show `n/60 rendered` and an informational (not warning) note when the brand is dropped.
@@ -90,15 +95,19 @@ Component tree: `PostEditor` (state owner) -> `PostEditorTopBar`, `PostEditorMai
 - Score recompute: derive with `$derived`, but **debounce** or schedule for idle (source recomputed on every keystroke; the word count likewise).
 
 ### 4.4 Social panel
+
 Twitter card type (`summary`, `summary_large_image`), Twitter title (max 70), Twitter description (max 200), Twitter image, and a preview card.
 
 ### 4.5 FAQ panel
+
 Rows of question input and answer textarea with add and remove. Helper text: FAQ rich results are retired by Google, so the markup is emitted for other engines; advise 3 or more items with answers over 40 characters (source copy: aim for 3 or more; FAQ rich results retired May 2026, markup still emitted for Bing Copilot, and visible Q&A still helps AI answer surfaces). Key rows with a WeakMap (not by index) so removal does not shift focus state. Stored as a JSON string.
 
 ### 4.6 Advanced panel
+
 Pingbacks checkbox. Revision list (section 8.5).
 
 ### 4.7 Sidebar panels (each collapsible, state persisted)
+
 - **Publish box**: section 8.3.
 - **Author**: `<select>` with a visible `<label>` (source had none), plus inline "Add New Author" (name only; slug generated).
 - **Categories**: multi-select checkboxes, "Set as primary", `Primary` label. Rules: first selected becomes primary; unchecking the primary promotes the first remaining; none selected gives `null`. Inline add accepts a comma list; existing names are reused case-insensitively; more than 2 brand-new names triggers a confirm. **Do not offer global category deletion from inside the post editor** (the source did, which destroys the category for every post).
@@ -109,12 +118,15 @@ Pingbacks checkbox. Revision list (section 8.5).
 - **Custom fields**: key and value rows with a count badge.
 
 ### 4.8 Top bar
+
 Source top bar: Back button, page title ("Edit Post" or "Add New Post"), dirty dot, autosave status, and a Save (new post) or Update (existing post) button. The Preview link is NOT in the top bar: in the source it sits in the Publish box and shows only when the post is published. REQUIREMENTS here: the dirty dot gets a real text alternative (source: `title` only) and the status text sits in a `role="status"` live region.
+
 - The source ALREADY reserves a fixed-height slot (about 3.5rem) for the autosave failure banner, and the banner is already `role="alert"` with the last successful save time and a Retry button. Keep both as is.
 - Autosave status text: add a `role="status"` live region (missing in the source).
 - **Naming**: one verb for one behaviour. In the source "Update" in the top bar saved and stayed, while "Update" in the Publish box saved and closed, and the latter carried a misleading `title="Save (⌘S)"`. Use: top bar "Save" (stay), Publish box "Publish" or "Update and close" (close), and make tooltips match real shortcuts.
 
 ### 4.9 Form state model (rune rules)
+
 - `form = $state(createEmptyForm())` deep proxy mutated through `bind:` is acceptable here because panels mutate nested objects (FAQ rows, custom fields).
 - `revisionsData`, `diffRevision`, `panelState` are replaced wholesale: use `$state.raw`.
 - Plain `let` (non-reactive) for: `disposed`, `loadGeneration` (stale-response guard), `autosaveTimer`, `leaveConfirmed`, `leavePrompt`, `metaTitleCopiedFrom`.
@@ -124,6 +136,7 @@ Source top bar: Back button, page title ("Edit Post" or "Add New Post"), dirty d
 - Adopt server-rewritten fields (title, slug, content, excerpt, meta, OG, Twitter, FAQ) after a save **only when the field was non-blank** and nothing changed since, so server-side autofill defaults do not become frozen user values.
 
 ### 4.10 New-post scaffold
+
 `createEmptyForm().content` is a non-empty scaffold (Key Takeaways list, definition heading, body headings, FAQ reminder) so the "content cannot be empty" check never triggers on an untouched post. **Improvements:** make the scaffold generic (no locality-specific copy), mark placeholders with a sentinel string that the publish gate detects (section 7.6; the source's sentinel is the literal text `IMAGE PLACEHOLDER (replace with a real image before publishing)`), and do not count an untouched scaffold as dirty.
 
 ## 5. Data model (Postgres + Drizzle)
@@ -139,6 +152,7 @@ Use `timestamptz` for every timestamp in this port. (The source used `timestamp`
 **tags**: `id`; `name`; `slug` varchar(255) UNIQUE; `description`; `created_at`; add `updated_at`.
 
 **posts**:
+
 - Content: `id`, `title` NOT NULL, `slug` varchar(255) NOT NULL UNIQUE, `excerpt`, `content` NOT NULL, `author_id` FK, `co_author_ids` text (JSON array, reserved), `category_id` FK (primary category).
 - Cover: `cover_image`, `cover_image_alt`, `cover_image_caption`.
 - SEO: `meta_title`, `meta_description`, `og_title`, `og_description`, `og_image`, `canonical_url`, `focus_keyword`, `secondary_keywords` (JSON), `robots_noindex` bool false, `robots_nofollow` bool false, `schema_type` default `BlogPosting`.
@@ -163,7 +177,9 @@ Use `timestamptz` for every timestamp in this port. (The source used `timestamp`
 **audit_log** (NEW; source had none for content): `id`, `at`, `actor_user_id`, `action`, `entity_type`, `entity_id`, `summary` jsonb. Write a row for every post, category, tag, author and media mutation, plus content-transform reports.
 
 ### 5.2 Status machine
+
 Statuses: `draft | review | scheduled | published | archived`. "Trashed" is NOT a status: it is `deleted_at IS NOT NULL`, orthogonal to status.
+
 - `published` boolean is written as `status === 'published'` everywhere.
 - `published_at` is stamped on the first transition to published and kept afterwards.
 - The cron performs the TIME-DRIVEN transitions: `scheduled -> published` when `scheduled_at <= now`, and `published -> archived` when `expires_at <= now`. The editor and quick update can also set any status by hand (for example `scheduled -> published` directly, or `archived` manually).
@@ -171,12 +187,15 @@ Statuses: `draft | review | scheduled | published | archived`. "Trashed" is NOT 
 - `review` has no workflow logic in the source; keep it as a stored value, document that.
 
 ### 5.3 Public visibility predicate (single source of truth)
+
 `status='published' AND visibility='public' AND robots_noindex=false AND is_fixture=false AND deleted_at IS NULL`. Export both a SQL fragment and a pure `isPubliclyIndexablePost(row)` mirror, and **use the fragment everywhere** (the source duplicated it inline in `/blog` load).
 
 ### 5.4 Soft delete
+
 `getPostById` MUST filter `deleted_at IS NULL` for the editor (source bug: it could edit trashed posts). Trash view uses a separate query. Permanent delete removes the post, then cascades; also deactivate redirect rows pointing at the deleted slug.
 
 ### 5.5 Atomicity
+
 The source ran the post update, then separate statements for category pivot, revision, tags and related posts over an HTTP driver without a transaction, so a mid-sequence failure left a post with wiped taxonomy. **Required:** perform the whole save (post row, redirect handling, all pivots, revision, featured demotion) in ONE transaction. If the driver cannot do interactive transactions, use its batch API with a single atomic CTE or `db.batch`, or switch the write path to a transaction-capable driver. Dedupe all id arrays before insert.
 
 ## 6. Rich text editor (TipTap 3)
@@ -184,6 +203,7 @@ The source ran the post update, then separate statements for category pivot, rev
 Pin `@tiptap/*` to the same minor. Packages (note: `Color` is imported from `@tiptap/extension-text-style`, so the separate `@tiptap/extension-color` package is installed but unused in the source; skip it unless you import from it): core, pm, starter-kit, character-count, color, highlight, image, link, placeholder, subscript, superscript, table, table-cell, table-header, table-row, task-item, task-list, text-align, text-style, typography, underline, youtube.
 
 ### 6.1 Extension registration (exact order)
+
 1. `StarterKit.configure({ link: false, underline: false })`
 2. `Underline`
 3. `Link.configure({ openOnClick: false, HTMLAttributes: {} })`. VERIFIED against `@tiptap/core` `Extendable.configure`, which uses `mergeDeep(this.options, options)`: passing `{}` does NOT clear the library defaults, so every link created without explicit attributes (autolink, paste, markdown-style input) defaults to `target="_blank"` and `rel="noopener noreferrer nofollow"`, INCLUDING internal links. In this port set `HTMLAttributes: { target: null, rel: null, class: null }` explicitly, decide `target`/`rel` per link in the link popover (external: `_blank` + `noopener noreferrer`; internal: none; `nofollow` only when the user ticks it), and pin the behaviour with a test that round-trips an internal and an external link.
@@ -204,7 +224,9 @@ Pin `@tiptap/*` to the same minor. Packages (note: `Color` is imported from `@ti
 Code blocks: StarterKit's default plus a **language selector** (source had none, so every editor-created code block was plaintext on the public site). Emit `class="language-xxx"` on `<code>`.
 
 ### 6.2 Custom nodes and marks
+
 **ImageWithDimensions** (extends Image). Attributes:
+
 - `class`: default and always `blog-image`.
 - `dataAlign` <-> `data-align`: accepts only `left|center|right`; also parsed from legacy classes: `blog-image--{x}` on the img only, and `align{x}` on the img or the enclosing figure.
 - `width`, `height`.
@@ -221,6 +243,7 @@ Code blocks: StarterKit's default plus a **language selector** (source had none,
 **BlockStyle**: global attributes `fontFamily`, `fontSize`, `color` on paragraph and heading so pasted block-level styles survive `setContent`.
 
 ### 6.3 Toolbar behaviour
+
 - Primary toolbar (`role="toolbar" aria-label="Post content formatting"`): block-format select (Paragraph, H1 to H6), font family select, font size select (presets 8 to 48px), Bold, Italic, bulleted list, numbered list, blockquote, align left/center/right/**justify** (source lacked a justify button despite allowing it), link popover, insert image (opens media picker), and an advanced-toolbar toggle with `aria-expanded`.
 - Advanced toolbar: strike, underline, text color, highlight color, clear formatting, table menu, YouTube/Vimeo/X embeds, callout menu (4 types), emoji picker, find and replace, undo/redo, paste-as-plain-text toggle (`aria-pressed`), HTML source toggle, fullscreen toggle, shortcuts dialog. **Add** buttons the source lacks on the main toolbars: code block, horizontal rule, task list, superscript, subscript, and inline code (source: inline code exists only in the bubble menu). Table menu: the source already has Insert 3x3, Add Column After, Add Row After, Delete Column, Delete Row, Delete Table; ADD the "before" variants, merge and split cells, and toggle header row.
 - Accessibility reality of the source, so you know what to add: `aria-pressed` exists ONLY on the bubble menu and image control menu; the primary and advanced toolbars use a CSS `active` class only, and there is no `aria-expanded` or `aria-haspopup` anywhere in the editor folder. Every `aria-*` attribute named in this section 6.3 (including `aria-expanded` on the advanced toggle and `aria-pressed` on the paste-mode toggle above) is therefore a REQUIREMENT, not source behaviour.
@@ -235,9 +258,11 @@ Code blocks: StarterKit's default plus a **language selector** (source had none,
 - Keyboard shortcuts dialog lists every real shortcut.
 
 ### 6.4 Block-format behaviour (source defect: do not copy)
+
 In the source, choosing a heading or paragraph from the block-format select also set an inline `font-size` span (18px, or 32/24/18.72/16/13.28/10.72px for headings), so saved HTML carried fixed pixel sizes that diverged from the public fluid `clamp()` sizes, and the slash menu did not do this. **Block format must only change the node type.** Font size is applied only when the user explicitly picks a size. Also: `setFontFamily('')` must remove only the `fontFamily` attribute, not the entire `textStyle` mark (source removed colour and size too).
 
 ### 6.5 Content sync (parent <-> editor)
+
 - HTML string in, HTML string out. `onUpdate(html)` fires on every document-changing transaction, **unsanitised**; sanitisation happens on the server and on paste.
 - Parent -> editor: an effect that (a) skips in HTML-source mode, (b) skips once when `content === lastEmittedToParent` (echo guard), (c) otherwise runs `syncEditorContent`: bail if equal to `getHTML()`; parse; find the diff range with `findDiffStart/End`; replace only that range with `setMeta('preventUpdate', true)`. This is evidenced to preserve the caret (it was added to fix a post-save caret jump); whether it also preserves undo history is NOT evidenced in the source, so test that separately and do not promise it. Add a test for it.
 - Read initial content with `untrack`. Create the editor from an attachment or mount hook, with a `mounted` flag suppressing reactive writes during construction. Bump a `docTick` state on each transaction/selection update so derived toolbar state recomputes.
@@ -245,14 +270,16 @@ In the source, choosing a heading or paragraph from the block-format select also
 - Do not double-emit from "Replace all".
 
 ### 6.6 Paste, drop, upload
+
 - Plain-paste mode (closure flag, no editor recreation): insert `text/plain` only.
 - Normal mode: first `image/*` item uploads and inserts; otherwise `text/html` goes through the sanitiser then `insertContent`. If sanitised result is empty, do nothing but still return handled.
-- Drop of `image/*` files uploads each. 
+- Drop of `image/*` files uploads each.
 - **Upload errors are shown** (toast plus inline), never only `console.error`.
 - Replace image: track the node position through transactions, then patch only `src/width/height`, keeping alt, title, alignment, caption. Cover cases: deleted during upload, editor destroyed.
 - X/Twitter embed: validate the host is `twitter.com` or `x.com` and the path contains `/status/<digits>`; **escape** the URL before building HTML. Make the node real: add a dedicated `Tweet` node with `data-tweet-url`, or the blockquote schema will drop `class` and `data-tweet-url` (source: the embed is inserted as `<blockquote class="twitter-embed" data-tweet-url=...>`; the sanitiser allows those, but no Tweet node exists and StarterKit's blockquote declares neither attribute, so ProseMirror parsing drops them. This is certain from the schema but no test covers the editor round trip, so write one).
 
 ### 6.7 Editor CSS and public parity
+
 - A shared structural stylesheet `prose.css` under a root class `.prose-base`, applied BOTH to the editor `.ProseMirror` (via `editorProps.attributes.class`) and to the public post body. It owns structure only: max-width 900px, fluid font sizing, line-height, headings, lists, task lists, blockquote, code and pre, marks, links, hr, tables, images and figures (`blog-image`, `blog-image-figure`, `data-align`), iframes, `[data-youtube-video]` and `.vimeo-embed` at 16/9. Colour and border live on the consuming surface.
 - Do **not** hardcode a separate dark pixel-size heading scale in the editor stylesheet (source did, so editor and public could drift). The editor theme must be switchable (light/dark) and must preview text colours faithfully. Never default `textColor` to white.
 - Define public styles for everything the editor can produce: callouts (4 variants), task lists with visible checkboxes (see 7.1), tweet embeds, mark colours, h5 and h6.
@@ -261,6 +288,7 @@ In the source, choosing a heading or paragraph from the block-format select also
 ## 7. Server logic
 
 ### 7.1 Sanitiser (`sanitizePostHtml`)
+
 One shared config with `sanitize-html`, used on: server create/update, autosave, public read, editor paste, HTML source mode.
 
 - **Allowed tags**: h1-h6, p, div, span, br, hr, a, strong, b, em, i, u, s, strike, sub, sup, mark, small, abbr, cite, q, time, blockquote, pre, code, ul, ol, li, dl, dt, dd, label, figure, figcaption, img, table, caption, colgroup, col, thead, tbody, tfoot, tr, th, td, iframe. **Add** `input` restricted to `type=checkbox` with `checked` and `disabled` only (source dropped it, so saved task lists lost their checkboxes), and consider `kbd`, `del`, `ins`.
@@ -281,6 +309,7 @@ One shared config with `sanitize-html`, used on: server create/update, autosave,
 Tests to port: parser boundaries (active URL schemes, entity-encoded and control-character-split `javascript:`, `srcdoc`, `xmlns`, host-in-query spoofing), iframes, srcset and data URLs, CSS functions/escapes/breakout, foreign namespaces, table geometry, highlight and task-list state, Word/Docs paste, heading-level preservation h1 to h6, editor-owned classes, classic HTML-mode paste round trip.
 
 ### 7.2 Zod schemas (`shared/schemas/posts.ts`)
+
 - `title` min 1. `slug` min 3, max 75, `^[a-z0-9]+(?:-[a-z0-9]+)*$`. `excerpt` nullish, **no max** (soft limit only). `content` min 1.
 - `authorId`, `categoryId`: positive int nullish. `categoryIds`, `tagIds`, `relatedPostIds`: arrays of positive ints, **refined unique**.
 - `coverImage`, `ogImage`, `canonicalUrl`, `twitterImage`: `url()` or `''`.
@@ -296,10 +325,13 @@ Tests to port: parser boundaries (active URL schemes, entity-encoded and control
 - Media PATCH: add a Zod schema with max lengths (source had none).
 
 ### 7.3 Slugs
+
 Constants: `SLUG_MIN_LEN=3`, `SLUG_TARGET_LEN=70`, `SLUG_MAX_LEN=75`. Two normalisers: typing-time `normaliseSlug(text, 75)` (lowercase, strip diacritics, collapse non-alphanumerics to hyphens, trim hyphens, clip at a hyphen if one lies beyond 50% of max) and save-time `generateSlug` (same plus trim trailing stub words: a, an, and, at, be, but, by, for, from, in, is, it, of, on, or, our, so, the, to, we, with, you). New posts auto-derive the slug from the title **only until the operator edits the slug field manually** (source overwrote manual edits on every title keystroke). Existing posts never auto-rename. Maintain a **reserved slug list** (source had none). Show a live uniqueness check (debounced) in addition to the server 409 `DUPLICATE_SLUG`.
 
 ### 7.4 Content transforms (run on every create and update, BEFORE the gate; the source only pino-logs a "transforms applied" line, here write an audit row too)
+
 Order in `applyContentSeoTransforms`:
+
 1. Strip the first `<h1>` or `<h2>` whose normalised text equals the title.
 2. One media lookup: `SELECT ... FROM media WHERE blob_url IN (<img srcs>) AND deleted_at IS NULL` (the `deleted_at IS NULL` filter is NEW; the source also matched soft-deleted rows).
 3. Inject `width` and `height` on `<img>` when either is missing and the media row has both (never invent).
@@ -310,72 +342,80 @@ Order in `applyContentSeoTransforms`:
 **Transforms must also run on**: quick update titles, autosave snapshots, and restore (strip the stored text, not only the posts row). Then run the sanitiser. **Then** run autofill. **Then** run the gate on the FINAL values (source gated pre-sanitise, pre-autofill input, so the gate could pass content that sanitising later changed, and a title-equal autofilled cover alt passed storage but would fail the next gate).
 
 ### 7.5 Autofill (blank fields only, never overwrite)
+
 Meta title from title truncated at a word boundary to 60. Meta description: first sentence of excerpt or plain content, capped 155; if shorter than 70, take a truncated chunk. Excerpt from meta description. OG title, description, image from meta and cover. Twitter fields from OG; card default `summary_large_image`. Cover alt: caption, else **do not default to the title** (the gate rejects alt equal to title). Focus keyword: first two non-stop words of the title. Schema type `BlogPosting`; language `en`. Canonical is never filled.
 
 ### 7.6 Publish gate (`getSeoScore`, `enforcePublishSeoGate`)
+
 `PUBLISH_GATE_MIN_SCORE = 80`. `publishable = score >= 80 AND no blocking issue`. Score clamped 0 to 100. Constants: `CONTENT_MIN_WORDS=600`, `CONTENT_THIN_WORDS=300`. Budget constants live ONLY in `meta-budget.ts`: meta title 30 to 60, meta description 70 to 155, Twitter title 70, Twitter description 200, excerpt 160 (soft). The brand suffix `" | <Brand>"` is added only if the rendered total stays within 60.
 
 Deductions (BLOCK means `blocking: true`):
 
-| Check | Severity | Points |
-|---|---|---|
-| Missing meta title | error | -10 BLOCK |
-| Meta title > 60 | warn | -5 |
-| Meta title < 30 | warn | -5 |
-| Meta title starts with a lowercase letter | error | -10 BLOCK |
-| Missing meta description | error | -10 BLOCK |
-| Meta description > 155 | warn | -5 |
-| Meta description < 70 | warn | -5 |
-| No cover image AND no OG image | error | -10 BLOCK |
-| Cover set, alt blank | error | -10 BLOCK |
-| Cover alt (normalised) equals title | error | -10 BLOCK |
-| Body `<img>` missing width or height | warn | -4 (once) |
-| Body images exist, focus keyword set, none has it in alt | warn | -3 |
-| Missing excerpt | warn | -5 |
-| No author | error | -8 BLOCK |
-| No category | error | -5 BLOCK |
-| 0 tags | error | -5 BLOCK |
-| 1 tag | warn | -2 |
-| No focus keyword | error | -8 (not blocking) |
-| Keyword missing in meta title (if non-empty) | warn | -5 |
-| Keyword missing in meta description | warn | -5 |
-| Keyword not in slug (spaces to hyphens) | warn | -3 |
-| Keyword not in plain body | warn | -5 |
-| Words < 300 | error | -10 BLOCK |
-| 300 <= words < 600 | warn | -3 |
-| ANY body h1 or h2 whose normalised text equals the title (scan stops at first hit) | warn | -3 |
-| Slug > 70 chars | warn | -3 |
-| Slug has 3 or more stop words, using the GATE's own 17-word set: the, and, for, are, but, not, you, all, can, had, her, was, one, our, out, with, from (this is NOT the 22-word trailing-stub list used by the slug generator in 7.3; keep two separate lists) | warn | -3 |
-| 0 distinct external authority domains | error | -12 BLOCK |
-| 1 distinct external authority domain | error | -8 (not blocking) |
-| No FAQ | warn | -5 |
-| 1 or 2 FAQ items | warn | -3 |
-| 3+ FAQ items, some answer < 40 chars | warn | -2 |
-| Freshness: `publishedAt` and the row's `updatedAt` (NOT `content_updated_at`) within 24h of each other AND age > 180 days; only evaluated when both dates are supplied | warn | -4 |
-| Unresolved placeholder sentinel in content | error | -100 |
-| Any em or en dash in content, titles, meta, excerpt, cover alt/caption, OG/Twitter, FAQ | error | -25 |
+| Check                                                                                                                                                                                                                                                          | Severity | Points            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------- |
+| Missing meta title                                                                                                                                                                                                                                             | error    | -10 BLOCK         |
+| Meta title > 60                                                                                                                                                                                                                                                | warn     | -5                |
+| Meta title < 30                                                                                                                                                                                                                                                | warn     | -5                |
+| Meta title starts with a lowercase letter                                                                                                                                                                                                                      | error    | -10 BLOCK         |
+| Missing meta description                                                                                                                                                                                                                                       | error    | -10 BLOCK         |
+| Meta description > 155                                                                                                                                                                                                                                         | warn     | -5                |
+| Meta description < 70                                                                                                                                                                                                                                          | warn     | -5                |
+| No cover image AND no OG image                                                                                                                                                                                                                                 | error    | -10 BLOCK         |
+| Cover set, alt blank                                                                                                                                                                                                                                           | error    | -10 BLOCK         |
+| Cover alt (normalised) equals title                                                                                                                                                                                                                            | error    | -10 BLOCK         |
+| Body `<img>` missing width or height                                                                                                                                                                                                                           | warn     | -4 (once)         |
+| Body images exist, focus keyword set, none has it in alt                                                                                                                                                                                                       | warn     | -3                |
+| Missing excerpt                                                                                                                                                                                                                                                | warn     | -5                |
+| No author                                                                                                                                                                                                                                                      | error    | -8 BLOCK          |
+| No category                                                                                                                                                                                                                                                    | error    | -5 BLOCK          |
+| 0 tags                                                                                                                                                                                                                                                         | error    | -5 BLOCK          |
+| 1 tag                                                                                                                                                                                                                                                          | warn     | -2                |
+| No focus keyword                                                                                                                                                                                                                                               | error    | -8 (not blocking) |
+| Keyword missing in meta title (if non-empty)                                                                                                                                                                                                                   | warn     | -5                |
+| Keyword missing in meta description                                                                                                                                                                                                                            | warn     | -5                |
+| Keyword not in slug (spaces to hyphens)                                                                                                                                                                                                                        | warn     | -3                |
+| Keyword not in plain body                                                                                                                                                                                                                                      | warn     | -5                |
+| Words < 300                                                                                                                                                                                                                                                    | error    | -10 BLOCK         |
+| 300 <= words < 600                                                                                                                                                                                                                                             | warn     | -3                |
+| ANY body h1 or h2 whose normalised text equals the title (scan stops at first hit)                                                                                                                                                                             | warn     | -3                |
+| Slug > 70 chars                                                                                                                                                                                                                                                | warn     | -3                |
+| Slug has 3 or more stop words, using the GATE's own 17-word set: the, and, for, are, but, not, you, all, can, had, her, was, one, our, out, with, from (this is NOT the 22-word trailing-stub list used by the slug generator in 7.3; keep two separate lists) | warn     | -3                |
+| 0 distinct external authority domains                                                                                                                                                                                                                          | error    | -12 BLOCK         |
+| 1 distinct external authority domain                                                                                                                                                                                                                           | error    | -8 (not blocking) |
+| No FAQ                                                                                                                                                                                                                                                         | warn     | -5                |
+| 1 or 2 FAQ items                                                                                                                                                                                                                                               | warn     | -3                |
+| 3+ FAQ items, some answer < 40 chars                                                                                                                                                                                                                           | warn     | -2                |
+| Freshness: `publishedAt` and the row's `updatedAt` (NOT `content_updated_at`) within 24h of each other AND age > 180 days; only evaluated when both dates are supplied                                                                                         | warn     | -4                |
+| Unresolved placeholder sentinel in content                                                                                                                                                                                                                     | error    | -100              |
+| Any em or en dash in content, titles, meta, excerpt, cover alt/caption, OG/Twitter, FAQ                                                                                                                                                                        | error    | -25               |
 
 Mark the placeholder and dash errors as `blocking: true` explicitly (source relied on the score arithmetic). External authority counting: distinct hostnames from absolute http(s) `<a href>`, `www.` stripped; exclude the site's own domain, localhost, `*.local`, and social/shorteners (facebook, instagram, linkedin, pinterest, reddit, threads.net, tiktok, twitter, x.com, youtube, youtu.be, t.co, bit.ly, goo.gl, tinyurl). Words: tags to spaces, collapse whitespace, split.
 
 Gate placement: runs on create when status is published or scheduled; on update when the transition is to published, or any save with status scheduled; on quick update on the same conditions; on restore only when currently scheduled. Already-live posts are NOT re-gated on edit (a documented lockout incident). Failure throws an error whose message starts with `SEO_GATE_BLOCKED:`; the request boundary (RPC and REST alike) maps it to HTTP 422 with the text after the prefix as the body, and the editor shows it as a **multi-line, newline-preserving** message. Source behaviour of that text: the section headed "Blocking errors" lists EVERY error-severity issue (including non-blocking ones such as "No focus keyword"), followed by the first 3 warnings. Keep it, or filter to `blocking: true` and rename the heading honestly. Also note the source's body checks only recognise double-quoted `alt="..."` and quoted `href="..."`, and its own-host exclusion is hard-coded to the site's domain; make both robust and configurable here. The cron does not gate, so also **re-check the gate (or at least required relations) when the cron publishes**, or refuse to schedule posts whose category or tags can later be removed (source's category deletion silently stripped categories from already-gated scheduled posts; tags and authors correctly returned 409; make categories do the same).
 
 ### 7.7 Revisions
+
 - Snapshot title, content, excerpt, word count and `word_count_delta` = new count minus the POST's stored `word_count` before the save (source: not the previous revision's count; 0 on create); `user_id` set to the acting user.
 - Writers and `change_type`: create `manual`; update `publish` when it newly published, else `manual`; quick update only when the title changed (snapshot of the CURRENT content, new title); autosave `autosave`; restore `restore`.
 - **Autosave must dedupe**: skip insert when the snapshot hash equals the latest revision. **Retention**: keep all `manual`, `publish`, `restore`; keep only the latest N autosaves (e.g. 20) per post and prune older ones in the same transaction. List query returns the latest 50 **without** full content (id, type, date, word count, delta), and fetches content only for the diff or restore request.
 - Restore: verify the revision belongs to the post; strip dashes; re-gate only if currently scheduled; recompute metrics; set `content_updated_at` and `updated_at`; write a `restore` revision containing the STRIPPED text. Restores title, content, excerpt only (not slug, SEO, taxonomy, FAQ); say so in the UI.
 
 ### 7.8 Metrics
+
 `reading_time = ceil(words/200)` (0 for empty). `word_count` from tags-to-spaces, collapsed. `table_of_contents`: computed with the same shared heading-id function as the public renderer (section 10.3; source used positional `heading-<index>` ids from a regex); use a parser or an `s`-flag regex so headings spanning newlines are captured. `content_updated_at` bumps ONLY when title or body text changed; `modifiedAt = content_updated_at ?? updated_at`. **Bump it on quick-update title changes too** (source did not, so sitemap `lastmod` and JSON-LD `dateModified` went stale).
 
 ### 7.9 Featured, pillar, sticky
+
 At most one featured post. Source behaviour: after every create, update and quick update where the saved row has `featured = true`, ALL other posts are demoted with no status or trash filter, so saving a featured draft or trashed post unfeatures the live spotlight; it is also non-atomic, so concurrent saves can leave two. Required here: demote others only when the saved post is itself `published` and not deleted (a featured draft stays a draft flag and demotes nothing), and do it inside the save transaction (or rely on a partial unique index over published, undeleted featured posts). `listFeaturedPosts(limit=3)` uses the public predicate ordered by `published_at desc`.
 
 ### 7.10 Taxonomy writes
+
 Category primary = `categoryId` if in the set else the first. Pivots are replaced inside the save transaction. Quick update with `categoryId` must **not** collapse a multi-category post to one: add the primary category to the set or leave the pivot untouched unless the full set is provided. Tags and related posts deduped; related excludes self; persist related on create as well as update, and **honour `sort_order` on read, capped at 3** (source returned manual related posts unordered and uncapped).
 
 ### 7.11 Slug rename and redirects (`savePostWithRedirect`)
+
 One atomic statement or transaction with an advisory lock and `SELECT ... FOR UPDATE`:
+
 - A rename creates a 301 `/blog/<old>` -> `/blog/<new>` only when the prior row had `published = true` and slugs differ.
 - Existing active redirects pointing at the old path are repointed to the new path (chains collapse).
 - A redirect whose source equals the new path is deactivated (rename-back case).
@@ -387,10 +427,13 @@ One atomic statement or transaction with an advisory lock and `SELECT ... FOR UP
 - Rewrite internal links in other posts' bodies on rename, or at least report them in the save result.
 
 ### 7.12 Search engine notification
+
 On transitions into or out of public visibility, live edits, renames, trash, restore, and cron publish and archive: submit to IndexNow and ping the sitemap. Do NOT block the save response on it (source `await`ed it, adding latency): run via `waitUntil` or a queue, log failures. Add a retry marker so slugs from a cron run that died after the UPDATE still get announced.
 
 ### 7.13 Scheduled publish cron
+
 `GET /api/cron/publish-scheduled`, every minute, schedule in `vercel.json`. Scheduling and expiry are both KEEP decisions (the owner confirmed). Evidence from the source: this cron is the only thing that flips `scheduled -> published` and `published -> archived`, and the source declares it as `* * * * *` in `vercel.json`. NOT evidenced: whether the target host plan actually honours a per-minute schedule. Before relying on it, read the host's current cron limits from its official docs (do not trust memory) and test that the cron fires on the target plan. FALLBACK if per-minute is not allowed: keep the cron on the finest allowed schedule (for example daily) AND make the public-visibility rule in 5.3 treat a post with `status='scheduled' AND scheduled_at <= now()` as published at read time, so posts go live on time even when the sweep is late; likewise treat `expires_at <= now()` as not public at read time. The sweep then only syncs stored status, sitemap, RSS and search-engine pings.
+
 - Auth: require `Authorization: Bearer <CRON_SECRET>`; compare with `timingSafeEqual`; 500 in production when the secret is unset; 401 on mismatch.
 - Publish: one atomic `UPDATE posts SET status='published', published=true, published_at=COALESCE(published_at, now()), updated_at=now() WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at <= now() AND deleted_at IS NULL RETURNING id, slug`.
 - Archive: `UPDATE ... SET status='archived', published=false WHERE status='published' AND expires_at IS NOT NULL AND expires_at <= now() AND deleted_at IS NULL`.
@@ -399,9 +442,11 @@ On transitions into or out of public visibility, live edits, renames, trash, res
 - Timestamps: the editor sends ISO UTC (`new Date(datetimeLocal).toISOString()`); display the scheduled time with date AND time and the timezone in the Publish box.
 
 ### 7.14 Caching
+
 `PUBLIC_READ_CACHE = 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400, stale-if-error=86400'`. Helper `setPublicReadCache(setHeaders, locals, request)` applies it only when there is no admin session and the method is GET or HEAD; use the helper on the post page too (source set the header inline there). Locked, members and admin responses must be `no-store`. Never serialise `password` to the client (a past shared-cache leak). On DB failure throw 503 so `stale-if-error` can serve the last copy. **Add real invalidation** (tag or path purge) after post mutations where the host supports it; the source relied only on a 5 minute s-maxage.
 
 ### 7.15 Password-protected and members posts
+
 - Plaintext storage was a deliberate source decision; **prefer hashing** the password (scrypt) and storing a per-post secret salt/version in the cookie HMAC instead of embedding the password.
 - Cookie `post_pw_<id>`: HMAC-SHA256 token, `httpOnly`, `sameSite=lax`, `secure`, `path=/blog/<slug>` (**re-issue or key by id when the slug changes**, since a rename invalidates the path), `maxAge` 24h. Secret from env; **fail closed** (refuse to start unlocking) if no secret is configured. Never ship a constant fallback secret.
 - Compare with `timingSafeEqual` over equal-length buffers (hash both sides to hide length).
@@ -410,6 +455,7 @@ On transitions into or out of public visibility, live edits, renames, trash, res
 - `members` visibility returns 403 for non-admins (no member auth exists; say so in the UI).
 
 ### 7.16 Auth, CSRF, rate limits, audit
+
 - Every admin mutation and read calls an `requireAdmin()` guard first (401 without a session, 403 without the admin role). A global hook returns JSON 401 for unauthenticated `/api/admin/` and `/api/media/` calls.
 - CSRF: reject mutating requests whose `Origin` or `Referer` host mismatches (403); session cookie `SameSite=Strict`; **also reject when both headers are absent** on cookie-authenticated mutating requests, or enable the framework's built-in CSRF option.
 - Rate limits (Postgres-backed with in-memory fallback): REST post writes 60/min per IP; **RPC post writes too** (source had none); media upload 30/min; media writes 60/min; password unlock 10 per 10 min per IP per slug.
@@ -418,9 +464,11 @@ On transitions into or out of public visibility, live edits, renames, trash, res
 ## 8. Editor behaviours
 
 ### 8.1 Save flow (`savePost({ closeAfter, status? })`)
+
 Pre-checks, each failing with a visible message: title required; slug valid (3 to 75, regex) after normalising; content not empty or `<p></p>`; slug auto-derived from the title if blank. Target status goes into the payload only and is committed to `form.status` after the server accepts, unless the operator changed it meanwhile. After a successful create, adopt the returned id. Results: adopt canonical fields (4.9); if `closeAfter` and not dirty -> `onSaved({ close: true })`; else refresh `lastSavedAt`, restart autosave, show "Saved". Error classification: 409 `DUPLICATE_SLUG` or Postgres `23505` -> slug message; 422 -> server body verbatim (preserve newlines); else a generic refusal message.
 
 ### 8.2 Autosave
+
 - Interval 60 000 ms, only while dirty.
 - **New unsaved posts MUST also be backed up**: write the form to a `localStorage` draft key (`post-draft:new` or `post-draft:<id>`) on a 2 second debounce, restore on load with a "Recovered unsaved draft, Restore or Discard" banner. (Source: new posts were never autosaved and a crash lost everything.)
 - Server autosave payload: id, title, content, excerpt only. It inserts a revision row with `change_type='autosave'` and never touches the post row. It sanitises content.
@@ -429,26 +477,32 @@ Pre-checks, each failing with a visible message: title required; slug valid (3 t
 - **Conflict detection**: send the post's `updated_at` (or a version integer) with every update and autosave; the server rejects with 409 `STALE_WRITE` when it differs, and the editor offers "Reload latest" or "Overwrite" (source was last-write-wins).
 
 ### 8.3 Publish box
+
 - Buttons: "Save Draft" (stay), primary (Publish / Update / Schedule; label by status and schedule), "Preview" (source: a link inside the Publish box, shown only when editing a PUBLISHED post; REQUIREMENT: **add a draft preview** via a signed, expiring preview token or the admin visibility bypass; source had no draft preview), "Move to Trash" when editing.
 - Status select (all five), Visibility select with password field (masked input, not `type=text`), Schedule and Expires `datetime-local` inputs. Setting a schedule date on a non-published post flips status to `scheduled`; clearing it on a scheduled post reverts to `draft`. Show date AND time.
 - **"Save Draft" on a published post must confirm** ("This unpublishes the post and notifies search engines") before it unpublishes (source did it silently).
 - Every select and input has an associated `<label>`.
 
 ### 8.4 Trash
+
 In-editor: styled confirm "Move post to Trash?" -> soft delete -> close with toast. Trash view: Restore (confirm), Delete Permanently (confirm, danger), "Delete all permanently" (Empty Trash confirm, with the count). Bulk trash is sequential, reports failures per post, keeps failed ones selected. Use the project's styled dialog, never `window.confirm`.
 
 ### 8.5 Revision UI
+
 "Load Revisions" button (lazy). List item: change type, date, word count with delta, Diff, Restore. Diff modal (`role="dialog"`, `aria-modal`, focus trap, Escape): compares the revision to the **live form state including unsaved edits**; tabs Content, Title, Excerpt; unified or split; added and removed word counts; legend. Word-level diff: run it **off the main thread** (worker) or use a linear-space diff (Myers) because the source's LCS table is O(n·m) in memory. Show HTML structure changes (images, links) at least as markers. Restore: styled confirm with title "Restore this revision?", message "Any unsaved changes in the editor will be lost.", confirm label "Restore", tone warning, then reload the post and toast.
 
 ### 8.6 Unsaved-changes guard
+
 - `beforeunload`: set `returnValue` when dirty and not leave-confirmed.
 - Client navigation: cancel and show the styled "Discard unsaved changes?" dialog (confirm label "Discard", tone warning); on Discard set `leaveConfirmed` and replay (popstate replays `history.go(delta)`; external or non-app routes use `location.assign`; else `goto`). `leavePrompt ??=` prevents stacked prompts. Skip `willUnload` navigations (the native prompt handles them).
 - Export `canClose()` and use it for Back, Escape and view switches. Author, Category and Tag editors get the same guard (source had none).
 
 ### 8.7 Keyboard shortcuts (window listener)
+
 `Cmd/Ctrl+S` save and stay (ignore while saving); `Cmd/Ctrl+Shift+P` publish and close (requires ready, not saving, title present); `Cmd/Ctrl+Shift+D` save draft and stay; `Escape` closes unless focus is in input, textarea or select **or a modal is open**. Source: only Cmd/Ctrl+S compares `e.key === 's'` (breaks with Caps Lock); the P and D shortcuts already accept both cases, and Escape is not modal-aware. REQUIREMENT: compare `e.key.toLowerCase()` for all three.
 
 ### 8.8 Other admin editors
+
 - Author: name, slug, job title, company, credentials, expertise, short bio, bio, avatar URL (+ **avatar alt input**, source had none), email, LinkedIn, Twitter, website, **years of experience input** (source had none).
 - Category: name, slug, description, meta title, meta description, color (default brand green), **preserve `is_active`** on save (source forced true).
 - Tag: name, slug, description.
@@ -457,6 +511,7 @@ In-editor: styled confirm "Move post to Trash?" -> soft delete -> close with toa
 ## 9. Media library
 
 ### 9.1 Two surfaces over one API
+
 - Full page `/admin/media` and a modal picker (`mode='insert'` for the editor, cover mode for the featured image). **Unify them**: one component set with feature flags, so the page also gets folders, bulk actions, rename and insert settings (source's page lacked all of these).
 - Both: grid view (**also add list view**), debounced search (300 ms), sort (Newest, Oldest, Title, Size, Filename), pagination with "Page X of Y (N items)", drag-and-drop and button upload with progress, alt text editing, copy URL, delete with styled confirm. Grid `<img>` always has `width` and `height` (fall back to 300x300).
 - Modal: folder filter and create, multi-select with shift-range, bulk delete, bulk move (with "Root"), insert settings (alignment none/left/center/right; link-to none/media/custom URL; size thumbnail/medium/large/full; caption checkbox disabled when no caption), keyboard navigation (arrows, Enter, Escape layering: cancel edit, then multi-select, then close), double-click to insert, focus trap.
@@ -466,9 +521,11 @@ In-editor: styled confirm "Move post to Trash?" -> soft delete -> close with toa
 - XHR upload gets a timeout, `onabort`, `ontimeout`, and a cancel button.
 
 ### 9.2 Limits (constants in one shared file)
+
 `MEDIA_UPLOAD_MAX_BYTES = 4_000_000` (the host rejects bodies above 4.5 MB before the handler runs), `MEDIA_REQUEST_MAX_BYTES = 4_400_000`, `MEDIA_METADATA_MAX_BYTES = 16_000` (UTF-8 bytes across fields), allowed metadata keys `title, alt_text, description, caption, folder`. Every UI hint must read from these constants (source's page said "Max 20 MB" while the server enforced 4 MB). List `per_page` clamped 1 to 100 (default 24). Variant widths 480, 800, 1200, only strictly below the original, never upscaled. WebP quality 82.
 
 ### 9.3 `POST /api/media/upload`
+
 1. Admin guard, then rate limit (30 per minute per IP, 429).
 2. Content type must be `multipart/form-data` (415). Declared content length over 4.4 MB -> 413. Stream and count the body so a missing or lying length still hits 413. Malformed form -> 400.
 3. Validate: exactly one `file` (400 otherwise); must be a File; **allowlist** `image/png, image/jpeg, image/gif, image/webp, image/avif, image/svg+xml` on the SNIFFED type, not only the declared one; size over limit -> 413; unknown keys, duplicate keys, non-text values -> 400; metadata over limit -> 413.
@@ -479,26 +536,32 @@ In-editor: styled confirm "Move post to Trash?" -> soft delete -> close with toa
 8. Respond 200 (or 201) with the item JSON. Rethrow HttpErrors untouched; other errors return 500 and are logged.
 
 ### 9.4 `GET /api/media/list`
+
 Zod query: `page`, `per_page`, `search`, `folder`, `mime_type`, `sort`. Excludes soft-deleted. **Search uses `ILIKE` with `%` and `_` escaped** (source was case-sensitive and wildcard-injectable). Folder exact; MIME prefix. Sorts: filename asc, title asc, size desc, oldest asc, default newest. Response `{ items, total, page, per_page }`.
 
 ### 9.5 `/api/media/[id]`
+
 - GET: 404 if missing or soft-deleted.
 - PATCH: Zod-validated; accepts title (alias name), alt_text (alias altText), description, caption, folder, filename; trims; `null` becomes `''`; empty filename 400; apply the dash transform; **single atomic `UPDATE ... WHERE id AND deleted_at IS NULL RETURNING`** (0 rows -> 404), not select, update, select.
 - DELETE: refuse with 409 and a usage list when referenced by any post; otherwise delete the blob and variant siblings **before** the soft delete, and if the blob delete fails, abort (source soft-deleted anyway, leaving divergence); write an audit row; return 204.
 
 ### 9.6 Item shape and sizes (source defect: fake sizes)
+
 `MediaItem = { id, filename, slug, mime_type, size_bytes, width, height, title, alt_text, description, caption, folder, urls: { original, large, medium, thumbnail, webp }, available_sizes: [{ value, label, url, width, height, available }], created_at, updated_at }`. **`urls.thumbnail`, `medium`, `large` and `available_sizes` MUST point at the real 480, 800 and 1200 variants** and report their real dimensions, with `available:false` when a variant does not exist. The source returned the original URL for every size, so the Size dropdown was cosmetic. The cover picker stores the largest variant URL, from which the renderer derives `srcset`.
 Folders: free-text column in the source with these defects: `loadFolders` asked for 1000 items but the server capped at 100, so folders were discovered from the newest 100 items only; and Root was both `''` and `'/'`. Use ONE representation (`''`), a distinct `SELECT DISTINCT folder` endpoint, and normalise on write.
 
 ### 9.7 Backfill script
+
 Port `scripts/backfill-blog-image-variants.ts` only if existing media lacks variants: dry run by default, `--apply` to write; allow-list the blob host; cap downloads at 15 MiB with a 30 s timeout; skip images already following the width naming convention, non-raster, or 480px and narrower; UPDATE conditional on the old URL (idempotent); never delete the old blob; also update `media` rows, `og_image` and body references (source updated only `posts.cover_image`); exit non-zero on any failure; add a test.
 
 ## 10. Public blog
 
 ### 10.1 Blog index (`/blog`)
+
 Server `load` (no client fetching), three queries in parallel: published list, active categories, featured (3). H1, search link, author byline, category pill nav (`aria-label="Blog categories"`, "All" with `aria-current="page"`), "Featured Articles" (card 0 eager with `fetchpriority=high`, the rest lazy), divider, "All Articles" grid. **Paginate** (source rendered every post). DB failure -> 503. Category pill row lists categories with at least one published post.
 
 ### 10.2 Post page (`/blog/[slug]`)
+
 - Load: select with author and category joins on `slug`, published, not fixture, not deleted (**also filter visibility and expiry consistently**); 404 if missing; 403 for members; password branch (7.15). Body pipeline in the source: on the server `stripDuplicateLeadImage(sanitizePostHtml(content))` then Shiki highlight; then in the page component (`$derived`) `normalizePostHeadings`, `processContentImages`, `lazyifyContentImages`. Keep that split (or move all of it server side). Related posts: manual first, else ranked (source: manual rows are fetched with `inArray` and NO `ORDER BY sort_order` and NO limit, so admin order is ignored and the list is uncapped; REQUIREMENT here: order by `sort_order`, cap at 3).
 - Order: breadcrumb, header (category badge, H1, excerpt, author, date, reading time, tags), cover figure, layout with TOC aside and main (prose, local service block, guide CTA, FAQ, author box, share, related), "Back to all articles". **Add** previous and next post links and a reading-progress bar (both absent in source).
 - Cover: `<picture>` with a WebP `<source>` when a variant `srcset` exists, `<img>` with `srcset`, `sizes`, alt (or title), `width`/`height` matching the file's real ratio or CSS `aspect-ratio` from stored dimensions, eager plus `fetchpriority=high`, `decoding=async`.
@@ -509,15 +572,19 @@ Server `load` (no client fetching), three queries in parallel: published list, a
 - Comments: none. Do not ship dead comment CSS.
 
 ### 10.3 Heading ids and TOC
+
 `normalizePostHeadings(html, title)` runs on the sanitised body and returns the body with ids plus the TOC list: demote body h1 to h2; remove a first heading equal to the title; headings titled "cta" or "call to action" are excluded from the TOC but still get an id; strip author-supplied ids. **Use stable slug-based ids** (`why-fractional-cfo`, with `-2` dedupe suffixes), not positional `heading-N` (source's positional ids broke deep links whenever headings moved). The editor TOC panel and the public renderer must use the same function. TOC renders when there are 3 or more entries, as real `<a href="#id">` inside `<details open>` rendered server side (crawlable and works without JS); collapsed after mount on narrow screens; click does `preventDefault` plus smooth scroll; scroll-spy via an effect with `offsetTop <= scrollY + 150`, `aria-current="location"` on the active item; levels 3 to 6 indented; `scroll-margin-top: 120px` on h2 to h4 (source sets it on h2 and h3 only; h4 had none, which is a bug); sticky aside at 1180px and up, two-column list 768 to 1179, dropdown below 768. Use `$derived` for the TOC; do not select and ignore a stored `table_of_contents` column (source did).
 
 ### 10.4 Related posts ranking
+
 Score = shared tags x 2, + 3 same category, + 4 if slug is in a configurable `INTERNAL_LINK_PRIORITY_SLUGS` list (move it to config or a DB flag). Ties: newest `published_at`, then lower id. Top 3. Candidates: newest 40 public posts excluding the current one. Manual `related_posts` rows win, ordered by `sort_order`, capped at 3. REQUIREMENT: related cards use `srcset` and `sizes` (source: plain `<img src width=400 height=225 loading=lazy>`, no srcset).
 
 ### 10.5 Taxonomy pages
+
 Category page: category must be active; posts matched by primary id OR pivot; 0 public posts -> 404; **`noindex,follow` when fewer than `TAXONOMY_MIN_INDEXABLE_POSTS = 2`**. Tag page: 0 posts -> 404; indexable only when `count >= 5` and `count <= 0.75 x total public posts` (`isTagIndexable`). Sidebars list only indexable taxonomies, **always including the current one** (source hid the current category when it had one post and rendered an empty "All Categories" heading). Paginate. The sitemap uses the same two rules.
 
 ### 10.6 SEO head (one `SEO` component for every page)
+
 - `<title>` with brand suffix only if the total is <= 60; description; canonical **only on indexable pages**; robots `index|noindex, follow|nofollow` plus `max-image-preview:large, max-snippet:-1, max-video-preview:-1` only when indexable.
 - OG: type, url, title, description, image, **image alt from the cover alt** (source defaulted alt text to the meta description), site name, locale; `og:image:width/height` only when real dimensions are stored (store them). Article: `article:author`, `published_time`, `modified_time`, `section`, de-duplicated `tag`s.
 - Twitter: card (`summary` only if the post sets it), url, title, description, image, **image alt**, site when configured.
@@ -525,24 +592,29 @@ Category page: category must be active; posts matched by primary id OR pivot; 0 
 - Post `dateModified` prefers `content_updated_at`, then `updated_at`, `published_at`, `created_at`. Use the same rule on the blog index.
 
 ### 10.7 JSON-LD
+
 Sitewide: `Organization` (with `areaServed` ONLY here) and `WebSite` with a `SearchAction`. Post: `Article` when pillar else `BlogPosting` with `@id` (`<url>#article`), `headline`, `description`, `image` (`ImageObject` with url, caption; source omits width and height because real dimensions are not stored, REQUIREMENT here: store dimensions on the post/media row and emit width and height, and emit `og:image:width/height` too), `thumbnailUrl`, `datePublished`, `dateModified`, `inLanguage`, `wordCount`, `isAccessibleForFree`, `author` (Person: `@id`, name, jobTitle, description, image, url, sameAs, worksFor, knowsAbout), `publisher {@id}`, `mainEntityOfPage` (`WebPage`), `isPartOf {@id}`, `speakable`, `keywords`, `articleSection`. Separate `BreadcrumbList`. `FAQPage` when FAQ exists and the post is not locked. **Reference the Person by `@id` instead of emitting it twice.** Blog index: `Blog` with `blogPost` (`BlogPosting` x first 10); source has NO `BreadcrumbList` on `/blog`, add one. Category and tag: `CollectionPage` with an `ItemList` plus `BreadcrumbList`. Serialise safely (escape `<`).
 
 ### 10.8 Feeds
+
 - **RSS 2.0**: up to 50 newest public posts; channel (title, link, description, language, `lastBuildDate`, `atom:link rel=self`, image); items with `title`, `link`, `guid isPermaLink=true`, description, `pubDate`, `dc:creator`, `category`, `enclosure` only when type and byte length are real. **Add `content:encoded`** (the namespace was declared and unused), set `lastBuildDate` from the newest **modified** date, never fall back to `new Date()` for `pubDate`.
 - **Sitemap**: static pages, `/blog` (with `lastmod` from the newest modified post), posts (with `lastmod` and `<image:image>` for the cover), indexable categories and tags. Share one `escapeXml` and one `absoluteUrl` between feeds (source: RSS imports `escapeXml` from the shared rss module but the sitemap defines its own copy, and both define their own `absoluteUrl`).
 - Both go through an XML response helper: sha256 ETag, 304 on `If-None-Match` (supports lists, `W/`, `*`), 503 with `Retry-After: 60` and `no-store` on DB error. Cache: RSS `s-maxage=3600`, sitemap `s-maxage=300`.
 - `robots.txt`: allow `/`, disallow `/admin` and `/api/`, list the sitemap.
 
 ### 10.9 Other public details
+
 - Code highlighting with Shiki, theme `github-dark`, languages: javascript, typescript, tsx, jsx, svelte, html, css, json, bash, shell, sql, python, go, rust, yaml, markdown, xml, diff; unknown language -> plaintext. Cache the highlighter promise but **reset it if initialisation rejects** (source cached a rejection forever). **Log** per-block failures.
 - View tracking (source uses `fetch` with `keepalive: true` and an empty `.catch`, not `sendBeacon`; referrer sent only on first load): a client call posts `{ path, referrer? }` to a page-view endpoint on every non-admin navigation, dropping consecutive duplicates. Log failures at debug level instead of swallowing.
 - `/blog/+error.svelte`: 404 "Article not found", 403 "This post isn't available", 5xx "Something went wrong on our end", `noindex,nofollow`.
 - Reduced motion respected everywhere; every list-surface card uses ONE `PostCard` (source's homepage block and featured card had divergent markup).
 
 ## 11. Design tokens and CSS
+
 Use the repo's tokens and cascade layers. Put the shared prose structure in one stylesheet, import it inside the correct `@layer`, and let component styles supply colour only. No raw hex or rgba where a token exists (source hard-coded `#1A5F4F`, `#0d1117`, gold and green rgba gradients in several places); add tokens instead. Logical properties, native nesting, OKLCH where lightness matters. Keep the post body max width 900px, the TOC breakpoints above, and a sticky TOC at 1180px.
 
 ## 12. Tests (mandatory, test what changed per phase)
+
 - **Unit (jsdom)**: schemas (valid and invalid), `getSeoScore` (one test per row of the table), content transforms (every step, plus the code and attribute dash exclusions), slug helpers, sanitiser (all cases in 7.1), `form-actions` (`canonicalFieldsAfterSave`, payload building, primary category rules), TipTap extensions (round trip parse/render for ImageWithDimensions, Callout, Vimeo, FontSize/FontFamily, BlockStyle), `syncEditorContent` caret behaviour, find and replace (literal, one undo step, boundaries), slash filtering, `handlePaste`, editor-actions (link, block format MUST NOT add font-size, font-family unset keeps colour), related-post ranking, TOC id generation, `isTagIndexable`.
 - **Component**: PostEditor (blocked saves while pending, later edits stay dirty, publish failure leaves status untouched, canonical adoption, edits typed during a save are not overwritten, shortcuts, guard), MediaLibrary (focus trap, partial bulk failures keep selection, stale load responses ignored, folder list reload), RevisionDiffViewer, ImageControlMenu, modals.
 - **Server (node config, `*.test.ts`)**: services against a real Postgres where behaviour is transactional (use `*.db.spec.ts` naming): atomic save rollback, publish-gate transitions (positive control, blocks with no category, cover alt equal to title, dashes stripped), scheduled patch rules (author required, past `scheduledAt` refused, 60 s grace), slug rename and redirect chains and rename-back, revision creation, dedupe and pruning, restore, featured demotion scoping, visibility predicate, cron idempotency and secret handling, media upload (every 4xx path, conversion fallback, variants and cleanup), media delete protection, unlock rate limit and cookie flags, locked payload has no leaked fields, caching headers by role.
@@ -552,6 +624,7 @@ Use the repo's tokens and cascade layers. Put the shared prose structure in one 
 - Use `.toPass()` retry loops for hydration waits, never fixed sleeps.
 
 ## 13. Defects found in the source system (fix; do NOT replicate)
+
 Editor: block-format adds inline px font sizes; `setFontFamily('')` removes the whole text style; ⌘F advertised, not wired; X embed: URL interpolated unescaped with no host check, and its class and data attribute are dropped by the editor schema (certain from the schema, untested); upload errors only logged; Montserrat missing from the font URL, editor fonts not loaded publicly; sanitiser drops task checkboxes and strips the invalid-Vimeo class; the sanitiser adds `noopener` but not `noreferrer` to pasted `_blank` links (the editor's own link popover always writes `noopener noreferrer`); sync effect paused in HTML mode; Replace All double-emits; dropdowns dismissed by `onblur` plus timeout; primary and advanced toolbar toggles lack `aria-pressed` (the bubble and image menus have it); slash menu lacks `aria-activedescendant` and swallows Enter on zero matches; no code-block language selector.
 Editor UI: slug input vanishes when emptied; slug overwritten on title keystroke; autosave inserts a revision every minute with no change and never clears dirty; no draft recovery for new posts; "Save Draft" silently unpublishes a live post; inconsistent "Update" semantics and misleading `⌘S` tooltip; three different score thresholds (50/80, 70, 80); duplicate focus keyword inputs; existing posts ignore the saved tab; `getPostById` returns trashed posts; forced `isActive:true` on author and category updates; quick edit collapses categories and hardcodes statuses; plaintext post password in a `type=text` field; no concurrency control; missing label associations; unlabelled autosave status; score recomputed per keystroke; diff viewer is O(n·m); no draft preview; reassigned prop (`editingPost`); Cmd+S shortcut is case-sensitive (breaks with Caps Lock); no rate limit or audit on RPC mutations.
 Server: REST `PUT /api/admin/posts/[id]` parses with the CREATE schema, which strips unknown keys, so `relatedPostIds` is always dropped and the service then deletes every related-post row (silent data loss; build one update schema and test that omitted vs empty `relatedPostIds` behave as documented); gate ran before sanitise and autofill; no transaction across pivots and revisions, duplicate tag ids break it; category deletion strips categories from scheduled posts; featured demotion unscoped and non-atomic; quick update skips dash stripping, `content_updated_at`, writes stale-content revisions, never clears passwords; REST lacks duplicate-slug mapping; media MIME check is declared-type only, encode failure fails open, SVG unsanitised, blob orphaned on insert failure, delete ignores usage, fake size URLs, case-sensitive wildcard search; revisions never pruned, `user_id` never written; cron compares secrets non-constant-time and plan cadence unverified; schema drift (CHECK and partial index missing from ORM schema, `hits` never incremented, non-unique redirect sources); category `metaDescription` max 160 vs 155; Shiki rejection cached forever; no audit table; `password_protected` allowed with no password; stale comments (transform order, scheduled gating).
@@ -559,6 +632,7 @@ Public: locked-post metadata leak; manual related posts unordered and uncapped; 
 Docs and tests: authoring guide has wrong section cross-references and omits the upload cap and variants; two identical pairs of parity baselines (the two public posts share the same seeded body, so 4 PNGs collapse to 2 distinct images); the "Publish leaves the editor" e2e test passes vacuously (it asserts nothing positive about leaving, only that IF the editor stays open a gate toast is visible, and it uses a fixed 1.5 s sleep); media tests cover only a thin slice: upload and conversion and variants have unit tests (`media-upload.test.ts`, `image-convert.test.ts`, `image-variants.test.ts`) and the upload handler has a few 4xx tests, but there are NO server tests for media PATCH or DELETE, none for the upload happy path with real conversion and variants through the handler, and none for the backfill script.
 
 ## 14. Phases (each: branch, commits, targeted tests green, summary of what you skipped)
+
 1. **Foundations**: adaptation map, schema and migrations, shared constants (`meta-budget`, `slug`, `taxonomy`, `media-upload`), Zod schemas, audit table, sanitiser plus its test suite.
 2. **Server services**: posts (transforms, autofill, gate, atomic save, redirects, revisions, featured), taxonomy, authors, media service, cron, caching, rate limits, audit writes. Server tests.
 3. **Media pipeline and library UI**: upload, conversion, variants, API, unified library, tests.
@@ -570,6 +644,7 @@ Docs and tests: authoring guide has wrong section cross-references and omits the
 At the end of each phase print: files created or changed, tests added and their results, anything skipped and why, and any open question. Run the full test gate exactly once, before the final push. Never push to the default branch directly; use a feature branch and a pull request.
 
 ## 15. Definition of done
+
 - All section 13 defects are fixed or have an explicit written reason they were not.
 - Every row of the gate table in 7.6 has a test; every sanitiser rule in 7.1 has a test.
 - A real browser screenshot of the built editor and of a published post at 1280 and 1440 widths exists, and the editor canvas and public render match structurally.

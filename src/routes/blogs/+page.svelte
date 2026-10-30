@@ -264,6 +264,8 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
+<a class="skip" href="#blogs-hub">Skip to content</a>
+
 <div class="app-shell">
 	<Navbar />
 

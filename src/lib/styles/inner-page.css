@@ -8024,11 +8024,12 @@
 	transition: all 0.3s ease;
 }
 
-.indexes-page .faq-item--expanded {
+.indexes-page .faq-item[open] {
 	border-color: rgba(220, 255, 101, 0.3);
 }
 
 .indexes-page .faq-item__question {
+	list-style: none;
 	width: 100%;
 	min-height: 44px;
 	display: flex;
@@ -8043,6 +8044,10 @@
 	text-align: left;
 	cursor: pointer;
 	transition: all 0.2s ease;
+}
+
+.indexes-page .faq-item__question::-webkit-details-marker {
+	display: none;
 }
 
 .indexes-page .faq-item__question:hover {
@@ -8067,7 +8072,7 @@
 	flex-shrink: 0;
 }
 
-.indexes-page .faq-item--expanded .faq-item__chevron {
+.indexes-page .faq-item[open] .faq-item__chevron {
 	transform: rotate(180deg);
 }
 

@@ -13,6 +13,7 @@
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
+	import { STOCK_INDEXES_LIST_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import {
 		IconChartLine,
 		IconWorld,
@@ -141,37 +142,7 @@
 		}
 	];
 
-	// FAQ Data
-	const faqItems = [
-		{
-			question: 'What are the three major stock indexes?',
-			answer:
-				'1. S&P 500: measures 500 large-caps in U.S. stock market\n2. Dow Jones 30: measures the top 30 U.S. large-cap stocks\n3. Nasdaq 100: measures the top 100 largest non-financial companies'
-		},
-		{
-			question: 'What is the difference between a stock and an index?',
-			answer:
-				'A stock allows investors partial ownership in a company. An index gives investors the option of investing in a basket of companies through products like ETFs, mutual funds, and derivatives.'
-		},
-		{
-			question: 'Can you invest directly in an index?',
-			answer:
-				'An index cannot be traded or invested in directly. Many different products, such as ETFs, mutual funds, and derivatives, are available to investors to gain exposure to index performance.'
-		},
-		{
-			question: 'What are the ticker symbols for major indexes?',
-			answer:
-				'1. S&P 500 – SPX or $SPX\n2. Dow Jones Industrial Average (DJIA) – $DJI\n3. Nasdaq Composite – COMPQ or $COMPQ\n4. NYSE Composite – (DJ)\n5. Russell 2000 – RUT or $RUT'
-		},
-		{
-			question: 'What is the most widely cited US stock market index?',
-			answer:
-				'The most widely cited US stock market index is the S&P 500, which measures 500 large-cap stocks and is considered the best representation of the overall U.S. stock market.'
-		}
-	];
-
 	let selectedRegion = $state('all');
-	let expandedFaq = $state<number | null>(null);
 
 	let regions = $derived(['all', ...new Set(majorIndexes.map((i) => i.region))]);
 
@@ -180,13 +151,11 @@
 			return selectedRegion === 'all' || index.region === selectedRegion;
 		})
 	);
-
-	function toggleFaq(index: number) {
-		expandedFaq = expandedFaq === index ? null : index;
-	}
 </script>
 
 <JsonLd schema={data.jsonLdSchema} />
+
+<a class="skip" href="#main-content">Skip to content</a>
 
 <div class="app-shell">
 	<Navbar />
@@ -368,21 +337,21 @@
 				</div>
 
 				<div class="faq-list">
-					{#each faqItems as faq, i (faq.question)}
-						<div class={['faq-item', expandedFaq === i && 'faq-item--expanded']}>
-							<button type="button" class="faq-item__question" onclick={() => toggleFaq(i)}>
+					{#each STOCK_INDEXES_LIST_FAQ_ITEMS as faq (faq.id)}
+						<details class="faq-item" name="stock-indexes-faq">
+							<summary class="faq-item__question">
 								<IconQuestionMark size={20} class="faq-item__icon" />
 								<span>{faq.question}</span>
-								<span class="faq-item__chevron"><IconChevronDown size={20} /></span>
-							</button>
-							{#if expandedFaq === i}
-								<div class="faq-item__answer" in:fly={{ y: -10, duration: 200 }}>
-									{#each faq.answer.split('\n') as line (line)}
-										<p>{line}</p>
-									{/each}
-								</div>
-							{/if}
-						</div>
+								<span class="faq-item__chevron" aria-hidden="true"
+									><IconChevronDown size={20} /></span
+								>
+							</summary>
+							<div class="faq-item__answer">
+								{#each faq.answer.split('\n') as line (line)}
+									<p>{line}</p>
+								{/each}
+							</div>
+						</details>
 					{/each}
 				</div>
 			</div>

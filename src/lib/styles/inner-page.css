@@ -6525,3 +6525,477 @@
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }
+
+/* ==========================================================================
+   Store — Trading Scanners Catalog (/store/scanners)
+   ========================================================================== */
+.inner-page .hero-h1__seo-kicker {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.09em;
+	color: var(--gold-bright);
+	border-left: 3px solid var(--gold);
+	padding-left: 10px;
+	max-width: 65ch;
+}
+
+/* Right Column Live Radar Terminal */
+.inner-page .radar-terminal {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-xl);
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.96), rgba(13, 17, 23, 0.98));
+	padding: 24px;
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .radar-terminal__header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .radar-terminal__title {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 1.2rem;
+	margin: 4px 0 0;
+	color: var(--text);
+}
+
+.inner-page .radar-terminal__live {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(46, 211, 166, 0.14);
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	color: var(--teal);
+	padding: 4px 10px;
+	border-radius: 999px;
+	white-space: nowrap;
+}
+
+.inner-page .radar-terminal__intro {
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	margin: 14px 0;
+	color: var(--text-secondary);
+}
+
+.inner-page .radar-tabs {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	margin-bottom: 16px;
+}
+
+.inner-page .radar-tab {
+	padding: 9px 6px;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	background: rgba(21, 26, 34, 0.88);
+	color: var(--text-secondary);
+	border: none;
+	border-right: 1px solid var(--border-strong);
+	cursor: pointer;
+	transition:
+		background-color 0.15s var(--ease-out),
+		color 0.15s var(--ease-out);
+}
+
+.inner-page .radar-tab:last-child {
+	border-right: none;
+}
+
+.inner-page .radar-tab--active {
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+}
+
+.inner-page .radar-screen {
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: rgba(11, 14, 18, 0.88);
+	overflow: hidden;
+}
+
+.inner-page .radar-screen__bar {
+	background: rgba(9, 12, 16, 0.96);
+	color: var(--text);
+	padding: 10px 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .radar-screen__bar strong {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.8125rem;
+	text-transform: uppercase;
+	color: var(--gold-bright);
+}
+
+.inner-page .radar-screen__bar span {
+	font-family: var(--font-body);
+	font-size: 0.75rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .radar-table-wrap {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.inner-page .radar-table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.inner-page .radar-table th,
+.inner-page .radar-table td {
+	padding: 10px 12px;
+	border-bottom: 1px solid var(--border);
+	vertical-align: middle;
+}
+
+.inner-page .radar-table thead th {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	background: rgba(17, 22, 29, 0.95);
+	color: var(--text-secondary);
+	border-bottom: 1px solid var(--border-strong);
+}
+
+.inner-page .radar-table__ticker {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 0.875rem;
+	white-space: nowrap;
+	color: var(--text);
+}
+
+.inner-page .radar-table__tf {
+	display: block;
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	color: var(--gold-bright);
+}
+
+.inner-page .radar-table__read {
+	display: block;
+	font-family: var(--font-body);
+	font-weight: 600;
+	font-size: 0.8125rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .radar-table__exp {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.75rem;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+	color: var(--teal);
+}
+
+.inner-page .radar-table__badge {
+	display: inline-block;
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	background: rgba(212, 168, 83, 0.14);
+	border: 1px solid rgba(212, 168, 83, 0.36);
+	color: var(--gold-bright);
+	padding: 3px 8px;
+	border-radius: 4px;
+	white-space: nowrap;
+}
+
+.inner-page .radar-terminal__footer {
+	margin-top: 16px;
+	text-align: center;
+}
+
+.inner-page .radar-terminal__note {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .radar-terminal__note strong {
+	color: var(--text);
+}
+
+.inner-page .radar-terminal__note a {
+	color: var(--gold-bright);
+	font-weight: 800;
+	text-decoration: underline;
+}
+
+/* 3. Scanners Catalog Grid */
+.inner-page .scanners-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
+}
+
+.inner-page .scanner-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: linear-gradient(180deg, rgba(21, 26, 34, 0.94), rgba(14, 18, 24, 0.98));
+	border: 1px solid var(--border);
+	border-radius: var(--radius-xl);
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
+	transition:
+		transform 0.18s var(--ease-out),
+		border-color 0.18s var(--ease-out),
+		box-shadow 0.18s var(--ease-out);
+}
+
+.inner-page .scanner-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--gold);
+	box-shadow: var(--shadow-lg);
+}
+
+.inner-page .scanner-card__banner {
+	background: rgba(9, 12, 16, 0.95);
+	color: var(--text);
+	padding: 14px 16px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .scanner-card__banner-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.inner-page .scanner-card__code {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--gold-bright);
+}
+
+.inner-page .scanner-card__no-repaint {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 0.625rem;
+	text-transform: uppercase;
+	background: rgba(46, 211, 166, 0.14);
+	border: 1px solid rgba(46, 211, 166, 0.35);
+	color: var(--teal);
+	padding: 2px 7px;
+	border-radius: 999px;
+}
+
+.inner-page .scanner-card__svg-box {
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	background-color: #111111;
+	padding: 6px;
+}
+
+.inner-page .scanner-svg {
+	width: 100%;
+	height: 72px;
+	display: block;
+}
+
+.inner-page .scanner-card__banner-bottom {
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-stretch: 87.5%;
+	font-variation-settings: 'wdth' 87.5;
+	font-size: 0.6875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--text-secondary);
+}
+
+.inner-page .scanner-card__platforms {
+	color: var(--gold-bright);
+}
+
+.inner-page .scanner-card__body {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.inner-page .scanner-card__title {
+	font-family: var(--font-display);
+	font-weight: 800;
+	font-size: 1.15rem;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+	margin: 0 0 8px;
+	color: var(--text);
+}
+
+.inner-page .scanner-card__title a {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.inner-page .scanner-card__title a:hover {
+	color: var(--gold-bright);
+	text-decoration: underline;
+}
+
+.inner-page .scanner-card__hook {
+	font-family: var(--font-body);
+	font-weight: 700;
+	font-size: 0.90625rem;
+	line-height: 1.48;
+	color: var(--text);
+	margin: 0 0 10px;
+}
+
+.inner-page .scanner-card__desc {
+	font-family: var(--font-body);
+	font-size: 0.875rem;
+	line-height: 1.55;
+	color: var(--text-secondary);
+	margin: 0 0 16px;
+}
+
+.inner-page .scanner-card__features-box {
+	background: rgba(11, 14, 18, 0.68);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	padding: 12px;
+	margin-bottom: 16px;
+}
+
+.inner-page .scanner-features-list {
+	list-style: none;
+	margin: 8px 0 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.inner-page .scanner-features-list li {
+	display: flex;
+	align-items: flex-start;
+	gap: 7px;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	line-height: 1.42;
+	color: var(--text-secondary);
+}
+
+.inner-page .scanner-card__fit {
+	margin-top: auto;
+	border-left: 3px solid var(--gold);
+	padding-left: 10px;
+	font-family: var(--font-body);
+	font-size: 0.8125rem;
+	color: var(--text-secondary);
+}
+
+.inner-page .scanner-card__fit strong {
+	color: var(--gold-bright);
+}
+
+.inner-page .scanner-card__footer {
+	padding: 0 20px 20px;
+}
+
+/* 4. Workflow Card Extras */
+.inner-page .workflow-card__top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border);
+}
+
+.inner-page .workflow-card__step {
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+	color: #0b0e12;
+	padding: 3px 8px;
+	border-radius: 4px;
+}
+
+.inner-page .workflow-card__copy {
+	margin: 0;
+	font-family: var(--font-body);
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	color: var(--text-secondary);
+}
+
+.inner-page .workflow-card__copy a {
+	color: var(--gold-bright);
+	font-weight: 700;
+	text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+	.inner-page .scanners-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.inner-page .radar-terminal {
+		grid-column: span 5;
+	}
+
+	.inner-page .scanners-grid,
+	.inner-page.scanners-page .workflow-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1280px) {
+	.inner-page .scanners-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}

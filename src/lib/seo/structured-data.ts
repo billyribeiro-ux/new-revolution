@@ -1640,3 +1640,150 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 		]
 	};
 }
+
+export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
+	{
+		id: 'install-thinkorswim-tradingview',
+		question: 'How do these scanners install on ThinkorSwim and TradingView?',
+		answer:
+			'Every scanner includes one-click import links and custom thinkScript code for ThinkorSwim (working inside both Stock Hacker, Option Hacker, and dynamic MarketWatch watchlist columns) as well as TradingView alert and screener templates—plus a step-by-step installation walkthrough video.'
+	},
+	{
+		id: 'scanners-non-repainting-real-time',
+		question: 'Do your scanners ever repaint or lag behind live market price action?',
+		answer:
+			'Never. All 8 scanners run on real-time market data using 100% non-repainting institutional math. Even better, because our scanners look for pre-ignition volatility compression and liquidity absorption, they alert you before the breakout candle fires rather than chasing extended moves.'
+	},
+	{
+		id: 'best-scanner-small-account-working-pro',
+		question:
+			'Which scanner is best if I have a $500+ small account or work a full-time 9-to-5 job?',
+		answer:
+			'If you are building a small account starting around $500, use Scanner 04 ($500+ Small Account Affordable Options & Spread Scanner), which filters strictly for liquid options contracts and vertical spreads that fit a small risk budget. If you work a 9-to-5 career, use Scanner 05 (Working Professional 20-Minute End-of-Day Swing Scanner) to plan conditional multi-day orders in the evening.'
+	},
+	{
+		id: 'watch-scanners-live-market-hours',
+		question: 'Can I watch your team use these scanners live during market hours?',
+		answer:
+			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Explosive Swings.'
+	}
+];
+
+const SCANNERS_STORE_CATALOG_ITEMS = [
+	{
+		slug: 'move-prior-to-the-move-radar',
+		name: 'The Move Prior to The Move™ Live Market Radar',
+		operatingSystem: 'ThinkorSwim, TradingView, Web'
+	},
+	{
+		slug: 'multi-timeframe-squeeze-scanner',
+		name: 'Multi-Timeframe Volatility Squeeze & Alignment Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'liquidity-sweep-stop-hunt-scanner',
+		name: 'Institutional Liquidity Sweep & Failed Breakout Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'small-account-affordable-options-scanner',
+		name: '$500+ Small Account Affordable Options & Spread Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'working-pro-eod-swing-scanner',
+		name: 'Working Professional 20-Minute End-of-Day Swing Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'spx-dealer-gamma-iv-skew-scanner',
+		name: 'SPX & Index Options Dealer Gamma & IV Percentile Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'smart-money-relative-volume-scanner',
+		name: 'Smart-Money Relative Volume (RVOL) & Accumulation Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	},
+	{
+		slug: 'opening-bell-gap-and-go-fade-scanner',
+		name: 'Pre-Market Institutional Gap & Liquidity Imbalance Scanner',
+		operatingSystem: 'ThinkorSwim, TradingView'
+	}
+] as const;
+
+export function buildScannersStoreJsonLd(origin: string) {
+	const pageUrl = `${origin}/store/scanners`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Live Stock & Options Scanners | Revolution Trading Pros',
+				description:
+					'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				mainEntity: { '@id': `${pageUrl}#catalog` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Store',
+						item: pageUrl
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'Scanners',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'ItemList',
+				'@id': `${pageUrl}#catalog`,
+				name: 'Revolution Trading Pros Institutional Market Scanners',
+				numberOfItems: SCANNERS_STORE_CATALOG_ITEMS.length,
+				itemListElement: SCANNERS_STORE_CATALOG_ITEMS.map((scanner, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					item: {
+						'@type': 'SoftwareApplication',
+						'@id': `${pageUrl}/${scanner.slug}#software`,
+						name: scanner.name,
+						applicationCategory: 'FinanceApplication',
+						operatingSystem: scanner.operatingSystem,
+						url: `${pageUrl}/${scanner.slug}`
+					}
+				}))
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SCANNERS_STORE_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

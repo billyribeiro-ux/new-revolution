@@ -108,7 +108,7 @@
 
 	.faqs details p {
 		margin: -4px 40px 25px 0;
-		color: #aab3b7;
+		color: var(--text-secondary);
 		font-family: var(--font-sans);
 		font-weight: 400;
 		font-stretch: 100%;

@@ -1,8 +1,4 @@
 <script lang="ts">
-	import '@fontsource-variable/montserrat';
-	import '@fontsource-variable/montserrat/wght-italic.css';
-	import '@fontsource-variable/sofia-sans';
-	import '@fontsource-variable/sofia-sans/wght-italic.css';
 	import '../app.css';
 
 	import { page } from '$app/state';

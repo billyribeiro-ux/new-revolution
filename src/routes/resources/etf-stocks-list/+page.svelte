@@ -1156,8 +1156,8 @@
      Typography: Montserrat (Headings/Tickers/CTAs) + Sofia Sans (Body/Data)
      =========================================================================== */
 	.etf-page {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: var(--bg-soft);
+		color: var(--text);
 		font-family:
 			'Sofia Sans',
 			-apple-system,
@@ -1185,7 +1185,7 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: #333333;
+		color: #c4c8c7;
 	}
 
 	.section-kicker {
@@ -1195,7 +1195,7 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.25rem 0.625rem;
 		margin-bottom: 0.625rem;
@@ -1209,7 +1209,7 @@
 		letter-spacing: -0.025em;
 		max-width: 28ch;
 		margin: 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.lead-copy {
@@ -1220,7 +1220,7 @@
 		line-height: 1.65;
 		max-width: 66ch;
 		margin: 1.25rem 0 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.body-copy {
@@ -1231,13 +1231,13 @@
 		line-height: 1.65;
 		max-width: 66ch;
 		margin: 1rem 0 0;
-		color: #111111;
+		color: var(--text);
 	}
 
 	.lead-copy strong,
 	.body-copy strong {
 		font-weight: 700;
-		color: #000000;
+		color: var(--text);
 	}
 
 	/* Buttons */
@@ -1260,20 +1260,20 @@
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
 		text-decoration: none;
-		border: 2px solid #000000;
+		border: 2px solid var(--line-strong);
 		text-align: center;
 		cursor: pointer;
 		box-sizing: border-box;
 	}
 
 	.btn--solid {
-		background-color: #000000;
-		color: #ffffff;
+		background-color: var(--acid);
+		color: var(--ink);
 	}
 
 	.btn--outline {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: var(--bg-soft);
+		color: var(--text);
 	}
 
 	.btn--full {
@@ -1282,8 +1282,8 @@
 
 	/* 1. Breadcrumb Bar */
 	.breadcrumb-bar {
-		background-color: #f7f7f7;
-		border-bottom: 1.5px solid #000000;
+		background-color: var(--panel);
+		border-bottom: 1.5px solid var(--line-strong);
 		padding: 0.625rem 0;
 	}
 
@@ -1312,7 +1312,7 @@
 	}
 
 	.breadcrumb-list a {
-		color: #000000;
+		color: var(--text);
 		text-decoration: underline;
 	}
 
@@ -1325,13 +1325,13 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: #333333;
+		color: #c4c8c7;
 	}
 
 	/* 2. Hero Section */
 	.hero-section {
 		padding: 2.5rem 0 3.5rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.hero-section__grid {
@@ -1346,8 +1346,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-		border: 1.5px solid #000000;
-		background-color: #f5f5f5;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.375rem 0.75rem;
 		margin-bottom: 1.25rem;
 	}
@@ -1358,7 +1358,7 @@
 		font-size: 0.6875rem;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.125rem 0.45rem;
 	}
@@ -1384,8 +1384,8 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.09em;
-		color: #333333;
-		border-left: 3px solid #000000;
+		color: #c4c8c7;
+		border-left: 3px solid var(--line-strong);
 		padding-left: 0.625rem;
 		max-width: 65ch;
 	}
@@ -1397,15 +1397,15 @@
 		line-height: 1.08;
 		letter-spacing: -0.03em;
 		max-width: 22ch;
-		color: #000000;
+		color: var(--text);
 	}
 
 	/* Right Column Quick-Reference Card */
 	.quick-ref-card {
-		border: 2px solid #000000;
-		background-color: #fafafa;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.5rem;
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.quick-ref-card__header {
@@ -1415,7 +1415,7 @@
 		justify-content: space-between;
 		gap: 1rem;
 		padding-bottom: 1rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.quick-ref-card__title {
@@ -1430,7 +1430,7 @@
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.25rem 0.5rem;
 		white-space: nowrap;
@@ -1442,7 +1442,7 @@
 
 	.quick-ref-list__row {
 		padding: 0.875rem 0;
-		border-bottom: 1px solid #d4d4d4;
+		border-bottom: 1px solid var(--line);
 	}
 
 	.quick-ref-list__row:last-child {
@@ -1456,7 +1456,7 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.quick-ref-list__row dd {
@@ -1464,11 +1464,11 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.90625rem;
 		line-height: 1.5;
-		color: #222222;
+		color: #c4c8c7;
 	}
 
 	.quick-ref-list__row a {
-		color: #000000;
+		color: var(--text);
 		font-weight: 700;
 		text-decoration: underline;
 	}
@@ -1476,7 +1476,7 @@
 	/* 3. What Is an ETF + 5 Benefits + 5 Types */
 	.foundation-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.section-header {
@@ -1495,8 +1495,8 @@
 	}
 
 	.benefit-card {
-		border: 2px solid #000000;
-		background-color: #fafafa;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.5rem;
 	}
 
@@ -1505,7 +1505,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding-bottom: 0.625rem;
-		border-bottom: 1.5px solid #000000;
+		border-bottom: 1.5px solid var(--line-strong);
 		margin-bottom: 0.875rem;
 	}
 
@@ -1514,7 +1514,7 @@
 		font-weight: 900;
 		font-size: 0.75rem;
 		text-transform: uppercase;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.2rem 0.5rem;
 	}
@@ -1538,18 +1538,18 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.9375rem;
 		line-height: 1.58;
-		color: #111111;
+		color: var(--text);
 	}
 
 	.types-box {
-		border: 2px solid #000000;
-		background-color: #f7f7f7;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.75rem;
 	}
 
 	.types-box__header {
 		padding-bottom: 1rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 		margin-bottom: 1.5rem;
 	}
 
@@ -1567,8 +1567,8 @@
 	}
 
 	.type-card {
-		border: 1.5px solid #000000;
-		background-color: #ffffff;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.25rem;
 	}
 
@@ -1585,7 +1585,7 @@
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 0.6875rem;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.15rem 0.45rem;
 	}
@@ -1602,14 +1602,14 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.875rem;
 		line-height: 1.55;
-		color: #222222;
+		color: #c4c8c7;
 	}
 
 	/* 4. Popular ETFs Directory Section */
 	.directory-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-		background-color: #fafafa;
+		border-bottom: 2px solid var(--line-strong);
+		background-color: var(--panel);
 	}
 
 	.directory-top-bar {
@@ -1630,8 +1630,8 @@
 
 	.search-box__input {
 		padding: 0.625rem 0.875rem;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.9375rem;
 	}
@@ -1641,16 +1641,16 @@
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		padding-bottom: 1.5rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 		margin-bottom: 2rem;
 	}
 
 	.filter-tab {
 		min-height: 42px;
 		padding: 0.5rem 1rem;
-		border: 2px solid #000000;
-		background-color: #ffffff;
-		color: #000000;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
+		color: var(--text);
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 0.75rem;
@@ -1661,7 +1661,7 @@
 
 	.filter-tab--active,
 	.filter-tab:hover {
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 	}
 
@@ -1675,8 +1675,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.5rem;
 		transition:
 			transform 0.15s ease,
@@ -1685,7 +1685,7 @@
 
 	.etf-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.etf-card__header {
@@ -1694,7 +1694,7 @@
 		justify-content: space-between;
 		gap: 0.75rem;
 		padding-bottom: 0.75rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.etf-card__symbol-group {
@@ -1707,7 +1707,7 @@
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 900;
 		font-size: 1.25rem;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.2rem 0.6rem;
 		letter-spacing: 0.02em;
@@ -1720,7 +1720,7 @@
 		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
-		color: #333333;
+		color: #c4c8c7;
 	}
 
 	.etf-card__chart-link {
@@ -1731,15 +1731,15 @@
 		font-weight: 800;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
-		border: 1.5px solid #000000;
-		background-color: #ffffff;
-		color: #000000;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--bg-soft);
+		color: var(--text);
 		padding: 0.25rem 0.5rem;
 		text-decoration: none;
 	}
 
 	.etf-card__chart-link:hover {
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 	}
 
@@ -1759,7 +1759,7 @@
 		font-size: 0.72rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: #444444;
+		color: var(--text-secondary);
 		margin: 0 0 0.75rem;
 	}
 
@@ -1767,25 +1767,25 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.90625rem;
 		line-height: 1.55;
-		color: #111111;
+		color: var(--text);
 		margin: 0 0 0.875rem;
 	}
 
 	.etf-card__inst-note {
-		background-color: #f7f7f7;
-		border-left: 3px solid #000000;
+		background-color: var(--panel);
+		border-left: 3px solid var(--line-strong);
 		padding: 0.625rem 0.75rem;
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.8125rem;
 		line-height: 1.45;
-		color: #111111;
+		color: var(--text);
 		margin-bottom: 1rem;
 	}
 
 	.etf-card__features {
 		margin-top: auto;
 		padding-top: 0.75rem;
-		border-top: 1px solid #dddddd;
+		border-top: 1px solid var(--line);
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.4rem;
@@ -1798,15 +1798,15 @@
 		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
-		border: 1px solid #000000;
-		background-color: #fafafa;
+		border: 1px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.15rem 0.45rem;
 	}
 
 	/* 5. All 11 S&P 500 Sector ETFs Grid */
 	.sector-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.sector-grid {
@@ -1819,8 +1819,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.5rem;
 	}
 
@@ -1830,14 +1830,14 @@
 		justify-content: space-between;
 		gap: 0.5rem;
 		padding-bottom: 0.625rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.sector-card__primary-ticker {
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 900;
 		font-size: 0.875rem;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.2rem 0.55rem;
 	}
@@ -1855,7 +1855,7 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
-		color: #444444;
+		color: var(--text-secondary);
 		margin: 0 0 0.625rem;
 	}
 
@@ -1863,14 +1863,14 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.90625rem;
 		line-height: 1.55;
-		color: #111111;
+		color: var(--text);
 		margin: 0 0 1.25rem;
 	}
 
 	.sector-card__etfs-box {
 		margin-top: auto;
 		padding-top: 0.875rem;
-		border-top: 1px solid #cccccc;
+		border-top: 1px solid var(--line);
 	}
 
 	.sector-card__etfs {
@@ -1887,30 +1887,30 @@
 		font-family: 'Montserrat', sans-serif;
 		font-weight: 800;
 		font-size: 0.75rem;
-		border: 1.5px solid #000000;
-		background-color: #fafafa;
-		color: #000000;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
+		color: var(--text);
 		padding: 0.3rem 0.6rem;
 		text-decoration: none;
 	}
 
 	.sector-card__etf:hover {
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 	}
 
 	/* 6. ETFs vs Mutual Funds Comparison Table */
 	.comparison-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-		background-color: #f7f7f7;
+		border-bottom: 2px solid var(--line-strong);
+		background-color: var(--panel);
 	}
 
 	.table-wrapper {
 		width: 100%;
 		overflow-x: auto;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 	}
 
 	.comparison-table {
@@ -1923,8 +1923,8 @@
 	.comparison-table th,
 	.comparison-table td {
 		padding: 1rem 1.25rem;
-		border-bottom: 1.5px solid #cccccc;
-		border-right: 1.5px solid #cccccc;
+		border-bottom: 1.5px solid var(--line);
+		border-right: 1.5px solid var(--line);
 		vertical-align: top;
 	}
 
@@ -1934,7 +1934,7 @@
 		font-size: 0.8125rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 	}
 
@@ -1943,7 +1943,7 @@
 		font-weight: 800;
 		font-size: 0.875rem;
 		width: 24%;
-		background-color: #f7f7f7;
+		background-color: var(--panel);
 	}
 
 	.comparison-table__etf {
@@ -1954,7 +1954,7 @@
 
 	.comparison-table__winner {
 		font-weight: 700;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.winner-check {
@@ -1966,7 +1966,7 @@
 	.comparison-table__mf {
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.9375rem;
-		color: #333333;
+		color: #c4c8c7;
 		width: 38%;
 	}
 
@@ -1978,13 +1978,13 @@
 	}
 
 	.comparison-summary__card {
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.5rem;
 	}
 
 	.comparison-summary__card--featured {
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.comparison-summary__card h3 {
@@ -2004,7 +2004,7 @@
 	/* 7. FAQ & Sibling Resources Bar */
 	.faq-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.faq-container {
@@ -2018,8 +2018,8 @@
 	}
 
 	.faq-item {
-		border: 2px solid #000000;
-		background-color: #fafafa;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.25rem 1.5rem;
 	}
 
@@ -2048,7 +2048,7 @@
 	.faq-item__answer {
 		margin: 1rem 0 0;
 		padding-top: 1rem;
-		border-top: 1px solid #cccccc;
+		border-top: 1px solid var(--line);
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.96875rem;
 		line-height: 1.65;
@@ -2056,8 +2056,8 @@
 
 	.resources-bridge {
 		margin-top: 2.25rem;
-		border: 2px solid #000000;
-		background-color: #f7f7f7;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.5rem;
 		display: flex;
 		flex-direction: column;
@@ -2081,12 +2081,12 @@
 	/* 8. 5-Card Room & Alert CTA Section */
 	.pro-cta-section {
 		padding: 3.5rem 0 4rem;
-		background-color: #ffffff;
+		background-color: var(--bg-soft);
 	}
 
 	.pro-cta-box {
-		border: 2px solid #000000;
-		background-color: #f7f7f7;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 2rem 1.25rem;
 	}
 
@@ -2117,8 +2117,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.35rem;
 		text-align: center;
 		transition:
@@ -2128,7 +2128,7 @@
 
 	.room-cta-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 5px 5px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.room-cta-card__badge {
@@ -2139,8 +2139,8 @@
 		font-variation-settings: 'wdth' 87.5;
 		font-size: 0.6875rem;
 		text-transform: uppercase;
-		border: 1px solid #000000;
-		background-color: #f5f5f5;
+		border: 1px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.15rem 0.5rem;
 	}
 
@@ -2155,7 +2155,7 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.875rem;
 		line-height: 1.5;
-		color: #222222;
+		color: #c4c8c7;
 		margin: 0 0 1.25rem;
 	}
 

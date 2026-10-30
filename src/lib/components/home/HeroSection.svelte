@@ -251,7 +251,7 @@
 	}
 
 	.proof-panel {
-		border: 1px solid #394149;
+		border: 1px solid var(--line-strong);
 		background: linear-gradient(155deg, #1d242a, #12171b 68%);
 		position: relative;
 		box-shadow: 0 28px 72px rgba(0, 0, 0, 0.31);

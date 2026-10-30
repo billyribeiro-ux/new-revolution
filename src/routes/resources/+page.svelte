@@ -547,8 +547,8 @@
      Typography: Montserrat (Headings/Badges/CTAs) + Sofia Sans (Body/Links)
      =========================================================================== */
 	.resources-page {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: var(--bg-soft);
+		color: var(--text);
 		font-family:
 			'Sofia Sans',
 			-apple-system,
@@ -576,7 +576,7 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: #333333;
+		color: #c4c8c7;
 	}
 
 	.section-kicker {
@@ -586,7 +586,7 @@
 		font-size: 0.75rem;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.25rem 0.625rem;
 		margin-bottom: 0.625rem;
@@ -600,7 +600,7 @@
 		letter-spacing: -0.025em;
 		max-width: 28ch;
 		margin: 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	/* Buttons */
@@ -628,26 +628,26 @@
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
 		text-decoration: none;
-		border: 2px solid #000000;
+		border: 2px solid var(--line-strong);
 		text-align: center;
 		cursor: pointer;
 		box-sizing: border-box;
 	}
 
 	.btn--solid {
-		background-color: #000000;
-		color: #ffffff;
+		background-color: var(--acid);
+		color: var(--ink);
 	}
 
 	.btn--outline {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: var(--bg-soft);
+		color: var(--text);
 	}
 
 	/* 1. Breadcrumb Bar */
 	.breadcrumb-bar {
-		background-color: #f7f7f7;
-		border-bottom: 1.5px solid #000000;
+		background-color: var(--panel);
+		border-bottom: 1.5px solid var(--line-strong);
 		padding: 0.625rem 0;
 	}
 
@@ -676,7 +676,7 @@
 	}
 
 	.breadcrumb-list a {
-		color: #000000;
+		color: var(--text);
 		text-decoration: underline;
 	}
 
@@ -689,13 +689,13 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		color: #333333;
+		color: #c4c8c7;
 	}
 
 	/* 2. Hero Section */
 	.resources-hero {
 		padding: 2.5rem 0 3.5rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.resources-hero__grid {
@@ -710,8 +710,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-		border: 1.5px solid #000000;
-		background-color: #f5f5f5;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.375rem 0.75rem;
 		margin-bottom: 1.25rem;
 	}
@@ -722,7 +722,7 @@
 		font-size: 0.6875rem;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.125rem 0.45rem;
 	}
@@ -743,7 +743,7 @@
 		letter-spacing: -0.03em;
 		max-width: 22ch;
 		margin: 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.resources-hero__subtitle {
@@ -753,7 +753,7 @@
 		line-height: 1.65;
 		max-width: 66ch;
 		margin: 1.25rem 0 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.resources-hero__body {
@@ -762,20 +762,20 @@
 		line-height: 1.65;
 		max-width: 66ch;
 		margin: 1rem 0 0;
-		color: #111111;
+		color: var(--text);
 	}
 
 	/* Right Column 3 Public Utilities Panel */
 	.utilities-panel {
-		border: 2px solid #000000;
-		background-color: #fafafa;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 1.5rem;
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.utilities-panel__header {
 		padding-bottom: 0.875rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 		margin-bottom: 1rem;
 	}
 
@@ -793,8 +793,8 @@
 	}
 
 	.flagship-utility-card {
-		border: 1.5px solid #000000;
-		background-color: #ffffff;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1rem;
 	}
 
@@ -812,7 +812,7 @@
 		font-weight: 800;
 		font-size: 0.625rem;
 		text-transform: uppercase;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.15rem 0.45rem;
 	}
@@ -826,7 +826,7 @@
 	}
 
 	.flagship-utility-card__name a {
-		color: #000000;
+		color: var(--text);
 		text-decoration: none;
 	}
 
@@ -839,7 +839,7 @@
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.84375rem;
 		line-height: 1.48;
-		color: #222222;
+		color: #c4c8c7;
 	}
 
 	.flagship-utility-card__link {
@@ -847,7 +847,7 @@
 		font-weight: 800;
 		font-size: 0.75rem;
 		text-transform: uppercase;
-		color: #000000;
+		color: var(--text);
 		text-decoration: underline;
 		text-underline-offset: 3px;
 	}
@@ -855,8 +855,8 @@
 	/* 3. 6 Resource Categories Section */
 	.resources-section {
 		padding: 3.5rem 0;
-		border-bottom: 2px solid #000000;
-		background-color: #fafafa;
+		border-bottom: 2px solid var(--line-strong);
+		background-color: var(--panel);
 	}
 
 	.section-header {
@@ -867,7 +867,7 @@
 		margin: 0.625rem 0 0;
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 1rem;
-		color: #222222;
+		color: #c4c8c7;
 	}
 
 	.resources-grid {
@@ -880,8 +880,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border: 2px solid #000000;
-		background-color: #ffffff;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
 		padding: 1.5rem;
 		transition:
 			transform 0.15s ease,
@@ -890,7 +890,7 @@
 
 	.resource-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	.resource-card__top {
@@ -898,13 +898,13 @@
 		align-items: center;
 		gap: 0.875rem;
 		padding-bottom: 0.875rem;
-		border-bottom: 2px solid #000000;
+		border-bottom: 2px solid var(--line-strong);
 	}
 
 	.resource-card__icon {
 		width: 46px;
 		height: 46px;
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 		display: inline-flex;
 		align-items: center;
@@ -929,8 +929,8 @@
 		font-size: 0.625rem;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		border: 1px solid #000000;
-		background-color: #f5f5f5;
+		border: 1px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.1rem 0.4rem;
 		width: fit-content;
 	}
@@ -941,14 +941,14 @@
 		font-size: 1.25rem;
 		line-height: 1.25;
 		margin: 1rem 0 0.5rem;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.resource-card__summary {
 		font-family: 'Sofia Sans', sans-serif;
 		font-size: 0.90625rem;
 		line-height: 1.55;
-		color: #222222;
+		color: #c4c8c7;
 		margin: 0 0 1.25rem;
 	}
 
@@ -972,18 +972,18 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.625rem;
-		border: 1.5px solid #000000;
-		background-color: #fafafa;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 0.625rem 0.75rem;
 		text-decoration: none;
-		color: #000000;
+		color: var(--text);
 		transition:
 			background-color 0.15s ease,
 			color 0.15s ease;
 	}
 
 	.resource-card__link:hover {
-		background-color: #000000;
+		background-color: var(--panel2);
 		color: #ffffff;
 	}
 
@@ -1012,15 +1012,15 @@
 	/* 4. Bottom CTA Section */
 	.resources-cta {
 		padding: 3.5rem 0 4rem;
-		background-color: #ffffff;
+		background-color: var(--bg-soft);
 	}
 
 	.resources-cta__content {
-		border: 2px solid #000000;
-		background-color: #f7f7f7;
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
 		padding: 2.5rem 1.5rem;
 		text-align: center;
-		box-shadow: 6px 6px 0 #000000;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -1032,7 +1032,7 @@
 		font-size: clamp(1.65rem, 3.2vw, 2.5rem);
 		line-height: 1.14;
 		margin: 0.375rem 0 0;
-		color: #000000;
+		color: var(--text);
 	}
 
 	.resources-cta__text {
@@ -1041,7 +1041,7 @@
 		line-height: 1.65;
 		max-width: 62ch;
 		margin: 0.875rem auto 0;
-		color: #111111;
+		color: var(--text);
 	}
 
 	/* ===========================================================================

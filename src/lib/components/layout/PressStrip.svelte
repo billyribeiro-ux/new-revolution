@@ -65,7 +65,7 @@
 		font-weight: 800;
 		font-size: 1.125rem;
 		letter-spacing: -0.02em;
-		color: #8b9088;
+		color: #5f655c;
 		filter: grayscale(1);
 		transition: color 0.2s var(--ease-out);
 	}

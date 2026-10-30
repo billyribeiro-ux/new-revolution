@@ -1,3 +1,16 @@
+/*
+ * Self-hosted typography (SSOT: this file).
+ * Fontsource variable packages ship WOFF2 files that Vite bundles and serves from this origin
+ * (/_app/immutable/assets/*.woff2) - there are no runtime requests to Google Fonts or any CDN.
+ * Family names registered by these packages: 'Montserrat Variable', 'Sofia Sans Variable'.
+ * Both packages declare a `wght` axis only; `font-stretch` / 'wdth' declarations do not change glyphs.
+ * Licences: OFL-1.1 (static/fonts/LICENSES.txt). Preload was A/B tested and intentionally NOT used (docs/CSS_STANDARDS.md).
+ */
+@import '@fontsource-variable/montserrat/wght.css';
+@import '@fontsource-variable/montserrat/wght-italic.css';
+@import '@fontsource-variable/sofia-sans/wght.css';
+@import '@fontsource-variable/sofia-sans/wght-italic.css';
+
 @layer reset, tokens, base, typography, layout, components, utilities, responsive;
 
 /* ==========================================================================
@@ -61,9 +74,18 @@
 		--status-amber-border: #77664a;
 
 		/* Fontsource Institutional Pairing: Montserrat (Authority) + Sofia Sans (High-Speed Data/Copy) */
-		--font-display: 'Montserrat Variable', 'Montserrat', system-ui, -apple-system, sans-serif;
-		--font-sans: 'Sofia Sans Variable', 'Sofia Sans', system-ui, -apple-system, sans-serif;
+		--font-display: 'Montserrat Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+		--font-sans: 'Sofia Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 		--font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+
+		/* Semantic extensions (single definitions; do not re-declare in components) */
+		--text-secondary: #aab3b7; /* secondary copy on dark surfaces */
+		--line-strong: #394149; /* emphasised hairline / panel border */
+
+		/* Elevation */
+		--shadow-card: 0 18px 44px rgba(0, 0, 0, 0.32);
+		--shadow-md: 0 12px 30px rgba(0, 0, 0, 0.28);
+		--shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.4);
 
 		/* Layout & Rhythm (Mobile-First Base: 320px+) */
 		--max: 100%;
@@ -500,6 +522,19 @@
    6. UTILITIES & REVEAL ANIMATION
    ========================================================================== */
 @layer utilities {
+	/* Visually hidden but available to assistive technology */
+	.sr-only {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
 		.reveal {
 			opacity: 0;

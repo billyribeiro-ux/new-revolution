@@ -103,7 +103,7 @@
 
 	.questions__copy {
 		margin: 0;
-		color: #aab3b7;
+		color: var(--text-secondary);
 		font-size: 0.9375rem;
 		line-height: 1.7;
 		max-inline-size: 60ch;

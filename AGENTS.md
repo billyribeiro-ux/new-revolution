@@ -117,7 +117,7 @@ When adding any new marketing route to the repository, complete every step in or
 
 1. **Create Route Files:**
    - Create `src/routes/<route>/+page.ts` with `export const prerender = true;` and `definePageMetaTags(...)` (verify `title` + suffix ≤ 60 chars, `description` 140–158 chars, and `canonical` via `getCanonicalUrl(url)`).
-   - Create `src/routes/<route>/+page.svelte` importing `$lib/styles/inner-page.css`, rendering `<JsonLd>`, `<a class="skip" href="#<slug>-page">`, `<Navbar />`, `<main id="<slug>-page" class="inner-page ...">`, and `<Footer />`. Full templates and the complete procedure: [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md).
+   - Create `src/routes/<route>/+page.svelte` importing `#lib/styles/inner-page.css` (SvelteKit 3 uses the `#lib` alias from `package.json` `imports`; `$lib` is gone), rendering `<JsonLd>`, `<a class="skip" href="#<slug>-page">`, `<Navbar />`, `<main id="<slug>-page" class="inner-page ...">`, and `<Footer />`. Full templates and the complete procedure: [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md).
 2. **Add Structured Data Builder & Unit Test:**
    - Add a typed `@graph` builder in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) (including `BreadcrumbList`, `WebPage`/`CollectionPage`/`ItemPage`, and domain-specific `Service`/`Course`/`SoftwareApplication`/`FAQPage` nodes).
    - Add unit test coverage in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts).

@@ -320,6 +320,9 @@ Source of truth: Svelte MCP docs and `svelte-core-bestpractices`. Violations tha
 - **Dynamic CSS values:** `style:--name={value}` plus `var(--name)` in `<style>`; no inline style strings, no JS-driven styling.
 - **Parent → child styling:** custom properties or a `class` prop. Never `:global` to reach into a child you own.
 - Share repeated markup+CSS as a scoped component with a `children` snippet (`Breadcrumb.svelte`), not copied CSS.
+- **Declaration tags, not `{@const}`:** the Svelte docs mark `{@const x = y}` as legacy since 5.56; write `{const x = $derived(y)}` inside blocks (verified: Prettier, `svelte-check` and the autofixer accept it).
+- **Typed dynamic routes:** `resolve('/store/courses/[slug]', { slug: course.slug })` is checked against the route manifest (a wrong param key fails `pnpm check`); use it instead of template strings or `as '/'` whenever the route exists.
+- **Reusable components** (references: `CourseCard.svelte`, `FilterChips.svelte`, `Breadcrumb.svelte`): `interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'class'>` + `class?: ClassValue` + `...rest` spread; `$props.id()` for `aria-labelledby`; `<svelte:element this={\`h${level}\`}>`for a configurable heading level;`<script lang="ts" generics="T extends string">`with`$bindable()` for a typed v-model (`FilterChips`); data comes in as one typed prop (`course`), never as 15 loose props. Add a component spec (`*.svelte.spec.ts`) for its contract.
 - Do not suppress compiler warnings (`svelte-ignore`) to hide a problem. Example: `tabindex="0"` on a `role="region"` triggers
   `a11y_no_noninteractive_tabindex`; the correct answer was to remove it (modern browsers focus scrollers natively), not to ignore it.
 - **`svelte-autofixer` (MCP) is the LAST gate on every modified `.svelte` file.** Pass the whole real file when it is reasonably sized;

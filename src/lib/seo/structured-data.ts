@@ -6,6 +6,7 @@ import {
 	STORE_TOOLS,
 	type FaqItem
 } from '#lib/data/homepage.ts';
+import { coursesCatalog } from '#lib/data/courses.ts';
 import { featuredETFs } from '#lib/data/etf-stocks-list.ts';
 import { SOCIAL_LINKS } from '#lib/data/site.ts';
 
@@ -1208,57 +1209,6 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 	}
 ];
 
-export const COURSES_CATALOG_SCHEMA_ITEMS = [
-	{
-		position: 1,
-		name: 'The Move Prior to The Move: Institutional Order Flow & Price Action',
-		description:
-			'Anticipate institutional accumulation and distribution before the retail breakout candle prints.'
-	},
-	{
-		position: 2,
-		name: 'The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint',
-		description:
-			'Mathematical strategies for protecting and growing a small trading account starting as low as $500.'
-	},
-	{
-		position: 3,
-		name: 'Options Greeks Mastery: Delta, Gamma, Theta & Vega Execution',
-		description:
-			'Master the four primary Options Greeks to structure high-probability spreads and directional trades.'
-	},
-	{
-		position: 4,
-		name: 'Multi-Day Swing Trading for Working Professionals (20-Minute Routine)',
-		description:
-			'Capture explosive 3-to-15 day stock and options moves in 20 minutes a day around a 9-to-5 career.'
-	},
-	{
-		position: 5,
-		name: 'SPX & Index Options Execution: Dealer Gamma Walls & Intraday Flow',
-		description:
-			'Identify institutional dealer hedging levels, gamma magnet strikes, and A+ intraday reversals on SPX, SPY, and QQQ.'
-	},
-	{
-		position: 6,
-		name: 'Contrarian Distribution & Put Options: Fading Retail Euphoria Live',
-		description:
-			'Deconstruct the exact institutional distribution playbook behind our live +600% overnight OXY Put Options trade vs. Warren Buffett.'
-	},
-	{
-		position: 7,
-		name: 'Macro Cycle Inflection Timing: Calling Generational Tops & Bottoms',
-		description:
-			'Learn the exact top-down macro breadth, liquidity, and volatility framework that called the 2020 COVID and 2022 market tops and bottoms.'
-	},
-	{
-		position: 8,
-		name: 'Ironclad Risk Architecture & Eradicating Retail Self-Sabotage',
-		description:
-			'Eliminate FOMO, revenge trading, hesitation, and early profit-taking by installing a mechanical pre-trade execution protocol.'
-	}
-] as const;
-
 export function buildCoursesStoreJsonLd(origin: string) {
 	const pageUrl = `${origin}/store/courses`;
 
@@ -1296,14 +1246,15 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				'@type': 'ItemList',
 				'@id': `${pageUrl}#catalog`,
 				name: 'Revolution Trading Pros Institutional Stock & Options Curriculum',
-				numberOfItems: COURSES_CATALOG_SCHEMA_ITEMS.length,
-				itemListElement: COURSES_CATALOG_SCHEMA_ITEMS.map((course) => ({
+				numberOfItems: coursesCatalog.length,
+				// Derived from the catalog the cards render, so JSON-LD text always matches the visible card text.
+				itemListElement: coursesCatalog.map((course, index) => ({
 					'@type': 'ListItem',
-					position: course.position,
+					position: index + 1,
 					item: {
 						'@type': 'Course',
-						name: course.name,
-						description: course.description,
+						name: course.title,
+						description: course.hook,
 						provider: { '@id': `${origin}/#organization` }
 					}
 				}))

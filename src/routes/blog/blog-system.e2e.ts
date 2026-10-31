@@ -1,4 +1,29 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+const ADMIN_EMAIL = process.env.E2E_ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.E2E_ADMIN_PASSWORD;
+const HAS_ADMIN_CREDENTIALS = Boolean(ADMIN_EMAIL && ADMIN_PASSWORD);
+const ADMIN_SKIP_REASON =
+	'Set E2E_ADMIN_EMAIL and E2E_ADMIN_PASSWORD to run admin e2e tests (login UI and seed: docs/ADMIN_AUTH_PLAN.md P2/P3).';
+
+/*
+ * ---------------------------------------------------------------------------
+ * loginAsAdmin: real login through /admin/login (no header bypass).
+ * Depends on the login page (Phase P2) exposing labels "Email" and "Password" and a "Sign in"
+ * button, and on an admin account created by `pnpm db:seed-admin` (Phase P3) using the same
+ * credentials as E2E_ADMIN_EMAIL / E2E_ADMIN_PASSWORD.
+ * ---------------------------------------------------------------------------
+ */
+async function loginAsAdmin(page: Page): Promise<void> {
+	if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
+		throw new Error(ADMIN_SKIP_REASON);
+	}
+	await page.goto('/admin/login');
+	await page.getByLabel('Email', { exact: true }).fill(ADMIN_EMAIL);
+	await page.getByLabel('Password', { exact: true }).fill(ADMIN_PASSWORD);
+	await page.getByRole('button', { name: 'Sign in' }).click();
+	await page.waitForURL((url) => !url.pathname.startsWith('/admin/login'));
+}
 
 test.describe('Blog System & Prose Parity E2E Suite', () => {
 	test('renders /blog index with category pills, featured cards, article grid, and Blog JSON-LD', async ({
@@ -111,12 +136,14 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 	test('verifies Prose Parity (.prose-base and max-width: 900px) with real browser screenshots at 1280px and 1440px', async ({
 		browser
 	}, testInfo) => {
+		test.skip(!HAS_ADMIN_CREDENTIALS, ADMIN_SKIP_REASON);
+
 		for (const width of [1280, 1440] as const) {
 			const context = await browser.newContext({
-				viewport: { width, height: 900 },
-				extraHTTPHeaders: { 'x-rtp-e2e-test': '1' }
+				viewport: { width, height: 900 }
 			});
 			const page = await context.newPage();
+			await loginAsAdmin(page);
 
 			// 1. Admin Editor at viewport width
 			const adminRes = await page.goto('/admin/posts/1');

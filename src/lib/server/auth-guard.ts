@@ -15,7 +15,7 @@ export interface AuthenticatedAdmin {
 export function requireAdmin(
 	event: Pick<RequestEvent, 'locals'> | { locals?: App.Locals; request?: Request; url?: URL }
 ): AuthenticatedAdmin {
-	const user = event.locals?.user as (App.Locals['user'] & { role?: string }) | undefined;
+	const user = event.locals?.user;
 
 	if (!user) {
 		error(401, 'Authentication required.');
@@ -25,16 +25,10 @@ export function requireAdmin(
 		error(403, 'Admin role required.');
 	}
 
+	// verifyCsrfOrigin itself returns early for GET/HEAD/OPTIONS, so this is safe to call for every
+	// request that carries a request/url. Missing Origin AND Referer is rejected there with 403.
 	if ('request' in event && event.request && 'url' in event && event.url) {
-		const method = event.request.method.toUpperCase();
-		if (
-			method !== 'GET' &&
-			method !== 'HEAD' &&
-			method !== 'OPTIONS' &&
-			(event.request.headers.has('origin') || event.request.headers.has('referer'))
-		) {
-			verifyCsrfOrigin(event.request, event.url);
-		}
+		verifyCsrfOrigin(event.request, event.url);
 	}
 
 	return {

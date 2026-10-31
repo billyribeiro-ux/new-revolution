@@ -132,3 +132,51 @@ Notes:
   title") that the server would fill. Type the field yourself to see the real count.
 - Restoring a published post from Trash makes it published again without a gate check (it was live before it was
   trashed). Restore keeps the stored status.
+
+## 9. Adding images (inline and featured)
+
+**Inline image.** Click in the body where the image should go, then use the toolbar **Image** button (or type `/image`).
+The media library opens: pick a file (or **Upload Files** first), choose the size and alignment, and **Insert Into Post**.
+Uploads, drag and drop onto the editor, and pasting an image also work; those insert the original at 100% width, centred.
+
+**Image controls.** Click an image to select it; a floating toolbar appears over it:
+
+- **Left / Center / Right / Full width / No align**: Full width fills the article column, the same on the public post.
+- **25% / 50% / 75% / 100%**: width presets; height follows the aspect ratio. 100% restores the natural size.
+- **Alt / Add alt text**: alt text, title (hover tooltip) and visible caption. Save with Enter or **Save**, Escape cancels.
+- **Replace**: opens the same media library; the new file keeps the alt, title, alignment, caption and link.
+- **Remove**: deletes the image from the body (the media file stays in the library).
+
+Keyboard: Tab from the editor into the toolbar, Escape returns to the editor. On touch screens tapping an image selects it
+and the buttons are larger.
+
+**Alt text is never filled in for you.** An image with empty alt shows a red dashed outline and an **Add alt text** chip in
+the editor (the chip is not saved). Click it to open the alt field. The media item's own alt (set in the library) is used
+when it has one; the media title is not used as a stand-in.
+
+**Featured image.** Sidebar **Featured Image**: **Choose from Media Library** fills the URL, the alt and the caption from the
+item. The `large` (1200w) variant is used unless you picked another size in the library (an original narrower than 1200 px
+is used as is). The preview shows the saved URL and the real dimensions; **Alt Text** is required to publish (it must also
+differ from the post title). **Remove** clears the URL, alt and caption. The server stores the cover's width and height
+from the media library on save; the public post uses them for `width`/`height` and builds the `srcset` from the files that
+exist.
+
+**Check it.** Save Draft, reload the editor (image, alt and the featured panel must still be there), publish following
+section 8, then open `/blog/<slug>`: the cover `<img>` carries `width`, `height`, `srcset`, `alt`, `loading="eager"` and
+`fetchpriority="high"`, and `og:image` plus the JSON-LD `image` point at the cover.
+
+## 10. Running the admin e2e (image flow)
+
+`src/routes/admin/image-flow.e2e.ts` (and the admin tests in `blog-system.e2e.ts`) sign in through the real login page and are
+skipped with a reason when `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` are absent. They need the seeded local admin (section 2) in the
+local PGlite. Without echoing the values:
+
+```bash
+(set -a; . ./.env; set +a; \
+  E2E_ADMIN_EMAIL=$ADMIN_SEED_EMAIL E2E_ADMIN_PASSWORD=$ADMIN_SEED_PASSWORD \
+  pnpm exec playwright test src/routes/admin/image-flow.e2e.ts)
+```
+
+The config builds, then previews on 4173 with `ORIGIN=http://localhost:4173` and `MEDIA_STORAGE=disk` (docs/MEDIA_STORAGE.md); stop any
+other process holding 4173 or the PGlite directory first. The spec logs in once (login is limited to 10 per email per 15 minutes) and
+removes the post, tag and media it creates.

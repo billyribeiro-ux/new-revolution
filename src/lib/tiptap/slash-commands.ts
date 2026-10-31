@@ -16,6 +16,24 @@ export interface SlashCommandItem {
 
 export const SLASH_COMMAND_ITEMS: readonly SlashCommandItem[] = [
 	{
+		id: 'paragraph',
+		title: 'Paragraph',
+		description: 'Standard body text paragraph',
+		keywords: ['p', 'paragraph', 'text', 'body'],
+		execute: (editor) => {
+			editor.chain().focus().setParagraph().run();
+		}
+	},
+	{
+		id: 'h1',
+		title: 'Heading 1',
+		description: 'Top-level section heading',
+		keywords: ['h1', 'heading', 'title'],
+		execute: (editor) => {
+			editor.chain().focus().toggleHeading({ level: 1 }).run();
+		}
+	},
+	{
 		id: 'h2',
 		title: 'Heading 2',
 		description: 'Major section heading',
@@ -40,6 +58,24 @@ export const SLASH_COMMAND_ITEMS: readonly SlashCommandItem[] = [
 		keywords: ['h4', 'heading'],
 		execute: (editor) => {
 			editor.chain().focus().toggleHeading({ level: 4 }).run();
+		}
+	},
+	{
+		id: 'h5',
+		title: 'Heading 5',
+		description: 'Sub-topic heading',
+		keywords: ['h5', 'heading'],
+		execute: (editor) => {
+			editor.chain().focus().toggleHeading({ level: 5 }).run();
+		}
+	},
+	{
+		id: 'h6',
+		title: 'Heading 6',
+		description: 'Micro section heading',
+		keywords: ['h6', 'heading'],
+		execute: (editor) => {
+			editor.chain().focus().toggleHeading({ level: 6 }).run();
 		}
 	},
 	{

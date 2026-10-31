@@ -505,13 +505,20 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 }
 
 export async function getMediaUsageInPosts(
-	mediaRow: Pick<typeof media.$inferSelect, 'blobUrl' | 'variantsJson'>
+	mediaRow: Pick<typeof media.$inferSelect, 'blobUrl' | 'variantsJson'> & {
+		extraUrls?: Array<string | null | undefined>;
+	}
 ): Promise<Array<{ id: number; title: string; slug: string }>> {
 	const db = await ensureDbReady();
 	const candidateUrls = new Set<string>([mediaRow.blobUrl]);
 	if (mediaRow.variantsJson) {
 		for (const v of Object.values(mediaRow.variantsJson)) {
 			if (v?.url) candidateUrls.add(v.url);
+		}
+	}
+	if (mediaRow.extraUrls) {
+		for (const u of mediaRow.extraUrls) {
+			if (typeof u === 'string' && u) candidateUrls.add(u);
 		}
 	}
 

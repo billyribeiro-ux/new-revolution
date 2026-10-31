@@ -308,7 +308,13 @@
 				await fetchLibrary(page);
 				return;
 			}
-			const data = await res.json().catch(() => ({}));
+			const data = await res.json().catch((err: unknown) => {
+				console.warn('Failed to parse media delete response JSON:', err);
+				return {} as {
+					error?: string;
+					details?: Array<{ id: number; title: string; slug: string }>;
+				};
+			});
 			if (res.status === 409 && Array.isArray(data.details)) {
 				inUseConflictList = data.details;
 			}
@@ -366,18 +372,56 @@
 		return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 	}
 
+	function handleModalKeydown(e: KeyboardEvent) {
+		if (mode !== 'modal') return;
+		if (e.key === 'Escape' && !confirmDeleteOpen) {
+			e.preventDefault();
+			onClose?.();
+			return;
+		}
+		if (e.key === 'Tab') {
+			const container = e.currentTarget as HTMLElement | null;
+			if (!container) return;
+			const focusable = Array.from(
+				container.querySelectorAll<HTMLElement>(
+					'button:not([disabled]), [href], input:not([disabled]):not(.sr-only-input), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+				)
+			);
+			if (focusable.length === 0) return;
+			const first = focusable[0]!;
+			const last = focusable[focusable.length - 1]!;
+			const active = document.activeElement as HTMLElement | null;
+			if (e.shiftKey) {
+				if (!active || active === first || !container.contains(active)) {
+					e.preventDefault();
+					last.focus();
+				}
+			} else if (!active || active === last || !container.contains(active)) {
+				e.preventDefault();
+				first.focus();
+			}
+		}
+	}
+
 	let totalPages = $derived(Math.max(1, Math.ceil(total / perPage)));
 </script>
 
 {#if mode === 'page' || isOpen}
 	<div
-		{@attach () => {
+		{@attach (node) => {
 			ensureLoaded();
+			if (mode === 'modal') {
+				const firstFocusable = node.querySelector<HTMLElement>(
+					'input[type="search"], button:not([disabled]), select:not([disabled])'
+				);
+				firstFocusable?.focus();
+			}
 		}}
 		class={['media-library-root', { 'is-modal': mode === 'modal' }]}
 		role={mode === 'modal' ? 'dialog' : undefined}
 		aria-modal={mode === 'modal' ? 'true' : undefined}
 		aria-label={mode === 'modal' ? 'Media Library Picker' : undefined}
+		onkeydown={handleModalKeydown}
 	>
 		<div class="media-shell">
 			<header class="media-header">
@@ -627,11 +671,19 @@
 										type="button"
 										class={['media-card', { 'is-selected': selectedItem?.id === item.id }]}
 										onclick={() => syncEditorFields(item)}
+										ondblclick={() => {
+											syncEditorFields(item);
+											if (mode === 'modal' && onSelect) {
+												handleInsertSelected();
+											}
+										}}
 									>
 										<div class="media-thumb-wrap">
 											<img
 												src={item.urls.thumbnail}
 												alt={item.alt_text || item.filename}
+												width="300"
+												height="300"
 												loading="lazy"
 												class="media-thumb"
 											/>
@@ -668,11 +720,20 @@
 										<tr
 											class={{ 'is-selected': selectedItem?.id === item.id }}
 											onclick={() => syncEditorFields(item)}
+											ondblclick={() => {
+												syncEditorFields(item);
+												if (mode === 'modal' && onSelect) {
+													handleInsertSelected();
+												}
+											}}
 										>
 											<td>
 												<img
 													src={item.urls.thumbnail}
 													alt={item.alt_text || item.filename}
+													width="48"
+													height="48"
+													loading="lazy"
 													class="table-thumb"
 												/>
 											</td>

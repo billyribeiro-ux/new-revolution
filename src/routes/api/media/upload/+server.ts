@@ -44,7 +44,9 @@ async function readRequestWithByteCap(request: Request, maxBytes: number): Promi
 			if (value) {
 				totalBytes += value.byteLength;
 				if (totalBytes > maxBytes) {
-					await reader.cancel('Payload exceeded byte cap').catch(() => {});
+					await reader.cancel('Payload exceeded byte cap').catch((err: unknown) => {
+						console.warn('Failed to cancel oversized upload stream reader:', err);
+					});
 					throw new PayloadTooLargeError(
 						`Streamed request body exceeds the maximum allowed size of ${maxBytes} bytes.`
 					);
@@ -119,13 +121,26 @@ export const POST: RequestHandler = async (event) => {
 		let totalMetadataBytes = 0;
 		const metadataRaw: Record<string, string> = {};
 
+		let fileCount = 0;
 		for (const [key, value] of formData.entries()) {
-			if (key === 'file') continue;
+			if (key === 'file') {
+				fileCount += 1;
+				continue;
+			}
 			if (!allowedMetaKeys.has(key)) {
 				return json(
 					{
 						code: 'VALIDATION_ERROR',
 						error: `Unexpected form field "${key}".`
+					},
+					{ status: 400 }
+				);
+			}
+			if (Object.prototype.hasOwnProperty.call(metadataRaw, key)) {
+				return json(
+					{
+						code: 'VALIDATION_ERROR',
+						error: `Duplicate form field "${key}".`
 					},
 					{ status: 400 }
 				);
@@ -153,12 +168,25 @@ export const POST: RequestHandler = async (event) => {
 			metadataRaw[key] = value;
 		}
 
+		if (fileCount !== 1) {
+			return json(
+				{
+					code: 'VALIDATION_ERROR',
+					error:
+						fileCount === 0
+							? 'Multipart field "file" is required.'
+							: 'Exactly one "file" field is allowed per upload.'
+				},
+				{ status: 400 }
+			);
+		}
+
 		const fileEntry = formData.get('file');
 		if (!(fileEntry instanceof File)) {
 			return json(
 				{
 					code: 'VALIDATION_ERROR',
-					error: 'Multipart field "file" is required.'
+					error: 'Multipart field "file" must be a file upload.'
 				},
 				{ status: 400 }
 			);

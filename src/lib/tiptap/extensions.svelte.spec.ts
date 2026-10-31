@@ -1,9 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { Editor } from '@tiptap/core';
-import { createBlogEditorExtensions } from './index';
+import {
+	createBlogEditorExtensions,
+	resolveEditorLinkAttributes,
+	syncEditorContent
+} from './index';
 import { extractVimeoId, buildVimeoEmbedUrl } from './vimeo';
 import { normalizeTweetUrl } from './tweet';
 import { filterSlashCommands } from './slash-commands';
+import { sanitizePostHtml } from '../sanitize-post-html';
 
 function createHeadlessEditor(initialContent = '<p>Hello world</p>'): Editor {
 	return new Editor({
@@ -13,18 +18,123 @@ function createHeadlessEditor(initialContent = '<p>Hello world</p>'): Editor {
 }
 
 describe('TipTap 3 Custom Extensions Suite', () => {
-	it('preserves ImageWithDimensions attributes (width, height, data-align, data-caption, data-size) on round-trip', () => {
+	it('renders ImageWithDimensions with class="blog-image", figure/figcaption wrapper, and link wrapper without data-caption on img', () => {
 		const html =
-			'<p>Intro</p><img src="https://revolutiontradingpros.com/media/spx-800w.webp" alt="SPX breakout" width="800" height="450" data-align="left" data-caption="Daily SPX chart" data-size="medium" data-media-id="media-123">';
+			'<p>Intro</p><figure class="blog-image-figure alignright"><a href="https://revolutiontradingpros.com/alerts" target="_blank" rel="noopener noreferrer"><img src="https://revolutiontradingpros.com/media/spx-800w.webp" alt="SPX breakout" width="800" height="450" data-size="medium" data-media-id="media-123"></a><figcaption>Daily SPX chart</figcaption></figure>';
 		const editor = createHeadlessEditor(html);
 		const out = editor.getHTML();
 
+		expect(out).toContain('class="blog-image"');
 		expect(out).toContain('width="800"');
 		expect(out).toContain('height="450"');
-		expect(out).toContain('data-align="left"');
-		expect(out).toContain('data-caption="Daily SPX chart"');
+		expect(out).toContain('data-align="right"');
 		expect(out).toContain('data-size="medium"');
 		expect(out).toContain('data-media-id="media-123"');
+		expect(out).toContain('<figure class="blog-image-figure">');
+		expect(out).toContain('<figcaption>Daily SPX chart</figcaption>');
+		expect(out).toContain(
+			'<a href="https://revolutiontradingpros.com/alerts" target="_blank" rel="noopener noreferrer">'
+		);
+		expect(out).not.toContain('data-caption=');
+		editor.destroy();
+	});
+
+	it('parses legacy blog-image--{align} and align{align} classes into data-align on ImageWithDimensions', () => {
+		const editor = createHeadlessEditor(
+			'<img src="https://revolutiontradingpros.com/media/chart.webp" alt="Chart" class="blog-image--left">'
+		);
+		const out = editor.getHTML();
+		expect(out).toContain('class="blog-image"');
+		expect(out).toContain('data-align="left"');
+		editor.destroy();
+	});
+
+	it('round-trips internal links without target/rel and external links with explicit target/rel via resolveEditorLinkAttributes', () => {
+		const internalAttrs = resolveEditorLinkAttributes({
+			href: '/courses/day-trading',
+			newTab: false,
+			nofollow: false
+		});
+		expect(internalAttrs).toEqual({
+			href: '/courses/day-trading',
+			target: null,
+			rel: null
+		});
+
+		const externalNewTabAttrs = resolveEditorLinkAttributes({
+			href: 'https://www.cmegroup.com',
+			newTab: true,
+			nofollow: false
+		});
+		expect(externalNewTabAttrs).toEqual({
+			href: 'https://www.cmegroup.com',
+			target: '_blank',
+			rel: 'noopener noreferrer'
+		});
+
+		const externalNofollowAttrs = resolveEditorLinkAttributes({
+			href: 'https://example.com/sponsor',
+			newTab: true,
+			nofollow: true
+		});
+		expect(externalNofollowAttrs).toEqual({
+			href: 'https://example.com/sponsor',
+			target: '_blank',
+			rel: 'noopener noreferrer nofollow'
+		});
+
+		const editor = createHeadlessEditor('<p>Read our guide</p>');
+		editor.commands.selectAll();
+		editor.commands.setLink(internalAttrs);
+		const internalHtml = editor.getHTML();
+		expect(internalHtml).toContain('<a href="/courses/day-trading">Read our guide</a>');
+		expect(internalHtml).not.toContain('target=');
+		expect(internalHtml).not.toContain('rel=');
+
+		editor.commands.selectAll();
+		editor.commands.setLink(externalNofollowAttrs);
+		const externalHtml = editor.getHTML();
+		expect(externalHtml).toContain('href="https://example.com/sponsor"');
+		expect(externalHtml).toContain('target="_blank"');
+		expect(externalHtml).toContain('rel="noopener noreferrer nofollow"');
+		editor.destroy();
+	});
+
+	it('supports H1 through H6 headings and justify text alignment on paragraph, heading, and image', () => {
+		const editor = createHeadlessEditor('<p>Heading test</p>');
+		for (const level of [1, 2, 3, 4, 5, 6] as const) {
+			editor.commands.selectAll();
+			editor.commands.setHeading({ level });
+			expect(editor.getHTML()).toContain(`<h${level}>Heading test</h${level}>`);
+		}
+
+		editor.commands.selectAll();
+		editor.commands.setParagraph();
+		editor.commands.setTextAlign('justify');
+		expect(editor.getHTML()).toContain('text-align: justify');
+		editor.destroy();
+	});
+
+	it('surgically updates external content via syncEditorContent without firing onUpdate or losing caret on prefix', () => {
+		let updateFired = 0;
+		const editor = new Editor({
+			extensions: createBlogEditorExtensions(),
+			content: '<p>Alpha Beta Gamma</p>',
+			onUpdate() {
+				updateFired += 1;
+			}
+		});
+
+		// Position caret inside "Alpha" (pos 3)
+		editor.commands.setTextSelection(3);
+		expect(editor.state.selection.from).toBe(3);
+
+		// Replace suffix "Gamma" -> "Delta" via syncEditorContent
+		syncEditorContent(editor, '<p>Alpha Beta Delta</p>');
+
+		expect(editor.getHTML()).toBe('<p>Alpha Beta Delta</p>');
+		expect(updateFired).toBe(0);
+		expect(editor.state.selection.from).toBe(3);
 		editor.destroy();
 	});
 
@@ -146,5 +256,31 @@ describe('TipTap 3 Custom Extensions Suite', () => {
 
 		const zeroMatches = filterSlashCommands('nonexistentxyzcommand');
 		expect(zeroMatches).toEqual([]);
+	});
+
+	it('round-trips Callout, Vimeo, Tweet, and standalone linked ImageWithDimensions through sanitizePostHtml without data loss', () => {
+		const editor = createHeadlessEditor(
+			[
+				'<div data-callout-type="warning" class="callout callout--warning"><p>Watch gamma walls.</p></div>',
+				'<div class="vimeo-embed" data-vimeo-id="555666777" data-width="640" data-height="360"><iframe src="https://player.vimeo.com/video/555666777?dnt=1" width="640" height="360"></iframe></div>',
+				'<blockquote class="twitter-embed" data-tweet-url="https://x.com/RevTradingPros/status/185001234567890"><a href="https://x.com/RevTradingPros/status/185001234567890">View post on X</a></blockquote>',
+				'<p><a href="https://revolutiontradingpros.com/courses" target="_blank" rel="noopener noreferrer"><img src="https://revolutiontradingpros.com/media/setup-800w.webp" alt="Setup chart" width="800" height="450"></a></p>'
+			].join('')
+		);
+
+		const sanitized = sanitizePostHtml(editor.getHTML());
+		const reloaded = createHeadlessEditor(sanitized);
+		const reloadedHtml = reloaded.getHTML();
+
+		expect(reloadedHtml).toContain('data-callout-type="warning"');
+		expect(reloadedHtml).toContain('data-vimeo-id="555666777"');
+		expect(reloadedHtml).toContain(
+			'data-tweet-url="https://x.com/RevTradingPros/status/185001234567890"'
+		);
+		expect(reloadedHtml).toContain('href="https://revolutiontradingpros.com/courses"');
+		expect(reloadedHtml).toContain('class="blog-image"');
+
+		editor.destroy();
+		reloaded.destroy();
 	});
 });

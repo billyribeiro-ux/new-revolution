@@ -54,6 +54,23 @@ export const Tweet = Node.create({
 		return [
 			{
 				tag: 'div[data-tweet-url]',
+				priority: 60,
+				getAttrs: (node) => {
+					const el = node as HTMLElement;
+					const rawUrl =
+						el.getAttribute('data-tweet-url') || el.querySelector('a')?.getAttribute('href') || '';
+					const parsed = normalizeTweetUrl(rawUrl);
+					if (!parsed) return false;
+					return {
+						url: parsed.url,
+						author: parsed.author,
+						tweetId: parsed.tweetId
+					};
+				}
+			},
+			{
+				tag: 'blockquote[data-tweet-url]',
+				priority: 60,
 				getAttrs: (node) => {
 					const el = node as HTMLElement;
 					const rawUrl =
@@ -69,9 +86,11 @@ export const Tweet = Node.create({
 			},
 			{
 				tag: 'blockquote.twitter-tweet',
+				priority: 60,
 				getAttrs: (node) => {
 					const el = node as HTMLElement;
-					const rawUrl = el.querySelector('a')?.getAttribute('href') || '';
+					const rawUrl =
+						el.getAttribute('data-tweet-url') || el.querySelector('a')?.getAttribute('href') || '';
 					const parsed = normalizeTweetUrl(rawUrl);
 					if (!parsed) return false;
 					return {
@@ -100,7 +119,10 @@ export const Tweet = Node.create({
 			},
 			[
 				'blockquote',
-				{ class: 'twitter-tweet' },
+				{
+					class: 'twitter-embed twitter-tweet',
+					'data-tweet-url': parsed.url
+				},
 				['p', {}, `Post on X by @${parsed.author}`],
 				[
 					'a',

@@ -55,6 +55,26 @@ export const Vimeo = Node.create({
 	parseHTML() {
 		return [
 			{
+				tag: 'div[data-vimeo-id]',
+				getAttrs: (node) => {
+					const el = node as HTMLElement;
+					const iframe = el.querySelector('iframe');
+					const vimeoId = el.getAttribute('data-vimeo-id');
+					const rawSrc =
+						iframe?.getAttribute('src') ||
+						el.getAttribute('data-src') ||
+						(vimeoId ? `https://vimeo.com/${vimeoId}` : '');
+					const embedUrl = buildVimeoEmbedUrl(rawSrc);
+					if (!embedUrl) return false;
+					return {
+						src: embedUrl,
+						width: Number(el.getAttribute('data-width') || iframe?.getAttribute('width') || 640),
+						height: Number(el.getAttribute('data-height') || iframe?.getAttribute('height') || 360),
+						title: iframe?.getAttribute('title') || 'Vimeo video player'
+					};
+				}
+			},
+			{
 				tag: 'div[data-vimeo-video]',
 				getAttrs: (node) => {
 					const el = node as HTMLElement;
@@ -89,19 +109,29 @@ export const Vimeo = Node.create({
 	},
 
 	renderHTML({ HTMLAttributes }) {
-		const embedUrl = buildVimeoEmbedUrl(String(HTMLAttributes.src || ''));
-		if (!embedUrl) {
+		const rawSrc = String(HTMLAttributes.src || '');
+		const vimeoId = extractVimeoId(rawSrc);
+		const embedUrl = buildVimeoEmbedUrl(rawSrc);
+		if (!embedUrl || !vimeoId) {
 			return ['div', { 'data-vimeo-video': '', class: 'vimeo-embed' }];
 		}
+		const width = String(HTMLAttributes.width || 640);
+		const height = String(HTMLAttributes.height || 360);
 		return [
 			'div',
-			{ 'data-vimeo-video': '', class: 'vimeo-embed' },
+			{
+				'data-vimeo-id': vimeoId,
+				'data-vimeo-video': '',
+				'data-width': width,
+				'data-height': height,
+				class: 'vimeo-embed'
+			},
 			[
 				'iframe',
 				mergeAttributes({
 					src: embedUrl,
-					width: String(HTMLAttributes.width || 640),
-					height: String(HTMLAttributes.height || 360),
+					width,
+					height,
 					frameborder: '0',
 					allow: 'autoplay; fullscreen; picture-in-picture',
 					allowfullscreen: 'true',

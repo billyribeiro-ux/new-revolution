@@ -81,24 +81,40 @@ async function lookupActiveMediaByUrls(
 	const map = new Map<string, MediaDimensionLookupItem>();
 	if (urls.length === 0) return map;
 
+	const targetSet = new Set(urls);
 	const db = await ensureDbReady();
 	const rows = await db
 		.select({
 			blobUrl: media.blobUrl,
+			variantsJson: media.variantsJson,
 			width: media.width,
 			height: media.height,
 			altText: media.altText
 		})
 		.from(media)
-		.where(and(inArray(media.blobUrl, urls), isNull(media.deletedAt)));
+		.where(isNull(media.deletedAt));
 
 	for (const r of rows) {
-		map.set(r.blobUrl, {
-			blobUrl: r.blobUrl,
-			width: r.width,
-			height: r.height,
-			altText: r.altText
-		});
+		if (targetSet.has(r.blobUrl)) {
+			map.set(r.blobUrl, {
+				blobUrl: r.blobUrl,
+				width: r.width,
+				height: r.height,
+				altText: r.altText
+			});
+		}
+		if (r.variantsJson && typeof r.variantsJson === 'object') {
+			for (const variant of Object.values(r.variantsJson)) {
+				if (variant?.url && targetSet.has(variant.url)) {
+					map.set(variant.url, {
+						blobUrl: variant.url,
+						width: variant.width ?? r.width,
+						height: variant.height ?? r.height,
+						altText: r.altText
+					});
+				}
+			}
+		}
 	}
 	return map;
 }

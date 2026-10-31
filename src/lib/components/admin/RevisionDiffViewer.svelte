@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { computeWordDiff } from './post-editor/diff';
 
-	interface RevisionSnapshot {
+	export interface RevisionSnapshot {
 		id: number;
 		titleSnapshot: string;
 		excerptSnapshot: string | null;
@@ -11,6 +11,8 @@
 		changeType: string;
 		createdAt: Date | string;
 	}
+
+	export type RevisionRecord = RevisionSnapshot;
 
 	interface Props {
 		open: boolean;
@@ -34,14 +36,49 @@
 	let contentDiff = $derived(
 		revision ? computeWordDiff(revision.contentSnapshot ?? '', currentContent) : []
 	);
+
+	function focusModal(node: HTMLElement) {
+		const closeBtn = node.querySelector<HTMLElement>('.btn-close, button');
+		(closeBtn ?? node).focus();
+	}
+
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.key === 'Escape') {
+			e.preventDefault();
+			onClose();
+			return;
+		}
+		if (e.key === 'Tab') {
+			const container = e.currentTarget as HTMLElement | null;
+			if (!container) return;
+			const focusable = Array.from(
+				container.querySelectorAll<HTMLElement>(
+					'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+				)
+			);
+			if (focusable.length === 0) return;
+			const first = focusable[0]!;
+			const last = focusable[focusable.length - 1]!;
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && document.activeElement === last) {
+				e.preventDefault();
+				first.focus();
+			}
+		}
+	}
 </script>
 
 {#if open && revision}
 	<div
+		{@attach focusModal}
 		class="diff-modal-backdrop"
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="diff-modal-title"
+		tabindex="-1"
+		onkeydown={handleKeyDown}
 	>
 		<div class="diff-modal-shell">
 			<header class="diff-header">

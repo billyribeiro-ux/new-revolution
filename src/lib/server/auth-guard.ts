@@ -13,7 +13,7 @@ export interface AuthenticatedAdmin {
  * - 403 when the user lacks the `'admin'` role
  */
 export function requireAdmin(
-	event: Pick<RequestEvent, 'locals'> | { locals?: App.Locals }
+	event: Pick<RequestEvent, 'locals'> | { locals?: App.Locals; request?: Request; url?: URL }
 ): AuthenticatedAdmin {
 	const user = event.locals?.user as (App.Locals['user'] & { role?: string }) | undefined;
 
@@ -23,6 +23,18 @@ export function requireAdmin(
 
 	if (user.role !== 'admin') {
 		error(403, 'Admin role required.');
+	}
+
+	if ('request' in event && event.request && 'url' in event && event.url) {
+		const method = event.request.method.toUpperCase();
+		if (
+			method !== 'GET' &&
+			method !== 'HEAD' &&
+			method !== 'OPTIONS' &&
+			(event.request.headers.has('origin') || event.request.headers.has('referer'))
+		) {
+			verifyCsrfOrigin(event.request, event.url);
+		}
 	}
 
 	return {

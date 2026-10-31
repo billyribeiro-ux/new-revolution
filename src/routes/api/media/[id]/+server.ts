@@ -1,5 +1,6 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { requireAdmin } from '#lib/server/auth-guard';
+import { consumeRateLimit, RATE_LIMIT_MEDIA_WRITES_PER_MIN } from '#lib/server/rate-limit';
 import { mediaPatchSchema } from '#lib/shared/schemas/media';
 import {
 	getMediaById,
@@ -25,7 +26,8 @@ export const GET: RequestHandler = async (event) => {
 
 		const usage = await getMediaUsageInPosts({
 			blobUrl: item.urls.original,
-			variantsJson: null
+			variantsJson: null,
+			extraUrls: Object.values(item.urls)
 		});
 		return json({ ...item, item, usage });
 	} catch (err) {
@@ -36,6 +38,17 @@ export const GET: RequestHandler = async (event) => {
 export const PATCH: RequestHandler = async (event) => {
 	try {
 		const admin = requireAdmin(event);
+		const rl = await consumeRateLimit({
+			key: `media_write:${admin.id}`,
+			limit: RATE_LIMIT_MEDIA_WRITES_PER_MIN,
+			windowMs: 60_000
+		});
+		if (!rl.allowed) {
+			return json(
+				{ code: 'RATE_LIMITED', error: 'Media write rate limit exceeded (max 60 per minute).' },
+				{ status: 429 }
+			);
+		}
 		const id = event.params.id?.trim();
 		if (!id) {
 			return json({ code: 'VALIDATION_ERROR', error: 'Invalid media ID.' }, { status: 400 });
@@ -75,6 +88,17 @@ export const PATCH: RequestHandler = async (event) => {
 export const DELETE: RequestHandler = async (event) => {
 	try {
 		const admin = requireAdmin(event);
+		const rl = await consumeRateLimit({
+			key: `media_write:${admin.id}`,
+			limit: RATE_LIMIT_MEDIA_WRITES_PER_MIN,
+			windowMs: 60_000
+		});
+		if (!rl.allowed) {
+			return json(
+				{ code: 'RATE_LIMITED', error: 'Media write rate limit exceeded (max 60 per minute).' },
+				{ status: 429 }
+			);
+		}
 		const id = event.params.id?.trim();
 		if (!id) {
 			return json({ code: 'VALIDATION_ERROR', error: 'Invalid media ID.' }, { status: 400 });

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import PostEditorTopBar from './PostEditorTopBar.svelte';
 	import PostEditorMainColumn from './PostEditorMainColumn.svelte';
 	import PostEditorSidebar from './PostEditorSidebar.svelte';
@@ -6,10 +7,12 @@
 	import RevisionDiffViewer from './RevisionDiffViewer.svelte';
 	import ConfirmDialog from './ConfirmDialog.svelte';
 	import {
+		DEFAULT_NEW_POST_SCAFFOLD,
 		createEmptyForm,
 		hydrateFromFullPost,
 		buildPostPayload,
 		canonicalFieldsAfterSave,
+		serializeEditorSnapshot,
 		saveLocalDraftSnapshot,
 		readLocalDraftSnapshot,
 		clearLocalDraftSnapshot,
@@ -18,13 +21,18 @@
 		type PostEditorFormState
 	} from './post-editor/form-actions';
 	import { generateSlug, normaliseSlug, isValidSlug } from '#lib/shared/seo/slug';
+	import { META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { getSeoScore } from '#lib/shared/seo/score';
+	import type { PostStatus } from '#lib/shared/schemas/posts';
 	import {
 		createPostRpc,
 		updatePostRpc,
+		deletePostRpc,
 		autosavePostRpc,
 		checkSlugAvailableRpc,
+		getPostRevisionDiffRpc,
 		restoreRevisionRpc,
+		createAuthorRpc,
 		createCategoryRpc,
 		createTagRpc,
 		getPostFull
@@ -83,7 +91,7 @@
 		initialPreviewToken = '',
 		categories: initialCategories,
 		tags: initialTags,
-		authors,
+		authors: initialAuthors,
 		allPosts = [],
 		onBack,
 		onPostCreated
@@ -92,15 +100,26 @@
 	let form = $state<PostEditorFormState>(createEmptyForm());
 	let categories = $state<CategoryOption[]>([]);
 	let tags = $state<TagOption[]>([]);
-	let revisions = $state<RevisionItem[]>([]);
+	let authorsList = $state<AuthorOption[]>([]);
+	let revisions = $state.raw<RevisionItem[]>([]);
 	let previewToken = $state('');
 	let originalServerStatus = $state<string>('draft');
+	let originalServerSlug = $state<string>('');
+	let lastSavedAt = $state<string>('');
+
+	// Non-reactive tracker (Section 4.3 & 4.9):
+	// Tracks the last value copied from `form.title` into `form.metaTitle`.
+	// Reset to `null` when hydrating an existing post or when the operator edits `metaTitle` manually.
+	let metaTitleCopiedFrom: string | null = '';
+
+	let mainColumnRef = $state<ReturnType<typeof PostEditorMainColumn> | null>(null);
 
 	let words = $state(0);
 	let chars = $state(0);
 	let readingTime = $state(1);
 
 	let isDirty = $state(false);
+	let isDirtySinceAutosave = $state(false);
 	let isSaving = $state(false);
 	let isFocusMode = $state(false);
 	let autosaveStatus = $state<'idle' | 'saving' | 'saved' | 'error'>('idle');
@@ -112,6 +131,11 @@
 	let slugAvailable = $state<boolean | null>(null);
 	let slugChecking = $state(false);
 	let slugDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+	let localDraftDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+	let lastCleanSnapshot = '';
+	let lastObservedSnapshot = '';
+	let currentSnapshot = $derived(serializeEditorSnapshot(form));
 
 	let localRecoveryCandidate = $state<{
 		savedAt: string;
@@ -121,41 +145,122 @@
 	let mediaModalOpen = $state(false);
 	let mediaPickerCallback = $state<((payload: MediaInsertPayload) => void) | null>(null);
 
-	let activeDiffRevision = $state<RevisionItem | null>(null);
+	let activeDiffRevision = $state.raw<RevisionItem | null>(null);
+	let pendingRestoreRevisionId = $state<number | null>(null);
 	let confirmLeaveOpen = $state(false);
+	let confirmTrashOpen = $state(false);
+
+	let pendingSaveAction = $state<{
+		overrideStatus?: PostStatus;
+		closeAfter?: boolean;
+		forceOverwrite?: boolean;
+		confirmedUnpublish?: boolean;
+		confirmedSlugRename?: boolean;
+	} | null>(null);
 	let confirmUnpublishOpen = $state(false);
+	let confirmSlugRenameOpen = $state(false);
+
+	let customConfirmDialog = $state<{
+		title: string;
+		message: string;
+		confirmLabel: string;
+		onConfirm: () => Promise<void> | void;
+	} | null>(null);
 
 	let initializedForPostId = $state<number | 'new' | null>(null);
 
+	function scheduleLocalDraftBackup() {
+		if (localDraftDebounceTimer) {
+			clearTimeout(localDraftDebounceTimer);
+		}
+		localDraftDebounceTimer = setTimeout(() => {
+			localDraftDebounceTimer = null;
+			saveLocalDraftSnapshot(form.id, form);
+		}, 2000);
+	}
+
+	function markCleanSnapshot(snap = serializeEditorSnapshot(form)) {
+		lastCleanSnapshot = snap;
+		lastObservedSnapshot = snap;
+		isDirty = false;
+		isDirtySinceAutosave = false;
+		if (localDraftDebounceTimer) {
+			clearTimeout(localDraftDebounceTimer);
+			localDraftDebounceTimer = null;
+		}
+	}
+
+	function markDirty() {
+		isDirty = true;
+		isDirtySinceAutosave = true;
+		lastObservedSnapshot = serializeEditorSnapshot(form);
+		scheduleLocalDraftBackup();
+	}
+
+	function syncDirtyStateFromSnapshot(snap: string) {
+		untrack(() => {
+			if (snap === lastObservedSnapshot) return;
+			lastObservedSnapshot = snap;
+			if (snap !== lastCleanSnapshot) {
+				isDirty = true;
+				isDirtySinceAutosave = true;
+				scheduleLocalDraftBackup();
+			}
+		});
+	}
+
 	function hydrateInitialState() {
 		const targetKey = initialPost && typeof initialPost.id === 'number' ? initialPost.id : 'new';
-		if (initializedForPostId === targetKey) return;
-		initializedForPostId = targetKey;
+		const currentPost = initialPost;
+		const nextCategories = initialCategories;
+		const nextTags = initialTags;
+		const nextAuthors = initialAuthors;
+		const nextRevisions = initialRevisions;
+		const nextPreviewToken = initialPreviewToken;
 
-		categories = [...initialCategories];
-		tags = [...initialTags];
-		revisions = [...initialRevisions];
-		previewToken = initialPreviewToken;
+		untrack(() => {
+			if (initializedForPostId === targetKey) return;
+			initializedForPostId = targetKey;
 
-		if (initialPost) {
-			form = hydrateFromFullPost(initialPost);
-			originalServerStatus = String(initialPost.status ?? 'draft');
-			words = form.wordCount;
-			readingTime = form.readingTime;
-		} else {
-			form = createEmptyForm();
-			originalServerStatus = 'draft';
-		}
+			categories = [...nextCategories];
+			tags = [...nextTags];
+			authorsList = [...nextAuthors];
+			revisions = [...nextRevisions];
+			previewToken = nextPreviewToken;
 
-		// Check localStorage for unsaved draft snapshot newer than server updatedAt
-		const snapshot = readLocalDraftSnapshot(form.id);
-		if (snapshot) {
-			const snapMs = Date.parse(snapshot.savedAt);
-			const serverMs = form.expectedUpdatedAt ? Date.parse(form.expectedUpdatedAt) : 0;
-			if (!Number.isNaN(snapMs) && snapMs > serverMs) {
-				localRecoveryCandidate = snapshot;
+			if (currentPost) {
+				form = hydrateFromFullPost(currentPost);
+				originalServerStatus = String(currentPost.status ?? 'draft');
+				originalServerSlug = String(currentPost.slug ?? '');
+				metaTitleCopiedFrom = null;
+				words = form.wordCount;
+				readingTime = form.readingTime;
+				if (form.expectedUpdatedAt) {
+					lastSavedAt = new Date(form.expectedUpdatedAt).toLocaleTimeString([], {
+						hour: '2-digit',
+						minute: '2-digit'
+					});
+				}
+			} else {
+				form = createEmptyForm();
+				originalServerStatus = 'draft';
+				originalServerSlug = '';
+				metaTitleCopiedFrom = '';
 			}
-		}
+
+			markCleanSnapshot(serializeEditorSnapshot(form));
+			mainColumnRef?.refreshActiveTabFromStorage?.();
+
+			// Check localStorage for unsaved draft snapshot newer than server updatedAt
+			const snapshot = readLocalDraftSnapshot(form.id);
+			if (snapshot) {
+				const snapMs = Date.parse(snapshot.savedAt);
+				const serverMs = form.expectedUpdatedAt ? Date.parse(form.expectedUpdatedAt) : 0;
+				if (!Number.isNaN(snapMs) && snapMs > serverMs) {
+					localRecoveryCandidate = snapshot;
+				}
+			}
+		});
 	}
 
 	let seoEvaluation = $derived(
@@ -212,37 +317,60 @@
 
 	function handleTitleChange(nextTitle: string) {
 		form.title = nextTitle;
-		isDirty = true;
-		if (!form.slugManuallyEdited) {
+		markDirty();
+		// Meta title auto-follows post title until manually edited (Section 4.3)
+		if (metaTitleCopiedFrom !== null && form.metaTitle === metaTitleCopiedFrom) {
+			const nextMeta = nextTitle.slice(0, META_TITLE_MAX);
+			form.metaTitle = nextMeta;
+			metaTitleCopiedFrom = nextMeta;
+		}
+		// New posts auto-derive slug from title until manually edited (Section 7.3)
+		if (!form.id && !form.slugManuallyEdited) {
 			const autoSlug = generateSlug(nextTitle);
 			form.slug = autoSlug;
 			scheduleSlugCheck(autoSlug);
 		}
-		saveLocalDraftSnapshot(form.id, form);
+	}
+
+	function handleMetaTitleManualEdit(nextMetaTitle: string) {
+		form.metaTitle = nextMetaTitle;
+		metaTitleCopiedFrom = null;
+		markDirty();
 	}
 
 	function handleSlugChange(rawSlug: string) {
 		form.slugManuallyEdited = true;
 		const normalized = normaliseSlug(rawSlug);
 		form.slug = normalized;
-		isDirty = true;
+		markDirty();
 		scheduleSlugCheck(normalized);
-		saveLocalDraftSnapshot(form.id, form);
+	}
+
+	function handleSlugBlur() {
+		if (!form.slug.trim() && form.title.trim()) {
+			form.slug = generateSlug(form.title);
+		} else if (form.slug.trim()) {
+			form.slug = generateSlug(form.slug) || normaliseSlug(form.slug);
+		}
+		scheduleSlugCheck(form.slug);
 	}
 
 	function handleResetSlugFromTitle() {
 		form.slugManuallyEdited = false;
 		const autoSlug = generateSlug(form.title);
 		form.slug = autoSlug;
-		isDirty = true;
+		markDirty();
 		scheduleSlugCheck(autoSlug);
 	}
 
 	function handleContentChange(html: string) {
 		if (form.content === html) return;
+		const wasUntouchedScaffold = !form.id && !isDirty && form.content === DEFAULT_NEW_POST_SCAFFOLD;
 		form.content = html;
-		isDirty = true;
-		saveLocalDraftSnapshot(form.id, form);
+		if (wasUntouchedScaffold && html === DEFAULT_NEW_POST_SCAFFOLD) {
+			return;
+		}
+		markDirty();
 	}
 
 	function handleStatsChange(stats: { words: number; chars: number; readingTime: number }) {
@@ -253,45 +381,167 @@
 		form.readingTime = stats.readingTime;
 	}
 
-	async function performSave(overrideStatus?: 'draft') {
+	function requestSave(options: {
+		overrideStatus?: PostStatus;
+		closeAfter?: boolean;
+		forceOverwrite?: boolean;
+		confirmedUnpublish?: boolean;
+		confirmedSlugRename?: boolean;
+	}) {
 		if (isSaving) return;
-		isSaving = true;
+
+		// Pre-normalize slug before checks so rename detection is accurate
+		if (!form.slug.trim() && form.title.trim()) {
+			form.slug = generateSlug(form.title);
+		} else if (form.slug.trim()) {
+			form.slug = generateSlug(form.slug) || normaliseSlug(form.slug);
+		}
+
+		const targetStatus = options.overrideStatus ?? form.status;
+
+		// 1. Confirm before unpublishing a currently live post (Section 8.3)
+		if (
+			!options.confirmedUnpublish &&
+			form.id &&
+			originalServerStatus === 'published' &&
+			(targetStatus === 'draft' || targetStatus === 'archived')
+		) {
+			pendingSaveAction = options;
+			confirmUnpublishOpen = true;
+			return;
+		}
+
+		// 2. Confirm before renaming the slug of a published post (Section 7.11)
+		if (
+			!options.confirmedSlugRename &&
+			form.id &&
+			originalServerStatus === 'published' &&
+			originalServerSlug.length > 0 &&
+			form.slug !== originalServerSlug
+		) {
+			pendingSaveAction = options;
+			confirmSlugRenameOpen = true;
+			return;
+		}
+
+		void performSave(options);
+	}
+
+	async function performSave(
+		options: {
+			overrideStatus?: PostStatus;
+			closeAfter?: boolean;
+			forceOverwrite?: boolean;
+		} = {}
+	) {
+		if (isSaving) return;
 		errorMessage = '';
 		statusMessage = '';
 		staleConflictDetected = false;
 
+		// Pre-checks (Section 8.1)
+		if (!form.title.trim()) {
+			errorMessage = 'Post title is required.';
+			return;
+		}
+		if (!form.slug.trim()) {
+			form.slug = generateSlug(form.title);
+		} else {
+			form.slug = generateSlug(form.slug) || normaliseSlug(form.slug);
+		}
+		if (!isValidSlug(form.slug)) {
+			errorMessage = 'Slug must be 3 to 75 lowercase alphanumeric characters separated by hyphens.';
+			return;
+		}
+		const trimmedBody = form.content.trim();
+		if (!trimmedBody || trimmedBody === '<p></p>') {
+			errorMessage = 'Post content cannot be empty.';
+			return;
+		}
+
+		isSaving = true;
+		const snapshotBeforeSave = serializeEditorSnapshot(form);
+
 		try {
-			const payload = buildPostPayload(
-				form,
-				overrideStatus ? { status: overrideStatus } : undefined
-			);
+			const payload = buildPostPayload(form, {
+				...(options.overrideStatus ? { status: options.overrideStatus } : {}),
+				...(options.forceOverwrite ? { forceOverwrite: true } : {})
+			});
 
 			if (!form.id) {
 				const res = await createPostRpc(payload as unknown as Parameters<typeof createPostRpc>[0]);
 				const created = res.post as unknown as Record<string, unknown>;
-				form = canonicalFieldsAfterSave(form, created);
-				originalServerStatus = form.status;
+				const snapshotAfterSave = serializeEditorSnapshot(form);
+				const modifiedDuringInFlightSave = snapshotBeforeSave !== snapshotAfterSave;
+
+				if (!modifiedDuringInFlightSave) {
+					form = canonicalFieldsAfterSave(form, created, { preserveBlankAutofillFields: true });
+					if (options.overrideStatus) {
+						form.status = (created.status as PostStatus) || options.overrideStatus;
+					}
+					markCleanSnapshot(serializeEditorSnapshot(form));
+				} else {
+					// Preserve user's in-flight edits; only adopt server ID and optimistic concurrency timestamp
+					form.id = typeof created.id === 'number' ? created.id : form.id;
+					if (typeof created.updatedAt === 'string') {
+						form.expectedUpdatedAt = created.updatedAt;
+					}
+					lastCleanSnapshot = snapshotBeforeSave;
+					lastObservedSnapshot = serializeEditorSnapshot(form);
+					isDirty = true;
+				}
+
+				originalServerStatus = String(created.status ?? form.status);
+				originalServerSlug = String(created.slug ?? form.slug);
 				previewToken = res.previewToken ?? '';
-				isDirty = false;
 				autosaveStatus = 'saved';
+				lastSavedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 				clearLocalDraftSnapshot(null);
-				clearLocalDraftSnapshot(form.id);
+				if (!isDirty) {
+					clearLocalDraftSnapshot(form.id);
+				}
 				statusMessage = 'Post created and saved.';
 				if (form.id && onPostCreated) {
 					onPostCreated(form.id);
 				}
+				if (options.closeAfter && !isDirty) {
+					onBack();
+				}
 			} else {
 				const res = await updatePostRpc(payload as unknown as Parameters<typeof updatePostRpc>[0]);
 				const updated = res.post as unknown as Record<string, unknown>;
-				form = canonicalFieldsAfterSave(form, updated);
-				originalServerStatus = form.status;
+				const snapshotAfterSave = serializeEditorSnapshot(form);
+				const modifiedDuringInFlightSave = snapshotBeforeSave !== snapshotAfterSave;
+
+				if (!modifiedDuringInFlightSave) {
+					form = canonicalFieldsAfterSave(form, updated, { preserveBlankAutofillFields: true });
+					if (options.overrideStatus) {
+						form.status = (updated.status as PostStatus) || options.overrideStatus;
+					}
+					markCleanSnapshot(serializeEditorSnapshot(form));
+				} else {
+					if (typeof updated.updatedAt === 'string') {
+						form.expectedUpdatedAt = updated.updatedAt;
+					}
+					lastCleanSnapshot = snapshotBeforeSave;
+					lastObservedSnapshot = serializeEditorSnapshot(form);
+					isDirty = true;
+				}
+
+				originalServerStatus = String(updated.status ?? form.status);
+				originalServerSlug = String(updated.slug ?? form.slug);
 				if (res.revisions) revisions = res.revisions;
 				if (res.previewToken) previewToken = res.previewToken;
-				isDirty = false;
 				autosaveStatus = 'saved';
-				clearLocalDraftSnapshot(form.id);
+				lastSavedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+				if (!isDirty) {
+					clearLocalDraftSnapshot(form.id);
+				}
 				statusMessage =
 					form.status === 'published' ? 'Published article updated.' : 'Changes saved.';
+				if (options.closeAfter && !isDirty) {
+					onBack();
+				}
 			}
 		} catch (err) {
 			const msg =
@@ -309,23 +559,43 @@
 		}
 	}
 
+	function handleSaveAndStay() {
+		requestSave({ closeAfter: false });
+	}
+
+	function handleSaveDraft() {
+		requestSave({ overrideStatus: 'draft', closeAfter: false });
+	}
+
 	function handlePrimarySubmitRequest() {
-		// Section 13 #40: Warn when unpublishing a currently published live post
-		if (
-			form.id &&
-			originalServerStatus === 'published' &&
-			(form.status === 'draft' || form.status === 'archived')
-		) {
-			confirmUnpublishOpen = true;
-			return;
+		const targetStatus: PostStatus = form.status === 'scheduled' ? 'scheduled' : 'published';
+		requestSave({ overrideStatus: targetStatus, closeAfter: true });
+	}
+
+	async function handleMoveToTrashConfirmed() {
+		if (!form.id || isSaving) return;
+		confirmTrashOpen = false;
+		isSaving = true;
+		errorMessage = '';
+		try {
+			await deletePostRpc({ id: form.id, permanent: false });
+			clearLocalDraftSnapshot(form.id);
+			markCleanSnapshot(serializeEditorSnapshot(form));
+			onBack();
+		} catch (err) {
+			errorMessage = err instanceof Error ? err.message : 'Failed to move post to trash.';
+		} finally {
+			isSaving = false;
 		}
-		void performSave();
 	}
 
 	async function runBackgroundAutosave() {
-		if (!isDirty || isSaving) return;
+		if (!isDirtySinceAutosave || isSaving) return;
 		saveLocalDraftSnapshot(form.id, form);
-		if (!form.id) return;
+		if (!form.id) {
+			isDirtySinceAutosave = false;
+			return;
+		}
 
 		autosaveStatus = 'saving';
 		try {
@@ -336,7 +606,9 @@
 				content: form.content,
 				expectedUpdatedAt: form.expectedUpdatedAt ?? undefined
 			});
+			isDirtySinceAutosave = false;
 			autosaveStatus = 'saved';
+			lastSavedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 		} catch (err) {
 			const msg = err instanceof Error ? err.message : String(err);
 			if (msg.includes('STALE_WRITE')) {
@@ -356,7 +628,9 @@
 			revisions = res.revisions ?? [];
 			previewToken = res.previewToken ?? '';
 			originalServerStatus = form.status;
-			isDirty = false;
+			originalServerSlug = form.slug;
+			metaTitleCopiedFrom = null;
+			markCleanSnapshot(serializeEditorSnapshot(form));
 			clearLocalDraftSnapshot(form.id);
 			statusMessage = 'Reloaded latest version from server.';
 		} catch (err) {
@@ -364,18 +638,48 @@
 		}
 	}
 
+	async function handleOpenRevisionDiff(rev: RevisionItem) {
+		if (rev.contentSnapshot !== undefined || !form.id) {
+			activeDiffRevision = rev;
+			return;
+		}
+		try {
+			const res = await getPostRevisionDiffRpc({
+				postId: form.id,
+				revisionId: rev.id
+			});
+			activeDiffRevision = res.revision;
+		} catch {
+			activeDiffRevision = rev;
+		}
+	}
+
 	async function handleRestoreRevision(revisionId: number) {
 		if (!form.id) return;
+		pendingRestoreRevisionId = null;
 		activeDiffRevision = null;
 		errorMessage = '';
 		try {
 			const res = await restoreRevisionRpc({ postId: form.id, revisionId });
 			form = hydrateFromFullPost(res.post as unknown as Record<string, unknown>);
 			revisions = res.revisions ?? [];
-			isDirty = false;
+			metaTitleCopiedFrom = null;
+			markCleanSnapshot(serializeEditorSnapshot(form));
 			statusMessage = `Restored revision #${revisionId}.`;
 		} catch (err) {
 			errorMessage = err instanceof Error ? err.message : 'Failed to restore revision.';
+		}
+	}
+
+	async function handleQuickCreateAuthor(name: string) {
+		try {
+			const slug = generateSlug(name);
+			const res = await createAuthorRpc({ name, slug });
+			authorsList = [...authorsList, res.author];
+			form.authorId = res.author.id;
+			markDirty();
+		} catch (err) {
+			errorMessage = err instanceof Error ? err.message : 'Failed to create author.';
 		}
 	}
 
@@ -390,6 +694,7 @@
 			if (!form.categoryId) {
 				form.categoryId = res.category.id;
 			}
+			markDirty();
 		} catch (err) {
 			errorMessage = err instanceof Error ? err.message : 'Failed to create category.';
 		}
@@ -401,8 +706,9 @@
 			const res = await createTagRpc({ name, slug });
 			tags = [...tags, res.tag];
 			if (!form.tagIds.includes(res.tag.id)) {
-				form.tagIds = [...form.tagIds, res.tag.id];
+				form.tagIds = Array.from(new Set([...form.tagIds, res.tag.id]));
 			}
+			markDirty();
 		} catch (err) {
 			errorMessage = err instanceof Error ? err.message : 'Failed to create tag.';
 		}
@@ -418,29 +724,88 @@
 	}
 
 	function setupLifecycleHooks() {
-		hydrateInitialState();
-		const detachShortcuts = attachEditorShortcuts(window, {
-			onSaveDraft: () => void performSave('draft'),
-			onPublishOrSave: () => handlePrimarySubmitRequest(),
-			onEscape: () => {
-				if (mediaModalOpen) mediaModalOpen = false;
-				if (activeDiffRevision) activeDiffRevision = null;
-			}
-		});
-		const detachUnload = attachBeforeUnloadGuard(window, () => isDirty);
-		const interval = setInterval(() => {
-			void runBackgroundAutosave();
-		}, 30_000);
+		return untrack(() => {
+			const detachShortcuts = attachEditorShortcuts(window, {
+				onSaveDraft: () => handleSaveAndStay(),
+				onSaveDraftShortcut: () => handleSaveDraft(),
+				onPublishOrSave: () => handlePrimarySubmitRequest(),
+				isModalOpen: () =>
+					mediaModalOpen ||
+					activeDiffRevision !== null ||
+					pendingRestoreRevisionId !== null ||
+					confirmLeaveOpen ||
+					confirmUnpublishOpen ||
+					confirmSlugRenameOpen ||
+					confirmTrashOpen ||
+					customConfirmDialog !== null,
+				onEscape: () => {
+					if (customConfirmDialog !== null) {
+						customConfirmDialog = null;
+						return;
+					}
+					if (confirmUnpublishOpen) {
+						confirmUnpublishOpen = false;
+						pendingSaveAction = null;
+						return;
+					}
+					if (confirmSlugRenameOpen) {
+						confirmSlugRenameOpen = false;
+						pendingSaveAction = null;
+						return;
+					}
+					if (confirmTrashOpen) {
+						confirmTrashOpen = false;
+						return;
+					}
+					if (confirmLeaveOpen) {
+						confirmLeaveOpen = false;
+						return;
+					}
+					if (pendingRestoreRevisionId !== null) {
+						pendingRestoreRevisionId = null;
+						return;
+					}
+					if (mediaModalOpen) {
+						mediaModalOpen = false;
+						return;
+					}
+					if (activeDiffRevision) {
+						activeDiffRevision = null;
+						return;
+					}
+					if (isDirty) {
+						confirmLeaveOpen = true;
+					} else {
+						onBack();
+					}
+				}
+			});
+			const detachUnload = attachBeforeUnloadGuard(window, () => isDirty);
+			const interval = setInterval(() => {
+				void runBackgroundAutosave();
+			}, 60_000);
 
-		return () => {
-			detachShortcuts();
-			detachUnload();
-			clearInterval(interval);
-		};
+			return () => {
+				detachShortcuts();
+				detachUnload();
+				clearInterval(interval);
+				if (slugDebounceTimer) clearTimeout(slugDebounceTimer);
+				if (localDraftDebounceTimer) clearTimeout(localDraftDebounceTimer);
+			};
+		});
 	}
 </script>
 
-<div {@attach setupLifecycleHooks} class="post-editor-shell">
+<div
+	{@attach () => {
+		hydrateInitialState();
+	}}
+	{@attach () => {
+		syncDirtyStateFromSnapshot(currentSnapshot);
+	}}
+	{@attach setupLifecycleHooks}
+	class="post-editor-shell"
+>
 	<PostEditorTopBar
 		postId={form.id}
 		slug={form.slug}
@@ -451,6 +816,7 @@
 		seoScore={seoEvaluation.score}
 		{blockingCount}
 		{autosaveStatus}
+		{lastSavedAt}
 		{isDirty}
 		{isSaving}
 		{isFocusMode}
@@ -463,14 +829,20 @@
 			}
 		}}
 		onToggleFocusMode={() => (isFocusMode = !isFocusMode)}
-		onSaveDraft={() => void performSave('draft')}
+		onSaveAndStay={handleSaveAndStay}
+		onSaveDraft={handleSaveDraft}
 		onPrimarySubmit={handlePrimarySubmitRequest}
+		onRetryAutosave={() => {
+			isDirtySinceAutosave = true;
+			void runBackgroundAutosave();
+		}}
 	/>
 
 	{#if localRecoveryCandidate}
 		<div class="editor-alert is-recovery" role="region" aria-label="Local draft recovery">
 			<span>
-				Unsaved local draft found from {new Date(localRecoveryCandidate.savedAt).toLocaleString()}.
+				Recovered unsaved draft from {new Date(localRecoveryCandidate.savedAt).toLocaleString()},
+				Restore or Discard.
 			</span>
 			<div class="alert-actions">
 				<button
@@ -482,12 +854,12 @@
 								...localRecoveryCandidate.form,
 								expectedUpdatedAt: form.expectedUpdatedAt
 							};
-							isDirty = true;
+							markDirty();
 							localRecoveryCandidate = null;
 						}
 					}}
 				>
-					Restore Local Draft
+					Restore
 				</button>
 				<button
 					type="button"
@@ -510,7 +882,19 @@
 			</span>
 			<div class="alert-actions">
 				<button type="button" class="btn-alert-primary" onclick={handleReloadLatestFromServer}>
-					Reload Latest Server Version
+					Reload latest
+				</button>
+				<button
+					type="button"
+					class="btn-alert-secondary"
+					onclick={() =>
+						requestSave({
+							forceOverwrite: true,
+							confirmedUnpublish: true,
+							confirmedSlugRename: true
+						})}
+				>
+					Overwrite
 				</button>
 			</div>
 		</div>
@@ -536,37 +920,41 @@
 
 	<div class={['editor-workspace', { 'is-focus-mode': isFocusMode }]}>
 		<PostEditorMainColumn
+			bind:this={mainColumnRef}
 			bind:form
 			{seoEvaluation}
 			{slugAvailable}
 			{slugChecking}
+			{revisions}
 			onTitleChange={handleTitleChange}
 			onSlugChange={handleSlugChange}
+			onSlugBlur={handleSlugBlur}
 			onResetSlugFromTitle={handleResetSlugFromTitle}
+			onMetaTitleManualEdit={handleMetaTitleManualEdit}
 			onContentChange={handleContentChange}
 			onStatsChange={handleStatsChange}
+			onInspectRevision={(rev) => void handleOpenRevisionDiff(rev)}
 			onPickCoverImage={() => {
 				openMediaModalFor((payload) => {
 					form.coverImage = payload.url;
-					if (!form.coverImageAlt && payload.alt) {
-						form.coverImageAlt = payload.alt;
+					form.coverImageAlt = payload.alt || '';
+					form.coverImageCaption = payload.caption || '';
+					if (!form.ogImage) {
+						form.ogImage = payload.url;
 					}
-					if (!form.coverImageCaption && payload.caption) {
-						form.coverImageCaption = payload.caption;
-					}
-					isDirty = true;
+					markDirty();
 				});
 			}}
 			onPickOgImage={() => {
 				openMediaModalFor((payload) => {
 					form.ogImage = payload.url;
-					isDirty = true;
+					markDirty();
 				});
 			}}
 			onPickTwitterImage={() => {
 				openMediaModalFor((payload) => {
 					form.twitterImage = payload.url;
-					isDirty = true;
+					markDirty();
 				});
 			}}
 			onOpenEditorMediaPicker={(cb) => {
@@ -579,6 +967,7 @@
 						caption: payload.caption,
 						size: payload.size,
 						align: payload.align,
+						linkUrl: payload.linkUrl,
 						mediaId: payload.item.id
 					});
 				});
@@ -590,17 +979,54 @@
 				bind:form
 				{categories}
 				{tags}
-				{authors}
+				authors={authorsList}
 				{allPosts}
 				{revisions}
 				{isSaving}
-				onSaveDraft={() => void performSave('draft')}
+				{previewToken}
+				onSaveDraft={handleSaveDraft}
 				onPrimarySubmit={handlePrimarySubmitRequest}
+				onMoveToTrash={() => (confirmTrashOpen = true)}
+				onPickCoverImage={() => {
+					openMediaModalFor((payload) => {
+						form.coverImage = payload.url;
+						form.coverImageAlt = payload.alt || '';
+						form.coverImageCaption = payload.caption || '';
+						if (!form.ogImage) {
+							form.ogImage = payload.url;
+						}
+						markDirty();
+					});
+				}}
+				onQuickCreateAuthor={handleQuickCreateAuthor}
 				onQuickCreateCategory={handleQuickCreateCategory}
 				onQuickCreateTag={handleQuickCreateTag}
-				onOpenRevisionDiff={(rev) => (activeDiffRevision = rev)}
+				onOpenRevisionDiff={(rev) => void handleOpenRevisionDiff(rev)}
+				onRequestConfirm={(opts) => {
+					customConfirmDialog = opts;
+				}}
 			/>
 		{/if}
+	</div>
+
+	<!-- Sticky Mobile Bottom Action Bar (<= 960px, Section 4.1) -->
+	<div class="mobile-sticky-action-bar" role="region" aria-label="Mobile quick actions">
+		<button
+			type="button"
+			class="btn-alert-secondary"
+			disabled={isSaving}
+			onclick={handleSaveAndStay}
+		>
+			Save
+		</button>
+		<button
+			type="button"
+			class="btn-alert-primary"
+			disabled={isSaving}
+			onclick={handlePrimarySubmitRequest}
+		>
+			{form.status === 'scheduled' ? 'Schedule' : form.id ? 'Update and close' : 'Publish'}
+		</button>
 	</div>
 </div>
 
@@ -620,15 +1046,31 @@
 	currentTitle={form.title}
 	currentExcerpt={form.excerpt}
 	currentContent={form.content}
-	onRestore={handleRestoreRevision}
+	onRestore={(revId) => {
+		pendingRestoreRevisionId = revId;
+	}}
 	onClose={() => (activeDiffRevision = null)}
 />
 
 <ConfirmDialog
+	open={pendingRestoreRevisionId !== null}
+	title="Restore this revision?"
+	message="Any unsaved changes in the editor will be lost."
+	confirmLabel="Restore"
+	variant="warning"
+	onConfirm={() => {
+		if (pendingRestoreRevisionId !== null) {
+			void handleRestoreRevision(pendingRestoreRevisionId);
+		}
+	}}
+	onCancel={() => (pendingRestoreRevisionId = null)}
+/>
+
+<ConfirmDialog
 	open={confirmLeaveOpen}
-	title="Unsaved Changes"
+	title="Discard unsaved changes?"
 	message="You have unsaved edits in this article. Leave without saving?"
-	confirmLabel="Leave Editor"
+	confirmLabel="Discard"
 	variant="warning"
 	onConfirm={() => {
 		confirmLeaveOpen = false;
@@ -640,14 +1082,63 @@
 <ConfirmDialog
 	open={confirmUnpublishOpen}
 	title="Unpublish Live Article"
-	message="This article is currently live on /blog. Switching its status to Draft or Archived will remove it from public listings. Continue?"
+	message="This unpublishes the post and notifies search engines"
 	confirmLabel="Unpublish Article"
 	variant="danger"
 	onConfirm={() => {
 		confirmUnpublishOpen = false;
-		void performSave();
+		const next = pendingSaveAction ?? {};
+		pendingSaveAction = null;
+		requestSave({ ...next, confirmedUnpublish: true });
 	}}
-	onCancel={() => (confirmUnpublishOpen = false)}
+	onCancel={() => {
+		confirmUnpublishOpen = false;
+		pendingSaveAction = null;
+	}}
+/>
+
+<ConfirmDialog
+	open={confirmSlugRenameOpen}
+	title="Rename Published Post URL"
+	message="Renaming a published post creates a permanent redirect from the old URL"
+	confirmLabel="Rename & Create Redirect"
+	variant="warning"
+	onConfirm={() => {
+		confirmSlugRenameOpen = false;
+		const next = pendingSaveAction ?? {};
+		pendingSaveAction = null;
+		requestSave({ ...next, confirmedSlugRename: true });
+	}}
+	onCancel={() => {
+		confirmSlugRenameOpen = false;
+		pendingSaveAction = null;
+	}}
+/>
+
+<ConfirmDialog
+	open={confirmTrashOpen}
+	title="Move post to Trash?"
+	message="This post will be soft-deleted and removed from public blog listings."
+	confirmLabel="Move to Trash"
+	variant="danger"
+	onConfirm={() => {
+		void handleMoveToTrashConfirmed();
+	}}
+	onCancel={() => (confirmTrashOpen = false)}
+/>
+
+<ConfirmDialog
+	open={customConfirmDialog !== null}
+	title={customConfirmDialog?.title ?? 'Confirm Action'}
+	message={customConfirmDialog?.message ?? ''}
+	confirmLabel={customConfirmDialog?.confirmLabel ?? 'Confirm'}
+	variant="warning"
+	onConfirm={() => {
+		const cb = customConfirmDialog?.onConfirm;
+		customConfirmDialog = null;
+		if (cb) void cb();
+	}}
+	onCancel={() => (customConfirmDialog = null)}
 />
 
 <style>
@@ -722,7 +1213,7 @@
 		margin: 0 auto;
 		padding: 1.5rem 1.35rem 4rem;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) 360px;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
 		gap: 1.35rem;
 		align-items: start;
 	}
@@ -732,9 +1223,44 @@
 		justify-content: center;
 	}
 
-	@media (max-width: 1080px) {
+	.mobile-sticky-action-bar {
+		display: none;
+	}
+
+	@media (max-width: 960px) {
 		.editor-workspace {
 			grid-template-columns: 1fr;
+			padding-bottom: 5.5rem;
+		}
+
+		.mobile-sticky-action-bar {
+			position: sticky;
+			bottom: 0;
+			z-index: 55;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.75rem;
+			padding: 0.75rem 1.25rem;
+			background: var(--panel);
+			border-top: 1px solid var(--line-strong);
+		}
+
+		.mobile-sticky-action-bar button {
+			flex: 1;
+			padding: 0.55rem 0.9rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.editor-workspace {
+			padding: 1rem 0.95rem 5.5rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.editor-workspace {
+			padding: 0.75rem 0.65rem 5.5rem;
 		}
 	}
 </style>

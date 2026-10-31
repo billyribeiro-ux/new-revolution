@@ -55,7 +55,7 @@ async function guardWriteRateLimit(adminId: string): Promise<void> {
 		windowMs: 60_000
 	});
 	if (!rl.allowed) {
-		throw new Error('VALIDATION_ERROR: Rate limit exceeded (max 60 write operations per minute).');
+		throw new Error('RATE_LIMITED: Rate limit exceeded (max 60 write operations per minute).');
 	}
 }
 
@@ -308,6 +308,7 @@ export const createCategoryRpc = command('unchecked', async (payload: unknown) =
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const category = await createCategory(payload as CategoryCreateInput, admin.id);
 		await getPosts().refresh();
 		return { category };
@@ -320,6 +321,7 @@ export const updateCategoryRpc = command('unchecked', async (payload: unknown) =
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const category = await updateCategory(payload as CategoryUpdateInput, admin.id);
 		await getPosts().refresh();
 		return { category };
@@ -334,6 +336,7 @@ export const deleteCategoryRpc = command(
 		try {
 			const event = getRequestEvent();
 			const admin = requireAdmin(event);
+			await guardWriteRateLimit(admin.id);
 			const res = await deleteCategory(id, admin.id);
 			await getPosts().refresh();
 			return res;
@@ -359,6 +362,7 @@ export const createTagRpc = command('unchecked', async (payload: unknown) => {
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const tag = await createTag(payload as TagCreateInput, admin.id);
 		await getPosts().refresh();
 		return { tag };
@@ -371,6 +375,7 @@ export const updateTagRpc = command('unchecked', async (payload: unknown) => {
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const tag = await updateTag(payload as TagUpdateInput, admin.id);
 		await getPosts().refresh();
 		return { tag };
@@ -385,6 +390,7 @@ export const deleteTagRpc = command(
 		try {
 			const event = getRequestEvent();
 			const admin = requireAdmin(event);
+			await guardWriteRateLimit(admin.id);
 			const res = await deleteTag(id, admin.id);
 			await getPosts().refresh();
 			return res;
@@ -410,6 +416,7 @@ export const createAuthorRpc = command('unchecked', async (payload: unknown) => 
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const author = await createAuthor(payload as AuthorCreateInput, admin.id);
 		await getPosts().refresh();
 		return { author };
@@ -422,6 +429,7 @@ export const updateAuthorRpc = command('unchecked', async (payload: unknown) => 
 	try {
 		const event = getRequestEvent();
 		const admin = requireAdmin(event);
+		await guardWriteRateLimit(admin.id);
 		const author = await updateAuthor(payload as AuthorUpdateInput, admin.id);
 		await getPosts().refresh();
 		return { author };
@@ -436,6 +444,7 @@ export const deleteAuthorRpc = command(
 		try {
 			const event = getRequestEvent();
 			const admin = requireAdmin(event);
+			await guardWriteRateLimit(admin.id);
 			const res = await deleteAuthor(id, admin.id);
 			await getPosts().refresh();
 			return res;

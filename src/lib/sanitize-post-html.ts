@@ -596,12 +596,10 @@ function runSanitizePass(inputHtml: string): string {
 						if (attribs['data-youtube-video'] !== undefined) {
 							cleanAttribs['data-youtube-video'] = '';
 						}
-						if (
-							attribs['data-callout-type'] &&
-							/^(?:info|warning|success|danger)$/i.test(attribs['data-callout-type'].trim())
-						) {
-							const calloutType = attribs['data-callout-type'].trim().toLowerCase();
-							cleanAttribs['data-callout-type'] = calloutType;
+						const rawCalloutType =
+							attribs['data-callout-type']?.trim() || attribs['data-callout']?.trim();
+						if (rawCalloutType && /^(?:info|warning|success|danger)$/i.test(rawCalloutType)) {
+							cleanAttribs['data-callout-type'] = rawCalloutType.toLowerCase();
 						}
 						break;
 					}

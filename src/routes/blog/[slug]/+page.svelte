@@ -24,7 +24,7 @@
 
 	function deriveVariantSrcset(url: string | null | undefined): string | undefined {
 		if (!url) return undefined;
-		const match = url.match(/^(.*)-(480|800|1200)w\.webp$/i);
+		const match = url.match(/^(.*)-(?:480|800|1200|1[3-9]\d\d|[2-9]\d{3,})w\.webp$/i);
 		if (!match) return undefined;
 		const prefix = match[1];
 		return `${prefix}-480w.webp 480w, ${prefix}-800w.webp 800w, ${prefix}-1200w.webp 1200w`;

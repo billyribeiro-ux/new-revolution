@@ -2,8 +2,13 @@
 	import { untrack } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import { sanitizePostHtml } from '#lib/sanitize-post-html';
-	import { computeReadingTime, countContentWords } from '#lib/shared/seo/toc';
-	import { createBlogEditorExtensions, CODE_BLOCK_LANGUAGES } from '#lib/tiptap/index';
+	import { countContentWords } from '#lib/shared/seo/toc';
+	import {
+		createBlogEditorExtensions,
+		CODE_BLOCK_LANGUAGES,
+		resolveEditorLinkAttributes,
+		syncEditorContent
+	} from '#lib/tiptap/index';
 	import { EDITOR_FONT_SIZES } from '#lib/tiptap/font-size';
 	import { EDITOR_FONT_FAMILIES } from '#lib/tiptap/font-family';
 	import { CALLOUT_TYPES, type CalloutType } from '#lib/tiptap/callout';
@@ -24,6 +29,7 @@
 				caption?: string;
 				size?: string;
 				align?: string;
+				linkUrl?: string;
 				mediaId?: string;
 			}) => void
 		) => void;
@@ -31,7 +37,7 @@
 
 	let {
 		content,
-		placeholder = 'Write your article or type "/" for commands...',
+		placeholder = 'Start writing your blog post...',
 		onChange,
 		onStatsChange,
 		onOpenMediaPicker
@@ -40,15 +46,26 @@
 	let editor = $state.raw<Editor | null>(null);
 	let editorVersion = $state(0);
 
+	let editorWords = $state(0);
+	let editorChars = $state(0);
+	let editorReadingTime = $state(1);
+
 	let showAdvancedToolbar = $state(false);
 	let htmlSourceMode = $state(false);
 	let rawHtmlBuffer = $state('');
+	let pasteAsPlainText = $state(false);
+	let isFullscreen = $state(false);
+	let shortcutsDialogOpen = $state(false);
 
 	let activePopover = $state<
 		null | 'link' | 'color' | 'highlight' | 'callout' | 'table' | 'blockStyle' | 'embed'
 	>(null);
 
 	let linkInputUrl = $state('');
+	let linkNewTab = $state(false);
+	let linkNofollow = $state(false);
+	let linkNewTabTouched = false;
+
 	let embedKind = $state<'youtube' | 'vimeo' | 'tweet'>('youtube');
 	let embedInputUrl = $state('');
 
@@ -71,7 +88,7 @@
 
 	let selectedImageAlt = $state('');
 	let selectedImageCaption = $state('');
-	let selectedImageAlign = $state<'left' | 'center' | 'right' | 'full'>('center');
+	let selectedImageAlign = $state<'left' | 'center' | 'right' | null>('center');
 
 	let uploadErrorBanner = $state('');
 	let uploadingInlineImage = $state(false);
@@ -94,7 +111,32 @@
 		{ label: 'Amber Highlight', value: 'rgba(222, 195, 161, 0.25)' }
 	] as const;
 
+	const KEYBOARD_SHORTCUT_LIST = [
+		{ keys: 'Cmd/Ctrl + S', description: 'Save changes and stay in editor' },
+		{ keys: 'Cmd/Ctrl + Shift + D', description: 'Save draft and stay in editor' },
+		{ keys: 'Cmd/Ctrl + Shift + P', description: 'Publish or update post' },
+		{ keys: 'Cmd/Ctrl + B', description: 'Toggle bold text' },
+		{ keys: 'Cmd/Ctrl + I', description: 'Toggle italic text' },
+		{ keys: 'Cmd/Ctrl + U', description: 'Toggle underline text' },
+		{ keys: 'Cmd/Ctrl + K', description: 'Insert or edit link' },
+		{ keys: 'Cmd/Ctrl + F', description: 'Open Find & Replace bar' },
+		{ keys: '/', description: 'Open slash command menu' },
+		{ keys: 'Escape', description: 'Close active menu or dialog' }
+	] as const;
+
 	let filteredSlashItems = $derived(filterSlashCommands(slashQuery));
+
+	function isExternalHref(rawUrl: string): boolean {
+		const trimmed = rawUrl.trim();
+		if (!/^https?:\/\//i.test(trimmed)) return false;
+		try {
+			const parsed = new URL(trimmed);
+			const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
+			return host !== 'revolutiontradingpros.com' && host !== 'localhost';
+		} catch {
+			return false;
+		}
+	}
 
 	function syncStatsAndSelection(ed: Editor) {
 		untrack(() => {
@@ -102,7 +144,10 @@
 			const html = ed.getHTML();
 			const words = countContentWords(html);
 			const chars = ed.storage.characterCount?.characters?.() ?? ed.state.doc.textContent.length;
-			const readingTime = computeReadingTime(words);
+			const readingTime = Math.max(1, Math.ceil(words / 200));
+			editorWords = words;
+			editorChars = chars;
+			editorReadingTime = readingTime;
 			onStatsChange?.({ words, chars, readingTime });
 
 			if (ed.storage.findAndReplace) {
@@ -112,9 +157,11 @@
 
 			if (ed.isActive('image')) {
 				const attrs = ed.getAttributes('image');
-				selectedImageAlt = attrs.alt ?? '';
-				selectedImageCaption = attrs.caption ?? '';
-				selectedImageAlign = attrs.align ?? 'center';
+				selectedImageAlt = (attrs.alt as string) ?? '';
+				selectedImageCaption = (attrs.caption as string) ?? '';
+				const rawAlign = attrs.dataAlign ?? attrs.align;
+				selectedImageAlign =
+					rawAlign === 'left' || rawAlign === 'center' || rawAlign === 'right' ? rawAlign : null;
 			}
 
 			// Detect slash command trigger at current cursor
@@ -158,7 +205,10 @@
 				method: 'POST',
 				body: fd
 			});
-			const data = await res.json().catch(() => ({}));
+			const data = await res.json().catch((parseErr) => {
+				console.warn('[RichTextEditor] Failed to parse upload response JSON:', parseErr);
+				return {};
+			});
 			if (!res.ok) {
 				uploadErrorBanner = data.error ?? `Image upload failed (${res.status}).`;
 				return;
@@ -178,7 +228,7 @@
 						width: item.width ?? null,
 						height: item.height ?? null,
 						mediaId: item.id ?? null,
-						align: 'center',
+						dataAlign: 'center',
 						size: 'full'
 					})
 					.run();
@@ -212,6 +262,10 @@
 		if (onOpenMediaPicker) {
 			onOpenMediaPicker((payload) => {
 				if (!editor) return;
+				const alignAttr =
+					payload.align === 'left' || payload.align === 'center' || payload.align === 'right'
+						? payload.align
+						: null;
 				editor
 					.chain()
 					.focus()
@@ -224,12 +278,35 @@
 						height: payload.height ?? null,
 						caption: payload.caption || null,
 						size: payload.size || 'full',
-						align: payload.align || 'center',
+						dataAlign: alignAttr,
+						linkHref: payload.linkUrl || null,
 						mediaId: payload.mediaId || null
 					})
 					.run();
 			});
 		}
+	}
+
+	function openLinkPopover() {
+		if (activePopover === 'link') {
+			activePopover = null;
+			return;
+		}
+		const attrs = editor?.getAttributes('link') ?? {};
+		const currentHref = (attrs.href as string) || '';
+		const currentTarget = (attrs.target as string) || '';
+		const currentRel = (attrs.rel as string) || '';
+		linkInputUrl = currentHref;
+		if (currentHref) {
+			linkNewTab = currentTarget === '_blank';
+			linkNofollow = /\bnofollow\b/i.test(currentRel);
+			linkNewTabTouched = true;
+		} else {
+			linkNewTab = false;
+			linkNofollow = false;
+			linkNewTabTouched = false;
+		}
+		activePopover = 'link';
 	}
 
 	function mountEditor(container: HTMLElement) {
@@ -251,15 +328,28 @@
 						},
 						handleDrop(_view, event, _slice, moved) {
 							if (moved || !event.dataTransfer?.files?.length) return false;
-							const file = event.dataTransfer.files[0];
-							if (file && file.type.startsWith('image/')) {
+							const files = Array.from(event.dataTransfer.files).filter((f) =>
+								f.type.startsWith('image/')
+							);
+							if (files.length > 0) {
 								event.preventDefault();
-								void uploadAndInsertFile(file);
+								for (const file of files) {
+									void uploadAndInsertFile(file);
+								}
 								return true;
 							}
 							return false;
 						},
-						handlePaste(_view, event) {
+						handlePaste(view, event) {
+							if (pasteAsPlainText) {
+								const plain = event.clipboardData?.getData('text/plain') ?? '';
+								event.preventDefault();
+								if (plain) {
+									view.dispatch(view.state.tr.insertText(plain));
+								}
+								return true;
+							}
+
 							const files = event.clipboardData?.files;
 							if (files && files.length > 0) {
 								const file = files[0];
@@ -269,12 +359,28 @@
 									return true;
 								}
 							}
+
+							if (event.clipboardData?.types.includes('text/html')) {
+								const rawHtml = event.clipboardData.getData('text/html');
+								event.preventDefault();
+								const clean = sanitizePostHtml(rawHtml);
+								if (clean.trim()) {
+									instance.commands.insertContent(clean);
+								}
+								return true;
+							}
 							return false;
 						},
 						handleKeyDown(_view, event) {
 							if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'f') {
 								event.preventDefault();
 								findBarOpen = true;
+								return true;
+							}
+
+							if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+								event.preventDefault();
+								openLinkPopover();
 								return true;
 							}
 
@@ -314,7 +420,8 @@
 							return false;
 						}
 					},
-					onUpdate({ editor: ed }) {
+					onUpdate({ editor: ed, transaction }) {
+						if (transaction.getMeta('preventUpdate')) return;
 						const html = ed.getHTML();
 						lastEmittedHtml = html;
 						rawHtmlBuffer = html;
@@ -342,10 +449,27 @@
 
 	function syncExternalContent(nextContent: string) {
 		untrack(() => {
-			if (editor && nextContent !== lastEmittedHtml) {
-				lastEmittedHtml = nextContent;
-				rawHtmlBuffer = nextContent;
-				editor.commands.setContent(nextContent || '<p></p>', { emitUpdate: false });
+			if (nextContent === lastEmittedHtml) {
+				return;
+			}
+			lastEmittedHtml = nextContent;
+			rawHtmlBuffer = nextContent;
+			if (htmlSourceMode) {
+				const clean = sanitizePostHtml(nextContent);
+				const words = countContentWords(clean);
+				const chars = clean.replace(/<[^>]+>/g, '').length;
+				const readingTime = Math.max(1, Math.ceil(words / 200));
+				editorWords = words;
+				editorChars = chars;
+				editorReadingTime = readingTime;
+				onStatsChange?.({ words, chars, readingTime });
+				if (editor) {
+					syncEditorContent(editor, clean);
+				}
+				return;
+			}
+			if (editor) {
+				syncEditorContent(editor, nextContent);
 				syncStatsAndSelection(editor);
 			}
 		});
@@ -376,13 +500,32 @@
 		}
 	}
 
+	function handleHtmlSourceInput(rawValue: string) {
+		rawHtmlBuffer = rawValue;
+		const clean = sanitizePostHtml(rawValue);
+		lastEmittedHtml = clean;
+		const words = countContentWords(clean);
+		const chars = clean.replace(/<[^>]+>/g, '').length;
+		const readingTime = Math.max(1, Math.ceil(words / 200));
+		editorWords = words;
+		editorChars = chars;
+		editorReadingTime = readingTime;
+		onStatsChange?.({ words, chars, readingTime });
+		onChange(clean);
+	}
+
 	function applyLink() {
 		if (!editor) return;
 		const url = linkInputUrl.trim();
 		if (!url) {
 			editor.chain().focus().extendMarkRange('link').unsetLink().run();
 		} else {
-			editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+			const linkAttrs = resolveEditorLinkAttributes({
+				href: url,
+				newTab: linkNewTab,
+				nofollow: linkNofollow
+			});
+			editor.chain().focus().extendMarkRange('link').setLink(linkAttrs).run();
 		}
 		activePopover = null;
 	}
@@ -395,9 +538,16 @@
 		if (embedKind === 'youtube') {
 			editor.chain().focus().setYoutubeVideo({ src: url, width: 640, height: 360 }).run();
 		} else if (embedKind === 'vimeo') {
-			editor.chain().focus().setVimeoVideo({ src: url, width: 640, height: 360 }).run();
+			const ok = editor.chain().focus().setVimeoVideo({ src: url, width: 640, height: 360 }).run();
+			if (!ok) {
+				uploadErrorBanner = 'Invalid Vimeo URL. Please enter a valid Vimeo video URL.';
+			}
 		} else if (embedKind === 'tweet') {
-			editor.chain().focus().setTweetEmbed({ url }).run();
+			const ok = editor.chain().focus().setTweetEmbed({ url }).run();
+			if (!ok) {
+				uploadErrorBanner =
+					'Invalid X/Twitter status URL. Expected https://x.com/user/status/123...';
+			}
 		}
 		embedInputUrl = '';
 		activePopover = null;
@@ -420,7 +570,7 @@
 			.updateAttributes('image', {
 				alt: selectedImageAlt.trim(),
 				caption: selectedImageCaption.trim() || null,
-				align: selectedImageAlign
+				dataAlign: selectedImageAlign
 			})
 			.run();
 	}
@@ -440,9 +590,11 @@
 	let currentHeadingValue = $derived.by(() => {
 		void editorVersion;
 		if (!editor) return 'p';
-		if (editor.isActive('heading', { level: 2 })) return 'h2';
-		if (editor.isActive('heading', { level: 3 })) return 'h3';
-		if (editor.isActive('heading', { level: 4 })) return 'h4';
+		for (const level of [1, 2, 3, 4, 5, 6] as const) {
+			if (editor.isActive('heading', { level })) {
+				return `h${level}`;
+			}
+		}
 		return 'p';
 	});
 
@@ -470,7 +622,7 @@
 	});
 </script>
 
-<div class="rte-wrapper">
+<div class={['rte-wrapper', { 'is-fullscreen': isFullscreen }]}>
 	<!-- Primary Sticky Toolbar -->
 	<div class="rte-toolbar" role="toolbar" aria-label="Post content formatting">
 		<div class="toolbar-group">
@@ -504,16 +656,22 @@
 				onchange={(e) => {
 					const val = (e.currentTarget as HTMLSelectElement).value;
 					if (!editor) return;
-					if (val === 'h2') editor.chain().focus().setHeading({ level: 2 }).run();
+					if (val === 'h1') editor.chain().focus().setHeading({ level: 1 }).run();
+					else if (val === 'h2') editor.chain().focus().setHeading({ level: 2 }).run();
 					else if (val === 'h3') editor.chain().focus().setHeading({ level: 3 }).run();
 					else if (val === 'h4') editor.chain().focus().setHeading({ level: 4 }).run();
+					else if (val === 'h5') editor.chain().focus().setHeading({ level: 5 }).run();
+					else if (val === 'h6') editor.chain().focus().setHeading({ level: 6 }).run();
 					else editor.chain().focus().setParagraph().run();
 				}}
 			>
 				<option value="p">Paragraph</option>
+				<option value="h1">Heading 1 (H1)</option>
 				<option value="h2">Heading 2 (H2)</option>
 				<option value="h3">Heading 3 (H3)</option>
 				<option value="h4">Heading 4 (H4)</option>
+				<option value="h5">Heading 5 (H5)</option>
+				<option value="h6">Heading 6 (H6)</option>
 			</select>
 		</div>
 
@@ -605,6 +763,14 @@
 			>
 				Code Block
 			</button>
+			<button
+				type="button"
+				class="tool-btn"
+				aria-label="Insert horizontal rule"
+				onclick={() => editor?.chain().focus().setHorizontalRule().run()}
+			>
+				HR
+			</button>
 		</div>
 
 		<!-- Link Popover -->
@@ -614,10 +780,7 @@
 				class={['tool-btn', { 'is-active': editorVersion >= 0 && editor?.isActive('link') }]}
 				aria-expanded={activePopover === 'link'}
 				aria-haspopup="dialog"
-				onclick={() => {
-					linkInputUrl = (editor?.getAttributes('link').href as string) || '';
-					activePopover = activePopover === 'link' ? null : 'link';
-				}}
+				onclick={openLinkPopover}
 			>
 				Link
 			</button>
@@ -626,8 +789,14 @@
 					<input
 						type="url"
 						class="popover-input"
+						aria-label="Link URL"
 						placeholder="https://revolutiontradingpros.com/..."
 						bind:value={linkInputUrl}
+						oninput={() => {
+							if (!linkNewTabTouched) {
+								linkNewTab = isExternalHref(linkInputUrl);
+							}
+						}}
 						onkeydown={(e) => {
 							if (e.key === 'Enter') {
 								e.preventDefault();
@@ -637,6 +806,22 @@
 							}
 						}}
 					/>
+					<div class="link-checkbox-row">
+						<label class="link-checkbox-label">
+							<input
+								type="checkbox"
+								bind:checked={linkNewTab}
+								onchange={() => {
+									linkNewTabTouched = true;
+								}}
+							/>
+							<span>New tab</span>
+						</label>
+						<label class="link-checkbox-label">
+							<input type="checkbox" bind:checked={linkNofollow} />
+							<span>Nofollow</span>
+						</label>
+					</div>
 					<div class="popover-actions">
 						<button type="button" class="btn-pop-primary" onclick={applyLink}>Apply</button>
 						<button
@@ -670,7 +855,7 @@
 				</button>
 				{#if activePopover === 'embed'}
 					<div class="toolbar-popover" role="dialog" aria-label="Insert embed">
-						<select class="popover-select" bind:value={embedKind}>
+						<select class="popover-select" bind:value={embedKind} aria-label="Embed type">
 							<option value="youtube">YouTube Video</option>
 							<option value="vimeo">Vimeo Video</option>
 							<option value="tweet">X / Twitter Post</option>
@@ -678,6 +863,7 @@
 						<input
 							type="url"
 							class="popover-input"
+							aria-label="Embed URL"
 							placeholder={embedKind === 'tweet'
 								? 'https://x.com/user/status/123...'
 								: 'https://...'}
@@ -701,8 +887,17 @@
 			</div>
 		</div>
 
-		<!-- Right Controls: Find/Replace, Advanced Row, HTML Source -->
+		<!-- Right Controls: Paste Plain, Find/Replace, Advanced Row, HTML Source, Fullscreen, Shortcuts -->
 		<div class="toolbar-group toolbar-right">
+			<button
+				type="button"
+				class={['tool-btn', { 'is-active': pasteAsPlainText }]}
+				aria-pressed={pasteAsPlainText}
+				title="Paste as plain text"
+				onclick={() => (pasteAsPlainText = !pasteAsPlainText)}
+			>
+				Paste Plain
+			</button>
 			<button
 				type="button"
 				class={['tool-btn', { 'is-active': findBarOpen }]}
@@ -726,6 +921,24 @@
 				onclick={toggleHtmlSourceMode}
 			>
 				{htmlSourceMode ? 'Visual Mode' : 'HTML Source'}
+			</button>
+			<button
+				type="button"
+				class={['tool-btn', { 'is-active': isFullscreen }]}
+				aria-pressed={isFullscreen}
+				onclick={() => (isFullscreen = !isFullscreen)}
+			>
+				{isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+			</button>
+			<button
+				type="button"
+				class={['tool-btn', { 'is-active': shortcutsDialogOpen }]}
+				aria-haspopup="dialog"
+				aria-expanded={shortcutsDialogOpen}
+				aria-label="Keyboard shortcuts"
+				onclick={() => (shortcutsDialogOpen = !shortcutsDialogOpen)}
+			>
+				Shortcuts
 			</button>
 		</div>
 	</div>
@@ -823,6 +1036,17 @@
 					onclick={() => editor?.chain().focus().setTextAlign('right').run()}
 				>
 					Right
+				</button>
+				<button
+					type="button"
+					class={[
+						'tool-btn',
+						{ 'is-active': editorVersion >= 0 && editor?.isActive({ textAlign: 'justify' }) }
+					]}
+					aria-pressed={editorVersion >= 0 && Boolean(editor?.isActive({ textAlign: 'justify' }))}
+					onclick={() => editor?.chain().focus().setTextAlign('justify').run()}
+				>
+					Justify
 				</button>
 				<button
 					type="button"
@@ -973,6 +1197,13 @@
 						<button
 							type="button"
 							class="swatch-btn"
+							onclick={() => editor?.chain().focus().addColumnBefore().run()}
+						>
+							+ Column Before
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
 							onclick={() => editor?.chain().focus().addColumnAfter().run()}
 						>
 							+ Column After
@@ -980,9 +1211,51 @@
 						<button
 							type="button"
 							class="swatch-btn"
+							onclick={() => editor?.chain().focus().addRowBefore().run()}
+						>
+							+ Row Before
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
 							onclick={() => editor?.chain().focus().addRowAfter().run()}
 						>
 							+ Row After
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
+							onclick={() => editor?.chain().focus().deleteColumn().run()}
+						>
+							Delete Column
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
+							onclick={() => editor?.chain().focus().deleteRow().run()}
+						>
+							Delete Row
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
+							onclick={() => editor?.chain().focus().mergeCells().run()}
+						>
+							Merge Cells
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
+							onclick={() => editor?.chain().focus().splitCell().run()}
+						>
+							Split Cell
+						</button>
+						<button
+							type="button"
+							class="swatch-btn"
+							onclick={() => editor?.chain().focus().toggleHeaderRow().run()}
+						>
+							Toggle Header Row
 						</button>
 						<button
 							type="button"
@@ -1064,10 +1337,11 @@
 
 	<!-- Find & Replace Bar (Cmd/Ctrl+F) -->
 	{#if findBarOpen && !htmlSourceMode}
-		<div class="find-replace-bar" role="region" aria-label="Find and replace">
+		<div class="find-replace-bar" role="search" aria-label="Find and replace">
 			<input
 				type="search"
 				class="popover-input find-input"
+				aria-label="Find in article"
 				placeholder="Find in article..."
 				bind:value={findQuery}
 				oninput={applyFindUpdate}
@@ -1075,6 +1349,7 @@
 			<input
 				type="text"
 				class="popover-input find-input"
+				aria-label="Replace with"
 				placeholder="Replace with..."
 				bind:value={replaceQuery}
 				oninput={applyFindUpdate}
@@ -1199,13 +1474,14 @@
 		<div class="image-inspector-bar" role="region" aria-label="Selected image controls">
 			<div class="img-bar-row">
 				<span class="img-bar-label">Align:</span>
-				{#each ['left', 'center', 'right', 'full'] as const as al (al)}
+				{#each ['left', 'center', 'right', 'none'] as const as al (al)}
+					{@const targetAlign = al === 'none' ? null : al}
 					<button
 						type="button"
-						class={['tool-btn', { 'is-active': selectedImageAlign === al }]}
-						aria-pressed={selectedImageAlign === al}
+						class={['tool-btn', { 'is-active': selectedImageAlign === targetAlign }]}
+						aria-pressed={selectedImageAlign === targetAlign}
 						onclick={() => {
-							selectedImageAlign = al;
+							selectedImageAlign = targetAlign;
 							updateSelectedImageAttributes();
 						}}
 					>
@@ -1248,6 +1524,7 @@
 				<input
 					type="text"
 					class="popover-input img-meta-input"
+					aria-label="Image alt text"
 					placeholder="Image alt text (required for SEO)..."
 					bind:value={selectedImageAlt}
 					onchange={updateSelectedImageAttributes}
@@ -1255,6 +1532,7 @@
 				<input
 					type="text"
 					class="popover-input img-meta-input"
+					aria-label="Image figure caption"
 					placeholder="Optional figure caption..."
 					bind:value={selectedImageCaption}
 					onchange={updateSelectedImageAttributes}
@@ -1307,11 +1585,77 @@
 		{#if htmlSourceMode}
 			<textarea
 				class="html-source-textarea"
-				aria-label="HTML source code editor"
-				bind:value={rawHtmlBuffer}
+				aria-label="HTML source"
+				value={rawHtmlBuffer}
+				oninput={(e) => handleHtmlSourceInput((e.currentTarget as HTMLTextAreaElement).value)}
 				rows="24"></textarea>
 		{/if}
 	</div>
+
+	<!-- Bottom Word Count / Reading Time Status Bar (Section 6.6) -->
+	<div class="rte-status-bar" role="status" data-testid="post-body-word-count">
+		<span>{editorWords} words · {editorChars} characters · {editorReadingTime} min read</span>
+		{#if pasteAsPlainText}
+			<span class="status-badge">Plain-text paste active</span>
+		{/if}
+	</div>
+
+	<!-- Keyboard Shortcuts Modal Dialog -->
+	{#if shortcutsDialogOpen}
+		<div
+			{@attach (node) => {
+				const btn = node.querySelector<HTMLElement>('button');
+				(btn ?? node).focus();
+			}}
+			class="shortcuts-backdrop"
+			role="dialog"
+			aria-modal="true"
+			aria-label="Keyboard shortcuts"
+			tabindex="-1"
+			onkeydown={(e) => {
+				if (e.key === 'Escape') {
+					e.preventDefault();
+					shortcutsDialogOpen = false;
+					return;
+				}
+				if (e.key === 'Tab') {
+					const container = e.currentTarget as HTMLElement;
+					const focusable = Array.from(
+						container.querySelectorAll<HTMLElement>(
+							'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+						)
+					);
+					if (focusable.length === 0) return;
+					const first = focusable[0]!;
+					const last = focusable[focusable.length - 1]!;
+					if (e.shiftKey && document.activeElement === first) {
+						e.preventDefault();
+						last.focus();
+					} else if (!e.shiftKey && document.activeElement === last) {
+						e.preventDefault();
+						first.focus();
+					}
+				}
+			}}
+		>
+			<div class="shortcuts-card">
+				<div class="shortcuts-header">
+					<h3 class="shortcuts-title">Keyboard Shortcuts</h3>
+					<button type="button" class="tool-btn" onclick={() => (shortcutsDialogOpen = false)}>
+						Close
+					</button>
+				</div>
+				<dl class="shortcuts-list">
+					{#each KEYBOARD_SHORTCUT_LIST as sc (sc.keys)}
+						<div class="shortcut-row">
+							<dt class="shortcut-keys">{sc.keys}</dt>
+							<dd class="shortcut-desc">{sc.description}</dd>
+						</div>
+					{/each}
+				</dl>
+			</div>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -1323,6 +1667,14 @@
 		border-radius: 12px;
 		background: var(--bg);
 		overflow: visible;
+	}
+
+	.rte-wrapper.is-fullscreen {
+		position: fixed;
+		inset: 0;
+		z-index: 950;
+		border-radius: 0;
+		overflow-y: auto;
 	}
 
 	.rte-toolbar {
@@ -1411,6 +1763,21 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+	}
+
+	.link-checkbox-row {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+		font-size: 0.78rem;
+		color: var(--text-secondary);
+	}
+
+	.link-checkbox-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		cursor: pointer;
 	}
 
 	.swatch-popover {
@@ -1633,5 +2000,90 @@
 		font-size: 0.86rem;
 		line-height: 1.6;
 		resize: vertical;
+	}
+
+	.rte-status-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.5rem 0.95rem;
+		border-top: 1px solid var(--line);
+		border-radius: 0 0 12px 12px;
+		background: var(--panel);
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.76rem;
+	}
+
+	.status-badge {
+		padding: 0.15rem 0.45rem;
+		border-radius: 4px;
+		background: rgba(220, 255, 101, 0.12);
+		color: var(--acid);
+		font-size: 0.72rem;
+		font-weight: 600;
+	}
+
+	.shortcuts-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 980;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.5rem;
+		background: rgba(0, 0, 0, 0.72);
+	}
+
+	.shortcuts-card {
+		width: min(480px, 100%);
+		padding: 1.25rem;
+		border-radius: 12px;
+		border: 1px solid var(--line-strong);
+		background: var(--panel);
+		box-shadow: var(--shadow-lg);
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.shortcuts-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.shortcuts-title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 0.95rem;
+		color: var(--text);
+	}
+
+	.shortcuts-list {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+	}
+
+	.shortcut-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.35rem 0;
+		border-bottom: 1px solid var(--line);
+		font-size: 0.82rem;
+	}
+
+	.shortcut-keys {
+		font-family: var(--font-mono);
+		color: var(--acid);
+		font-weight: 700;
+	}
+
+	.shortcut-desc {
+		margin: 0;
+		color: var(--text-secondary);
 	}
 </style>

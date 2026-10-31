@@ -1,7 +1,13 @@
 import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
 
-export type CalloutType = 'info' | 'tip' | 'warning' | 'danger';
-export const CALLOUT_TYPES: readonly CalloutType[] = ['info', 'tip', 'warning', 'danger'] as const;
+export type CalloutType = 'info' | 'tip' | 'success' | 'warning' | 'danger';
+export const CALLOUT_TYPES: readonly CalloutType[] = [
+	'info',
+	'tip',
+	'success',
+	'warning',
+	'danger'
+] as const;
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
@@ -45,7 +51,12 @@ export const Callout = Node.create({
 	},
 
 	parseHTML() {
-		return [{ tag: 'div[data-callout]' }, { tag: 'aside[data-callout]' }];
+		return [
+			{ tag: 'div[data-callout]' },
+			{ tag: 'div[data-callout-type]' },
+			{ tag: 'aside[data-callout]' },
+			{ tag: 'aside[data-callout-type]' }
+		];
 	},
 
 	renderHTML({ HTMLAttributes }) {

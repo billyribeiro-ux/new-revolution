@@ -115,4 +115,71 @@ describe('Post Editor form-actions & Myers Word Diff Suite', () => {
 			true
 		);
 	});
+
+	it('maps robotsNoindex, robotsNofollow, postFormat, isPillar, isSticky, commentsEnabled, pingbacksEnabled, and forceOverwrite and preserves blank autofill fields when requested', () => {
+		const form = createEmptyForm();
+		expect(form.schemaType).toBe('BlogPosting');
+
+		form.title = 'Zero DTE Gamma Playbook';
+		form.slug = 'zero-dte-gamma-playbook';
+		form.noindex = true;
+		form.nofollow = true;
+		form.isPillar = true;
+		form.pinned = true;
+		form.allowComments = false;
+		form.pingbacksEnabled = true;
+		form.format = 'video';
+
+		const payload = buildPostPayload(form, { forceOverwrite: true });
+		expect(payload.robotsNoindex).toBe(true);
+		expect(payload.robotsNofollow).toBe(true);
+		expect(payload.isPillar).toBe(true);
+		expect(payload.isSticky).toBe(true);
+		expect(payload.commentsEnabled).toBe(false);
+		expect(payload.pingbacksEnabled).toBe(true);
+		expect(payload.postFormat).toBe('video');
+		expect(payload.forceOverwrite).toBe(true);
+
+		const rehydrated = hydrateFromFullPost({
+			id: 19,
+			title: 'Zero DTE Gamma Playbook',
+			slug: 'zero-dte-gamma-playbook',
+			robotsNoindex: true,
+			robotsNofollow: true,
+			isPillar: true,
+			isSticky: true,
+			commentsEnabled: false,
+			pingbacksEnabled: true,
+			postFormat: 'video'
+		});
+		expect(rehydrated.noindex).toBe(true);
+		expect(rehydrated.robotsNoindex).toBe(true);
+		expect(rehydrated.nofollow).toBe(true);
+		expect(rehydrated.robotsNofollow).toBe(true);
+		expect(rehydrated.isPillar).toBe(true);
+		expect(rehydrated.isSticky).toBe(true);
+		expect(rehydrated.pinned).toBe(true);
+		expect(rehydrated.commentsEnabled).toBe(false);
+		expect(rehydrated.allowComments).toBe(false);
+		expect(rehydrated.pingbacksEnabled).toBe(true);
+		expect(rehydrated.postFormat).toBe('video');
+		expect(rehydrated.format).toBe('video');
+
+		// preserveBlankAutofillFields keeps blank client SEO fields blank while adopting non-blank ones
+		rehydrated.metaTitle = '';
+		rehydrated.excerpt = 'Custom user excerpt — with dash';
+		const afterSave = canonicalFieldsAfterSave(
+			rehydrated,
+			{
+				id: 19,
+				title: 'Zero DTE Gamma Playbook',
+				slug: 'zero-dte-gamma-playbook',
+				metaTitle: 'Server Autofilled Title',
+				excerpt: 'Custom user excerpt, with dash'
+			},
+			{ preserveBlankAutofillFields: true }
+		);
+		expect(afterSave.metaTitle).toBe('');
+		expect(afterSave.excerpt).toBe('Custom user excerpt, with dash');
+	});
 });

@@ -1,5 +1,6 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { requireAdmin } from '#lib/server/auth-guard';
+import { getClientIp, requireAdmin } from '#lib/server/auth-guard';
+import { consumeRateLimit, RATE_LIMIT_POST_WRITES_PER_MIN } from '#lib/server/rate-limit';
 import {
 	getPostById,
 	updatePost,
@@ -13,6 +14,23 @@ import { toRestErrorResponse } from '#lib/server/posts/error-mapper';
 function parsePostIdParam(raw: string | undefined): number | null {
 	const num = Number(raw);
 	return Number.isInteger(num) && num > 0 ? num : null;
+}
+
+async function enforceWriteRateLimit(
+	event: Parameters<typeof getClientIp>[0]
+): Promise<Response | null> {
+	const rl = await consumeRateLimit({
+		key: `rest_post_write:${getClientIp(event)}`,
+		limit: RATE_LIMIT_POST_WRITES_PER_MIN,
+		windowMs: 60_000
+	});
+	if (!rl.allowed) {
+		return json(
+			{ code: 'RATE_LIMITED', error: 'Rate limit exceeded (max 60 write requests per minute).' },
+			{ status: 429 }
+		);
+	}
+	return null;
 }
 
 export const GET: RequestHandler = async (event) => {
@@ -35,6 +53,8 @@ export const GET: RequestHandler = async (event) => {
 export const PUT: RequestHandler = async (event) => {
 	try {
 		const admin = requireAdmin(event);
+		const limited = await enforceWriteRateLimit(event);
+		if (limited) return limited;
 		const id = parsePostIdParam(event.params.id);
 		if (!id) {
 			return json({ code: 'VALIDATION_ERROR', error: 'Invalid post ID.' }, { status: 400 });
@@ -50,6 +70,8 @@ export const PUT: RequestHandler = async (event) => {
 export const PATCH: RequestHandler = async (event) => {
 	try {
 		const admin = requireAdmin(event);
+		const limited = await enforceWriteRateLimit(event);
+		if (limited) return limited;
 		const id = parsePostIdParam(event.params.id);
 		if (!id) {
 			return json({ code: 'VALIDATION_ERROR', error: 'Invalid post ID.' }, { status: 400 });
@@ -69,6 +91,8 @@ export const PATCH: RequestHandler = async (event) => {
 export const DELETE: RequestHandler = async (event) => {
 	try {
 		const admin = requireAdmin(event);
+		const limited = await enforceWriteRateLimit(event);
+		if (limited) return limited;
 		const id = parsePostIdParam(event.params.id);
 		if (!id) {
 			return json({ code: 'VALIDATION_ERROR', error: 'Invalid post ID.' }, { status: 400 });

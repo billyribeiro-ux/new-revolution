@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import ConfirmDialog from '#lib/components/admin/ConfirmDialog.svelte';
+	import { attachBeforeUnloadGuard } from '#lib/components/admin/post-editor/form-actions';
 	import { POST_STATUSES, type PostStatus } from '#lib/shared/schemas/posts';
+	import { META_DESCRIPTION_MAX, META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { generateSlug, normaliseSlug } from '#lib/shared/seo/slug';
 	import {
 		quickUpdatePostRpc,
@@ -42,6 +44,10 @@
 		categories = [...data.categories];
 		tags = [...data.tags];
 		authors = [...data.authors];
+		if (typeof window !== 'undefined') {
+			return attachBeforeUnloadGuard(window, () => anySubFormDirty);
+		}
+		return undefined;
 	}
 
 	// Filters for Posts view
@@ -255,7 +261,6 @@
 		try {
 			const res = await emptyTrashRpc();
 			trashedPosts = [];
-			selectedTrashIds = [];
 			bannerStatus = `Emptied Trash (${res.deletedCount} post(s) permanently deleted).`;
 		} catch (err) {
 			bannerError = err instanceof Error ? err.message : 'Failed to empty Trash.';
@@ -284,7 +289,9 @@
 		authorDirty = false;
 	}
 
-	function editAuthor(a: PageData['authors'][number]) {
+	let pendingDiscardAction = $state<(() => void) | null>(null);
+
+	function applyAuthorFields(a: PageData['authors'][number]) {
 		editingAuthorId = a.id;
 		authorName = a.name;
 		authorSlug = a.slug;
@@ -303,6 +310,14 @@
 		authorWebsite = a.website ?? '';
 		authorIsActive = a.isActive;
 		authorDirty = false;
+	}
+
+	function editAuthor(a: PageData['authors'][number]) {
+		if (authorDirty && editingAuthorId !== a.id) {
+			pendingDiscardAction = () => applyAuthorFields(a);
+			return;
+		}
+		applyAuthorFields(a);
 	}
 
 	async function saveAuthor() {
@@ -367,7 +382,7 @@
 		categoryDirty = false;
 	}
 
-	function editCategory(c: PageData['categories'][number]) {
+	function applyCategoryFields(c: PageData['categories'][number]) {
 		editingCategoryId = c.id;
 		categoryName = c.name;
 		categorySlug = c.slug;
@@ -379,6 +394,14 @@
 		categoryColor = c.color ?? '#dcff65';
 		categoryIsActive = c.isActive;
 		categoryDirty = false;
+	}
+
+	function editCategory(c: PageData['categories'][number]) {
+		if (categoryDirty && editingCategoryId !== c.id) {
+			pendingDiscardAction = () => applyCategoryFields(c);
+			return;
+		}
+		applyCategoryFields(c);
 	}
 
 	async function saveCategory() {
@@ -430,12 +453,20 @@
 		tagDirty = false;
 	}
 
-	function editTag(t: PageData['tags'][number]) {
+	function applyTagFields(t: PageData['tags'][number]) {
 		editingTagId = t.id;
 		tagName = t.name;
 		tagSlug = t.slug;
 		tagDescription = t.description ?? '';
 		tagDirty = false;
+	}
+
+	function editTag(t: PageData['tags'][number]) {
+		if (tagDirty && editingTagId !== t.id) {
+			pendingDiscardAction = () => applyTagFields(t);
+			return;
+		}
+		applyTagFields(t);
 	}
 
 	async function saveTag() {
@@ -1090,19 +1121,20 @@
 							oninput={() => (categoryDirty = true)}></textarea>
 					</label>
 					<label class="field-label full-span">
-						<span>Meta Title</span>
+						<span>Meta Title (max {META_TITLE_MAX} chars)</span>
 						<input
 							type="text"
+							maxlength={META_TITLE_MAX}
 							class="admin-input"
 							bind:value={categoryMetaTitle}
 							oninput={() => (categoryDirty = true)}
 						/>
 					</label>
 					<label class="field-label full-span">
-						<span>Meta Description (max 160 chars)</span>
+						<span>Meta Description (max {META_DESCRIPTION_MAX} chars)</span>
 						<textarea
 							rows="2"
-							maxlength="160"
+							maxlength={META_DESCRIPTION_MAX}
 							class="admin-textarea"
 							bind:value={categoryMetaDescription}
 							oninput={() => (categoryDirty = true)}></textarea>
@@ -1234,19 +1266,28 @@
 </main>
 
 <ConfirmDialog
-	open={pendingViewSwitch !== null}
+	open={pendingViewSwitch !== null || pendingDiscardAction !== null}
 	title="Discard Unsaved Changes?"
-	message="You have unsaved edits in the current form. Discard them and switch views?"
+	message="You have unsaved edits in the current form. Discard them and continue?"
 	confirmLabel="Discard"
 	variant="warning"
 	onConfirm={() => {
+		if (pendingDiscardAction) {
+			const fn = pendingDiscardAction;
+			pendingDiscardAction = null;
+			fn();
+			return;
+		}
 		resetAuthorForm();
 		resetCategoryForm();
 		resetTagForm();
 		if (pendingViewSwitch) activeView = pendingViewSwitch;
 		pendingViewSwitch = null;
 	}}
-	onCancel={() => (pendingViewSwitch = null)}
+	onCancel={() => {
+		pendingViewSwitch = null;
+		pendingDiscardAction = null;
+	}}
 />
 
 <ConfirmDialog

@@ -140,6 +140,7 @@ export const load: PageServerLoad = async ({
 	const allMediaRows = await db
 		.select({
 			blobUrl: media.blobUrl,
+			variantsJson: media.variantsJson,
 			width: media.width,
 			height: media.height
 		})
@@ -150,10 +151,22 @@ export const load: PageServerLoad = async ({
 	for (const m of allMediaRows) {
 		if (m.width && m.height) {
 			mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
+			if (m.variantsJson && typeof m.variantsJson === 'object') {
+				for (const variant of Object.values(m.variantsJson)) {
+					if (variant?.url) {
+						mediaDimensionsByUrl.set(variant.url, {
+							width: variant.width ?? m.width,
+							height: variant.height ?? m.height
+						});
+					}
+				}
+			}
 		}
 	}
 
 	const coverDims = post.coverImage ? (mediaDimensionsByUrl.get(post.coverImage) ?? null) : null;
+	const resolvedCoverWidth = coverDims?.width ?? post.coverImageWidth ?? null;
+	const resolvedCoverHeight = coverDims?.height ?? post.coverImageHeight ?? null;
 
 	const highlightedHtml = await highlightPostCodeBlocks(post.content);
 	const finalBodyHtml = lazyifyAndDimensionContentImages(highlightedHtml, mediaDimensionsByUrl);
@@ -210,8 +223,8 @@ export const load: PageServerLoad = async ({
 		ogDescription: post.ogDescription,
 		ogImage: post.ogImage || post.coverImage,
 		ogImageAlt: post.coverImageAlt || post.title,
-		ogImageWidth: coverDims?.width ?? null,
-		ogImageHeight: coverDims?.height ?? null,
+		ogImageWidth: resolvedCoverWidth,
+		ogImageHeight: resolvedCoverHeight,
 		twitterCard: post.twitterCardType === 'summary' ? 'summary' : 'summary_large_image',
 		twitterTitle: post.twitterTitle,
 		twitterDescription: post.twitterDescription,
@@ -231,8 +244,8 @@ export const load: PageServerLoad = async ({
 		description: effectiveDescription,
 		coverImage: post.coverImage,
 		coverImageCaption: post.coverImageCaption,
-		coverImageWidth: coverDims?.width ?? null,
-		coverImageHeight: coverDims?.height ?? null,
+		coverImageWidth: resolvedCoverWidth,
+		coverImageHeight: resolvedCoverHeight,
 		publishedAt: post.publishedAt,
 		updatedAt: post.updatedAt,
 		contentUpdatedAt: post.contentUpdatedAt,

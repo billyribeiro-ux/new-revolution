@@ -104,6 +104,14 @@ export function classifyBlogServiceError(err: unknown): MappedServiceError {
 		};
 	}
 
+	if (rawMessage.startsWith('RATE_LIMITED:')) {
+		return {
+			status: 429,
+			code: 'RATE_LIMITED',
+			message: rawMessage.slice('RATE_LIMITED:'.length).trim()
+		};
+	}
+
 	if (
 		rawMessage.startsWith('VALIDATION_ERROR:') ||
 		rawMessage.startsWith('CATEGORY_CYCLE:') ||

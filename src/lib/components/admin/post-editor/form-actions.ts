@@ -41,8 +41,12 @@ export interface PostEditorFormState {
 	hasExistingPassword: boolean;
 	featured: boolean;
 	featuredOrder: number;
+	isPillar: boolean;
+	isSticky: boolean;
 	pinned: boolean;
+	commentsEnabled: boolean;
 	allowComments: boolean;
+	pingbacksEnabled: boolean;
 	excludeFromSearch: boolean;
 	enableToc: boolean;
 	readingTime: number;
@@ -59,6 +63,8 @@ export interface PostEditorFormState {
 	twitterDescription: string;
 	twitterImage: string;
 	twitterCardType: TwitterCardType;
+	robotsNoindex: boolean;
+	robotsNofollow: boolean;
 	noindex: boolean;
 	nofollow: boolean;
 	noarchive: boolean;
@@ -71,6 +77,7 @@ export interface PostEditorFormState {
 	seoScore: number;
 	readabilityScore: number;
 	template: PostTemplate;
+	postFormat: PostFormat;
 	format: PostFormat;
 	language: string;
 	translations: string;
@@ -86,6 +93,148 @@ export interface PostEditorFormState {
 	expectedUpdatedAt: string | null;
 }
 
+export const DEFAULT_NEW_POST_SCAFFOLD =
+	'<h2>Key Takeaways</h2><ul><li>Summarize the primary trading setup and risk parameters.</li><li>Highlight key execution levels and invalidation criteria.</li></ul><h2>Core Strategy Overview</h2><p>Outline the market structure, institutional order flow context, and entry rules.</p><p>IMAGE PLACEHOLDER (replace with a real image before publishing)</p><h2>Execution &amp; Risk Management</h2><p>Detail position sizing, stop placement, and target scaling.</p>';
+
+const repeaterRowKeys = new WeakMap<object, number>();
+let nextRepeaterRowKey = 1;
+
+/**
+ * Stable WeakMap row key generator for repeater items (FAQ rows, custom fields)
+ * so deleting or reordering items never shifts focus or DOM identity by index.
+ */
+export function getObjectRowKey(item: object): number {
+	let existing = repeaterRowKeys.get(item);
+	if (existing === undefined) {
+		existing = nextRepeaterRowKey++;
+		repeaterRowKeys.set(item, existing);
+	}
+	return existing;
+}
+
+export const MAIN_EDITOR_TAB_VALUES = [
+	'content',
+	'seo',
+	'faq',
+	'twitter',
+	'advanced',
+	'readability'
+] as const;
+export type MainEditorTab = (typeof MAIN_EDITOR_TAB_VALUES)[number];
+
+export const MAIN_EDITOR_TAB_STORAGE_KEY = 'wp-editor-active-tab';
+
+export function loadActiveMainTab(): MainEditorTab {
+	if (typeof localStorage === 'undefined') return 'content';
+	try {
+		const raw = localStorage.getItem(MAIN_EDITOR_TAB_STORAGE_KEY);
+		if (raw && (MAIN_EDITOR_TAB_VALUES as readonly string[]).includes(raw)) {
+			return raw as MainEditorTab;
+		}
+	} catch {
+		// ignore storage errors
+	}
+	return 'content';
+}
+
+export function saveActiveMainTab(tab: MainEditorTab): void {
+	if (typeof localStorage === 'undefined') return;
+	try {
+		localStorage.setItem(MAIN_EDITOR_TAB_STORAGE_KEY, tab);
+	} catch {
+		// ignore storage errors
+	}
+}
+
+export interface SidebarPanelState {
+	publish: boolean;
+	author: boolean;
+	categories: boolean;
+	featuredImage: boolean;
+	tags: boolean;
+	postAttributes: boolean;
+	toc: boolean;
+	customFields: boolean;
+}
+
+export const DEFAULT_SIDEBAR_PANEL_STATE: SidebarPanelState = {
+	publish: true,
+	author: true,
+	categories: true,
+	featuredImage: true,
+	tags: true,
+	postAttributes: true,
+	toc: false,
+	customFields: false
+};
+
+export const SIDEBAR_PANELS_STORAGE_KEY = 'wp-editor-panels';
+
+export function loadSidebarPanelState(): SidebarPanelState {
+	if (typeof localStorage === 'undefined') return { ...DEFAULT_SIDEBAR_PANEL_STATE };
+	try {
+		const raw = localStorage.getItem(SIDEBAR_PANELS_STORAGE_KEY);
+		if (!raw) return { ...DEFAULT_SIDEBAR_PANEL_STATE };
+		const parsed = JSON.parse(raw) as Partial<Record<keyof SidebarPanelState, unknown>>;
+		if (!parsed || typeof parsed !== 'object') return { ...DEFAULT_SIDEBAR_PANEL_STATE };
+		return {
+			publish:
+				typeof parsed.publish === 'boolean' ? parsed.publish : DEFAULT_SIDEBAR_PANEL_STATE.publish,
+			author:
+				typeof parsed.author === 'boolean' ? parsed.author : DEFAULT_SIDEBAR_PANEL_STATE.author,
+			categories:
+				typeof parsed.categories === 'boolean'
+					? parsed.categories
+					: DEFAULT_SIDEBAR_PANEL_STATE.categories,
+			featuredImage:
+				typeof parsed.featuredImage === 'boolean'
+					? parsed.featuredImage
+					: DEFAULT_SIDEBAR_PANEL_STATE.featuredImage,
+			tags: typeof parsed.tags === 'boolean' ? parsed.tags : DEFAULT_SIDEBAR_PANEL_STATE.tags,
+			postAttributes:
+				typeof parsed.postAttributes === 'boolean'
+					? parsed.postAttributes
+					: DEFAULT_SIDEBAR_PANEL_STATE.postAttributes,
+			toc: typeof parsed.toc === 'boolean' ? parsed.toc : DEFAULT_SIDEBAR_PANEL_STATE.toc,
+			customFields:
+				typeof parsed.customFields === 'boolean'
+					? parsed.customFields
+					: DEFAULT_SIDEBAR_PANEL_STATE.customFields
+		};
+	} catch {
+		return { ...DEFAULT_SIDEBAR_PANEL_STATE };
+	}
+}
+
+export function saveSidebarPanelState(state: SidebarPanelState): void {
+	if (typeof localStorage === 'undefined') return;
+	try {
+		localStorage.setItem(SIDEBAR_PANELS_STORAGE_KEY, JSON.stringify(state));
+	} catch {
+		// ignore storage errors
+	}
+}
+
+/**
+ * Serializes `{ form, postFormat, customFields }` excluding transient server timestamps
+ * so `PostEditor` can compare pre-save vs post-save state and preserve `isDirty = true`
+ * when the operator types while a save request is in flight (Section 4.9).
+ */
+export function serializeEditorSnapshot(form: PostEditorFormState): string {
+	return JSON.stringify({
+		form: {
+			...form,
+			expectedUpdatedAt: null,
+			seoScore: 0,
+			readabilityScore: 0,
+			readingTime: 0,
+			wordCount: 0
+		},
+		postFormat: form.postFormat || form.format,
+		customFields: form.customFields
+	});
+}
+
 export function createEmptyForm(): PostEditorFormState {
 	return {
 		id: null,
@@ -94,7 +243,7 @@ export function createEmptyForm(): PostEditorFormState {
 		slugManuallyEdited: false,
 		subtitle: '',
 		excerpt: '',
-		content: '',
+		content: DEFAULT_NEW_POST_SCAFFOLD,
 		coverImage: '',
 		coverImageAlt: '',
 		coverImageCaption: '',
@@ -111,8 +260,12 @@ export function createEmptyForm(): PostEditorFormState {
 		hasExistingPassword: false,
 		featured: false,
 		featuredOrder: 0,
+		isPillar: false,
+		isSticky: false,
 		pinned: false,
+		commentsEnabled: true,
 		allowComments: true,
+		pingbacksEnabled: false,
 		excludeFromSearch: false,
 		enableToc: true,
 		readingTime: 1,
@@ -129,18 +282,21 @@ export function createEmptyForm(): PostEditorFormState {
 		twitterDescription: '',
 		twitterImage: '',
 		twitterCardType: 'summary_large_image',
+		robotsNoindex: false,
+		robotsNofollow: false,
 		noindex: false,
 		nofollow: false,
 		noarchive: false,
 		nosnippet: false,
 		maxImagePreview: 'large',
 		maxSnippet: -1,
-		schemaType: 'Article',
+		schemaType: 'BlogPosting',
 		faqItems: [],
 		customJsonLd: '',
 		seoScore: 0,
 		readabilityScore: 0,
 		template: 'default',
+		postFormat: 'standard',
 		format: 'standard',
 		language: 'en',
 		translations: '',
@@ -242,6 +398,18 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 			: (catIds[0] ?? null);
 
 	const updatedAtIso = toIsoOrEmpty(post.updatedAt as Date | string | null);
+	const isStickyVal = Boolean(post.isSticky ?? post.pinned);
+	const isPillarVal = Boolean(post.isPillar);
+	const commentsVal =
+		post.commentsEnabled !== undefined
+			? post.commentsEnabled !== false
+			: post.allowComments !== false;
+	const pingbacksVal = Boolean(post.pingbacksEnabled);
+	const noindexVal = Boolean(
+		post.robotsNoindex ?? post.noindex ?? (post.isIndexable === false ? true : false)
+	);
+	const nofollowVal = Boolean(post.robotsNofollow ?? post.nofollow);
+	const formatVal = ((post.postFormat ?? post.format) as PostFormat) || 'standard';
 
 	return {
 		...empty,
@@ -272,8 +440,12 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		hasExistingPassword: Boolean(post.hasPassword || post.visibility === 'password_protected'),
 		featured: Boolean(post.featured),
 		featuredOrder: typeof post.featuredOrder === 'number' ? post.featuredOrder : 0,
-		pinned: Boolean(post.pinned),
-		allowComments: post.allowComments !== false,
+		isPillar: isPillarVal,
+		isSticky: isStickyVal,
+		pinned: isStickyVal,
+		commentsEnabled: commentsVal,
+		allowComments: commentsVal,
+		pingbacksEnabled: pingbacksVal,
 		excludeFromSearch: Boolean(post.excludeFromSearch),
 		enableToc: post.enableToc !== false,
 		readingTime: typeof post.readingTime === 'number' ? post.readingTime : 1,
@@ -291,19 +463,22 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		twitterImage: String(post.twitterImage ?? ''),
 		twitterCardType:
 			(post.twitterCardType as TwitterCardType) === 'summary' ? 'summary' : 'summary_large_image',
-		noindex: Boolean(post.noindex),
-		nofollow: Boolean(post.nofollow),
+		robotsNoindex: noindexVal,
+		robotsNofollow: nofollowVal,
+		noindex: noindexVal,
+		nofollow: nofollowVal,
 		noarchive: Boolean(post.noarchive),
 		nosnippet: Boolean(post.nosnippet),
 		maxImagePreview: String(post.maxImagePreview ?? 'large'),
 		maxSnippet: typeof post.maxSnippet === 'number' ? post.maxSnippet : -1,
-		schemaType: (post.schemaType as PostSchemaType) || 'Article',
+		schemaType: (post.schemaType as PostSchemaType) || 'BlogPosting',
 		faqItems: parseFaqItemsJson(post.faqItems as string | null),
 		customJsonLd: String(post.customJsonLd ?? ''),
 		seoScore: typeof post.seoScore === 'number' ? post.seoScore : 0,
 		readabilityScore: typeof post.readabilityScore === 'number' ? post.readabilityScore : 0,
 		template: (post.template as PostTemplate) || 'default',
-		format: (post.format as PostFormat) || 'standard',
+		postFormat: formatVal,
+		format: formatVal,
 		language: String(post.language ?? 'en'),
 		translations: String(post.translations ?? ''),
 		seriesName: String(post.seriesName ?? ''),
@@ -321,7 +496,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 
 export function buildPostPayload(
 	form: PostEditorFormState,
-	overrides?: { status?: PostStatus }
+	overrides?: { status?: PostStatus; forceOverwrite?: boolean }
 ): Record<string, unknown> {
 	const targetStatus = overrides?.status ?? form.status;
 
@@ -360,6 +535,17 @@ export function buildPostPayload(
 		passwordField = form.passwordPlaintext.trim();
 	}
 
+	const resolvedSticky = Boolean(form.isSticky || form.pinned);
+	const resolvedComments = Boolean(form.commentsEnabled && form.allowComments);
+	const resolvedNoindex = Boolean(form.robotsNoindex || form.noindex);
+	const resolvedNofollow = Boolean(form.robotsNofollow || form.nofollow);
+	const resolvedFormat: PostFormat =
+		form.postFormat !== 'standard'
+			? form.postFormat
+			: form.format !== 'standard'
+				? form.format
+				: 'standard';
+
 	const payload: Record<string, unknown> = {
 		...(form.id ? { id: form.id } : {}),
 		title: form.title,
@@ -383,8 +569,12 @@ export function buildPostPayload(
 		...(passwordField !== undefined ? { password: passwordField } : {}),
 		featured: form.featured,
 		featuredOrder: form.featuredOrder,
-		pinned: form.pinned,
-		allowComments: form.allowComments,
+		isPillar: Boolean(form.isPillar),
+		isSticky: resolvedSticky,
+		pinned: resolvedSticky,
+		commentsEnabled: resolvedComments,
+		allowComments: resolvedComments,
+		pingbacksEnabled: Boolean(form.pingbacksEnabled),
 		excludeFromSearch: form.excludeFromSearch,
 		enableToc: form.enableToc,
 		metaTitle: form.metaTitle || null,
@@ -400,8 +590,10 @@ export function buildPostPayload(
 		twitterDescription: form.twitterDescription || null,
 		twitterImage: form.twitterImage || null,
 		twitterCardType: form.twitterCardType,
-		noindex: form.noindex,
-		nofollow: form.nofollow,
+		robotsNoindex: resolvedNoindex,
+		robotsNofollow: resolvedNofollow,
+		noindex: resolvedNoindex,
+		nofollow: resolvedNofollow,
 		noarchive: form.noarchive,
 		nosnippet: form.nosnippet,
 		maxImagePreview: form.maxImagePreview || 'large',
@@ -410,7 +602,8 @@ export function buildPostPayload(
 		faqItems: cleanFaq.length > 0 ? JSON.stringify(cleanFaq) : null,
 		customJsonLd: form.customJsonLd || null,
 		template: form.template,
-		format: form.format,
+		postFormat: resolvedFormat,
+		format: resolvedFormat,
 		language: form.language || 'en',
 		translations: form.translations || null,
 		seriesName: form.seriesName || null,
@@ -422,57 +615,58 @@ export function buildPostPayload(
 		expiresAt: form.expiresAt || null,
 		lastEditedBy: form.lastEditedBy || null,
 		revisionNotes: form.revisionNotes || null,
-		...(form.expectedUpdatedAt ? { expectedUpdatedAt: form.expectedUpdatedAt } : {})
+		...(form.expectedUpdatedAt ? { expectedUpdatedAt: form.expectedUpdatedAt } : {}),
+		...(overrides?.forceOverwrite ? { forceOverwrite: true } : {})
 	};
 
 	return payload;
 }
 
 /**
- * Syncs server-normalized and autofilled fields back into client state after save (Section 11.4 / Section 13 #44).
+ * Syncs server-normalized and autofilled fields back into client state after save (Section 4.9 / Section 11.4 / Section 13 #44).
+ * When `options.preserveBlankAutofillFields` is true, server-autofilled SEO/excerpt/OG/Twitter/canonical fields
+ * are only adopted if the client's field was already non-blank prior to save, preventing server autofill defaults
+ * from becoming frozen user overrides on subsequent edits.
  */
 export function canonicalFieldsAfterSave(
 	current: PostEditorFormState,
-	saved: Record<string, unknown>
+	saved: Record<string, unknown>,
+	options?: { preserveBlankAutofillFields?: boolean }
 ): PostEditorFormState {
 	const updatedIso = toIsoOrEmpty(saved.updatedAt as Date | string | null);
+	const preserveBlank = Boolean(options?.preserveBlankAutofillFields);
+
+	const adoptOptionalString = (currentVal: string, savedVal: unknown): string => {
+		if (typeof savedVal !== 'string') return currentVal;
+		if (preserveBlank && currentVal.trim().length === 0) return currentVal;
+		return savedVal;
+	};
+
 	return {
 		...current,
 		id: typeof saved.id === 'number' ? saved.id : current.id,
 		title: typeof saved.title === 'string' ? saved.title : current.title,
 		slug: typeof saved.slug === 'string' ? saved.slug : current.slug,
-		subtitle: typeof saved.subtitle === 'string' ? saved.subtitle : current.subtitle,
-		excerpt: typeof saved.excerpt === 'string' ? saved.excerpt : current.excerpt,
+		subtitle: adoptOptionalString(current.subtitle, saved.subtitle),
+		excerpt: adoptOptionalString(current.excerpt, saved.excerpt),
 		content: typeof saved.content === 'string' ? saved.content : current.content,
 		coverImage: typeof saved.coverImage === 'string' ? saved.coverImage : current.coverImage,
-		coverImageAlt:
-			typeof saved.coverImageAlt === 'string' ? saved.coverImageAlt : current.coverImageAlt,
-		coverImageCaption:
-			typeof saved.coverImageCaption === 'string'
-				? saved.coverImageCaption
-				: current.coverImageCaption,
+		coverImageAlt: adoptOptionalString(current.coverImageAlt, saved.coverImageAlt),
+		coverImageCaption: adoptOptionalString(current.coverImageCaption, saved.coverImageCaption),
 		status: (saved.status as PostStatus) || current.status,
 		visibility: (saved.visibility as PostVisibility) || current.visibility,
 		passwordPlaintext: '',
 		clearPassword: false,
 		hasExistingPassword: Boolean(saved.hasPassword || saved.visibility === 'password_protected'),
-		metaTitle: typeof saved.metaTitle === 'string' ? saved.metaTitle : current.metaTitle,
-		metaDescription:
-			typeof saved.metaDescription === 'string' ? saved.metaDescription : current.metaDescription,
-		ogTitle: typeof saved.ogTitle === 'string' ? saved.ogTitle : current.ogTitle,
-		ogDescription:
-			typeof saved.ogDescription === 'string' ? saved.ogDescription : current.ogDescription,
-		ogImage: typeof saved.ogImage === 'string' ? saved.ogImage : current.ogImage,
-		twitterTitle:
-			typeof saved.twitterTitle === 'string' ? saved.twitterTitle : current.twitterTitle,
-		twitterDescription:
-			typeof saved.twitterDescription === 'string'
-				? saved.twitterDescription
-				: current.twitterDescription,
-		twitterImage:
-			typeof saved.twitterImage === 'string' ? saved.twitterImage : current.twitterImage,
-		canonicalUrl:
-			typeof saved.canonicalUrl === 'string' ? saved.canonicalUrl : current.canonicalUrl,
+		metaTitle: adoptOptionalString(current.metaTitle, saved.metaTitle),
+		metaDescription: adoptOptionalString(current.metaDescription, saved.metaDescription),
+		ogTitle: adoptOptionalString(current.ogTitle, saved.ogTitle),
+		ogDescription: adoptOptionalString(current.ogDescription, saved.ogDescription),
+		ogImage: adoptOptionalString(current.ogImage, saved.ogImage),
+		twitterTitle: adoptOptionalString(current.twitterTitle, saved.twitterTitle),
+		twitterDescription: adoptOptionalString(current.twitterDescription, saved.twitterDescription),
+		twitterImage: adoptOptionalString(current.twitterImage, saved.twitterImage),
+		canonicalUrl: adoptOptionalString(current.canonicalUrl, saved.canonicalUrl),
 		seoScore: typeof saved.seoScore === 'number' ? saved.seoScore : current.seoScore,
 		readingTime: typeof saved.readingTime === 'number' ? saved.readingTime : current.readingTime,
 		wordCount: typeof saved.wordCount === 'number' ? saved.wordCount : current.wordCount,
@@ -486,6 +680,10 @@ export function getDraftStorageKey(postId: number | null): string {
 	return postId ? `post-draft:${postId}` : 'post-draft:new';
 }
 
+function getRtpDraftStorageKey(postId: number | null): string {
+	return `rtp-post-draft-${postId ?? 'new'}`;
+}
+
 export function saveLocalDraftSnapshot(postId: number | null, form: PostEditorFormState): void {
 	if (typeof localStorage === 'undefined') return;
 	try {
@@ -496,7 +694,9 @@ export function saveLocalDraftSnapshot(postId: number | null, form: PostEditorFo
 				passwordPlaintext: ''
 			}
 		};
-		localStorage.setItem(getDraftStorageKey(postId), JSON.stringify(snapshot));
+		const serialized = JSON.stringify(snapshot);
+		localStorage.setItem(getDraftStorageKey(postId), serialized);
+		localStorage.setItem(getRtpDraftStorageKey(postId), serialized);
 	} catch {
 		// Ignore quota errors
 	}
@@ -507,7 +707,9 @@ export function readLocalDraftSnapshot(
 ): { savedAt: string; form: PostEditorFormState } | null {
 	if (typeof localStorage === 'undefined') return null;
 	try {
-		const raw = localStorage.getItem(getDraftStorageKey(postId));
+		const raw =
+			localStorage.getItem(getDraftStorageKey(postId)) ??
+			localStorage.getItem(getRtpDraftStorageKey(postId));
 		if (!raw) return null;
 		const parsed = JSON.parse(raw) as { savedAt?: string; form?: PostEditorFormState };
 		if (!parsed || typeof parsed.savedAt !== 'string' || !parsed.form) return null;
@@ -521,6 +723,7 @@ export function clearLocalDraftSnapshot(postId: number | null): void {
 	if (typeof localStorage === 'undefined') return;
 	try {
 		localStorage.removeItem(getDraftStorageKey(postId));
+		localStorage.removeItem(getRtpDraftStorageKey(postId));
 	} catch {
 		// Ignore storage errors
 	}
@@ -531,23 +734,45 @@ export function attachEditorShortcuts(
 	callbacks: {
 		onSaveDraft: () => void;
 		onPublishOrSave: () => void;
+		onSaveDraftShortcut?: () => void;
 		onPreview?: () => void;
 		onEscape?: () => void;
+		isModalOpen?: () => boolean;
 	}
 ): () => void {
 	function onKeyDown(event: Event) {
 		const e = event as KeyboardEvent;
 		const mod = e.metaKey || e.ctrlKey;
-		if (mod && !e.shiftKey && e.key.toLowerCase() === 's') {
+		const keyLower = (e.key || '').toLowerCase();
+		if (mod && !e.shiftKey && keyLower === 's') {
 			e.preventDefault();
 			callbacks.onSaveDraft();
 		} else if (mod && e.key === 'Enter') {
 			e.preventDefault();
 			callbacks.onPublishOrSave();
-		} else if (mod && e.shiftKey && e.key.toLowerCase() === 'p') {
+		} else if (mod && e.shiftKey && keyLower === 'p') {
 			e.preventDefault();
-			callbacks.onPreview?.();
+			if (callbacks.onPreview) {
+				callbacks.onPreview();
+			} else {
+				callbacks.onPublishOrSave();
+			}
+		} else if (mod && e.shiftKey && keyLower === 'd') {
+			e.preventDefault();
+			if (callbacks.onSaveDraftShortcut) {
+				callbacks.onSaveDraftShortcut();
+			} else {
+				callbacks.onSaveDraft();
+			}
 		} else if (e.key === 'Escape') {
+			const modalOpen = callbacks.isModalOpen?.() ?? false;
+			if (!modalOpen) {
+				const el = (e.target as HTMLElement | null) ?? null;
+				const tag = el?.tagName?.toUpperCase();
+				if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el?.isContentEditable) {
+					return;
+				}
+			}
 			callbacks.onEscape?.();
 		}
 	}

@@ -189,6 +189,49 @@ describe('Media REST API & Backfill Pipeline', () => {
 			})
 		);
 		expect(resSvg.status).toBe(201);
+
+		// 6. Multiple file fields -> 400
+		const fdMultiFile = new FormData();
+		fdMultiFile.append('file', new File([validPng], 'one.png', { type: 'image/png' }));
+		fdMultiFile.append('file', new File([validPng], 'two.png', { type: 'image/png' }));
+		const resMultiFile = await uploadHandler(
+			makeEvent({
+				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+					method: 'POST',
+					body: fdMultiFile
+				})
+			})
+		);
+		expect(resMultiFile.status).toBe(400);
+
+		// 7. Duplicate metadata keys -> 400
+		const fdDupMeta = new FormData();
+		fdDupMeta.set('file', new File([validPng], 'one.png', { type: 'image/png' }));
+		fdDupMeta.append('title', 'First');
+		fdDupMeta.append('title', 'Second');
+		const resDupMeta = await uploadHandler(
+			makeEvent({
+				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+					method: 'POST',
+					body: fdDupMeta
+				})
+			})
+		);
+		expect(resDupMeta.status).toBe(400);
+
+		// 8. Cross-site Origin header -> 403 CSRF rejection
+		const fdCsrf = new FormData();
+		fdCsrf.set('file', new File([validPng], 'one.png', { type: 'image/png' }));
+		const resCsrf = await uploadHandler(
+			makeEvent({
+				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+					method: 'POST',
+					headers: { origin: 'https://evil-attacker.example' },
+					body: fdCsrf
+				})
+			})
+		);
+		expect(resCsrf.status).toBe(403);
 	});
 
 	it('uploads raster image, generates WebP variants, lists/filters media, updates metadata, and enforces 409 in-use delete protection', async () => {
@@ -253,12 +296,12 @@ describe('Media REST API & Backfill Pipeline', () => {
 		const foldersData = await foldersGetRes.json();
 		expect(foldersData.folders).toEqual(expect.arrayContaining(['charts', 'webinars']));
 
-		// Reference image in a post and verify 409 delete block
+		// Reference a variant URL (800w medium) in a post and verify both GET usage and 409 delete block
 		const post = await createPost(
 			{
 				title: 'Post Referencing Uploaded Image',
 				slug: 'post-referencing-uploaded-image',
-				content: `<p><img src="${uploaded.urls.original}" alt="SPX setup"></p>`,
+				content: `<p><img src="${uploaded.urls.medium}" alt="SPX setup"></p>`,
 				status: 'draft'
 			},
 			'admin-test-1'

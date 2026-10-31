@@ -10,7 +10,17 @@ export const auth = betterAuth({
 	secret: BETTER_AUTH_SECRET,
 	database: drizzleAdapter(db, { provider: 'pg' }),
 	emailAndPassword: { enabled: true },
+	user: {
+		additionalFields: {
+			// Without this declaration Better Auth omits `role` from the session user and
+			// `requireAdmin` rejects everyone (docs/ADMIN_AUTH_PLAN.md F2). `input: false`
+			// stops a client from choosing its own role at sign-up.
+			role: { type: 'string', defaultValue: 'user', input: false }
+		}
+	},
 	plugins: [
 		sveltekitCookies(getRequestEvent) // make sure this is the last plugin in the array
 	]
 });
+
+export type AuthSession = typeof auth.$Infer.Session;

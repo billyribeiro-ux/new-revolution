@@ -80,7 +80,10 @@
 		list-style: none;
 	}
 
+	/* A one-cell grid: the card fills the (row-stretched) item, so cards in a row stay equal height even when
+	   a card must grow beyond its aspect-ratio to fit its content. */
 	.catalog-grid__item {
+		display: grid;
 		min-inline-size: 0;
 	}
 

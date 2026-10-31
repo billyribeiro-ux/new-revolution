@@ -22,6 +22,12 @@
 	 * Consumers style with the semantic internals (`--_text`, `--_text-2`, `--_muted`, `--_line`, `--_line-strong`,
 	 * `--_band`, `--_inset`, `--_accent`, `--_accent-text`) so one rule works on both tones.
 	 * `featured` assumes the host gives the card two grid columns from 768px up.
+	 *
+	 * Layouts: `stack` (default) is a header band, body and footer. `cover` makes the `media` image the card
+	 * background: `eyebrow` + `title` sit over the top, `children` + `footer` over the bottom, each on its own scrim
+	 * that follows the text block (so contrast does not depend on the image). Per-card tuning is by custom
+	 * property, set by the consumer: `--card-scrim` (0.7-0.95, scrim opacity), `--card-focus` (CSS object-position
+	 * of the cover, e.g. `30% 20%`), `--card-accent`.
 	 */
 	interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'class' | 'title'> {
 		/** Renders the stretched title link (see above). */
@@ -30,6 +36,8 @@
 		featured?: boolean;
 		/** `light` re-themes the card for light sections (white card, ink text, AA accent text). */
 		tone?: 'dark' | 'light';
+		/** `cover` = image-background card with the title over the top part. */
+		layout?: 'stack' | 'cover';
 		/** Visible label of the decorative call-to-action (the title link is the accessible link). */
 		ctaLabel?: string;
 		/** Flush, full-bleed media at the top (images). */
@@ -52,6 +60,7 @@
 		headingLevel = 3,
 		featured = false,
 		tone = 'dark',
+		layout = 'stack',
 		ctaLabel = 'Learn more',
 		media,
 		top,
@@ -70,7 +79,11 @@
 
 <article
 	{...rest}
-	class={['catalog-card', { 'is-featured': featured, 'is-light': tone === 'light' }, className]}
+	class={[
+		'catalog-card',
+		{ 'is-featured': featured, 'is-light': tone === 'light', 'is-cover': layout === 'cover' },
+		className
+	]}
 	aria-labelledby="{uid}-title"
 >
 	{#if media}
@@ -101,7 +114,7 @@
 		{@render footer?.()}
 		<!-- Decorative: the title link is the single, named link to the detail page. -->
 		<span class="catalog-card__cta" aria-hidden="true">
-			{ctaLabel}
+			<span class="catalog-card__cta-label">{ctaLabel}</span>
 			<ArrowRightIcon size={16} weight="bold" />
 		</span>
 	</footer>
@@ -295,10 +308,133 @@
 		}
 	}
 
+	/* ---- cover layout: the image is the card, the title sits over the top part ---- */
+	.catalog-card.is-cover {
+		--_scrim: var(--card-scrim, 0.86);
+		--_text: var(--text);
+		--_text-2: var(
+			--off2
+		); /* near-white: secondary text must stay AA over the weakest (soft) scrim */
+		--_muted: var(--off2);
+		--_line: color-mix(in srgb, var(--text) 18%, transparent);
+		--_line-strong: color-mix(in srgb, var(--text) 30%, transparent);
+
+		isolation: isolate;
+		justify-content: space-between;
+		/* Proportions follow the SSOT breakpoints so the artwork keeps a visible window between the two text blocks:
+		   3:4 on phones, 1:1 on large phones / small tablets (one wide column), 4:5 once the grid has 2+ columns. */
+		aspect-ratio: 3 / 4;
+		/* `100%` would pin the card to the aspect-ratio height; `auto` + stretch lets it grow to its content while the
+		   grid item (display: grid) keeps row-mates equal. Aspect-ratio boxes only stretch when asked explicitly. */
+		block-size: auto;
+		/* A definite width: when content forces the card taller than its ratio height, the browser would otherwise
+		   transfer that height back through aspect-ratio and make the card WIDER than its column. */
+		inline-size: 100%;
+		align-self: stretch;
+		/* `clip`, not `hidden`: hidden makes a scroll container, which drops the automatic minimum size and lets a
+		   long title push the footer out of the card. Clip keeps the aspect-ratio as a floor, never a cap. */
+		overflow: clip;
+		background: var(--bg);
+		border-color: var(--line-strong);
+		box-shadow: var(--shadow-md);
+	}
+
+	.catalog-card.is-cover .catalog-card__media {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border: 0;
+	}
+
+	/* The cover image is consumer-authored (a snippet), so it needs :global to be sized from here. */
+	.catalog-card.is-cover .catalog-card__media :global(img) {
+		display: block;
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+		object-position: var(--card-focus, 50% 50%);
+		transition: transform 0.6s var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.catalog-card.is-cover:hover .catalog-card__media :global(img) {
+			transform: scale(1.04);
+		}
+	}
+
+	.catalog-card.is-cover .catalog-card__body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 0;
+		padding: 0;
+	}
+
+	/* Top scrim: solid behind the whole eyebrow + title block, then a fixed 44px fade into the image. */
+	.catalog-card.is-cover .catalog-card__intro {
+		padding: var(--_pad) var(--_pad) 44px;
+		background: linear-gradient(
+			to bottom,
+			rgb(8 10 13 / var(--_scrim)) 0,
+			rgb(8 10 13 / var(--_scrim)) calc(100% - 44px),
+			transparent
+		);
+	}
+
+	.catalog-card.is-cover .catalog-card__title {
+		font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.5rem);
+		line-height: 1.2;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 4;
+		line-clamp: 4;
+		overflow: hidden;
+	}
+
+	/* Bottom scrim: the details fade in from the image, the footer continues the same solid tone. */
+	.catalog-card.is-cover .catalog-card__detail {
+		margin-block-start: auto;
+		padding: 56px var(--_pad) 4px;
+		background: linear-gradient(to bottom, transparent, rgb(8 10 13 / var(--_scrim)) 56px);
+	}
+
+	.catalog-card.is-cover .catalog-card__footer {
+		margin: 0;
+		padding: 8px var(--_pad) var(--_pad);
+		border: 0;
+		background: rgb(8 10 13 / var(--_scrim));
+	}
+
+	/* The cover CTA is a compact chip: the title link is the real affordance. Icon-only on narrow screens. */
+	.catalog-card.is-cover .catalog-card__cta {
+		inline-size: 44px;
+		min-block-size: 44px;
+		padding-inline: 0;
+		margin-inline-start: auto;
+	}
+
+	.catalog-card.is-cover .catalog-card__cta-label {
+		display: none;
+	}
+
 	/* ---- xs: large phones ---- */
 	@media (min-width: 480px) {
 		.catalog-card {
 			--_pad: 20px;
+		}
+
+		.catalog-card.is-cover {
+			aspect-ratio: 1 / 1;
+		}
+
+		.catalog-card.is-cover .catalog-card__cta {
+			inline-size: auto;
+			padding-inline: 20px;
+		}
+
+		.catalog-card.is-cover .catalog-card__cta-label {
+			display: inline;
 		}
 	}
 
@@ -323,6 +459,26 @@
 		.catalog-card.is-featured .catalog-card__cta {
 			inline-size: auto;
 			margin-inline-start: auto;
+		}
+
+		.catalog-card.is-cover {
+			aspect-ratio: 4 / 5;
+		}
+
+		/* A featured cover keeps the overlay layout (not two columns) and goes wide. */
+		.catalog-card.is-featured.is-cover {
+			aspect-ratio: 16 / 9;
+		}
+
+		.catalog-card.is-featured.is-cover .catalog-card__body {
+			display: flex;
+			column-gap: 0;
+		}
+
+		.catalog-card.is-featured.is-cover .catalog-card__title {
+			font-size: clamp(1.5rem, 1.1rem + 1vw, 2rem);
+			-webkit-line-clamp: 3;
+			line-clamp: 3;
 		}
 	}
 

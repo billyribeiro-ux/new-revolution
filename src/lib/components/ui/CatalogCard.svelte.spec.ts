@@ -82,6 +82,21 @@ describe('CatalogCard', () => {
 		expect(document.querySelector('article')?.classList.contains('is-light')).toBe(true);
 	});
 
+	it('uses the stack layout by default and the cover layout only when asked', async () => {
+		render(CatalogCard, { title: titleSnippet });
+		expect(document.querySelector('article')?.classList.contains('is-cover')).toBe(false);
+	});
+
+	it('applies the cover layout class and keeps title, media and footer regions in order', async () => {
+		render(CatalogCard, {
+			props: { title: titleSnippet, layout: 'cover', media: text('M'), footer: text('F') }
+		});
+		const article = document.querySelector('article') as HTMLElement;
+		expect(article.classList.contains('is-cover')).toBe(true);
+		const regions = [...article.children].map((el) => el.className.split(' ')[0]);
+		expect(regions).toEqual(['catalog-card__media', 'catalog-card__body', 'catalog-card__footer']);
+	});
+
 	it('marks featured cards, merges the class prop and forwards rest attributes', async () => {
 		render(CatalogCard, {
 			title: titleSnippet,

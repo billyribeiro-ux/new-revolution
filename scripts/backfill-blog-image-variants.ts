@@ -1,13 +1,17 @@
+import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import sharp from 'sharp';
 import { and, eq, isNull, like, ne, or, sql } from 'drizzle-orm';
 import { ensureDbReady } from '../src/lib/server/db';
 import { media, posts, type MediaVariantRecord } from '../src/lib/server/db/schema';
 import {
+	getActiveDiskMediaDriver,
 	getMediaStorageDriver,
-	getLocalBlobBuffer,
+	MEDIA_PUBLIC_PREFIX,
 	type BlobStorageDriver
-} from '../src/lib/server/services/media';
+} from '../src/lib/server/media-storage';
+import { cropVariantKey, isCropVariant, planCoverCrops } from '../src/lib/shared/cover-crops';
+import { coverCropVariantRecord, encodeCoverCrops } from '../src/lib/server/services/media';
 import { MEDIA_VARIANT_WIDTHS, MEDIA_WEBP_QUALITY } from '../src/lib/shared/media-upload';
 
 export const BACKFILL_MAX_DOWNLOAD_BYTES = 15 * 1024 * 1024; // 15 MiB
@@ -42,6 +46,8 @@ export interface BackfillResult {
 
 export function isAllowedBlobUrl(url: string, extraAllowedHosts: string[] = []): boolean {
 	if (!url || typeof url !== 'string') return false;
+	// Relative URLs written by the local disk driver (`/media/<path>`); never protocol-relative (`//host`).
+	if (url.startsWith(MEDIA_PUBLIC_PREFIX)) return true;
 	let parsed: URL;
 	try {
 		parsed = new URL(url);
@@ -80,14 +86,30 @@ export async function defaultFetchSourceBuffer(
 		throw new Error(`Disallowed blob host for URL: ${url}`);
 	}
 
-	const local = getLocalBlobBuffer(url);
-	if (local) {
-		if (local.byteLength > BACKFILL_MAX_DOWNLOAD_BYTES) {
+	// Files written by the local disk driver are read straight from disk (dev). No silent fallback to the
+	// network: a missing local file is a real error.
+	const diskDriver = getActiveDiskMediaDriver();
+	const mediaPath = url.startsWith(MEDIA_PUBLIC_PREFIX)
+		? url.slice(MEDIA_PUBLIC_PREFIX.length)
+		: diskDriver
+			? new URL(url).pathname.startsWith(MEDIA_PUBLIC_PREFIX)
+				? decodeURIComponent(new URL(url).pathname.slice(MEDIA_PUBLIC_PREFIX.length))
+				: null
+			: null;
+	if (mediaPath !== null) {
+		if (!diskDriver) {
 			throw new Error(
-				`Source image exceeds maximum download size (${local.byteLength} > ${BACKFILL_MAX_DOWNLOAD_BYTES} bytes)`
+				`Local media URL ${url} cannot be read: the disk media driver is not active.`
 			);
 		}
-		return local;
+		const file = await diskDriver.read(mediaPath);
+		if (!file) throw new Error(`Local media file not found: ${url}`);
+		if (file.size > BACKFILL_MAX_DOWNLOAD_BYTES) {
+			throw new Error(
+				`Source image exceeds maximum download size (${file.size} > ${BACKFILL_MAX_DOWNLOAD_BYTES} bytes)`
+			);
+		}
+		return file.buffer;
 	}
 
 	const res = await fetch(url, {
@@ -382,6 +404,130 @@ export async function backfillBlogImageVariants(
 	return result;
 }
 
+/** Base name for crop files: strips a trailing `-<w>w` and extension; adds a fresh hex when the name has none. */
+export function cropBaseFromPathname(pathname: string, fallbackId: string): string {
+	const parsed = path.parse(pathname || fallbackId);
+	const base = (parsed.name || fallbackId).replace(/-\d{2,5}w$/i, '');
+	return /-[0-9a-f]{12}$/.test(base) ? base : `${base}-${randomBytes(6).toString('hex')}`;
+}
+
+/**
+ * Adds the Article-image crops (16x9, 4x3, 1x1; >= 50,000 px) to existing raster media rows that have none.
+ * Dry-run by default; idempotent (rows that already have any crop, or whose dimensions cannot yield a
+ * 50K px crop, are skipped without fetching). The crop source is the stored original (already WebP, so one
+ * extra lossy pass: the upload bytes no longer exist). Only variants_json is written; no URL changes.
+ */
+export async function backfillCoverCrops(options: BackfillOptions = {}): Promise<BackfillResult> {
+	const db = await ensureDbReady();
+	const dryRun = options.dryRun ?? true;
+	const concurrency = Math.max(1, options.concurrency ?? 3);
+	const allowedHosts = options.allowedHosts ?? [];
+	const fetchSource =
+		options.fetchSourceBuffer ?? ((url: string) => defaultFetchSourceBuffer(url, allowedHosts));
+	const driver = options.storageDriver ?? getMediaStorageDriver();
+
+	const candidates = await db
+		.select()
+		.from(media)
+		.where(
+			and(
+				like(media.mimeType, 'image/%'),
+				ne(media.mimeType, 'image/svg+xml'),
+				ne(media.mimeType, 'image/gif'),
+				isNull(media.deletedAt)
+			)
+		)
+		.orderBy(media.createdAt);
+
+	const result: BackfillResult = { scanned: 0, updated: 0, skipped: 0, failed: 0, errors: [] };
+	const rows = candidates.filter(
+		(r) => !Object.values(r.variantsJson ?? {}).some((v) => isCropVariant(v))
+	);
+	const limited = options.limit && options.limit > 0 ? rows.slice(0, options.limit) : rows;
+	result.scanned = limited.length;
+
+	let cursor = 0;
+	async function worker(): Promise<void> {
+		while (cursor < limited.length) {
+			const row = limited[cursor++];
+			if (!row) continue;
+
+			const knownDims = Boolean(row.width && row.height);
+			if (knownDims && planCoverCrops(row.width, row.height).length === 0) {
+				result.skipped++;
+				continue;
+			}
+			if (!isAllowedBlobUrl(row.blobUrl, allowedHosts)) {
+				result.failed++;
+				result.errors.push({
+					id: row.id,
+					url: row.blobUrl,
+					error: `Disallowed blob host for URL: ${row.blobUrl}`
+				});
+				continue;
+			}
+			if (dryRun) {
+				result.updated++;
+				continue;
+			}
+
+			const uploaded: string[] = [];
+			try {
+				const source = await fetchSource(row.blobUrl);
+				if (source.byteLength > BACKFILL_MAX_DOWNLOAD_BYTES) {
+					throw new Error(`Source image exceeds 15 MiB cap (${source.byteLength} bytes)`);
+				}
+				const meta = await sharp(source).metadata();
+				const crops = await encodeCoverCrops(source, meta.width ?? null, meta.height ?? null);
+				if (crops.length === 0) {
+					result.skipped++;
+					continue;
+				}
+				const base = cropBaseFromPathname(row.blobPathname || row.filename, row.id);
+				const settled = await Promise.allSettled(
+					crops.map((c) =>
+						driver.put(`${base}-crop-${c.aspect}.webp`, c.buffer, { contentType: 'image/webp' })
+					)
+				);
+				for (const r of settled) if (r.status === 'fulfilled') uploaded.push(r.value.url);
+				const rejected = settled.find((r): r is PromiseRejectedResult => r.status === 'rejected');
+				if (rejected) throw rejected.reason;
+
+				const merged: Record<string, MediaVariantRecord> = { ...(row.variantsJson ?? {}) };
+				crops.forEach((c, i) => {
+					merged[cropVariantKey(c.aspect)] = coverCropVariantRecord(
+						c,
+						(settled[i] as PromiseFulfilledResult<{ url: string; pathname: string }>).value
+					);
+				});
+				const updated = await db
+					.update(media)
+					.set({ variantsJson: merged, updatedAt: new Date() })
+					.where(and(eq(media.id, row.id), isNull(media.deletedAt)))
+					.returning();
+				if (updated.length === 0) {
+					throw new Error('Row was deleted during backfill; crops discarded.');
+				}
+				result.updated++;
+			} catch (err) {
+				if (uploaded.length > 0) {
+					await driver.del(uploaded).catch((cleanupErr: unknown) => {
+						console.warn('[backfill] Failed to clean up partial crop uploads:', cleanupErr);
+					});
+				}
+				result.failed++;
+				result.errors.push({
+					id: row.id,
+					url: row.blobUrl,
+					error: err instanceof Error ? err.message : String(err)
+				});
+			}
+		}
+	}
+	await Promise.all(Array.from({ length: Math.min(concurrency, limited.length) }, () => worker()));
+	return result;
+}
+
 const isMainModule =
 	typeof process !== 'undefined' &&
 	process.argv[1] &&
@@ -390,15 +536,17 @@ const isMainModule =
 if (isMainModule) {
 	const cli = parseBackfillCliArgs(process.argv.slice(2));
 	backfillBlogImageVariants(cli)
-		.then((res) => {
+		.then(async (res) => {
+			const crops = await backfillCoverCrops(cli);
 			process.stdout.write(
 				`${JSON.stringify({
 					status: 'completed',
 					dryRun: cli.dryRun,
-					...res
+					...res,
+					crops
 				})}\n`
 			);
-			if (res.failed > 0) {
+			if (res.failed > 0 || crops.failed > 0) {
 				process.exitCode = 1;
 			}
 		})

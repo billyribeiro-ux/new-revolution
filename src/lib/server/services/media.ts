@@ -1,5 +1,4 @@
 import { randomBytes, randomUUID } from 'node:crypto';
-import { del as vercelBlobDel, put as vercelBlobPut } from '@vercel/blob';
 import { and, asc, count, desc, eq, ilike, isNotNull, isNull, or } from 'drizzle-orm';
 import sharp from 'sharp';
 import {
@@ -16,62 +15,24 @@ import {
 	mediaPatchSchema,
 	type MediaListQuery
 } from '../../shared/schemas/media';
+import {
+	cropVariantKey,
+	extractCoverCrops,
+	planCoverCrops,
+	type CoverCrop,
+	type MediaCropAspect
+} from '../../shared/cover-crops';
 import { replaceEmEnDashesInPlainText } from '../../shared/seo/content-transform';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
+import { getMediaStorageDriver } from '../media-storage';
 import { media, mediaFolders, posts, type MediaVariantRecord } from '../db/schema';
 
-export interface BlobStorageDriver {
-	put(
-		pathname: string,
-		body: Buffer,
-		options: { contentType: string }
-	): Promise<{ url: string; pathname: string }>;
-	del(urlsOrPathnames: string | string[]): Promise<void>;
-}
-
-const localBlobStore = new Map<string, Buffer>();
-
-const defaultStorageDriver: BlobStorageDriver = {
-	async put(pathname, body, options) {
-		if (process.env.BLOB_READ_WRITE_TOKEN) {
-			const res = await vercelBlobPut(pathname, body, {
-				access: 'public',
-				addRandomSuffix: false,
-				contentType: options.contentType
-			});
-			return { url: res.url, pathname: res.pathname };
-		}
-		const cleanPath = pathname.replace(/^\/+/, '');
-		const url = `https://revolutiontradingpros.com/media/${cleanPath}`;
-		localBlobStore.set(url, body);
-		return { url, pathname: cleanPath };
-	},
-	async del(urlsOrPathnames) {
-		if (process.env.BLOB_READ_WRITE_TOKEN) {
-			await vercelBlobDel(urlsOrPathnames);
-			return;
-		}
-		const list = Array.isArray(urlsOrPathnames) ? urlsOrPathnames : [urlsOrPathnames];
-		for (const item of list) {
-			localBlobStore.delete(item);
-		}
-	}
-};
-
-let activeStorageDriver: BlobStorageDriver = defaultStorageDriver;
-
-export function setMediaStorageDriverForTest(driver: BlobStorageDriver | null): void {
-	activeStorageDriver = driver ?? defaultStorageDriver;
-}
-
-export function getMediaStorageDriver(): BlobStorageDriver {
-	return activeStorageDriver;
-}
-
-export function getLocalBlobBuffer(url: string): Buffer | undefined {
-	return localBlobStore.get(url);
-}
+export {
+	getMediaStorageDriver,
+	setMediaStorageDriverForTest,
+	type BlobStorageDriver
+} from '../media-storage';
 
 /**
  * Sniffs the true MIME type from magic bytes (Section 9.3 step 4).
@@ -296,6 +257,98 @@ export function formatMediaRowToItem(
 	};
 }
 
+export interface EncodedCoverCrop {
+	aspect: MediaCropAspect;
+	width: number;
+	height: number;
+	buffer: Buffer;
+}
+
+/**
+ * Encodes the Article-image crops (16x9, 4x3, 1x1; see shared/cover-crops.ts) from the ORIGINAL upload bytes
+ * (one lossy pass, EXIF-rotated first). `fit: 'cover'` fills the exact ratio; `position: attention` keeps the
+ * most salient region (colour/brightness/saturation) in frame, which suits photo covers; centre would cut off
+ * off-centre subjects. Sizes never exceed the source and crops under 50,000 px are not produced. A crop that
+ * fails to encode is skipped with a warning (the upload and the other crops are unaffected).
+ */
+export async function encodeCoverCrops(
+	source: Buffer,
+	sourceWidth: number | null,
+	sourceHeight: number | null
+): Promise<EncodedCoverCrop[]> {
+	const plans = planCoverCrops(sourceWidth, sourceHeight);
+	const settled = await Promise.allSettled(
+		plans.map(async (plan) => {
+			const { data, info } = await sharp(source)
+				.rotate()
+				.resize({
+					width: plan.width,
+					height: plan.height,
+					fit: 'cover',
+					position: sharp.strategy.attention,
+					withoutEnlargement: true
+				})
+				.webp({ quality: MEDIA_WEBP_QUALITY })
+				.toBuffer({ resolveWithObject: true });
+			if (info.width !== plan.width || info.height !== plan.height) {
+				throw new Error(
+					`crop ${plan.aspect} came out ${info.width}x${info.height}, expected ${plan.width}x${plan.height}`
+				);
+			}
+			return { ...plan, buffer: data } satisfies EncodedCoverCrop;
+		})
+	);
+	const out: EncodedCoverCrop[] = [];
+	settled.forEach((r, i) => {
+		if (r.status === 'fulfilled') out.push(r.value);
+		else console.warn(`[media] Crop ${plans[i].aspect} skipped:`, r.reason);
+	});
+	return out;
+}
+
+export function coverCropVariantRecord(
+	crop: EncodedCoverCrop,
+	stored: { url: string; pathname: string }
+): MediaVariantRecord {
+	return {
+		width: crop.width,
+		height: crop.height,
+		url: stored.url,
+		pathname: stored.pathname,
+		kind: 'crop',
+		aspect: crop.aspect
+	};
+}
+
+/** Every storage URL that belongs to a media row: original, width variants and crops (all in variants_json). */
+export function allMediaRowUrls(
+	row: Pick<typeof media.$inferSelect, 'blobUrl' | 'variantsJson'>
+): string[] {
+	const urls = [row.blobUrl];
+	for (const v of Object.values(row.variantsJson ?? {})) {
+		if (v?.url) urls.push(v.url);
+	}
+	return urls;
+}
+
+/**
+ * Crops for a cover URL (the original, a width variant, or a crop of the same media row). Returns [] when the
+ * URL is unknown, the row is deleted, or no crop reached 50,000 px. Ordered 16x9, 4x3, 1x1.
+ */
+export async function getMediaCropsForUrl(
+	coverUrl: string | null | undefined
+): Promise<CoverCrop[]> {
+	const url = coverUrl?.trim();
+	if (!url) return [];
+	const db = await ensureDbReady();
+	const rows = await db
+		.select({ blobUrl: media.blobUrl, variantsJson: media.variantsJson })
+		.from(media)
+		.where(isNull(media.deletedAt));
+	const row = rows.find((r) => allMediaRowUrls(r).includes(url));
+	return row ? extractCoverCrops(row.variantsJson) : [];
+}
+
 export interface UploadMediaParams {
 	filename: string;
 	buffer: Buffer;
@@ -372,10 +425,23 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 	const variantsMap: Record<string, MediaVariantRecord> = {};
 	let originalBlob: { url: string; pathname: string } | null = null;
 
-	if (finalMimeType === 'image/webp' && width !== null && height !== null && width > 480) {
-		const targetVariantWidths = MEDIA_VARIANT_WIDTHS.filter((vw) => vw < width!);
+	// Crops are cut from the original upload bytes (WebP output only; GIF and SVG are not cropped).
+	const cropBuffers =
+		finalMimeType === 'image/webp' ? await encodeCoverCrops(params.buffer, width, height) : [];
+	const targetVariantWidths =
+		finalMimeType === 'image/webp' && width !== null && height !== null && width > 480
+			? MEDIA_VARIANT_WIDTHS.filter((vw) => vw < width!)
+			: [];
+
+	if (
+		finalMimeType === 'image/webp' &&
+		(targetVariantWidths.length > 0 || cropBuffers.length > 0)
+	) {
+		let variantBuffers: Array<{ width: number; height: number; buffer: Buffer; pathname: string }> =
+			[];
+		let variantsEncoded = false;
 		try {
-			const variantBuffers = await Promise.all(
+			variantBuffers = await Promise.all(
 				targetVariantWidths.map(async (vw) => {
 					const resized = await sharp(finalBuffer)
 						.resize({ width: vw, withoutEnlargement: true })
@@ -389,21 +455,50 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 					};
 				})
 			);
+			variantsEncoded = true;
+		} catch (encodeErr) {
+			// Encoding problems only: fall back to storing the single original (nothing was stored yet).
+			console.warn('[media] Variant encoding failed, falling back to single put:', encodeErr);
+		}
 
+		if (variantsEncoded) {
 			const originalPathname = `${stem}-${hex12}-${width}w.webp`;
-			const [origPut, ...variantPuts] = await Promise.all([
+			const cropPathnames = cropBuffers.map((c) => `${stem}-${hex12}-crop-${c.aspect}.webp`);
+			const putResults = await Promise.allSettled([
 				driver.put(originalPathname, finalBuffer, { contentType: 'image/webp' }),
 				...variantBuffers.map((vb) =>
 					driver.put(vb.pathname, vb.buffer, { contentType: 'image/webp' })
+				),
+				...cropBuffers.map((c, i) =>
+					driver.put(cropPathnames[i], c.buffer, { contentType: 'image/webp' })
 				)
 			]);
 
-			originalBlob = origPut;
-			uploadedUrls.push(origPut.url);
+			// allSettled (not all): a rejected put must not hide the puts that already succeeded, otherwise
+			// they are orphaned. Record every fulfilled URL before deciding.
+			for (const result of putResults) {
+				if (result.status === 'fulfilled') uploadedUrls.push(result.value.url);
+			}
+			const firstRejection = putResults.find(
+				(r): r is PromiseRejectedResult => r.status === 'rejected'
+			);
+			if (firstRejection) {
+				try {
+					await driver.del(uploadedUrls);
+				} catch (delErr) {
+					console.error('[media] Cleanup of partial variant uploads failed:', delErr);
+				}
+				throw firstRejection.reason;
+			}
+
+			const stored = putResults as PromiseFulfilledResult<{
+				url: string;
+				pathname: string;
+			}>[];
+			originalBlob = stored[0].value;
 			for (let i = 0; i < variantBuffers.length; i++) {
 				const vb = variantBuffers[i];
-				const putRes = variantPuts[i];
-				uploadedUrls.push(putRes.url);
+				const putRes = stored[1 + i].value;
 				variantsMap[String(targetVariantWidths[i])] = {
 					width: vb.width,
 					height: vb.height,
@@ -411,21 +506,12 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 					pathname: putRes.pathname
 				};
 			}
-		} catch (variantErr) {
-			console.warn(
-				'[media] Variant upload failed, cleaning siblings and falling back to single put:',
-				variantErr
-			);
-			if (uploadedUrls.length > 0) {
-				try {
-					await driver.del(uploadedUrls);
-				} catch (delErr) {
-					console.warn('[media] Cleanup of partial variant uploads failed:', delErr);
-				}
-				uploadedUrls.length = 0;
+			for (let i = 0; i < cropBuffers.length; i++) {
+				variantsMap[cropVariantKey(cropBuffers[i].aspect)] = coverCropVariantRecord(
+					cropBuffers[i],
+					stored[1 + variantBuffers.length + i].value
+				);
 			}
-			for (const k of Object.keys(variantsMap)) delete variantsMap[k];
-			originalBlob = null;
 		}
 	}
 
@@ -449,6 +535,7 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 			? `${params.filename.replace(/\.[a-zA-Z0-9]+$/, '')}.webp`
 			: params.filename;
 
+	let savedRow: typeof media.$inferSelect;
 	try {
 		const inserted = await db
 			.insert(media)
@@ -473,10 +560,36 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 			})
 			.returning();
 
-		if (folder) {
-			await db.insert(mediaFolders).values({ name: folder, createdAt: now }).onConflictDoNothing();
+		savedRow = inserted[0];
+	} catch (dbErr) {
+		// Delete uploaded blobs if DB insert fails so blobs are never orphaned (Section 9.3 step 7)
+		if (uploadedUrls.length > 0) {
+			try {
+				await driver.del(uploadedUrls);
+			} catch (cleanupErr) {
+				console.error('[media] Failed to clean up blobs after DB insert failure:', cleanupErr);
+			}
 		}
+		throw dbErr;
+	}
 
+	// Same reasoning for the folder registry: the row is committed, so a failure here must not delete blobs.
+	// listDistinctMediaFolders also derives folders from media rows, so this is only a convenience entry.
+	if (folder) {
+		try {
+			await db.insert(mediaFolders).values({ name: folder, createdAt: now }).onConflictDoNothing();
+		} catch (folderErr) {
+			console.error(
+				'[media] Folder registry insert failed after upload (row kept):',
+				folder,
+				folderErr
+			);
+		}
+	}
+
+	// The row is saved and the blobs are referenced by it. An audit-log failure must NOT delete those
+	// blobs (that would leave a saved row pointing at deleted files), so it lives outside the cleanup try.
+	try {
 		await writeAuditLog({
 			actorUserId: params.actorUserId,
 			action: 'media.upload',
@@ -489,19 +602,15 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 				variants: Object.keys(variantsMap)
 			}
 		});
-
-		return formatMediaRowToItem(inserted[0], 0);
-	} catch (dbErr) {
-		// Delete uploaded blobs if DB insert fails so blobs are never orphaned (Section 9.3 step 7)
-		if (uploadedUrls.length > 0) {
-			try {
-				await driver.del(uploadedUrls);
-			} catch (cleanupErr) {
-				console.error('[media] Failed to clean up blobs after DB insert failure:', cleanupErr);
-			}
-		}
-		throw dbErr;
+	} catch (auditErr) {
+		console.error(
+			'[media] Audit log write failed after a successful upload (row kept):',
+			id,
+			auditErr
+		);
 	}
+
+	return formatMediaRowToItem(savedRow, 0);
 }
 
 export async function getMediaUsageInPosts(
@@ -510,12 +619,8 @@ export async function getMediaUsageInPosts(
 	}
 ): Promise<Array<{ id: number; title: string; slug: string }>> {
 	const db = await ensureDbReady();
-	const candidateUrls = new Set<string>([mediaRow.blobUrl]);
-	if (mediaRow.variantsJson) {
-		for (const v of Object.values(mediaRow.variantsJson)) {
-			if (v?.url) candidateUrls.add(v.url);
-		}
-	}
+	// Includes crop URLs: variants_json holds width variants and crops.
+	const candidateUrls = new Set<string>(allMediaRowUrls(mediaRow));
 	if (mediaRow.extraUrls) {
 		for (const u of mediaRow.extraUrls) {
 			if (typeof u === 'string' && u) candidateUrls.add(u);
@@ -635,12 +740,7 @@ export async function listMediaItems(rawQuery: Partial<MediaListQuery> = {}) {
 	]);
 
 	const items = itemRows.map((row) => {
-		const urlsToCheck = [row.blobUrl];
-		if (row.variantsJson) {
-			for (const v of Object.values(row.variantsJson)) {
-				if (v?.url) urlsToCheck.push(v.url);
-			}
-		}
+		const urlsToCheck = allMediaRowUrls(row);
 		let usageCount = 0;
 		for (const p of activePosts) {
 			if (
@@ -752,12 +852,8 @@ export async function deleteMediaItem(
 		throw err;
 	}
 
-	const urlsToDelete = [row.blobUrl];
-	if (row.variantsJson) {
-		for (const v of Object.values(row.variantsJson)) {
-			if (v?.url) urlsToDelete.push(v.url);
-		}
-	}
+	// Original, width variants and crops.
+	const urlsToDelete = allMediaRowUrls(row);
 
 	// Delete blobs BEFORE soft-deleting in DB; abort if blob deletion throws (Section 9.5)
 	const driver = getMediaStorageDriver();
@@ -777,30 +873,28 @@ export async function deleteMediaItem(
 	return { deleted: true, id };
 }
 
-export async function restoreMediaItem(
-	id: string,
-	actorUserId?: string | null
-): Promise<MediaItem | null> {
+/**
+ * Restore is intentionally refused. `deleteMediaItem` removes the original and every variant blob BEFORE it
+ * soft-deletes the row (Section 9.5: a blob-delete failure aborts the delete), exactly like a permanent delete.
+ * A restored row would therefore point at files that no longer exist (broken images, still listed as usable).
+ * Keeping the blobs on soft delete instead would orphan storage forever (no purge job exists) and would break
+ * the "delete frees the file" contract. So: a soft-deleted row can be inspected in the trash list, but restoring
+ * it fails with 409 MEDIA_RESTORE_UNAVAILABLE; re-upload the file instead. Returns null when no trashed row exists.
+ */
+export async function restoreMediaItem(id: string): Promise<MediaItem | null> {
 	const db = await ensureDbReady();
-	const now = new Date();
-	const updated = await db
-		.update(media)
-		.set({ deletedAt: null, updatedAt: now })
+	const rows = await db
+		.select({ id: media.id, filename: media.filename })
+		.from(media)
 		.where(and(eq(media.id, id), isNotNull(media.deletedAt)))
-		.returning();
+		.limit(1);
 
-	const row = updated[0];
+	const row = rows[0];
 	if (!row) return null;
 
-	await writeAuditLog({
-		actorUserId,
-		action: 'media.restore',
-		entityType: 'media',
-		entityId: id,
-		summary: { filename: row.filename }
-	});
-
-	return formatMediaRowToItem(row, 0);
+	throw new Error(
+		`MEDIA_RESTORE_UNAVAILABLE: "${row.filename}" cannot be restored because its files were deleted from storage. Upload it again.`
+	);
 }
 
 export async function listTrashedMediaItems(): Promise<MediaItem[]> {

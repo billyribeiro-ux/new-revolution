@@ -120,4 +120,38 @@ describe('requireAdmin (auth-guard)', () => {
 		const admin = requireAdmin({ locals: { user: makeUser('admin') } });
 		expect(admin.role).toBe('admin');
 	});
+
+	it('never reads event.url for a GET (SvelteKit throws on event.url inside remote queries)', () => {
+		const event = {
+			locals: { user: makeUser('admin') },
+			request: new Request('https://revolutiontradingpros.com/_app/remote/x', { method: 'GET' })
+		} as Parameters<typeof requireAdmin>[0];
+		Object.defineProperty(event, 'url', {
+			enumerable: false,
+			get() {
+				throw new Error('Cannot access `event.url` in a query');
+			}
+		});
+		expect(requireAdmin(event).role).toBe('admin');
+	});
+
+	it('still enforces CSRF on a POST without reading event.url (command single-flight refresh runs queries under the POST)', () => {
+		const throwingUrl = {
+			enumerable: false,
+			get() {
+				throw new Error('Cannot access `event.url` in a query');
+			}
+		};
+		const make = (headers: Record<string, string>) => {
+			const event = {
+				locals: { user: makeUser('admin') },
+				request: new Request(`${APP_URL}/_app/remote/x`, { method: 'POST', headers })
+			} as Parameters<typeof requireAdmin>[0];
+			Object.defineProperty(event, 'url', throwingUrl);
+			return event;
+		};
+		expect(requireAdmin(make({ origin: APP_URL })).role).toBe('admin');
+		expect(thrownStatus(() => requireAdmin(make({ origin: 'https://evil.example' })))).toBe(403);
+		expect(thrownStatus(() => requireAdmin(make({})))).toBe(403);
+	});
 });

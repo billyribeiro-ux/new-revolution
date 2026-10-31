@@ -56,7 +56,7 @@ export const PATCH: RequestHandler = async (event) => {
 
 		const body = await event.request.json().catch(() => ({}));
 		if (body && typeof body === 'object' && 'action' in body && body.action === 'restore') {
-			const restored = await restoreMediaItem(id, admin.id);
+			const restored = await restoreMediaItem(id);
 			if (!restored) {
 				return json({ code: 'MEDIA_NOT_FOUND', error: 'Media item not found.' }, { status: 404 });
 			}

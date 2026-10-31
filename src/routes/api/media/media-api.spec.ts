@@ -1,7 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { createTestDatabase, setActiveDbForTest } from '#lib/server/db';
 import { media, user } from '#lib/server/db/schema';
+import { createDiskStorageDriver, setMediaStorageDriverForTest } from '#lib/server/media-storage';
 import { POST as uploadHandler } from './upload/+server';
 import { GET as listHandler } from './list/+server';
 import { GET as foldersGetHandler, POST as foldersPostHandler } from './folders/+server';
@@ -61,7 +65,15 @@ function makeEvent(options: {
 }
 
 describe('Media REST API & Backfill Pipeline', () => {
+	const mediaRoot = mkdtempSync(path.join(os.tmpdir(), 'media-api-'));
+
+	afterAll(() => {
+		setMediaStorageDriverForTest(null);
+		rmSync(mediaRoot, { recursive: true, force: true });
+	});
+
 	beforeEach(async () => {
+		setMediaStorageDriverForTest(createDiskStorageDriver(mediaRoot));
 		const { db } = await createTestDatabase();
 		setActiveDbForTest(db);
 		await db.insert(user).values({

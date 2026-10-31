@@ -1,7 +1,11 @@
+import { mkdtempSync, rmSync } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { eq } from 'drizzle-orm';
 import sharp from 'sharp';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createTestDatabase, setActiveDbForTest } from '../db';
+import { createDiskStorageDriver } from '../media-storage';
 import { media, posts, redirects, user } from '../db/schema';
 import { setPublicReadCache } from '../posts/cache';
 import {
@@ -35,6 +39,8 @@ import {
 import { createTag, deleteTag } from './tags';
 
 describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
+	const mediaRoot = mkdtempSync(path.join(os.tmpdir(), 'posts-media-'));
+	const testMediaDriver = createDiskStorageDriver(mediaRoot);
 	let testEnv: Awaited<ReturnType<typeof createTestDatabase>>;
 	let authorId = 0;
 	let categoryId = 0;
@@ -101,12 +107,13 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 
 	afterAll(async () => {
 		setMediaStorageDriverForTest(null);
+		rmSync(mediaRoot, { recursive: true, force: true });
 		await testEnv.cleanup();
 	});
 
 	beforeEach(() => {
 		clearRateLimitsForTest();
-		setMediaStorageDriverForTest(null);
+		setMediaStorageDriverForTest(testMediaDriver);
 	});
 
 	function buildCompliantPostInput(overrides: Record<string, unknown> = {}) {
@@ -652,7 +659,7 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		expect(stillPresent[0].deletedAt).toBeNull();
 
 		// Restore working storage driver and delete cleanly
-		setMediaStorageDriverForTest(null);
+		setMediaStorageDriverForTest(testMediaDriver);
 		const delOk = await deleteMediaItem(uploaded.id, actorUserId);
 		expect(delOk.deleted).toBe(true);
 	});

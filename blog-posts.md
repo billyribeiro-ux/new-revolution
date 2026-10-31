@@ -57,28 +57,48 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 
 ## Part 2: Summary Index of the 20 High-Ranking Blog Posts
 
-| #      | Slug                                                            | Focus Keyword              | Category                 | Funnel Target                                                           | Full Article File                                                                                                                                                |
-| :----- | :-------------------------------------------------------------- | :------------------------- | :----------------------- | :---------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **01** | `ultimate-guide-to-options-greeks`                              | `options greeks`           | Options & Greeks Mastery | `/resources/options-calculator` & `/store/courses`                      | [`blog-post-01-ultimate-guide-to-options-greeks.md`](blog-post-01-ultimate-guide-to-options-greeks.md)                                                           |
-| **02** | `spx-0dte-options-gamma-exposure-guide`                         | `spx 0dte options`         | Options & Greeks Mastery | `/alert-services/spx-profit-pulse`                                      | [`blog-post-02-spx-0dte-options-gamma-exposure-guide.md`](blog-post-02-spx-0dte-options-gamma-exposure-guide.md)                                                 |
-| **03** | `institutional-order-flow-and-gamma-flip-playbook`              | `gamma flip playbook`      | Institutional Order Flow | `/alert-services/spx-profit-pulse` & `/store/indicators`                | [`blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md`](blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md)                           |
-| **04** | `zero-dte-risk-management-and-position-sizing-rules`            | `zero dte risk management` | Risk & Psychology        | `/live-trading-rooms/day-trading-room`                                  | [`blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md`](blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md)                       |
-| **05** | `growing-a-500-dollar-small-options-account-without-blowing-up` | `small options account`    | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                               | [`blog-post-05-growing-a-500-dollar-small-options-account-without-blowing-up.md`](blog-post-05-growing-a-500-dollar-small-options-account-without-blowing-up.md) |
-| **06** | `cash-account-t1-settlement-options-day-trading`                | `t1 settlement options`    | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                               | [`blog-post-06-cash-account-t1-settlement-options-day-trading.md`](blog-post-06-cash-account-t1-settlement-options-day-trading.md)                               |
-| **07** | `spx-vs-spy-options-xsp-section-1256-taxes`                     | `spx vs spy options`       | Options & Greeks Mastery | `/alert-services/spx-profit-pulse` & `/resources/stock-indexes-list`    | [`blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md`](blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md)                                         |
-| **08** | `3-best-options-strategies-for-consistent-income`               | `options strategies`       | Options & Greeks Mastery | `/store/courses/options-greeks-and-volatility-mastery`                  | [`blog-post-08-3-best-options-strategies-for-consistent-income.md`](blog-post-08-3-best-options-strategies-for-consistent-income.md)                             |
-| **09** | `30-45-dte-credit-spreads-theta-decay-blueprint`                | `30 45 dte credit spreads` | Options & Greeks Mastery | `/live-trading-rooms/swing-trading-room`                                | [`blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md`](blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md)                               |
-| **10** | `how-we-shorted-oxy-put-options-600-percent-overnight`          | `oxy put options`          | Institutional Order Flow | `/alert-services/explosive-swings` & `/about`                           | [`blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md`](blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md)                   |
-| **11** | `the-move-prior-to-the-move-2020-2022-market-calls`             | `move prior to the move`   | Institutional Order Flow | `/store/courses/move-prior-to-the-move-ultra`                           | [`blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md`](blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md)                         |
-| **12** | `why-repainted-holy-grail-indicators-destroy-retail-accounts`   | `holy grail indicators`    | Institutional Order Flow | `/store/indicators` & `/our-mission`                                    | [`blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md`](blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md)     |
-| **13** | `multi-timeframe-volatility-squeeze-options-strategy`           | `volatility squeeze`       | Institutional Order Flow | `/store/scanners/high-octane-scanner`                                   | [`blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md`](blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md)                     |
-| **14** | `swing-trading-options-with-a-full-time-job-watchlist-routine`  | `swing trading options`    | Swing & Working Pros     | `/live-trading-rooms/swing-trading-room`                                | [`blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md`](blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md)   |
-| **15** | `oco-bracket-orders-thinkorswim-tradingview-swing-guide`        | `oco bracket orders`       | Swing & Working Pros     | `/alert-services/explosive-swings`                                      | [`blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md`](blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md)               |
-| **16** | `risk-management-essentials-for-active-traders`                 | `risk management`          | Risk & Psychology        | `/mentorship` & `/live-trading-rooms/day-trading-room`                  | [`blog-post-16-risk-management-essentials-for-active-traders.md`](blog-post-16-risk-management-essentials-for-active-traders.md)                                 |
-| **17** | `avoid-iv-crush-earnings-options-vega-strategy`                 | `avoid iv crush`           | Options & Greeks Mastery | `/resources/options-calculator`                                         | [`blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md`](blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md)                                 |
-| **18** | `sp500-sector-etf-rotation-swing-trading-guide`                 | `sector etf rotation`      | Swing & Working Pros     | `/resources/etf-stocks-list` & `/live-trading-rooms/swing-trading-room` | [`blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md`](blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md)                                 |
-| **19** | `institutional-liquidity-sweeps-stop-hunts-order-flow`          | `liquidity sweeps`         | Institutional Order Flow | `/store/indicators/move-prior-to-the-move-system`                       | [`blog-post-19-institutional-liquidity-sweeps-stop-hunts-order-flow.md`](blog-post-19-institutional-liquidity-sweeps-stop-hunts-order-flow.md)                   |
-| **20** | `defined-risk-vertical-spreads-small-account-options`           | `vertical spreads`         | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                               | [`blog-post-20-defined-risk-vertical-spreads-small-account-options.md`](blog-post-20-defined-risk-vertical-spreads-small-account-options.md)                     |
+| #      | Slug                                                            | Focus Keyword              | Category                 | Funnel Target                                                              | Full Article File                                                                                                                                                |
+| :----- | :-------------------------------------------------------------- | :------------------------- | :----------------------- | :------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **01** | `ultimate-guide-to-options-greeks`                              | `options greeks`           | Options & Greeks Mastery | `/resources/options-calculator` & `/store/courses`                         | [`blog-post-01-ultimate-guide-to-options-greeks.md`](blog-post-01-ultimate-guide-to-options-greeks.md)                                                           |
+| **02** | `spx-0dte-options-gamma-exposure-guide`                         | `spx 0dte options`         | Options & Greeks Mastery | `/alert-services/spx-profit-pulse`                                         | [`blog-post-02-spx-0dte-options-gamma-exposure-guide.md`](blog-post-02-spx-0dte-options-gamma-exposure-guide.md)                                                 |
+| **03** | `institutional-order-flow-and-gamma-flip-playbook`              | `gamma flip playbook`      | Institutional Order Flow | `/alert-services/spx-profit-pulse` & `/store/indicators`                   | [`blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md`](blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md)                           |
+| **04** | `zero-dte-risk-management-and-position-sizing-rules`            | `zero dte risk management` | Risk & Psychology        | `/live-trading-rooms/day-trading-room`                                     | [`blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md`](blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md)                       |
+| **05** | `growing-a-500-dollar-small-options-account-without-blowing-up` | `small options account`    | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                                  | [`blog-post-05-growing-a-500-dollar-small-options-account-without-blowing-up.md`](blog-post-05-growing-a-500-dollar-small-options-account-without-blowing-up.md) |
+| **06** | `cash-account-t1-settlement-options-day-trading`                | `t1 settlement options`    | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                                  | [`blog-post-06-cash-account-t1-settlement-options-day-trading.md`](blog-post-06-cash-account-t1-settlement-options-day-trading.md)                               |
+| **07** | `spx-vs-spy-options-xsp-section-1256-taxes`                     | `spx vs spy options`       | Options & Greeks Mastery | `/alert-services/spx-profit-pulse` & `/resources/stock-indexes-list`       | [`blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md`](blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md)                                         |
+| **08** | `3-best-options-strategies-for-consistent-income`               | `options strategies`       | Options & Greeks Mastery | `/store/courses/options-greeks-and-volatility-mastery`                     | [`blog-post-08-3-best-options-strategies-for-consistent-income.md`](blog-post-08-3-best-options-strategies-for-consistent-income.md)                             |
+| **09** | `30-45-dte-credit-spreads-theta-decay-blueprint`                | `30 45 dte credit spreads` | Options & Greeks Mastery | `/live-trading-rooms/swing-trading-room`                                   | [`blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md`](blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md)                               |
+| **10** | `how-we-shorted-oxy-put-options-600-percent-overnight`          | `oxy put options`          | Institutional Order Flow | `/alert-services/explosive-swings` & `/about`                              | [`blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md`](blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md)                   |
+| **11** | `the-move-prior-to-the-move-2020-2022-market-calls`             | `move prior to the move`   | Institutional Order Flow | `/store/courses/move-prior-to-the-move-ultra`                              | [`blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md`](blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md)                         |
+| **12** | `why-repainted-holy-grail-indicators-destroy-retail-accounts`   | `holy grail indicators`    | Institutional Order Flow | `/store/indicators` & `/our-mission`                                       | [`blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md`](blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md)     |
+| **13** | `multi-timeframe-volatility-squeeze-options-strategy`           | `volatility squeeze`       | Institutional Order Flow | `/store/scanners/high-octane-scanner`                                      | [`blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md`](blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md)                     |
+| **14** | `swing-trading-options-with-a-full-time-job-watchlist-routine`  | `swing trading options`    | Swing & Working Pros     | `/live-trading-rooms/swing-trading-room`                                   | [`blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md`](blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md)   |
+| **15** | `oco-bracket-orders-thinkorswim-tradingview-swing-guide`        | `oco bracket orders`       | Swing & Working Pros     | `/alert-services/explosive-swings`                                         | [`blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md`](blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md)               |
+| **16** | `risk-management-essentials-for-active-traders`                 | `risk management`          | Risk & Psychology        | `/mentorship` & `/live-trading-rooms/day-trading-room`                     | [`blog-post-16-risk-management-essentials-for-active-traders.md`](blog-post-16-risk-management-essentials-for-active-traders.md)                                 |
+| **17** | `avoid-iv-crush-earnings-options-vega-strategy`                 | `avoid iv crush`           | Options & Greeks Mastery | `/resources/options-calculator`                                            | [`blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md`](blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md)                                 |
+| **18** | `sp500-sector-etf-rotation-swing-trading-guide`                 | `sector etf rotation`      | Swing & Working Pros     | `/resources/etf-stocks-list` & `/live-trading-rooms/swing-trading-room`    | [`blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md`](blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md)                                 |
+| **19** | `institutional-liquidity-sweeps-stop-hunts-order-flow`          | `liquidity sweeps`         | Institutional Order Flow | `/store/indicators/move-prior-to-the-move-system`                          | [`blog-post-19-institutional-liquidity-sweeps-stop-hunts-order-flow.md`](blog-post-19-institutional-liquidity-sweeps-stop-hunts-order-flow.md)                   |
+| **20** | `defined-risk-vertical-spreads-small-account-options`           | `vertical spreads`         | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room`                                  | [`blog-post-20-defined-risk-vertical-spreads-small-account-options.md`](blog-post-20-defined-risk-vertical-spreads-small-account-options.md)                     |
+| **21** | `vanna-and-charm-options-second-order-greeks`                   | `vanna and charm`          | Options & Greeks Mastery | `/alert-services/spx-profit-pulse` & `/store/indicators`                   | [`blog-post-21-vanna-and-charm-options-second-order-greeks.md`](blog-post-21-vanna-and-charm-options-second-order-greeks.md)                                     |
+| **22** | `poor-mans-covered-call-diagonal-spread-playbook`               | `diagonal spread`          | Options & Greeks Mastery | `/live-trading-rooms/swing-trading-room` & `/resources/options-calculator` | [`blog-post-22-poor-mans-covered-call-diagonal-spread-playbook.md`](blog-post-22-poor-mans-covered-call-diagonal-spread-playbook.md)                             |
+| **23** | `iron-condor-adjustment-rules-21-dte-theta-guide`               | `iron condor adjustment`   | Options & Greeks Mastery | `/store/courses` & `/resources/options-calculator`                         | [`blog-post-23-iron-condor-adjustment-rules-21-dte-theta-guide.md`](blog-post-23-iron-condor-adjustment-rules-21-dte-theta-guide.md)                             |
+| **24** | `spx-0dte-butterfly-broken-wing-afternoon-pin`                  | `spx 0dte butterfly`       | Options & Greeks Mastery | `/alert-services/spx-profit-pulse` & `/store/indicators`                   | [`blog-post-24-spx-0dte-butterfly-broken-wing-afternoon-pin.md`](blog-post-24-spx-0dte-butterfly-broken-wing-afternoon-pin.md)                                   |
+| **25** | `ndx-vs-qqq-options-mnx-section-1256-tax-guide`                 | `ndx vs qqq options`       | Options & Greeks Mastery | `/resources/stock-indexes-list` & `/resources/etf-stocks-list`             | [`blog-post-25-ndx-vs-qqq-options-mnx-section-1256-tax-guide.md`](blog-post-25-ndx-vs-qqq-options-mnx-section-1256-tax-guide.md)                                 |
+| **26** | `vix-term-structure-contango-backwardation-options`             | `vix term structure`       | Options & Greeks Mastery | `/store/scanners` & `/store/courses`                                       | [`blog-post-26-vix-term-structure-contango-backwardation-options.md`](blog-post-26-vix-term-structure-contango-backwardation-options.md)                         |
+| **27** | `cash-secured-puts-wheel-strategy-small-accounts`               | `cash secured puts`        | $500+ Small Accounts     | `/live-trading-rooms/small-accounts-room` & `/store/scanners`              | [`blog-post-27-cash-secured-puts-wheel-strategy-small-accounts.md`](blog-post-27-cash-secured-puts-wheel-strategy-small-accounts.md)                             |
+| **28** | `unusual-options-activity-dark-pool-sweeps-guide`               | `unusual options activity` | Institutional Order Flow | `/store/scanners` & `/live-trading-rooms/day-trading-room`                 | [`blog-post-28-unusual-options-activity-dark-pool-sweeps-guide.md`](blog-post-28-unusual-options-activity-dark-pool-sweeps-guide.md)                             |
+| **29** | `opening-range-breakout-vwap-rvol-options-strategy`             | `opening range breakout`   | Institutional Order Flow | `/store/indicators` & `/live-trading-rooms/day-trading-room`               | [`blog-post-29-opening-range-breakout-vwap-rvol-options-strategy.md`](blog-post-29-opening-range-breakout-vwap-rvol-options-strategy.md)                         |
+| **30** | `pre-market-gap-and-go-vs-gap-fade-options-playbook`            | `pre market gap`           | Institutional Order Flow | `/store/scanners` & `/live-trading-rooms/day-trading-room`                 | [`blog-post-30-pre-market-gap-and-go-vs-gap-fade-options-playbook.md`](blog-post-30-pre-market-gap-and-go-vs-gap-fade-options-playbook.md)                       |
+| **31** | `volume-profile-trading-poc-value-area-options-map`             | `volume profile trading`   | Institutional Order Flow | `/store/indicators` & `/live-trading-rooms/day-trading-room`               | [`blog-post-31-volume-profile-trading-poc-value-area-options-map.md`](blog-post-31-volume-profile-trading-poc-value-area-options-map.md)                         |
+| **32** | `abandoned-price-bar-climax-volume-reversal-guide`              | `abandoned price bar`      | Institutional Order Flow | `/store/indicators` & `/store/courses`                                     | [`blog-post-32-abandoned-price-bar-climax-volume-reversal-guide.md`](blog-post-32-abandoned-price-bar-climax-volume-reversal-guide.md)                           |
+| **33** | `relative-volume-rvol-cumulative-delta-absorption`              | `relative volume rvol`     | Institutional Order Flow | `/store/scanners` & `/store/indicators`                                    | [`blog-post-33-relative-volume-rvol-cumulative-delta-absorption.md`](blog-post-33-relative-volume-rvol-cumulative-delta-absorption.md)                           |
+| **34** | `options-bid-ask-spread-liquidity-slippage-filter`              | `options bid ask spread`   | $500+ Small Accounts     | `/store/scanners` & `/live-trading-rooms/small-accounts-room`              | [`blog-post-34-options-bid-ask-spread-liquidity-slippage-filter.md`](blog-post-34-options-bid-ask-spread-liquidity-slippage-filter.md)                           |
+| **35** | `sunday-evening-swing-trading-watchlist-routine-pro`            | `swing trading watchlist`  | Swing & Working Pros     | `/store/scanners` & `/alert-services/explosive-swings`                     | [`blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md`](blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md)                       |
+| **36** | `rolling-options-credit-spreads-covered-calls-map`              | `rolling options`          | Options & Greeks Mastery | `/resources/options-calculator` & `/live-trading-rooms/swing-trading-room` | [`blog-post-36-rolling-options-credit-spreads-covered-calls-map.md`](blog-post-36-rolling-options-credit-spreads-covered-calls-map.md)                           |
+| **37** | `portfolio-hedging-put-debit-spreads-vix-calls-map`             | `portfolio hedging`        | Risk & Psychology        | `/mentorship` & `/store/courses`                                           | [`blog-post-37-portfolio-hedging-put-debit-spreads-vix-calls-map.md`](blog-post-37-portfolio-hedging-put-debit-spreads-vix-calls-map.md)                         |
+| **38** | `eliminate-revenge-trading-fomo-circuit-breakers`               | `revenge trading`          | Risk & Psychology        | `/store/courses` & `/mentorship`                                           | [`blog-post-38-eliminate-revenge-trading-fomo-circuit-breakers.md`](blog-post-38-eliminate-revenge-trading-fomo-circuit-breakers.md)                             |
+| **39** | `trading-journal-expectancy-audit-r-multiple-math`              | `trading journal`          | Risk & Psychology        | `/store/courses` & `/mentorship`                                           | [`blog-post-39-trading-journal-expectancy-audit-r-multiple-math.md`](blog-post-39-trading-journal-expectancy-audit-r-multiple-math.md)                           |
+| **40** | `iwm-russell-2000-vs-spy-qqq-options-trading-map`               | `iwm russell 2000`         | $500+ Small Accounts     | `/resources/etf-stocks-list` & `/resources/stock-indexes-list`             | [`blog-post-40-iwm-russell-2000-vs-spy-qqq-options-trading-map.md`](blog-post-40-iwm-russell-2000-vs-spy-qqq-options-trading-map.md)                             |
 
 ---
 
@@ -934,16 +954,856 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 
 ---
 
+### Post 21: Vanna and Charm Explained: How Second-Order Greeks Drive SPX Afternoon Rallies
+
+- **H1 Blog Title:** `Vanna and Charm Explained: How Second-Order Greeks Drive SPX Afternoon Rallies`
+- **Slug (`43` chars, `1` gate stop word):** `vanna-and-charm-options-second-order-greeks`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/vanna-and-charm-options-second-order-greeks`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/vanna-and-charm-options-second-order-greeks`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Vanna and Charm Options Playbook` -> Renders as: `Vanna and Charm Options Playbook | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Master vanna and charm second-order options Greeks. Learn how implied volatility resets and afternoon delta bleed force SPX dealer futures buying.`
+- **Excerpt (`148` chars):** `First-order Gamma explains morning breakouts, but Vanna and Charm dictate the mechanical afternoon futures buying and 4:00 PM ET SPX index pins.`
+- **Focus Keyword:** `vanna and charm`
+- **Secondary Keywords (JSON):** `["second order options greeks", "vanna rally spx", "charm delta decay", "dealer hedging flows", "spx 0dte afternoon pin"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `vanna`, `charm`, `options-greeks`, `spx-0dte`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,600 words` (`13 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/vanna-and-charm-options-second-order-greeks.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional vanna and charm options risk surface showing SPX dealer futures buying as IV compresses`
+  - `coverImageCaption`: `Figure 1: How Vanna (Delta vs IV) and Charm (Delta vs time) force mechanical market-maker hedging.`
+- **Search Intent & SERP Evidence:** High-value Keyword Gap. Retail guides stop at first-order Greeks; active SPX/0DTE traders heavily search `vanna and charm options` to understand post-event volatility melt-ups and 2:00 PM ET Charm pins.
+- **Required H2/H3 Outline:**
+  - `H2`: First-Order vs. Second-Order Options Greeks: Defining Vanna, Charm, and Vomma
+  - `H2`: Vanna Mechanics: Why Falling Implied Volatility Forces Dealer Futures Buying
+  - `H2`: Charm (Delta Bleed) Mechanics: The 2:00 PM ET to 4:00 PM ET SPX Pinning Engine
+  - `H2`: Combining Gamma Exposure (GEX) With Vanna and Charm in Live Trading
+- **Internal Links to Include:**
+  - `/alert-services/spx-profit-pulse` (SPX Profit Pulse)
+  - `/store/indicators/spx-gamma-zones` (Dynamic SPX & Index Gamma Inflection Levels)
+  - `/resources/options-calculator` (Free Options Calculator)
+- **External Authority Citations:**
+  - `https://www.cboe.com/tradable_products/sp_500/spx_options/` (Cboe SPX options specifications)
+  - `https://www.cmegroup.com/` (CME E-mini S&P 500 futures hedging mechanics)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the difference between Vanna and Charm in options trading?`
+     **A:** `Vanna measures how an option's Delta changes for every 1-point shift in Implied Volatility, while Charm measures how an option's Delta decays automatically as each hour of time passes toward expiration.`
+  2. **Q:** `Why does a drop in VIX often trigger an afternoon Vanna rally on SPX?`
+     **A:** `When retail traders buy short-dated puts, dealers are short puts (positive Delta hedge via short futures). As Implied Volatility drops, put Deltas shrink via Vanna, forcing dealers to buy back their short S&P 500 futures.`
+  3. **Q:** `When is Charm flow strongest during an SPX 0DTE session?`
+     **A:** `Charm accelerates exponentially after 1:30 PM ET on 0DTE contracts as out-of-the-money Deltas bleed rapidly toward zero, forcing market makers to unwind intraday futures hedges into the 4:00 PM ET close.`
+
+---
+
+### Post 22: Poor Man's Covered Call (PMCC) Playbook: 80-Delta LEAPS & Diagonal Spread Rules
+
+- **H1 Blog Title:** `Poor Man's Covered Call (PMCC) Playbook: 80-Delta LEAPS & Diagonal Spread Rules`
+- **Slug (`47` chars, `0` gate stop words):** `poor-mans-covered-call-diagonal-spread-playbook`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/poor-mans-covered-call-diagonal-spread-playbook`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/poor-mans-covered-call-diagonal-spread-playbook`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `PMCC & Diagonal Spread Playbook` -> Renders as: `PMCC & Diagonal Spread Playbook | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Structure a Poor Man's Covered Call using our diagonal spread rules. Pair 80-Delta LEAPS with 30-Delta short calls and pass the strike-width debit test.`
+- **Excerpt (`147` chars):** `Control 100 shares of SPY, QQQ, or NVDA for 75% less capital than a traditional covered call using a deep-in-the-money LEAPS diagonal debit spread.`
+- **Focus Keyword:** `diagonal spread`
+- **Secondary Keywords (JSON):** `["poor mans covered call", "80 delta leaps options", "long call diagonal debit spread", "pmcc strike width rule", "selling calls against leaps"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `diagonal-spreads`, `leaps-options`, `theta-decay`, `small-accounts`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,500 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/poor-mans-covered-call-diagonal-spread-playbook.webp` (`1200x630`)
+  - `coverImageAlt`: `Poor Mans Covered Call diagonal spread payoff diagram showing 80-Delta LEAPS and 30-Delta short call`
+  - `coverImageCaption`: `Figure 1: Capital efficiency and payoff structure of a Long Call Diagonal Debit Spread (PMCC).`
+- **Search Intent & SERP Evidence:** Massive evergreen search volume from $1,500 to $15,000 accounts searching `Poor Man's Covered Call rules` and `diagonal spread options`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why Traditional Covered Calls Tie Up Too Much Capital for Growing Accounts
+  - `H2`: Leg 1 Rules: Buying the 0.80+ Delta Deep ITM LEAPS Call (180 to 540 DTE)
+  - `H2`: Leg 2 Rules: Selling the 0.20 to 0.30 Delta Short Call (30 to 45 DTE)
+  - `H2`: The Golden Strike-Width Rule: Eliminating Upside Blow-By Losses
+- **Internal Links to Include:**
+  - `/resources/options-calculator` (Options Calculator)
+  - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
+  - `/store/courses/options-greeks-and-volatility-mastery` (Options Greeks Mastery Course)
+- **External Authority Citations:**
+  - `https://www.optionseducation.org/strategies/all-strategies/diagonal-call-spread` (OIC diagonal spread specification)
+  - `https://www.theocc.com/` (OCC LEAPS and multi-expiration margin rules)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `Why must the long LEAPS leg of a diagonal spread have at least 0.80 Delta?`
+     **A:** `A deep in-the-money 0.80+ Delta LEAPS call consists mostly of intrinsic value with minimal extrinsic time value, allowing it to track the underlying stock nearly dollar-for-dollar while suffering very little Theta decay.`
+  2. **Q:** `What is the golden strike-width rule on a Poor Man's Covered Call?`
+     **A:** `Your total net debit paid to open the diagonal spread must be strictly less than the dollar width between your long LEAPS strike and your short call strike so you still profit if the stock surges past your short strike.`
+  3. **Q:** `What should I do if the underlying stock rallies up to my short call strike in a PMCC?`
+     **A:** `Before the short call goes deep in the money or enters expiration week, roll the short call out in time and up in strike for a net credit, or close the entire two-leg diagonal spread for a net profit.`
+
+---
+
+### Post 23: Iron Condor Adjustment Rules: How to Manage Tested Spreads at 21 DTE
+
+- **H1 Blog Title:** `Iron Condor Adjustment Rules: How to Manage Tested Spreads at 21 DTE`
+- **Slug (`47` chars, `0` gate stop words):** `iron-condor-adjustment-rules-21-dte-theta-guide`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/iron-condor-adjustment-rules-21-dte-theta-guide`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/iron-condor-adjustment-rules-21-dte-theta-guide`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Iron Condor Adjustment 21DTE Map` -> Renders as: `Iron Condor Adjustment 21DTE Map | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Execute mechanical iron condor adjustment rules at 21 DTE. Roll untested wings for a credit, invert into iron butterflies, and cap max drawdown risk.`
+- **Excerpt (`148` chars):** `Opening an iron condor is easy; defending it when price tests your short strike is where accounts are won or lost. Master our 21 DTE adjustment tree.`
+- **Focus Keyword:** `iron condor adjustment`
+- **Secondary Keywords (JSON):** `["21 dte options rule", "rolling untested wing", "iron butterfly conversion", "delta neutral options", "high iv rank iron condor"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `iron-condors`, `options-strategies`, `theta-decay`, `risk-management`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/iron-condor-adjustment-rules-21-dte-theta-guide.webp` (`1200x630`)
+  - `coverImageAlt`: `Decision tree for iron condor adjustment rules at 21 DTE showing untested wing rolls and exits`
+  - `coverImageCaption`: `Figure 1: Mechanical 21 DTE adjustment protocol for tested and untested iron condors.`
+- **Search Intent & SERP Evidence:** High-intent tactical query (`iron condor adjustment rules`) bridging Post #08 and Post #09 into advanced multi-leg Greek management.
+- **Required H2/H3 Outline:**
+  - `H2`: Pre-Flight Setup: 16-Delta Wings, 30 to 45 DTE, and IV Rank > 50
+  - `H2`: Trigger #1: When Position Delta Exceeds +/-15 or Short Strike Hits 0.30 Delta
+  - `H2`: Adjustment Path A: Rolling the Untested Credit Spread Closer for Additional Credit
+  - `H2`: Adjustment Path B: Rolling Out in Time vs. Taking a Mechanical 2x Credit Stop
+- **Internal Links to Include:**
+  - `/resources/options-calculator` (Options Calculator)
+  - `/store/scanners/spx-dealer-gamma-iv-skew-scanner` (SPX & Index Options Dealer Gamma & IV Percentile Scanner)
+  - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
+- **External Authority Citations:**
+  - `https://www.optionseducation.org/strategies/all-strategies/iron-condor` (OIC iron condor reference)
+  - `https://www.cboe.com/` (Cboe Condor Index CNDR benchmark methodology)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `When should you adjust a tested iron condor?`
+     **A:** `We evaluate adjustments mechanically when the tested short call or short put reaches 0.30 absolute Delta, or at the 21 DTE mark before late-cycle Gamma acceleration begins.`
+  2. **Q:** `How does rolling the untested side of an iron condor work?`
+     **A:** `If the underlying rallies and tests your short call spread, your put credit spread has decayed to near zero. You buy back the winning put spread and open a new put credit spread closer to the current price to collect extra credit and neutralize Delta.`
+  3. **Q:** `Why should you never pay a net debit to roll or adjust an iron condor?`
+     **A:** `Paying a net debit to roll an iron condor increases your maximum dollar risk and widens your breakeven requirement after your original range-bound thesis has already been invalidated.`
+
+---
+
+### Post 24: SPX 0DTE Butterfly & Broken Wing Butterfly Guide: Trading Afternoon Pin Zones
+
+- **H1 Blog Title:** `SPX 0DTE Butterfly & Broken Wing Butterfly Guide: Trading Afternoon Pin Zones`
+- **Slug (`44` chars, `0` gate stop words):** `spx-0dte-butterfly-broken-wing-afternoon-pin`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/spx-0dte-butterfly-broken-wing-afternoon-pin`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/spx-0dte-butterfly-broken-wing-afternoon-pin`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `SPX 0DTE Butterfly Pin Strategy` -> Renders as: `SPX 0DTE Butterfly Pin Strategy | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Target afternoon dealer gamma pins with an spx 0dte butterfly or broken wing butterfly. Risk small defined debits for 5R to 10R closing bell payoffs.`
+- **Excerpt (`146` chars):** `When SPX locks into a positive-gamma afternoon magnet strike after 1:30 PM ET, 0DTE butterflies and broken wing butterflies offer 5R+ asymmetry.`
+- **Focus Keyword:** `spx 0dte butterfly`
+- **Secondary Keywords (JSON):** `["broken wing butterfly spx", "0dte afternoon pin", "spxw cash settlement", "gamma magnet strike", "defined risk 0dte"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `spx-0dte`, `butterfly-spreads`, `gamma-exposure`, `spx-profit-pulse`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,300 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/spx-0dte-butterfly-broken-wing-afternoon-pin.webp` (`1200x630`)
+  - `coverImageAlt`: `Payoff tent of an spx 0dte butterfly and broken wing butterfly centered on a dealer gamma pin strike`
+  - `coverImageCaption`: `Figure 1: Symmetric vs. Broken Wing 0DTE SPX butterfly structures targeting a 4:00 PM ET cash-settled pin.`
+- **Search Intent & SERP Evidence:** High-intent keyword gap in the SPX 0DTE ecosystem; funnels directly into `/alert-services/spx-profit-pulse` and `/store/courses/spx-0dte-and-index-gamma-execution`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why Positive Dealer Gamma Creates Afternoon SPX Magnet Pins (1:30 PM to 4:00 PM ET)
+  - `H2`: Structure 1: The Symmetrical 10-Wide SPX 0DTE Butterfly Target Shot
+  - `H2`: Structure 2: The Directional Broken Wing Butterfly (Zero-Risk on One Side)
+  - `H2`: Cash-Settlement Mechanics & Scaling Out Before the 3:50 PM ET MOC Imbalance
+- **Internal Links to Include:**
+  - `/alert-services/spx-profit-pulse` (SPX Profit Pulse)
+  - `/store/indicators/spx-gamma-zones` (Dynamic SPX & Index Gamma Inflection Levels)
+  - `/store/courses/spx-0dte-and-index-gamma-execution` (SPX & Index Options Execution Course)
+- **External Authority Citations:**
+  - `https://www.cboe.com/tradable_products/sp_500/spx_options/` (Cboe SPXW specifications)
+  - `https://www.optionseducation.org/strategies/all-strategies/long-call-butterfly` (OIC butterfly strategy specifications)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the maximum loss on a symmetrical SPX 0DTE butterfly spread?`
+     **A:** `Your maximum possible loss on a symmetrical long call or put butterfly is strictly capped at the small net debit paid to enter the 4-leg structure, typically $0.60 to $1.50 ($60 to $150 per butterfly) on a 10-wide SPX tent.`
+  2. **Q:** `How does a Broken Wing Butterfly differ from a standard butterfly on SPX?`
+     **A:** `A Broken Wing Butterfly skips a strike on one wing (for example, 10 points wide on one side and 15 or 20 points wide on the other), allowing you to enter for near-zero debit or a net credit with zero risk on the narrow wing.`
+  3. **Q:** `Why do institutional traders close most SPX 0DTE butterflies before 3:50 PM ET?`
+     **A:** `At 3:50 PM ET, NYSE and Nasdaq publish the official Market-on-Close (MOC) institutional order imbalance, which can whipsaw SPX by 10 to 20 points in the final 10 minutes and push price outside your butterfly tent.`
+
+---
+
+### Post 25: NDX vs. QQQ vs. MNX Options: Nasdaq-100 Cash Settlement & Section 1256 Tax Guide
+
+- **H1 Blog Title:** `NDX vs. QQQ vs. MNX Options: Nasdaq-100 Cash Settlement & Section 1256 Tax Guide`
+- **Slug (`45` chars, `0` gate stop words):** `ndx-vs-qqq-options-mnx-section-1256-tax-guide`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/ndx-vs-qqq-options-mnx-section-1256-tax-guide`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/ndx-vs-qqq-options-mnx-section-1256-tax-guide`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `NDX vs QQQ Options & 1256 Taxes` -> Renders as: `NDX vs QQQ Options & 1256 Taxes | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Compare ndx vs qqq options alongside Mini-NDX (MNX) and Micro-NDX (XND). Master European cash settlement, notional sizing, and Section 1256 60/40 taxes.`
+- **Excerpt (`148` chars):** `Trading Nasdaq-100 tech momentum? Discover why NDX, MNX, and XND index options provide European cash settlement and 60/40 Section 1256 tax savings.`
+- **Focus Keyword:** `ndx vs qqq options`
+- **Secondary Keywords (JSON):** `["nasdaq 100 index options", "mnx xnd options", "section 1256 tax treatment", "qqq early assignment risk", "european cash settlement"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `ndx-options`, `qqq-etf`, `section-1256-taxes`, `index-options`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/ndx-vs-qqq-options-mnx-section-1256-tax-guide.webp` (`1200x630`)
+  - `coverImageAlt`: `Structural comparison matrix of ndx vs qqq options, MNX, and XND showing cash settlement and Section 1256 taxes`
+  - `coverImageCaption`: `Figure 1: Notional value, settlement style, and tax comparison across NDX, MNX, XND, and QQQ.`
+- **Search Intent & SERP Evidence:** Natural companion to Post #07 (`SPX vs SPY`); captures high-net-worth Nasdaq traders and funnels directly into `/resources/stock-indexes-list` and `/resources/etf-stocks-list`.
+- **Required H2/H3 Outline:**
+  - `H2`: Master Comparison Table: NDX vs. MNX vs. XND vs. QQQ Options
+  - `H2`: Notional Contract Size & Bid-Ask Spread Considerations on Nasdaq-100 Options
+  - `H2`: Eliminating After-Hours Tech Earnings Pin Risk With European Cash Settlement
+  - `H2`: IRS Section 1256 60/40 Tax Math on NDX vs. Ordinary Short-Term Gains on QQQ
+- **Internal Links to Include:**
+  - `/resources/stock-indexes-list` (Stock Market Indexes Directory)
+  - `/resources/etf-stocks-list` (Complete ETF Stocks List)
+  - `/live-trading-rooms/day-trading-room` (Live Day Trading Room)
+- **External Authority Citations:**
+  - `https://www.irs.gov/forms-pubs/about-form-6781` (IRS Form 6781 Section 1256 documentation)
+  - `https://www.theocc.com/` (OCC index vs equity option exercise specifications)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the notional size difference between NDX vs QQQ options?`
+     **A:** `One full-sized NDX index option contract represents roughly 40 times the notional value of one QQQ ETF option contract, while Mini-NDX (MNX) is 1/10th of NDX and Micro-NDX (XND) is 1/100th of NDX.`
+  2. **Q:** `Do QQQ options qualify for IRS Section 1256 60/40 tax treatment?`
+     **A:** `No. Because QQQ is an exchange-traded fund rather than a broad-based cash-settled index, QQQ options are taxed under standard short-term capital gains rules unless held for more than one year, whereas NDX, MNX, and XND qualify for 60/40 treatment.`
+  3. **Q:** `Why are NDX vertical spreads safer than QQQ vertical spreads at expiration when mega-cap tech reports earnings after the bell?`
+     **A:** `NDX afternoon weeklies (NDXP) settle in cash at the 4:00 PM ET close and cannot be exercised after hours, whereas QQQ ETF options remain exposed to 4:00 PM to 5:30 PM ET after-hours earnings gaps and pin-risk exercise.`
+
+---
+
+### Post 26: VIX Term Structure Guide: Contango, Backwardation & VIX9D Options Filters
+
+- **H1 Blog Title:** `VIX Term Structure Guide: Contango, Backwardation & VIX9D Options Filters`
+- **Slug (`49` chars, `0` gate stop words):** `vix-term-structure-contango-backwardation-options`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/vix-term-structure-contango-backwardation-options`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/vix-term-structure-contango-backwardation-options`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `VIX Term Structure Options Map` -> Renders as: `VIX Term Structure Options Map | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Decode the vix term structure across VIX9D, VIX, and VIX3M. Filter options strategies between contango premium selling and backwardation crash hedges.`
+- **Excerpt (`149` chars):** `Most retail traders stare at spot VIX in isolation. Institutional desks read the VIX1D, VIX9D, VIX, and VIX3M term structure curve to filter regimes.`
+- **Focus Keyword:** `vix term structure`
+- **Secondary Keywords (JSON):** `["contango vs backwardation", "vix9d vix3m ratio", "volatility regime filter", "cboe vix futures", "macro crash indicator"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `vix-term-structure`, `implied-volatility`, `macro-cycles`, `risk-management`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/vix-term-structure-contango-backwardation-options.webp` (`1200x630`)
+  - `coverImageAlt`: `Cboe vix term structure curve comparing upward-sloping contango against inverted backwardation panic`
+  - `coverImageCaption`: `Figure 1: Upward-sloping VIX contango (normal regime) vs. inverted backwardation (acute market stress).`
+- **Search Intent & SERP Evidence:** High-value institutional volatility topic; directly bridges our `Macro Cycle Inflection Timing` course (`Course 07`) and `SPX & Index Options Dealer Gamma & IV Percentile Scanner` (`Scanner 06`).
+- **Required H2/H3 Outline:**
+  - `H2`: What Is the VIX Term Structure? Mapping VIX1D, VIX9D, VIX, VIX3M, and VIX6M
+  - `H2`: Contango Explained: Why Upward-Sloping Volatility Favors Theta Sellers
+  - `H2`: Backwardation Explained: When VIX9D > VIX > VIX3M Signals Acute Liquidation
+  - `H2`: How We Used VIX Backwardation to Time the March 2020 and October 2022 Capitulation Lows
+- **Internal Links to Include:**
+  - `/store/scanners/spx-dealer-gamma-iv-skew-scanner` (SPX Dealer Gamma & IV Percentile Scanner)
+  - `/store/courses/macro-cycle-inflection-mastery` (Course 07: Macro Cycle Inflection Timing)
+  - `/alert-services/spx-profit-pulse` (SPX Profit Pulse)
+- **External Authority Citations:**
+  - `https://www.cboe.com/tradable_products/vix/` (Cboe VIX Index suite official methodology)
+  - `https://www.sec.gov/` (SEC volatility-linked exchange-traded product disclosures)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the difference between contango and backwardation in the VIX term structure?`
+     **A:** `In contango, short-term volatility indexes (VIX9D and VIX) trade lower than longer-term volatility indexes (VIX3M and VIX6M), reflecting calm market conditions. In backwardation, near-term fear spikes above long-term volatility, signaling acute market stress.`
+  2. **Q:** `How do options traders use the VIX / VIX3M ratio as a regime filter?`
+     **A:** `When the VIX-to-VIX3M ratio is below 0.95 (healthy contango), systematic desks favor selling credit spreads and iron condors. When the ratio crosses above 1.00 (backwardation), desks halt naked premium selling and reduce intraday contract size.`
+  3. **Q:** `Why does VIX backwardation help identify major market bottoms?`
+     **A:** `Extreme VIX backwardation (such as VIX / VIX3M spiking above 1.15) indicates panic hedging exhaustion. When the ratio crosses back below 1.00 alongside a price liquidity sweep, it confirms volatility compression and a high-probability multi-week relief rally.`
+
+---
+
+### Post 27: Cash-Secured Puts & The Wheel Strategy: Small Account Strike Selection Rules
+
+- **H1 Blog Title:** `Cash-Secured Puts & The Wheel Strategy: Small Account Strike Selection Rules`
+- **Slug (`47` chars, `0` gate stop words):** `cash-secured-puts-wheel-strategy-small-accounts`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/cash-secured-puts-wheel-strategy-small-accounts`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/cash-secured-puts-wheel-strategy-small-accounts`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `Cash Secured Puts & Wheel Guide` -> Renders as: `Cash Secured Puts & Wheel Guide | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Generate monthly income selling cash secured puts and running the Wheel Strategy. Use 15 to 25 Delta support strikes, IVR > 50 filters, and 50% exits.`
+- **Excerpt (`148` chars):** `The Wheel Strategy can compound steady Theta income or trap a small account in a sinking stock. Learn our institutional strike and ticker rules.`
+- **Focus Keyword:** `cash secured puts`
+- **Secondary Keywords (JSON):** `["options wheel strategy", "selling puts for income", "covered call wheel", "small account wheel stocks", "put assignment rules"]`
+- **Category:** `$500+ Small Accounts` (`slug: small-accounts`)
+- **Tags:** `cash-secured-puts`, `wheel-strategy`, `small-accounts`, `theta-decay`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/cash-secured-puts-wheel-strategy-small-accounts.webp` (`1200x630`)
+  - `coverImageAlt`: `Complete lifecycle diagram of cash secured puts and the options Wheel Strategy for small accounts`
+  - `coverImageCaption`: `Figure 1: The 3-stage Options Wheel Strategy loop: Cash-Secured Put -> Cost-Basis Assignment -> Covered Call.`
+- **Search Intent & SERP Evidence:** Massive evergreen retail search volume (`cash secured puts`, `options wheel strategy small account`); funnels readers into `/live-trading-rooms/small-accounts-room` and `/resources/etf-stocks-list`.
+- **Required H2/H3 Outline:**
+  - `H2`: How the 3-Stage Options Wheel Strategy Works From Start to Finish
+  - `H2`: Why Selling High-IV Meme-Stock Puts Destroys Small Accounts
+  - `H2`: Institutional Strike Selection: Aligning 0.15 to 0.25 Delta With Structural Demand Zones
+  - `H2`: Capital Concentration Rules: When to Use a Put Credit Spread Instead of a Cash-Secured Put
+- **Internal Links to Include:**
+  - `/live-trading-rooms/small-accounts-room` (Small Accounts Room)
+  - `/store/scanners/small-account-affordable-options-scanner` ($500+ Small Account Scanner)
+  - `/resources/etf-stocks-list` (Complete ETF Stocks List)
+- **External Authority Citations:**
+  - `https://www.optionseducation.org/strategies/all-strategies/cash-secured-put` (OIC cash-secured put specifications)
+  - `https://www.finra.org/investors/investing/investment-products/options` (FINRA options collateral and assignment disclosures)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `How much cash collateral is required to sell one cash-secured put contract?`
+     **A:** `Because one standard equity option contract represents 100 shares, your broker holds cash collateral equal to the Strike Price multiplied by 100 (for example, $2,500 collateral for a $25 strike put), minus the premium collected.`
+  2. **Q:** `Why should a $500 to $2,500 account use a put credit spread instead of a naked cash-secured put?`
+     **A:** `In a $1,000 account, you cannot tie up $5,000 to cash-secure a $50 ETF. By buying a protective put $5 lower to form a defined-risk put credit spread, your maximum collateral requirement drops to $500 minus the credit received.`
+  3. **Q:** `What is the #1 rule for choosing tickers when selling cash-secured puts?`
+     **A:** `Only sell cash-secured puts on deeply liquid Sector ETFs or profitable large-cap stocks that you genuinely want to own at the net breakeven price (Strike Price minus Premium Collected) if assigned.`
+
+---
+
+### Post 28: Unusual Options Activity vs. Dark Pool Prints: Separating Sweeps From Hedges
+
+- **H1 Blog Title:** `Unusual Options Activity vs. Dark Pool Prints: Separating Sweeps From Hedges`
+- **Slug (`47` chars, `0` gate stop words):** `unusual-options-activity-dark-pool-sweeps-guide`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/unusual-options-activity-dark-pool-sweeps-guide`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/unusual-options-activity-dark-pool-sweeps-guide`
+- **Meta Title (`33` chars raw / `59` chars rendered):** `Unusual Options Activity & Sweeps` -> Renders as: `Unusual Options Activity & Sweeps | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Filter real unusual options activity from institutional hedges. Combine multi-exchange ask sweeps, Volume/OI ratios, and dark pool equity block prints.`
+- **Excerpt (`148` chars):** `Blindly following retail "unusual whales" alerts is a fast way to buy an institution's covered call or delta hedge. Learn how we filter real sweeps.`
+- **Focus Keyword:** `unusual options activity`
+- **Secondary Keywords (JSON):** `["options sweep orders", "dark pool block prints", "volume vs open interest", "smart money order flow", "institutional options tape"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `order-flow`, `options-sweeps`, `dark-pools`, `scanners`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,500 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/unusual-options-activity-dark-pool-sweeps-guide.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional tape comparison of unusual options activity ask-side sweeps and dark pool block prints`
+  - `coverImageCaption`: `Figure 1: Filtering multi-exchange ask-side options sweeps confirmed by dark pool equity accumulation.`
+- **Search Intent & SERP Evidence:** High-volume commercial keyword gap (`unusual options activity`, `options sweeps vs blocks`, `dark pool prints`); funnels traders into our `Move Prior to The Move Live Market Radar` (`Scanner 01`) and `Day Trading Room`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why 80% of Raw "Unusual Options Activity" Alerts Are Institutional Hedges
+  - `H2`: Block Prints vs. Intermarket Sweep Orders (ISOs): Reading Urgency on the Tape
+  - `H2`: The 4-Part Institutional Filter: Volume > OI, Ask-Side Fill, DTE, and Price Structure
+  - `H2`: Combining Dark Pool Equity Signature Prints With Options Sweeps
+- **Internal Links to Include:**
+  - `/store/scanners/move-prior-to-the-move-radar` (Scanner 01: The Move Prior to The Move Live Market Radar)
+  - `/store/indicators/mp-early-in-n-out` (The Move Prior to The Move Indicator)
+  - `/live-trading-rooms/day-trading-room` (Live Day Trading Room)
+- **External Authority Citations:**
+  - `https://www.sec.gov/marketstructure` (SEC Equity & Options Market Structure and Intermarket Sweep Order rules)
+  - `https://www.finra.org/filing-reporting/otc-transparency` (FINRA Alternative Trading System / Dark Pool transparency data)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What qualifies as true unusual options activity (UOA) on an institutional desk?`
+     **A:** `True directional UOA requires daily option contract volume to exceed prior-day Open Interest (confirming new opening positions), executed aggressively at or above the Ask price via multi-exchange sweeps alongside confirming underlying chart structure.`
+  2. **Q:** `What is the difference between an options Block trade and an options Sweep order?`
+     **A:** `A Block trade is a single large-size order negotiated quietly at one price to minimize market impact, whereas an Intermarket Sweep Order (ISO) splits a large order across multiple exchanges simultaneously to grab every available contract at the Ask immediately.`
+  3. **Q:** `Why can buying calls after a large call block print still lose money?`
+     **A:** `If an institution is short 500,000 shares of stock, they may buy 5,000 out-of-the-money calls as a protective upside cap, or they may have sold those calls to close at the Bid. Without price-action absorption confirmation, raw flow alerts trap retail traders.`
+
+---
+
+### Post 29: Opening Range Breakout (ORB) + VWAP + RVOL: The Institutional Day Trading Stack
+
+- **H1 Blog Title:** `Opening Range Breakout (ORB) + VWAP + RVOL: The Institutional Day Trading Stack`
+- **Slug (`49` chars, `0` gate stop words):** `opening-range-breakout-vwap-rvol-options-strategy`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/opening-range-breakout-vwap-rvol-options-strategy`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/opening-range-breakout-vwap-rvol-options-strategy`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Opening Range Breakout VWAP Plan` -> Renders as: `Opening Range Breakout VWAP Plan | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Execute the institutional opening range breakout (ORB) strategy on stocks and options by combining 5-minute ORH/ORL levels, VWAP bias, and RVOL > 2.0.`
+- **Excerpt (`148` chars):** `Trading naked 5-minute Opening Range Breakouts without volume confirmation results in endless chop. Stack ORB with VWAP and RVOL for A+ momentum.`
+- **Focus Keyword:** `opening range breakout`
+- **Secondary Keywords (JSON):** `["orb trading strategy", "vwap day trading", "relative volume rvol", "5 minute opening range", "options scalping rules"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `opening-range-breakout`, `vwap`, `day-trading`, `order-flow`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/opening-range-breakout-vwap-rvol-options-strategy.webp` (`1200x630`)
+  - `coverImageAlt`: `5-minute intraday chart showing an institutional opening range breakout confirmed by VWAP hold and RVOL spike`
+  - `coverImageCaption`: `Figure 1: The 3-part institutional confluence stack: Opening Range Breakout + VWAP Hold + RVOL > 2.0x.`
+- **Search Intent & SERP Evidence:** One of the highest-searched day trading strategies globally (`opening range breakout strategy`); directly promotes `Indicator 07: Institutional Hot-Zone & Opening Drive Windows` (`/store/indicators/hot-zone-time-structure`) and our `Day Trading Room`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why the First 15 Minutes (9:30 AM to 9:45 AM ET) Define the Session Auction
+  - `H2`: Choosing Between the 5-Minute, 15-Minute, and 30-Minute Opening Range
+  - `H2`: The 3-Factor Institutional Confluence Filter: Candle Close + VWAP + RVOL > 2.0
+  - `H2`: Selecting ATM Options vs. Spreads and Placing Your Hard Stop at VWAP / OR Midpoint
+- **Internal Links to Include:**
+  - `/store/indicators/hot-zone-time-structure` (Institutional Hot-Zone & Opening Drive Windows Indicator)
+  - `/live-trading-rooms/day-trading-room` (Live Day Trading Room)
+  - `/store/scanners/smart-money-relative-volume-scanner` (Smart-Money Relative Volume Scanner)
+- **External Authority Citations:**
+  - `https://www.sec.gov/marketstructure` (SEC market opening auction and intraday volume dynamics)
+  - `https://www.cmegroup.com/education/` (CME Group opening range and VWAP institutional execution reference)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the best timeframe for an Opening Range Breakout (ORB) in options day trading?`
+     **A:** `We use the 5-minute Opening Range (9:30 AM to 9:35 AM ET) for high-catalyst momentum stocks with RVOL above 2.5x, and the 15-minute Opening Range (9:30 AM to 9:45 AM ET) for index ETFs and SPX options.`
+  2. **Q:** `Why must an Opening Range Breakout align with VWAP and Relative Volume (RVOL)?`
+     **A:** `Over 70% of low-volume opening range breaks fail back inside the range. Requiring price to hold on the trend side of VWAP with RVOL above 1.8x to 2.0x confirms institutional participation.`
+  3. **Q:** `Where does your hard invalidation stop-loss go on an Opening Range Breakout trade?`
+     **A:** `Place your hard structural stop-loss just below VWAP or at the 50% midpoint of the opening range candle (never all the way on the opposite side of a wide morning range if it violates 1R sizing).`
+
+---
+
+### Post 30: Pre-Market Gap-and-Go vs. Gap-and-Fade Playbook: Grading Morning Catalyst Volume
+
+- **H1 Blog Title:** `Pre-Market Gap-and-Go vs. Gap-and-Fade Playbook: Grading Morning Catalyst Volume`
+- **Slug (`49` chars, `0` gate stop words):** `pre-market-gap-and-go-vs-gap-fade-options-playbook`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/pre-market-gap-and-go-vs-gap-fade-options-playbook`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/pre-market-gap-and-go-vs-gap-fade-options-playbook`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `Pre Market Gap & Fade Playbook` -> Renders as: `Pre Market Gap & Fade Playbook | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Grade every pre market gap before 9:30 AM ET. Separate institutional Gap-and-Go breakouts from retail exhaustion Gap-and-Fade traps using RVOL rules.`
+- **Excerpt (`147` chars):** `Every morning at 8:30 AM ET, dozens of stocks gap up or down. Learn the exact 4-point matrix we use in our Day Trading Room to trade or fade gaps.`
+- **Focus Keyword:** `pre market gap`
+- **Secondary Keywords (JSON):** `["gap and go strategy", "gap fade trading", "pre market scanner", "overnight gap fill", "morning options prep"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `pre-market-gaps`, `day-trading`, `scanners`, `order-flow`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,300 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/pre-market-gap-and-go-vs-gap-fade-options-playbook.webp` (`1200x630`)
+  - `coverImageAlt`: `Pre market gap grading matrix comparing institutional Gap-and-Go continuation against Gap-and-Fade exhaustion`
+  - `coverImageCaption`: `Figure 1: Pre-9:30 AM ET structural checklist separating institutional continuation gaps from exhaustion fades.`
+- **Search Intent & SERP Evidence:** Directly maps to `Scanner 08: Pre-Market Institutional Gap & Liquidity Imbalance Scanner` (`/store/scanners/opening-bell-gap-and-go-fade-scanner`) and pre-market prep in `/live-trading-rooms/day-trading-room`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why Most Retail Traders Get Trapped Chasing Pre-Market Gaps at 9:30 AM ET
+  - `H2`: Anatomy of an A+ "Gap-and-Go": Fresh Daily Breakout + RVOL > 3.0 + Pre-Market High Hold
+  - `H2`: Anatomy of a "Gap-and-Fade": Gapping Into Multi-Week Overhead Supply on Exhaustion Volume
+  - `H2`: Waiting for the 9:35 AM ET Opening Sweep Before Routing Options Orders
+- **Internal Links to Include:**
+  - `/store/scanners/opening-bell-gap-and-go-fade-scanner` (Scanner 08: Pre-Market Gap & Liquidity Imbalance Scanner)
+  - `/live-trading-rooms/day-trading-room` (Live Day Trading Room)
+  - `/store/courses/contrarian-distribution-and-shorting` (Course 06: Contrarian Distribution & Put Options)
+- **External Authority Citations:**
+  - `https://www.sec.gov/oiea/investor-alerts-and-bulletins/ib_extendedhours` (SEC Investor Bulletin on Extended-Hours and Pre-Market Trading Risks)
+  - `https://www.finra.org/investors/insights/extended-hours-trading` (FINRA Extended-Hours liquidity and spread rules)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What separates a Gap-and-Go continuation setup from a Gap-and-Fade exhaustion trap?`
+     **A:** `A Gap-and-Go gaps cleanly above multi-week daily resistance on a fresh fundamental catalyst and holds above its pre-market VWAP, whereas a Gap-and-Fade gaps directly into heavy overhead supply after an already-extended multi-day run.`
+  2. **Q:** `Can you trade standard equity options during the 4:00 AM to 9:30 AM ET pre-market session?`
+     **A:** `No. Standard US equity and ETF options do not open for trading until the regular 9:30 AM ET bell (though SPX and VIX index options offer global trading hours). We use the 8:30 AM to 9:30 AM ET window to map key pre-market high and low triggers.`
+  3. **Q:** `Why should options traders wait 3 to 5 minutes after the 9:30 AM ET bell on a pre-market gap?`
+     **A:** `At 9:30:00 AM ET, market makers widen options bid-ask spreads while opening auction imbalances clear. Waiting for the first 5-minute candle close lets spreads normalize and reveals whether institutions are absorbing or dumping the gap.`
+
+---
+
+### Post 31: Volume Profile Trading Guide: Mapping POC, Value Area High (VAH) & Low-Volume Nodes
+
+- **H1 Blog Title:** `Volume Profile Trading Guide: Mapping POC, Value Area High (VAH) & Low-Volume Nodes`
+- **Slug (`49` chars, `0` gate stop words):** `volume-profile-trading-poc-value-area-options-map`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/volume-profile-trading-poc-value-area-options-map`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/volume-profile-trading-poc-value-area-options-map`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Volume Profile Trading POC Guide` -> Renders as: `Volume Profile Trading POC Guide | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Master volume profile trading for stocks, ETFs, and options. Map Point of Control (POC), Value Area High/Low (VAH/VAL), and low-volume breakout zones.`
+- **Excerpt (`148` chars):** `Standard volume bars tell you WHEN volume traded; Volume Profile reveals the exact PRICE where institutions accumulated and distributed inventory.`
+- **Focus Keyword:** `volume profile trading`
+- **Secondary Keywords (JSON):** `["point of control poc", "value area high low", "high volume node hvn", "low volume node lvn", "auction market theory"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `volume-profile`, `order-flow`, `market-structure`, `indicators`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,500 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/volume-profile-trading-poc-value-area-options-map.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional volume profile trading chart mapping Point of Control, Value Area High, Value Area Low, and LVN air pockets`
+  - `coverImageCaption`: `Figure 1: Mapping the 70% Value Area (VAH/VAL), Point of Control (POC), and Low-Volume Node (LVN) acceleration zones.`
+- **Search Intent & SERP Evidence:** High-volume institutional price-action keyword (`volume profile trading`, `POC VAH VAL`); pairs directly with our `Order Flow` courses and indicators.
+- **Required H2/H3 Outline:**
+  - `H2`: Volume-by-Time vs. Volume-by-Price: The Core of Auction Market Theory
+  - `H2`: Decoding the 4 Pillars: POC, VAH, VAL, and Low-Volume Node (LVN) Air Pockets
+  - `H2`: Playbook 1: Value Area Mean Reversion (Fading VAH/VAL Failed Auctions Back to POC)
+  - `H2`: Playbook 2: Value Area Acceptance & LVN Air-Pocket Breakouts With Long Options
+- **Internal Links to Include:**
+  - `/store/indicators/smart-money-volume-delta` (Smart-Money Relative Volume & Absorption Oscillator)
+  - `/store/courses/move-prior-to-the-move-ultra` (The Move Prior to The Move Course)
+  - `/live-trading-rooms/day-trading-room` (Live Day Trading Room)
+- **External Authority Citations:**
+  - `https://www.cmegroup.com/education/` (CME Group Market Profile and Auction Market Theory reference)
+  - `https://www.optionseducation.org/` (Aligning options strike selection with structural price levels)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the Point of Control (POC) in volume profile trading?`
+     **A:** `The Point of Control (POC) is the single price level where the highest volume of shares or contracts traded during a session or composite period, acting as the primary fair-value magnet for price mean reversion.`
+  2. **Q:** `How are Value Area High (VAH) and Value Area Low (VAL) calculated?`
+     **A:** `The Value Area encompasses one standard deviation (approximately 68% to 70%) of total traded volume centered around the Point of Control. VAH is the upper boundary of that 70% zone, and VAL is the lower boundary.`
+  3. **Q:** `How do options traders use Low-Volume Nodes (LVNs) to select strikes?`
+     **A:** `Low-Volume Nodes are price "air pockets" where very little historical inventory was transacted. Once price breaks into an LVN with volume, it typically traverses the pocket rapidly toward the next High-Volume Node, making LVNs ideal zones for long Delta options.`
+
+---
+
+### Post 32: Abandoned Price Bars & Climax Volume Exhaustion: Spotting Institutional Reversals
+
+- **H1 Blog Title:** `Abandoned Price Bars & Climax Volume Exhaustion: Spotting Institutional Reversals`
+- **Slug (`48` chars, `0` gate stop words):** `abandoned-price-bar-climax-volume-reversal-guide`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/abandoned-price-bar-climax-volume-reversal-guide`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/abandoned-price-bar-climax-volume-reversal-guide`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Abandoned Price Bar Reversal Map` -> Renders as: `Abandoned Price Bar Reversal Map | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Identify trapped buyers and sellers using our abandoned price bar and climax volume exhaustion rules: the exact telemetry behind our +600% OXY Put trade.`
+- **Excerpt (`148` chars):** `How do you know the exact bar when a parabolic rally or panic selloff runs out of fuel? Look for an abandoned price bar on climax volume exhaustion.`
+- **Focus Keyword:** `abandoned price bar`
+- **Secondary Keywords (JSON):** `["climax volume exhaustion", "buying climax reversal", "trapped breakout buyers", "exhaustion candle pattern", "contrarian options entry"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `order-flow`, `indicators`, `liquidity-sweeps`, `case-study`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,200 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/abandoned-price-bar-climax-volume-reversal-guide.webp` (`1200x630`)
+  - `coverImageAlt`: `Chart telemetry of an abandoned price bar on climax volume exhaustion triggering a 4R reversal`
+  - `coverImageCaption`: `Figure 1: Anatomy of an abandoned price bar trapping late retail buyers at a structural top.`
+- **Search Intent & SERP Evidence:** Directly spotlights `Indicator 05: Abandoned Price Bar & Exhaustion Telemetry` (`/store/indicators/abandoned-bar-exhaustion`) and `Course 06` (`/store/courses/contrarian-distribution-and-shorting`).
+- **Required H2/H3 Outline:**
+  - `H2`: What Is an Abandoned Price Bar in Institutional Order Flow?
+  - `H2`: Initiation Volume vs. Climax Exhaustion Volume: Reading the Difference
+  - `H2`: The 3-Step Reversal Trigger: Climax Sweep -> Abandoned Bar -> Structure Break
+  - `H2`: Structuring Put or Call Options With a Tight Stop Above the Abandoned Wick
+- **Internal Links to Include:**
+  - `/store/indicators/abandoned-bar-exhaustion` (Abandoned Price Bar & Exhaustion Telemetry Indicator)
+  - `/store/courses/contrarian-distribution-and-shorting` (Course 06: Contrarian Distribution & Put Options)
+  - `/store/scanners/liquidity-sweep-stop-hunt-scanner` (Scanner 03: Liquidity Sweep Scanner)
+- **External Authority Citations:**
+  - `https://www.cmegroup.com/education/` (CME Group order-book absorption and exhaustion mechanics)
+  - `https://www.sec.gov/marketstructure` (SEC market microstructure and liquidity provision reference)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What defines an abandoned price bar on a price chart?`
+     **A:** `An abandoned price bar occurs at the extreme of an extended trend when a candle pushes outside prior structure on climax volume, gets completely absorbed by institutional limit orders, and the very next candle opens and closes away from that extreme, leaving late traders trapped.`
+  2. **Q:** `How do you tell the difference between breakout volume and climax exhaustion volume?`
+     **A:** `Initiation breakout volume occurs at the beginning of a move coming out of a tight multi-bar volatility compression, whereas climax exhaustion volume prints after 5 to 10+ consecutive directional bars into a major higher-timeframe supply or demand zone.`
+  3. **Q:** `Where do you place your stop-loss when trading an abandoned price bar reversal?`
+     **A:** `Your hard invalidation stop-loss is placed a few ticks beyond the high (for shorts) or low (for longs) of the abandoned price bar wick, giving you a tightly defined 1R risk and a 3R to 5R mean-reversion target.`
+
+---
+
+### Post 33: Relative Volume (RVOL) & Cumulative Volume Delta (CVD): Reading Institutional Absorption
+
+- **H1 Blog Title:** `Relative Volume (RVOL) & Cumulative Volume Delta (CVD): Reading Institutional Absorption`
+- **Slug (`48` chars, `0` gate stop words):** `relative-volume-rvol-cumulative-delta-absorption`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/relative-volume-rvol-cumulative-delta-absorption`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/relative-volume-rvol-cumulative-delta-absorption`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Relative Volume RVOL & CVD Guide` -> Renders as: `Relative Volume RVOL & CVD Guide | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Combine time-adjusted relative volume rvol with Cumulative Volume Delta (CVD) to spot quiet institutional block absorption before price breaks out.`
+- **Excerpt (`148` chars):** `How do institutions accumulate $200 million in stock without spiking the price? Through passive limit-order absorption visible on RVOL and CVD.`
+- **Focus Keyword:** `relative volume rvol`
+- **Secondary Keywords (JSON):** `["cumulative volume delta cvd", "institutional absorption", "delta divergence trading", "time of day rvol scanner", "smart money volume"]`
+- **Category:** `Institutional Order Flow` (`slug: institutional-execution`)
+- **Tags:** `relative-volume`, `order-flow`, `scanners`, `indicators`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/relative-volume-rvol-cumulative-delta-absorption.webp` (`1200x630`)
+  - `coverImageAlt`: `Intraday order flow chart combining time-adjusted relative volume rvol and Cumulative Volume Delta absorption`
+  - `coverImageCaption`: `Figure 1: Bullish CVD absorption at support paired with a 280% time-of-day Relative Volume (RVOL) surge.`
+- **Search Intent & SERP Evidence:** High search demand for `relative volume RVOL` and `cumulative volume delta divergence`; directly drives sales of `Scanner 07` (`/store/scanners/smart-money-relative-volume-scanner`) and `Indicator 06` (`/store/indicators/smart-money-volume-delta`).
+- **Required H2/H3 Outline:**
+  - `H2`: Why Raw Volume Is Misleading Without Time-of-Day Relative Volume (RVOL)
+  - `H2`: How Cumulative Volume Delta (CVD) Measures Aggressive Market Orders
+  - `H2`: Spotting Institutional Passive Absorption: When CVD Diverges From Price
+  - `H2`: Scanning All 11 S&P 500 Sectors Live With the Smart-Money RVOL Scanner
+- **Internal Links to Include:**
+  - `/store/scanners/smart-money-relative-volume-scanner` (Scanner 07: Smart-Money RVOL Scanner)
+  - `/store/indicators/smart-money-volume-delta` (Indicator 06: Smart-Money Relative Volume & Absorption Oscillator)
+  - `/resources/etf-stocks-list` (Complete ETF Stocks List)
+- **External Authority Citations:**
+  - `https://www.sec.gov/marketstructure` (SEC market order vs limit order liquidity dynamics)
+  - `https://www.cmegroup.com/education/` (CME Group order-flow delta and volume analytics)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `How is time-adjusted Relative Volume (RVOL) calculated?`
+     **A:** `Time-adjusted RVOL divides the cumulative volume traded from 9:30 AM ET up to the current minute today by the 20-day or 30-day historical average volume traded by that exact same minute of the session.`
+  2. **Q:** `What is a bullish Cumulative Volume Delta (CVD) absorption divergence?`
+     **A:** `Bullish absorption occurs when aggressive market sellers hit the bid (driving CVD lower), yet price refuses to make a lower low because a large institutional passive limit buyer is absorbing every sell order at a fixed price floor.`
+  3. **Q:** `What RVOL threshold signals genuine institutional participation on a breakout?`
+     **A:** `We require a minimum time-adjusted RVOL of 1.8x (180% of normal time-of-day volume) for index and sector ETFs, and 2.5x+ (250%+) for individual equities breaking out of multi-day consolidation.`
+
+---
+
+### Post 34: Options Bid-Ask Spread & Liquidity Filter: Why Illiquid Chains Silently Drain Small Accounts
+
+- **H1 Blog Title:** `Options Bid-Ask Spread & Liquidity Filter: Why Illiquid Chains Silently Drain Small Accounts`
+- **Slug (`48` chars, `0` gate stop words):** `options-bid-ask-spread-liquidity-slippage-filter`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/options-bid-ask-spread-liquidity-slippage-filter`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/options-bid-ask-spread-liquidity-slippage-filter`
+- **Meta Title (`33` chars raw / `59` chars rendered):** `Options Bid Ask Spread & Slippage` -> Renders as: `Options Bid Ask Spread & Slippage | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Stop losing 15% per trade to wide spreads. Apply our options bid ask spread, open interest, and mid-price limit order filters for $500+ small accounts.`
+- **Excerpt (`149` chars):** `If you buy an option at a $1.10 Ask when the Bid is $0.85, you start the trade down 22% instantly. Master our liquidity and slippage protection rules.`
+- **Focus Keyword:** `options bid ask spread`
+- **Secondary Keywords (JSON):** `["options slippage calculator", "liquid options tickers", "open interest filter", "limit order mid price", "small account options rules"]`
+- **Category:** `$500+ Small Accounts` (`slug: small-accounts`)
+- **Tags:** `small-accounts`, `options-liquidity`, `bid-ask-spread`, `scanners`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,200 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/options-bid-ask-spread-liquidity-slippage-filter.webp` (`1200x630`)
+  - `coverImageAlt`: `Options chain comparison showing tight penny-wide options bid ask spread versus illiquid slippage traps`
+  - `coverImageCaption`: `Figure 1: How a 15% bid-ask spread destroys mathematical expectancy over 50 trades in a small account.`
+- **Search Intent & SERP Evidence:** High-value educational gap for small-account traders; directly drives conversions for `Scanner 04: $500+ Small Account Affordable Options & Spread Scanner` (`/store/scanners/small-account-affordable-options-scanner`) and `/resources/etf-stocks-list`.
+- **Required H2/H3 Outline:**
+  - `H2`: The Hidden Tax of Slippage: How Wide Bid-Ask Spreads Destroy Expectancy
+  - `H2`: The 5% Spread Rule: Maximum Allowed Bid-Ask Width Relative to Contract Price
+  - `H2`: Minimum Open Interest (>= 1,000) and Daily Volume (>= 500) Thresholds
+  - `H2`: Working Mid-Price Limit Orders & The Top 20 Most Liquid Options Underlyings
+- **Internal Links to Include:**
+  - `/store/scanners/small-account-affordable-options-scanner` (Scanner 04: $500+ Small Account Scanner)
+  - `/live-trading-rooms/small-accounts-room` (Small Accounts Room)
+  - `/resources/etf-stocks-list` (Complete ETF Stocks List)
+- **External Authority Citations:**
+  - `https://www.sec.gov/investor/pubs/tradexec.htm` (SEC trade execution and bid-ask spread mechanics)
+  - `https://www.optionseducation.org/` (OIC options marketplace liquidity and pricing guide)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is a good options bid ask spread for a small account?`
+     **A:** `For a $500 to $2,500 account, the bid-ask spread on a single-leg option should be no wider than $0.01 to $0.05 on contracts priced under $2.00, and never exceed 3% to 5% of the contract's mid-price.`
+  2. **Q:** `Why should you never use market orders when buying or selling options?`
+     **A:** `Market orders on options fill immediately at the worst side of the spread (buying at the full Ask or selling at the full Bid), handing market makers an instant 5% to 20% edge. Always route limit orders starting at the Mark (mid-price).`
+  3. **Q:** `How much Open Interest and volume should an option strike have before trading it?`
+     **A:** `Look for at least 1,000 contracts of existing Open Interest and 300 to 500+ contracts of daily volume on your chosen strike so you can enter and exit instantly without moving the market against yourself.`
+
+---
+
+### Post 35: The 20-Minute Sunday & Evening Swing Watchlist Routine for 9-to-5 Professionals
+
+- **H1 Blog Title:** `The 20-Minute Sunday & Evening Swing Watchlist Routine for 9-to-5 Professionals`
+- **Slug (`50` chars, `0` gate stop words):** `sunday-evening-swing-trading-watchlist-routine-pro`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/sunday-evening-swing-trading-watchlist-routine-pro`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/sunday-evening-swing-trading-watchlist-routine-pro`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `Swing Trading Watchlist Routine` -> Renders as: `Swing Trading Watchlist Routine | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Build a high-conviction swing trading watchlist in 20 minutes on Sunday and weeknights. Filter top sector ETFs, multi-day squeezes, and OCO triggers.`
+- **Excerpt (`148` chars):** `Winning swing trades are planned when the market is closed. Walk through our exact 4-step Sunday and weeknight top-down watchlist filtering process.`
+- **Focus Keyword:** `swing trading watchlist`
+- **Secondary Keywords (JSON):** `["sunday stock market prep", "top down market analysis", "end of day swing scanner", "9 to 5 swing trading", "explosive swings watchlist"]`
+- **Category:** `Swing & Working Pros` (`slug: working-professionals`)
+- **Tags:** `swing-trading`, `working-professionals`, `video-watchlists`, `scanners`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/sunday-evening-swing-trading-watchlist-routine-pro.webp` (`1200x630`)
+  - `coverImageAlt`: `4-step top-down swing trading watchlist funnel filtering S&P 500 sectors down to 3 A+ setups`
+  - `coverImageCaption`: `Figure 1: Top-down funnel: Macro Index Regime -> Leading Sector ETFs -> 3 A+ Multi-Day Swing Setups.`
+- **Search Intent & SERP Evidence:** Directly funnels 9-to-5 career professionals into `Scanner 05: Working Professional 20-Minute End-of-Day Swing Scanner` (`/store/scanners/working-pro-eod-swing-scanner`), `Explosive Swings` (`/alert-services/explosive-swings`), and `Course 04` (`/store/courses/working-pro-swing-trading-system`).
+- **Required H2/H3 Outline:**
+  - `H2`: Why Evening Preparation Beats Reactive Intraday Screen-Staring
+  - `H2`: Step 1 (Minutes 1-5): Grading SPY, QQQ, IWM, and VIX Term Structure
+  - `H2`: Step 2 (Minutes 6-12): Identifying the Top 2 Leading GICS Sector ETFs
+  - `H2`: Step 3 (Minutes 13-20): Running the EOD Swing Scanner & Staging OCO Brackets
+- **Internal Links to Include:**
+  - `/store/scanners/working-pro-eod-swing-scanner` (Scanner 05: Working Professional EOD Swing Scanner)
+  - `/alert-services/explosive-swings` (Explosive Swings Video Watchlist Alerts)
+  - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
+- **External Authority Citations:**
+  - `https://www.spglobal.com/spdji/en/landing/investment-themes/sectors/` (S&P Global GICS sector framework)
+  - `https://www.finra.org/investors/investing/investment-products/stocks/order-types` (FINRA limit and conditional order execution guide)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `How many tickers should be on a working professional's active swing trading watchlist?`
+     **A:** `Keep your final actionable evening watchlist to no more than 3 to 5 A+ setups with exact entry triggers, profit targets, and hard invalidation stops so your capital and focus are never diluted.`
+  2. **Q:** `Why should swing traders filter out stocks reporting earnings within the next 7 days?`
+     **A:** `Holding a directional swing trade through a quarterly earnings release turns a calculated technical setup into a binary coin flip exposed to overnight price gaps and severe Implied Volatility (Vega) crush.`
+  3. **Q:** `How does the Working Professional End-of-Day Swing Scanner save time on weeknights?`
+     **A:** `Instead of manually flipping through 500 charts after work, the scanner automatically surfaces liquid stocks and ETFs in 4-Hour and Daily volatility compression or institutional pullback shelves in under 60 seconds.`
+
+---
+
+### Post 36: Rolling Options Explained: Mechanical Rules for Rolling Credit Spreads & Covered Calls
+
+- **H1 Blog Title:** `Rolling Options Explained: Mechanical Rules for Rolling Credit Spreads & Covered Calls`
+- **Slug (`48` chars, `0` gate stop words):** `rolling-options-credit-spreads-covered-calls-map`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/rolling-options-credit-spreads-covered-calls-map`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/rolling-options-credit-spreads-covered-calls-map`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Rolling Options Mechanical Guide` -> Renders as: `Rolling Options Mechanical Guide | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Learn when and how to execute rolling options adjustments on credit spreads, cash-secured puts, and covered calls, and why you never roll for a debit.`
+- **Excerpt (`149` chars):** `Rolling an option is not a magic eraser for a bad trade; it is simultaneously closing one thesis and opening a new one. Master our net-credit rules.`
+- **Focus Keyword:** `rolling options`
+- **Secondary Keywords (JSON):** `["how to roll a credit spread", "rolling covered calls up and out", "rolling cash secured puts", "21 dte roll rule", "net credit roll"]`
+- **Category:** `Options & Greeks Mastery` (`slug: options-mastery`)
+- **Tags:** `rolling-options`, `credit-spreads`, `options-strategies`, `risk-management`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,300 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/rolling-options-credit-spreads-covered-calls-map.webp` (`1200x630`)
+  - `coverImageAlt`: `Diagram of rolling options up, down, and out in time for a net credit on spreads and covered calls`
+  - `coverImageCaption`: `Figure 1: Rolling Out (duration), Rolling Up/Down (strike), and the mandatory Net-Credit validation check.`
+- **Search Intent & SERP Evidence:** High-volume evergreen query (`rolling options`, `how to roll a credit spread`); links directly to `/resources/options-calculator` and `/store/courses/options-greeks-and-volatility-mastery`.
+- **Required H2/H3 Outline:**
+  - `H2`: What "Rolling an Option" Actually Means (Closing Leg A + Opening Leg B)
+  - `H2`: Rolling Covered Calls and Cash-Secured Puts Out and Down/Up for a Net Credit
+  - `H2`: When to Roll a Vertical Credit Spread vs. Why Verticals Rarely Roll for a Credit When Deep ITM
+  - `H2`: The 3 Non-Negotiable Rules of Rolling: Net Credit, Thesis Intact, and Position Risk Cap
+- **Internal Links to Include:**
+  - `/resources/options-calculator` (Free Options Profit, Risk & Greeks Calculator)
+  - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
+  - `/store/courses/options-greeks-and-volatility-mastery` (Course 03: Options Greeks Mastery)
+- **External Authority Citations:**
+  - `https://www.optionseducation.org/` (OIC options position management and rolling mechanics)
+  - `https://www.theocc.com/` (OCC multi-leg spread order settlement rules)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What does rolling an option out and down mean?`
+     **A:** `Rolling out and down means simultaneously buying to close your existing short put in the near-term expiration and selling to open a new short put in a later expiration cycle (out) at a lower strike price (down), executed as a single spread order.`
+  2. **Q:** `Why is it harder to roll a defined-risk vertical credit spread for a net credit than a cash-secured put?`
+     **A:** `In a vertical credit spread, your protective long option gains value alongside your tested short option, which offsets the extrinsic premium expansion in the next monthly cycle. That is why vertical spreads must be managed early (around 21 DTE or when the short leg hits 0.30 Delta).`
+  3. **Q:** `When should you refuse to roll a losing options trade and simply close it?`
+     **A:** `If the underlying asset has decisively broken your higher-timeframe structural invalidation level or if rolling requires paying a net debit or adding more contracts, close the trade immediately and accept the planned 1R loss.`
+
+---
+
+### Post 37: Portfolio Hedging With Put Debit Spreads, VIX Calls & Beta-Weighted SPY Delta
+
+- **H1 Blog Title:** `Portfolio Hedging With Put Debit Spreads, VIX Calls & Beta-Weighted SPY Delta`
+- **Slug (`49` chars, `0` gate stop words):** `portfolio-hedging-put-debit-spreads-vix-calls-map`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/portfolio-hedging-put-debit-spreads-vix-calls-map`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/portfolio-hedging-put-debit-spreads-vix-calls-map`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `Portfolio Hedging Options Guide` -> Renders as: `Portfolio Hedging Options Guide | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Protect long equity portfolios during macro selloffs using institutional portfolio hedging: beta-weighted SPY Delta, put debit spreads, and VIX calls.`
+- **Excerpt (`148` chars):** `Selling long-term core holdings triggers capital gains taxes. Learn how institutional portfolio managers hedge drawdowns using SPY/SPX put spreads.`
+- **Focus Keyword:** `portfolio hedging`
+- **Secondary Keywords (JSON):** `["beta weighted delta spy", "hedging stock portfolio with options", "put debit spread hedge", "collar options strategy", "vix call options"]`
+- **Category:** `Risk & Psychology` (`slug: trading-psychology`)
+- **Tags:** `portfolio-hedging`, `risk-management`, `macro-cycles`, `mentorship`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,500 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/portfolio-hedging-put-debit-spreads-vix-calls-map.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional portfolio hedging dashboard showing SPY beta-weighted Delta neutralization with put spreads`
+  - `coverImageCaption`: `Figure 1: Reducing net SPY beta-weighted portfolio Delta by 60% using a 60-DTE SPX Put Debit Spread.`
+- **Search Intent & SERP Evidence:** High-ticket institutional & HNW search intent (`portfolio hedging with options`, `beta-weighted delta`); directly feeds Track 1 of `/mentorship` (Portfolio Managers & Institutional Traders) and `Course 07` (`/store/courses/macro-cycle-inflection-mastery`).
+- **Required H2/H3 Outline:**
+  - `H2`: Step 1: Converting Your Entire Portfolio Into Beta-Weighted SPY Shares
+  - `H2`: Why Buying Naked Puts Every Month Bleeds 8% to 12% Per Year in Theta Drag
+  - `H2`: Hedge Structure 1: 45 to 90 DTE SPX/SPY Put Debit Spreads & Put Ratio Collars
+  - `H2`: Hedge Structure 2: Timing VIX Call Spreads Ahead of Macro Breadth Divergences
+- **Internal Links to Include:**
+  - `/mentorship` (Private 1-on-1 Trading Mentorship: Track 1 Portfolio Managers)
+  - `/store/courses/macro-cycle-inflection-mastery` (Course 07: Macro Cycle Inflection Timing)
+  - `/resources/options-calculator` (Free Options Calculator)
+- **External Authority Citations:**
+  - `https://www.optionseducation.org/strategies/all-strategies/protective-put` (OIC portfolio protection strategies)
+  - `https://www.cboe.com/tradable_products/sp_500/spx_options/` (Cboe SPX index hedging specifications)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `How do you calculate the SPY beta-weighted Delta of a multi-stock portfolio?`
+     **A:** `For each position, multiply the position's dollar value (or option Delta-equivalent value) by the stock's Beta relative to the S&P 500 and divide by the current price of SPY. Summing those values tells you how many shares of SPY your portfolio mimics.`
+  2. **Q:** `Why are Put Debit Spreads more cost-effective for portfolio hedging than naked protective puts?`
+     **A:** `By selling a further out-of-the-money put (for example, at -15% or -20%) against your long protective put (at -5%), the short put offsets 40% to 60% of the long put's Theta and Vega cost while covering the most common 5% to 15% market corrections.`
+  3. **Q:** `When should you monetize (take profit on) an options portfolio hedge during a market selloff?`
+     **A:** `Monetize hedges in tiers when the VIX term structure inverts into deep backwardation (VIX / VIX3M > 1.10) and SPX tests your lower put-spread strike or prints a high-volume capitulation sweep.`
+
+---
+
+### Post 38: How to Eliminate Revenge Trading, FOMO & Tilt: Installing Mechanical Circuit Breakers
+
+- **H1 Blog Title:** `How to Eliminate Revenge Trading, FOMO & Tilt: Installing Mechanical Circuit Breakers`
+- **Slug (`47` chars, `0` gate stop words):** `eliminate-revenge-trading-fomo-circuit-breakers`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/eliminate-revenge-trading-fomo-circuit-breakers`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/eliminate-revenge-trading-fomo-circuit-breakers`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Stop Revenge Trading & FOMO Plan` -> Renders as: `Stop Revenge Trading & FOMO Plan | Revolution Trading Pros`
+- **Meta Description (`150` chars):** `Eradicate emotional revenge trading and FOMO self-sabotage. Install mechanical -2R daily drawdown circuit breakers and pre-trade execution checklists.`
+- **Excerpt (`149` chars):** `One emotional tilt session can erase three weeks of disciplined gains in 45 minutes. Here are the mechanical circuit breakers that ended my tilt days.`
+- **Focus Keyword:** `revenge trading`
+- **Secondary Keywords (JSON):** `["how to stop revenge trading", "fomo trading psychology", "daily loss limit rules", "trading tilt recovery", "mechanical trading checklist"]`
+- **Category:** `Risk & Psychology` (`slug: trading-psychology`)
+- **Tags:** `trading-psychology`, `risk-management`, `drawdown-control`, `mentorship`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/eliminate-revenge-trading-fomo-circuit-breakers.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional drawdown circuit breaker flowchart designed to eliminate revenge trading and FOMO tilt`
+  - `coverImageCaption`: `Figure 1: How mechanical -2R daily and -4R weekly circuit breakers intercept the amygdala tilt loop.`
+- **Search Intent & SERP Evidence:** High-volume psychology/risk query (`how to stop revenge trading`, `FOMO in trading`); directly promotes `Course 08: Ironclad Risk Architecture & Eradicating Retail Self-Sabotage` (`/store/courses/institutional-risk-and-trader-psychology`) and Track 3 of `/mentorship` (Struggling Trader Turnaround).
+- **Required H2/H3 Outline:**
+  - `H2`: The Neuroscience of Tilt: Why Cortisol and Dopamine Hijack Position Sizing
+  - `H2`: Why "Willpower" Fails at 10:15 AM ET and Mechanical Rules Succeed
+  - `H2`: Installing the 3-Tier Circuit Breaker: Per-Trade (-1R), Daily (-2R), and Weekly (-4R)
+  - `H2`: The Mandatory 60-Second Pre-Trade Written Checklist That Stops FOMO Chasing
+- **Internal Links to Include:**
+  - `/store/courses/institutional-risk-and-trader-psychology` (Course 08: Ironclad Risk Architecture)
+  - `/mentorship` (Private 1-on-1 Trading Mentorship: Struggling Trader Turnaround)
+  - `/our-mission` (Our Mission: People Over Profits)
+- **External Authority Citations:**
+  - `https://www.finra.org/investors/insights/day-trading` (FINRA day trading emotional and financial risk insights)
+  - `https://www.sec.gov/oiea/investor-alerts-and-bulletins/ib_daytrading` (SEC investor bulletin on overtrading and leverage losses)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What triggers revenge trading after a stop-loss is hit?`
+     **A:** `Revenge trading is triggered by loss aversion: the psychological urge to "get back to even" immediately on the very next candle by doubling contract size on a sub-par setup, which turns a standard -1R business expense into a -5R account blowup.`
+  2. **Q:** `How does a -2R daily drawdown circuit breaker work?`
+     **A:** `If your realized net loss for the trading session reaches -2R (for example, two consecutive -1R full stop-outs), you are mechanically required to close your brokerage execution platform for the rest of the day and switch to observation or review mode.`
+  3. **Q:** `How do you stop chasing extended FOMO breakout candles?`
+     **A:** `Measure the distance from your proposed entry price to the structural invalidation stop-loss. If the candle has already stretched more than 1.5x ATR away from the structural stop, the reward-to-risk ratio is broken and the trade is mechanically disqualified.`
+
+---
+
+### Post 39: Trading Journal & Expectancy Audit: How to Track R-Multiples and Scale Contract Size
+
+- **H1 Blog Title:** `Trading Journal & Expectancy Audit: How to Track R-Multiples and Scale Contract Size`
+- **Slug (`48` chars, `0` gate stop words):** `trading-journal-expectancy-audit-r-multiple-math`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/trading-journal-expectancy-audit-r-multiple-math`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/trading-journal-expectancy-audit-r-multiple-math`
+- **Meta Title (`32` chars raw / `58` chars rendered):** `Trading Journal & Expectancy Map` -> Renders as: `Trading Journal & Expectancy Map | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Build a quantitative trading journal that tracks R-multiples, Maximum Adverse Excursion (MAE), and mathematical expectancy over 30-trade sample blocks.`
+- **Excerpt (`148` chars):** `You cannot scale what you do not measure. Learn how prop desks audit 30-trade blocks using R-multiples, MAE/MFE telemetry, and rule-compliance grades.`
+- **Focus Keyword:** `trading journal`
+- **Secondary Keywords (JSON):** `["r multiple expectancy", "maximum adverse excursion mae", "maximum favorable excursion mfe", "how to scale trading size", "prop trader metrics"]`
+- **Category:** `Risk & Psychology` (`slug: trading-psychology`)
+- **Tags:** `trading-journal`, `risk-management`, `position-sizing`, `mentorship`
+- **Schema Type:** `Article` (`isPillar: false`, `featured: false`)
+- **Target Length:** `2,300 words` (`11 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/trading-journal-expectancy-audit-r-multiple-math.webp` (`1200x630`)
+  - `coverImageAlt`: `Institutional trading journal dashboard tracking R-multiple distribution, MAE, MFE, and 30-trade expectancy`
+  - `coverImageCaption`: `Figure 1: Auditing a 30-trade block by R-multiple distribution, MAE/MFE efficiency, and process compliance.`
+- **Search Intent & SERP Evidence:** High-value commercial/educational keyword (`trading journal metrics`, `R-multiple expectancy formula`); funnels readers into `Course 08` (`/store/courses/institutional-risk-and-trader-psychology`) and `/mentorship`.
+- **Required H2/H3 Outline:**
+  - `H2`: Why Tracking Raw Dollar P&L Hides Fatal Flaws in Your Trading System
+  - `H2`: The 6 Mandatory Columns in an Institutional Trading Journal (R-Multiple, MAE, MFE, Setup Tag, IVR, Process Grade)
+  - `H2`: Calculating Mathematical Expectancy Over 30-Trade Sample Blocks
+  - `H2`: The Prop-Desk Scaling Ladder: When to Increase 1R Dollar Size by 25%
+- **Internal Links to Include:**
+  - `/store/courses/institutional-risk-and-trader-psychology` (Course 08: Ironclad Risk Architecture)
+  - `/mentorship` (Private 1-on-1 Trading Mentorship)
+  - `/resources/options-calculator` (Free Options Calculator)
+- **External Authority Citations:**
+  - `https://www.cftc.gov/LearnAndProtect` (CFTC performance record and risk auditing fundamentals)
+  - `https://www.finra.org/investors/investing/investment-products/options` (FINRA trade recordkeeping and options performance guidance)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `What is the difference between Maximum Adverse Excursion (MAE) and Maximum Favorable Excursion (MFE) in a trading journal?`
+     **A:** `MAE measures the deepest unrealized drawdown a trade experienced before closing, telling you if your stops are placed accurately. MFE measures the highest unrealized profit the trade reached before closing, showing whether you are cutting winners too early.`
+  2. **Q:** `Why should you evaluate your trading strategy in 30-trade blocks instead of trade by trade?`
+     **A:** `Even a strategy with a verified 60% win rate has a high statistical probability of experiencing a 4-trade or 5-trade losing streak. Auditing in 30-trade sample blocks lets the law of large numbers express your true R-multiple expectancy.`
+  3. **Q:** `When is a trader mathematically ready to scale up their 1R dollar risk per trade?`
+     **A:** `Only scale your 1R dollar risk by 20% to 25% after completing a full 30-trade block with a positive net R-multiple expectancy (for example, +10R or higher) and at least a 90% mechanical rule-compliance score.`
+
+---
+
+### Post 40: IWM (Russell 2000) vs. SPY & QQQ Options: Small-Cap Liquidity, Beta & Sector Weights
+
+- **H1 Blog Title:** `IWM (Russell 2000) vs. SPY & QQQ Options: Small-Cap Liquidity, Beta & Sector Weights`
+- **Slug (`48` chars, `0` gate stop words):** `iwm-russell-2000-vs-spy-qqq-options-trading-map`
+- **Canonical CMS URL:** `https://revolutiontradingpros.com/blog/iwm-russell-2000-vs-spy-qqq-options-trading-map`
+- **Static Hub URL:** `https://revolutiontradingpros.com/blogs/iwm-russell-2000-vs-spy-qqq-options-trading-map`
+- **Meta Title (`31` chars raw / `57` chars rendered):** `IWM Russell 2000 vs SPY Options` -> Renders as: `IWM Russell 2000 vs SPY Options | Revolution Trading Pros`
+- **Meta Description (`151` chars):** `Trade iwm russell 2000 options vs SPY and QQQ. Compare small-cap interest rate sensitivity, affordable contract pricing for $500+ accounts, and RUT.`
+- **Excerpt (`149` chars):** `Why is IWM (iShares Russell 2000 ETF) the favorite index vehicle for $500 to $2,500 options accounts and macro interest-rate rotation traders?`
+- **Focus Keyword:** `iwm russell 2000`
+- **Secondary Keywords (JSON):** `["iwm vs spy options", "russell 2000 index rut", "small cap options strategy", "affordable etf options", "interest rate sensitive etfs"]`
+- **Category:** `$500+ Small Accounts` (`slug: small-accounts`)
+- **Tags:** `iwm-etf`, `small-accounts`, `etf-trading`, `index-options`
+- **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
+- **Target Length:** `2,400 words` (`12 min read`)
+- **Cover Image Specs:**
+  - `coverImage`: `/images/blog/iwm-russell-2000-vs-spy-qqq-options-trading-map.webp` (`1200x630`)
+  - `coverImageAlt`: `Structural comparison of iwm russell 2000 options versus SPY, QQQ, and cash-settled RUT index options`
+  - `coverImageCaption`: `Figure 1: Sector weights, option contract cost, and cash-settled RUT comparison for IWM (Russell 2000).`
+- **Search Intent & SERP Evidence:** High-volume ETF/Index comparison query (`IWM vs SPY options`, `Russell 2000 options`); links directly to both `/resources/etf-stocks-list`, `/resources/stock-indexes-list`, and `/live-trading-rooms/small-accounts-room`.
+- **Required H2/H3 Outline:**
+  - `H2`: Complete Comparison: IWM vs. RUT vs. SPY vs. QQQ Options
+  - `H2`: Why IWM's Lower Share Price & Penny-Wide Spreads Fit $500+ Small Accounts
+  - `H2`: Inside the Russell 2000: Heavy Financials, Industrials & Regional Bank Rate Sensitivity
+  - `H2`: Trading IWM Relative-Strength Divergences & Cash-Settled RUT Section 1256 Options
+- **Internal Links to Include:**
+  - `/resources/etf-stocks-list` (Complete ETF Stocks List)
+  - `/resources/stock-indexes-list` (Stock Market Indexes Directory)
+  - `/live-trading-rooms/small-accounts-room` (Small Accounts Room)
+- **External Authority Citations:**
+  - `https://www.cboe.com/tradable_products/ftse_russell/russell_2000_index_options/` (Cboe Russell 2000 RUT & MRUT index options specifications)
+  - `https://www.sec.gov/investor/alerts/etfs.pdf` (SEC investor bulletin on Exchange-Traded Funds)
+- **Visible `<details>` + `FAQPage` JSON-LD Items:**
+  1. **Q:** `Why is IWM (iShares Russell 2000 ETF) popular for $500 to $2,500 options accounts?`
+     **A:** `Because IWM trades at roughly one-third the share price of SPY or QQQ while maintaining massive institutional options volume and penny-wide bid-ask spreads, at-the-money IWM options and $2-to-$5 wide vertical spreads require significantly less capital per contract.`
+  2. **Q:** `What is the difference between IWM options and RUT options?`
+     **A:** `IWM options are American-style ETF options that settle into 100 physical shares of IWM, whereas RUT (and Mini-RUT / MRUT) are European-style cash-settled Russell 2000 Index options that qualify for IRS Section 1256 60/40 tax treatment.`
+  3. **Q:** `Why does IWM react more strongly to Federal Reserve interest rate cuts or hikes than QQQ?`
+     **A:** `Unlike the cash-rich mega-cap tech companies dominating QQQ, Russell 2000 small-cap companies and regional banks carry higher floating-rate debt loads, making IWM highly sensitive to Treasury yield shifts and Federal Reserve policy pivots.`
+
+---
+
 ## Part 4: Automated Verification Summary (CMS SEO Gate & House Rules)
 
 Every single post specification in this blueprint was validated against [`src/lib/shared/seo/score.ts`](src/lib/shared/seo/score.ts), [`src/lib/shared/seo/meta-budget.ts`](src/lib/shared/seo/meta-budget.ts), [`src/lib/shared/seo/slug.ts`](src/lib/shared/seo/slug.ts), and [`AGENTS.md`](AGENTS.md):
 
 1. **Meta Title Budget (`META_TITLE_MIN = 30`, `META_TITLE_MAX = 60`, `AGENTS.md` <= 33 raw chars):**
-   - All 20 `metaTitle` values are **30 to 33 characters** before ` | Revolution Trading Pros` (**56 to 59 characters** rendered), start with an uppercase letter, and contain the post's `focusKeyword` verbatim.
+   - All 40 `metaTitle` values are **30 to 33 characters** before ` | Revolution Trading Pros` (**56 to 59 characters** rendered), start with an uppercase letter, and contain the post's `focusKeyword` verbatim.
 2. **Meta Description Budget (`140 to 155` characters):**
-   - All 20 `metaDescription` values are strictly between **147 and 152 characters** (passing both the CMS `70 to 155` rule and the `AGENTS.md` `140 to 158` rule) and include the post's `focusKeyword` verbatim.
+   - All 40 `metaDescription` values are strictly between **147 and 152 characters** (passing both the CMS `70 to 155` rule and the `AGENTS.md` `140 to 158` rule) and include the post's `focusKeyword` verbatim.
 3. **Slug Hygiene (`SLUG_MIN_LEN = 3`, `SLUG_TARGET_LEN = 70`):**
-   - All 20 slugs are **32 to 61 characters**, match `^[a-z0-9]+(?:-[a-z0-9]+)*$`, include the hyphenated `focusKeyword` (or match existing seeded/priority slugs), contain **0 or 1** stop words from `GATE_SLUG_STOP_WORDS` (well under the `< 3` threshold), and have zero trailing stub words.
+   - All 40 slugs are **32 to 61 characters**, match `^[a-z0-9]+(?:-[a-z0-9]+)*$`, include the hyphenated `focusKeyword` (or match existing seeded/priority slugs), contain **0 or 1** stop words from `GATE_SLUG_STOP_WORDS` (well under the `< 3` threshold), and have zero trailing stub words.
 4. **Zero Em/En Dashes (`contains_em_or_en_dash` blocking rule):**
    - Zero em dashes (`\u2014`) or en dashes (`\u2013`) appear in any title, meta title, meta description, excerpt, image alt text, caption, or FAQ item.
 5. **1-to-1 FAQ & External Authority Parity:**

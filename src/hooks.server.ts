@@ -102,8 +102,11 @@ const handleApp: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	// 2. Populate Better Auth session
+	// 2. Populate Better Auth session (ensure local PGlite schema is initialized first)
 	try {
+		if (!building) {
+			await ensureDbReady();
+		}
 		const session = await auth.api.getSession({ headers: event.request.headers });
 
 		if (session) {

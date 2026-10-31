@@ -28,6 +28,7 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 - **Unified `/blogs` -> `/blog` Architecture (`[NRW-SEO-1]`, closes `T5` in `docs/TEMPORARY.md`)**:
   - Updated `resolveBlogRedirect` in `src/hooks.server.ts` so `/blogs` 308-redirects to `/blog` and `/blogs/<slug>` 308-redirects to `/blog/<slug>` (while still consulting `post_redirects` first).
+  - Updated `handleApp` in `src/hooks.server.ts` to call `await ensureDbReady()` (when `!building`) before `auth.api.getSession(...)`, preventing `relation "session" does not exist` on first request to non-blog routes when a fresh local PGlite database is initialized.
   - Updated primary navigation, footer, homepage, mission page, and resource hub blog links in `src/lib/data/homepage.ts`, `src/lib/data/homepage.spec.ts`, `src/lib/components/home/BlogSection.svelte`, `src/routes/+page.svelte`, `src/routes/our-mission/+page.svelte`, `src/lib/data/resources-hub.ts`, and `src/routes/page.svelte.e2e.ts` to point directly to `/blog`.
 - **Restore Trashed Posts as `'draft'` (`[NRW-BE-6]`, Owner Decision A3)**:
   - Updated `restoreTrashedPost` in `src/lib/server/services/posts.ts` to restore trashed posts with `status: 'draft'` and `published: false` (instead of immediately re-publishing to the live site) and to recompute `wordCount`, `readingTime`, and `tableOfContents` (`JSON.stringify(toc)`) on restore.

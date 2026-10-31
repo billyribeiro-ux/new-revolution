@@ -1,6 +1,19 @@
+import { asset } from '$app/paths';
+
 /**
- * Static blog hub content for /blogs (module scope). `BlogCardPost` is the normalized shape the
- * BlogCard component renders; DB-backed posts can be mapped into the same shape.
+ * Static blog hub content for /blogs (module scope).
+ *
+ * ALL POSTS BELOW ARE MOCKS: invented titles/excerpts/dates and generated placeholder covers
+ * (`static/blog-mocks/*.svg`, each stamped "MOCK COVER"). Replace them with real content when the
+ * blog goes live; `BlogCardPost` is the normalized shape BlogCard renders, so database posts can be
+ * mapped into it.
+ *
+ * EDITING ONE CARD: every post is an independent object. To change how a single card looks, edit only
+ * that post's `presentation` block (no component code involved):
+ *   - focus:   where the cover is anchored when cropped, `[x%, y%]` (default `[50, 50]`)
+ *   - overlay: scrim strength behind the text, 'soft' | 'standard' | 'strong' (all keep text AA-readable)
+ *   - accent:  badge + focus-ring color, 'acid' | 'acid2' | 'coral'
+ * To change its content, edit title / excerpt / category / dates / image in the same object.
  */
 
 export interface BlogCardImage {
@@ -8,6 +21,15 @@ export interface BlogCardImage {
 	alt: string;
 	width: number;
 	height: number;
+	/** True while the cover is a generated placeholder. */
+	mock?: boolean;
+}
+
+/** Per-card look. Everything is optional; omit the block to use the defaults. */
+export interface BlogCardPresentation {
+	focus?: readonly [x: number, y: number];
+	overlay?: 'soft' | 'standard' | 'strong';
+	accent?: 'acid' | 'acid2' | 'coral';
 }
 
 export interface BlogCardPost {
@@ -25,6 +47,7 @@ export interface BlogCardPost {
 	image: BlogCardImage;
 	hasAudio: boolean;
 	featured?: boolean;
+	presentation?: BlogCardPresentation;
 }
 
 export const blogCategories: readonly { id: string; label: string }[] = [
@@ -50,11 +73,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 29, 2026',
 		readTime: '18 min read',
 		image: {
-			src: 'https://revolutiontradingpros.com/wp-content/uploads/2025/08/ChatGPT-Image-Aug-28-2025-04_19_20-AM-1024x683.png',
-			alt: 'The Ultimate Guide to Options Greeks Graph and Risk Curve',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/options-greeks.svg'),
+			alt: 'Mock cover illustration: four glowing option Greek curves (delta, gamma, theta, vega) on a dark grid',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [62, 45], overlay: 'standard', accent: 'acid' },
 		hasAudio: true,
 		featured: true
 	},
@@ -71,11 +96,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 28, 2026',
 		readTime: '7 min read',
 		image: {
-			src: 'https://placehold.co/800x450/000000/ffffff?text=OXY+600%25+Put+Options+Case+Study',
-			alt: 'Chart breakdown of Occidental Petroleum OXY Put Options 600% overnight gain',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/oxy-put.svg'),
+			alt: 'Mock cover illustration: a run of falling red candlesticks with one large gap-down candle',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [50, 40], overlay: 'strong', accent: 'coral' },
 		hasAudio: true
 	},
 	{
@@ -91,11 +118,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 24, 2026',
 		readTime: '9 min read',
 		image: {
-			src: 'https://placehold.co/800x450/111111/ffffff?text=%24500+Small+Account+Playbook',
-			alt: '$500 Small Account Options Compounding Blueprint',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/small-account.svg'),
+			alt: 'Mock cover illustration: eight rising compounding bars with a glowing growth curve',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [55, 60], overlay: 'standard', accent: 'acid' },
 		hasAudio: false
 	},
 	{
@@ -111,11 +140,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 20, 2026',
 		readTime: '6 min read',
 		image: {
-			src: 'https://placehold.co/800x450/000000/ffffff?text=Working+Pro+Swing+Routine',
-			alt: 'Multi-day swing trading routine for working professionals',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/swing-routine.svg'),
+			alt: 'Mock cover illustration: a calendar grid with a few highlighted trade days above two moving averages',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [50, 55], overlay: 'standard', accent: 'acid2' },
 		hasAudio: true
 	},
 	{
@@ -131,11 +162,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 16, 2026',
 		readTime: '8 min read',
 		image: {
-			src: 'https://placehold.co/800x450/111111/ffffff?text=Zero-Repaint+Institutional+Telemetry',
-			alt: 'Comparison of repainted guru indicators vs non-repainting institutional telemetry',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/repaint.svg'),
+			alt: 'Mock cover illustration: one solid indicator line over faded dashed repainted ghost lines',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [50, 50], overlay: 'standard', accent: 'coral' },
 		hasAudio: false
 	},
 	{
@@ -151,11 +184,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 12, 2026',
 		readTime: '12 min read',
 		image: {
-			src: 'https://placehold.co/800x450/000000/ffffff?text=3+Institutional+Options+Strategies',
-			alt: '3 Institutional Options Strategies for Consistent Theta Income',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/strategies.svg'),
+			alt: 'Mock cover illustration: three options payoff diagrams side by side',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [50, 55], overlay: 'standard', accent: 'acid' },
 		hasAudio: true
 	},
 	{
@@ -171,11 +206,13 @@ export const blogPosts: readonly BlogCardPost[] = [
 		publishedDisplay: 'Oct 08, 2026',
 		readTime: '10 min read',
 		image: {
-			src: 'https://placehold.co/800x450/111111/ffffff?text=Institutional+Risk+Architecture',
-			alt: 'Institutional Risk Management and Position Sizing Matrix',
-			width: 640,
-			height: 360
+			src: asset('blog-mocks/risk.svg'),
+			alt: 'Mock cover illustration: concentric risk rings over a curve with a dashed stop line',
+			width: 1600,
+			height: 900,
+			mock: true
 		},
+		presentation: { focus: [50, 50], overlay: 'strong', accent: 'acid2' },
 		hasAudio: false
 	}
 ];

@@ -67,8 +67,8 @@ describe('/blogs page', () => {
 			const link = card.querySelector<HTMLAnchorElement>('h3 a.catalog-card__link');
 			expect(link?.getAttribute('href')).toMatch(/^\/blogs\/[a-z0-9-]+$/);
 			const img = card.querySelector('img.blog-card__img');
-			expect(img?.getAttribute('width')).toBe('640');
-			expect(img?.getAttribute('height')).toBe('360');
+			expect(img?.getAttribute('width')).toBe('1600');
+			expect(img?.getAttribute('height')).toBe('900');
 			expect(card.querySelector('time[datetime]')?.getAttribute('datetime')).toMatch(
 				/^\d{4}-\d{2}-\d{2}$/
 			);

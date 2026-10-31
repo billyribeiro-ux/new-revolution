@@ -7,6 +7,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import CourseCard from '#lib/components/store/CourseCard.svelte';
+	import CatalogGrid from '#lib/components/ui/CatalogGrid.svelte';
 	import FilterChips from '#lib/components/ui/FilterChips.svelte';
 	import { coursesCatalog, trackFilters, type CourseTrackFilter } from '#lib/data/courses.ts';
 	import { COURSES_STORE_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
@@ -396,20 +397,19 @@
 					bind:value={activeTrack}
 				/>
 
-				<p class="courses-status" role="status">
-					Showing {filteredCourses.length} of {coursesCatalog.length} courses
-				</p>
-
 				<!-- Catalog: crawlable h3 titles; every syllabus is in the server-rendered HTML (native <details>). -->
-				<ul class="courses-grid">
-					{#each filteredCourses as course (course.id)}
-						<li class={['courses-grid__item', { 'is-featured': course.featured }]}>
-							<CourseCard {course} />
-						</li>
-					{:else}
-						<li class="courses-grid__empty">No courses match this track.</li>
-					{/each}
-				</ul>
+				<CatalogGrid
+					items={filteredCourses}
+					key={(course) => course.id}
+					isFeatured={(course) => course.featured === true}
+					total={coursesCatalog.length}
+					noun="courses"
+					emptyMessage="No courses match this track."
+				>
+					{#snippet children(course)}
+						<CourseCard {course} />
+					{/snippet}
+				</CatalogGrid>
 			</div>
 		</section>
 
@@ -660,70 +660,3 @@
 
 	<Footer />
 </div>
-
-<style>
-	/*
-	 * Catalog layout. Mobile-first on the SSOT breakpoints (docs/CSS_STANDARDS.md 5.1):
-	 * 1 column below 768px, 2 columns from 768px, 3 columns from 1280px (a 4th column would starve the text-heavy cards).
-	 * The featured course takes a full row on tablets and two of three columns on desktop.
-	 */
-	.courses-status {
-		margin: 16px 0;
-		font-family: var(--font-sans);
-		font-weight: 700;
-		font-size: 0.8125rem;
-		line-height: 1.5rem;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		color: var(--text-secondary);
-	}
-
-	.courses-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 16px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.courses-grid__item {
-		min-inline-size: 0;
-	}
-
-	.courses-grid__empty {
-		padding: 32px 16px;
-		border: 2px dashed var(--line-strong);
-		text-align: center;
-		color: var(--text-secondary);
-	}
-
-	@media (min-width: 480px) {
-		.courses-grid {
-			gap: 20px;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.courses-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 24px;
-		}
-
-		.courses-grid__item.is-featured,
-		.courses-grid__empty {
-			grid-column: 1 / -1;
-		}
-	}
-
-	@media (min-width: 1280px) {
-		.courses-grid {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 28px;
-		}
-
-		.courses-grid__item.is-featured {
-			grid-column: span 2;
-		}
-	}
-</style>

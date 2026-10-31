@@ -63,7 +63,6 @@ export const GET: RequestHandler = async ({ request }) => {
 			path: string;
 			lastmod?: string;
 			imageUrl?: string | null;
-			imageTitle?: string | null;
 		}[] = [
 			{ path: '/store/courses/move-prior-to-the-move-ultra' },
 			{ path: '/store/indicators/move-prior-to-the-move-system' },
@@ -99,8 +98,7 @@ export const GET: RequestHandler = async ({ request }) => {
 			dynamicRoutes.push({
 				path: `/blog/${post.slug}`,
 				lastmod: modIso,
-				imageUrl: post.coverImage ? absoluteUrl(post.coverImage, baseUrl) : null,
-				imageTitle: post.coverImageAlt || post.title
+				imageUrl: post.coverImage ? absoluteUrl(post.coverImage, baseUrl) : null
 			});
 		}
 
@@ -124,7 +122,6 @@ export const GET: RequestHandler = async ({ request }) => {
 			path: string;
 			lastmod?: string;
 			imageUrl?: string | null;
-			imageTitle?: string | null;
 		}[] = [
 			...discoveredRoutes.map((path) => ({
 				path,
@@ -134,13 +131,12 @@ export const GET: RequestHandler = async ({ request }) => {
 		];
 
 		const urlNodes = entries
-			.map(({ path, lastmod, imageUrl, imageTitle }) => {
+			.map(({ path, lastmod, imageUrl }) => {
 				const fullUrl = absoluteUrl(path, baseUrl);
 				const imageLines = imageUrl
 					? [
 							'    <image:image>',
 							`      <image:loc>${escapeXml(imageUrl)}</image:loc>`,
-							...(imageTitle ? [`      <image:title>${escapeXml(imageTitle)}</image:title>`] : []),
 							'    </image:image>'
 						]
 					: [];

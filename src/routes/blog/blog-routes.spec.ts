@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { resolveBlogRedirect } from '../../hooks.server';
 import { createTestDatabase, setActiveDbForTest, setSimulatedDbFailure } from '#lib/server/db';
-import { redirects } from '#lib/server/db/schema';
+import { media, redirects } from '#lib/server/db/schema';
 import { getPostPasswordCookieName, signDraftPreviewToken } from '#lib/server/posts/visibility';
 import { clearRateLimitsForTest } from '#lib/server/rate-limit';
 import { createAuthor } from '#lib/server/services/authors';
@@ -162,6 +162,89 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		expect(articleNode?.author).toEqual({
 			'@id': 'https://revolutiontradingpros.com/#author-billy-ribeiro'
 		});
+	});
+
+	it('derives the cover srcset and dimensions from the media row, never inventing a 1200w file or 1200x675', async () => {
+		const base = 'https://cdn.example.com/media/cover-test-aaaaaaaaaaaa';
+		await testDbCtx.db.insert(media).values({
+			id: 'cover-media-800',
+			filename: 'cover-test.webp',
+			slug: 'cover-test-800w.webp',
+			mimeType: 'image/webp',
+			sizeBytes: 1000,
+			width: 800,
+			height: 500,
+			blobUrl: `${base}-800w.webp`,
+			blobPathname: 'cover-test-aaaaaaaaaaaa-800w.webp',
+			variantsJson: {
+				'480': {
+					width: 480,
+					height: 300,
+					url: `${base}-480w.webp`,
+					pathname: 'cover-test-aaaaaaaaaaaa-480w.webp'
+				}
+			}
+		});
+		const keyword = 'options gamma';
+		const common = {
+			excerpt:
+				'Learn how dealer options gamma exposure shapes intraday support, resistance, and volatility expansion on SPX and QQQ.',
+			content: makeValidSeoBody(keyword),
+			authorId,
+			categoryId,
+			categoryIds: [categoryId],
+			tagIds: [tagId],
+			coverImageAlt: 'Dealer gamma exposure chart across SPX strike prices',
+			title: 'Options Gamma Exposure Playbook for Index Traders',
+			metaTitle: 'Options Gamma Exposure Playbook for Index Traders',
+			metaDescription:
+				'Learn how dealer options gamma exposure shapes intraday support, resistance, and volatility expansion on SPX and QQQ with defined risk.',
+			focusKeyword: keyword,
+			status: 'published' as const,
+			visibility: 'public' as const
+		};
+		await createPost({
+			...common,
+			content: `${makeValidSeoBody(keyword)}<img src="${base}-800w.webp" alt="Body chart options gamma" width="800" height="500" data-align="full" />`,
+			slug: 'cover-srcset-real-variants',
+			coverImage: `${base}-800w.webp`
+		});
+		await createPost({
+			...common,
+			slug: 'cover-srcset-unknown-library-row',
+			coverImage: 'https://elsewhere.example.com/plain-cover.jpg'
+		});
+
+		const call = async (slug: string) =>
+			(await loadBlogPost({
+				params: { slug },
+				url: new URL(`https://revolutiontradingpros.com/blog/${slug}`),
+				locals: {} as App.Locals,
+				request: new Request(`https://revolutiontradingpros.com/blog/${slug}`),
+				cookies: { get: () => undefined },
+				setHeaders: () => {}
+			} as never)) as {
+				post: {
+					coverWidth: number | null;
+					coverHeight: number | null;
+					coverSrcset: string | null;
+					content: string;
+				};
+			};
+
+		const real = await call('cover-srcset-real-variants');
+		expect(real.post.coverSrcset).toBe(`${base}-480w.webp 480w, ${base}-800w.webp 800w`);
+		expect(real.post.coverSrcset).not.toContain('1200w');
+		expect([real.post.coverWidth, real.post.coverHeight]).toEqual([800, 500]);
+		// Body images get lazy/decoding appended before the closing bracket, not after a self-closing slash.
+		const bodyImg = real.post.content.match(/<img[^>]*Body chart[^>]*>/)?.[0] ?? '';
+		expect(bodyImg).toContain('data-align="full"');
+		expect(bodyImg).toContain('decoding="async"');
+		expect(bodyImg).not.toMatch(/\s\/\s+\w+=/);
+
+		const unknown = await call('cover-srcset-unknown-library-row');
+		expect(unknown.post.coverSrcset).toBeNull();
+		expect([unknown.post.coverWidth, unknown.post.coverHeight]).toEqual([null, null]);
 	});
 
 	it('serves draft posts via signed preview token with no-store and noindex', async () => {

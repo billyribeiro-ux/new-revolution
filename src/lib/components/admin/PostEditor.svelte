@@ -22,6 +22,7 @@
 	} from './post-editor/form-actions';
 	import { parsePublishGateRefusal, type PublishGateRefusal } from './post-editor/publish-gate';
 	import { rpcErrorMessage } from './post-editor/rpc-error';
+	import { pickedAlt, resolveCoverFromPick } from './post-editor/image-pick';
 	import { generateSlug, normaliseSlug, isValidSlug } from '#lib/shared/seo/slug';
 	import { META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { getSeoScore } from '#lib/shared/seo/score';
@@ -147,6 +148,8 @@
 	} | null>(null);
 
 	let mediaModalOpen = $state(false);
+	/** Real dimensions of the picked cover, for the sidebar preview (the server stores them on save). */
+	let coverMeta = $state<{ url: string; width: number | null; height: number | null } | null>(null);
 	let mediaPickerCallback = $state<((payload: MediaInsertPayload) => void) | null>(null);
 
 	let activeDiffRevision = $state.raw<RevisionItem | null>(null);
@@ -736,6 +739,21 @@
 		}
 	}
 
+	/** Featured image picked from the library: default variant is `large`; alt is never invented. */
+	function handlePickCoverImage() {
+		openMediaModalFor((payload) => {
+			const cover = resolveCoverFromPick(payload);
+			form.coverImage = cover.url;
+			form.coverImageAlt = cover.alt;
+			form.coverImageCaption = cover.caption;
+			coverMeta = { url: cover.url, width: cover.width, height: cover.height };
+			if (!form.ogImage) {
+				form.ogImage = cover.url;
+			}
+			markDirty();
+		});
+	}
+
 	function openMediaModalFor(onPicked: (payload: MediaInsertPayload) => void) {
 		mediaPickerCallback = (payload) => {
 			onPicked(payload);
@@ -1000,17 +1018,7 @@
 			onContentChange={handleContentChange}
 			onStatsChange={handleStatsChange}
 			onInspectRevision={(rev) => void handleOpenRevisionDiff(rev)}
-			onPickCoverImage={() => {
-				openMediaModalFor((payload) => {
-					form.coverImage = payload.url;
-					form.coverImageAlt = payload.alt || '';
-					form.coverImageCaption = payload.caption || '';
-					if (!form.ogImage) {
-						form.ogImage = payload.url;
-					}
-					markDirty();
-				});
-			}}
+			onPickCoverImage={handlePickCoverImage}
 			onPickOgImage={() => {
 				openMediaModalFor((payload) => {
 					form.ogImage = payload.url;
@@ -1027,7 +1035,7 @@
 				openMediaModalFor((payload) => {
 					cb({
 						url: payload.url,
-						alt: payload.alt,
+						alt: pickedAlt(payload),
 						width: payload.width,
 						height: payload.height,
 						caption: payload.caption,
@@ -1043,6 +1051,9 @@
 		{#if !isFocusMode}
 			<PostEditorSidebar
 				bind:form
+				coverDimensions={coverMeta && coverMeta.url === form.coverImage
+					? { width: coverMeta.width, height: coverMeta.height }
+					: null}
 				{categories}
 				{tags}
 				authors={authorsList}
@@ -1053,17 +1064,7 @@
 				onSaveDraft={handleSaveDraft}
 				onPrimarySubmit={handlePrimarySubmitRequest}
 				onMoveToTrash={() => (confirmTrashOpen = true)}
-				onPickCoverImage={() => {
-					openMediaModalFor((payload) => {
-						form.coverImage = payload.url;
-						form.coverImageAlt = payload.alt || '';
-						form.coverImageCaption = payload.caption || '';
-						if (!form.ogImage) {
-							form.ogImage = payload.url;
-						}
-						markDirty();
-					});
-				}}
+				onPickCoverImage={handlePickCoverImage}
 				onQuickCreateAuthor={handleQuickCreateAuthor}
 				onQuickCreateCategory={handleQuickCreateCategory}
 				onQuickCreateTag={handleQuickCreateTag}

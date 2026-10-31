@@ -95,3 +95,40 @@ Before the first real deploy, every item below must be done. Each is tracked in 
 - [ ] Rotate `BETTER_AUTH_SECRET` to a generated 32+ character value (T7). Never reuse the `.env.example` value.
 - [ ] Remove `ADMIN_SEED_EMAIL` and `ADMIN_SEED_PASSWORD` from every production environment.
 - [ ] Confirm T1 (header bypass) is `removed` and T2 is `removed` in `TEMPORARY.md`.
+
+## 8. Publishing checklist
+
+Publishing runs the SEO gate on the server (`enforcePublishSeoGate`, `src/lib/shared/seo/score.ts`). When it refuses,
+`/admin/posts/<id>` shows the reasons in a red alert at the top of the editor and opens the SEO panel. The gate applies
+when a post is created as published or scheduled, when an update moves a post to published, and on any save that sets
+it to scheduled. A post that is already live is not re-checked on edit. Scores come from the same function as the
+panel, so a fix is visible in the "SEO n/100" pill before you click Publish.
+
+A post can be published when the score is **80 or more** and **none** of these blocking items is present:
+
+| Needed                      | Blocks when missing or wrong                                                                    |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| Meta title                  | empty, or starts with a lowercase letter                                                        |
+| Meta description            | empty                                                                                           |
+| Cover image, or an OG image | neither is set                                                                                  |
+| Cover alt text              | cover set but alt blank, or alt equal to the post title                                         |
+| Author                      | none selected (sidebar "Author" panel)                                                          |
+| Category                    | none selected (sidebar "Categories" panel)                                                      |
+| Tags                        | none (one tag is a warning only)                                                                |
+| Body length                 | fewer than 300 words (300 to 599 is a warning)                                                  |
+| External links              | fewer than 2 distinct external domains (1 is an error that lowers the score)                    |
+| No placeholder              | the text `IMAGE PLACEHOLDER` is still in the body                                               |
+| No dashes                   | any em dash or en dash in title, body, meta, excerpt, cover alt or caption, OG, Twitter, or FAQ |
+
+Warnings lower the score without blocking: meta title under 30 or over 60 characters; meta description under 70 or over
+155; no excerpt; focus keyword missing from the meta title, meta description, slug or body; no focus keyword (an error,
+-8); no FAQ, or 1 or 2 FAQ items, or answers under 40 characters; a body heading equal to the title; slug over 70
+characters or with 3 or more stop words; body images without width and height.
+
+Notes:
+
+- On save, the server fills blank meta title, meta description, excerpt, and OG fields from the content before it
+  gates. The editor's SEO panel scores what is typed, so it can show one extra blocking item (for example "Missing meta
+  title") that the server would fill. Type the field yourself to see the real count.
+- Restoring a published post from Trash makes it published again without a gate check (it was live before it was
+  trashed). Restore keeps the stored status.

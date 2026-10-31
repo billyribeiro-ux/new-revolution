@@ -34,6 +34,23 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 - Better Auth options shared by `src/lib/server/auth.ts` and the seed script now live in
   `src/lib/server/auth-options.ts` (`userAdditionalFields`, `emailAndPasswordOptions`). Behaviour unchanged.
 
+### Fixed (P4: publishing through `/admin`, verified in a browser)
+
+- A refused publish now shows its reasons. The SEO gate refusal (`SEO_GATE_BLOCKED`) is parsed into one list item per
+  issue (blocking items marked, then warnings) in a `role="alert"` box at the top of the editor, focus moves to it, and
+  the SEO panel opens. Before, the reason was a raw multi-line string at the top of the page, out of view from the
+  Publish button, and the SEO panel's issue list sat in a hidden tab. `src/lib/components/admin/post-editor/publish-gate.ts`
+  (spec: `publish-gate.spec.ts`); `PostEditorMainColumn.revealSeoPanel()`.
+- The gate's error text no longer labels non-blocking errors as "Blocking errors": items are marked `[BLOCKING]` where
+  they stop publishing on their own (`src/lib/shared/seo/score.ts`, `enforcePublishSeoGate`).
+- Publish button label: an existing draft showed "Update and close", but that button publishes. Drafts now show
+  "Publish" (top bar, sidebar, mobile bar). "Update and close" is shown only for a published post.
+- Server errors from author, category, tag and other remote calls showed a generic "Failed to ..." message because the
+  remote error is not an `Error` instance. The server message is now shown (e.g. `Author slug "x" already exists.`) via
+  `post-editor/rpc-error.ts` (spec: `rpc-error.spec.ts`).
+- Login email field: `value=` was replaced by `defaultValue=` so hydration no longer clears an email typed before
+  JavaScript loaded. Before, the cleared required field blocked the native submit (no POST). `/admin/login`.
+
 ### Removed
 
 - `/demo/better-auth` scaffold (`TEMPORARY` T6, now `removed`): it had a public sign-up form and linked to a

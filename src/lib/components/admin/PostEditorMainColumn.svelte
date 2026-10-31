@@ -80,6 +80,18 @@
 		activeMainTab = loadActiveMainTab();
 	}
 
+	/**
+	 * Opens the SEO panel (its issue list is inside a hidden body otherwise) and returns its toggle button so
+	 * the caller can move focus there. Used when a publish is refused by the SEO gate.
+	 */
+	export function revealSeoPanel(): HTMLButtonElement | null {
+		activeMainTab = 'seo';
+		saveActiveMainTab('seo');
+		return seoToggleEl;
+	}
+
+	let seoToggleEl: HTMLButtonElement | null = null;
+
 	function toggleMainPanel(panel: Exclude<MainEditorTab, 'content'>) {
 		const next: MainEditorTab = activeMainTab === panel ? 'content' : panel;
 		activeMainTab = next;
@@ -231,6 +243,7 @@
 			<button
 				type="button"
 				class="metabox-toggle"
+				bind:this={seoToggleEl}
 				aria-expanded={activeMainTab === 'seo'}
 				aria-controls="panel-seo"
 				onclick={() => toggleMainPanel('seo')}

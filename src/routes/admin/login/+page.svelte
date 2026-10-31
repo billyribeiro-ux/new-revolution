@@ -37,7 +37,7 @@
 					autocapitalize="none"
 					spellcheck="false"
 					required
-					value={form?.email ?? ''}
+					defaultValue={form?.email ?? ''}
 					aria-invalid={form?.message ? 'true' : undefined}
 					aria-describedby={form?.message ? errorId : undefined}
 				/>

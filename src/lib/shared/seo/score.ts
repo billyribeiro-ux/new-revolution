@@ -617,9 +617,10 @@ export function enforcePublishSeoGate(input: SeoScoreInput): SeoScoreResult {
 	];
 
 	if (errorIssues.length > 0) {
-		lines.push('', 'Blocking errors:');
+		lines.push('', 'Errors (items marked [BLOCKING] stop publishing on their own):');
 		for (const err of errorIssues) {
-			lines.push(`- ${err.message} (-${err.points})`);
+			const tag = err.blocking ? '[BLOCKING] ' : '';
+			lines.push(`- ${tag}${err.message} (-${err.points})`);
 		}
 	}
 

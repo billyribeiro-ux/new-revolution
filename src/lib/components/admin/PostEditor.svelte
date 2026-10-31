@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { tick, untrack } from 'svelte';
 	import PostEditorTopBar from './PostEditorTopBar.svelte';
 	import PostEditorMainColumn from './PostEditorMainColumn.svelte';
 	import PostEditorSidebar from './PostEditorSidebar.svelte';
@@ -20,6 +20,8 @@
 		attachBeforeUnloadGuard,
 		type PostEditorFormState
 	} from './post-editor/form-actions';
+	import { parsePublishGateRefusal, type PublishGateRefusal } from './post-editor/publish-gate';
+	import { rpcErrorMessage } from './post-editor/rpc-error';
 	import { generateSlug, normaliseSlug, isValidSlug } from '#lib/shared/seo/slug';
 	import { META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { getSeoScore } from '#lib/shared/seo/score';
@@ -113,6 +115,8 @@
 	let metaTitleCopiedFrom: string | null = '';
 
 	let mainColumnRef = $state<ReturnType<typeof PostEditorMainColumn> | null>(null);
+	let gateRefusal = $state<PublishGateRefusal | null>(null);
+	let gateAlertEl = $state<HTMLElement | null>(null);
 
 	let words = $state(0);
 	let chars = $state(0);
@@ -436,6 +440,7 @@
 	) {
 		if (isSaving) return;
 		errorMessage = '';
+		gateRefusal = null;
 		statusMessage = '';
 		staleConflictDetected = false;
 
@@ -553,10 +558,27 @@
 			if (msg.includes('STALE_WRITE')) {
 				staleConflictDetected = true;
 			}
-			errorMessage = msg;
+			const refusal = parsePublishGateRefusal(msg);
+			if (refusal) {
+				await showGateRefusal(refusal);
+			} else {
+				errorMessage = msg;
+			}
 		} finally {
 			isSaving = false;
 		}
+	}
+
+	/**
+	 * Shows a publish-gate refusal where the owner can see it: in an alert at the top of the editor, with each issue
+	 * listed, and the SEO panel opened. Focus moves to the alert so screen reader users hear it.
+	 */
+	async function showGateRefusal(refusal: PublishGateRefusal) {
+		gateRefusal = refusal;
+		mainColumnRef?.revealSeoPanel();
+		await tick();
+		gateAlertEl?.scrollIntoView({ block: 'center' });
+		gateAlertEl?.focus();
 	}
 
 	function handleSaveAndStay() {
@@ -583,7 +605,7 @@
 			markCleanSnapshot(serializeEditorSnapshot(form));
 			onBack();
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to move post to trash.';
+			errorMessage = rpcErrorMessage(err, 'Failed to move post to trash.');
 		} finally {
 			isSaving = false;
 		}
@@ -634,7 +656,7 @@
 			clearLocalDraftSnapshot(form.id);
 			statusMessage = 'Reloaded latest version from server.';
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Could not reload server version.';
+			errorMessage = rpcErrorMessage(err, 'Could not reload server version.');
 		}
 	}
 
@@ -667,7 +689,7 @@
 			markCleanSnapshot(serializeEditorSnapshot(form));
 			statusMessage = `Restored revision #${revisionId}.`;
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to restore revision.';
+			errorMessage = rpcErrorMessage(err, 'Failed to restore revision.');
 		}
 	}
 
@@ -679,7 +701,7 @@
 			form.authorId = res.author.id;
 			markDirty();
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to create author.';
+			errorMessage = rpcErrorMessage(err, 'Failed to create author.');
 		}
 	}
 
@@ -696,7 +718,7 @@
 			}
 			markDirty();
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to create category.';
+			errorMessage = rpcErrorMessage(err, 'Failed to create category.');
 		}
 	}
 
@@ -710,7 +732,7 @@
 			}
 			markDirty();
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to create tag.';
+			errorMessage = rpcErrorMessage(err, 'Failed to create tag.');
 		}
 	}
 
@@ -900,6 +922,50 @@
 		</div>
 	{/if}
 
+	{#if gateRefusal}
+		<div
+			class="editor-alert is-error is-gate"
+			role="alert"
+			tabindex="-1"
+			aria-labelledby="gate-refusal-title"
+			bind:this={gateAlertEl}
+		>
+			<div class="gate-refusal">
+				<p id="gate-refusal-title" class="gate-refusal-title">
+					Publishing is blocked by the SEO check. {gateRefusal.summary}
+				</p>
+				{#if gateRefusal.errors.length > 0}
+					<p class="gate-refusal-label">Fix these before publishing (blocking items are marked):</p>
+					<ul class="gate-refusal-list">
+						{#each gateRefusal.errors as issue, i (i)}
+							<li>
+								<span class="gate-tag">{issue.blocking ? 'Blocking' : 'Error'}</span>
+								{issue.message}{issue.points === null ? '' : ` (-${issue.points})`}
+							</li>
+						{/each}
+					</ul>
+				{/if}
+				{#if gateRefusal.warnings.length > 0}
+					<p class="gate-refusal-label">Warnings:</p>
+					<ul class="gate-refusal-list">
+						{#each gateRefusal.warnings as issue, i (i)}
+							<li>
+								<span class="gate-tag">Warning</span>
+								{issue.message}{issue.points === null ? '' : ` (-${issue.points})`}
+							</li>
+						{/each}
+					</ul>
+				{/if}
+				<p class="gate-refusal-label">
+					The full checklist is in the SEO &amp; Search Preview panel.
+				</p>
+			</div>
+			<button type="button" class="btn-alert-secondary" onclick={() => (gateRefusal = null)}>
+				Dismiss
+			</button>
+		</div>
+	{/if}
+
 	{#if errorMessage}
 		<div class="editor-alert is-error" role="alert">
 			<span class="error-pre">{errorMessage}</span>
@@ -1025,7 +1091,11 @@
 			disabled={isSaving}
 			onclick={handlePrimarySubmitRequest}
 		>
-			{form.status === 'scheduled' ? 'Schedule' : form.id ? 'Update and close' : 'Publish'}
+			{form.status === 'scheduled'
+				? 'Schedule'
+				: form.id && form.status === 'published'
+					? 'Update and close'
+					: 'Publish'}
 		</button>
 	</div>
 </div>
@@ -1178,6 +1248,31 @@
 
 	.error-pre {
 		white-space: pre-line;
+	}
+
+	.gate-refusal {
+		display: grid;
+		gap: 0.35rem;
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+
+	.gate-refusal-title,
+	.gate-refusal-label {
+		margin: 0;
+	}
+
+	.gate-refusal-list {
+		margin: 0;
+		padding-left: 1.25rem;
+	}
+
+	.gate-tag {
+		font-weight: 700;
+		text-transform: uppercase;
+		font-size: 0.75em;
+		letter-spacing: 0.04em;
+		margin-right: 0.35rem;
 	}
 
 	.alert-actions {

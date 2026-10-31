@@ -284,8 +284,9 @@
 
 	let primaryPublishLabel = $derived.by(() => {
 		if (isSaving) return 'Saving...';
+		// Same rule as the top bar: a draft (or any non-scheduled status) is published by this button.
 		if (form.status === 'scheduled') return 'Schedule';
-		if (form.id) return 'Update and close';
+		if (form.id && form.status === 'published') return 'Update and close';
 		return 'Publish';
 	});
 

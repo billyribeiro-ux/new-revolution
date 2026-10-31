@@ -256,16 +256,20 @@ function applyPostLifecycleRefinements<
 		id?: number;
 		relatedPostIds?: number[];
 	}
->(schema: z.ZodType<T>) {
+>(schema: z.ZodType<T>, options: { requirePasswordWhenProtected?: boolean } = {}) {
+	const requirePassword = options.requirePasswordWhenProtected ?? true;
 	return schema.superRefine((data, ctx) => {
 		if (data.visibility === 'password_protected') {
+			const hasPasswordField = data.password !== undefined && data.password !== null;
 			const pw = (data.password ?? '').trim();
-			if (pw.length < POST_PASSWORD_MIN_LEN) {
-				ctx.addIssue({
-					code: 'custom',
-					path: ['password'],
-					message: `Password is required (min ${POST_PASSWORD_MIN_LEN} characters) when visibility is password_protected.`
-				});
+			if (requirePassword || hasPasswordField) {
+				if (pw.length < POST_PASSWORD_MIN_LEN) {
+					ctx.addIssue({
+						code: 'custom',
+						path: ['password'],
+						message: `Password is required (min ${POST_PASSWORD_MIN_LEN} characters) when visibility is password_protected.`
+					});
+				}
 			}
 		}
 
@@ -331,7 +335,9 @@ export const postUpdateObjectSchema = postBaseObjectSchema.extend({
 	forceOverwrite: z.boolean().optional().default(false)
 });
 
-export const postUpdateSchema = applyPostLifecycleRefinements(postUpdateObjectSchema);
+export const postUpdateSchema = applyPostLifecycleRefinements(postUpdateObjectSchema, {
+	requirePasswordWhenProtected: false
+});
 export type PostUpdateInput = z.input<typeof postUpdateObjectSchema>;
 
 /**
@@ -343,7 +349,9 @@ export const postPatchObjectSchema = postBaseObjectSchema.partial().extend({
 	forceOverwrite: z.boolean().optional().default(false)
 });
 
-export const postPatchSchema = applyPostLifecycleRefinements(postPatchObjectSchema);
+export const postPatchSchema = applyPostLifecycleRefinements(postPatchObjectSchema, {
+	requirePasswordWhenProtected: false
+});
 export type PostPatchInput = z.input<typeof postPatchObjectSchema>;
 
 /**

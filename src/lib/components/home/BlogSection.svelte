@@ -27,9 +27,9 @@
 				</p>
 			</div>
 			<a
-				href={resolve('/blogs' as '/')}
+				href={resolve('/blog')}
 				class="btn btn-outline-dark"
-				onclick={(e) => onPreviewNavigate?.('/blogs', 'blog', e)}
+				onclick={(e) => onPreviewNavigate?.('/blog', 'blog', e)}
 			>
 				<span>See All Blogs</span>
 				<span class="arrow" aria-hidden="true">

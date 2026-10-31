@@ -1,6 +1,6 @@
 import { createHash, createHmac, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
 import { and, eq, gt, isNull, lte, or, type SQL } from 'drizzle-orm';
-import { posts } from '../db/schema';
+import { posts } from '../db/schema.ts';
 
 export interface PostVisibilityRow {
 	id?: number;
@@ -196,14 +196,24 @@ export function verifyPostUnlockToken(
 	return timingSafeEqual(sigBufA, sigBufB) && timingSafeEqual(verBufA, verBufB);
 }
 
+function getDraftPreviewSecret(): string {
+	const explicit = process.env.POST_PASSWORD_SECRET || process.env.BETTER_AUTH_SECRET || '';
+	if (explicit && explicit.trim().length >= 16) {
+		return explicit;
+	}
+	if (process.env.NODE_ENV === 'production') {
+		throw new Error(
+			'PREVIEW_SECRET_MISSING: Configure POST_PASSWORD_SECRET or BETTER_AUTH_SECRET in production.'
+		);
+	}
+	return 'dev-only-better-auth-secret-32-chars-minimum';
+}
+
 export function signDraftPreviewToken(
 	postId: number,
 	expiresAtMs: number = Date.now() + 60 * 60 * 1000
 ): string {
-	const secret =
-		process.env.POST_PASSWORD_SECRET ||
-		process.env.BETTER_AUTH_SECRET ||
-		'dev-only-better-auth-secret-32-chars-minimum';
+	const secret = getDraftPreviewSecret();
 	const payload = `preview.${postId}.${expiresAtMs}`;
 	const sig = createHmac('sha256', secret).update(payload).digest('hex');
 	return `${expiresAtMs}.${sig}`;
@@ -211,10 +221,12 @@ export function signDraftPreviewToken(
 
 export function verifyDraftPreviewToken(token: string | null | undefined, postId: number): boolean {
 	if (!token) return false;
-	const secret =
-		process.env.POST_PASSWORD_SECRET ||
-		process.env.BETTER_AUTH_SECRET ||
-		'dev-only-better-auth-secret-32-chars-minimum';
+	let secret: string;
+	try {
+		secret = getDraftPreviewSecret();
+	} catch {
+		return false;
+	}
 	const [expStr, providedSig] = token.split('.');
 	if (!expStr || !providedSig) return false;
 	const expMs = Number(expStr);

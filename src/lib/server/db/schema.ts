@@ -14,7 +14,7 @@ import {
 	uniqueIndex,
 	varchar
 } from 'drizzle-orm/pg-core';
-import { user } from './auth.schema';
+import { user } from './auth.schema.ts';
 
 export const task = pgTable('task', {
 	id: serial('id').primaryKey(),
@@ -365,4 +365,4 @@ export const pageViews = pgTable(
 	(table) => [index('page_views_path_idx').on(table.path, table.createdAt)]
 );
 
-export * from './auth.schema';
+export * from './auth.schema.ts';

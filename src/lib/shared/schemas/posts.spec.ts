@@ -78,6 +78,27 @@ describe('Shared Zod Schemas (Section 7.2)', () => {
 			password: 'strong-secret-password'
 		});
 		expect(validPw.success).toBe(true);
+
+		// On update, omitting password allows preserving the existing stored password
+		const keepExistingPwOnUpdate = postUpdateSchema.safeParse({
+			id: 10,
+			title: 'Protected Post Updated',
+			slug: 'protected-post',
+			content: '<p>Secret body</p>',
+			visibility: 'password_protected'
+		});
+		expect(keepExistingPwOnUpdate.success).toBe(true);
+
+		// Explicitly passing an empty or short password on update still fails validation
+		const emptyExplicitPwOnUpdate = postUpdateSchema.safeParse({
+			id: 10,
+			title: 'Protected Post Updated',
+			slug: 'protected-post',
+			content: '<p>Secret body</p>',
+			visibility: 'password_protected',
+			password: ''
+		});
+		expect(emptyExplicitPwOnUpdate.success).toBe(false);
 	});
 
 	it('enforces scheduledAt presence, 60-second grace window, and expiresAt > scheduledAt', () => {

@@ -174,7 +174,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Weekly Market Recap',
-				href: '/blogs',
+				href: '/blog',
 				tag: 'Recap'
 			},
 			{

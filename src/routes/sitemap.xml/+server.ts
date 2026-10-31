@@ -6,7 +6,7 @@ import {
 	matchesIfNoneMatch
 } from '#lib/server/posts/cache';
 import { listPublicCategoriesWithCounts } from '#lib/server/services/categories';
-import { listPublicPosts } from '#lib/server/services/posts';
+import { listSitemapBlogEntries } from '#lib/server/services/posts';
 import { listPublicTagsWithCounts } from '#lib/server/services/tags';
 import {
 	absoluteUrl,
@@ -66,30 +66,18 @@ export const GET: RequestHandler = async ({ request }) => {
 		}[] = [
 			{ path: '/store/courses/move-prior-to-the-move-ultra' },
 			{ path: '/store/indicators/move-prior-to-the-move-system' },
-			{ path: '/store/scanners/high-octane-scanner' },
-			{
-				path: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight',
-				lastmod: '2026-10-28'
-			},
-			{
-				path: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',
-				lastmod: '2026-10-24'
-			},
-			{
-				path: '/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine',
-				lastmod: '2026-10-20'
-			}
+			{ path: '/store/scanners/high-octane-scanner' }
 		].filter(({ path }) => hasRoute(path));
 
 		// 3. DB-backed public blog posts, indexable categories, and indexable tags (Section 10.8)
 		const [publicPosts, publicCategories, publicTags] = await Promise.all([
-			listPublicPosts({ page: 1, perPage: 50 }),
+			listSitemapBlogEntries(),
 			listPublicCategoriesWithCounts(),
 			listPublicTagsWithCounts()
 		]);
 
 		let newestBlogModifiedIso: string | undefined;
-		for (const post of publicPosts.items) {
+		for (const post of publicPosts) {
 			const modDate = resolvePostModifiedDate(post);
 			const modIso = modDate ? modDate.toISOString() : undefined;
 			if (modIso && (!newestBlogModifiedIso || modIso > newestBlogModifiedIso)) {

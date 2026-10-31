@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import ConfirmDialog from '#lib/components/admin/ConfirmDialog.svelte';
 	import { attachBeforeUnloadGuard } from '#lib/components/admin/post-editor/form-actions';
+	import { rpcErrorMessage } from '#lib/components/admin/post-editor/rpc-error';
 	import { POST_STATUSES, type PostStatus } from '#lib/shared/schemas/posts';
 	import { META_DESCRIPTION_MAX, META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { generateSlug, normaliseSlug } from '#lib/shared/seo/slug';
@@ -180,12 +181,7 @@
 			quickEditId = null;
 			bannerStatus = 'Post updated via quick edit.';
 		} catch (err) {
-			quickEditError =
-				err && typeof err === 'object' && 'body' in err
-					? String((err as { body?: { message?: string } }).body?.message ?? 'Quick edit failed.')
-					: err instanceof Error
-						? err.message
-						: 'Quick edit failed.';
+			quickEditError = rpcErrorMessage(err, 'Quick edit failed.');
 		} finally {
 			quickEditSaving = false;
 		}
@@ -203,7 +199,7 @@
 			}
 			bannerStatus = 'Post moved to Trash.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to move post to Trash.';
+			bannerError = rpcErrorMessage(err, 'Failed to move post to Trash.');
 		}
 	}
 
@@ -239,7 +235,7 @@
 			posts = [res.post as PageData['posts'][number], ...posts];
 			bannerStatus = 'Post restored from Trash.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to restore post.';
+			bannerError = rpcErrorMessage(err, 'Failed to restore post.');
 		}
 	}
 
@@ -251,7 +247,7 @@
 			trashedPosts = trashedPosts.filter((p) => p.id !== postId);
 			bannerStatus = 'Post permanently deleted.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to delete post.';
+			bannerError = rpcErrorMessage(err, 'Failed to delete post.');
 		}
 	}
 
@@ -263,7 +259,7 @@
 			trashedPosts = [];
 			bannerStatus = `Emptied Trash (${res.deletedCount} post(s) permanently deleted).`;
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to empty Trash.';
+			bannerError = rpcErrorMessage(err, 'Failed to empty Trash.');
 		}
 	}
 
@@ -352,7 +348,7 @@
 			}
 			resetAuthorForm();
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to save author.';
+			bannerError = rpcErrorMessage(err, 'Failed to save author.');
 		}
 	}
 
@@ -363,7 +359,7 @@
 			authors = authors.filter((a) => a.id !== id);
 			bannerStatus = 'Author deleted.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to delete author.';
+			bannerError = rpcErrorMessage(err, 'Failed to delete author.');
 		}
 	}
 
@@ -429,7 +425,7 @@
 			}
 			resetCategoryForm();
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to save category.';
+			bannerError = rpcErrorMessage(err, 'Failed to save category.');
 		}
 	}
 
@@ -440,7 +436,7 @@
 			categories = categories.filter((c) => c.id !== id);
 			bannerStatus = 'Category deleted.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to delete category.';
+			bannerError = rpcErrorMessage(err, 'Failed to delete category.');
 		}
 	}
 
@@ -488,7 +484,7 @@
 			}
 			resetTagForm();
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to save tag.';
+			bannerError = rpcErrorMessage(err, 'Failed to save tag.');
 		}
 	}
 
@@ -499,7 +495,7 @@
 			tags = tags.filter((t) => t.id !== id);
 			bannerStatus = 'Tag deleted.';
 		} catch (err) {
-			bannerError = err instanceof Error ? err.message : 'Failed to delete tag.';
+			bannerError = rpcErrorMessage(err, 'Failed to delete tag.');
 		}
 	}
 </script>

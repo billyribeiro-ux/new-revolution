@@ -4,7 +4,8 @@ import { PGlite } from '@electric-sql/pglite';
 import { drizzle as drizzlePglite, type PgliteDatabase } from 'drizzle-orm/pglite';
 import { drizzle as drizzlePostgres, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import * as schema from './schema';
+import { hashPostPassword } from '../posts/visibility.ts';
+import * as schema from './schema.ts';
 
 export type AppDatabase = PostgresJsDatabase<typeof schema> | PgliteDatabase<typeof schema>;
 
@@ -221,7 +222,7 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			'published',
 			'password_protected',
 			true,
-			'AlphaDesk2026!',
+			'${hashPostPassword('AlphaDesk2026!')}',
 			2,
 			120,
 			'2026-10-23T14:00:00.000Z',

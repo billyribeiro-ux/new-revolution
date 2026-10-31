@@ -1163,55 +1163,27 @@ export async function restoreTrashedPost(
 			throw new Error('POST_NOT_FOUND: Post is not in Trash.');
 		}
 
-		// Strip dashes on restore (Section 7.4)
+		// Strip dashes on restore and recompute derived metrics (Section 7.4)
 		const cleanTitle = replaceEmEnDashesInPlainText(existing.title);
 		const cleanContent = sanitizePostHtml(replaceEmEnDashesInHtml(existing.content));
 		const cleanExcerpt =
 			existing.excerpt !== null ? replaceEmEnDashesInPlainText(existing.excerpt) : null;
+		const { toc } = normalizePostHeadings(cleanContent, cleanTitle);
+		const wordCount = countContentWords(cleanContent);
+		const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-		// Re-gate on restore when currently scheduled (Section 7.6)
-		if (existing.status === 'scheduled') {
-			const [catRows, tagRows] = await Promise.all([
-				tx
-					.select({ categoryId: postCategories.categoryId })
-					.from(postCategories)
-					.where(eq(postCategories.postId, postId)),
-				tx.select({ tagId: postTags.tagId }).from(postTags).where(eq(postTags.postId, postId))
-			]);
-
-			enforcePublishSeoGate({
-				title: cleanTitle,
-				slug: existing.slug,
-				content: cleanContent,
-				excerpt: cleanExcerpt,
-				metaTitle: existing.metaTitle,
-				metaDescription: existing.metaDescription,
-				coverImage: existing.coverImage,
-				coverImageAlt: existing.coverImageAlt,
-				coverImageCaption: existing.coverImageCaption,
-				ogTitle: existing.ogTitle,
-				ogDescription: existing.ogDescription,
-				ogImage: existing.ogImage,
-				twitterTitle: existing.twitterTitle,
-				twitterDescription: existing.twitterDescription,
-				authorId: existing.authorId,
-				categoryId: existing.categoryId,
-				categoryIds: catRows.map((c) => c.categoryId),
-				tagIds: tagRows.map((t) => t.tagId),
-				focusKeyword: existing.focusKeyword,
-				secondaryKeywords: existing.secondaryKeywords,
-				faqItems: existing.faqItems,
-				publishedAt: existing.publishedAt,
-				updatedAt: existing.updatedAt
-			});
-		}
-
+		// Restored posts always return as 'draft' so an operator explicitly clicks Publish again
 		const updated = await tx
 			.update(posts)
 			.set({
 				title: cleanTitle,
 				content: cleanContent,
 				excerpt: cleanExcerpt,
+				status: 'draft',
+				published: false,
+				wordCount,
+				readingTime,
+				tableOfContents: JSON.stringify(toc),
 				deletedAt: null,
 				updatedAt: now
 			})
@@ -1420,6 +1392,22 @@ export async function listPublicPosts(options?: {
 		perPage,
 		totalPages: Math.max(1, Math.ceil(total / perPage))
 	};
+}
+
+export async function listSitemapBlogEntries() {
+	const db = await ensureDbReady();
+	const now = new Date();
+	return db
+		.select({
+			slug: posts.slug,
+			coverImage: posts.coverImage,
+			publishedAt: posts.publishedAt,
+			updatedAt: posts.updatedAt,
+			contentUpdatedAt: posts.contentUpdatedAt
+		})
+		.from(posts)
+		.where(publicIndexablePostPredicate(now))
+		.orderBy(desc(posts.publishedAt), desc(posts.id));
 }
 
 export interface RelatedCandidate {

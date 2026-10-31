@@ -20,17 +20,17 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status                                                           |
-| ------ | ------------- | -------------------- | ------- | ---------------------------------------------------------------- |
-| _none_ |               |                      |         | All work is merged into `main`; only `main` exists (2026-10-31). |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
 
-| PR  | What                                           |
-| --- | ---------------------------------------------- |
-| #6  | Indicator + blog cards; dead CSS removal       |
-| #5  | kit 3.1.1 / adapter-vercel 7.0.2 security bump |
-| #4  | Course cards                                   |
+| PR  | What                                                                                                                                                  |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| —   | Phases 1–5 Admin/Editor/TOC/Blog Hardening, `/blogs` -> `/blog` unification (`T5`), and 40 Markdown posts moved to `content/blog-posts/` (`f3556da7`) |
+| #6  | Indicator + blog cards; dead CSS removal                                                                                                              |
+| #5  | kit 3.1.1 / adapter-vercel 7.0.2 security bump                                                                                                        |
+| #4  | Course cards                                                                                                                                          |
 
 ## Hot files (high collision risk; claim explicitly)
 

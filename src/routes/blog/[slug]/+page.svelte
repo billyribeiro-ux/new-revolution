@@ -36,8 +36,11 @@
 	let shareTitle = $derived(data.post?.title ?? data.payload?.title ?? 'Revolution Trading Pros');
 
 	function setupArticleInteractions() {
+		const activeSlug = data.post?.slug;
+		void activeSlug;
 		if (typeof window === 'undefined') return;
 
+		activeHeadingId = data.post?.toc?.[0]?.id ?? '';
 		if (window.innerWidth < 768) {
 			tocDetailsOpen = false;
 		}
@@ -69,7 +72,7 @@
 				let currentId = data.post.toc[0]?.id ?? '';
 				for (const item of data.post.toc) {
 					const el = document.getElementById(item.id);
-					if (el && el.offsetTop <= scrollTop + 150) {
+					if (el && el.getBoundingClientRect().top <= 150) {
 						currentId = item.id;
 					}
 				}
@@ -228,7 +231,18 @@
 							Published {new Date(data.post.publishedAt).toLocaleDateString('en-US', {
 								month: 'long',
 								day: 'numeric',
-								year: 'numeric'
+								year: 'numeric',
+								timeZone: 'UTC'
+							})}
+						</time>
+					{/if}
+					{#if data.post.contentUpdatedAt && (!data.post.publishedAt || new Date(data.post.contentUpdatedAt).getTime() - new Date(data.post.publishedAt).getTime() > 60_000)}
+						<time class="byline-date" datetime={new Date(data.post.contentUpdatedAt).toISOString()}>
+							Updated {new Date(data.post.contentUpdatedAt).toLocaleDateString('en-US', {
+								month: 'long',
+								day: 'numeric',
+								year: 'numeric',
+								timeZone: 'UTC'
 							})}
 						</time>
 					{/if}
@@ -282,8 +296,20 @@
 												e.preventDefault();
 												const target = document.getElementById(item.id);
 												if (target) {
-													target.scrollIntoView({ behavior: 'smooth' });
+													const prefersReduced =
+														typeof window !== 'undefined' &&
+														typeof window.matchMedia === 'function' &&
+														window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+													target.scrollIntoView({
+														behavior: prefersReduced ? 'auto' : 'smooth'
+													});
 													activeHeadingId = item.id;
+													if (typeof history !== 'undefined' && history.replaceState) {
+														history.replaceState(null, '', `#${item.id}`);
+													}
+													if (typeof window !== 'undefined' && window.innerWidth < 768) {
+														tocDetailsOpen = false;
+													}
 												}
 											}}
 										>
@@ -681,6 +707,9 @@
 		.article-toc-aside {
 			position: sticky;
 			top: 96px;
+			max-height: calc(100vh - 120px);
+			overflow-y: auto;
+			overscroll-behavior: contain;
 		}
 	}
 

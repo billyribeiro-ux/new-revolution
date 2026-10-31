@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { tick, untrack } from 'svelte';
+	import { beforeNavigate, goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import PostEditorTopBar from './PostEditorTopBar.svelte';
 	import PostEditorMainColumn from './PostEditorMainColumn.svelte';
 	import PostEditorSidebar from './PostEditorSidebar.svelte';
@@ -24,6 +26,7 @@
 	import { rpcErrorMessage } from './post-editor/rpc-error';
 	import { pickedAlt, resolveCoverFromPick } from './post-editor/image-pick';
 	import { generateSlug, normaliseSlug, isValidSlug } from '#lib/shared/seo/slug';
+	import { applyPostAutofill } from '#lib/shared/seo/autofill';
 	import { META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { getSeoScore } from '#lib/shared/seo/score';
 	import type { PostStatus } from '#lib/shared/schemas/posts';
@@ -156,6 +159,25 @@
 	let pendingRestoreRevisionId = $state<number | null>(null);
 	let confirmLeaveOpen = $state(false);
 	let confirmTrashOpen = $state(false);
+	let leaveConfirmed = false;
+	let pendingClientNavigation: (() => void) | null = null;
+
+	try {
+		beforeNavigate((nav) => {
+			if (!isDirty || leaveConfirmed) return;
+			if (nav.type === 'leave') return;
+			const destUrl = nav.to?.url;
+			if (!destUrl) return;
+			nav.cancel();
+			const targetHref = `${destUrl.pathname}${destUrl.search}${destUrl.hash}`;
+			pendingClientNavigation = () => {
+				void goto(resolve(targetHref as '/'));
+			};
+			confirmLeaveOpen = true;
+		});
+	} catch {
+		// Mounted outside a SvelteKit router context (e.g., standalone Vitest component test)
+	}
 
 	let pendingSaveAction = $state<{
 		overrideStatus?: PostStatus;
@@ -270,32 +292,54 @@
 		});
 	}
 
-	let seoEvaluation = $derived(
-		getSeoScore({
+	let seoEvaluation = $derived.by(() => {
+		const autofilled = applyPostAutofill({
 			title: form.title,
-			slug: form.slug,
 			content: form.content,
 			excerpt: form.excerpt,
 			metaTitle: form.metaTitle,
 			metaDescription: form.metaDescription,
-			coverImage: form.coverImage,
-			coverImageAlt: form.coverImageAlt,
-			coverImageCaption: form.coverImageCaption,
 			ogTitle: form.ogTitle,
 			ogDescription: form.ogDescription,
 			ogImage: form.ogImage,
+			twitterCardType: form.twitterCardType,
 			twitterTitle: form.twitterTitle,
 			twitterDescription: form.twitterDescription,
+			twitterImage: form.twitterImage,
+			coverImage: form.coverImage,
+			coverImageAlt: form.coverImageAlt,
+			coverImageCaption: form.coverImageCaption,
+			focusKeyword: form.focusKeyword,
+			schemaType: form.schemaType,
+			language: form.language,
+			canonicalUrl: form.canonicalUrl
+		});
+
+		return getSeoScore({
+			title: autofilled.title,
+			slug: form.slug,
+			content: autofilled.content,
+			excerpt: autofilled.excerpt ?? '',
+			metaTitle: autofilled.metaTitle ?? '',
+			metaDescription: autofilled.metaDescription ?? '',
+			coverImage: autofilled.coverImage ?? '',
+			coverImageAlt: autofilled.coverImageAlt ?? '',
+			coverImageCaption: autofilled.coverImageCaption ?? '',
+			ogTitle: autofilled.ogTitle ?? '',
+			ogDescription: autofilled.ogDescription ?? '',
+			ogImage: autofilled.ogImage ?? '',
+			twitterTitle: autofilled.twitterTitle ?? '',
+			twitterDescription: autofilled.twitterDescription ?? '',
 			authorId: form.authorId,
 			categoryId: form.categoryId ?? form.categoryIds[0] ?? null,
 			categoryIds: form.categoryIds,
 			tagIds: form.tagIds,
-			focusKeyword: form.focusKeyword,
+			focusKeyword: autofilled.focusKeyword ?? '',
 			secondaryKeywords: JSON.stringify(form.secondaryKeywords),
 			faqItems: JSON.stringify(form.faqItems),
 			publishedAt: form.publishedAt || null
-		})
-	);
+		});
+	});
 
 	let blockingCount = $derived(seoEvaluation.issues.filter((i) => i.blocking).length);
 
@@ -509,11 +553,12 @@
 					clearLocalDraftSnapshot(form.id);
 				}
 				statusMessage = 'Post created and saved.';
-				if (form.id && onPostCreated) {
-					onPostCreated(form.id);
-				}
 				if (options.closeAfter && !isDirty) {
+					leaveConfirmed = true;
 					onBack();
+				} else if (form.id && onPostCreated) {
+					leaveConfirmed = true;
+					onPostCreated(form.id);
 				}
 			} else {
 				const res = await updatePostRpc(payload as unknown as Parameters<typeof updatePostRpc>[0]);
@@ -548,6 +593,7 @@
 				statusMessage =
 					form.status === 'published' ? 'Published article updated.' : 'Changes saved.';
 				if (options.closeAfter && !isDirty) {
+					leaveConfirmed = true;
 					onBack();
 				}
 			}
@@ -606,6 +652,7 @@
 			await deletePostRpc({ id: form.id, permanent: false });
 			clearLocalDraftSnapshot(form.id);
 			markCleanSnapshot(serializeEditorSnapshot(form));
+			leaveConfirmed = true;
 			onBack();
 		} catch (err) {
 			errorMessage = rpcErrorMessage(err, 'Failed to move post to trash.');
@@ -799,6 +846,7 @@
 					}
 					if (confirmLeaveOpen) {
 						confirmLeaveOpen = false;
+						pendingClientNavigation = null;
 						return;
 					}
 					if (pendingRestoreRevisionId !== null) {
@@ -942,11 +990,16 @@
 
 	{#if gateRefusal}
 		<div
+			{@attach (node) => {
+				gateAlertEl = node;
+				return () => {
+					gateAlertEl = null;
+				};
+			}}
 			class="editor-alert is-error is-gate"
 			role="alert"
 			tabindex="-1"
 			aria-labelledby="gate-refusal-title"
-			bind:this={gateAlertEl}
 		>
 			<div class="gate-refusal">
 				<p id="gate-refusal-title" class="gate-refusal-title">
@@ -1145,9 +1198,19 @@
 	variant="warning"
 	onConfirm={() => {
 		confirmLeaveOpen = false;
-		onBack();
+		leaveConfirmed = true;
+		const replay = pendingClientNavigation;
+		pendingClientNavigation = null;
+		if (replay) {
+			replay();
+		} else {
+			onBack();
+		}
 	}}
-	onCancel={() => (confirmLeaveOpen = false)}
+	onCancel={() => {
+		confirmLeaveOpen = false;
+		pendingClientNavigation = null;
+	}}
 />
 
 <ConfirmDialog

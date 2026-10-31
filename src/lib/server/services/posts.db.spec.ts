@@ -34,6 +34,8 @@ import {
 	permanentlyDeletePost,
 	quickUpdatePost,
 	restorePostRevision,
+	restoreTrashedPost,
+	trashPost,
 	updatePost
 } from './posts';
 import { createTag, deleteTag } from './tags';
@@ -415,6 +417,22 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		// Restore the first manual revision
 		const restored = await restorePostRevision(post.id, manualsOnly[0].id, actorUserId);
 		expect(restored.title).toBe('Revisions Lifecycle Post');
+
+		// Soft-delete a published post and restore from Trash -> returns as 'draft' with recomputed metrics
+		const pubToTrash = await createPost(
+			buildCompliantPostInput({
+				slug: 'trash-restore-draft-test',
+				status: 'published'
+			}),
+			actorUserId
+		);
+		expect(pubToTrash.status).toBe('published');
+		await trashPost(pubToTrash.id, actorUserId);
+		const restoredFromTrash = await restoreTrashedPost(pubToTrash.id, actorUserId);
+		expect(restoredFromTrash.status).toBe('draft');
+		expect(restoredFromTrash.published).toBe(false);
+		expect(restoredFromTrash.deletedAt).toBeNull();
+		expect(restoredFromTrash.wordCount).toBeGreaterThan(300);
 	});
 
 	it('scopes featured demotion to published undeleted posts only', async () => {
@@ -578,6 +596,36 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		// Second sweep is idempotent (0 rows)
 		const secondSweep = await runScheduledPublishSweep();
 		expect(secondSweep.published).toHaveLength(0);
+
+		// Promoting a featured scheduled post when a live featured post already exists demotes the prior featured post without 23505 collision
+		const priorLiveFeatured = await createPost(
+			buildCompliantPostInput({
+				slug: 'prior-live-featured-post',
+				status: 'published',
+				featured: true
+			}),
+			actorUserId
+		);
+		expect(priorLiveFeatured.featured).toBe(true);
+
+		const dueFeaturedScheduled = await createPost(
+			buildCompliantPostInput({
+				slug: 'cron-due-featured-scheduled',
+				status: 'scheduled',
+				featured: true,
+				scheduledAt: new Date(Date.now() - 5_000).toISOString()
+			}),
+			actorUserId
+		);
+
+		const featuredSweep = await runScheduledPublishSweep();
+		expect(featuredSweep.published.map((p) => p.id)).toContain(dueFeaturedScheduled.id);
+
+		const reloadedPrior = await getPostById(priorLiveFeatured.id);
+		const reloadedPromoted = await getPostById(dueFeaturedScheduled.id);
+		expect(reloadedPrior?.featured).toBe(false);
+		expect(reloadedPromoted?.featured).toBe(true);
+		expect(reloadedPromoted?.status).toBe('published');
 	});
 
 	it('handles media upload, WebP conversion, variants, DB-failure blob cleanup, usage tracking, and delete protection', async () => {
@@ -699,6 +747,25 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 
 		const token = signPostUnlockToken(protectedPost.id, rawRow.password!);
 		expect(verifyPostUnlockToken(token, protectedPost.id, rawRow.password)).toBe(true);
+
+		// Updating a password_protected post without supplying a new password preserves the existing password hash
+		const updatedWithoutNewPw = await updatePost(
+			{
+				...buildCompliantPostInput({
+					slug: 'secret-institutional-playbook',
+					title: 'Updated Protected Institutional Playbook',
+					status: 'published',
+					visibility: 'password_protected'
+				}),
+				id: protectedPost.id
+			},
+			actorUserId
+		);
+		expect(updatedWithoutNewPw.hasPassword).toBe(true);
+		const rawAfterUpdate = (
+			await testEnv.db.select().from(posts).where(eq(posts.id, protectedPost.id))
+		)[0];
+		expect(verifyPostPassword('goldfinger-secret-key', rawAfterUpdate.password)).toBe(true);
 
 		// Unlocked view returns full post
 		const unlockedRes = await getPublicPostViewBySlug('secret-institutional-playbook', {

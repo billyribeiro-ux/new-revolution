@@ -26,6 +26,25 @@ export function normaliseRedirectLookupPath(pathname: string): string {
 
 export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 	const normalizedPath = normaliseRedirectLookupPath(url.pathname);
+	if (normalizedPath === '/blogs') {
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/blog${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
+	if (normalizedPath.startsWith('/blogs/')) {
+		const slugRest = normalizedPath.slice('/blogs/'.length);
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/blog/${slugRest}${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
 	if (!normalizedPath.startsWith('/blog/')) {
 		return null;
 	}

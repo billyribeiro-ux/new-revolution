@@ -6,6 +6,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 >
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
 > - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
+> - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
 > - **SEO Evidence Log (official Google sources, dated; read before making any SEO claim):** [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
 

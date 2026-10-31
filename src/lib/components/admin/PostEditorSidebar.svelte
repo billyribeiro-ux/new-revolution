@@ -13,6 +13,7 @@
 		POST_TEMPLATE_VALUES
 	} from '#lib/shared/schemas/posts';
 	import { normalizePostHeadings } from '#lib/shared/seo/toc';
+	import FeaturedImagePanel from './FeaturedImagePanel.svelte';
 
 	interface CategoryOption {
 		id: number;
@@ -62,6 +63,8 @@
 		onPrimarySubmit: () => void;
 		onMoveToTrash?: () => void;
 		onPickCoverImage?: () => void;
+		/** Real dimensions of the picked cover, when known. */
+		coverDimensions?: { width: number | null; height: number | null } | null;
 		onQuickCreateAuthor?: (name: string) => Promise<void>;
 		onQuickCreateCategory: (name: string) => Promise<void>;
 		onQuickCreateTag: (name: string) => Promise<void>;
@@ -87,6 +90,7 @@
 		onPrimarySubmit,
 		onMoveToTrash,
 		onPickCoverImage,
+		coverDimensions = null,
 		onQuickCreateAuthor,
 		onQuickCreateCategory,
 		onQuickCreateTag,
@@ -284,8 +288,9 @@
 
 	let primaryPublishLabel = $derived.by(() => {
 		if (isSaving) return 'Saving...';
+		// Same rule as the top bar: a draft (or any non-scheduled status) is published by this button.
 		if (form.status === 'scheduled') return 'Schedule';
-		if (form.id) return 'Update and close';
+		if (form.id && form.status === 'published') return 'Update and close';
 		return 'Publish';
 	});
 
@@ -598,69 +603,14 @@
 		</h3>
 
 		<div id="sidebar-panel-featuredImage" class="sidebar-body" hidden={!panelState.featuredImage}>
-			{#if form.coverImage}
-				<div class="featured-preview-wrap">
-					<img
-						src={form.coverImage}
-						alt={form.coverImageAlt || form.title || 'Featured image'}
-						width="1200"
-						height="675"
-						loading="lazy"
-						class="featured-preview-img"
-					/>
-				</div>
-			{/if}
-
-			<div class="publish-actions">
-				{#if onPickCoverImage}
-					<button type="button" class="btn-quick-add" onclick={onPickCoverImage}>
-						{form.coverImage ? 'Replace image' : 'Choose from Media Library'}
-					</button>
-				{/if}
-				{#if form.coverImage}
-					<button
-						type="button"
-						class="btn-side-trash"
-						onclick={() => {
-							form.coverImage = '';
-							form.coverImageAlt = '';
-							form.coverImageCaption = '';
-						}}
-					>
-						Remove
-					</button>
-				{/if}
-			</div>
-
-			<label class="side-field">
-				<span class="side-label">Cover Image URL</span>
-				<input
-					type="url"
-					class="side-input"
-					placeholder="https://..."
-					bind:value={form.coverImage}
-				/>
-			</label>
-
-			<label class="side-field">
-				<span class="side-label">Alt Text (Required, must differ from Title)</span>
-				<input
-					type="text"
-					class="side-input"
-					placeholder="Describe the chart or visual..."
-					bind:value={form.coverImageAlt}
-				/>
-			</label>
-
-			<label class="side-field">
-				<span class="side-label">Caption (optional)</span>
-				<input
-					type="text"
-					class="side-input"
-					placeholder="Optional figure credit..."
-					bind:value={form.coverImageCaption}
-				/>
-			</label>
+			<FeaturedImagePanel
+				bind:coverImage={form.coverImage}
+				bind:coverImageAlt={form.coverImageAlt}
+				bind:coverImageCaption={form.coverImageCaption}
+				title={form.title}
+				dimensions={coverDimensions}
+				onPick={onPickCoverImage}
+			/>
 		</div>
 	</section>
 
@@ -1159,21 +1109,6 @@
 		font-size: 0.78rem;
 		font-weight: 600;
 		cursor: pointer;
-	}
-
-	.featured-preview-wrap {
-		width: 100%;
-		aspect-ratio: 16 / 9;
-		border-radius: 8px;
-		overflow: hidden;
-		border: 1px solid var(--line);
-		background: var(--bg);
-	}
-
-	.featured-preview-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
 	}
 
 	.tag-chip-list,

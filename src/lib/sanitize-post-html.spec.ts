@@ -56,6 +56,25 @@ describe('sanitizePostHtml (Section 7.1)', () => {
 		expect(mailto).toBe('<a href="mailto:support@revolutiontradingpros.com">Email</a>');
 	});
 
+	it('keeps data-align="full" and a plain-text title on images, and still rejects unknown alignments', () => {
+		const out = sanitizePostHtml(
+			'<img src="https://revolutiontradingpros.com/a-1200w.webp" alt="" title="Hover text" width="1200" height="675" data-align="full" />'
+		);
+		expect(out).toContain('data-align="full"');
+		expect(out).toContain('title="Hover text"');
+		expect(out).toContain('alt=""');
+		expect(
+			sanitizePostHtml(
+				'<img src="https://revolutiontradingpros.com/a.webp" alt="x" data-align="wide" />'
+			)
+		).not.toContain('data-align');
+		expect(
+			sanitizePostHtml(
+				'<img src="https://revolutiontradingpros.com/a.webp" alt="x" title="&quot;><script>alert(1)</script>" />'
+			)
+		).not.toContain('<script');
+	});
+
 	it('allows safe base64 raster data: URLs on img src, rejects svg data URLs and protocol-relative src, and drops srcset containing data:', () => {
 		const validPng =
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';

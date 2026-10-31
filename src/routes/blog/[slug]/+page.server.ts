@@ -24,6 +24,8 @@ import {
 	RATE_LIMIT_PASSWORD_UNLOCK_WINDOW_MS
 } from '#lib/server/rate-limit';
 import { getPublicPostViewBySlug } from '#lib/server/services/posts';
+import { extractCoverCrops } from '#lib/shared/cover-crops';
+import { coverSrcsetFromMedia, coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
 import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
@@ -33,7 +35,8 @@ function lazyifyAndDimensionContentImages(
 	mediaDimensionsByUrl: ReadonlyMap<string, { width: number; height: number }>
 ): string {
 	return html.replace(/<img\b([^>]*)>/gi, (full, attrs: string) => {
-		let updatedAttrs = attrs;
+		// The sanitizer emits self-closed tags (`... />`); appending after the slash would yield `/ decoding=...`.
+		let updatedAttrs = attrs.replace(/\s*\/\s*$/, '');
 		if (!/\bloading\s*=/i.test(updatedAttrs)) {
 			updatedAttrs += ' loading="lazy"';
 		}
@@ -167,6 +170,16 @@ export const load: PageServerLoad = async ({
 	const coverDims = post.coverImage ? (mediaDimensionsByUrl.get(post.coverImage) ?? null) : null;
 	const resolvedCoverWidth = coverDims?.width ?? post.coverImageWidth ?? null;
 	const resolvedCoverHeight = coverDims?.height ?? post.coverImageHeight ?? null;
+	const coverMediaRow = post.coverImage
+		? allMediaRows.find(
+				(m) =>
+					m.blobUrl === post.coverImage ||
+					Object.values(m.variantsJson ?? {}).some((v) => v?.url === post.coverImage)
+			)
+		: undefined;
+	const coverSrcset = post.coverImage
+		? (coverSrcsetFromMedia(post.coverImage, coverMediaRow) ?? coverSrcsetFromUrl(post.coverImage))
+		: undefined;
 
 	const highlightedHtml = await highlightPostCodeBlocks(post.content);
 	const finalBodyHtml = lazyifyAndDimensionContentImages(highlightedHtml, mediaDimensionsByUrl);
@@ -246,6 +259,7 @@ export const load: PageServerLoad = async ({
 		coverImageCaption: post.coverImageCaption,
 		coverImageWidth: resolvedCoverWidth,
 		coverImageHeight: resolvedCoverHeight,
+		coverImageCrops: extractCoverCrops(coverMediaRow?.variantsJson),
 		publishedAt: post.publishedAt,
 		updatedAt: post.updatedAt,
 		contentUpdatedAt: post.contentUpdatedAt,
@@ -281,8 +295,10 @@ export const load: PageServerLoad = async ({
 		post: {
 			...post,
 			content: finalBodyHtml,
-			coverWidth: coverDims?.width ?? 1200,
-			coverHeight: coverDims?.height ?? 675,
+			// Stored/real dimensions only; null (attributes omitted) when the cover is not a library item.
+			coverWidth: resolvedCoverWidth,
+			coverHeight: resolvedCoverHeight,
+			coverSrcset: coverSrcset ?? null,
 			faqList: parsedFaqs,
 			isPreview: hasValidPreviewToken
 		}

@@ -13,5 +13,15 @@ export const variables = defineEnvVars({
 		description:
 			'Secret used to sign tokens. For production use 32 characters generated with high entropy. See [Better Auth installation](https://www.better-auth.com/docs/installation).',
 		schema: (value) => value || 'dev-only-better-auth-secret-32-chars-minimum'
+	},
+	BLOB_READ_WRITE_TOKEN: {
+		description:
+			'Vercel Blob read/write token for media uploads. Optional in development (local disk is used); required in production unless MEDIA_STORAGE=disk. See docs/MEDIA_STORAGE.md.',
+		schema: (value) => value || ''
+	},
+	MEDIA_STORAGE: {
+		description:
+			'Optional media storage override: `blob` or `disk`. Unset = Blob if the token is set, else local disk in development. See docs/MEDIA_STORAGE.md.',
+		schema: (value) => value || ''
 	}
 });

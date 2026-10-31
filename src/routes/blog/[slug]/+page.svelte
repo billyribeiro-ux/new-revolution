@@ -22,15 +22,8 @@
 	let copyLinkStatus = $state('');
 	let canNativeShare = $state(false);
 
-	function deriveVariantSrcset(url: string | null | undefined): string | undefined {
-		if (!url) return undefined;
-		const match = url.match(/^(.*)-(?:480|800|1200|1[3-9]\d\d|[2-9]\d{3,})w\.webp$/i);
-		if (!match) return undefined;
-		const prefix = match[1];
-		return `${prefix}-480w.webp 480w, ${prefix}-800w.webp 800w, ${prefix}-1200w.webp 1200w`;
-	}
-
-	let coverSrcset = $derived(data.post ? deriveVariantSrcset(data.post.coverImage) : undefined);
+	// Real files only: the server derives the srcset from the media row's stored variants.
+	let coverSrcset = $derived(data.post?.coverSrcset ?? undefined);
 
 	let shareUrl = $derived(
 		data.post
@@ -254,27 +247,18 @@
 
 			{#if data.post.coverImage}
 				<figure class="article-cover-figure">
-					<picture>
-						{#if coverSrcset}
-							<source
-								type="image/webp"
-								srcset={coverSrcset}
-								sizes="(max-width: 960px) 100vw, 900px"
-							/>
-						{/if}
-						<img
-							src={data.post.coverImage}
-							srcset={coverSrcset}
-							sizes={coverSrcset ? '(max-width: 960px) 100vw, 900px' : undefined}
-							alt={data.post.coverImageAlt || data.post.title}
-							width={data.post.coverWidth}
-							height={data.post.coverHeight}
-							loading="eager"
-							fetchpriority="high"
-							decoding="async"
-							class="article-cover-img"
-						/>
-					</picture>
+					<img
+						src={data.post.coverImage}
+						srcset={coverSrcset}
+						sizes={coverSrcset ? '(max-width: 960px) 100vw, 900px' : undefined}
+						alt={data.post.coverImageAlt || data.post.title}
+						width={data.post.coverWidth ?? undefined}
+						height={data.post.coverHeight ?? undefined}
+						loading="eager"
+						fetchpriority="high"
+						decoding="async"
+						class="article-cover-img"
+					/>
 					{#if data.post.coverImageCaption}
 						<figcaption class="article-cover-caption">
 							{data.post.coverImageCaption}

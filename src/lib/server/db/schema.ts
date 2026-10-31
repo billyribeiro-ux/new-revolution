@@ -294,6 +294,9 @@ export interface MediaVariantRecord {
 	height: number;
 	url: string;
 	pathname: string;
+	/** Absent = a width variant (key is the width, e.g. "800"). `'crop'` = a fixed-ratio SEO crop (key `crop-16x9`), never part of a srcset. */
+	kind?: 'crop';
+	aspect?: '16x9' | '4x3' | '1x1';
 }
 
 export const media = pgTable(

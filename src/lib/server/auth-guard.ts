@@ -15,7 +15,7 @@ export interface AuthenticatedAdmin {
 export function requireAdmin(
 	event: Pick<RequestEvent, 'locals'> | { locals?: App.Locals; request?: Request; url?: URL }
 ): AuthenticatedAdmin {
-	const user = event.locals?.user as (App.Locals['user'] & { role?: string }) | undefined;
+	const user = event.locals?.user;
 
 	if (!user) {
 		error(401, 'Authentication required.');
@@ -25,15 +25,13 @@ export function requireAdmin(
 		error(403, 'Admin role required.');
 	}
 
-	if ('request' in event && event.request && 'url' in event && event.url) {
+	// CSRF applies to mutating requests only. `event.url` throws `remote_request_property` inside a remote query,
+	// and a command's single-flight refresh runs queries under the command's POST request, so derive the URL from
+	// `event.request.url` (same host the router sees) instead of touching `event.url`.
+	if ('request' in event && event.request) {
 		const method = event.request.method.toUpperCase();
-		if (
-			method !== 'GET' &&
-			method !== 'HEAD' &&
-			method !== 'OPTIONS' &&
-			(event.request.headers.has('origin') || event.request.headers.has('referer'))
-		) {
-			verifyCsrfOrigin(event.request, event.url);
+		if (method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS') {
+			verifyCsrfOrigin(event.request, new URL(event.request.url));
 		}
 	}
 

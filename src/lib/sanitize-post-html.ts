@@ -557,9 +557,14 @@ function runSanitizePass(inputHtml: string): string {
 						}
 						if (
 							attribs['data-align'] &&
-							/^(?:left|center|right)$/i.test(attribs['data-align'].trim())
+							/^(?:left|center|right|full)$/i.test(attribs['data-align'].trim())
 						) {
 							cleanAttribs['data-align'] = attribs['data-align'].trim().toLowerCase();
+						}
+						// Image title (hover tooltip) authored in the editor's image menu. Plain text only;
+						// the serializer escapes attribute values.
+						if (attribs.title && attribs.title.trim() && attribs.title.length <= 300) {
+							cleanAttribs.title = attribs.title.trim();
 						}
 						break;
 					}

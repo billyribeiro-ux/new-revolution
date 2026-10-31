@@ -58,7 +58,8 @@ export function classifyBlogServiceError(err: unknown): MappedServiceError {
 		'CATEGORY_IN_USE:',
 		'TAG_IN_USE:',
 		'AUTHOR_IN_USE:',
-		'MEDIA_IN_USE:'
+		'MEDIA_IN_USE:',
+		'MEDIA_RESTORE_UNAVAILABLE:'
 	] as const) {
 		if (rawMessage.startsWith(conflictPrefix)) {
 			const code = conflictPrefix.slice(0, -1);
@@ -125,15 +126,28 @@ export function classifyBlogServiceError(err: unknown): MappedServiceError {
 		};
 	}
 
+	// Never expose raw exception text for unclassified errors (it can carry SQL, paths, or storage details).
+	// The original error is logged by toRestErrorResponse / throwRpcServiceError.
 	return {
 		status: 500,
 		code: 'INTERNAL_ERROR',
-		message: rawMessage || 'An unexpected server error occurred.'
+		message: 'An unexpected server error occurred.'
 	};
+}
+
+function logUnexpectedServiceError(
+	mapped: MappedServiceError,
+	err: unknown,
+	context: string
+): void {
+	if (mapped.status >= 500) {
+		console.error(`[${context}] ${mapped.status} ${mapped.code}:`, err);
+	}
 }
 
 export function toRestErrorResponse(err: unknown): Response {
 	const mapped = classifyBlogServiceError(err);
+	logUnexpectedServiceError(mapped, err, 'rest-error');
 	return json(
 		{
 			error: mapped.message,
@@ -146,5 +160,6 @@ export function toRestErrorResponse(err: unknown): Response {
 
 export function throwRpcServiceError(err: unknown): never {
 	const mapped = classifyBlogServiceError(err);
+	logUnexpectedServiceError(mapped, err, 'rpc-error');
 	svelteKitError(mapped.status, `${mapped.code}: ${mapped.message}`);
 }

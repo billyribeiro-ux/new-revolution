@@ -2,7 +2,7 @@ import Image from '@tiptap/extension-image';
 import { mergeAttributes } from '@tiptap/core';
 import type { DOMOutputSpec } from '@tiptap/pm/model';
 
-export type ImageAlign = 'left' | 'center' | 'right' | null;
+export type ImageAlign = 'left' | 'center' | 'right' | 'full' | null;
 
 function resolveImgElement(element: HTMLElement): HTMLElement {
 	if (element.tagName.toLowerCase() === 'img') {
@@ -28,7 +28,7 @@ function resolveAnchorElement(element: HTMLElement, img: HTMLElement): HTMLEleme
 function normalizeImageAlign(raw: unknown): ImageAlign {
 	if (typeof raw !== 'string') return null;
 	const lower = raw.trim().toLowerCase();
-	if (lower === 'left' || lower === 'center' || lower === 'right') {
+	if (lower === 'left' || lower === 'center' || lower === 'right' || lower === 'full') {
 		return lower;
 	}
 	return null;
@@ -46,18 +46,18 @@ function parseImageAlignFromDom(element: HTMLElement): ImageAlign {
 	}
 
 	const imgClass = img.getAttribute('class') ?? '';
-	const blogImgMatch = imgClass.match(/\bblog-image--(left|center|right)\b/i);
+	const blogImgMatch = imgClass.match(/\bblog-image--(left|center|right|full)\b/i);
 	if (blogImgMatch?.[1]) {
 		return normalizeImageAlign(blogImgMatch[1]);
 	}
 
-	const alignImgMatch = imgClass.match(/\balign(left|center|right)\b/i);
+	const alignImgMatch = imgClass.match(/\balign(left|center|right|full)\b/i);
 	if (alignImgMatch?.[1]) {
 		return normalizeImageAlign(alignImgMatch[1]);
 	}
 
 	const figClass = figure?.getAttribute('class') ?? '';
-	const alignFigMatch = figClass.match(/\balign(left|center|right)\b/i);
+	const alignFigMatch = figClass.match(/\balign(left|center|right|full)\b/i);
 	if (alignFigMatch?.[1]) {
 		return normalizeImageAlign(alignFigMatch[1]);
 	}

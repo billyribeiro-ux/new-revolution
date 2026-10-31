@@ -260,6 +260,35 @@ export function buildBlogIndexJsonLd(
 	};
 }
 
+const CROP_ORDER = ['16x9', '4x3', '1x1'] as const;
+
+/**
+ * Article `image` entries: one absolute ImageObject per crop, ordered 16x9, 4x3, 1x1. Crops under 50,000 px
+ * (Google's minimum, docs/SEO_EVIDENCE.md row 19) or with a non-positive size are dropped; callers fall back to
+ * the single cover ImageObject when this returns [].
+ */
+function buildArticleCropImages(
+	crops: Array<{ aspect: string; url: string; width: number; height: number }> | null | undefined,
+	origin: string,
+	caption?: string | null
+): Array<Record<string, unknown>> {
+	if (!crops?.length) return [];
+	const out: Array<Record<string, unknown>> = [];
+	for (const aspect of CROP_ORDER) {
+		const crop = crops.find((c) => c.aspect === aspect);
+		if (!crop?.url || !(crop.width > 0) || !(crop.height > 0)) continue;
+		if (crop.width * crop.height < 50_000) continue;
+		out.push({
+			'@type': 'ImageObject',
+			url: crop.url.startsWith('http') ? crop.url : `${origin}${crop.url}`,
+			width: crop.width,
+			height: crop.height,
+			...(caption ? { caption } : {})
+		});
+	}
+	return out;
+}
+
 export function buildBlogPostJsonLd(
 	input: {
 		locked?: boolean;
@@ -270,6 +299,8 @@ export function buildBlogPostJsonLd(
 		coverImageCaption?: string | null;
 		coverImageWidth?: number | null;
 		coverImageHeight?: number | null;
+		/** Fixed-ratio cover crops (see getMediaCropsForUrl). Used for Article `image` when present. */
+		coverImageCrops?: Array<{ aspect: string; url: string; width: number; height: number }> | null;
 		publishedAt?: Date | string | null;
 		updatedAt?: Date | string | null;
 		contentUpdatedAt?: Date | string | null;
@@ -376,6 +407,12 @@ export function buildBlogPostJsonLd(
 			}
 		: undefined;
 
+	const articleImages = buildArticleCropImages(
+		input.coverImageCrops,
+		origin,
+		input.coverImageCaption
+	);
+
 	graph.push({
 		'@type': articleType,
 		'@id': `${pageUrl}#article`,
@@ -383,7 +420,7 @@ export function buildBlogPostJsonLd(
 		description: input.description ?? '',
 		...(imageNode
 			? {
-					image: imageNode,
+					image: articleImages.length > 0 ? articleImages : imageNode,
 					thumbnailUrl: imageNode.url
 				}
 			: {}),

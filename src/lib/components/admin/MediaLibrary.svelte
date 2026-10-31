@@ -1,12 +1,32 @@
 <script lang="ts">
-	import { SvelteURLSearchParams } from 'svelte/reactivity';
+	import { tick, untrack } from 'svelte';
+	import { SvelteMap, SvelteURLSearchParams } from 'svelte/reactivity';
 	import {
 		formatMaxUploadMb,
 		MEDIA_UPLOAD_MAX_BYTES,
 		type MediaItem
 	} from '#lib/shared/media-upload';
 	import ConfirmDialog from './ConfirmDialog.svelte';
+	import MediaBulkBar from './MediaBulkBar.svelte';
+	import MediaGrid from './MediaGrid.svelte';
+	import MediaModalHeader from './MediaModalHeader.svelte';
+	import MediaSidebar, { type InsertAlign, type InsertSize } from './MediaSidebar.svelte';
+	import MediaToolbar from './MediaToolbar.svelte';
+	import MediaUploadPanel from './MediaUploadPanel.svelte';
+	import MediaUploadQueue, { type QueueEntry } from './MediaUploadQueue.svelte';
+	import {
+		deleteMediaRequest,
+		MEDIA_BULK_CONCURRENCY,
+		MediaRequestError,
+		moveMediaRequest,
+		runBounded,
+		uploadWithProgress,
+		type BulkResult,
+		type MediaUsageRef
+	} from './media-client';
+	import './media-library.css';
 
+	/** Payload shape and value names are a contract: docs/MEDIA_UI_CONTRACT.md. */
 	export interface MediaInsertPayload {
 		item: MediaItem;
 		url: string;
@@ -39,6 +59,13 @@
 		onClose
 	}: Props = $props();
 
+	interface FailureRow {
+		id: string;
+		name: string;
+		message: string;
+		usage: MediaUsageRef[];
+	}
+
 	let activeTab = $state<'library' | 'upload'>('library');
 	let viewMode = $state<'grid' | 'list'>('grid');
 	let showTrash = $state(false);
@@ -51,6 +78,7 @@
 	let loading = $state(false);
 	let errorMessage = $state('');
 	let statusMessage = $state('');
+	let failureRows = $state.raw<FailureRow[]>([]);
 
 	let searchQuery = $state('');
 	let selectedFolder = $state<string | undefined>(undefined);
@@ -69,27 +97,40 @@
 	let editFilename = $state('');
 	let savingMeta = $state(false);
 
-	let insertSize = $state<'thumbnail' | 'medium' | 'large' | 'full'>('full');
-	let insertAlign = $state<'left' | 'center' | 'right' | 'full'>('center');
+	let insertSize = $state<InsertSize>('full');
+	let insertAlign = $state<InsertAlign>('center');
 	let insertLinkUrl = $state('');
+
+	/** Bulk selection: id -> filename (any page). Failed items stay ticked so they can be retried. */
+	const checked = new SvelteMap<string, string>();
+	let lastCheckedId: string | null = null;
+	let bulkBusy = $state(false);
 
 	let uploadFolder = $state('');
 	let uploadAltText = $state('');
-	let uploadQueue = $state<
-		Array<{
-			name: string;
-			size: number;
-			status: 'pending' | 'uploading' | 'done' | 'error';
-			error?: string;
-		}>
-	>([]);
-	let isDragging = $state(false);
+	let uploadQueue = $state<QueueEntry[]>([]);
+	let uploading = $state(false);
+	const pendingFiles = new SvelteMap<string, File>();
+	let queueSeq = 0;
 
-	let confirmDeleteOpen = $state(false);
-	let inUseConflictList = $state<Array<{ id: number; title: string; slug: string }>>([]);
+	let confirmKind = $state<'single' | 'bulk' | null>(null);
+	let confirmOpener: HTMLElement | null = null;
+	let rootEl: HTMLElement | undefined;
+	let inUseConflictList = $state.raw<MediaUsageRef[]>([]);
 
 	let initialized = $state(false);
 	let searchDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+	let loadGeneration = 0;
+
+	let totalPages = $derived(Math.max(1, Math.ceil(total / perPage)));
+	let canInsert = $derived(mode === 'modal' && !!onSelect);
+
+	function clearMessages() {
+		errorMessage = '';
+		statusMessage = '';
+		failureRows = [];
+		inUseConflictList = [];
+	}
 
 	function syncEditorFields(item: MediaItem | null) {
 		selectedItem = item;
@@ -115,6 +156,7 @@
 	}
 
 	async function fetchLibrary(targetPage = page) {
+		const generation = ++loadGeneration;
 		loading = true;
 		errorMessage = '';
 		try {
@@ -132,6 +174,8 @@
 
 			const res = await fetch(`/api/media/list?${params.toString()}`);
 			const data = await res.json();
+			// A newer request (search typing, filter change) superseded this one: drop the stale response.
+			if (generation !== loadGeneration) return;
 			if (!res.ok) {
 				errorMessage = data.error ?? 'Failed to load media items.';
 				return;
@@ -146,9 +190,10 @@
 				syncEditorFields(refreshed);
 			}
 		} catch (err) {
+			if (generation !== loadGeneration) return;
 			errorMessage = err instanceof Error ? err.message : 'Network error loading media.';
 		} finally {
-			loading = false;
+			if (generation === loadGeneration) loading = false;
 		}
 	}
 
@@ -176,7 +221,7 @@
 		const clean = newFolderName.trim();
 		if (!clean) return;
 		creatingFolder = true;
-		errorMessage = '';
+		clearMessages();
 		try {
 			const res = await fetch('/api/media/folders', {
 				method: 'POST',
@@ -189,8 +234,8 @@
 				return;
 			}
 			newFolderName = '';
-			statusMessage = `Folder "${data.folder}" created.`;
 			await fetchLibrary(1);
+			statusMessage = `Folder "${data.folder}" created.`;
 		} catch (err) {
 			errorMessage = err instanceof Error ? err.message : 'Failed to create folder.';
 		} finally {
@@ -198,71 +243,105 @@
 		}
 	}
 
-	async function handleFilesSelected(fileList: FileList | File[]) {
+	/* ---------------------------------------------------------------- upload queue */
+
+	/** Adds files to the queue and starts the (single, sequential) worker if it is idle. */
+	function enqueueFiles(fileList: FileList | File[]) {
 		const files = Array.from(fileList);
 		if (files.length === 0) return;
+		clearMessages();
+		showTrash = false;
 
-		errorMessage = '';
-		statusMessage = '';
-		uploadQueue = files.map((f) => ({
-			name: f.name,
-			size: f.size,
-			status: f.size > MEDIA_UPLOAD_MAX_BYTES ? 'error' : 'pending',
-			error:
-				f.size > MEDIA_UPLOAD_MAX_BYTES ? `File exceeds ${formatMaxUploadMb()} limit.` : undefined
-		}));
+		const fresh: QueueEntry[] = files.map((f) => {
+			const tooLarge = f.size > MEDIA_UPLOAD_MAX_BYTES;
+			const entry: QueueEntry = {
+				id: `upload-${++queueSeq}`,
+				name: f.name,
+				size: f.size,
+				status: tooLarge ? 'error' : 'pending',
+				progress: 0,
+				error: tooLarge ? `File exceeds ${formatMaxUploadMb()} limit.` : undefined
+			};
+			if (!tooLarge) pendingFiles.set(entry.id, f);
+			return entry;
+		});
+		// A finished batch is replaced; a running one is appended to.
+		uploadQueue = uploading ? [...uploadQueue, ...fresh] : fresh;
+		const rejected = fresh.filter((e) => e.status === 'error').length;
+		if (rejected > 0) {
+			errorMessage = `${rejected} file(s) skipped: larger than ${formatMaxUploadMb()}.`;
+		}
+		if (!uploading) void processQueue();
+	}
 
-		let uploadedCount = 0;
+	function targetUploadFolder(): string {
+		return uploadFolder.trim() || selectedFolder || '';
+	}
+
+	async function processQueue() {
+		if (uploading) return;
+		uploading = true;
+		let uploaded = 0;
+		let failed = 0;
 		let lastUploaded: MediaItem | null = null;
-
-		for (let i = 0; i < files.length; i++) {
-			const file = files[i];
-			if (!file || uploadQueue[i]?.status === 'error') continue;
-
-			uploadQueue[i].status = 'uploading';
-			uploadQueue = [...uploadQueue];
-
-			try {
-				const fd = new FormData();
-				fd.set('file', file);
-				if (uploadFolder.trim()) fd.set('folder', uploadFolder.trim());
-				if (uploadAltText.trim()) fd.set('alt_text', uploadAltText.trim());
-
-				const res = await fetch('/api/media/upload', {
-					method: 'POST',
-					body: fd
-				});
-				const data = await res.json();
-				if (!res.ok) {
-					uploadQueue[i].status = 'error';
-					uploadQueue[i].error = data.error ?? `Upload failed (${res.status})`;
-				} else {
-					uploadQueue[i].status = 'done';
-					uploadedCount += 1;
-					lastUploaded = data.item ?? data;
+		try {
+			for (;;) {
+				const entry = uploadQueue.find((e) => e.status === 'pending');
+				if (!entry) break;
+				const file = pendingFiles.get(entry.id);
+				pendingFiles.delete(entry.id);
+				if (!file) {
+					entry.status = 'error';
+					entry.error = 'The selected file is no longer available.';
+					failed += 1;
+					continue;
 				}
-			} catch (err) {
-				uploadQueue[i].status = 'error';
-				uploadQueue[i].error = err instanceof Error ? err.message : 'Upload failed.';
+				entry.status = 'uploading';
+				entry.progress = 0;
+				try {
+					lastUploaded = await uploadWithProgress(
+						file,
+						{ folder: targetUploadFolder(), alt_text: uploadAltText },
+						(percent) => {
+							entry.progress = percent;
+						}
+					);
+					entry.status = 'done';
+					entry.progress = 100;
+					uploaded += 1;
+				} catch (err) {
+					entry.status = 'error';
+					entry.error = err instanceof Error ? err.message : 'Upload failed.';
+					failed += 1;
+				}
 			}
-			uploadQueue = [...uploadQueue];
+		} finally {
+			uploading = false;
 		}
 
-		if (uploadedCount > 0) {
-			statusMessage = `Uploaded ${uploadedCount} file(s).`;
+		if (uploaded > 0) {
 			activeTab = 'library';
 			await fetchLibrary(1);
-			if (lastUploaded) {
-				syncEditorFields(lastUploaded);
-			}
+			if (lastUploaded)
+				syncEditorFields(items.find((i) => i.id === lastUploaded!.id) ?? lastUploaded);
+			statusMessage = `Uploaded ${uploaded} file(s).`;
+		}
+		if (failed > 0) {
+			errorMessage = `${failed} file(s) failed to upload. See the upload list for each reason.`;
 		}
 	}
+
+	function clearQueue() {
+		if (uploading) return;
+		uploadQueue = [];
+	}
+
+	/* ---------------------------------------------------------------- single item actions */
 
 	async function handleSaveMetadata() {
 		if (!selectedItem) return;
 		savingMeta = true;
-		errorMessage = '';
-		statusMessage = '';
+		clearMessages();
 		try {
 			const res = await fetch(`/api/media/${selectedItem.id}`, {
 				method: 'PATCH',
@@ -293,57 +372,33 @@
 	}
 
 	async function executeDeleteSelected() {
-		confirmDeleteOpen = false;
+		closeConfirm();
 		if (!selectedItem) return;
-		errorMessage = '';
-		statusMessage = '';
-		inUseConflictList = [];
+		const target = selectedItem;
+		clearMessages();
 		try {
-			const res = await fetch(`/api/media/${selectedItem.id}`, {
-				method: 'DELETE'
-			});
-			if (res.status === 204) {
-				statusMessage = `Deleted "${selectedItem.filename}".`;
-				syncEditorFields(null);
-				await fetchLibrary(page);
-				return;
-			}
-			const data = await res.json().catch((err: unknown) => {
-				console.warn('Failed to parse media delete response JSON:', err);
-				return {} as {
-					error?: string;
-					details?: Array<{ id: number; title: string; slug: string }>;
-				};
-			});
-			if (res.status === 409 && Array.isArray(data.details)) {
-				inUseConflictList = data.details;
-			}
-			errorMessage = data.error ?? 'Could not delete media item.';
+			await deleteMediaRequest(target.id);
+			checked.delete(target.id);
+			syncEditorFields(null);
+			await fetchLibrary(page);
+			statusMessage = `Deleted "${target.filename}".`;
 		} catch (err) {
+			if (err instanceof MediaRequestError && err.status === 409) inUseConflictList = err.usage;
 			errorMessage = err instanceof Error ? err.message : 'Failed to delete media item.';
 		}
 	}
 
-	async function handleRestoreSelected() {
+	async function handleCopyUrl() {
 		if (!selectedItem) return;
-		errorMessage = '';
-		statusMessage = '';
+		if (!navigator.clipboard) {
+			errorMessage = 'Clipboard access is not available in this browser context.';
+			return;
+		}
 		try {
-			const res = await fetch(`/api/media/${selectedItem.id}`, {
-				method: 'PATCH',
-				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ action: 'restore' })
-			});
-			const data = await res.json();
-			if (!res.ok) {
-				errorMessage = data.error ?? 'Failed to restore item.';
-				return;
-			}
-			statusMessage = `Restored "${selectedItem.filename}".`;
-			syncEditorFields(null);
-			await fetchLibrary(1);
+			await navigator.clipboard.writeText(selectedItem.urls.original);
+			statusMessage = 'Copied original URL to clipboard.';
 		} catch (err) {
-			errorMessage = err instanceof Error ? err.message : 'Failed to restore item.';
+			errorMessage = err instanceof Error ? err.message : 'Could not copy the URL.';
 		}
 	}
 
@@ -366,550 +421,377 @@
 		});
 	}
 
-	function formatBytes(bytes: number): string {
-		if (bytes < 1024) return `${bytes} B`;
-		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-		return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+	function openItem(item: MediaItem) {
+		syncEditorFields(item);
+		if (canInsert) handleInsertSelected();
 	}
 
-	function handleModalKeydown(e: KeyboardEvent) {
-		if (mode !== 'modal') return;
-		if (e.key === 'Escape' && !confirmDeleteOpen) {
-			e.preventDefault();
-			onClose?.();
-			return;
+	/* ---------------------------------------------------------------- bulk selection and actions */
+
+	function handleCheck(item: MediaItem, isChecked: boolean, shiftKey: boolean) {
+		if (shiftKey && lastCheckedId) {
+			const from = items.findIndex((i) => i.id === lastCheckedId);
+			const to = items.findIndex((i) => i.id === item.id);
+			if (from >= 0 && to >= 0) {
+				const [lo, hi] = from < to ? [from, to] : [to, from];
+				for (const it of items.slice(lo, hi + 1)) {
+					if (isChecked) checked.set(it.id, it.filename);
+					else checked.delete(it.id);
+				}
+				lastCheckedId = item.id;
+				return;
+			}
 		}
-		if (e.key === 'Tab') {
-			const container = e.currentTarget as HTMLElement | null;
-			if (!container) return;
-			const focusable = Array.from(
-				container.querySelectorAll<HTMLElement>(
-					'button:not([disabled]), [href], input:not([disabled]):not(.sr-only-input), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-				)
+		if (isChecked) checked.set(item.id, item.filename);
+		else checked.delete(item.id);
+		lastCheckedId = item.id;
+	}
+
+	function checkPage(isChecked: boolean) {
+		for (const it of items) {
+			if (isChecked) checked.set(it.id, it.filename);
+			else checked.delete(it.id);
+		}
+	}
+
+	function clearChecked() {
+		checked.clear();
+		lastCheckedId = null;
+	}
+
+	function failuresFrom(results: BulkResult<{ id: string; name: string }>[]): FailureRow[] {
+		const rows: FailureRow[] = [];
+		for (const r of results) {
+			if (r.ok) continue;
+			rows.push({
+				id: r.item.id,
+				name: r.item.name,
+				message: r.error.message || 'Unknown error',
+				usage: r.error instanceof MediaRequestError ? r.error.usage : []
+			});
+		}
+		return rows;
+	}
+
+	async function refreshAfterBulk() {
+		await fetchLibrary(page);
+		if (items.length === 0 && page > 1) await fetchLibrary(page - 1);
+	}
+
+	async function runBulkDelete() {
+		closeConfirm();
+		if (checked.size === 0 || bulkBusy) return;
+		const targets = Array.from(checked, ([id, name]) => ({ id, name }));
+		bulkBusy = true;
+		clearMessages();
+		try {
+			const results = await runBounded(targets, MEDIA_BULK_CONCURRENCY, (t) =>
+				deleteMediaRequest(t.id)
 			);
+			let deleted = 0;
+			for (const r of results) {
+				if (r.ok) {
+					deleted += 1;
+					checked.delete(r.item.id);
+					if (selectedItem?.id === r.item.id) syncEditorFields(null);
+				}
+			}
+			const failures = failuresFrom(results);
+			await refreshAfterBulk();
+			if (deleted > 0) statusMessage = `Deleted ${deleted} item(s).`;
+			if (failures.length > 0) {
+				failureRows = failures;
+				errorMessage = `${failures.length} of ${targets.length} item(s) could not be deleted. They stay selected.`;
+			}
+		} finally {
+			bulkBusy = false;
+		}
+	}
+
+	async function runBulkMove(folder: string) {
+		if (checked.size === 0 || bulkBusy) return;
+		const targets = Array.from(checked, ([id, name]) => ({ id, name }));
+		bulkBusy = true;
+		clearMessages();
+		try {
+			const results = await runBounded(targets, MEDIA_BULK_CONCURRENCY, (t) =>
+				moveMediaRequest(t.id, folder)
+			);
+			let moved = 0;
+			for (const r of results) {
+				if (r.ok) {
+					moved += 1;
+					checked.delete(r.item.id);
+				}
+			}
+			const failures = failuresFrom(results);
+			await refreshAfterBulk();
+			if (moved > 0) statusMessage = `Moved ${moved} item(s) to ${folder || 'Root'}.`;
+			if (failures.length > 0) {
+				failureRows = failures;
+				errorMessage = `${failures.length} of ${targets.length} item(s) could not be moved. They stay selected.`;
+			}
+		} finally {
+			bulkBusy = false;
+		}
+	}
+
+	/* ---------------------------------------------------------------- confirm dialog */
+
+	function openConfirm(kind: 'single' | 'bulk') {
+		confirmOpener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+		confirmKind = kind;
+	}
+
+	/** Closes the confirm dialog and puts focus back where it was (or on the picker if that is gone). */
+	function closeConfirm() {
+		const opener = confirmOpener;
+		confirmOpener = null;
+		confirmKind = null;
+		void tick().then(() => {
+			if (opener?.isConnected) opener.focus();
+			else rootEl?.focus();
+		});
+	}
+
+	let confirmTitle = $derived(
+		confirmKind === 'bulk'
+			? `Delete ${checked.size} item${checked.size === 1 ? '' : 's'}?`
+			: 'Delete Media Asset'
+	);
+	let confirmMessage = $derived.by(() => {
+		if (confirmKind === 'bulk') {
+			const names = Array.from(checked.values());
+			const shown = names.slice(0, 5).join(', ');
+			const more = names.length > 5 ? ` and ${names.length - 5} more` : '';
+			return `Delete ${shown}${more}? Files referenced by posts are refused and listed afterwards.`;
+		}
+		return selectedItem
+			? `Are you sure you want to delete "${selectedItem.filename}"? Active posts referencing this image will block deletion.`
+			: 'Delete this item?';
+	});
+
+	/* ---------------------------------------------------------------- modal behaviour */
+
+	const FOCUSABLE = 'a[href], button, input:not([type="hidden"]), select, textarea, [tabindex]';
+
+	function focusableWithin(container: HTMLElement): HTMLElement[] {
+		return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+			(el) =>
+				!el.hasAttribute('disabled') &&
+				el.getAttribute('tabindex') !== '-1' &&
+				el.offsetParent !== null
+		);
+	}
+
+	/**
+	 * Root attachment: loads data once, and in modal mode traps Tab, closes on Escape, keeps keystrokes
+	 * from reaching editor shortcuts underneath, and restores focus to the opener on teardown.
+	 */
+	function pickerRoot(node: HTMLElement) {
+		rootEl = node;
+		untrack(ensureLoaded);
+		if (mode !== 'modal') return () => (rootEl = undefined);
+
+		const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+		const firstFocus =
+			node.querySelector<HTMLElement>('input[type="search"]') ??
+			node.querySelector<HTMLElement>('button:not([disabled])');
+		firstFocus?.focus();
+
+		function onKeydown(e: KeyboardEvent) {
+			e.stopPropagation();
+			if (e.key === 'Escape') {
+				e.preventDefault();
+				if (confirmKind) return;
+				if (checked.size > 0) {
+					clearChecked();
+					return;
+				}
+				onClose?.();
+				return;
+			}
+			if (e.key !== 'Tab') return;
+			const focusable = focusableWithin(node);
 			if (focusable.length === 0) return;
 			const first = focusable[0]!;
 			const last = focusable[focusable.length - 1]!;
 			const active = document.activeElement as HTMLElement | null;
 			if (e.shiftKey) {
-				if (!active || active === first || !container.contains(active)) {
+				if (!active || active === first || !node.contains(active)) {
 					e.preventDefault();
 					last.focus();
 				}
-			} else if (!active || active === last || !container.contains(active)) {
+			} else if (!active || active === last || !node.contains(active)) {
 				e.preventDefault();
 				first.focus();
 			}
 		}
-	}
+		node.addEventListener('keydown', onKeydown);
 
-	let totalPages = $derived(Math.max(1, Math.ceil(total / perPage)));
+		return () => {
+			node.removeEventListener('keydown', onKeydown);
+			rootEl = undefined;
+			if (opener && opener !== document.body && opener.isConnected) opener.focus();
+		};
+	}
 </script>
 
 {#if mode === 'page' || isOpen}
 	<div
-		{@attach (node) => {
-			ensureLoaded();
-			if (mode === 'modal') {
-				const firstFocusable = node.querySelector<HTMLElement>(
-					'input[type="search"], button:not([disabled]), select:not([disabled])'
-				);
-				firstFocusable?.focus();
-			}
-		}}
+		{@attach pickerRoot}
 		class={['media-library-root', { 'is-modal': mode === 'modal' }]}
 		role={mode === 'modal' ? 'dialog' : undefined}
 		aria-modal={mode === 'modal' ? 'true' : undefined}
 		aria-label={mode === 'modal' ? 'Media Library Picker' : undefined}
-		onkeydown={handleModalKeydown}
+		tabindex="-1"
 	>
 		<div class="media-shell">
-			<header class="media-header">
-				<div class="media-header-left">
-					<h2 class="media-title">Media Library</h2>
-					<div class="media-tabs" role="tablist">
-						<button
-							type="button"
-							role="tab"
-							aria-selected={activeTab === 'library'}
-							class={['tab-btn', { 'is-active': activeTab === 'library' }]}
-							onclick={() => {
-								activeTab = 'library';
-							}}
-						>
-							Library ({total})
-						</button>
-						<button
-							type="button"
-							role="tab"
-							aria-selected={activeTab === 'upload'}
-							class={['tab-btn', { 'is-active': activeTab === 'upload' }]}
-							onclick={() => {
-								activeTab = 'upload';
-							}}
-						>
-							Upload Files
-						</button>
+			<MediaModalHeader
+				{total}
+				{activeTab}
+				{showTrash}
+				canClose={mode === 'modal' && !!onClose}
+				onTab={(tab) => (activeTab = tab)}
+				onToggleTrash={() => {
+					showTrash = !showTrash;
+					clearChecked();
+					syncEditorFields(null);
+					void fetchLibrary(1);
+				}}
+				onClose={() => onClose?.()}
+			/>
+
+			<div role="alert">
+				{#if errorMessage}
+					<div class="ml-banner is-error">
+						<span>{errorMessage}</span>
+						{#if inUseConflictList.length > 0}
+							<ul>
+								{#each inUseConflictList as usage (usage.id)}
+									<li>Referenced in: <strong>{usage.title}</strong> (/{usage.slug})</li>
+								{/each}
+							</ul>
+						{/if}
+						{#if failureRows.length > 0}
+							<ul>
+								{#each failureRows as row (row.id)}
+									<li>
+										<strong>{row.name}</strong>: {row.message}
+										{#if row.usage.length > 0}
+											<ul>
+												{#each row.usage as usage (usage.id)}
+													<li>Referenced in: <strong>{usage.title}</strong> (/{usage.slug})</li>
+												{/each}
+											</ul>
+										{/if}
+									</li>
+								{/each}
+							</ul>
+						{/if}
 					</div>
-				</div>
+				{/if}
+			</div>
 
-				<div class="media-header-right">
-					<button
-						type="button"
-						class={['btn-chip', { 'is-active': showTrash }]}
-						onclick={() => {
-							showTrash = !showTrash;
-							syncEditorFields(null);
-							void fetchLibrary(1);
-						}}
-					>
-						{showTrash ? 'Viewing Trash' : 'Trash'}
-					</button>
-					{#if mode === 'modal' && onClose}
-						<button
-							type="button"
-							class="btn-close"
-							onclick={onClose}
-							aria-label="Close Media Library"
-						>
-							Close
-						</button>
-					{/if}
-				</div>
-			</header>
-
-			{#if errorMessage}
-				<div class="banner-error" role="alert">
-					<span>{errorMessage}</span>
-					{#if inUseConflictList.length > 0}
-						<ul class="conflict-list">
-							{#each inUseConflictList as usage (usage.id)}
-								<li>Referenced in: <strong>{usage.title}</strong> (/{usage.slug})</li>
-							{/each}
-						</ul>
-					{/if}
-				</div>
-			{/if}
-
-			{#if statusMessage}
-				<div class="banner-status" role="status">{statusMessage}</div>
-			{/if}
+			<div role="status">
+				{#if statusMessage}
+					<div class="ml-banner is-status">{statusMessage}</div>
+				{/if}
+			</div>
 
 			{#if activeTab === 'upload'}
-				<div class="upload-view">
-					<div class="upload-meta-row">
-						<label class="field-label">
-							<span>Target Folder</span>
-							<input
-								type="text"
-								class="text-input"
-								placeholder="e.g. charts (leave blank for Root)"
-								bind:value={uploadFolder}
-							/>
-						</label>
-						<label class="field-label">
-							<span>Default Alt Text (optional)</span>
-							<input
-								type="text"
-								class="text-input"
-								placeholder="Descriptive alt text for uploaded images"
-								bind:value={uploadAltText}
-							/>
-						</label>
-					</div>
-
-					<label
-						class={['dropzone', { 'is-dragging': isDragging }]}
-						ondragover={(e) => {
-							e.preventDefault();
-							isDragging = true;
-						}}
-						ondragleave={() => {
-							isDragging = false;
-						}}
-						ondrop={(e) => {
-							e.preventDefault();
-							isDragging = false;
-							if (e.dataTransfer?.files) {
-								void handleFilesSelected(e.dataTransfer.files);
-							}
-						}}
-					>
-						<input
-							type="file"
-							multiple
-							accept="image/png,image/jpeg,image/gif,image/webp,image/avif,image/svg+xml"
-							class="sr-only-input"
-							onchange={(e) => {
-								const input = e.currentTarget as HTMLInputElement;
-								if (input.files) {
-									void handleFilesSelected(input.files);
-								}
-							}}
-						/>
-						<span class="dropzone-headline">Drag and drop images here, or click to browse</span>
-						<span class="dropzone-sub">
-							Allowed: PNG, JPEG, GIF, WebP, AVIF, SVG. Max file size: {formatMaxUploadMb()}. Raster
-							images auto-convert to WebP with 480w, 800w, and 1200w responsive variants.
-						</span>
-					</label>
-
-					{#if uploadQueue.length > 0}
-						<ul class="upload-queue">
-							{#each uploadQueue as qItem (qItem.name)}
-								<li class="upload-queue-item">
-									<span>{qItem.name} ({formatBytes(qItem.size)})</span>
-									<span class={['queue-badge', `status-${qItem.status}`]}>
-										{qItem.error ? qItem.error : qItem.status}
-									</span>
-								</li>
-							{/each}
-						</ul>
-					{/if}
-				</div>
+				<MediaUploadPanel
+					bind:folder={uploadFolder}
+					bind:altText={uploadAltText}
+					entries={uploadQueue}
+					busy={uploading}
+					onFiles={enqueueFiles}
+					onClearQueue={clearQueue}
+				/>
 			{:else}
-				<div class="library-controls">
-					<input
-						type="search"
-						class="text-input search-input"
-						placeholder="Search filename, title, alt text, caption..."
-						value={searchQuery}
-						oninput={(e) => handleSearchInput((e.currentTarget as HTMLInputElement).value)}
+				<MediaToolbar
+					{searchQuery}
+					{selectedFolder}
+					{selectedMime}
+					{selectedSort}
+					{viewMode}
+					{folders}
+					{newFolderName}
+					{creatingFolder}
+					onSearch={handleSearchInput}
+					onFolder={(f) => {
+						selectedFolder = f;
+						void fetchLibrary(1);
+					}}
+					onMime={(m) => {
+						selectedMime = m;
+						void fetchLibrary(1);
+					}}
+					onSort={(s) => {
+						selectedSort = s;
+						void fetchLibrary(1);
+					}}
+					onView={(v) => (viewMode = v)}
+					onNewFolderName={(v) => (newFolderName = v)}
+					onCreateFolder={handleCreateFolder}
+				/>
+
+				{#if checked.size > 0 && !showTrash}
+					<MediaBulkBar
+						selectedCount={checked.size}
+						pageCount={items.length}
+						{folders}
+						busy={bulkBusy}
+						onSelectPage={() => checkPage(true)}
+						onClear={clearChecked}
+						onMove={(folder) => void runBulkMove(folder)}
+						onDelete={() => openConfirm('bulk')}
 					/>
+				{/if}
 
-					<select
-						class="select-input"
-						aria-label="Filter by folder"
-						value={selectedFolder === undefined ? '__ALL__' : selectedFolder}
-						onchange={(e) => {
-							const val = (e.currentTarget as HTMLSelectElement).value;
-							selectedFolder = val === '__ALL__' ? undefined : val;
-							void fetchLibrary(1);
-						}}
-					>
-						<option value="__ALL__">All Folders</option>
-						<option value="">Root</option>
-						{#each folders as f (f)}
-							<option value={f}>{f}</option>
-						{/each}
-					</select>
-
-					<select
-						class="select-input"
-						aria-label="Filter by MIME type"
-						bind:value={selectedMime}
-						onchange={() => void fetchLibrary(1)}
-					>
-						<option value="">All Formats</option>
-						<option value="image/webp">WebP</option>
-						<option value="image/png">PNG</option>
-						<option value="image/jpeg">JPEG</option>
-						<option value="image/gif">GIF</option>
-						<option value="image/svg+xml">SVG</option>
-					</select>
-
-					<select
-						class="select-input"
-						aria-label="Sort media"
-						bind:value={selectedSort}
-						onchange={() => void fetchLibrary(1)}
-					>
-						<option value="newest">Newest First</option>
-						<option value="oldest">Oldest First</option>
-						<option value="title">Title (A-Z)</option>
-						<option value="filename">Filename (A-Z)</option>
-						<option value="size">Largest First</option>
-					</select>
-
-					<div class="view-toggle">
-						<button
-							type="button"
-							class={['btn-chip', { 'is-active': viewMode === 'grid' }]}
-							onclick={() => (viewMode = 'grid')}
-						>
-							Grid
-						</button>
-						<button
-							type="button"
-							class={['btn-chip', { 'is-active': viewMode === 'list' }]}
-							onclick={() => (viewMode = 'list')}
-						>
-							List
-						</button>
+				{#if uploadQueue.length > 0}
+					<div class="ml-queue-strip">
+						<MediaUploadQueue entries={uploadQueue} busy={uploading} onClear={clearQueue} />
 					</div>
-
-					<div class="new-folder-box">
-						<input
-							type="text"
-							class="text-input folder-input"
-							placeholder="New folder..."
-							bind:value={newFolderName}
-						/>
-						<button
-							type="button"
-							class="btn-chip"
-							disabled={creatingFolder || !newFolderName.trim()}
-							onclick={handleCreateFolder}
-						>
-							+ Folder
-						</button>
-					</div>
-				</div>
+				{/if}
 
 				<div class="library-body">
-					<div class="library-main">
-						{#if loading}
-							<p class="empty-state">Loading media assets...</p>
-						{:else if items.length === 0}
-							<p class="empty-state">
-								No media items found. Switch to "Upload Files" to add images.
-							</p>
-						{:else if viewMode === 'grid'}
-							<div class="media-grid">
-								{#each items as item (item.id)}
-									<button
-										type="button"
-										class={['media-card', { 'is-selected': selectedItem?.id === item.id }]}
-										onclick={() => syncEditorFields(item)}
-										ondblclick={() => {
-											syncEditorFields(item);
-											if (mode === 'modal' && onSelect) {
-												handleInsertSelected();
-											}
-										}}
-									>
-										<div class="media-thumb-wrap">
-											<img
-												src={item.urls.thumbnail}
-												alt={item.alt_text || item.filename}
-												width="300"
-												height="300"
-												loading="lazy"
-												class="media-thumb"
-											/>
-											{#if !item.alt_text}
-												<span class="badge-missing-alt" title="Missing alt text">No Alt</span>
-											{/if}
-										</div>
-										<div class="media-card-meta">
-											<span class="media-card-name">{item.filename}</span>
-											<span class="media-card-sub">
-												{item.width && item.height
-													? `${item.width}x${item.height} · `
-													: ''}{formatBytes(item.size_bytes)}
-											</span>
-										</div>
-									</button>
-								{/each}
-							</div>
-						{:else}
-							<table class="media-table">
-								<thead>
-									<tr>
-										<th>Preview</th>
-										<th>Filename</th>
-										<th>Alt Text</th>
-										<th>Folder</th>
-										<th>Dimensions</th>
-										<th>Size</th>
-										<th>Used</th>
-									</tr>
-								</thead>
-								<tbody>
-									{#each items as item (item.id)}
-										<tr
-											class={{ 'is-selected': selectedItem?.id === item.id }}
-											onclick={() => syncEditorFields(item)}
-											ondblclick={() => {
-												syncEditorFields(item);
-												if (mode === 'modal' && onSelect) {
-													handleInsertSelected();
-												}
-											}}
-										>
-											<td>
-												<img
-													src={item.urls.thumbnail}
-													alt={item.alt_text || item.filename}
-													width="48"
-													height="48"
-													loading="lazy"
-													class="table-thumb"
-												/>
-											</td>
-											<td>{item.filename}</td>
-											<td>{item.alt_text || 'Missing alt text'}</td>
-											<td>{item.folder || 'Root'}</td>
-											<td>{item.width && item.height ? `${item.width}x${item.height}` : 'N/A'}</td>
-											<td>{formatBytes(item.size_bytes)}</td>
-											<td>{item.usage_count ?? 0}</td>
-										</tr>
-									{/each}
-								</tbody>
-							</table>
-						{/if}
+					<MediaGrid
+						{items}
+						{viewMode}
+						{loading}
+						{showTrash}
+						inspectedId={selectedItem?.id ?? null}
+						{checked}
+						{page}
+						{totalPages}
+						onInspect={syncEditorFields}
+						onOpen={openItem}
+						onCheck={handleCheck}
+						onCheckPage={checkPage}
+						onPage={(p) => void fetchLibrary(p)}
+						onFiles={enqueueFiles}
+					/>
 
-						{#if totalPages > 1 && !showTrash}
-							<div class="pagination-bar">
-								<button
-									type="button"
-									class="btn-chip"
-									disabled={page <= 1}
-									onclick={() => void fetchLibrary(page - 1)}
-								>
-									Previous
-								</button>
-								<span class="page-info">Page {page} of {totalPages}</span>
-								<button
-									type="button"
-									class="btn-chip"
-									disabled={page >= totalPages}
-									onclick={() => void fetchLibrary(page + 1)}
-								>
-									Next
-								</button>
-							</div>
-						{/if}
-					</div>
-
-					<aside class="library-inspector">
-						{#if selectedItem}
-							<div class="inspector-preview">
-								<img
-									src={selectedItem.urls.medium}
-									alt={selectedItem.alt_text || selectedItem.filename}
-									class="inspector-img"
-								/>
-								<div class="inspector-specs">
-									<span>{selectedItem.mime_type}</span>
-									{#if selectedItem.width && selectedItem.height}
-										<span>{selectedItem.width} x {selectedItem.height} px</span>
-									{/if}
-									<span>{formatBytes(selectedItem.size_bytes)}</span>
-									<span>Used in {selectedItem.usage_count ?? 0} post(s)</span>
-								</div>
-								<button
-									type="button"
-									class="btn-chip"
-									onclick={() => {
-										if (selectedItem && navigator.clipboard) {
-											void navigator.clipboard.writeText(selectedItem.urls.original);
-											statusMessage = 'Copied original URL to clipboard.';
-										}
-									}}
-								>
-									Copy Original URL
-								</button>
-							</div>
-
-							<div class="inspector-fields">
-								<label class="field-label">
-									<span>Alt Text {!editAltText.trim() ? '(Required for SEO)' : ''}</span>
-									<input type="text" class="text-input" bind:value={editAltText} />
-								</label>
-
-								<label class="field-label">
-									<span>Title</span>
-									<input type="text" class="text-input" bind:value={editTitle} />
-								</label>
-
-								<label class="field-label">
-									<span>Caption</span>
-									<input type="text" class="text-input" bind:value={editCaption} />
-								</label>
-
-								<label class="field-label">
-									<span>Description</span>
-									<textarea class="textarea-input" rows="2" bind:value={editDescription}></textarea>
-								</label>
-
-								<label class="field-label">
-									<span>Folder</span>
-									<input
-										type="text"
-										class="text-input"
-										placeholder="Root"
-										bind:value={editFolder}
-									/>
-								</label>
-
-								<label class="field-label">
-									<span>Filename</span>
-									<input type="text" class="text-input" bind:value={editFilename} />
-								</label>
-
-								<div class="inspector-actions">
-									{#if showTrash}
-										<button type="button" class="btn-primary" onclick={handleRestoreSelected}>
-											Restore Item
-										</button>
-									{:else}
-										<button
-											type="button"
-											class="btn-secondary"
-											disabled={savingMeta}
-											onclick={handleSaveMetadata}
-										>
-											{savingMeta ? 'Saving...' : 'Save Metadata'}
-										</button>
-										<button
-											type="button"
-											class="btn-danger"
-											onclick={() => (confirmDeleteOpen = true)}
-										>
-											Delete
-										</button>
-									{/if}
-								</div>
-
-								{#if mode === 'modal' && onSelect && !showTrash}
-									<hr class="inspector-divider" />
-									<div class="insert-settings">
-										<label class="field-label">
-											<span>Insert Size</span>
-											<select class="select-input" bind:value={insertSize}>
-												{#each selectedItem.available_sizes as s (s.value)}
-													<option value={s.value} disabled={!s.available}>
-														{s.label}{!s.available ? ' (Not needed)' : ''}
-													</option>
-												{/each}
-											</select>
-										</label>
-
-										<label class="field-label">
-											<span>Alignment</span>
-											<select class="select-input" bind:value={insertAlign}>
-												<option value="center">Center</option>
-												<option value="left">Float Left</option>
-												<option value="right">Float Right</option>
-												<option value="full">Full Width</option>
-											</select>
-										</label>
-
-										<label class="field-label">
-											<span>Link URL (optional)</span>
-											<input
-												type="url"
-												class="text-input"
-												placeholder="https://..."
-												bind:value={insertLinkUrl}
-											/>
-										</label>
-
-										<button
-											type="button"
-											class="btn-primary btn-insert"
-											onclick={handleInsertSelected}
-										>
-											Insert Into Post
-										</button>
-									</div>
-								{/if}
-							</div>
-						{:else}
-							<p class="empty-inspector">Select an image to view or edit its metadata.</p>
-						{/if}
-					</aside>
+					<MediaSidebar
+						item={selectedItem}
+						{showTrash}
+						{canInsert}
+						{savingMeta}
+						bind:editTitle
+						bind:editAltText
+						bind:editCaption
+						bind:editDescription
+						bind:editFolder
+						bind:editFilename
+						bind:insertSize
+						bind:insertAlign
+						bind:insertLinkUrl
+						onSave={handleSaveMetadata}
+						onDelete={() => openConfirm('single')}
+						onInsert={handleInsertSelected}
+						onCopyUrl={handleCopyUrl}
+					/>
 				</div>
 			{/if}
 		</div>
@@ -917,15 +799,13 @@
 {/if}
 
 <ConfirmDialog
-	open={confirmDeleteOpen}
-	title="Delete Media Asset"
-	message={selectedItem
-		? `Are you sure you want to delete "${selectedItem.filename}"? Active posts referencing this image will block deletion.`
-		: 'Delete this item?'}
-	confirmLabel="Delete Asset"
+	open={confirmKind !== null}
+	title={confirmTitle}
+	message={confirmMessage}
+	confirmLabel={confirmKind === 'bulk' ? 'Delete Selected' : 'Delete Asset'}
 	variant="danger"
-	onConfirm={executeDeleteSelected}
-	onCancel={() => (confirmDeleteOpen = false)}
+	onConfirm={() => (confirmKind === 'bulk' ? void runBulkDelete() : void executeDeleteSelected())}
+	onCancel={closeConfirm}
 />
 
 <style>
@@ -941,6 +821,10 @@
 		backdrop-filter: blur(5px);
 	}
 
+	.media-library-root:focus {
+		outline: none;
+	}
+
 	.media-shell {
 		display: flex;
 		flex-direction: column;
@@ -954,194 +838,13 @@
 		box-shadow: var(--shadow-lg);
 	}
 
-	.media-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 0.9rem 1.25rem;
-		background: var(--bg-soft);
-		border-bottom: 1px solid var(--line);
-	}
-
-	.media-header-left,
-	.media-header-right {
-		display: flex;
-		align-items: center;
-		gap: 0.85rem;
-	}
-
-	.media-title {
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: 1.08rem;
-		font-weight: 700;
-		color: var(--text);
-	}
-
-	.media-tabs {
-		display: flex;
-		gap: 0.4rem;
-	}
-
-	.tab-btn,
-	.btn-chip,
-	.btn-close {
-		padding: 0.42rem 0.85rem;
-		border-radius: 6px;
-		border: 1px solid var(--line);
-		background: var(--panel2);
-		color: var(--text-secondary);
-		font-family: var(--font-sans);
-		font-size: 0.83rem;
-		font-weight: 600;
-		cursor: pointer;
-	}
-
-	.tab-btn.is-active,
-	.btn-chip.is-active {
-		background: var(--acid);
-		border-color: var(--acid);
-		color: var(--ink);
-	}
-
-	.banner-error,
-	.banner-status {
-		padding: 0.65rem 1.25rem;
-		font-size: 0.86rem;
-		border-bottom: 1px solid var(--line);
-	}
-
-	.banner-error {
-		background: rgba(255, 121, 105, 0.14);
-		color: var(--coral);
-	}
-
-	.banner-status {
-		background: rgba(220, 255, 101, 0.12);
-		color: var(--acid);
-	}
-
-	.conflict-list {
-		margin: 0.4rem 0 0;
-		padding-left: 1.2rem;
-	}
-
-	.upload-view {
-		padding: 1.5rem;
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-		overflow-y: auto;
-	}
-
-	.upload-meta-row {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-		gap: 1rem;
-	}
-
-	.dropzone {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		padding: 2.75rem 1.5rem;
-		border: 2px dashed var(--line-strong);
-		border-radius: 12px;
-		background: var(--bg-soft);
-		text-align: center;
-		cursor: pointer;
-	}
-
-	.dropzone.is-dragging {
-		border-color: var(--acid);
-		background: rgba(220, 255, 101, 0.06);
-	}
-
-	.sr-only-input {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	.dropzone-headline {
-		font-family: var(--font-display);
-		font-size: 1rem;
-		font-weight: 700;
-		color: var(--text);
-	}
-
-	.dropzone-sub {
-		font-size: 0.85rem;
-		color: var(--muted);
-		max-width: 580px;
-	}
-
-	.upload-queue {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.45rem;
-	}
-
-	.upload-queue-item {
-		display: flex;
-		justify-content: space-between;
-		padding: 0.55rem 0.85rem;
-		background: var(--panel2);
-		border-radius: 6px;
-		font-size: 0.85rem;
-	}
-
-	.queue-badge.status-done {
-		color: var(--acid);
-	}
-
-	.queue-badge.status-error {
-		color: var(--coral);
-	}
-
-	.library-controls {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.6rem;
+	.ml-queue-strip {
+		flex-shrink: 0;
 		padding: 0.75rem 1.25rem;
-		background: var(--panel2);
 		border-bottom: 1px solid var(--line);
-	}
-
-	.search-input {
-		flex: 1 1 220px;
-	}
-
-	.text-input,
-	.select-input,
-	.textarea-input {
-		padding: 0.45rem 0.7rem;
-		border-radius: 6px;
-		border: 1px solid var(--line-strong);
-		background: var(--bg);
-		color: var(--text);
-		font-family: var(--font-sans);
-		font-size: 0.86rem;
-	}
-
-	.new-folder-box,
-	.view-toggle {
-		display: flex;
-		align-items: center;
-		gap: 0.35rem;
-	}
-
-	.folder-input {
-		width: 135px;
+		background: var(--bg-soft);
+		max-height: min(15rem, 30vh);
+		overflow-y: auto;
 	}
 
 	.library-body {
@@ -1152,231 +855,24 @@
 		overflow: hidden;
 	}
 
-	.library-main {
-		padding: 1rem 1.25rem;
-		overflow-y: auto;
-	}
-
-	.media-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-		gap: 0.85rem;
-	}
-
-	.media-card {
-		display: flex;
-		flex-direction: column;
-		padding: 0;
-		background: var(--panel2);
-		border: 2px solid var(--line);
-		border-radius: 8px;
-		overflow: hidden;
-		cursor: pointer;
-		text-align: left;
-	}
-
-	.media-card.is-selected {
-		border-color: var(--acid);
-	}
-
-	.media-thumb-wrap {
-		position: relative;
-		width: 100%;
-		aspect-ratio: 4 / 3;
-		background: var(--bg);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-	}
-
-	.media-thumb {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.badge-missing-alt {
-		position: absolute;
-		top: 6px;
-		right: 6px;
-		padding: 0.15rem 0.4rem;
-		border-radius: 4px;
-		background: var(--coral);
-		color: var(--ink);
-		font-size: 0.7rem;
-		font-weight: 700;
-	}
-
-	.media-card-meta {
-		padding: 0.5rem 0.65rem;
-		display: flex;
-		flex-direction: column;
-		gap: 0.15rem;
-	}
-
-	.media-card-name {
-		font-size: 0.8rem;
-		font-weight: 600;
-		color: var(--text);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.media-card-sub {
-		font-size: 0.72rem;
-		color: var(--muted);
-	}
-
-	.media-table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: 0.84rem;
-	}
-
-	.media-table th,
-	.media-table td {
-		padding: 0.5rem 0.65rem;
-		border-bottom: 1px solid var(--line);
-		text-align: left;
-	}
-
-	.media-table tr.is-selected {
-		background: rgba(220, 255, 101, 0.08);
-	}
-
-	.table-thumb {
-		width: 48px;
-		height: 36px;
-		object-fit: cover;
-		border-radius: 4px;
-	}
-
-	.pagination-bar {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.75rem;
-		margin-top: 1.25rem;
-	}
-
-	.page-info {
-		font-size: 0.84rem;
-		color: var(--muted);
-	}
-
-	.library-inspector {
-		padding: 1rem;
-		background: var(--bg-soft);
-		border-left: 1px solid var(--line);
-		overflow-y: auto;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.inspector-preview {
-		display: flex;
-		flex-direction: column;
-		gap: 0.55rem;
-	}
-
-	.inspector-img {
-		width: 100%;
-		max-height: 180px;
-		object-fit: contain;
-		background: var(--bg);
-		border-radius: 6px;
-		border: 1px solid var(--line);
-	}
-
-	.inspector-specs {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		font-size: 0.76rem;
-		color: var(--muted);
-	}
-
-	.inspector-fields,
-	.insert-settings {
-		display: flex;
-		flex-direction: column;
-		gap: 0.65rem;
-	}
-
-	.field-label {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		font-size: 0.78rem;
-		font-weight: 600;
-		color: var(--text-secondary);
-	}
-
-	.inspector-actions {
-		display: flex;
-		gap: 0.5rem;
-		margin-top: 0.35rem;
-	}
-
-	.btn-primary,
-	.btn-secondary,
-	.btn-danger {
-		padding: 0.5rem 0.85rem;
-		border-radius: 6px;
-		font-family: var(--font-sans);
-		font-size: 0.84rem;
-		font-weight: 700;
-		cursor: pointer;
-		border: 1px solid transparent;
-	}
-
-	.btn-primary {
-		background: var(--acid);
-		color: var(--ink);
-	}
-
-	.btn-secondary {
-		background: var(--panel2);
-		border-color: var(--line-strong);
-		color: var(--text);
-		flex: 1;
-	}
-
-	.btn-danger {
-		background: rgba(255, 121, 105, 0.16);
-		border-color: var(--coral);
-		color: var(--coral);
-	}
-
-	.btn-insert {
-		width: 100%;
-		margin-top: 0.35rem;
-	}
-
-	.inspector-divider {
-		border: 0;
-		border-top: 1px solid var(--line);
-		margin: 0.5rem 0;
-	}
-
-	.empty-state,
-	.empty-inspector {
-		color: var(--muted);
-		font-size: 0.88rem;
-		text-align: center;
-		padding: 2rem 1rem;
-	}
-
 	@media (max-width: 900px) {
 		.library-body {
 			grid-template-columns: 1fr;
+			overflow: visible;
+			max-height: none;
+			min-height: 0;
+			flex-shrink: 0;
 		}
-		.library-inspector {
-			border-left: 0;
-			border-top: 1px solid var(--line);
+	}
+
+	@media (max-width: 900px) {
+		.media-library-root.is-modal {
+			padding: 0.5rem;
+		}
+
+		.media-shell {
+			max-height: 96vh;
+			overflow-y: auto;
 		}
 	}
 </style>

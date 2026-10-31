@@ -136,3 +136,93 @@ autofixer last).
 
 A phase is done only with: tests for what changed passing, the gate run once before push, runtime evidence (screenshot or
 curl output for UI/HTTP changes), `CHANGELOG.md` and `TEMPORARY.md` updated, and an honest "not verified" list.
+
+## 6. Progress log
+
+### P1 to P3 implemented on `feat/admin-auth` (2026-10-31)
+
+Runtime evidence (Chromium against `vite dev`, local PGlite, seeded temporary admin):
+
+- Anonymous `/admin/posts` redirects to `/admin/login?next=%2Fadmin%2Fposts`; `/api/admin/posts` returns 401;
+  `x-rtp-e2e-test: 1` no longer grants access (303 to login); `/admin/login` sends `X-Robots-Tag: noindex, nofollow`.
+- Wrong password shows "Email or password is incorrect."; the right one lands on `/admin/posts` (`next` honoured).
+- Editor loads; typing title/excerpt/body and **Save Draft** creates post id 4 with no failed non-GET request (the stricter
+  CSRF check does not break remote functions in a browser).
+- Negative control: with `userAdditionalFields.role` removed, 3 of 3 tests in `auth-role.db.spec.ts` fail; restored, they pass.
+
+Open items found while testing, to be settled in P4 (not fixed yet):
+
+- **Publish gives no visible reason when blocked.** Clicking Publish on the draft (SEO 0/100, 7 blocking) left the page
+  unchanged with status "Ready"; the post stayed `DRAFT` and `/blog/<slug>` returned 404. The gate is by design
+  (`src/lib/shared/seo/score.ts`), but the blocking reasons must be shown to the user.
+- **"Add New Author" did not assign an author** in the scripted run (select still "Unassigned"); not yet determined whether
+  that is a race in the script or a defect.
+- Login form submitted before hydration in one dev run did not POST (script clicked right after `goto`); passed once the page
+  was idle. Not reproduced by hand; check progressive enhancement in P4.
+- Dashboard loads full post rows to count them; add a count query (`services/posts.ts`).
+- Login rate limits (30/IP, 10/email per 15 min) are custom, not Better Auth's limiter; revisit in P5.
+- `getClientIp()` in `auth-guard.ts` trusts the first `x-forwarded-for` value (client-controllable); the login action uses
+  `getClientAddress()` instead. Decide for the other callers in P5.
+
+### P4 results: write and publish a post through `/admin` (2026-10-31)
+
+Browser: Playwright (Chromium) against `vite dev` on port 5199, local PGlite, seeded temporary admin. Test content is
+labelled "P4 smoke test"; every test row (post 37, 9 authors, 5 categories, 10 tags, 2 media files) was deleted at the end
+and the redirect rows of the deleted post are gone (old URL 404). Scripts live in `/tmp/fc/p4-*.mjs`, not in the repo.
+
+| Step                                                                     | Result                                          | Evidence                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1 sign in                                                               | PASS                                            | redirected to `/admin` after the seed login                                                                                                                                                                                                                                                                               |
+| S2 blocked Publish                                                       | PASS after fix                                  | Alert `role=alert` with 10 items (blocking marked), focus on alert, SEO panel opened, URL stays `/admin/posts/new`, no row created. Before the fix the reasons were a raw string at the top of the page only and the SEO list was in a hidden tab. `/tmp/fc/p4-blocked-publish.png`                                       |
+| S3 create author and assign                                              | PASS (the earlier failure was a duplicate name) | Create gives rpc 200, select and header show the new author. Re-using a name gives `DUPLICATE_SLUG` (409), shown before as "Failed to create author." and now as `Author slug "billy-ribeiro" already exists.` (`/tmp/fc/p4-dup.mjs`)                                                                                     |
+| S4 create category, assign                                               | PASS                                            | rpc 200, checkbox checked                                                                                                                                                                                                                                                                                                 |
+| S5 create two tags                                                       | PASS                                            | tags panel shows both                                                                                                                                                                                                                                                                                                     |
+| S6 body                                                                  | PASS with a warning                             | HTML Source mode, placeholder removed, 2 external https links. 462 words: above the 300 minimum, below 600, so a -3 warning                                                                                                                                                                                               |
+| S7 excerpt, meta title (41 chars), meta description (129), focus keyword | PASS                                            | fields accepted                                                                                                                                                                                                                                                                                                           |
+| S8 FAQ, 3 items                                                          | PASS                                            | three question and answer pairs entered                                                                                                                                                                                                                                                                                   |
+| S9 cover image                                                           | PASS for upload, GAP for display                | `POST /api/media/upload` 201, converted to WebP with variants; cover URL is `https://revolutiontradingpros.com/media/...`. Without `BLOB_READ_WRITE_TOKEN` the bytes go to an in-memory map and that URL is not served: local `GET /media/...` is 404 and the library thumbnails are broken (`/tmp/fc/p4-media-page.png`) |
+| S10 Save Draft                                                           | PASS                                            | post 37 created as draft, SEO 97/100                                                                                                                                                                                                                                                                                      |
+| Publish                                                                  | PASS                                            | admin list row `PUBLISHED`; the label bug below is fixed (the click used the "Publish" label on a draft)                                                                                                                                                                                                                  |
+| Public page                                                              | PASS                                            | `GET /blog/p4-smoke-test-publishing-checklist` 200, title present, canonical on `https://revolutiontradingpros.com`                                                                                                                                                                                                       |
+| JSON-LD                                                                  | PASS                                            | one `@graph`: EducationalOrganization, WebSite, BreadcrumbList, Person, BlogPosting, FAQPage. FAQPage has 3 items and the page has 3 `<details>`, identical question and answer text, 1:1                                                                                                                                 |
+| `/blog`, `/rss.xml`, `/sitemap.xml`                                      | PASS                                            | status 200 on `/blog`; slug present in RSS and sitemap                                                                                                                                                                                                                                                                    |
+| Edit and update                                                          | PASS                                            | Save on the live post: Revision History 2 to 3; "Compare & Restore" opens the diff dialog (`/tmp/fc/p4-c2-diff.png`)                                                                                                                                                                                                      |
+| Move to Trash                                                            | PASS                                            | redirected to the list, no live row                                                                                                                                                                                                                                                                                       |
+| Restore                                                                  | PASS, status question                           | Post is back in the list with status **PUBLISHED**, not draft (restore keeps the stored status, `restoreTrashedPost`). Public again without a gate check. Open decision                                                                                                                                                   |
+| Rename slug                                                              | PASS                                            | rename dialog, rpc 200; `GET` old URL 301 to `/blog/p4-smoke-test-publishing-checklist-renamed`; new URL 200                                                                                                                                                                                                              |
+| Permanent delete                                                         | PASS                                            | new URL 404, old URL 404 (redirect rows removed)                                                                                                                                                                                                                                                                          |
+
+Open items from P1 to P3, resolved:
+
+- **(a) Blocked Publish gave no visible reason: RESOLVED.** Cause: the server refusal was rendered only in the top alert
+  and the issue list was inside the SEO tab, hidden unless it was the open tab. Fix: S2 above; test
+  `post-editor/publish-gate.spec.ts`.
+- **(b) "Add New Author" did not assign: RESOLVED, not an assignment bug.** A failing run re-used the name of an author
+  created earlier, so the server returned 409 `DUPLICATE_SLUG` and the UI showed a generic message. The 409 message is
+  now shown (`post-editor/rpc-error.ts`, test `rpc-error.spec.ts`). Assignment itself worked on every fresh name (3 of 3
+  runs, select and header agree after the response). Open UX gap: a duplicate name is refused, not selected.
+- **(c) Login form submitted before hydration sent no POST: RESOLVED.** Plain HTML POST works with JavaScript disabled
+  (`javaScriptEnabled: false`: POST `/admin/login`, server answered "Email or password is incorrect."). The pre-hydration
+  case was a race: the email input had `value={form?.email}`, and hydration reset the typed email to empty. The
+  `required` field then blocked the native submit. Before the fix 3 of 6 attempts sent no POST and the email was cleared;
+  after changing to `defaultValue` 6 of 6 sent the POST and kept the email (`/tmp/fc/p4-c4.mjs`).
+
+New defects found and status:
+
+- **"Update and close" on a draft published it.** Fixed: a draft shows "Publish" (top bar, sidebar and mobile bar); "Update
+  and close" only for a published post. Autofixer clean; verified in the publish step: the button labelled "Publish" on draft 37 published it.
+- **Cover images do not display without `BLOB_READ_WRITE_TOKEN`.** Open. Needs either the Blob token in dev or a local
+  `/media/` route; not changed because it is a storage decision.
+- **Media picker sets cover alt to the media title when alt is blank** (`MediaLibrary.svelte`, `handleInsertSelected`).
+  The spec says `alt_text || ''`. Open, low risk: the gate blocks it with a clear reason if the title equals the post title.
+- **Restore from Trash keeps status PUBLISHED.** Open decision for the owner (restore as draft, or keep).
+- **Editor score counts fields before server autofill**, so the editor can show one more blocking item than the server
+  (seen: "8 blocking" in the pill, 7 in the server refusal). Documented in `docs/ADMIN_LOCAL_LOGIN.md` section 8. Open.
+- **Remote errors arrive as HTTP 200** with `{"type":"error"}`, including the SEO refusal. Works in the UI, but any
+  monitoring by status code will not see them. Open, observation.
+- **Sign-in rate limit is stored in the database and survives restarts.** 10 attempts per email per 15 minutes was hit by
+  scripted testing; wait or use another email when re-running. Observation, not a change.
+
+Not verified in P4: the media library thumbnails and cover image rendering on the public page (no servable URL locally);
+the cover image in OG/Twitter output; the full gate run (`pnpm build` and `pnpm test:e2e` were not run, per instructions);
+the other browsers; mobile widths; the publish of a scheduled post; the dashboard count query.

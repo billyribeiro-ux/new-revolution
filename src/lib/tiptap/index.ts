@@ -29,6 +29,7 @@ import { FontSize } from './font-size';
 import { FontFamily } from './font-family';
 import { BlockStyle } from './block-style';
 import { FindAndReplace } from './find-replace';
+import { ImageAltWarning } from './image-alt-warning';
 
 export const CODE_BLOCK_LANGUAGES = [
 	{ value: 'plaintext', label: 'Plain Text' },
@@ -44,6 +45,8 @@ export const CODE_BLOCK_LANGUAGES = [
 
 export interface CreateBlogExtensionsOptions {
 	placeholder?: string;
+	/** When set, images without alt text get an editor-only "Add alt text" chip that calls this. */
+	onImageAltActivate?: (position: number) => void;
 }
 
 export function resolveEditorLinkAttributes(options: {
@@ -193,7 +196,10 @@ export function createBlogEditorExtensions(
 		Callout,
 		Vimeo,
 		Tweet,
-		FindAndReplace
+		FindAndReplace,
+		...(options.onImageAltActivate
+			? [ImageAltWarning.configure({ onActivate: options.onImageAltActivate })]
+			: [])
 	];
 }
 

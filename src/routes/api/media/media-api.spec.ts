@@ -1,7 +1,11 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import sharp from 'sharp';
 import { createTestDatabase, setActiveDbForTest } from '#lib/server/db';
 import { media, user } from '#lib/server/db/schema';
+import { createDiskStorageDriver, setMediaStorageDriverForTest } from '#lib/server/media-storage';
 import { POST as uploadHandler } from './upload/+server';
 import { GET as listHandler } from './list/+server';
 import { GET as foldersGetHandler, POST as foldersPostHandler } from './folders/+server';
@@ -15,6 +19,18 @@ import {
 	backfillBlogImageVariants,
 	parseBackfillCliArgs
 } from '../../../../scripts/backfill-blog-image-variants';
+
+/**
+ * `requireAdmin` rejects mutating requests that carry neither Origin nor Referer (CSRF, auth-guard.ts), as a
+ * browser always sends one. Default the Origin to the request's own origin unless the test sets one.
+ */
+function sameOriginRequest(input: string, init?: RequestInit): Request {
+	const headers = new Headers(init?.headers);
+	if (!headers.has('origin') && !headers.has('referer')) {
+		headers.set('origin', new URL(input).origin);
+	}
+	return new Request(input, { ...init, headers });
+}
 
 const ADMIN_LOCALS = {
 	user: {
@@ -36,7 +52,7 @@ function makeEvent(options: {
 	const urlObj = new URL(options.url ?? 'https://revolutiontradingpros.com/api/media/upload');
 	const req =
 		options.request ??
-		new Request(urlObj.toString(), {
+		sameOriginRequest(urlObj.toString(), {
 			method: options.method ?? 'GET'
 		});
 	return {
@@ -49,7 +65,15 @@ function makeEvent(options: {
 }
 
 describe('Media REST API & Backfill Pipeline', () => {
+	const mediaRoot = mkdtempSync(path.join(os.tmpdir(), 'media-api-'));
+
+	afterAll(() => {
+		setMediaStorageDriverForTest(null);
+		rmSync(mediaRoot, { recursive: true, force: true });
+	});
+
 	beforeEach(async () => {
+		setMediaStorageDriverForTest(createDiskStorageDriver(mediaRoot));
 		const { db } = await createTestDatabase();
 		setActiveDbForTest(db);
 		await db.insert(user).values({
@@ -63,7 +87,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 
 	it('rejects non-multipart requests with 415 and oversized Content-Length or streamed bodies with 413', async () => {
 		// 1. 415 Unsupported Media Type
-		const badTypeReq = new Request('https://revolutiontradingpros.com/api/media/upload', {
+		const badTypeReq = sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({ hello: 'world' })
@@ -72,7 +96,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		expect(res415.status).toBe(415);
 
 		// 2. 413 via Content-Length header > 4.4MB
-		const overHeaderReq = new Request('https://revolutiontradingpros.com/api/media/upload', {
+		const overHeaderReq = sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 			method: 'POST',
 			headers: {
 				'content-type': 'multipart/form-data; boundary=---xyz',
@@ -91,7 +115,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 				controller.close();
 			}
 		});
-		const streamedReq = new Request('https://revolutiontradingpros.com/api/media/upload', {
+		const streamedReq = sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 			method: 'POST',
 			headers: {
 				'content-type': 'multipart/form-data; boundary=---xyz'
@@ -117,7 +141,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdUnknown.set('evilField', 'unexpected');
 		const resUnknown = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdUnknown
 				})
@@ -131,7 +155,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdBigMeta.set('description', 'x'.repeat(17 * 1024));
 		const resBigMeta = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdBigMeta
 				})
@@ -144,7 +168,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdEmpty.set('file', new File([new Uint8Array(0)], 'empty.png', { type: 'image/png' }));
 		const resEmpty = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdEmpty
 				})
@@ -160,7 +184,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		);
 		const resSpoof = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdSpoof
 				})
@@ -182,7 +206,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		);
 		const resSvg = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdSvg
 				})
@@ -196,7 +220,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdMultiFile.append('file', new File([validPng], 'two.png', { type: 'image/png' }));
 		const resMultiFile = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdMultiFile
 				})
@@ -211,7 +235,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdDupMeta.append('title', 'Second');
 		const resDupMeta = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fdDupMeta
 				})
@@ -224,7 +248,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		fdCsrf.set('file', new File([validPng], 'one.png', { type: 'image/png' }));
 		const resCsrf = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					headers: { origin: 'https://evil-attacker.example' },
 					body: fdCsrf
@@ -249,7 +273,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 
 		const uploadRes = await uploadHandler(
 			makeEvent({
-				request: new Request('https://revolutiontradingpros.com/api/media/upload', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/upload', {
 					method: 'POST',
 					body: fd
 				})
@@ -281,7 +305,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 			makeEvent({
 				url: 'https://revolutiontradingpros.com/api/media/folders',
 				method: 'POST',
-				request: new Request('https://revolutiontradingpros.com/api/media/folders', {
+				request: sameOriginRequest('https://revolutiontradingpros.com/api/media/folders', {
 					method: 'POST',
 					headers: { 'content-type': 'application/json' },
 					body: JSON.stringify({ name: 'webinars' })
@@ -336,7 +360,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 				url: `https://revolutiontradingpros.com/api/media/${uploaded.id}`,
 				method: 'PATCH',
 				params: { id: uploaded.id },
-				request: new Request(`https://revolutiontradingpros.com/api/media/${uploaded.id}`, {
+				request: sameOriginRequest(`https://revolutiontradingpros.com/api/media/${uploaded.id}`, {
 					method: 'PATCH',
 					headers: { 'content-type': 'application/json' },
 					body: JSON.stringify({ alt_text: 'Updated alt — text' })

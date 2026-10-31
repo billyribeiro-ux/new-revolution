@@ -13,6 +13,16 @@
 	import { EDITOR_FONT_FAMILIES } from '#lib/tiptap/font-family';
 	import { CALLOUT_TYPES, type CalloutType } from '#lib/tiptap/callout';
 	import { filterSlashCommands, type SlashCommandItem } from '#lib/tiptap/slash-commands';
+	import {
+		buildInsertedImageAttrs,
+		replaceImageAt,
+		resizedImageDims,
+		selectedImageTarget,
+		mapPickerAlign,
+		type ImageWidthPreset
+	} from '#lib/tiptap/image-actions';
+	import type { ImageAlign } from '#lib/tiptap/image-with-dimensions';
+	import ImageControlMenu from './rich-text/ImageControlMenu.svelte';
 	import '#lib/styles/prose.css';
 
 	interface Props {
@@ -86,9 +96,17 @@
 	let slashRange = $state<{ from: number; to: number } | null>(null);
 	let slashIndex = $state(0);
 
-	let selectedImageAlt = $state('');
-	let selectedImageCaption = $state('');
-	let selectedImageAlign = $state<'left' | 'center' | 'right' | null>('center');
+	// Selected-image state mirrored from the node attrs for the floating ImageControlMenu.
+	let selectedImage = $state({
+		alt: '',
+		title: '',
+		caption: '',
+		align: null as ImageAlign,
+		width: null as number | null
+	});
+	let imageAnchor = $state.raw<HTMLImageElement | null>(null);
+	let imageAnchorPoint = $state({ x: 0, y: 0 });
+	let altEditRequest = $state(0);
 
 	let uploadErrorBanner = $state('');
 	let uploadingInlineImage = $state(false);
@@ -157,11 +175,24 @@
 
 			if (ed.isActive('image')) {
 				const attrs = ed.getAttributes('image');
-				selectedImageAlt = (attrs.alt as string) ?? '';
-				selectedImageCaption = (attrs.caption as string) ?? '';
-				const rawAlign = attrs.dataAlign ?? attrs.align;
-				selectedImageAlign =
-					rawAlign === 'left' || rawAlign === 'center' || rawAlign === 'right' ? rawAlign : null;
+				selectedImage = {
+					alt: (attrs.alt as string) ?? '',
+					title: (attrs.title as string) ?? '',
+					caption: (attrs.caption as string) ?? '',
+					align: mapPickerAlign((attrs.dataAlign ?? attrs.align) as string | null),
+					width: typeof attrs.width === 'number' ? attrs.width : null
+				};
+				const target = selectedImageTarget(ed);
+				const dom = target ? ed.view.nodeDOM(target.pos) : null;
+				const img =
+					dom instanceof HTMLImageElement
+						? dom
+						: ((dom as HTMLElement | null)?.querySelector?.('img') ?? null);
+				imageAnchor = img ?? null;
+				const rect = img?.getBoundingClientRect();
+				imageAnchorPoint = rect ? { x: rect.left + rect.width / 2, y: rect.top } : { x: 0, y: 0 };
+			} else {
+				imageAnchor = null;
 			}
 
 			// Detect slash command trigger at current cursor
@@ -219,17 +250,19 @@
 				editor
 					.chain()
 					.focus()
-					.setImage({
-						src: url,
-						alt: item.alt_text || item.filename || 'Article image',
-						title: item.title || undefined
-					})
-					.updateAttributes('image', {
-						width: item.width ?? null,
-						height: item.height ?? null,
-						mediaId: item.id ?? null,
-						dataAlign: 'center',
-						size: 'full'
+					.insertContent({
+						type: 'image',
+						attrs: {
+							src: url,
+							// Alt is never invented: an empty alt stays empty and the editor flags it.
+							alt: item.alt_text || '',
+							title: item.title || null,
+							width: item.width ?? null,
+							height: item.height ?? null,
+							mediaId: item.id ?? null,
+							dataAlign: 'center',
+							size: 'full'
+						}
 					})
 					.run();
 			}
@@ -259,32 +292,35 @@
 	}
 
 	function triggerMediaPicker() {
-		if (onOpenMediaPicker) {
-			onOpenMediaPicker((payload) => {
-				if (!editor) return;
-				const alignAttr =
-					payload.align === 'left' || payload.align === 'center' || payload.align === 'right'
-						? payload.align
-						: null;
-				editor
-					.chain()
-					.focus()
-					.setImage({
-						src: payload.url,
-						alt: payload.alt || 'Article image'
-					})
-					.updateAttributes('image', {
-						width: payload.width ?? null,
-						height: payload.height ?? null,
-						caption: payload.caption || null,
-						size: payload.size || 'full',
-						dataAlign: alignAttr,
-						linkHref: payload.linkUrl || null,
-						mediaId: payload.mediaId || null
-					})
-					.run();
-			});
-		}
+		onOpenMediaPicker?.((payload) => {
+			if (!editor) return;
+			editor
+				.chain()
+				.focus()
+				.insertContent({ type: 'image', attrs: buildInsertedImageAttrs(payload) })
+				.run();
+		});
+	}
+
+	/** `commands.focus()` does not move DOM focus while an atom image is node-selected; focus the surface itself. */
+	function focusEditorSurface() {
+		editor?.view.dom.focus({ preventScroll: true });
+	}
+
+	/** Replace the selected image through the same picker as the toolbar's Image button. */
+	function replaceSelectedImage() {
+		if (!editor || !onOpenMediaPicker) return;
+		const target = selectedImageTarget(editor);
+		if (!target) return;
+		onOpenMediaPicker((payload) => {
+			if (!editor) return;
+			const done = replaceImageAt(editor, target.pos, target.src, payload);
+			if (!done) {
+				uploadErrorBanner =
+					'The image changed while the media library was open; nothing was replaced.';
+			}
+			focusEditorSurface();
+		});
 	}
 
 	function openLinkPopover() {
@@ -314,7 +350,10 @@
 			() =>
 				new Editor({
 					element: container,
-					extensions: createBlogEditorExtensions({ placeholder }),
+					extensions: createBlogEditorExtensions({
+						placeholder,
+						onImageAltActivate: activateImageAltChip
+					}),
 					content: content || '<p></p>',
 					editorProps: {
 						attributes: {
@@ -562,29 +601,52 @@
 		findCurrentIndex = editor.storage.findAndReplace?.currentIndex ?? 0;
 	}
 
-	function updateSelectedImageAttributes() {
+	function setSelectedImageAlign(next: ImageAlign) {
+		if (!editor || !editor.isActive('image')) return;
+		editor.chain().focus().updateAttributes('image', { dataAlign: next }).run();
+	}
+
+	function setSelectedImageDetails(details: { alt: string; title: string; caption: string }) {
 		if (!editor || !editor.isActive('image')) return;
 		editor
 			.chain()
 			.focus()
 			.updateAttributes('image', {
-				alt: selectedImageAlt.trim(),
-				caption: selectedImageCaption.trim() || null,
-				dataAlign: selectedImageAlign
+				alt: details.alt,
+				title: details.title || null,
+				caption: details.caption || null
 			})
 			.run();
 	}
 
-	function resizeSelectedImage(widthPx: number | null, sizePreset: string) {
+	function resizeSelectedImage(preset: ImageWidthPreset) {
 		if (!editor || !editor.isActive('image')) return;
+		const attrs = editor.getAttributes('image');
+		const dom = imageAnchor;
+		const natural =
+			dom && dom.naturalWidth > 0 && dom.naturalHeight > 0
+				? { width: dom.naturalWidth, height: dom.naturalHeight }
+				: null;
+		const dims = resizedImageDims(
+			{ width: attrs.width ?? null, height: attrs.height ?? null },
+			natural,
+			preset.px
+		);
 		editor
 			.chain()
 			.focus()
-			.updateAttributes('image', {
-				width: widthPx,
-				size: sizePreset
-			})
+			.updateAttributes('image', { width: dims.width, height: dims.height, size: preset.size })
 			.run();
+	}
+
+	function removeSelectedImage() {
+		editor?.chain().focus().deleteSelection().run();
+	}
+
+	function activateImageAltChip(position: number) {
+		if (!editor) return;
+		editor.chain().focus().setNodeSelection(position).run();
+		altEditRequest += 1;
 	}
 
 	let currentHeadingValue = $derived.by(() => {
@@ -1469,78 +1531,6 @@
 		</div>
 	{/if}
 
-	<!-- Contextual Image Inspector Bar -->
-	{#if isImageSelected && !htmlSourceMode}
-		<div class="image-inspector-bar" role="region" aria-label="Selected image controls">
-			<div class="img-bar-row">
-				<span class="img-bar-label">Align:</span>
-				{#each ['left', 'center', 'right', 'none'] as const as al (al)}
-					{@const targetAlign = al === 'none' ? null : al}
-					<button
-						type="button"
-						class={['tool-btn', { 'is-active': selectedImageAlign === targetAlign }]}
-						aria-pressed={selectedImageAlign === targetAlign}
-						onclick={() => {
-							selectedImageAlign = targetAlign;
-							updateSelectedImageAttributes();
-						}}
-					>
-						{al}
-					</button>
-				{/each}
-
-				<span class="img-bar-label">Width:</span>
-				<button
-					type="button"
-					class="tool-btn"
-					onclick={() => resizeSelectedImage(320, 'thumbnail')}
-				>
-					25%
-				</button>
-				<button
-					type="button"
-					class="tool-btn"
-					onclick={() => resizeSelectedImage(480, 'thumbnail')}
-				>
-					50%
-				</button>
-				<button type="button" class="tool-btn" onclick={() => resizeSelectedImage(800, 'medium')}>
-					75%
-				</button>
-				<button type="button" class="tool-btn" onclick={() => resizeSelectedImage(null, 'full')}>
-					100%
-				</button>
-
-				<button
-					type="button"
-					class="tool-btn is-danger"
-					onclick={() => editor?.chain().focus().deleteSelection().run()}
-				>
-					Remove Image
-				</button>
-			</div>
-
-			<div class="img-bar-row">
-				<input
-					type="text"
-					class="popover-input img-meta-input"
-					aria-label="Image alt text"
-					placeholder="Image alt text (required for SEO)..."
-					bind:value={selectedImageAlt}
-					onchange={updateSelectedImageAttributes}
-				/>
-				<input
-					type="text"
-					class="popover-input img-meta-input"
-					aria-label="Image figure caption"
-					placeholder="Optional figure caption..."
-					bind:value={selectedImageCaption}
-					onchange={updateSelectedImageAttributes}
-				/>
-			</div>
-		</div>
-	{/if}
-
 	<!-- Slash Command Listbox -->
 	{#if slashMenuOpen && !htmlSourceMode}
 		<div
@@ -1581,6 +1571,25 @@
 			}}
 			class={['rte-canvas', { 'is-hidden': htmlSourceMode }]}
 		></div>
+
+		<ImageControlMenu
+			visible={isImageSelected && !htmlSourceMode && imageAnchor !== null}
+			x={imageAnchorPoint.x}
+			y={imageAnchorPoint.y}
+			anchor={imageAnchor}
+			alignment={selectedImage.align}
+			width={selectedImage.width}
+			alt={selectedImage.alt}
+			title={selectedImage.title}
+			caption={selectedImage.caption}
+			{altEditRequest}
+			onAlign={setSelectedImageAlign}
+			onWidth={resizeSelectedImage}
+			onEditDetails={setSelectedImageDetails}
+			onReplace={replaceSelectedImage}
+			onRemove={removeSelectedImage}
+			onEscape={focusEditorSurface}
+		/>
 
 		{#if htmlSourceMode}
 			<textarea
@@ -1740,11 +1749,6 @@
 		color: var(--ink);
 	}
 
-	.tool-btn.is-danger {
-		color: var(--coral);
-		border-color: var(--coral);
-	}
-
 	.popover-anchor {
 		position: relative;
 	}
@@ -1847,8 +1851,7 @@
 
 	.code-lang-bar,
 	.find-replace-bar,
-	.selection-bubble-bar,
-	.image-inspector-bar {
+	.selection-bubble-bar {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
@@ -1902,29 +1905,6 @@
 	.editor-banner.is-error {
 		background: rgba(255, 121, 105, 0.14);
 		color: var(--coral);
-	}
-
-	.image-inspector-bar {
-		flex-direction: column;
-		align-items: stretch;
-	}
-
-	.img-bar-row {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.4rem;
-	}
-
-	.img-bar-label {
-		font-size: 0.76rem;
-		font-weight: 700;
-		color: var(--muted);
-		margin-left: 0.35rem;
-	}
-
-	.img-meta-input {
-		flex: 1 1 220px;
 	}
 
 	.slash-command-menu {
@@ -2085,5 +2065,32 @@
 	.shortcut-desc {
 		margin: 0;
 		color: var(--text-secondary);
+	}
+
+	/* Editor-only warning for images without alt text (never part of the saved HTML). */
+	.rte-canvas :global(.ProseMirror img.is-missing-alt) {
+		outline: 2px dashed var(--coral);
+		outline-offset: 2px;
+	}
+
+	.rte-canvas :global(.image-alt-chip) {
+		display: inline-flex;
+		align-items: center;
+		margin: 0.5rem 0 0;
+		padding: 0.2rem 0.65rem;
+		border: 1px solid var(--coral);
+		border-radius: 999px;
+		background: var(--panel);
+		color: var(--coral);
+		font: inherit;
+		font-size: 0.78rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.rte-canvas :global(.image-alt-chip:hover),
+	.rte-canvas :global(.image-alt-chip:focus-visible) {
+		background: var(--coral);
+		color: var(--ink);
 	}
 </style>

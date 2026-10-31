@@ -55,9 +55,11 @@
 
 	let primaryButtonLabel = $derived.by(() => {
 		if (isSaving) return 'Saving...';
-		if (status === 'published') return postId ? 'Update and close' : 'Publish';
+		// The primary button publishes whenever the status is not "scheduled" (see handlePrimarySubmitRequest),
+		// so it must not say "Update" for a draft: that label hid the fact that the click makes the post live.
 		if (status === 'scheduled') return 'Schedule';
-		return postId ? 'Update and close' : 'Publish';
+		if (status === 'published' && postId) return 'Update and close';
+		return 'Publish';
 	});
 </script>
 

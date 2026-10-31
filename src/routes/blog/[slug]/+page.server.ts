@@ -367,7 +367,7 @@ export const actions: Actions = {
 			httpOnly: true,
 			sameSite: 'lax',
 			secure: event.url.protocol === 'https:' || process.env.NODE_ENV === 'production',
-			path: `/blog/${row.slug}`,
+			path: '/blog',
 			maxAge: 24 * 60 * 60
 		});
 

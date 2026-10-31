@@ -247,6 +247,25 @@
 		form.customFields = form.customFields.filter((cf) => cf !== target);
 	}
 
+	function getCustomFieldValue(key: string): string {
+		return form.customFields.find((cf) => cf.key === key)?.value ?? '';
+	}
+
+	function setCustomFieldValue(key: string, value: string) {
+		const idx = form.customFields.findIndex((cf) => cf.key === key);
+		if (idx !== -1) {
+			if (!value) {
+				form.customFields = form.customFields.filter((_, i) => i !== idx);
+			} else {
+				const copy = [...form.customFields];
+				copy[idx] = { key, value };
+				form.customFields = copy;
+			}
+		} else if (value) {
+			form.customFields = [...form.customFields, { key, value }];
+		}
+	}
+
 	function toDatetimeLocalValue(iso: string): string {
 		if (!iso) return '';
 		const d = new Date(iso);
@@ -304,6 +323,26 @@
 	let availableTagObjects = $derived(tags.filter((t) => !form.tagIds.includes(t.id)));
 
 	let derivedToc = $derived(normalizePostHeadings(form.content, form.title).toc);
+
+	function scrollToEditorHeading(headingText: string, level: number) {
+		if (typeof document === 'undefined') return;
+		const proseRoot =
+			document.querySelector('.rte-wrapper .prose-base') ??
+			document.querySelector('.post-editor-shell');
+		if (!proseRoot) return;
+		const candidates = proseRoot.querySelectorAll(`h${level}, h1, h2, h3, h4, h5, h6`);
+		const normalizedTarget = headingText.trim().toLowerCase();
+		for (const el of candidates) {
+			if ((el.textContent ?? '').trim().toLowerCase() === normalizedTarget) {
+				const prefersReduced =
+					typeof window !== 'undefined' &&
+					typeof window.matchMedia === 'function' &&
+					window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
+				break;
+			}
+		}
+	}
 
 	async function copyTocMarkdown() {
 		if (derivedToc.length === 0) return;
@@ -381,7 +420,15 @@
 					</label>
 					{#if form.hasExistingPassword}
 						<label class="chk-row">
-							<input type="checkbox" bind:checked={form.clearPassword} />
+							<input
+								type="checkbox"
+								bind:checked={form.clearPassword}
+								onchange={() => {
+									if (form.clearPassword) {
+										form.visibility = 'public';
+									}
+								}}
+							/>
 							<span>Clear existing password</span>
 						</label>
 					{/if}
@@ -607,6 +654,14 @@
 				bind:coverImage={form.coverImage}
 				bind:coverImageAlt={form.coverImageAlt}
 				bind:coverImageCaption={form.coverImageCaption}
+				bind:coverImageTitle={
+					() => getCustomFieldValue('coverImageTitle'),
+					(v) => setCustomFieldValue('coverImageTitle', v)
+				}
+				bind:coverImageDescription={
+					() => getCustomFieldValue('coverImageDescription'),
+					(v) => setCustomFieldValue('coverImageDescription', v)
+				}
 				title={form.title}
 				dimensions={coverDimensions}
 				onPick={onPickCoverImage}
@@ -825,9 +880,15 @@
 							class="toc-preview-item"
 							style="padding-left: {Math.max(0, item.level - 2) * 0.75}rem"
 						>
-							<span class="toc-level-tag">H{item.level}</span>
-							<span class="toc-item-text">{item.text}</span>
-							<code class="toc-item-id">#{item.id}</code>
+							<button
+								type="button"
+								class="toc-preview-btn"
+								onclick={() => scrollToEditorHeading(item.text, item.level)}
+							>
+								<span class="toc-level-tag">H{item.level}</span>
+								<span class="toc-item-text">{item.text}</span>
+								<code class="toc-item-id">#{item.id}</code>
+							</button>
 						</li>
 					{/each}
 				</ul>
@@ -1190,9 +1251,29 @@
 	.toc-preview-item {
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
 		font-size: 0.78rem;
 		color: var(--text);
+	}
+
+	.toc-preview-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		width: 100%;
+		padding: 0.2rem 0.35rem;
+		border: none;
+		border-radius: 4px;
+		background: transparent;
+		color: inherit;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.toc-preview-btn:hover,
+	.toc-preview-btn:focus-visible {
+		background: var(--bg-soft);
 	}
 
 	.toc-level-tag {

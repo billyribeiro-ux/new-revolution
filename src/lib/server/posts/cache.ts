@@ -27,7 +27,7 @@ export function invalidatePublicBlogCache(paths: string[]): void {
 
 export function setPublicReadCache(
 	setHeaders: (headers: Record<string, string>) => void,
-	locals: App.Locals | undefined,
+	locals: Partial<App.Locals> | undefined,
 	request: Pick<Request, 'method'>
 ): void {
 	const method = request.method.toUpperCase();

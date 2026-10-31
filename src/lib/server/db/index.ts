@@ -4,9 +4,15 @@ import { PGlite } from '@electric-sql/pglite';
 import { drizzle as drizzlePglite, type PgliteDatabase } from 'drizzle-orm/pglite';
 import { drizzle as drizzlePostgres, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import * as schema from './schema';
+import { hashPostPassword } from '../posts/visibility.ts';
+import * as schema from './schema.ts';
 
-export type AppDatabase = PostgresJsDatabase<typeof schema> | PgliteDatabase<typeof schema>;
+export type BaseAppDatabase = PostgresJsDatabase<typeof schema> | PgliteDatabase<typeof schema>;
+export type AppDatabase = PgliteDatabase<typeof schema> & {
+	batch<const U extends readonly PromiseLike<unknown>[]>(
+		queries: U
+	): Promise<{ -readonly [K in keyof U]: Awaited<U[K]> }>;
+};
 
 const MIGRATION_SQL_PATH = resolve(process.cwd(), 'drizzle/0000_blog_system.sql');
 
@@ -43,12 +49,24 @@ export function assertDbHealthy(): void {
 	}
 }
 
+function attachBatch(instance: BaseAppDatabase): AppDatabase {
+	return Object.assign(instance, {
+		batch: async <const U extends readonly PromiseLike<unknown>[]>(queries: U) => {
+			const results: unknown[] = [];
+			for (const query of queries) {
+				results.push(await query);
+			}
+			return results as { -readonly [K in keyof U]: Awaited<U[K]> };
+		}
+	}) as AppDatabase;
+}
+
 function createDefaultDb(): AppDatabase {
 	const rawUrl = process.env.DATABASE_URL ?? 'postgres://user:password@host:port/db-name';
 
 	if (!isPlaceholderDatabaseUrl(rawUrl)) {
 		const client = postgres(rawUrl);
-		return drizzlePostgres(client, { schema });
+		return attachBatch(drizzlePostgres(client, { schema }));
 	}
 
 	const isVitest = Boolean(process.env.VITEST);
@@ -60,7 +78,7 @@ function createDefaultDb(): AppDatabase {
 		activePglite = new PGlite(dataDir);
 	}
 
-	return drizzlePglite(activePglite, { schema });
+	return attachBatch(drizzlePglite(activePglite, { schema }));
 }
 
 export function getDb(): AppDatabase {
@@ -73,9 +91,21 @@ export function getDb(): AppDatabase {
 
 async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 	if (process.env.VITEST) return;
-	const check = await pglite.query<{ count: string }>('SELECT count(*)::text AS count FROM posts');
+	const isMemoryDb = (process.env.DATABASE_URL ?? '').startsWith('memory://');
+	const totalCheck = await pglite.query<{ count: string }>(
+		`SELECT count(*)::text AS count FROM posts`
+	);
+	const totalPosts = Number(totalCheck.rows[0]?.count ?? '0');
+	if (totalPosts > 0 && !isMemoryDb) return;
+
+	const check = await pglite.query<{ count: string }>(
+		`SELECT count(*)::text AS count
+		 FROM posts p
+		 INNER JOIN categories c ON c.id = p.category_id
+		 WHERE c.slug = 'market-structure' AND p.status = 'published' AND p.visibility = 'public'`
+	);
 	const existingCount = Number(check.rows[0]?.count ?? '0');
-	if (existingCount > 0) return;
+	if (existingCount >= 2) return;
 
 	await pglite.exec(`
 		INSERT INTO authors (id, name, slug, job_title, credentials, bio, avatar, website, linkedin, twitter)
@@ -102,7 +132,9 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			true,
 			1
 		)
-		ON CONFLICT (slug) DO NOTHING;
+		ON CONFLICT (slug) DO UPDATE SET
+			name = EXCLUDED.name,
+			is_active = true;
 
 		INSERT INTO posts (
 			title,
@@ -138,8 +170,8 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			'institutional-order-flow-and-gamma-flip-playbook',
 			'How institutional options desks map dealer gamma flip zones, dark pool liquidity levels, and disciplined intraday risk parameters on SPX.',
 			'<h2>Key Takeaways for Institutional Order Flow</h2><p>Understanding dealer gamma exposure separates disciplined institutional execution from retail guesswork. When net gamma flips positive, market makers dampen volatility by selling into strength and buying pullbacks.</p><h2>Mapping the SPX Gamma Flip Zone</h2><p>Before the opening bell, identify the zero-gamma strike where dealer hedging transitions from mean-reverting to momentum-amplifying flow.</p><h3>Intraday Liquidity Confirmation</h3><p>Combine cumulative delta with dark pool print clusters to confirm institutional sponsorship at key structural inflection levels.</p><blockquote><p>Risk management is the only edge you directly control on every single trade.</p></blockquote><h2>Execution Checklist and Position Sizing</h2><p>Size every position around a predefined structural invalidation level and never widen a stop once an order is live.</p>',
-			1,
-			1,
+			(SELECT id FROM authors WHERE slug = 'billy-ribeiro' LIMIT 1),
+			(SELECT id FROM categories WHERE slug = 'market-structure' LIMIT 1),
 			'/og-image.png',
 			'Institutional SPX gamma exposure and order flow chart',
 			'Figure 1: Dealer net gamma profile across SPX strikes',
@@ -168,8 +200,8 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			'zero-dte-risk-management-and-position-sizing-rules',
 			'Strict position sizing rules, volatility regime filters, and maximum daily drawdown limits for trading SPX zero DTE options contracts.',
 			'<h2>Position Sizing Framework</h2><p>Never risk more than one percent of account equity on a single intraday options structure.</p><h2>Volatility Regime Filters</h2><p>Adjust contract size when VIX term structure shifts into backwardation.</p><h2>Execution Discipline</h2><p>Define hard invalidation levels before routing any order to the exchange.</p>',
-			1,
-			1,
+			(SELECT id FROM authors WHERE slug = 'billy-ribeiro' LIMIT 1),
+			(SELECT id FROM categories WHERE slug = 'market-structure' LIMIT 1),
 			'/og-image.png',
 			'Zero DTE options risk management matrix',
 			'',
@@ -192,7 +224,17 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			'2026-10-24T14:00:00.000Z',
 			'2026-10-24T14:00:00.000Z',
 			'2026-10-24T14:00:00.000Z'
-		);
+		)
+		ON CONFLICT (slug) DO UPDATE SET
+			title = EXCLUDED.title,
+			excerpt = EXCLUDED.excerpt,
+			content = EXCLUDED.content,
+			category_id = EXCLUDED.category_id,
+			faq_items = EXCLUDED.faq_items,
+			status = 'published',
+			visibility = 'public',
+			published = true,
+			table_of_contents = NULL;
 
 		INSERT INTO posts (
 			title,
@@ -216,19 +258,24 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			'private-desk-quarterly-gamma-levels-briefing',
 			'Protected institutional briefing covering quarterly options expiration dealer positioning and key index hedge walls.',
 			'<h2>Quarterly Dealer Positioning</h2><p>Unlocked desk analysis of quarterly OPEX gamma concentration and collar roll strikes.</p>',
-			1,
-			1,
+			(SELECT id FROM authors WHERE slug = 'billy-ribeiro' LIMIT 1),
+			(SELECT id FROM categories WHERE slug = 'market-structure' LIMIT 1),
 			'published',
 			'password_protected',
 			true,
-			'AlphaDesk2026!',
+			'${hashPostPassword('AlphaDesk2026!')}',
 			2,
 			120,
 			'2026-10-23T14:00:00.000Z',
 			'2026-10-23T14:00:00.000Z',
 			'2026-10-23T14:00:00.000Z',
 			'2026-10-23T14:00:00.000Z'
-		);
+		)
+		ON CONFLICT (slug) DO UPDATE SET
+			status = 'published',
+			visibility = 'password_protected',
+			published = true,
+			password = EXCLUDED.password;
 
 		SELECT setval('authors_id_seq', (SELECT COALESCE(MAX(id), 1) FROM authors));
 		SELECT setval('categories_id_seq', (SELECT COALESCE(MAX(id), 1) FROM categories));
@@ -253,13 +300,13 @@ export async function ensureDbReady(): Promise<AppDatabase> {
 }
 
 export async function createTestDatabase(): Promise<{
-	db: PgliteDatabase<typeof schema>;
+	db: PgliteDatabase<typeof schema> & AppDatabase;
 	client: PGlite;
 	cleanup: () => Promise<void>;
 }> {
 	const client = new PGlite();
 	await client.exec(getMigrationSql());
-	const testDb = drizzlePglite(client, { schema });
+	const testDb = attachBatch(drizzlePglite(client, { schema }));
 	return {
 		db: testDb,
 		client,
@@ -270,16 +317,26 @@ export async function createTestDatabase(): Promise<{
 }
 
 export function setActiveDbForTest(
-	customDb: AppDatabase,
+	customDb: BaseAppDatabase | AppDatabase,
 	customPglite: PGlite | null = null
 ): void {
-	activeDb = customDb;
+	activeDb = 'batch' in customDb ? customDb : attachBatch(customDb);
 	activePglite = customPglite;
 	initPromise = Promise.resolve();
 }
 
 export const db: AppDatabase = new Proxy({} as AppDatabase, {
 	get(_target, prop, receiver) {
+		if (prop === 'batch') {
+			return async <const U extends readonly PromiseLike<unknown>[]>(queries: U) => {
+				await ensureDbReady();
+				const results: unknown[] = [];
+				for (const query of queries) {
+					results.push(await query);
+				}
+				return results as { -readonly [K in keyof U]: Awaited<U[K]> };
+			};
+		}
 		const targetDb = getDb();
 		const value = Reflect.get(targetDb as object, prop, receiver);
 		return typeof value === 'function' ? value.bind(targetDb) : value;

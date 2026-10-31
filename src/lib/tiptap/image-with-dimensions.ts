@@ -196,6 +196,17 @@ export const ImageWithDimensions = Image.extend({
 				},
 				renderHTML: () => ({})
 			},
+			description: {
+				default: null,
+				parseHTML: (element) => {
+					const img = resolveImgElement(element);
+					return img.getAttribute('data-description')?.trim() || null;
+				},
+				renderHTML: (attributes) => {
+					if (!attributes.description) return {};
+					return { 'data-description': String(attributes.description) };
+				}
+			},
 			size: {
 				default: null,
 				parseHTML: (element) => resolveImgElement(element).getAttribute('data-size') || null,

@@ -22,12 +22,18 @@
 		alt: string;
 		title: string;
 		caption: string;
+		description?: string;
 		/** Increment to open the alt editor from outside (the editor's "Add alt text" chip). */
 		altEditRequest?: number;
 		onAlign: (alignment: ImageAlign) => void;
 		onWidth: (preset: ImageWidthPreset) => void;
-		/** Persist edited alt/title/caption onto the selected image node. */
-		onEditDetails: (details: { alt: string; title: string; caption: string }) => void;
+		/** Persist edited alt/title/caption/description onto the selected image node. */
+		onEditDetails: (details: {
+			alt: string;
+			title: string;
+			caption: string;
+			description?: string;
+		}) => void;
 		/** Swap the selected image's file (alt/title/caption are kept). */
 		onReplace: () => void;
 		onRemove: () => void;
@@ -45,6 +51,7 @@
 		alt,
 		title,
 		caption,
+		description = '',
 		altEditRequest = 0,
 		onAlign,
 		onWidth,
@@ -110,6 +117,7 @@
 	let draftAlt = $state('');
 	let draftTitle = $state('');
 	let draftCaption = $state('');
+	let draftDescription = $state('');
 	let seenAltRequest = 0;
 	const editingDetails = $derived(visible && editing && editingFor === anchor);
 	const missingAlt = $derived(alt.trim() === '');
@@ -122,6 +130,7 @@
 		draftAlt = alt;
 		draftTitle = title;
 		draftCaption = caption;
+		draftDescription = description;
 		editingFor = anchor;
 		editing = true;
 	}
@@ -130,10 +139,12 @@
 	}
 	function saveEditor() {
 		if (!editingDetails) return;
+		const nextDesc = draftDescription.trim();
 		onEditDetails({
 			alt: draftAlt.trim(),
 			title: draftTitle.trim(),
-			caption: draftCaption.trim()
+			caption: draftCaption.trim(),
+			...(nextDesc || description ? { description: nextDesc } : {})
 		});
 		editing = false;
 	}
@@ -268,6 +279,15 @@
 					type="text"
 					bind:value={draftCaption}
 					placeholder="Visible figure caption"
+					onkeydown={fieldKeydown}
+				/>
+			</label>
+			<label>
+				<span>Image Description <em>(visual placeholder spec)</em></span>
+				<input
+					type="text"
+					bind:value={draftDescription}
+					placeholder="Detailed visual description for creating this image"
 					onkeydown={fieldKeydown}
 				/>
 			</label>

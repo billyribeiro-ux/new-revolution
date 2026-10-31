@@ -1,4 +1,4 @@
-import { isNull } from 'drizzle-orm';
+import { and, inArray, isNull } from 'drizzle-orm';
 import { sanitizePostHtml } from '#lib/sanitize-post-html';
 import { ensureDbReady } from '#lib/server/db';
 import { media } from '#lib/server/db/schema';
@@ -16,14 +16,21 @@ export const GET: RequestHandler = async ({ request }) => {
 			ensureDbReady()
 		]);
 
-		const mediaRows = await db
-			.select({
-				blobUrl: media.blobUrl,
-				mimeType: media.mimeType,
-				sizeBytes: media.sizeBytes
-			})
-			.from(media)
-			.where(isNull(media.deletedAt));
+		const coverUrls = Array.from(
+			new Set(postsPage.items.map((p) => p.coverImage).filter((u): u is string => Boolean(u)))
+		);
+
+		const mediaRows =
+			coverUrls.length > 0
+				? await db
+						.select({
+							blobUrl: media.blobUrl,
+							mimeType: media.mimeType,
+							sizeBytes: media.sizeBytes
+						})
+						.from(media)
+						.where(and(isNull(media.deletedAt), inArray(media.blobUrl, coverUrls)))
+				: [];
 
 		const mediaByUrl = new Map<string, { mimeType: string; sizeBytes: number }>();
 		for (const m of mediaRows) {

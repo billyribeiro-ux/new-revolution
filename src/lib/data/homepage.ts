@@ -139,7 +139,7 @@ export const MAIN_NAVIGATION: readonly NavItem[] = [
 		id: 'blogs',
 		icon: 'blog',
 		label: 'Blogs',
-		href: '/blogs',
+		href: '/blog',
 		previewTarget: 'blog'
 	},
 	{
@@ -850,7 +850,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'Blogs',
-				href: '/blogs',
+				href: '/blog',
 				previewTarget: 'blog'
 			}
 		]

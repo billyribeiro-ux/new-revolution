@@ -1,5 +1,5 @@
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
-import { and, eq, inArray, isNotNull, isNull, lte, sql } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNotNull, isNull, lte, sql } from 'drizzle-orm';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
 import { posts } from '../db/schema';
@@ -50,28 +50,68 @@ export async function runScheduledPublishSweep(): Promise<ScheduledSweepResult> 
 	const db = await ensureDbReady();
 	const now = new Date();
 
-	// 1. Atomic UPDATE for scheduled -> published (excludes fixtures and deleted, requires author & category)
-	const publishedRows = await db
-		.update(posts)
-		.set({
-			status: 'published',
-			published: true,
-			publishedAt: sql`COALESCE(${posts.publishedAt}, ${now.toISOString()}::timestamptz)`,
-			updatedAt: now,
-			searchNotifyPending: true
-		})
-		.where(
-			and(
-				eq(posts.status, 'scheduled'),
-				isNotNull(posts.scheduledAt),
-				lte(posts.scheduledAt, now),
-				isNull(posts.deletedAt),
-				eq(posts.isFixture, false),
-				isNotNull(posts.authorId),
-				isNotNull(posts.categoryId)
+	// 1. Atomic transaction for scheduled -> published (excludes fixtures and deleted, requires author & category,
+	//    and scopes featured demotion so `posts_single_live_featured_idx` is never violated)
+	const publishedRows = await db.transaction(async (tx) => {
+		const dueRows = await tx
+			.select({
+				id: posts.id,
+				featured: posts.featured
+			})
+			.from(posts)
+			.where(
+				and(
+					eq(posts.status, 'scheduled'),
+					isNotNull(posts.scheduledAt),
+					lte(posts.scheduledAt, now),
+					isNull(posts.deletedAt),
+					eq(posts.isFixture, false),
+					isNotNull(posts.authorId),
+					isNotNull(posts.categoryId)
+				)
 			)
-		)
-		.returning();
+			.orderBy(desc(posts.scheduledAt), desc(posts.id));
+
+		if (dueRows.length === 0) {
+			return [];
+		}
+
+		const dueFeaturedIds = dueRows.filter((r) => r.featured).map((r) => r.id);
+		if (dueFeaturedIds.length > 0) {
+			// Demote any currently live featured post before promoting the scheduled featured post
+			await tx
+				.update(posts)
+				.set({ featured: false })
+				.where(
+					and(eq(posts.featured, true), eq(posts.status, 'published'), isNull(posts.deletedAt))
+				);
+
+			// If multiple scheduled posts had featured = true, keep only the newest one featured
+			if (dueFeaturedIds.length > 1) {
+				await tx
+					.update(posts)
+					.set({ featured: false })
+					.where(inArray(posts.id, dueFeaturedIds.slice(1)));
+			}
+		}
+
+		return tx
+			.update(posts)
+			.set({
+				status: 'published',
+				published: true,
+				publishedAt: sql`COALESCE(${posts.publishedAt}, ${now.toISOString()}::timestamptz)`,
+				updatedAt: now,
+				searchNotifyPending: true
+			})
+			.where(
+				inArray(
+					posts.id,
+					dueRows.map((r) => r.id)
+				)
+			)
+			.returning();
+	});
 
 	// 2. Atomic UPDATE for published -> archived on expiry
 	const archivedRows = await db

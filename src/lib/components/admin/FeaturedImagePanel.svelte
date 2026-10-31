@@ -3,6 +3,8 @@
 		coverImage: string;
 		coverImageAlt: string;
 		coverImageCaption: string;
+		coverImageTitle?: string;
+		coverImageDescription?: string;
 		/** Post title, only used to flag an alt text that merely repeats it. */
 		title?: string;
 		/** Real dimensions of the picked media item, when known (the server stores them on save). */
@@ -15,6 +17,8 @@
 		coverImage = $bindable(),
 		coverImageAlt = $bindable(),
 		coverImageCaption = $bindable(),
+		coverImageTitle = $bindable(''),
+		coverImageDescription = $bindable(''),
 		title = '',
 		dimensions = null,
 		onPick,
@@ -37,6 +41,8 @@
 		coverImage = '';
 		coverImageAlt = '';
 		coverImageCaption = '';
+		coverImageTitle = '';
+		coverImageDescription = '';
 		onChange?.();
 	}
 </script>
@@ -79,10 +85,21 @@
 	<label class="field">
 		<span class="label">Cover Image URL</span>
 		<input
-			type="url"
+			type="text"
 			class="input"
-			placeholder="https://..."
+			placeholder="/images/blog/... or https://..."
 			bind:value={coverImage}
+			oninput={() => onChange?.()}
+		/>
+	</label>
+
+	<label class="field">
+		<span class="label">Image Title</span>
+		<input
+			type="text"
+			class="input"
+			placeholder="Image title attribute..."
+			bind:value={coverImageTitle}
 			oninput={() => onChange?.()}
 		/>
 	</label>
@@ -117,6 +134,16 @@
 			bind:value={coverImageCaption}
 			oninput={() => onChange?.()}
 		/>
+	</label>
+
+	<label class="field">
+		<span class="label">Image Description (Placeholder Spec)</span>
+		<textarea
+			class="input"
+			rows="4"
+			placeholder="Detailed visual description for creating this cover graphic..."
+			bind:value={coverImageDescription}
+			oninput={() => onChange?.()}></textarea>
 	</label>
 </div>
 

@@ -28,14 +28,53 @@
 		$props();
 
 	let viewMode = $state<'inline' | 'side-by-side'>('inline');
+	let activeTab = $state<'all' | 'content' | 'title' | 'excerpt'>('all');
+
+	function htmlToStructuredText(html: string): string {
+		if (!html) return '';
+		return html
+			.replace(/<img\b[^>]*alt=["']([^"']*)["'][^>]*>/gi, (_, alt: string) =>
+				alt.trim() ? ` [IMAGE: ${alt.trim()}] ` : ' [IMAGE] '
+			)
+			.replace(/<img\b[^>]*>/gi, ' [IMAGE] ')
+			.replace(
+				/<a\b[^>]*href=["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>/gi,
+				(_, href: string, text: string) => {
+					const cleanText = text.replace(/<[^>]+>/g, '').trim();
+					return `${cleanText} [LINK: ${href}]`;
+				}
+			)
+			.replace(/<\/(p|h[1-6]|li|blockquote|div|pre|tr)>/gi, '\n')
+			.replace(/<br\s*\/?>/gi, '\n')
+			.replace(/<[^>]+>/g, ' ')
+			.replace(/[ \t]+/g, ' ')
+			.replace(/\n\s+/g, '\n')
+			.trim();
+	}
 
 	let titleDiff = $derived(revision ? computeWordDiff(revision.titleSnapshot, currentTitle) : []);
 	let excerptDiff = $derived(
 		revision ? computeWordDiff(revision.excerptSnapshot ?? '', currentExcerpt) : []
 	);
 	let contentDiff = $derived(
-		revision ? computeWordDiff(revision.contentSnapshot ?? '', currentContent) : []
+		revision
+			? computeWordDiff(
+					htmlToStructuredText(revision.contentSnapshot ?? ''),
+					htmlToStructuredText(currentContent)
+				)
+			: []
 	);
+
+	let diffSummaryCounts = $derived.by(() => {
+		let added = 0;
+		let removed = 0;
+		for (const chunk of contentDiff) {
+			const count = chunk.text.trim() ? chunk.text.trim().split(/\s+/).length : 0;
+			if (chunk.type === 'insert') added += count;
+			else if (chunk.type === 'delete') removed += count;
+		}
+		return { added, removed };
+	});
 
 	function focusModal(node: HTMLElement) {
 		const closeBtn = node.querySelector<HTMLElement>('.btn-close, button');
@@ -90,11 +129,40 @@
 						Saved {new Date(revision.createdAt).toLocaleString()} · {revision.wordCount} words ({revision.wordCountDelta >=
 						0
 							? `+${revision.wordCountDelta}`
-							: revision.wordCountDelta})
+							: revision.wordCountDelta}) · +{diffSummaryCounts.added} / -{diffSummaryCounts.removed}
+						words vs current
 					</span>
 				</div>
 
 				<div class="diff-header-actions">
+					<button
+						type="button"
+						class={['btn-mode', { 'is-active': activeTab === 'all' }]}
+						onclick={() => (activeTab = 'all')}
+					>
+						All
+					</button>
+					<button
+						type="button"
+						class={['btn-mode', { 'is-active': activeTab === 'content' }]}
+						onclick={() => (activeTab = 'content')}
+					>
+						Content
+					</button>
+					<button
+						type="button"
+						class={['btn-mode', { 'is-active': activeTab === 'title' }]}
+						onclick={() => (activeTab = 'title')}
+					>
+						Title
+					</button>
+					<button
+						type="button"
+						class={['btn-mode', { 'is-active': activeTab === 'excerpt' }]}
+						onclick={() => (activeTab = 'excerpt')}
+					>
+						Excerpt
+					</button>
 					<button
 						type="button"
 						class={['btn-mode', { 'is-active': viewMode === 'inline' }]}
@@ -117,89 +185,95 @@
 			</header>
 
 			<div class="diff-body">
-				<section class="diff-section">
-					<h3 class="diff-section-label">Title Comparison</h3>
-					{#if viewMode === 'inline'}
-						<div class="diff-inline-box">
-							{#each titleDiff as chunk, i (i)}
-								{#if chunk.type === 'delete'}
-									<del class="diff-del">{chunk.text}</del>
-								{:else if chunk.type === 'insert'}
-									<ins class="diff-ins">{chunk.text}</ins>
-								{:else}
-									<span>{chunk.text}</span>
-								{/if}
-							{/each}
-						</div>
-					{:else}
-						<div class="diff-split-grid">
-							<div class="diff-split-pane">
-								<span class="pane-label">Revision Snapshot</span>
-								<p>{revision.titleSnapshot}</p>
+				{#if activeTab === 'all' || activeTab === 'title'}
+					<section class="diff-section">
+						<h3 class="diff-section-label">Title Comparison</h3>
+						{#if viewMode === 'inline'}
+							<div class="diff-inline-box">
+								{#each titleDiff as chunk, i (i)}
+									{#if chunk.type === 'delete'}
+										<del class="diff-del">{chunk.text}</del>
+									{:else if chunk.type === 'insert'}
+										<ins class="diff-ins">{chunk.text}</ins>
+									{:else}
+										<span>{chunk.text}</span>
+									{/if}
+								{/each}
 							</div>
-							<div class="diff-split-pane">
-								<span class="pane-label">Current Draft</span>
-								<p>{currentTitle}</p>
+						{:else}
+							<div class="diff-split-grid">
+								<div class="diff-split-pane">
+									<span class="pane-label">Revision Snapshot</span>
+									<p>{revision.titleSnapshot}</p>
+								</div>
+								<div class="diff-split-pane">
+									<span class="pane-label">Current Draft</span>
+									<p>{currentTitle}</p>
+								</div>
 							</div>
-						</div>
-					{/if}
-				</section>
+						{/if}
+					</section>
+				{/if}
 
-				<section class="diff-section">
-					<h3 class="diff-section-label">Excerpt Comparison</h3>
-					{#if viewMode === 'inline'}
-						<div class="diff-inline-box">
-							{#each excerptDiff as chunk, i (i)}
-								{#if chunk.type === 'delete'}
-									<del class="diff-del">{chunk.text}</del>
-								{:else if chunk.type === 'insert'}
-									<ins class="diff-ins">{chunk.text}</ins>
-								{:else}
-									<span>{chunk.text}</span>
-								{/if}
-							{/each}
-						</div>
-					{:else}
-						<div class="diff-split-grid">
-							<div class="diff-split-pane">
-								<span class="pane-label">Revision Snapshot</span>
-								<p>{revision.excerptSnapshot || '(Empty)'}</p>
+				{#if activeTab === 'all' || activeTab === 'excerpt'}
+					<section class="diff-section">
+						<h3 class="diff-section-label">Excerpt Comparison</h3>
+						{#if viewMode === 'inline'}
+							<div class="diff-inline-box">
+								{#each excerptDiff as chunk, i (i)}
+									{#if chunk.type === 'delete'}
+										<del class="diff-del">{chunk.text}</del>
+									{:else if chunk.type === 'insert'}
+										<ins class="diff-ins">{chunk.text}</ins>
+									{:else}
+										<span>{chunk.text}</span>
+									{/if}
+								{/each}
 							</div>
-							<div class="diff-split-pane">
-								<span class="pane-label">Current Draft</span>
-								<p>{currentExcerpt || '(Empty)'}</p>
+						{:else}
+							<div class="diff-split-grid">
+								<div class="diff-split-pane">
+									<span class="pane-label">Revision Snapshot</span>
+									<p>{revision.excerptSnapshot || '(Empty)'}</p>
+								</div>
+								<div class="diff-split-pane">
+									<span class="pane-label">Current Draft</span>
+									<p>{currentExcerpt || '(Empty)'}</p>
+								</div>
 							</div>
-						</div>
-					{/if}
-				</section>
+						{/if}
+					</section>
+				{/if}
 
-				<section class="diff-section">
-					<h3 class="diff-section-label">Content HTML Comparison</h3>
-					{#if viewMode === 'inline'}
-						<div class="diff-inline-box diff-code">
-							{#each contentDiff as chunk, i (i)}
-								{#if chunk.type === 'delete'}
-									<del class="diff-del">{chunk.text}</del>
-								{:else if chunk.type === 'insert'}
-									<ins class="diff-ins">{chunk.text}</ins>
-								{:else}
-									<span>{chunk.text}</span>
-								{/if}
-							{/each}
-						</div>
-					{:else}
-						<div class="diff-split-grid">
-							<div class="diff-split-pane diff-code">
-								<span class="pane-label">Revision Snapshot</span>
-								<pre>{revision.contentSnapshot}</pre>
+				{#if activeTab === 'all' || activeTab === 'content'}
+					<section class="diff-section">
+						<h3 class="diff-section-label">Content Comparison</h3>
+						{#if viewMode === 'inline'}
+							<div class="diff-inline-box diff-code">
+								{#each contentDiff as chunk, i (i)}
+									{#if chunk.type === 'delete'}
+										<del class="diff-del">{chunk.text}</del>
+									{:else if chunk.type === 'insert'}
+										<ins class="diff-ins">{chunk.text}</ins>
+									{:else}
+										<span>{chunk.text}</span>
+									{/if}
+								{/each}
 							</div>
-							<div class="diff-split-pane diff-code">
-								<span class="pane-label">Current Draft</span>
-								<pre>{currentContent}</pre>
+						{:else}
+							<div class="diff-split-grid">
+								<div class="diff-split-pane diff-code">
+									<span class="pane-label">Revision Snapshot</span>
+									<pre>{htmlToStructuredText(revision.contentSnapshot ?? '')}</pre>
+								</div>
+								<div class="diff-split-pane diff-code">
+									<span class="pane-label">Current Draft</span>
+									<pre>{htmlToStructuredText(currentContent)}</pre>
+								</div>
 							</div>
-						</div>
-					{/if}
-				</section>
+						{/if}
+					</section>
+				{/if}
 			</div>
 		</div>
 	</div>

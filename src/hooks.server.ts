@@ -1,9 +1,11 @@
+import { randomUUID } from 'node:crypto';
 import type { Handle } from '@sveltejs/kit/hooks';
 import { building } from '$app/env';
 import { and, eq, sql } from 'drizzle-orm';
 import { auth } from '#lib/server/auth.ts';
 import { ensureDbReady } from '#lib/server/db';
 import { redirects } from '#lib/server/db/schema';
+import { requestLogger } from '#lib/server/logger.ts';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
 const SKIPPED_REDIRECT_PREFIXES = [
@@ -26,6 +28,25 @@ export function normaliseRedirectLookupPath(pathname: string): string {
 
 export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 	const normalizedPath = normaliseRedirectLookupPath(url.pathname);
+	if (normalizedPath === '/blogs') {
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/blog${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
+	if (normalizedPath.startsWith('/blogs/')) {
+		const slugRest = normalizedPath.slice('/blogs/'.length);
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/blog/${slugRest}${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
 	if (!normalizedPath.startsWith('/blog/')) {
 		return null;
 	}
@@ -70,6 +91,9 @@ export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 const handleApp: Handle = async ({ event, resolve }) => {
 	const method = event.request.method.toUpperCase();
 	const pathname = event.url.pathname;
+	const reqId = randomUUID();
+	event.locals.reqId = reqId;
+	event.locals.logger = requestLogger({ reqId, route: pathname, method });
 
 	// 1. Redirect serving hook (Section 7.11): GET and HEAD only, before router
 	if (
@@ -83,16 +107,19 @@ const handleApp: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	// 2. Populate Better Auth session
-	try {
-		const session = await auth.api.getSession({ headers: event.request.headers });
+	// 2. Populate Better Auth session (ensure local PGlite schema is initialized first)
+	if (!building) {
+		try {
+			await ensureDbReady();
+			const session = await auth.api.getSession({ headers: event.request.headers });
 
-		if (session) {
-			event.locals.session = session.session;
-			event.locals.user = session.user;
+			if (session) {
+				event.locals.session = session.session;
+				event.locals.user = session.user;
+			}
+		} catch {
+			// Database not connected in local design/preview mode
 		}
-	} catch {
-		// Database not connected in local design/preview mode
 	}
 
 	// 3. Global 401 JSON guard for unauthenticated /api/admin/ and /api/media/ requests (Section 7.16)

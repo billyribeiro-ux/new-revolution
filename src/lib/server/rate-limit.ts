@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { eq, lt, sql } from 'drizzle-orm';
 import { ensureDbReady } from './db';
 import { rateLimits } from './db/schema';
 
@@ -7,6 +7,8 @@ export const RATE_LIMIT_MEDIA_UPLOAD_PER_MIN = 30;
 export const RATE_LIMIT_MEDIA_WRITES_PER_MIN = 60;
 export const RATE_LIMIT_PASSWORD_UNLOCK_ATTEMPTS = 10;
 export const RATE_LIMIT_PASSWORD_UNLOCK_WINDOW_MS = 10 * 60 * 1000;
+
+const DEFAULT_WINDOW_MS = 60_000;
 
 const memoryBuckets = new Map<string, { count: number; resetAtMs: number }>();
 
@@ -18,6 +20,12 @@ export interface RateLimitResult {
 	allowed: boolean;
 	remaining: number;
 	resetAt: Date;
+}
+
+export interface NumericRateLimitResult {
+	allowed: boolean;
+	remaining: number;
+	resetAt: number;
 }
 
 function consumeInMemory(key: string, limit: number, windowMs: number): RateLimitResult {
@@ -86,3 +94,40 @@ export async function consumeRateLimit(options: {
 		return consumeInMemory(key, limit, windowMs);
 	}
 }
+
+export async function checkRateLimit(
+	key: string,
+	maxRequests: number,
+	windowMs: number = DEFAULT_WINDOW_MS
+): Promise<NumericRateLimitResult> {
+	const res = await consumeRateLimit({ key, limit: maxRequests, windowMs });
+	return {
+		allowed: res.allowed,
+		remaining: res.remaining,
+		resetAt: res.resetAt.getTime()
+	};
+}
+
+export async function resetRateLimit(key: string): Promise<void> {
+	try {
+		const db = await ensureDbReady();
+		await db.delete(rateLimits).where(eq(rateLimits.key, key));
+	} catch {
+		// non-fatal
+	}
+	memoryBuckets.delete(key);
+}
+
+export async function cleanupExpiredRateLimitBuckets(): Promise<void> {
+	try {
+		const db = await ensureDbReady();
+		await db.delete(rateLimits).where(lt(rateLimits.resetAt, new Date()));
+	} catch {
+		// non-fatal
+	}
+}
+
+export const __testing = {
+	memoryBuckets,
+	resetMemory: () => memoryBuckets.clear()
+};

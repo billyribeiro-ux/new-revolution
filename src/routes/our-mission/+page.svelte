@@ -57,7 +57,7 @@
 			routes: [
 				{ label: 'Structured Trading Courses', href: '/store/courses' },
 				{ label: 'Small Accounts Room ($500+)', href: '/live-trading-rooms/small-accounts-room' },
-				{ label: 'Market Intelligence Blogs', href: '/blogs' }
+				{ label: 'Market Intelligence Blogs', href: '/blog' }
 			]
 		},
 		{

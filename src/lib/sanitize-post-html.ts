@@ -566,6 +566,13 @@ function runSanitizePass(inputHtml: string): string {
 						if (attribs.title && attribs.title.trim() && attribs.title.length <= 300) {
 							cleanAttribs.title = attribs.title.trim();
 						}
+						if (
+							attribs['data-description'] &&
+							attribs['data-description'].trim() &&
+							attribs['data-description'].length <= 2000
+						) {
+							cleanAttribs['data-description'] = attribs['data-description'].trim();
+						}
 						break;
 					}
 					case 'iframe': {

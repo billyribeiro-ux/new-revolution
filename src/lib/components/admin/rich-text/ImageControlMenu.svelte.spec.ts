@@ -116,6 +116,23 @@ describe('ImageControlMenu', () => {
 		expect(onEditDetails).toHaveBeenCalledOnce();
 	});
 
+	it('edits and saves the visual placeholder image description', async () => {
+		const { onEditDetails } = await mount({
+			description: 'Existing visual placeholder spec'
+		});
+		await page.getByRole('button', { name: 'Alt', exact: true }).click();
+		const descInput = page.getByLabelText(/Image Description/);
+		await expect.element(descInput).toHaveValue('Existing visual placeholder spec');
+		await descInput.fill('  Updated institutional chart spec  ');
+		await page.getByRole('button', { name: 'Save', exact: true }).click();
+		expect(onEditDetails).toHaveBeenCalledExactlyOnceWith({
+			alt: 'Existing description',
+			title: 'Existing title',
+			caption: 'Existing caption',
+			description: 'Updated institutional chart spec'
+		});
+	});
+
 	it('flags a missing alt with an "Add alt text" button and opens the editor from it', async () => {
 		await mount({ alt: '' });
 		const button = page.getByRole('button', { name: 'Add alt text' });

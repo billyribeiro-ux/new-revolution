@@ -173,14 +173,6 @@ function buildBlogWebsiteEntity(origin: string) {
 		name: BRAND_NAME,
 		publisher: {
 			'@id': `${origin}/#organization`
-		},
-		potentialAction: {
-			'@type': 'SearchAction',
-			target: {
-				'@type': 'EntryPoint',
-				urlTemplate: `${origin}/blog?search={search_term_string}`
-			},
-			'query-input': 'required name=search_term_string'
 		}
 	};
 }

@@ -13,7 +13,8 @@ export interface AuthenticatedAdmin {
  * - 403 when the user lacks the `'admin'` role
  */
 export function requireAdmin(
-	event: Pick<RequestEvent, 'locals'> | { locals?: App.Locals; request?: Request; url?: URL }
+	event:
+		Pick<RequestEvent, 'locals'> | { locals?: Partial<App.Locals>; request?: Request; url?: URL }
 ): AuthenticatedAdmin {
 	const user = event.locals?.user;
 

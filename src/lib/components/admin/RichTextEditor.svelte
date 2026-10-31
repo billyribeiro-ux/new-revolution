@@ -101,6 +101,7 @@
 		alt: '',
 		title: '',
 		caption: '',
+		description: '',
 		align: null as ImageAlign,
 		width: null as number | null
 	});
@@ -156,17 +157,23 @@
 		}
 	}
 
-	function syncStatsAndSelection(ed: Editor) {
+	function syncStatsAndSelection(
+		ed: Editor,
+		options: { recountContent?: boolean; precomputedHtml?: string } = {}
+	) {
+		const recountContent = options.recountContent ?? true;
 		untrack(() => {
 			editorVersion += 1;
-			const html = ed.getHTML();
-			const words = countContentWords(html);
-			const chars = ed.storage.characterCount?.characters?.() ?? ed.state.doc.textContent.length;
-			const readingTime = Math.max(1, Math.ceil(words / 200));
-			editorWords = words;
-			editorChars = chars;
-			editorReadingTime = readingTime;
-			onStatsChange?.({ words, chars, readingTime });
+			if (recountContent) {
+				const html = options.precomputedHtml ?? ed.getHTML();
+				const words = countContentWords(html);
+				const chars = ed.storage.characterCount?.characters?.() ?? ed.state.doc.textContent.length;
+				const readingTime = Math.max(1, Math.ceil(words / 200));
+				editorWords = words;
+				editorChars = chars;
+				editorReadingTime = readingTime;
+				onStatsChange?.({ words, chars, readingTime });
+			}
 
 			if (ed.storage.findAndReplace) {
 				findMatchCount = ed.storage.findAndReplace.results?.length ?? 0;
@@ -179,6 +186,7 @@
 					alt: (attrs.alt as string) ?? '',
 					title: (attrs.title as string) ?? '',
 					caption: (attrs.caption as string) ?? '',
+					description: (attrs.description as string) ?? '',
 					align: mapPickerAlign((attrs.dataAlign ?? attrs.align) as string | null),
 					width: typeof attrs.width === 'number' ? attrs.width : null
 				};
@@ -465,10 +473,10 @@
 						lastEmittedHtml = html;
 						rawHtmlBuffer = html;
 						onChange(html);
-						syncStatsAndSelection(ed);
+						syncStatsAndSelection(ed, { recountContent: true, precomputedHtml: html });
 					},
 					onSelectionUpdate({ editor: ed }) {
-						syncStatsAndSelection(ed);
+						syncStatsAndSelection(ed, { recountContent: false });
 					}
 				})
 		);
@@ -606,7 +614,12 @@
 		editor.chain().focus().updateAttributes('image', { dataAlign: next }).run();
 	}
 
-	function setSelectedImageDetails(details: { alt: string; title: string; caption: string }) {
+	function setSelectedImageDetails(details: {
+		alt: string;
+		title: string;
+		caption: string;
+		description?: string;
+	}) {
 		if (!editor || !editor.isActive('image')) return;
 		editor
 			.chain()
@@ -614,7 +627,8 @@
 			.updateAttributes('image', {
 				alt: details.alt,
 				title: details.title || null,
-				caption: details.caption || null
+				caption: details.caption || null,
+				...(details.description !== undefined ? { description: details.description || null } : {})
 			})
 			.run();
 	}
@@ -683,6 +697,14 @@
 		return !empty && !editor.isActive('image');
 	});
 </script>
+
+<svelte:window
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && activePopover) {
+			activePopover = null;
+		}
+	}}
+/>
 
 <div class={['rte-wrapper', { 'is-fullscreen': isFullscreen }]}>
 	<!-- Primary Sticky Toolbar -->
@@ -1136,6 +1158,7 @@
 				<button
 					type="button"
 					class="tool-btn"
+					aria-haspopup="dialog"
 					aria-expanded={activePopover === 'color'}
 					onclick={() => (activePopover = activePopover === 'color' ? null : 'color')}
 				>
@@ -1164,6 +1187,7 @@
 				<button
 					type="button"
 					class={['tool-btn', { 'is-active': editorVersion >= 0 && editor?.isActive('highlight') }]}
+					aria-haspopup="dialog"
 					aria-expanded={activePopover === 'highlight'}
 					onclick={() => (activePopover = activePopover === 'highlight' ? null : 'highlight')}
 				>
@@ -1193,6 +1217,7 @@
 				<button
 					type="button"
 					class={['tool-btn', { 'is-active': editorVersion >= 0 && editor?.isActive('callout') }]}
+					aria-haspopup="dialog"
 					aria-expanded={activePopover === 'callout'}
 					onclick={() => (activePopover = activePopover === 'callout' ? null : 'callout')}
 				>
@@ -1235,6 +1260,7 @@
 				<button
 					type="button"
 					class="tool-btn"
+					aria-haspopup="dialog"
 					aria-expanded={activePopover === 'table'}
 					onclick={() => (activePopover = activePopover === 'table' ? null : 'table')}
 				>
@@ -1335,6 +1361,7 @@
 				<button
 					type="button"
 					class="tool-btn"
+					aria-haspopup="dialog"
 					aria-expanded={activePopover === 'blockStyle'}
 					onclick={() => (activePopover = activePopover === 'blockStyle' ? null : 'blockStyle')}
 				>
@@ -1522,11 +1549,42 @@
 			</button>
 			<button
 				type="button"
+				class={['tool-btn', { 'is-active': editor?.isActive('strike') }]}
+				aria-pressed={Boolean(editor?.isActive('strike'))}
+				onclick={() => editor?.chain().focus().toggleStrike().run()}
+			>
+				Strike
+			</button>
+			<button
+				type="button"
+				class={['tool-btn', { 'is-active': editor?.isActive('code') }]}
+				aria-pressed={Boolean(editor?.isActive('code'))}
+				onclick={() => editor?.chain().focus().toggleCode().run()}
+			>
+				Code
+			</button>
+			<button
+				type="button"
 				class={['tool-btn', { 'is-active': editor?.isActive('highlight') }]}
 				aria-pressed={Boolean(editor?.isActive('highlight'))}
 				onclick={() => editor?.chain().focus().toggleHighlight().run()}
 			>
 				Highlight
+			</button>
+			<button
+				type="button"
+				class={['tool-btn', { 'is-active': editor?.isActive('link') }]}
+				aria-pressed={Boolean(editor?.isActive('link'))}
+				onclick={openLinkPopover}
+			>
+				Link (⌘K)
+			</button>
+			<button
+				type="button"
+				class="tool-btn"
+				onclick={() => editor?.chain().focus().unsetAllMarks().run()}
+			>
+				Clear
 			</button>
 		</div>
 	{/if}
@@ -1582,6 +1640,7 @@
 			alt={selectedImage.alt}
 			title={selectedImage.title}
 			caption={selectedImage.caption}
+			description={selectedImage.description}
 			{altEditRequest}
 			onAlign={setSelectedImageAlign}
 			onWidth={resizeSelectedImage}

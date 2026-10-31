@@ -412,7 +412,7 @@
 					<span class="field-label">OG Image URL</span>
 					<div class="kw-input-row">
 						<input
-							type="url"
+							type="text"
 							class="text-input"
 							placeholder="Defaults to Cover Image"
 							bind:value={form.ogImage}
@@ -521,7 +521,7 @@
 					<span class="field-label">Twitter Image</span>
 					<div class="kw-input-row">
 						<input
-							type="url"
+							type="text"
 							class="text-input"
 							placeholder="Defaults to OG / Cover Image"
 							bind:value={form.twitterImage}

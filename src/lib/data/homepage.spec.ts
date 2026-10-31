@@ -60,7 +60,7 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(about.children).toBeUndefined();
 		expect(about.href).toBe('/about');
 		expect(blogs.children).toBeUndefined();
-		expect(blogs.href).toBe('/blogs');
+		expect(blogs.href).toBe('/blog');
 
 		expect(resources.children?.map((c) => c.label)).toEqual([
 			'Options Calculator',

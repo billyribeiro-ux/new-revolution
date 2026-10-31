@@ -10,4 +10,7 @@ export const userAdditionalFields = {
 	role: { type: 'string', defaultValue: 'user', input: false }
 } as const;
 
-export const emailAndPasswordOptions = { enabled: true } as const;
+export const emailAndPasswordOptions = {
+	enabled: true,
+	disableSignUp: process.env.NODE_ENV === 'production'
+} as const;

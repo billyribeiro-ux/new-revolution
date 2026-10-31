@@ -413,7 +413,7 @@
 			url: chosenSize?.url ?? selectedItem.urls.original,
 			width: chosenSize?.width ?? selectedItem.width,
 			height: chosenSize?.height ?? selectedItem.height,
-			alt: editAltText.trim() || selectedItem.alt_text || selectedItem.title,
+			alt: editAltText.trim() || selectedItem.alt_text || '',
 			caption: editCaption.trim() || selectedItem.caption,
 			size: insertSize,
 			align: insertAlign,

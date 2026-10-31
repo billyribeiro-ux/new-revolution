@@ -2,30 +2,56 @@
 	interface Props {
 		open: boolean;
 		title: string;
-		message: string;
+		message?: string;
 		confirmLabel?: string;
 		cancelLabel?: string;
 		variant?: 'danger' | 'warning' | 'default';
-		onConfirm: () => void;
-		onCancel: () => void;
+		tone?: 'danger' | 'warning';
+		onConfirm: () => void | Promise<void>;
+		onCancel?: () => void;
 	}
 
 	let {
-		open,
+		open = $bindable(false),
 		title,
-		message,
+		message = '',
 		confirmLabel = 'Confirm',
 		cancelLabel = 'Cancel',
-		variant = 'default',
+		variant,
+		tone,
 		onConfirm,
-		onCancel
+		onCancel = () => {
+			open = false;
+		}
 	}: Props = $props();
+
+	const resolvedVariant = $derived(variant ?? tone ?? 'default');
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (!open) return;
 		if (e.key === 'Escape') {
 			e.preventDefault();
 			onCancel();
+			return;
+		}
+		if (e.key === 'Tab') {
+			const dialogEl = document.querySelector<HTMLElement>('.confirm-backdrop[role="dialog"]');
+			if (!dialogEl) return;
+			const focusable = Array.from(
+				dialogEl.querySelectorAll<HTMLElement>(
+					'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+				)
+			);
+			if (focusable.length === 0) return;
+			const first = focusable[0]!;
+			const last = focusable[focusable.length - 1]!;
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && document.activeElement === last) {
+				e.preventDefault();
+				first.focus();
+			}
 		}
 	}
 </script>
@@ -53,9 +79,15 @@
 					type="button"
 					class={[
 						'btn-confirm',
-						{ 'is-danger': variant === 'danger', 'is-warning': variant === 'warning' }
+						{
+							'is-danger': resolvedVariant === 'danger',
+							'is-warning': resolvedVariant === 'warning'
+						}
 					]}
-					onclick={onConfirm}
+					onclick={async () => {
+						await onConfirm();
+						open = false;
+					}}
 				>
 					{confirmLabel}
 				</button>

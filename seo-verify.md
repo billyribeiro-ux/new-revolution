@@ -78,23 +78,23 @@ Write `docs/seo/verify/pass-<N>/diff-review.md`.
 
 A test that can't fail proves nothing. In a scratch branch inside the worktree, apply **each** mutation below **one at a time**. Run `pnpm seo:test` after each and confirm **the named test fails**, then revert. A mutation that doesn't cause a failure is a DEFECT: the gate is fake.
 
-| # | Mutation | Must fail |
-|---|---|---|
-| M1 | Remove the canonical tag from `Seo.svelte` | URL-02 |
-| M2 | Give two pages the same title | META-01 |
-| M3 | Make a missing-slug `load` return data instead of `error(404)` | IDX-05 |
-| M4 | Put `</script><script>alert(1)</script>` in a JSON-LD field | SD-02 unit test |
-| M5 | Remove one breadcrumb item from the DOM only | SD-05 |
-| M6 | Add `<priority>0.8</priority>` to sitemap output | MAP-03 |
-| M7 | Add a sitemap URL that returns a 404 | MAP-01 |
-| M8 | Remove `X-Robots-Tag` for non-production hosts | IDX-09 |
-| M9 | Add `loading="lazy"` to the LCP image | PERF-03 |
-| M10 | Emit a second `<meta name="description">` | META-05 |
-| M11 | Remove `rel="ugc"` from forum user links (if forum exists) | SPAM-06 |
-| M12 | Set `ssr = false` on an indexable layout | IDX-01 |
-| M13 | Remove `isAccessibleForFree` from a gated page (if SD-13 applies) | SD-13 |
-| M14 | Remove `hreflang` `x-default` (if multilingual) | I18N-03 |
-| M15 | Disallow `/_app/` in robots.txt | IDX-07 |
+| #   | Mutation                                                          | Must fail       |
+| --- | ----------------------------------------------------------------- | --------------- |
+| M1  | Remove the canonical tag from `Seo.svelte`                        | URL-02          |
+| M2  | Give two pages the same title                                     | META-01         |
+| M3  | Make a missing-slug `load` return data instead of `error(404)`    | IDX-05          |
+| M4  | Put `</script><script>alert(1)</script>` in a JSON-LD field       | SD-02 unit test |
+| M5  | Remove one breadcrumb item from the DOM only                      | SD-05           |
+| M6  | Add `<priority>0.8</priority>` to sitemap output                  | MAP-03          |
+| M7  | Add a sitemap URL that returns a 404                              | MAP-01          |
+| M8  | Remove `X-Robots-Tag` for non-production hosts                    | IDX-09          |
+| M9  | Add `loading="lazy"` to the LCP image                             | PERF-03         |
+| M10 | Emit a second `<meta name="description">`                         | META-05         |
+| M11 | Remove `rel="ugc"` from forum user links (if forum exists)        | SPAM-06         |
+| M12 | Set `ssr = false` on an indexable layout                          | IDX-01          |
+| M13 | Remove `isAccessibleForFree` from a gated page (if SD-13 applies) | SD-13           |
+| M14 | Remove `hreflang` `x-default` (if multilingual)                   | I18N-03         |
+| M15 | Disallow `/_app/` in robots.txt                                   | IDX-07          |
 
 Then add **at least 5 mutations of your own** targeting requirements this repo actually implements. Write `docs/seo/verify/pass-<N>/mutations.md` with each mutation, the test that caught it, and the failure output excerpt. Reset the scratch branch afterwards and confirm with `git status`.
 
@@ -113,6 +113,7 @@ Then add **at least 5 mutations of your own** targeting requirements this repo a
 # CHECK 8 — PRODUCTION (only if the owner says the branch is deployed)
 
 Against `PRODUCTION_ORIGIN`:
+
 - re-run the crawler
 - check the redirect chains (HTTP→HTTPS, host) and HSTS
 - confirm robots.txt and the sitemap are live
@@ -139,6 +140,7 @@ Field Core Web Vitals need about 28 days of data after deploy; until then they s
 # FINAL OUTPUT
 
 Write `docs/seo/verify/SUMMARY.md` containing:
+
 1. Each pass's verdict table.
 2. Every defect found, how it was fixed, and the commit.
 3. The mutation results table, showing every mutation caught.

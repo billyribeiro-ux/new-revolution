@@ -39,13 +39,14 @@ These rules exist so that nothing in your output is unverified. Breaking any of 
    - `[DOC url §section]` — documentation you **fetched in this session**: Svelte MCP `get-documentation`, or WebFetch for Google/npm/library docs.
 
    An untagged claim is treated as false.
+
 2. **Memory is not evidence.** Never rely on your training data for an API name, a config option, a default value, a Google rule, or a package version. Fetch it. If you can't fetch it, mark the item `BLOCKED: unverifiable` and move on. Don't guess.
 3. **Installed version wins.** Read `package.json` and the lockfile's **resolved** versions for svelte, @sveltejs/kit, the adapter, vite, and every SEO-related package. The Svelte MCP may serve docs ahead of the installed version (e.g. `$app/env` / `#lib` vs `$app/environment` / `$lib`). When docs and installed types disagree, read the installed package's `.d.ts` files in `node_modules`, cite them with `[CODE]`, and follow them.
 4. **Read before you edit.** Never modify a file you haven't read in this session. Never reconstruct a file from memory.
 5. **No fabricated content.** Never invent reviews, ratings, prices, author names, credentials, dates, or business facts to fill structured data or meta tags. If the data doesn't exist in the codebase/CMS, record `BLOCKED: needs owner data` with the exact fields required.
 6. **No cheating the gates.** Don't delete or skip tests. Don't lower budgets or thresholds. Don't set prerender handlers to `'warn'` or `'ignore'`. Don't add `any`, `@ts-ignore`, `@ts-expect-error`, or `eslint-disable`. Don't mark something PASS because it "should" work.
 7. **Tool failure is reported, not hidden.** If a command fails, show the error. Fix the cause, or mark BLOCKED. Never substitute an estimate.
-8a. **WARN status:** requirements labelled "WARN, not FAIL" (e.g. META-11 and META-13 title/description length) are reported as `WARN` with each offending URL and its character count. Fix them when the fix is just rewriting copy from content already on the page. Never pad or truncate text into meaningless copy to hit a number. Remaining WARNs don't block completion, but every one is listed in the final report.
+   8a. **WARN status:** requirements labelled "WARN, not FAIL" (e.g. META-11 and META-13 title/description length) are reported as `WARN` with each offending URL and its character count. Fix them when the fix is just rewriting copy from content already on the page. Never pad or truncate text into meaningless copy to hit a number. Remaining WARNs don't block completion, but every one is listed in the final report.
 8. **Things that can't be proven from the repo are never PASS.** These are always `REQUIRES-PRODUCTION` or `REQUIRES-HUMAN`, with exact steps for the owner:
    - field Core Web Vitals (CrUX)
    - Search Console status
@@ -103,12 +104,14 @@ Write the audit tooling as **committed, typed code** under `tests/seo/`. It beco
 Start from `/` plus every URL in `02-inventory.json` plus every `<loc>` in the sitemap(s). For **each URL**, capture into `docs/seo/audit/03-baseline.json`:
 
 **Raw HTTP response (no JS):**
+
 - final status
 - full redirect chain with status codes
 - headers: `content-type`, `x-robots-tag`, `cache-control`, `content-encoding`, `strict-transport-security`
 - whether `<title>`, `<h1>` and the main text exist in the **raw** HTML
 
 **From the SSR HTML:**
+
 - character length of `<title>` and meta description; brand occurrences in the title; most-repeated term count
 - counts **and** values of `<title>`, meta description, canonical, meta robots, every `og:*` and `twitter:*` tag, and hreflang links
 - `html[lang]` and `html[dir]`
@@ -119,9 +122,11 @@ Start from `/` plus every URL in `02-inventory.json` plus every `<loc>` in the s
 - every `<img>`'s `alt`, `width`, `height`, `loading`, `fetchpriority`
 
 **From the rendered DOM:**
+
 - every `<a>`: href, resolved URL, anchor text, and whether it's a real navigable href
 
 **Derived:**
+
 - final URL == canonical == sitemap loc
 - duplicate titles and descriptions across the whole site
 - orphan URLs (in the sitemap/inventory but never linked)
@@ -130,7 +135,8 @@ Start from `/` plus every URL in `02-inventory.json` plus every `<loc>` in the s
 - og:image fetch status and content-type
 - soft-404 detection: request `/<random-uuid>`, an unknown slug for **each** dynamic route, and ensure each returns 404
 
-**Trust and spam signals (YMYL-*, SPAM-*, SD-13):**
+**Trust and spam signals (YMYL-_, SPAM-_, SD-13):**
+
 - byline, author-page link, visible published/updated dates, and disclosure blocks on every article, alert or lesson URL
 - the presence and crawlability of About, Contact, Editorial policy, Privacy, Terms and Refund pages
 - every outbound link: domain, `rel` values, and whether it's in a UGC region (forum, comments, profiles) or matches an affiliate domain from the owner-supplied list
@@ -144,11 +150,13 @@ Start from `/` plus every URL in `02-inventory.json` plus every `<loc>` in the s
 Content truth (credentials, accuracy, legal disclosures) is never PASS from the crawler: presence = PASS-STRUCTURE, and the truth check = REQUIRES-HUMAN.
 
 **Variants:**
+
 - each indexable URL with `?utm_source=x`, plus each sort/filter param found in the code → canonical must equal the clean URL
 - with and without `Accept-Language` / locale cookie → main content must be identical (I18N-02)
 - at viewports 390 px and 1440 px → text diff for HTML-05
 
 **Also fetch:**
+
 - `/robots.txt`
 - every sitemap file
 - the HTTP→HTTPS and non-preferred-host redirect chains (if a deployed URL exists)
@@ -157,6 +165,7 @@ Content truth (credentials, accuracy, legal disclosures) is never PASS from the 
 ### 3b. Static checks
 
 Write `docs/seo/audit/03-static.md` from grep/AST checks for:
+
 - `ssr = false`
 - `trailingSlash`
 - prerender handler config
@@ -189,6 +198,7 @@ Write `docs/seo/audit/03-matrix-baseline.md` with one row per **requirement ID �
 # PHASE 4 — PLAN
 
 Write `docs/seo/audit/04-plan.md`:
+
 - each FAIL, the root cause `[CODE]`, the exact files to change, the change, and the requirement IDs it closes
 - the order: build/indexing blockers → canonical/URL → metadata → structured data → sitemap/robots → i18n → performance → HTML/a11y
 - every owner decision still open (rule 9), asked as **one** batched question set
@@ -216,6 +226,7 @@ Implementation contracts (adapt the names to the installed versions you verified
 - **Tests:** turn the Phase 3 crawler into `tests/seo/*.spec.ts` assertions — one assertion per requirement ID, named with the ID (e.g. `test('URL-02 canonical self-referencing', …)`). Add a unit test for `serializeJsonLd` covering the `</script>` injection case. Add `pnpm` scripts `seo:audit` and `seo:test`, and a CI job running `pnpm build`, `pnpm seo:test`, and `unlighthouse-ci --budget`.
 
 Rules while implementing:
+
 - After **every** changed `.svelte` file, run Svelte MCP `svelte-autofixer` until it returns zero issues.
 - After each requirement group, run `pnpm check && pnpm lint && pnpm test && pnpm build` and record the exit codes.
 - Commit once per requirement group, using conventional commits that list the requirement IDs closed (e.g. `feat(seo): canonical + robots (URL-02, URL-03, IDX-07, IDX-08)`).

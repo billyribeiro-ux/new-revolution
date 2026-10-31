@@ -136,3 +136,30 @@ autofixer last).
 
 A phase is done only with: tests for what changed passing, the gate run once before push, runtime evidence (screenshot or
 curl output for UI/HTTP changes), `CHANGELOG.md` and `TEMPORARY.md` updated, and an honest "not verified" list.
+
+## 6. Progress log
+
+### P1 to P3 implemented on `feat/admin-auth` (2026-10-31)
+
+Runtime evidence (Chromium against `vite dev`, local PGlite, seeded temporary admin):
+
+- Anonymous `/admin/posts` redirects to `/admin/login?next=%2Fadmin%2Fposts`; `/api/admin/posts` returns 401;
+  `x-rtp-e2e-test: 1` no longer grants access (303 to login); `/admin/login` sends `X-Robots-Tag: noindex, nofollow`.
+- Wrong password shows "Email or password is incorrect."; the right one lands on `/admin/posts` (`next` honoured).
+- Editor loads; typing title/excerpt/body and **Save Draft** creates post id 4 with no failed non-GET request (the stricter
+  CSRF check does not break remote functions in a browser).
+- Negative control: with `userAdditionalFields.role` removed, 3 of 3 tests in `auth-role.db.spec.ts` fail; restored, they pass.
+
+Open items found while testing, to be settled in P4 (not fixed yet):
+
+- **Publish gives no visible reason when blocked.** Clicking Publish on the draft (SEO 0/100, 7 blocking) left the page
+  unchanged with status "Ready"; the post stayed `DRAFT` and `/blog/<slug>` returned 404. The gate is by design
+  (`src/lib/shared/seo/score.ts`), but the blocking reasons must be shown to the user.
+- **"Add New Author" did not assign an author** in the scripted run (select still "Unassigned"); not yet determined whether
+  that is a race in the script or a defect.
+- Login form submitted before hydration in one dev run did not POST (script clicked right after `goto`); passed once the page
+  was idle. Not reproduced by hand; check progressive enhancement in P4.
+- Dashboard loads full post rows to count them; add a count query (`services/posts.ts`).
+- Login rate limits (30/IP, 10/email per 15 min) are custom, not Better Auth's limiter; revisit in P5.
+- `getClientIp()` in `auth-guard.ts` trusts the first `x-forwarded-for` value (client-controllable); the login action uses
+  `getClientAddress()` instead. Decide for the other callers in P5.

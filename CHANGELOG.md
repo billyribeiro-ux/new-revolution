@@ -9,6 +9,36 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### Added
+
+- `TEMPORARY` `pnpm db:seed-admin` (`scripts/seed-admin.ts`): creates or repairs a local admin account from
+  `ADMIN_SEED_EMAIL` / `ADMIN_SEED_PASSWORD`; `--reset-password` and `--revoke`; refuses when `NODE_ENV=production`
+  or `VERCEL` is set unless the database is the local PGlite file; never prints the password. Registered as T2.
+  Spec: `scripts/seed-admin.spec.ts`. How-to: `docs/ADMIN_LOCAL_LOGIN.md`.
+- `.env.example`: `TEMPORARY` placeholder keys `ADMIN_SEED_EMAIL` and `ADMIN_SEED_PASSWORD`.
+- Admin sign-in at `/admin/login` (P2): form action on Better Auth `signInEmail`; generic
+  "Email or password is incorrect." message; rate limit per client IP and per hashed email (`consumeRateLimit`);
+  non-admin accounts get 403 and their session is revoked; `next` is accepted only through `safeAdminNext()`
+  (`src/routes/admin/login/safe-next.ts`, open-redirect rules documented there). Specs:
+  `safe-next.spec.ts`, `admin-access.spec.ts`, `login-page.svelte.spec.ts`.
+- Admin shell (P2): `src/routes/admin/+layout.server.ts` redirects anonymous visitors to login (303, `next` kept),
+  returns 403 for non-admins, and sends `X-Robots-Tag: noindex, nofollow` on every `/admin/**` page. `+layout.svelte`
+  adds a skip link, nav (Dashboard, Posts, Media, View site) with `aria-current`, and a POST sign-out form
+  (`src/routes/admin/logout/+server.ts`).
+- Admin dashboard (P2) at `/admin`: counts of drafts, scheduled, published, trashed (plus in review and archived so the
+  totals add up), and the five most recently updated posts, computed from `listAdminPosts` and `listTrashedPosts`.
+  Quick links: New post, All posts, Media.
+
+### Changed
+
+- Better Auth options shared by `src/lib/server/auth.ts` and the seed script now live in
+  `src/lib/server/auth-options.ts` (`userAdditionalFields`, `emailAndPasswordOptions`). Behaviour unchanged.
+
+### Removed
+
+- `/demo/better-auth` scaffold (`TEMPORARY` T6, now `removed`): it had a public sign-up form and linked to a
+  non-existent `/auth/verification-success`. Replaced by `/admin/login`. The `/demo` index no longer lists it.
+
 ### Docs
 
 - Add `docs/ADMIN_AUTH_PLAN.md`: evidence-based audit of the admin/auth/blog backend and the phased plan
@@ -17,10 +47,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
   and `docs/AGENT_COORDINATION.md` (multi-session protocol and active-work board).
 - Add this `CHANGELOG.md`.
 
-### Security (findings recorded, not yet fixed; see `docs/ADMIN_AUTH_PLAN.md` section 2)
+### Security (see `docs/ADMIN_AUTH_PLAN.md` section 2)
 
-- F2: `role` is not returned by Better Auth, so `requireAdmin` rejects every real user (403).
-- F3: `x-rtp-e2e-test` header grants an admin session whenever `DATABASE_URL` is unset or a placeholder.
+- F2 fixed: Better Auth now exposes `user.role` (`additionalFields`, `input: false`), so `requireAdmin` accepts real admins.
+  `App.Locals.user` is typed from `auth.$Infer`. Regression test: `src/lib/server/auth-role.db.spec.ts`.
+- F3 fixed: removed the `x-rtp-e2e-test` header bypass from `src/hooks.server.ts` (`TEMPORARY` T1, now `removed`). Admin e2e
+  tests log in through `/admin/login` and skip when `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` are unset.
+- F5 fixed: `requireAdmin` now runs the CSRF origin check on every non-GET/HEAD/OPTIONS request, so a mutation with neither
+  `Origin` nor `Referer` gets 403. Unit tests: `src/lib/server/auth-guard.spec.ts`.
 
 ## [0.1.0-pre] - 2026-10-30 to 2026-10-31
 

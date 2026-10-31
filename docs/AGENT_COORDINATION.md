@@ -20,10 +20,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                  | Owner session      | Area / files claimed                                                                                                    | Started    | Status                     |
-| ----------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------- |
-| `feat/blog-cover-cards` | cards session      | `CatalogCard`, `BlogCard`, `blog-hub.ts`, `static/blog-mocks/`                                                          | 2026-10-31 | PR #7 open, awaiting merge |
-| `docs/admin-auth-plan`  | admin/auth session | `docs/ADMIN_AUTH_PLAN.md`, tracking docs; later `src/hooks.server.ts`, `src/lib/server/auth*.ts`, `src/routes/admin/**` | 2026-10-31 | Phase P0 (docs)            |
+| Branch | Owner session | Area / files claimed | Started | Status                                                           |
+| ------ | ------------- | -------------------- | ------- | ---------------------------------------------------------------- |
+| _none_ |               |                      |         | All work is merged into `main`; only `main` exists (2026-10-31). |
 
 ## Recently finished
 

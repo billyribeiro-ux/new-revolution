@@ -38,6 +38,7 @@
 		--text: #f4f5f0;
 		--muted: #a0a7ad;
 		--lightmuted: #58616b;
+		--acid-text-on-light: #4b5f1d; /* acid-family text on light surfaces (AA); never use --acid as text there */
 
 		/* Audited Contextual Surface & Interaction Tokens */
 		--btn-acid-hover: #efffae;

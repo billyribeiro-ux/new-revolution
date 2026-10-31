@@ -6,29 +6,18 @@
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
+	import IndicatorCard from '#lib/components/store/IndicatorCard.svelte';
+	import CatalogGrid from '#lib/components/ui/CatalogGrid.svelte';
+	import FilterChips from '#lib/components/ui/FilterChips.svelte';
+	import {
+		indicatorFilters,
+		indicatorsCatalog,
+		type IndicatorCategoryFilter
+	} from '#lib/data/indicators.ts';
 	import { INDICATORS_STORE_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
-
-	type IndicatorCategory =
-		'all' | 'order-flow' | 'volatility-squeeze' | 'options-levels' | 'trend-momentum';
-
-	interface IndicatorProduct {
-		id: string;
-		slug: string;
-		codeName: string;
-		name: string;
-		category: IndicatorCategory;
-		categoryLabel: string;
-		platforms: string;
-		timeframes: string;
-		hook: string;
-		whatItExposes: string;
-		bestFor: string;
-		chartPattern: 'reversal' | 'squeeze' | 'levels' | 'volume';
-		featuredPopular: boolean;
-	}
 
 	interface ComparisonRow {
 		criterion: string;
@@ -43,145 +32,6 @@
 		ctaLabel: string;
 		href: string;
 	}
-
-	const filterTabs: { id: IndicatorCategory; label: string }[] = [
-		{ id: 'all', label: 'All Indicators (8)' },
-		{ id: 'order-flow', label: 'Order Flow & Reversals' },
-		{ id: 'volatility-squeeze', label: 'Volatility & Squeeze' },
-		{ id: 'options-levels', label: 'Index & Options Levels' },
-		{ id: 'trend-momentum', label: 'Trend & Momentum' }
-	];
-
-	const indicatorsCatalog: IndicatorProduct[] = [
-		{
-			id: 'mp-early-in-n-out',
-			slug: '/store/indicators#mp-early-in-n-out',
-			codeName: 'Flagship System // MP_EarlyInNOut',
-			name: 'The Move Prior to The Move™ (Early In & Out)',
-			category: 'order-flow',
-			categoryLabel: 'Order Flow & Reversals',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: 'Intraday, Swing & Macro',
-			hook: 'Anticipate institutional accumulation and distribution before the retail breakout candle even prints.',
-			whatItExposes:
-				'Detects pre-breakout institutional absorption and buyer/seller exhaustion—the core system behind our 2020 and 2022 market top and bottom calls.',
-			bestFor: 'Day Traders, Swing Traders & Portfolio Managers',
-			chartPattern: 'reversal',
-			featuredPopular: true
-		},
-		{
-			id: 'liquidity-sweep-radar',
-			slug: '/store/indicators#liquidity-sweep-radar',
-			codeName: 'Telemetry 02 // Stop-Hunt Detection',
-			name: 'Institutional Liquidity Sweep & Trap Detector',
-			category: 'order-flow',
-			categoryLabel: 'Order Flow & Reversals',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: '1-Min to Daily Charts',
-			hook: 'Spot exact price zones where Wall Street algorithms sweep retail stops and reverse the tape.',
-			whatItExposes:
-				'Highlights failed retail breakouts, institutional liquidity pools, and high-asymmetry reversal triggers with tight stop-loss invalidation.',
-			bestFor: 'Opening Bell Scalpers & Contrarian Options Traders',
-			chartPattern: 'reversal',
-			featuredPopular: true
-		},
-		{
-			id: 'compression-squeeze-matrix',
-			slug: '/store/indicators#compression-squeeze-matrix',
-			codeName: 'Telemetry 03 // Multi-Timeframe Energy',
-			name: 'Multi-Timeframe Volatility Squeeze Matrix',
-			category: 'volatility-squeeze',
-			categoryLabel: 'Volatility & Squeeze',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: 'All Timeframes Synchronized',
-			hook: 'Get in on the most powerful volatility compressions earlier and lock in gains before momentum fades.',
-			whatItExposes:
-				'Tracks simultaneous volatility compression across 3 to 5 timeframes so you enter right as institutional energy releases.',
-			bestFor: 'Working Professionals, Swing Traders & $500+ Accounts',
-			chartPattern: 'squeeze',
-			featuredPopular: true
-		},
-		{
-			id: 'spx-gamma-zones',
-			slug: '/store/indicators#spx-gamma-zones',
-			codeName: 'Telemetry 04 // Index Options Architecture',
-			name: 'Dynamic SPX & Index Gamma Inflection Levels',
-			category: 'options-levels',
-			categoryLabel: 'Index & Options Levels',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: 'Intraday & Multi-Day Index',
-			hook: 'Expose dynamic institutional support, resistance, and dealer gamma walls in the most actively traded indexes.',
-			whatItExposes:
-				'Maps institutional call/put walls, dealer hedging pivot zones, and magnet strikes on SPX, SPY, QQQ, and IWM.',
-			bestFor: 'SPX Profit Pulse Members & Index Options Traders',
-			chartPattern: 'levels',
-			featuredPopular: true
-		},
-		{
-			id: 'abandoned-bar-exhaustion',
-			slug: '/store/indicators#abandoned-bar-exhaustion',
-			codeName: 'Telemetry 05 // Structural Inflections',
-			name: 'Abandoned Price Bar & Exhaustion Telemetry',
-			category: 'order-flow',
-			categoryLabel: 'Order Flow & Reversals',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: '5-Min, 15-Min, 4H & Daily',
-			hook: 'Identify trapped buyers at structural tops and trapped sellers at capitulation bottoms in real time.',
-			whatItExposes:
-				'Flags structural abandoned bars and volume divergence—the exact signal we used to short OXY Put Options live for +600% overnight.',
-			bestFor: 'Options Buyers Seeking Explosive 3R–5R Reversals',
-			chartPattern: 'reversal',
-			featuredPopular: true
-		},
-		{
-			id: 'smart-money-volume-delta',
-			slug: '/store/indicators#smart-money-volume-delta',
-			codeName: 'Telemetry 06 // Institutional Tape',
-			name: 'Smart-Money Relative Volume & Absorption Oscillator',
-			category: 'trend-momentum',
-			categoryLabel: 'Trend & Momentum',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: 'All Timeframes',
-			hook: 'A non-repainting volume oscillator that shows whether institutions are quietly buying dips or selling rips.',
-			whatItExposes:
-				'Separates emotional retail volume churn from true institutional block accumulation across stocks and ETFs.',
-			bestFor: 'All Traders ($500+ Small Accounts to Institutional)',
-			chartPattern: 'volume',
-			featuredPopular: true
-		},
-		{
-			id: 'hot-zone-time-structure',
-			slug: '/store/indicators#hot-zone-time-structure',
-			codeName: 'Telemetry 07 // Session Windows',
-			name: 'Institutional Hot-Zone & Opening Drive Windows',
-			category: 'options-levels',
-			categoryLabel: 'Index & Options Levels',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: 'Intraday (1-Min to 30-Min)',
-			hook: 'See within seconds the highest-probability institutional execution windows—and avoid midday chop.',
-			whatItExposes:
-				'Plots opening range liquidity imbalances, institutional execution windows, and low-expectancy chop zones to protect your Theta.',
-			bestFor: 'Day Trading Room Members & Options Scalpers',
-			chartPattern: 'levels',
-			featuredPopular: true
-		},
-		{
-			id: 'true-thrust-trend-ribbon',
-			slug: '/store/indicators#true-thrust-trend-ribbon',
-			codeName: 'Telemetry 08 // Multi-Day Alignment',
-			name: 'Institutional Trend Thrust & Structure Ribbon',
-			category: 'trend-momentum',
-			categoryLabel: 'Trend & Momentum',
-			platforms: 'ThinkorSwim • TradingView',
-			timeframes: '15-Min, 1H, Daily & Weekly',
-			hook: 'Combine price structure, institutional thrust, and regime momentum to stay on the right side of major trends.',
-			whatItExposes:
-				'Eliminates counter-trend guessing by locking in institutional trend direction, pullback entry shelves, and trailing stop levels.',
-			bestFor: 'Swing Trading Room & Explosive Swings Members',
-			chartPattern: 'squeeze',
-			featuredPopular: true
-		}
-	];
 
 	const comparisonRows: ComparisonRow[] = [
 		{
@@ -263,8 +113,7 @@
 		}
 	];
 
-	let activeCategory = $state<IndicatorCategory>('all');
-	let expandedCardId = $state<string | null>(null);
+	let activeCategory = $state<IndicatorCategoryFilter>('all');
 
 	const displayedIndicators = $derived(
 		activeCategory === 'all'
@@ -278,10 +127,6 @@
 		if (gridEl) {
 			gridEl.scrollIntoView({ behavior: 'smooth' });
 		}
-	}
-
-	function toggleSpecs(id: string) {
-		expandedCardId = expandedCardId === id ? null : id;
 	}
 </script>
 
@@ -466,225 +311,25 @@
 					</div>
 				</div>
 
-				<!-- Interactive Category Filter Tabs -->
-				<div class="filter-bar" role="tablist" aria-label="Filter indicators by strategy type">
-					{#each filterTabs as tab (tab.id)}
-						<button
-							type="button"
-							role="tab"
-							aria-selected={activeCategory === tab.id}
-							class="filter-tab"
-							class:filter-tab--active={activeCategory === tab.id}
-							onclick={() => (activeCategory = tab.id)}
-						>
-							{tab.label}
-						</button>
-					{/each}
-				</div>
+				<FilterChips
+					label="Filter indicators by strategy type"
+					options={indicatorFilters}
+					bind:value={activeCategory}
+				/>
 
-				<!-- 8-Card Indicator Grid (Upgraded Simpler Trading Card Anatomy) -->
-				<div class="indicators-grid">
-					{#each displayedIndicators as indicator (indicator.id)}
-						<article id={indicator.id} class="indicator-card">
-							<!-- Top Visual Banner: High-Contrast SVG Telemetry Diagram + Platform Badges -->
-							<div class="indicator-card__banner">
-								<div class="indicator-card__banner-top">
-									<span class="indicator-card__code">{indicator.codeName}</span>
-									<span class="indicator-card__no-repaint">Zero Repaint</span>
-								</div>
-
-								<!-- Pure SVG Institutional Chart Wireframe Preview -->
-								<div class="indicator-card__svg-wrap" aria-hidden="true">
-									{#if indicator.chartPattern === 'reversal'}
-										<svg viewBox="0 0 320 96" class="telemetry-svg">
-											<line
-												x1="0"
-												y1="22"
-												x2="320"
-												y2="22"
-												stroke="#555555"
-												stroke-dasharray="4 4"
-												stroke-width="1"
-											/>
-											<line
-												x1="0"
-												y1="74"
-												x2="320"
-												y2="74"
-												stroke="#555555"
-												stroke-dasharray="4 4"
-												stroke-width="1"
-											/>
-											<polyline
-												fill="none"
-												stroke="#ffffff"
-												stroke-width="2.5"
-												points="10,65 55,48 95,54 140,14 175,38 220,58 265,78 305,82"
-											/>
-											<circle
-												cx="140"
-												cy="14"
-												r="5"
-												fill="#ffffff"
-												stroke="#000000"
-												stroke-width="2"
-											/>
-											<rect x="105" y="2" width="76" height="14" fill="#ffffff" />
-											<text
-												x="143"
-												y="12"
-												font-size="8"
-												font-weight="900"
-												text-anchor="middle"
-												fill="#000000">SWEEP TRAP ▼</text
-											>
-										</svg>
-									{:else if indicator.chartPattern === 'squeeze'}
-										<svg viewBox="0 0 320 96" class="telemetry-svg">
-											<path
-												d="M 10,25 Q 90,44 170,45 T 310,10"
-												fill="none"
-												stroke="#888888"
-												stroke-width="1.5"
-											/>
-											<path
-												d="M 10,71 Q 90,52 170,51 T 310,86"
-												fill="none"
-												stroke="#888888"
-												stroke-width="1.5"
-											/>
-											<polyline
-												fill="none"
-												stroke="#ffffff"
-												stroke-width="2.5"
-												points="10,50 60,47 110,49 160,48 205,32 255,18 305,12"
-											/>
-											<circle cx="90" cy="48" r="3.5" fill="#ffffff" />
-											<circle cx="115" cy="48" r="3.5" fill="#ffffff" />
-											<circle cx="140" cy="48" r="3.5" fill="#ffffff" />
-											<circle cx="165" cy="48" r="4.5" fill="#ffffff" />
-											<rect x="180" y="58" width="94" height="15" fill="#ffffff" />
-											<text
-												x="227"
-												y="68"
-												font-size="8"
-												font-weight="900"
-												text-anchor="middle"
-												fill="#000000">IGNITION ▲</text
-											>
-										</svg>
-									{:else if indicator.chartPattern === 'levels'}
-										<svg viewBox="0 0 320 96" class="telemetry-svg">
-											<rect x="0" y="14" width="320" height="12" fill="#333333" />
-											<rect x="0" y="68" width="320" height="12" fill="#333333" />
-											<line
-												x1="0"
-												y1="47"
-												x2="320"
-												y2="47"
-												stroke="#ffffff"
-												stroke-dasharray="6 4"
-												stroke-width="1.5"
-											/>
-											<polyline
-												fill="none"
-												stroke="#ffffff"
-												stroke-width="2.5"
-												points="12,72 58,47 104,56 156,20 208,45 260,22 308,42"
-											/>
-											<circle cx="12" cy="72" r="4" fill="#ffffff" />
-											<circle cx="156" cy="20" r="4" fill="#ffffff" />
-										</svg>
-									{:else}
-										<svg viewBox="0 0 320 96" class="telemetry-svg">
-											<rect x="20" y="58" width="16" height="28" fill="#666666" />
-											<rect x="52" y="50" width="16" height="36" fill="#666666" />
-											<rect x="84" y="64" width="16" height="22" fill="#666666" />
-											<rect x="116" y="28" width="16" height="58" fill="#ffffff" />
-											<rect x="148" y="18" width="16" height="68" fill="#ffffff" />
-											<rect x="180" y="34" width="16" height="52" fill="#bbbbbb" />
-											<rect x="212" y="22" width="16" height="64" fill="#ffffff" />
-											<rect x="244" y="12" width="16" height="74" fill="#ffffff" />
-											<rect x="276" y="26" width="16" height="60" fill="#ffffff" />
-											<line
-												x1="10"
-												y1="42"
-												x2="310"
-												y2="42"
-												stroke="#ffffff"
-												stroke-dasharray="3 3"
-												stroke-width="1.5"
-											/>
-										</svg>
-									{/if}
-								</div>
-
-								<div class="indicator-card__banner-bottom">
-									<span class="indicator-card__cat">{indicator.categoryLabel}</span>
-									<span class="indicator-card__platforms">{indicator.platforms}</span>
-								</div>
-							</div>
-
-							<!-- Card Body: Crawlable H3 Title + Simpler-Style Punchy Hook + Expandable Specs -->
-							<div class="indicator-card__body">
-								<h3 class="indicator-card__title">
-									{indicator.name}
-								</h3>
-
-								<!-- Primary 1-Sentence Hook (Simpler Trading Visual Scannability) -->
-								<p class="indicator-card__hook">
-									{indicator.hook}
-								</p>
-
-								<!-- Always-Visible Institutional Telemetry Box (Fixes Simpler's Thin Copy) -->
-								<div class="indicator-card__spec-box">
-									<strong>What It Exposes:</strong>
-									<p>{indicator.whatItExposes}</p>
-								</div>
-
-								{#if expandedCardId === indicator.id}
-									<dl class="indicator-card__expanded">
-										<div>
-											<dt>Supported Timeframes:</dt>
-											<dd>{indicator.timeframes}</dd>
-										</div>
-										<div>
-											<dt>Ideal Trader Fit:</dt>
-											<dd>{indicator.bestFor}</dd>
-										</div>
-										<div>
-											<dt>Execution Standard:</dt>
-											<dd>100% Non-Repainting • Includes Setup Guide &amp; Alert Triggers</dd>
-										</div>
-									</dl>
-								{/if}
-							</div>
-
-							<!-- Card Footer: Learn More / Inspect Mechanics + Store Inquiry -->
-							<div class="indicator-card__footer">
-								<button
-									type="button"
-									class="btn btn--outline btn--full indicator-card__spec-btn"
-									aria-expanded={expandedCardId === indicator.id}
-									onclick={() => toggleSpecs(indicator.id)}
-								>
-									{expandedCardId === indicator.id
-										? 'Hide Technical Specs −'
-										: 'Inspect Specs & Timeframes +'}
-								</button>
-								<a
-									href={resolve(
-										`/store/indicators/${indicator.id === 'move-prior-to-the-move-pro' ? 'move-prior-to-the-move-system' : indicator.id}` as '/'
-									)}
-									class="btn btn--solid btn--full"
-									aria-label={`Learn more and get access to ${indicator.name}`}
-								>
-									Learn More →
-								</a>
-							</div>
-						</article>
-					{/each}
-				</div>
+				<!-- Catalog: crawlable h3 titles; every spec sheet is in the server-rendered HTML (native <details>). -->
+				<CatalogGrid
+					items={displayedIndicators}
+					key={(indicator) => indicator.id}
+					isFeatured={(indicator) => indicator.featured === true}
+					total={indicatorsCatalog.length}
+					noun="indicators"
+					emptyMessage="No indicators match this strategy type."
+				>
+					{#snippet children(indicator)}
+						<IndicatorCard {indicator} />
+					{/snippet}
+				</CatalogGrid>
 
 				<!-- Simpler Trading Bottom "See All Indicators" + Store Sibling Navigation Bar -->
 				<div class="catalog-bottom-bar">

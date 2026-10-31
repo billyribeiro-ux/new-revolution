@@ -8,6 +8,7 @@ import {
 } from '#lib/seo/structured-data.ts';
 import { load } from './+page.ts';
 import IndicatorsStorePage from './+page.svelte';
+import { indicatorsCatalog } from '#lib/data/indicators.ts';
 
 describe('/store/indicators page', () => {
 	it('returns character-locked SEO metadata (51-char title, 151-char description) and JSON-LD from load()', () => {
@@ -51,26 +52,41 @@ describe('/store/indicators page', () => {
 
 		await expect.element(page.getByText('Our 4-Point Indicator Guarantee')).toBeInTheDocument();
 
-		// 8 indicator cards initially rendered
+		// 8 indicator cards in a semantic list; each title link targets the typed detail route
+		expect(document.querySelectorAll('ul.catalog-grid > li').length).toBe(8);
 		expect(document.querySelectorAll('.indicator-card').length).toBe(8);
+		const titleLinks = [...document.querySelectorAll<HTMLAnchorElement>('.indicator-card h3 a')];
+		expect(titleLinks.map((a) => a.getAttribute('href'))).toEqual(
+			indicatorsCatalog.map((i) => `/store/indicators/${i.slug}`)
+		);
 
-		// Filter by "Order Flow & Reversals" -> 3 cards
-		const orderFlowTab = page.getByRole('tab', { name: 'Order Flow & Reversals' });
-		await orderFlowTab.click();
+		// One lead card; every spec sheet is in the HTML without interaction, only the lead one open
+		expect(document.querySelectorAll('.catalog-grid__item.is-featured').length).toBe(1);
+		const specs = [
+			...document.querySelectorAll<HTMLDetailsElement>('details.indicator-card__specs')
+		];
+		expect(specs.length).toBe(8);
+		expect(specs.filter((d) => d.open).length).toBe(1);
+		expect(document.body.textContent).toContain('Supported timeframes');
+
+		// Filter: accessible pressed state + live status; "Order Flow & Reversals" -> 3 cards
+		const orderFlowBtn = page.getByRole('button', { name: 'Order Flow & Reversals' });
+		await orderFlowBtn.click();
+		await expect.element(orderFlowBtn).toHaveAttribute('aria-pressed', 'true');
 		expect(document.querySelectorAll('.indicator-card').length).toBe(3);
+		await expect.element(page.getByRole('status')).toHaveTextContent('Showing 3 of 8 indicators');
 
 		// Click "See All Indicators (8) →" button to reset to all 8 cards
 		const seeAllBtn = page.getByRole('button', { name: 'See All Indicators (8) →' });
 		await seeAllBtn.click();
 		expect(document.querySelectorAll('.indicator-card').length).toBe(8);
 
-		// Expand technical specs on the first card
-		expect(document.querySelectorAll('.indicator-card__expanded').length).toBe(0);
-		const inspectButtons = document.querySelectorAll<HTMLButtonElement>(
-			'.indicator-card__spec-btn'
+		// Native disclosure opens on demand
+		const closed = document.querySelector<HTMLDetailsElement>(
+			'details.indicator-card__specs:not([open])'
 		);
-		inspectButtons[0].click();
-		await expect.element(page.getByText('Supported Timeframes:')).toBeInTheDocument();
+		(closed?.querySelector('summary') as HTMLElement).click();
+		expect(closed?.open).toBe(true);
 
 		// 5 comparison rows, 3 proof cards, 5 room CTA cards
 		expect(document.querySelectorAll('.comparison-table tbody tr').length).toBe(5);

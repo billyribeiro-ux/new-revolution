@@ -267,6 +267,18 @@ Vitest browser project (`client`). Copy `src/routes/resources/etf-stocks-list/pa
    and the empty state. (`requireAssertions` is on: every test needs an `expect`.)
 4. A landmark test: `a.skip` href equals the `<main>` id; breadcrumb last item is `aria-current="page"` and is not a link.
 
+### 3.6 Adding a catalog card (courses, indicators, scanners, blog, ...)
+
+Follow this exact recipe; `CourseCard`, `IndicatorCard` and `BlogCard` are the working references.
+
+1. **Data module** `src/lib/data/<things>.ts` (module scope): a typed `interface` with a real `slug` (never a hash or a special-cased id), `featured?: boolean` on at most one lead item, a filter-option list derived from the catalog length (`All X (${catalog.length})`), and nothing page-specific. The Schema.org list in `structured-data.ts` derives from the same array (name/description = the visible title/hook) so JSON-LD text matches the cards.
+2. **Card component** `src/lib/components/<domain>/<Thing>Card.svelte`: `interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'class' | 'title'>` with the item, optional `headingLevel`, `class?: ClassValue`, spread `...rest` onto `<CatalogCard>`. Compose snippets (`top`/`media`, `eyebrow`, `title`, `intro`, default children, `footer`). The `title` snippet renders the single `<a class="catalog-card__link" href={detailHref}>` where `detailHref = $derived(resolve('/route/[slug]', { slug }))`. Disclosures are native `<details>`. Style only the content in the component's scoped `<style>`.
+3. **Page**: `<FilterChips label=... options=... bind:value />` then `<CatalogGrid items key isFeatured total noun>` with `{#snippet children(item)}<ThingCard {item} />{/snippet}`. No per-page grid CSS, no `role="tablist"`.
+4. **Specs**: one component spec (`*.svelte.spec.ts`: link target, heading level, class + rest forwarding, disclosure open state, featured marker) and the page spec (list semantics, filter `aria-pressed`, status text). Note: `render()` returns a promise in this repo's vitest-browser-svelte, and a prop literally named `intro` collides with `mount()` options, so pass props via `{ props: {...} }` in that case.
+5. **Remove** the old global CSS for the mock from `inner-page.css` (check no other page uses the classes first) and prove no regression elsewhere with the pixel diff (§7.3).
+6. **Light sections**: pass `tone="light"` to the `FilterChips`, the `CatalogGrid` and every card on a light surface (the `/blogs` list is the reference). Never reuse `--acid` as text or as a focus outline there.
+7. **Device check**: the width list and measurements in `docs/CSS_STANDARDS.md` §4.10, plus a computed WCAG contrast pass over every text node (composite semi-transparent backgrounds first; Chrome returns `color(srgb …)` for `color-mix()`). Disable the global `html { scroll-behavior: smooth }` in the test page, or Playwright click coordinates go stale.
+
 ---
 
 ## 4. Wire the page into the site

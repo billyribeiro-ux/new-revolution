@@ -53,7 +53,7 @@ describe('/store/courses page', () => {
 		await expect.element(page.getByText('Not Sure Where to Start?')).toBeInTheDocument();
 
 		// 8 course cards in a semantic list, one h3 title link each, pointing at the typed detail route
-		expect(document.querySelectorAll('ul.courses-grid > li').length).toBe(8);
+		expect(document.querySelectorAll('ul.catalog-grid > li').length).toBe(8);
 		expect(document.querySelectorAll('.course-card').length).toBe(8);
 		const titleLinks = [...document.querySelectorAll<HTMLAnchorElement>('.course-card h3 a')];
 		expect(titleLinks.length).toBe(8);
@@ -62,7 +62,7 @@ describe('/store/courses page', () => {
 		);
 
 		// Exactly one featured (lead) card: Course 01
-		const featured = document.querySelectorAll('.courses-grid__item.is-featured');
+		const featured = document.querySelectorAll('.catalog-grid__item.is-featured');
 		expect(featured.length).toBe(1);
 		expect(featured[0].querySelector('.course-card__code')?.textContent).toContain('Course 01');
 
@@ -87,7 +87,7 @@ describe('/store/courses page', () => {
 		expect(document.querySelectorAll('.course-card').length).toBe(2);
 		await expect.element(page.getByRole('status')).toHaveTextContent('Showing 2 of 8 courses');
 		// The featured card is filtered out: no lead card remains
-		expect(document.querySelectorAll('.courses-grid__item.is-featured').length).toBe(0);
+		expect(document.querySelectorAll('.catalog-grid__item.is-featured').length).toBe(0);
 
 		// Reset to all 8 courses
 		const seeAllBtn = page.getByRole('button', { name: 'See All Courses (8) →' });

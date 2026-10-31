@@ -17,13 +17,19 @@
 		value: T;
 		/** Accessible name of the group. */
 		label: string;
+		/** `light` for light sections: ink outline, white fill, ink-filled pressed state. */
+		tone?: 'dark' | 'light';
 		class?: ClassValue;
 	}
 
-	let { options, value = $bindable(), label, class: className }: Props = $props();
+	let { options, value = $bindable(), label, tone = 'dark', class: className }: Props = $props();
 </script>
 
-<div class={['filter-chips', className]} role="group" aria-label={label}>
+<div
+	class={['filter-chips', { 'is-light': tone === 'light' }, className]}
+	role="group"
+	aria-label={label}
+>
 	{#each options as option (option.id)}
 		<button
 			type="button"
@@ -68,6 +74,10 @@
 		.filter-chips__chip:hover {
 			border-color: var(--muted);
 		}
+
+		.filter-chips.is-light .filter-chips__chip:hover {
+			background: var(--off2);
+		}
 	}
 
 	/* The pressed state is styled from the accessible state so the two cannot diverge. */
@@ -75,6 +85,17 @@
 		border-color: var(--acid);
 		background: var(--acid);
 		color: var(--ink);
+	}
+
+	.filter-chips.is-light .filter-chips__chip {
+		border-color: var(--ink);
+		background: var(--card-white);
+		color: var(--ink);
+	}
+
+	.filter-chips.is-light .filter-chips__chip[aria-pressed='true'] {
+		background: var(--ink);
+		color: var(--acid);
 	}
 
 	/* Chips stop stretching once there is room for a tidy row. */

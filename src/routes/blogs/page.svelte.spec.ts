@@ -55,9 +55,24 @@ describe('/blogs page', () => {
 
 		await expect.element(page.getByText('Flagship Masterclass')).toBeInTheDocument();
 
-		// 6 recent blog cards rendered initially
+		// 6 recent blog cards rendered initially, in a semantic list with a live status line
 		const initialBlogCards = document.querySelectorAll('.blog-card');
 		expect(initialBlogCards.length).toBe(6);
+		expect(document.querySelectorAll('ul.catalog-grid > li').length).toBe(6);
+		await expect.element(page.getByRole('status')).toHaveTextContent('Showing 6 of 6 articles');
+
+		// Each card: one stretched title link to its article, an explicit-size cover image, BlogPosting microdata
+		for (const card of initialBlogCards) {
+			expect(card.getAttribute('itemtype')).toBe('https://schema.org/BlogPosting');
+			const link = card.querySelector<HTMLAnchorElement>('h3 a.catalog-card__link');
+			expect(link?.getAttribute('href')).toMatch(/^\/blogs\/[a-z0-9-]+$/);
+			const img = card.querySelector('img.blog-card__img');
+			expect(img?.getAttribute('width')).toBe('640');
+			expect(img?.getAttribute('height')).toBe('360');
+			expect(card.querySelector('time[datetime]')?.getAttribute('datetime')).toMatch(
+				/^\d{4}-\d{2}-\d{2}$/
+			);
+		}
 
 		// 4 featured topic items in sidebar
 		const featuredTopicLinks = document.querySelectorAll('.featured-topic-item');
@@ -67,11 +82,13 @@ describe('/blogs page', () => {
 		const roomCtaCards = document.querySelectorAll('.room-cta-card');
 		expect(roomCtaCards.length).toBe(5);
 
-		// Filter by "$500+ Small Accounts" category tab
-		const smallAccountTab = page.getByRole('tab', { name: '$500+ Small Accounts' });
-		await smallAccountTab.click();
+		// Filter by "$500+ Small Accounts" category (toggle button with aria-pressed, not a tab)
+		const smallAccountBtn = page.getByRole('button', { name: '$500+ Small Accounts' });
+		await smallAccountBtn.click();
+		await expect.element(smallAccountBtn).toHaveAttribute('aria-pressed', 'true');
 		const filteredByCat = document.querySelectorAll('.blog-card');
 		expect(filteredByCat.length).toBe(1);
+		await expect.element(page.getByRole('status')).toHaveTextContent('Showing 1 of 6 articles');
 		await expect
 			.element(
 				page.getByRole('heading', {
@@ -82,7 +99,7 @@ describe('/blogs page', () => {
 			.toBeInTheDocument();
 
 		// Reset category to "All Market Intelligence"
-		const allTab = page.getByRole('tab', { name: 'All Market Intelligence' });
+		const allTab = page.getByRole('button', { name: 'All Market Intelligence' });
 		await allTab.click();
 		expect(document.querySelectorAll('.blog-card').length).toBe(6);
 	});

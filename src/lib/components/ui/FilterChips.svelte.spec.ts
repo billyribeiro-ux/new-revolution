@@ -23,6 +23,22 @@ describe('FilterChips', () => {
 			.toHaveAttribute('aria-pressed', 'false');
 	});
 
+	it('is dark by default and light when tone="light"', async () => {
+		const first = await render(FilterChips, {
+			options,
+			value: 'all',
+			label: 'Filter things'
+		} as never);
+		expect(first.container.querySelector('.filter-chips')?.classList.contains('is-light')).toBe(
+			false
+		);
+	});
+
+	it('applies the light tone class on light sections', async () => {
+		render(FilterChips, { options, value: 'all', label: 'Filter things', tone: 'light' } as never);
+		expect(document.querySelector('.filter-chips')?.classList.contains('is-light')).toBe(true);
+	});
+
 	it('moves the pressed state to the clicked option and keeps exactly one pressed', async () => {
 		render(FilterChips, { options, value: 'all', label: 'Filter things' } as never);
 

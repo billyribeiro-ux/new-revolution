@@ -35,7 +35,7 @@ describe('CourseCard', () => {
 			.toBeVisible();
 		const article = document.querySelector('article.course-card') as HTMLElement;
 		expect(article.getAttribute('aria-labelledby')).toBe(
-			(document.querySelector('.course-card__title') as HTMLElement).id
+			(document.querySelector('.catalog-card__title') as HTMLElement).id
 		);
 	});
 
@@ -77,7 +77,7 @@ describe('CourseCard', () => {
 
 	it('hides the decorative CTA from assistive technology so the title is the single detail link', async () => {
 		render(CourseCard, { course: regular });
-		expect(document.querySelector('.course-card__cta')?.getAttribute('aria-hidden')).toBe('true');
+		expect(document.querySelector('.catalog-card__cta')?.getAttribute('aria-hidden')).toBe('true');
 		expect(document.querySelectorAll('a[href="/store/courses/' + regular.slug + '"]').length).toBe(
 			1
 		);

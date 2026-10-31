@@ -8,6 +8,7 @@ import {
 } from '#lib/data/homepage.ts';
 import { coursesCatalog } from '#lib/data/courses.ts';
 import { featuredETFs } from '#lib/data/etf-stocks-list.ts';
+import { indicatorsCatalog } from '#lib/data/indicators.ts';
 import { SOCIAL_LINKS } from '#lib/data/site.ts';
 
 export const BRAND_NAME = 'Revolution Trading Pros';
@@ -1067,57 +1068,6 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 	}
 ];
 
-export const INDICATORS_CATALOG_SCHEMA_ITEMS = [
-	{
-		position: 1,
-		name: 'The Move Prior to The Move (MP_EarlyInNOut)',
-		description:
-			'Anticipate institutional accumulation and distribution before the retail breakout candle prints.'
-	},
-	{
-		position: 2,
-		name: 'Institutional Liquidity Sweep & Trap Detector',
-		description:
-			'Spot exact price zones where Wall Street algorithms sweep retail stops and reverse the tape.'
-	},
-	{
-		position: 3,
-		name: 'Multi-Timeframe Volatility Squeeze Matrix',
-		description:
-			'Get in on the most powerful volatility compressions earlier across synchronized timeframes.'
-	},
-	{
-		position: 4,
-		name: 'Dynamic SPX & Index Gamma Inflection Levels',
-		description:
-			'Expose dynamic institutional support, resistance, and dealer gamma walls on SPX, SPY, and QQQ.'
-	},
-	{
-		position: 5,
-		name: 'Abandoned Price Bar & Exhaustion Telemetry',
-		description:
-			'Identify trapped buyers at structural tops and trapped sellers at capitulation bottoms in real time.'
-	},
-	{
-		position: 6,
-		name: 'Smart-Money Relative Volume & Absorption Oscillator',
-		description:
-			'A non-repainting volume oscillator that shows whether institutions are buying dips or selling rips.'
-	},
-	{
-		position: 7,
-		name: 'Institutional Hot-Zone & Opening Drive Windows',
-		description:
-			'See within seconds the highest-probability institutional trading windows and avoid midday chop.'
-	},
-	{
-		position: 8,
-		name: 'Institutional Trend Thrust & Structure Ribbon',
-		description:
-			'Combine price structure, thrust, and regime momentum to identify high-probability trend setups.'
-	}
-] as const;
-
 export function buildIndicatorsStoreJsonLd(origin: string) {
 	const pageUrl = `${origin}/store/indicators`;
 
@@ -1155,12 +1105,13 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 				'@type': 'ItemList',
 				'@id': `${pageUrl}#catalog`,
 				name: 'Revolution Trading Pros Proprietary Non-Repainting Indicators',
-				numberOfItems: INDICATORS_CATALOG_SCHEMA_ITEMS.length,
-				itemListElement: INDICATORS_CATALOG_SCHEMA_ITEMS.map((item) => ({
+				numberOfItems: indicatorsCatalog.length,
+				// Derived from the catalog the cards render, so JSON-LD text always matches the visible card text.
+				itemListElement: indicatorsCatalog.map((item, index) => ({
 					'@type': 'ListItem',
-					position: item.position,
+					position: index + 1,
 					name: item.name,
-					description: item.description
+					description: item.hook
 				}))
 			},
 			{

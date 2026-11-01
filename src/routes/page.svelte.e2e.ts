@@ -257,24 +257,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1'
 		);
 
-		// Canonical, hreflang, and og:url must all match normalized origin without trailing slash mismatch
+		// Canonical and og:url must match normalized origin without trailing slash mismatch; single-locale site omits duplicate hreflang (I18N-03)
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute('href', origin);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveCount(1);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			origin
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveCount(1);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			origin
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveCount(1);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			origin
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		// OpenGraph & Twitter Card metadata verification
 		await expect(page.locator('head meta[property="og:url"]')).toHaveAttribute('content', origin);
@@ -282,10 +268,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'content',
 			'en_US'
 		);
-		await expect(page.locator('head meta[property="og:locale:alternate"]')).toHaveAttribute(
-			'content',
-			'en_CA'
-		);
+		await expect(page.locator('head meta[property="og:locale:alternate"]')).toHaveCount(0);
 		await expect(page.locator('head meta[property="og:image"]')).toHaveAttribute(
 			'content',
 			`${origin}/og-image.png`
@@ -332,34 +315,24 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(graphTypes).toContain('OfferCatalog');
 		expect(graphTypes).toContain('WebSite');
 		expect(graphTypes).toContain('WebPage');
-		expect(graphTypes).toContain('BreadcrumbList');
-		expect(graphTypes).toContain('FAQPage');
+		expect(graphTypes).not.toContain('BreadcrumbList');
+		expect(graphTypes).not.toContain('FAQPage');
 
-		// Verify SpeakableSpecification selectors actually exist in the rendered DOM
-		const webPageNode = parsedJsonLd['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'WebPage'
-		);
-		for (const selector of webPageNode.speakable.cssSelector as string[]) {
-			await expect(page.locator(selector).first()).toBeAttached();
-		}
-
-		// Verify FAQPage JSON-LD questions match visible DOM FAQ headings 1-to-1
-		const faqNode = parsedJsonLd['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
+		// Verify visible FAQ headings in DOM
 		const visibleFaqQuestions = (
 			await page.locator('.faqs details summary h3.faq-question').allTextContents()
 		).map((t) => t.trim());
-		expect(faqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(visibleFaqQuestions);
+		expect(visibleFaqQuestions).toHaveLength(5);
 
-		// Verify robots.txt
+		// Verify robots.txt (IDX-08: noindex routes not disallowed; MON-03: Google-Extended allowed)
 		const robotsRes = await request.get('/robots.txt');
 		expect(robotsRes.status()).toBe(200);
 		const robotsTxt = await robotsRes.text();
 		expect(robotsTxt).toContain('User-agent: *');
 		expect(robotsTxt).toContain('Allow: /');
-		expect(robotsTxt).toContain('Disallow: /login');
 		expect(robotsTxt).toContain('Disallow: /api/');
+		expect(robotsTxt).not.toContain('Disallow: /login');
+		expect(robotsTxt).toContain('User-agent: Google-Extended');
 		expect(robotsTxt).toContain('Sitemap: https://revolutiontradingpros.com/sitemap.xml');
 
 		// Verify sitemap.xml
@@ -367,11 +340,14 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapRes.status()).toBe(200);
 		expect(sitemapRes.headers()['x-robots-tag']).toBe('noindex');
 		const sitemapXml = await sitemapRes.text();
-		expect(sitemapXml).toContain('hreflang="en-us"');
-		expect(sitemapXml).toContain('hreflang="en-ca"');
-		expect(sitemapXml).toContain('hreflang="x-default"');
+		expect(sitemapXml).not.toContain('hreflang=');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
 		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/contact</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/editorial-policy</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/privacy-policy</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/terms-of-service</loc>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/refund-policy</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://revolutiontradingpros.com/alert-services/spx-profit-pulse</loc>'
 		);
@@ -401,9 +377,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('.blog-card a.text-link')
 			.evaluateAll((els) => els.map((el) => el.getAttribute('href')));
 		expect(blogHrefs).toEqual([
-			'/blogs/how-we-shorted-oxy-put-options-600-percent-overnight',
-			'/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',
-			'/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine'
+			'/blog/institutional-order-flow-and-gamma-flip-playbook',
+			'/blog/zero-dte-risk-management-and-position-sizing-rules',
+			'/blog'
 		]);
 
 		// The sitemap must only list live URLs, and must not stamp unverifiable dates on them.
@@ -424,7 +400,13 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		const legalHrefs = await page
 			.locator('nav[aria-labelledby="footer-legal"] a')
 			.evaluateAll((els) => els.map((el) => el.getAttribute('href')));
-		expect(legalHrefs).toEqual(['/contact', '/privacy-policy', '/terms-of-service']);
+		expect(legalHrefs).toEqual([
+			'/contact',
+			'/editorial-policy',
+			'/privacy-policy',
+			'/terms-of-service',
+			'/refund-policy'
+		]);
 
 		const riskDisclosureText = await page.locator('footer .risk-box').textContent();
 		for (const regulator of ['SEC', 'CFTC', 'FINRA', 'OSC', 'BCSC', 'ASC']) {
@@ -449,9 +431,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedAboutUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveCount(1);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveCount(1);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveCount(1);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 		await expect(page.locator('head meta[property="og:type"]')).toHaveCount(1);
 		await expect(page.locator('head meta[property="og:type"]')).toHaveAttribute(
 			'content',
@@ -468,26 +448,28 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
 
-		// JSON-LD on /about matches visible FAQ accordion 1-to-1
+		// JSON-LD on /about uses ProfilePage with mainEntity Person (SD-09) and omits restricted FAQPage (SD-10)
 		const aboutJsonLdText = await page
 			.locator('script[type="application/ld+json"]')
 			.first()
 			.textContent();
 		const aboutSchema = JSON.parse(aboutJsonLdText!);
-		const aboutFaqNode = aboutSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
+		const aboutProfileNode = aboutSchema['@graph'].find(
+			(n: { '@type': string }) => n['@type'] === 'ProfilePage'
 		);
-		const visibleAboutFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(aboutFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(visibleAboutFaqs);
+		expect(aboutProfileNode).toBeTruthy();
+		expect(aboutProfileNode.mainEntity).toEqual({ '@id': `${origin}/#founder` });
+		expect(
+			aboutSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
-		// Verify /demo/playwright automatically receives noindex, nofollow and zero hreflang tags
+		// Verify /demo/playwright automatically receives noindex, nofollow, no canonical, and zero hreflang tags
 		await page.goto('/demo/playwright');
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute(
 			'content',
 			'noindex, nofollow'
 		);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head link[rel="alternate"]')).toHaveCount(0);
 
 		// Verify /live-trading-rooms/day-trading-room route metadata, JSON-LD, and DOM parity
@@ -511,18 +493,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedDayRoomUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedDayRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedDayRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedDayRoomUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
@@ -538,15 +509,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const dayRoomSchema = JSON.parse(dayRoomJsonLdText!);
-		const dayRoomFaqNode = dayRoomSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleDayRoomFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(dayRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleDayRoomFaqs
-		);
+		expect(
+			dayRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'Service')
+		).toBeTruthy();
+		expect(
+			dayRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/day-trading-room
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -578,18 +546,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedSwingRoomUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedSwingRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedSwingRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedSwingRoomUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
@@ -605,15 +562,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const swingRoomSchema = JSON.parse(swingRoomJsonLdText!);
-		const swingRoomFaqNode = swingRoomSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleSwingRoomFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(swingRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleSwingRoomFaqs
-		);
+		expect(
+			swingRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'Service')
+		).toBeTruthy();
+		expect(
+			swingRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/swing-trading-room
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -645,18 +599,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedSmallRoomUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedSmallRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedSmallRoomUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedSmallRoomUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
@@ -672,15 +615,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const smallRoomSchema = JSON.parse(smallRoomJsonLdText!);
-		const smallRoomFaqNode = smallRoomSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleSmallRoomFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(smallRoomFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleSmallRoomFaqs
-		);
+		expect(
+			smallRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'Service')
+		).toBeTruthy();
+		expect(
+			smallRoomSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /live-trading-rooms/small-accounts-room
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -746,18 +686,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedIndicatorsUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedIndicatorsUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedIndicatorsUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedIndicatorsUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
@@ -773,15 +702,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const indicatorsSchema = JSON.parse(indicatorsJsonLdText!);
-		const indicatorsFaqNode = indicatorsSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleIndicatorsFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(indicatorsFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleIndicatorsFaqs
-		);
+		expect(
+			indicatorsSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'ItemList')
+		).toBeTruthy();
+		expect(
+			indicatorsSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -811,18 +737,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedCoursesUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedCoursesUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedCoursesUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedCoursesUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
@@ -838,15 +753,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const coursesSchema = JSON.parse(coursesJsonLdText!);
-		const coursesFaqNode = coursesSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleCoursesFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(coursesFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleCoursesFaqs
-		);
+		expect(
+			coursesSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'ItemList')
+		).toBeTruthy();
+		expect(
+			coursesSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -869,26 +781,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(singleCourseDesc).toBe(
-			'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.'
+			'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes non-repainting ThinkorSwim and TradingView tools.'
 		);
+		expect(singleCourseDesc?.length).toBe(156);
 
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
 			'href',
 			expectedSingleCourseUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedSingleCourseUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedSingleCourseUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedSingleCourseUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
@@ -905,15 +807,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const singleCourseSchema = JSON.parse(singleCourseJsonLdText!);
-		const singleCourseFaqNode = singleCourseSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleSingleCourseFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(singleCourseFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleSingleCourseFaqs
-		);
+		expect(
+			singleCourseSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'Service')
+		).toBeTruthy();
+		expect(
+			singleCourseSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/courses/move-prior-to-the-move-ultra
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -945,18 +844,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedSingleIndicatorUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedSingleIndicatorUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedSingleIndicatorUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedSingleIndicatorUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
@@ -972,15 +860,14 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const singleIndicatorSchema = JSON.parse(singleIndicatorJsonLdText!);
-		const singleIndicatorFaqNode = singleIndicatorSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleSingleIndicatorFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(singleIndicatorFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleSingleIndicatorFaqs
-		);
+		expect(
+			singleIndicatorSchema['@graph'].find(
+				(n: { '@type': string }) => n['@type'] === 'SoftwareApplication'
+			)
+		).toBeTruthy();
+		expect(
+			singleIndicatorSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/indicators/move-prior-to-the-move-system
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -1010,18 +897,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedSpxUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedSpxUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedSpxUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedSpxUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
@@ -1038,13 +914,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const spxSchema = JSON.parse(spxJsonLdText!);
-		const spxFaqNode = spxSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleSpxFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(spxFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(visibleSpxFaqs);
+		expect(
+			spxSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'Service')
+		).toBeTruthy();
+		expect(
+			spxSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /alert-services/spx-profit-pulse
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -1076,18 +951,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'href',
 			expectedScannersUrl
 		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-us"]')).toHaveAttribute(
-			'href',
-			expectedScannersUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="en-ca"]')).toHaveAttribute(
-			'href',
-			expectedScannersUrl
-		);
-		await expect(page.locator('head link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
-			'href',
-			expectedScannersUrl
-		);
+		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
@@ -1103,15 +967,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.first()
 			.textContent();
 		const scannersSchema = JSON.parse(scannersJsonLdText!);
-		const scannersFaqNode = scannersSchema['@graph'].find(
-			(n: { '@type': string }) => n['@type'] === 'FAQPage'
-		);
-		const visibleScannersFaqs = (
-			await page.locator('details.faq-item summary h3.faq-item__heading').allTextContents()
-		).map((t) => t.trim());
-		expect(scannersFaqNode.mainEntity.map((q: { name: string }) => q.name)).toEqual(
-			visibleScannersFaqs
-		);
+		expect(
+			scannersSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'ItemList')
+		).toBeTruthy();
+		expect(
+			scannersSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
+		).toBeUndefined();
 
 		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /store/scanners
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
@@ -1225,7 +1086,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		).toBeVisible();
 		await expect(page.getByRole('link', { name: /Get Started Free/i })).toHaveAttribute(
 			'href',
-			'/signup'
+			'/contact'
 		);
 
 		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {

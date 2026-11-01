@@ -564,7 +564,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
 		ctaLabel: 'Claim $47/mo Founding Rate ->',
-		ctaHref: '/signup'
+		ctaHref: '/contact'
 	},
 	{
 		id: 'quarterly',
@@ -582,7 +582,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
 		ctaLabel: 'Select Quarterly ($127)',
-		ctaHref: '/signup'
+		ctaHref: '/contact'
 	},
 	{
 		id: 'annual',
@@ -604,6 +604,6 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
 		ctaLabel: 'Select Annual VIP ($447)',
-		ctaHref: '/signup'
+		ctaHref: '/contact'
 	}
 ] as const;

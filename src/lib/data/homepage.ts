@@ -79,7 +79,7 @@ export const MAIN_NAVIGATION: readonly NavItem[] = [
 			},
 			{
 				label: 'Explosive Swings',
-				href: '/alert-services/explosive-swings',
+				href: '/watchlist',
 				previewTarget: 'memberships',
 				icon: 'explosive-swings',
 				description: 'Multi-day watchlists with defined entries and stops.'
@@ -149,7 +149,7 @@ export const MAIN_NAVIGATION: readonly NavItem[] = [
 		children: [
 			{
 				label: 'Options Calculator',
-				href: '/resources/options-calculator',
+				href: '/resources',
 				previewTarget: 'tools',
 				icon: 'calculator',
 				description: 'Free payoff and risk calculator.'
@@ -627,22 +627,22 @@ export const BLOG_ARTICLES: readonly BlogArticle[] = [
 	{
 		id: 'oxy-put-options',
 		coverVariant: 'cover1',
-		coverLabel: 'OPTIONS CASE STUDY / EDITORIAL PLACEHOLDER',
+		coverLabel: 'OPTIONS CASE STUDY / MARKET STRUCTURE',
 		meta: 'OPTIONS CASE STUDY • OCT 2026',
-		title: 'Behind the Reported 600% Overnight OXY Put-Options Trade',
+		title: 'Institutional Order Flow & the S&P 500 Gamma Flip Playbook',
 		excerpt:
-			'What a rigorous review needs to show about option structure, timing, risk, actual execution, and the broader market narrative.',
-		href: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight'
+			'How institutional dealer gamma positioning, zero-gamma flip levels, and call/put walls govern intraday S&P 500 index price action.',
+		href: '/blog/institutional-order-flow-and-gamma-flip-playbook'
 	},
 	{
 		id: 'small-account-blueprint',
 		coverVariant: 'cover2',
 		coverLabel: 'SMALL ACCOUNTS / CAPITAL PROTECTION',
 		meta: 'SMALL ACCOUNTS • OCT 2026',
-		title: 'The $500 Small-Account Blueprint: Risk Before Returns',
+		title: '0DTE SPX Options Risk Management & Position Sizing Rules',
 		excerpt:
-			'How position sizing, contract selection, settlement, and account rules can shape an educational plan for limited capital.',
-		href: '/blogs/growing-a-500-dollar-small-options-account-without-blowing-up'
+			'How position sizing, contract selection, settlement, and hard invalidation stops protect limited capital during intraday index sessions.',
+		href: '/blog/zero-dte-risk-management-and-position-sizing-rules'
 	},
 	{
 		id: 'swing-trading-professionals',
@@ -652,7 +652,7 @@ export const BLOG_ARTICLES: readonly BlogArticle[] = [
 		title: 'How Working Professionals Use Video Watchlists & Planned Stops',
 		excerpt:
 			'Build a repeatable market review around your schedule with video watchlists, pre-set triggers, and pre-defined risk.',
-		href: '/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine'
+		href: '/blog'
 	}
 ] as const;
 
@@ -720,7 +720,7 @@ export const CLOSING_CONTENT: ClosingContent = {
 		'Leave the hype behind. Choose education, transparency, and realistic risk management. Explore a trading community designed to help you improve your process—not to sell you a promise of easy profits.',
 	primaryCta: {
 		label: 'Explore Memberships Now',
-		href: '/memberships',
+		href: '/live-trading-rooms/day-trading-room',
 		previewTarget: 'memberships'
 	},
 	secondaryCta: {
@@ -764,7 +764,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'All Memberships',
-				href: '/memberships',
+				href: '/live-trading-rooms/day-trading-room#join-day-trading-room',
 				previewTarget: 'memberships'
 			}
 		]
@@ -781,7 +781,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'Explosive Swings',
-				href: '/alert-services/explosive-swings',
+				href: '/watchlist',
 				previewTarget: 'memberships'
 			},
 			{
@@ -830,7 +830,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 		links: [
 			{
 				label: 'Options Calculator',
-				href: '/resources/options-calculator',
+				href: '/resources',
 				previewTarget: 'tools'
 			},
 			{
@@ -845,7 +845,7 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'Free Trading eBook',
-				href: '/resources/free-trading-ebook',
+				href: '/resources#resource-categories-h2',
 				previewTarget: 'ebook'
 			},
 			{
@@ -866,6 +866,11 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 				previewTarget: 'footer'
 			},
 			{
+				label: 'Editorial Policy',
+				href: '/editorial-policy',
+				previewTarget: 'footer'
+			},
+			{
 				label: 'Privacy Policy',
 				href: '/privacy-policy',
 				previewTarget: 'footer'
@@ -873,6 +878,11 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 			{
 				label: 'Terms of Service',
 				href: '/terms-of-service',
+				previewTarget: 'footer'
+			},
+			{
+				label: 'Refund Policy',
+				href: '/refund-policy',
 				previewTarget: 'footer'
 			}
 		]

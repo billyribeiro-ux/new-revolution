@@ -29,7 +29,7 @@ export interface IndicatorProduct {
 export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	{
 		id: 'mp-early-in-n-out',
-		slug: 'mp-early-in-n-out',
+		slug: 'move-prior-to-the-move-system',
 		featured: true,
 		codeName: 'Flagship System // MP_EarlyInNOut',
 		name: 'The Move Prior to The Move™ (Early In & Out)',
@@ -45,7 +45,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'liquidity-sweep-radar',
-		slug: 'liquidity-sweep-radar',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 02 // Stop-Hunt Detection',
 		name: 'Institutional Liquidity Sweep & Trap Detector',
 		category: 'order-flow',
@@ -60,7 +60,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'compression-squeeze-matrix',
-		slug: 'compression-squeeze-matrix',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 03 // Multi-Timeframe Energy',
 		name: 'Multi-Timeframe Volatility Squeeze Matrix',
 		category: 'volatility-squeeze',
@@ -75,7 +75,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'spx-gamma-zones',
-		slug: 'spx-gamma-zones',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 04 // Index Options Architecture',
 		name: 'Dynamic SPX & Index Gamma Inflection Levels',
 		category: 'options-levels',
@@ -90,7 +90,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'abandoned-bar-exhaustion',
-		slug: 'abandoned-bar-exhaustion',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 05 // Structural Inflections',
 		name: 'Abandoned Price Bar & Exhaustion Telemetry',
 		category: 'order-flow',
@@ -105,7 +105,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'smart-money-volume-delta',
-		slug: 'smart-money-volume-delta',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 06 // Institutional Tape',
 		name: 'Smart-Money Relative Volume & Absorption Oscillator',
 		category: 'trend-momentum',
@@ -120,7 +120,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'hot-zone-time-structure',
-		slug: 'hot-zone-time-structure',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 07 // Session Windows',
 		name: 'Institutional Hot-Zone & Opening Drive Windows',
 		category: 'options-levels',
@@ -135,7 +135,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 	},
 	{
 		id: 'true-thrust-trend-ribbon',
-		slug: 'true-thrust-trend-ribbon',
+		slug: 'move-prior-to-the-move-system',
 		codeName: 'Telemetry 08 // Multi-Day Alignment',
 		name: 'Institutional Trend Thrust & Structure Ribbon',
 		category: 'trend-momentum',

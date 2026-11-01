@@ -7,7 +7,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
 > - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
 > - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
-> - **SEO Evidence Log (official Google sources, dated; read before making any SEO claim):** [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
+> - **SEO Standard, Decisions & Operations (mandatory for all routes, metadata, sitemaps, and JSON-LD):** [`docs/seo/SEO_STANDARD.md`](docs/seo/SEO_STANDARD.md), [`docs/seo/DECISIONS.md`](docs/seo/DECISIONS.md), [`docs/seo/OPERATIONS.md`](docs/seo/OPERATIONS.md), [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
 
 ---
@@ -101,14 +101,38 @@ Every public route under `src/routes/<route-path>/` requires two files:
 - **`title`:** _House convention (Google sets no title length limit; see [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md))._ Keep the page-specific `title` to **≤ 33 characters** so that when [`src/routes/+layout.svelte`](src/routes/+layout.svelte) appends `titleTemplate="%s | Revolution Trading Pros"` (+26 chars), the rendered `<title>` stays within **30–60 characters**. The `<h1>` should agree with the title.
 - **`description`:** _House convention (Google sets no meta-description length limit)._ Must be unique per route and between **140 and 158 characters** (enforced by unit and e2e tests).
 - **`canonical` & Origin:** Always construct canonical and OpenGraph URLs via `getCanonicalUrl(url)` and `SITE_ORIGIN` (`https://revolutiontradingpros.com`) from [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) so prerendered HTML never leaks `http://sveltekit-prerender` or `localhost`.
-- **Duplicate/Template `[slug]` Routes:** If a dynamic `[slug]` route renders shared fallback template content for non-flagship slugs, canonicalize non-flagship slugs to the flagship slug URL and list only canonical URLs in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts).
+- **Non-Indexable & Duplicate/Template `[slug]` Routes (`IDX-08`):** Never combine `noindex` with a `canonical` tag. Non-flagship dynamic `[slug]` routes that render shared fallback template content must emit `robots: 'noindex, nofollow'` and `canonical: undefined`, and must not be listed in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts).
 
 ### 3.3 Structured Data (`@graph` JSON-LD) Rules
 
-- Centralize all JSON-LD builders in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) and render them via `<JsonLd schema={pageGraph} />` from `svelte-meta-tags`.
+- Centralize all JSON-LD builders in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) and render them via `<JsonLd schema={pageGraph} />` from `svelte-meta-tags` (with `<`, `>`, `&` escaped as `\u003c`, `\u003e`, `\u0026` per `SD-02`).
 - Emit **one unified `@graph` per page** that references the shared `@id` entities (`ORGANIZATION_ID`, `FOUNDER_ID`, `WEBSITE_ID`, `OFFER_CATALOG_ID`) rather than duplicating disconnected JSON-LD blocks.
-- **1-to-1 FAQ Parity:** Whenever a page includes a `FAQPage` node in its `@graph`, every question and answer in the JSON-LD must match the visible FAQ text on the page 1-to-1, and every answer must be in the server-rendered HTML (use native `<details>`, never content injected only on click). Reason: Google's structured-data policy ("Don't mark up content that is not visible to readers of the page"). Google retired FAQ rich results in May 2026, so a new `FAQPage` is not a ranking tactic; add one only when the page has a real visible FAQ. Evidence and sources: [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md). `pnpm check:pages` enforces parity.
+- **No Restricted or Retired Schema Types (`SD-10`, `SD-15`):** Never emit `FAQPage` (restricted by Google in August 2023 to authoritative government and health sites), `HowTo` (retired September 2023), `Course` / `CourseInstance` (`Course Info` retired June 2025), `SpeakableSpecification`, `SpecialAnnouncement`, or `ClaimReview` in JSON-LD. Render visible FAQs in server-rendered HTML using native `<details>` elements.
+- **1-to-1 Breadcrumb Parity (`SD-05`):** Every inner page that emits a `BreadcrumbList` node in JSON-LD must render a matching `<nav aria-label="Breadcrumb">` in the DOM with identical item names and positions.
 - Add or update unit tests in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts) for every new structured-data builder.
+
+---
+
+## 3. Verified Stack & SEO Contract (`docs/seo/SEO_STANDARD.md`)
+
+- **Verified Stack (`pnpm-lock.yaml`):** `svelte@5.57.3`, `@sveltejs/kit@3.1.0`, `@sveltejs/adapter-auto@8.0.1`, `vite@8.3.5`, `typescript@6.0.3`, `svelte-meta-tags@5.0.3`. SvelteKit 3 uses the `#lib` subpath import alias from [`package.json`](package.json) (`$lib` is removed) and `$app/state` (`$app/stores` is deprecated).
+- **SEO Contract Files:**
+  - [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) — `SITE_ORIGIN`, `getCanonicalUrl`, `isNoIndexRoute`, `serializeJsonLd`, `escapeJsonLdBlocksInHtml`, and all marketing/store/trust `@graph` JSON-LD builders.
+  - [`src/lib/seo/blog-seo.ts`](src/lib/seo/blog-seo.ts) — `buildBlogPageMetaTags`, `buildBlogIndexJsonLd`, `buildBlogPostJsonLd`, `buildTaxonomyCollectionJsonLd`.
+  - [`src/routes/+layout.ts`](src/routes/+layout.ts) & [`src/routes/+layout.svelte`](src/routes/+layout.svelte) — Root `defineBaseMetaTags` and `<MetaTags>` rendering (guarded on error pages and `/admin/login`).
+  - [`src/lib/components/blog/SEO.svelte`](src/lib/components/blog/SEO.svelte) — Blog JSON-LD `<script type="application/ld+json">` emitter using `serializeJsonLd`.
+  - [`src/lib/components/layout/Breadcrumb.svelte`](src/lib/components/layout/Breadcrumb.svelte) — Reusable `<nav aria-label="Breadcrumb">` component.
+  - [`src/hooks.server.ts`](src/hooks.server.ts) — Enforces `X-Robots-Tag: noindex, nofollow` on non-production origins and `isNoIndexRoute(pathname)` (`IDX-09`), `preload` for `js`/`css`/`font` (`PERF-05`), and `escapeJsonLdBlocksInHtml` (`SD-02`).
+  - [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts) — Canonical XML sitemap (`MAP-01`..`MAP-05`).
+- **Forbidden Patterns:**
+  - Never add a second metadata system or raw `<svelte:head><title>` / `<meta name="description">` / `<meta name="robots">` in indexable pages (`META-05`).
+  - Never hardcode origins (`http://localhost`, `http://sveltekit-prerender`); always use `SITE_ORIGIN` and `getCanonicalUrl(url)` (`META-04`).
+  - Never set `export const ssr = false` on indexable routes (`IDX-01`).
+  - Never emit `<changefreq>`, `<priority>`, or single-locale `hreflang` in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts) (`MAP-04`, `MAP-05`, `I18N-03`).
+  - Never emit restricted or retired schema types (`FAQPage`, `HowTo`, `Course`, `CourseInstance`, `SpeakableSpecification`, `SpecialAnnouncement`, `ClaimReview`) (`SD-10`, `SD-15`).
+  - Never invent structured-data values (`AggregateRating`, prices not visible in DOM) (`SD-08`, `YMYL-06`).
+  - Never use legacy `$app/stores`, `export let`, `$:`, `any`, `@ts-ignore`, `@ts-expect-error`, or `eslint-disable` to silence real errors.
+  - Never lower SEO or CWV test thresholds in [`tests/seo/seo-standard.spec.ts`](tests/seo/seo-standard.spec.ts) or [`tests/seo/lab.ts`](tests/seo/lab.ts).
 
 ---
 
@@ -116,23 +140,24 @@ Every public route under `src/routes/<route-path>/` requires two files:
 
 When adding any new marketing route to the repository, complete every step in order:
 
-1. **Create Route Files:**
-   - Create `src/routes/<route>/+page.ts` with `export const prerender = true;` and `definePageMetaTags(...)` (verify `title` + suffix ≤ 60 chars, `description` 140–158 chars, and `canonical` via `getCanonicalUrl(url)`).
-   - Create `src/routes/<route>/+page.svelte` importing `#lib/styles/inner-page.css` (SvelteKit 3 uses the `#lib` alias from `package.json` `imports`; `$lib` is gone), rendering `<JsonLd>`, `<a class="skip" href="#<slug>-page">`, `<Navbar />`, `<main id="<slug>-page" class="inner-page ...">`, and `<Footer />`. Full templates and the complete procedure: [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md).
-2. **Add Structured Data Builder & Unit Test:**
-   - Add a typed `@graph` builder in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) (including `BreadcrumbList`, `WebPage`/`CollectionPage`/`ItemPage`, and domain-specific `Service`/`Course`/`SoftwareApplication`/`FAQPage` nodes).
-   - Add unit test coverage in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts).
-3. **Register Navigation & Prerender Guards:**
-   - If the route was previously in `PLANNED_ROUTE_PATTERN` inside [`vite.config.ts`](vite.config.ts), remove it from `PLANNED_ROUTE_PATTERN` and add it to `LIVE_ROUTES` in [`src/routes/+page.svelte`](src/routes/+page.svelte) (and [`src/lib/components/layout/Navbar.svelte`](src/lib/components/layout/Navbar.svelte) / [`src/lib/components/layout/Footer.svelte`](src/lib/components/layout/Footer.svelte) as appropriate).
-   - Verify [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts) automatically discovers the new `+page.svelte` via `import.meta.glob` (or add explicit canonical slug expansion if it is a unique dynamic route).
-4. **Run the Svelte Autofixer & Full Verification Suite:**
-   - Run the `svelte-autofixer` MCP tool on new/modified `.svelte` files.
-   - Run all mandatory checks (`pnpm` ONLY):
-     ```bash
-     pnpm check:css
-     pnpm check
-     pnpm lint
-     pnpm test:unit --run
-     pnpm build
-     pnpm test:e2e
-     ```
+1. **Route Options (`IDX-01`, `IDX-03`, `IDX-11`):** Create `src/routes/<route>/+page.ts` with `export const prerender = true;` and lowercase hyphenated route naming.
+2. **Metadata & Canonical (`META-01`..`META-06`, `IDX-08`):** Return `definePageMetaTags(...)` from `load({ url })` with a unique `title` (rendered ≤ 60 chars), unique `description` (140–158 chars), and `canonical: getCanonicalUrl(url)` (or `canonical: undefined` and `robots: 'noindex, nofollow'` if non-indexable).
+3. **Semantic Layout & Heading Hierarchy (`HTML-01`, `HTML-02`, `HTML-06`, `HTML-07`):** Create `src/routes/<route>/+page.svelte` importing `#lib/styles/inner-page.css`, rendering `<JsonLd>`, `<a class="skip" href="#<slug>-page">`, `<Navbar />`, `<main id="<slug>-page" class="inner-page ...">`, and `<Footer />` with a single `<h1>` and zero heading-level skips. Full templates: [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md).
+4. **Breadcrumbs (`SD-05`):** Render `<nav aria-label="Breadcrumb">` (or `<Breadcrumb />`) in `<main>` with item labels that match the JSON-LD `BreadcrumbList` 1-to-1.
+5. **Structured Data Builder & Unit Test (`SD-01`..`SD-08`, `SD-10`, `SD-15`, `MON-03`):** Add a typed `@graph` builder in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) (including `BreadcrumbList`, `WebPage`/`CollectionPage`/`ProfilePage`/`ContactPage`, and eligible `Service`/`SoftwareApplication`/`Product` nodes) and unit tests in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts).
+6. **YMYL Trust Signals (`YMYL-01`..`YMYL-07`, `AI-02`):** Include a visible author/desk attribution byline linking to `/about`, a visible `<time datetime="...">` date, a concise hero summary paragraph under `<h1>`, and a `.disclaimer-strip` risk disclosure.
+7. **Media & LCP Priority (`PERF-02`..`PERF-04`, `MEDIA-01`..`MEDIA-03`):** Use `<enhanced:img>` or explicit `width`/`height`, descriptive `alt` text, and `fetchpriority="high"` (without `loading="lazy"`) on any above-the-fold LCP image.
+8. **Crawlable Internal & Outbound Links (`IDX-04`, `HTML-03`..`HTML-05`):** Wrap internal links with `resolve('/path')` from `$app/paths`, ensure descriptive anchor text, and qualify external links appropriately.
+9. **Sitemap & Inventory Registration (`MAP-01`, `MAP-02`, `MON-01`):** Verify [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts) discovers the route and add the concrete URL to [`docs/seo/audit/02-inventory.json`](docs/seo/audit/02-inventory.json).
+10. **Playwright SEO Spec (`MON-01`):** Verify [`tests/seo/seo-standard.spec.ts`](tests/seo/seo-standard.spec.ts) crawls and passes all assertions on the new URL.
+11. **Run `svelte-autofixer` & Gate Commands (`pnpm` ONLY):**
+    ```bash
+    pnpm check:css
+    pnpm check
+    pnpm lint
+    pnpm test:unit --run
+    pnpm build
+    pnpm check:pages
+    pnpm test:seo
+    pnpm test:e2e
+    ```

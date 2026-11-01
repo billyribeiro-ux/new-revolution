@@ -23,12 +23,12 @@
 	<div class={['breadcrumb-bar__inner', className]}>
 		<ol class="breadcrumb-list">
 			{#each items as item (item.label)}
-				<li>
+				<li aria-current={item.href ? undefined : 'page'}>
 					{#if item.href}
 						<!-- resolve() overloads are per-route; a RouteId union needs this single, contained cast. -->
 						<a href={resolve(item.href as '/')}>{item.label}</a>
 					{:else}
-						<span aria-current="page">{item.label}</span>
+						<span>{item.label}</span>
 					{/if}
 				</li>
 			{/each}
@@ -78,7 +78,12 @@
 		margin-inline-end: 0.5rem;
 	}
 
-	.breadcrumb-list a {
+	.breadcrumb-list a,
+	.breadcrumb-bar__telemetry :global(a) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+		min-width: 24px;
 		color: var(--text);
 		text-decoration: underline;
 	}

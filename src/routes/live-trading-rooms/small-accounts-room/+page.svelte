@@ -189,8 +189,6 @@
 			<ol class="breadcrumb-list">
 				<li><a href={resolve('/')}>Home</a></li>
 				<li aria-hidden="true" class="crumb-sep"><CaretRightIcon size={12} weight="bold" /></li>
-				<li><span>Live Trading Rooms</span></li>
-				<li aria-hidden="true" class="crumb-sep"><CaretRightIcon size={12} weight="bold" /></li>
 				<li aria-current="page">Small Accounts Room</li>
 			</ol>
 			<p class="breadcrumb-bar__telemetry">
@@ -361,7 +359,7 @@
 				<div class="survival-card__footer">
 					<p class="survival-card__note">
 						Want to calculate exact contract risk before entering? Use our free
-						<a href={resolve('/resources/options-calculator' as '/')}>Options Calculator →</a>
+						<a href={resolve('/resources' as '/')}>Options Calculator →</a>
 					</p>
 				</div>
 			</aside>
@@ -571,14 +569,11 @@
 								>Swing Trading Room</a
 							>
 							or our ultra-affordable
-							<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>
+							<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>
 							video watchlist alert tier for pre-planned multi-day entries, targets, and stops.
 						</p>
 					</div>
-					<a
-						href={resolve('/alert-services/explosive-swings' as '/')}
-						class="btn btn-outline-dark btn--full"
-					>
+					<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark btn--full">
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -655,10 +650,10 @@
 					Join the Small Accounts Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
 					Explosive Swings Video Watchlist
 				</a>
-				<a href={resolve('/resources/options-calculator' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/resources' as '/')} class="btn btn-outline-dark">
 					Free Options Risk Calculator
 				</a>
 			</div>

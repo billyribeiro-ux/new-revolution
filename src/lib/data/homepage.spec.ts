@@ -85,20 +85,22 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(EBOOK_PROFILES.length).toBeGreaterThanOrEqual(4);
 		expect(BLOG_ARTICLES).toHaveLength(3);
 		expect(BLOG_ARTICLES.map((b) => b.href)).toEqual([
-			'/blogs/how-we-shorted-oxy-put-options-600-percent-overnight',
-			'/blogs/growing-a-500-dollar-small-options-account-without-blowing-up',
-			'/blogs/swing-trading-options-with-a-full-time-job-watchlist-routine'
+			'/blog/institutional-order-flow-and-gamma-flip-playbook',
+			'/blog/zero-dte-risk-management-and-position-sizing-rules',
+			'/blog'
 		]);
 		expect(FAQ_ITEMS).toHaveLength(5);
-		expect(CLOSING_CONTENT.primaryCta.href).toBe('/memberships');
+		expect(CLOSING_CONTENT.primaryCta.href).toBe('/live-trading-rooms/day-trading-room');
 		expect(CLOSING_CONTENT.secondaryCta.href).toBe('/mentorship');
 		expect(FOOTER_COLUMNS).toHaveLength(5);
 
 		const legalCol = FOOTER_COLUMNS.find((col) => col.id === 'footer-legal');
 		expect(legalCol?.links.map((l) => l.href)).toEqual([
 			'/contact',
+			'/editorial-policy',
 			'/privacy-policy',
-			'/terms-of-service'
+			'/terms-of-service',
+			'/refund-policy'
 		]);
 	});
 });

@@ -5,13 +5,6 @@ import { playwright } from '@vitest/browser-playwright';
 import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
-/**
- * Sections of the site that are linked from the navigation/footer but not built yet.
- * A 404 for these paths must not fail the build; any other broken link still does.
- */
-const PLANNED_ROUTE_PATTERN =
-	/^\/(live-trading-rooms|alert-services|store|resources|blogs|memberships|login|signup|register|contact|privacy-policy|terms-of-service)(\/|$)/;
-
 export default defineConfig({
 	plugins: [
 		enhancedImages(),
@@ -23,17 +16,6 @@ export default defineConfig({
 				experimental: { async: true }
 			},
 			adapter: adapter({ runtime: 'nodejs24.x' }),
-			prerender: {
-				handleHttpError: ({ status, path, referrer, message }) => {
-					if (status === 404 && PLANNED_ROUTE_PATTERN.test(path)) {
-						console.warn(
-							`[prerender] planned route not built yet: ${path} (linked from ${referrer})`
-						);
-						return;
-					}
-					throw new Error(message);
-				}
-			},
 			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
 			extensions: ['.svelte', '.svx', '.md'],
 			experimental: { remoteFunctions: true }

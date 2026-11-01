@@ -69,11 +69,15 @@ export const load: PageServerLoad = async ({ params, url, locals, request, setHe
 	}));
 
 	const title = (currentCategory.metaTitle || `${currentCategory.name} Trading Articles`).trim();
-	const description = (
+	const rawDescription = (
 		currentCategory.metaDescription ||
 		currentCategory.description ||
-		`Explore ${postsPage.total} institutional trading articles and tutorials filed under ${currentCategory.name}.`
+		''
 	).trim();
+	const description =
+		rawDescription.length >= 110 && rawDescription.length <= 160
+			? rawDescription
+			: `Explore ${postsPage.total} institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under ${currentCategory.name}.`;
 
 	return {
 		...buildBlogPageMetaTags({

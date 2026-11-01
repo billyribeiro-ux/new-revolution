@@ -182,7 +182,7 @@
 	const defaultScannersCatalog: ScannerProduct[] = [
 		{
 			id: 'move-prior-to-the-move-radar',
-			slug: 'move-prior-to-the-move-radar',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 01 // Flagship Institutional Radar',
 			name: 'The Move Prior to The Move™ Live Market Radar',
 			category: 'order-flow-reversals',
@@ -203,7 +203,7 @@
 		},
 		{
 			id: 'multi-timeframe-squeeze-scanner',
-			slug: 'multi-timeframe-squeeze-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 02 // 18-Timeframe Alignment Engine',
 			name: 'Multi-Timeframe Volatility Squeeze & Alignment Scanner',
 			category: 'multi-timeframe-squeeze',
@@ -224,7 +224,7 @@
 		},
 		{
 			id: 'liquidity-sweep-stop-hunt-scanner',
-			slug: 'liquidity-sweep-stop-hunt-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 03 // Anti-Trap Reversal Engine',
 			name: 'Institutional Liquidity Sweep & Failed Breakout Scanner',
 			category: 'order-flow-reversals',
@@ -245,7 +245,7 @@
 		},
 		{
 			id: 'small-account-affordable-options-scanner',
-			slug: 'small-account-affordable-options-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 04 // $500+ Capital Filter',
 			name: '$500+ Small Account Affordable Options & Spread Scanner',
 			category: 'small-accounts-swing',
@@ -266,7 +266,7 @@
 		},
 		{
 			id: 'working-pro-eod-swing-scanner',
-			slug: 'working-pro-eod-swing-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 05 // 9-to-5 Evening Prep Radar',
 			name: 'Working Professional 20-Minute End-of-Day Swing Scanner',
 			category: 'small-accounts-swing',
@@ -287,7 +287,7 @@
 		},
 		{
 			id: 'spx-dealer-gamma-iv-skew-scanner',
-			slug: 'spx-dealer-gamma-iv-skew-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 06 // Index & Volatility Telemetry',
 			name: 'SPX & Index Options Dealer Gamma & IV Percentile Scanner',
 			category: 'options-gamma',
@@ -308,7 +308,7 @@
 		},
 		{
 			id: 'smart-money-relative-volume-scanner',
-			slug: 'smart-money-relative-volume-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 07 // Institutional Block Tape',
 			name: 'Smart-Money Relative Volume (RVOL) & Accumulation Scanner',
 			category: 'order-flow-reversals',
@@ -329,7 +329,7 @@
 		},
 		{
 			id: 'opening-bell-gap-and-go-fade-scanner',
-			slug: 'opening-bell-gap-and-go-fade-scanner',
+			slug: 'high-octane-scanner',
 			code: 'Scanner 08 // Pre-Market Bell Preparation',
 			name: 'Pre-Market Institutional Gap & Liquidity Imbalance Scanner',
 			category: 'options-gamma',
@@ -424,7 +424,7 @@
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		}
 	];
 
@@ -474,8 +474,6 @@
 			<div class="container breadcrumb-bar__inner">
 				<ol class="breadcrumb-list">
 					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-hidden="true">/</li>
-					<li><span>Store</span></li>
 					<li aria-hidden="true">/</li>
 					<li aria-current="page">Trading Scanners</li>
 				</ol>
@@ -976,9 +974,9 @@
 						</h3>
 						<p class="workflow-card__copy">
 							Plug your entry and stop into our free
-							<a href={resolve('/resources/options-calculator' as '/')}>Options Calculator</a> to select
-							the optimal Delta, expiration window, or vertical spread—ensuring your risk is 100% capped
-							before submitting the order.
+							<a href={resolve('/resources' as '/')}>Options Calculator</a> to select the optimal Delta,
+							expiration window, or vertical spread—ensuring your risk is 100% capped before submitting
+							the order.
 						</p>
 					</article>
 				</div>
@@ -1090,7 +1088,7 @@
 							<a href={resolve('/live-trading-rooms/small-accounts-room')}>Small Accounts Room</a>,
 							and use them to curate the setups in
 							<a href={resolve('/alert-services/spx-profit-pulse')}>SPX Profit Pulse</a> and
-							<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>.
+							<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>.
 						</p>
 					</details>
 				</div>

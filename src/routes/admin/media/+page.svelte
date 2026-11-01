@@ -6,11 +6,6 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>Media Library | Admin | Revolution Trading Pros</title>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
-
 <main class="admin-media-page">
 	<div class="admin-media-topbar">
 		<div>

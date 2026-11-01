@@ -8,7 +8,28 @@
 
 	let { data, children }: LayoutProps = $props();
 
-	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
+	let metaTags = $derived.by(() => {
+		const merged = deepMerge(data.baseMetaTags, page.data.pageMetaTags);
+		if (page.error || page.status >= 400) {
+			return {
+				...merged,
+				title: `${page.status} — Page Not Found`,
+				description:
+					'The requested page could not be found on Revolution Trading Pros. Return to our live trading rooms, educational courses, indicators, or blog.',
+				robots: 'noindex, nofollow',
+				additionalRobotsProps: undefined,
+				canonical: undefined
+			};
+		}
+		if (typeof merged.robots === 'string' && merged.robots.includes('noindex')) {
+			return {
+				...merged,
+				additionalRobotsProps: undefined,
+				canonical: undefined
+			};
+		}
+		return merged;
+	});
 </script>
 
 <svelte:head>
@@ -19,6 +40,8 @@
 	<link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
 </svelte:head>
 
-<MetaTags {...metaTags} />
+{#if !page.url.pathname.startsWith('/admin/login')}
+	<MetaTags {...metaTags} />
+{/if}
 
 {@render children()}

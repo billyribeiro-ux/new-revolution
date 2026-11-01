@@ -762,6 +762,16 @@
 	<!-- Top Scroll Progress Laser Line -->
 	<div class="scroll-laser" style={`width: ${scrollProgress}%`} aria-hidden="true"></div>
 
+	<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+		<div class="sap-container">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Weekly Stock &amp; Options Video Watchlist</li>
+			</ol>
+		</div>
+	</nav>
+
 	<!-- ACT I: CINEMATIC 3D WAVEFIELD HERO STAGE -->
 	<header
 		id="hero-stage"
@@ -815,7 +825,10 @@
 				<div class="hero-copy-col">
 					<div class="eyebrow-pill sap-gsap-hero">
 						<span class="eyebrow-tag">SUNDAY 5:00 PM EST</span>
-						<span class="eyebrow-text">Directed by Chief Strategist Billy Ribeiro</span>
+						<span class="eyebrow-text">
+							Directed by Chief Strategist <a href={resolve('/about')}>Billy Ribeiro</a> •
+							<time datetime="2026-10-31">Oct 31, 2026</time>
+						</span>
 					</div>
 
 					<h1 id="sap-hero-h1" class="hero-title sap-gsap-hero">

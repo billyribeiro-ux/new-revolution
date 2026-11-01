@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import type { Handle } from '@sveltejs/kit/hooks';
 import { building } from '$app/env';
 import { and, eq, sql } from 'drizzle-orm';
+import { escapeJsonLdBlocksInHtml, isNoIndexRoute } from '#lib/seo/structured-data.ts';
 import { auth } from '#lib/server/auth.ts';
 import { ensureDbReady } from '#lib/server/db';
 import { redirects } from '#lib/server/db/schema';
@@ -17,6 +18,27 @@ const SKIPPED_REDIRECT_PREFIXES = [
 	'/sitemap.xml',
 	'/rss.xml'
 ];
+
+export function isNonProductionHost(hostname: string, headers?: Headers): boolean {
+	if (headers?.get('x-seo-nonprod-test') === '1') {
+		return true;
+	}
+	const vercelEnv = process.env.VERCEL_ENV || process.env.CF_PAGES_BRANCH || '';
+	if (vercelEnv && vercelEnv !== 'production' && vercelEnv !== 'main') {
+		return true;
+	}
+	const lowered = hostname.trim().toLowerCase();
+	if (
+		lowered.endsWith('.vercel.app') ||
+		lowered.endsWith('.pages.dev') ||
+		lowered.endsWith('.netlify.app') ||
+		lowered.startsWith('staging.') ||
+		lowered.startsWith('preview.')
+	) {
+		return true;
+	}
+	return false;
+}
 
 export function normaliseRedirectLookupPath(pathname: string): string {
 	const lowered = pathname.trim().toLowerCase();
@@ -142,7 +164,43 @@ const handleApp: Handle = async ({ event, resolve }) => {
 		);
 	}
 
-	return svelteKitHandler({ event, resolve, auth, building });
+	const customResolve: typeof resolve = (resolvedEvent, opts) =>
+		resolve(resolvedEvent, {
+			...opts,
+			preload: ({ type }) => type === 'js' || type === 'css' || type === 'font',
+			transformPageChunk: ({ html, done }) => {
+				const transformed = opts?.transformPageChunk
+					? opts.transformPageChunk({ html, done })
+					: html;
+				if (typeof transformed === 'string') {
+					return escapeJsonLdBlocksInHtml(transformed);
+				}
+				return Promise.resolve(transformed).then((chunk) =>
+					typeof chunk === 'string' ? escapeJsonLdBlocksInHtml(chunk) : chunk
+				);
+			}
+		});
+
+	const response = await svelteKitHandler({
+		event,
+		resolve: customResolve,
+		auth,
+		building
+	});
+
+	if (isNoIndexRoute(pathname) || isNonProductionHost(event.url.hostname, event.request.headers)) {
+		const headers = new Headers(response.headers);
+		if (!headers.has('X-Robots-Tag')) {
+			headers.set('X-Robots-Tag', 'noindex, nofollow');
+		}
+		return new Response(response.body, {
+			status: response.status,
+			statusText: response.statusText,
+			headers
+		});
+	}
+
+	return response;
 };
 
 export const handle: Handle = handleApp;

@@ -135,9 +135,6 @@ export const GET: RequestHandler = async ({ request }) => {
 					`    <loc>${escapeXml(fullUrl)}</loc>`,
 					...(lastmod ? [`    <lastmod>${escapeXml(lastmod)}</lastmod>`] : []),
 					...imageLines,
-					`    <xhtml:link rel="alternate" hreflang="en-us" href="${escapeXml(fullUrl)}" />`,
-					`    <xhtml:link rel="alternate" hreflang="en-ca" href="${escapeXml(fullUrl)}" />`,
-					`    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(fullUrl)}" />`,
 					'  </url>'
 				].join('\n');
 			})
@@ -145,7 +142,7 @@ export const GET: RequestHandler = async ({ request }) => {
 
 		const xml = [
 			'<?xml version="1.0" encoding="UTF-8"?>',
-			'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+			'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
 			urlNodes,
 			'</urlset>'
 		].join('\n');

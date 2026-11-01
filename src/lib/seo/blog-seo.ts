@@ -95,10 +95,7 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 
 	const additionalMetaTags: Array<
 		{ name: string; content: string } | { property: string; content: string }
-	> = [
-		{ name: 'theme-color', content: '#0b0e12' },
-		{ property: 'og:locale:alternate', content: 'en_CA' }
-	];
+	> = [{ name: 'theme-color', content: '#0b0e12' }];
 
 	if (input.authorName?.trim()) {
 		additionalMetaTags.push({
@@ -120,13 +117,7 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 					maxVideoPreview: -1
 				}
 			: undefined,
-		languageAlternates: indexable
-			? [
-					{ hrefLang: 'en-us', href: canonicalUrl },
-					{ hrefLang: 'en-ca', href: canonicalUrl },
-					{ hrefLang: 'x-default', href: canonicalUrl }
-				]
-			: [],
+		languageAlternates: [],
 		openGraph: {
 			type: input.ogType ?? 'website',
 			url: canonicalUrl,
@@ -378,7 +369,7 @@ export function buildBlogPostJsonLd(
 			'@type': 'Person',
 			'@id': authorId,
 			name: input.author.name,
-			...(input.author.website ? { url: input.author.website } : {}),
+			url: input.author.website || `${origin}/about`,
 			...(input.author.jobTitle ? { jobTitle: input.author.jobTitle } : {}),
 			...(input.author.shortBio || input.author.bio
 				? { description: input.author.shortBio || input.author.bio }
@@ -456,28 +447,9 @@ export function buildBlogPostJsonLd(
 			'@id': `${pageUrl}#webpage`
 		},
 		isPartOf: { '@id': `${origin}/#website` },
-		speakable: {
-			'@type': 'SpeakableSpecification',
-			cssSelector: ['h1', '.article-excerpt']
-		},
 		...(keywordsList.length > 0 ? { keywords: keywordsList.join(', ') } : {}),
 		...(input.category ? { articleSection: input.category.name } : {})
 	});
-
-	if (input.faqItems && input.faqItems.length > 0) {
-		graph.push({
-			'@type': 'FAQPage',
-			'@id': `${pageUrl}#faq`,
-			mainEntity: input.faqItems.map((faq) => ({
-				'@type': 'Question',
-				name: faq.question,
-				acceptedAnswer: {
-					'@type': 'Answer',
-					text: faq.answer
-				}
-			}))
-		});
-	}
 
 	return {
 		'@context': 'https://schema.org',

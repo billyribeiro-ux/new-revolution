@@ -127,7 +127,7 @@
 				},
 				{
 					name: 'Explosive Swings',
-					href: '/alert-services/explosive-swings',
+					href: '/watchlist',
 					audience: 'Self-Directed & Busy Traders',
 					summary:
 						'Accessible alert-only membership delivering detailed video watchlists with exact targeted entries, exits, and stop-loss levels.'
@@ -154,10 +154,17 @@
 				},
 				{
 					name: 'Free Trader Resources & Market Lists',
-					href: '/resources/options-calculator',
+					href: '/resources',
 					audience: '100% Free Public Utilities',
 					summary:
-						'Access our Options Calculator (/resources/options-calculator), ETF Stocks List (/resources/etf-stocks-list), and Stock Indexes List (/resources/stock-indexes-list).'
+						'Access our Options Calculator (/resources), ETF Stocks List (/resources/etf-stocks-list), and Stock Indexes List (/resources/stock-indexes-list).'
+				},
+				{
+					name: 'Published Institutional Market Research',
+					href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+					audience: 'Authored by Billy Ribeiro',
+					summary:
+						'Read our Institutional Order Flow & S&P 500 Gamma Flip Playbook and 0DTE Risk Management Rules in the Revolution Trading Pros Blog (/blog).'
 				}
 			]
 		}
@@ -266,6 +273,13 @@
 				</div>
 
 				<dl class="credentials-list">
+					<div class="credentials-list__row">
+						<dt>Founder &amp; Head Market Strategist</dt>
+						<dd>
+							<strong>Billy Ribeiro</strong> — Founder &amp; Head Market Strategist at Revolution
+							Trading Pros (<time datetime="2026-10-31">Updated October 31, 2026</time>).
+						</dd>
+					</div>
 					<div class="credentials-list__row">
 						<dt>Wall Street Mentorship Lineage</dt>
 						<dd>
@@ -615,7 +629,7 @@
 						exact thesis, entry triggers, profit targets, and invalidation stops before the move
 						happens.
 					</p>
-					<a href={resolve('/alert-services/explosive-swings' as '/')} class="text-link">
+					<a href={resolve('/watchlist' as '/')} class="text-link">
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -715,7 +729,7 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
 					Explore Video Watchlist Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

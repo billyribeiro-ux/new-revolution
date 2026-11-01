@@ -67,12 +67,20 @@
 		'/alert-services/spx-profit-pulse',
 		'/watchlist',
 		'/blog',
+		'/blog/institutional-order-flow-and-gamma-flip-playbook',
+		'/blog/zero-dte-risk-management-and-position-sizing-rules',
 		'/store/indicators',
 		'/store/courses',
 		'/store/scanners',
 		'/resources',
 		'/resources/etf-stocks-list',
 		'/resources/stock-indexes-list',
+		'/contact',
+		'/editorial-policy',
+		'/privacy-policy',
+		'/terms-of-service',
+		'/refund-policy',
+		'/admin/login',
 		'/sitemap.xml'
 	]);
 

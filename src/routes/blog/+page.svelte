@@ -20,13 +20,25 @@
 <Navbar />
 
 <main id="blog-page" class="inner-page blog-index-page">
+	<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+		<ol class="breadcrumb-list">
+			<li><a href={resolve('/')}>Home</a></li>
+			<li aria-hidden="true">/</li>
+			<li aria-current="page">Blog</li>
+		</ol>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="blog-index-h1">
 		<div class="hero-inner">
 			<span class="section-kicker">Market Intelligence & Research</span>
 			<h1 id="blog-index-h1" class="hero-h1">Institutional Stock & Options Trading Blog</h1>
 			<p class="hero-sub">
 				In-depth market structure analysis, Options Greeks breakdowns, small-account risk
-				management, and execution playbooks authored by the Revolution Trading Pros desk.
+				management, and execution playbooks authored by <a href={resolve('/about')}>Billy Ribeiro</a
+				>
+				and the Revolution Trading Pros desk (<time datetime="2026-10-31"
+					>Updated October 31, 2026</time
+				>).
 			</p>
 
 			<form method="GET" action={resolve('/blog')} class="blog-search-form" role="search">

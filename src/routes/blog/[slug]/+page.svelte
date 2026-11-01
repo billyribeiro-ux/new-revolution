@@ -425,7 +425,7 @@
 						<section class="article-faq-section" aria-labelledby="article-faq-h2">
 							<h2 id="article-faq-h2">Frequently Asked Questions</h2>
 							<div class="faq-accordion">
-								{#each data.post.faqList as faq, idx (idx)}
+								{#each data.post.faqList as faq, idx (faq.question)}
 									<details class="faq-details" open={idx === 0}>
 										<summary class="faq-summary">
 											<h3 class="faq-question">{faq.question}</h3>

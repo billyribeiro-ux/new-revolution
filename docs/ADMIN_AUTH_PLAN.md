@@ -3,7 +3,7 @@
 Status: **plan, nothing implemented yet** (branch `docs/admin-auth-plan`, base `origin/main` 5517043, 2026-10-31).
 Companion files: [`CHANGELOG.md`](../CHANGELOG.md), [`TEMPORARY.md`](TEMPORARY.md),
 [`AGENT_COORDINATION.md`](AGENT_COORDINATION.md), [`BLOG_ADAPTATION_MAP.md`](BLOG_ADAPTATION_MAP.md),
-spec `src/blog-editor-implementation-prompt.md`.
+spec `docs/blog-editor-implementation-prompt.md`.
 
 Goal: the owner can sign in to a real `/admin`, write, edit, schedule and publish posts and manage media,
 using Better Auth, with a clearly marked temporary admin account. Everything temporary is registered in
@@ -121,7 +121,7 @@ autofixer last).
 - Real-browser run: login, create post, edit with TipTap, upload media, set SEO/FAQ, save draft, autosave, schedule, publish,
   view `/blog/<slug>`, check JSON-LD and RSS/sitemap entry, revisions diff and restore, trash and restore, slug rename redirect.
 - Run `blog-system.e2e.ts`, `posts.db.spec.ts`, `blog-routes.spec.ts`, `form-actions.spec.ts`; record results.
-- Audit against `src/blog-editor-implementation-prompt.md` phases; produce a table done / partial / missing with file evidence; log
+- Audit against `docs/blog-editor-implementation-prompt.md` phases; produce a table done / partial / missing with file evidence; log
   defects in `CHANGELOG.md` and fix in small PRs.
 
 **P5. Production hardening (before any real deploy).**

@@ -111,7 +111,8 @@
 		const next = new URL(page.url.href);
 		next.searchParams.delete(name);
 		await goto(resolve(`${next.pathname}${next.search}${next.hash}` as '/'), {
-			replaceState: true
+			replace: true,
+			reset: false
 		});
 	}
 

@@ -363,7 +363,7 @@
 								>
 							</summary>
 							<div class="faq-item__answer">
-								{#each faq.answer.split('\n') as line (line)}
+								{#each faq.answer.split('\n') as line, lineIdx (`${lineIdx}-${line}`)}
 									<p>{line}</p>
 								{/each}
 							</div>

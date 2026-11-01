@@ -69,7 +69,9 @@
 		}}
 	>
 		<input
-			bind:this={fileInput}
+			{@attach (node) => {
+				fileInput = node;
+			}}
 			id="ml-upload-input"
 			type="file"
 			multiple

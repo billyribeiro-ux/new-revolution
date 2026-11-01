@@ -243,7 +243,9 @@
 			<button
 				type="button"
 				class="metabox-toggle"
-				bind:this={seoToggleEl}
+				{@attach (node) => {
+					seoToggleEl = node;
+				}}
 				aria-expanded={activeMainTab === 'seo'}
 				aria-controls="panel-seo"
 				onclick={() => toggleMainPanel('seo')}

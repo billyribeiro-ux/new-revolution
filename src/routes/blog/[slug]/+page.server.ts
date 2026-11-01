@@ -3,6 +3,7 @@ import { and, eq, inArray, isNull } from 'drizzle-orm';
 import {
 	buildBlogPageMetaTags,
 	buildBlogPostJsonLd,
+	dropRestrictedJsonLdNodes,
 	resolvePostModifiedIso
 } from '#lib/seo/blog-seo';
 import { getClientIp } from '#lib/server/auth-guard';
@@ -370,7 +371,7 @@ export const load: PageServerLoad = async ({
 						...jsonLdSchema,
 						'@graph': [
 							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
-							...(customObj['@graph'] as Record<string, unknown>[])
+							...dropRestrictedJsonLdNodes(customObj['@graph'] as Record<string, unknown>[])
 						]
 					};
 				} else if (
@@ -381,7 +382,10 @@ export const load: PageServerLoad = async ({
 					void _ignoredContext;
 					jsonLdSchema = {
 						...jsonLdSchema,
-						'@graph': [...(jsonLdSchema['@graph'] as Record<string, unknown>[]), restNode]
+						'@graph': [
+							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
+							...dropRestrictedJsonLdNodes([restNode])
+						]
 					};
 				}
 			}

@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-01 — Restricted schema types can no longer enter blog JSON-LD via custom JSON-LD (SD-10/SD-15)
+
+#### Fixed (2026-11-01, verification pass)
+
+- The admin `__customJsonLd` field could still inject `HowTo`/`FAQPage` (and other restricted types) into public post JSON-LD. `dropRestrictedJsonLdNodes` (`src/lib/seo/blog-seo.ts`) now filters them in `src/routes/blog/[slug]/+page.server.ts`; `blog-routes.spec.ts` previously asserted `HowTo` was emitted and now asserts it is dropped while an allowed type is kept.
+
 ### 2026-11-01 — Retired `HowTo` schema type removed from blog posts (SD-15)
 
 #### Fixed (2026-11-01)

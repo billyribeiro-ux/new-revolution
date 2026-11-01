@@ -544,7 +544,11 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 				{ key: '__noarchive', value: 'true' },
 				{ key: '__nosnippet', value: 'true' },
 				{ key: '__excludeFromSearch', value: 'true' },
-				{ key: '__customJsonLd', value: '{"@type":"HowTo","name":"Delta Hedge SPX"}' }
+				{
+					key: '__customJsonLd',
+					value:
+						'{"@graph":[{"@type":"HowTo","name":"Delta Hedge SPX"},{"@type":"Dataset","name":"Delta Hedge SPX"}]}'
+				}
 			])
 		});
 
@@ -604,8 +608,9 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 			'execution-checklist',
 			'execution-checklist-2'
 		]);
-		// Custom JSON-LD node merged into @graph
-		expect(previewLoaded.jsonLdSchema['@graph'].some((n) => n['@type'] === 'HowTo')).toBe(true);
+		// Custom JSON-LD is merged into @graph, but restricted types (SD-10/SD-15) are dropped
+		expect(previewLoaded.jsonLdSchema['@graph'].some((n) => n['@type'] === 'Dataset')).toBe(true);
+		expect(previewLoaded.jsonLdSchema['@graph'].some((n) => n['@type'] === 'HowTo')).toBe(false);
 
 		// 4. Publish and verify public rendering + excludeFromSearch filtering on /blog?q=...
 		await updatePost({

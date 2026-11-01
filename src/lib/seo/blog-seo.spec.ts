@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildBlogPageMetaTags, buildBlogPostJsonLd } from './blog-seo';
+import { buildBlogPageMetaTags, buildBlogPostJsonLd, dropRestrictedJsonLdNodes } from './blog-seo';
 
 const ORIGIN = 'https://revolutiontradingpros.com';
 const base = {
@@ -100,6 +100,20 @@ describe('buildBlogPostJsonLd image crops', () => {
 			'@id': `${ORIGIN}/blog/post#webpage`
 		});
 		expect(person?.url).toBe('https://revolutiontradingpros.com/about');
+	});
+});
+
+describe('dropRestrictedJsonLdNodes', () => {
+	it('drops restricted types, including array @type, and keeps the rest', () => {
+		const kept = { '@type': 'Dataset' };
+		expect(
+			dropRestrictedJsonLdNodes([
+				{ '@type': 'FAQPage' },
+				{ '@type': ['Thing', 'HowTo'] },
+				{ name: 'no type' },
+				kept
+			])
+		).toEqual([{ name: 'no type' }, kept]);
 	});
 });
 

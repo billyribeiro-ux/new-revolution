@@ -283,6 +283,27 @@ function buildArticleCropImages(
 	return out;
 }
 
+/** Schema types Google restricted or retired (SD-10, SD-15); author-supplied JSON-LD may not emit them. */
+const RESTRICTED_SCHEMA_TYPES: ReadonlySet<string> = new Set([
+	'FAQPage',
+	'HowTo',
+	'Course',
+	'CourseInstance',
+	'SpeakableSpecification',
+	'SpecialAnnouncement',
+	'ClaimReview'
+]);
+
+export function dropRestrictedJsonLdNodes(
+	nodes: readonly Record<string, unknown>[]
+): Record<string, unknown>[] {
+	return nodes.filter((node) => {
+		const type = node['@type'];
+		const types = Array.isArray(type) ? type : [type];
+		return !types.some((t) => typeof t === 'string' && RESTRICTED_SCHEMA_TYPES.has(t));
+	});
+}
+
 export function buildBlogPostJsonLd(
 	input: {
 		locked?: boolean;

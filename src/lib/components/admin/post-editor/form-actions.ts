@@ -164,7 +164,7 @@ export const DEFAULT_SIDEBAR_PANEL_STATE: SidebarPanelState = {
 	featuredImage: true,
 	tags: true,
 	postAttributes: true,
-	toc: false,
+	toc: true,
 	customFields: false
 };
 
@@ -175,7 +175,7 @@ export function loadSidebarPanelState(): SidebarPanelState {
 	try {
 		const raw = localStorage.getItem(SIDEBAR_PANELS_STORAGE_KEY);
 		if (!raw) return { ...DEFAULT_SIDEBAR_PANEL_STATE };
-		const parsed = JSON.parse(raw) as Partial<Record<keyof SidebarPanelState, unknown>>;
+		const parsed = JSON.parse(raw) as Partial<Record<keyof SidebarPanelState | '_v', unknown>>;
 		if (!parsed || typeof parsed !== 'object') return { ...DEFAULT_SIDEBAR_PANEL_STATE };
 		return {
 			publish:
@@ -195,7 +195,10 @@ export function loadSidebarPanelState(): SidebarPanelState {
 				typeof parsed.postAttributes === 'boolean'
 					? parsed.postAttributes
 					: DEFAULT_SIDEBAR_PANEL_STATE.postAttributes,
-			toc: typeof parsed.toc === 'boolean' ? parsed.toc : DEFAULT_SIDEBAR_PANEL_STATE.toc,
+			toc:
+				parsed._v === 2 && typeof parsed.toc === 'boolean'
+					? parsed.toc
+					: DEFAULT_SIDEBAR_PANEL_STATE.toc,
 			customFields:
 				typeof parsed.customFields === 'boolean'
 					? parsed.customFields
@@ -209,7 +212,7 @@ export function loadSidebarPanelState(): SidebarPanelState {
 export function saveSidebarPanelState(state: SidebarPanelState): void {
 	if (typeof localStorage === 'undefined') return;
 	try {
-		localStorage.setItem(SIDEBAR_PANELS_STORAGE_KEY, JSON.stringify(state));
+		localStorage.setItem(SIDEBAR_PANELS_STORAGE_KEY, JSON.stringify({ ...state, _v: 2 }));
 	} catch {
 		// ignore storage errors
 	}
@@ -410,6 +413,28 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 	);
 	const nofollowVal = Boolean(post.robotsNofollow ?? post.nofollow);
 	const formatVal = ((post.postFormat ?? post.format) as PostFormat) || 'standard';
+	const allCustomFields = parseCustomFieldsJson(post.customFields as string | null);
+	const findInternalCf = (key: string): string | undefined =>
+		allCustomFields.find((cf) => cf.key === key)?.value;
+	const INTERNAL_CF_KEYS = new Set([
+		'__enableToc',
+		'__subtitle',
+		'__noarchive',
+		'__nosnippet',
+		'__excludeFromSearch',
+		'__seriesName',
+		'__customJsonLd'
+	]);
+	const hasDisabledTocCustomField = findInternalCf('__enableToc') === 'false';
+	const visibleCustomFields = allCustomFields.filter((cf) => !INTERNAL_CF_KEYS.has(cf.key));
+	const subtitleVal = String(post.subtitle ?? findInternalCf('__subtitle') ?? '');
+	const noarchiveVal = Boolean(post.noarchive ?? findInternalCf('__noarchive') === 'true');
+	const nosnippetVal = Boolean(post.nosnippet ?? findInternalCf('__nosnippet') === 'true');
+	const excludeFromSearchVal = Boolean(
+		post.excludeFromSearch ?? findInternalCf('__excludeFromSearch') === 'true'
+	);
+	const seriesNameVal = String(post.seriesName ?? findInternalCf('__seriesName') ?? '');
+	const customJsonLdVal = String(post.customJsonLd ?? findInternalCf('__customJsonLd') ?? '');
 
 	return {
 		...empty,
@@ -417,7 +442,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		title: String(post.title ?? ''),
 		slug: String(post.slug ?? ''),
 		slugManuallyEdited: Boolean(post.slug),
-		subtitle: String(post.subtitle ?? ''),
+		subtitle: subtitleVal,
 		excerpt: String(post.excerpt ?? ''),
 		content: String(post.content ?? ''),
 		coverImage: String(post.coverImage ?? ''),
@@ -446,8 +471,8 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		commentsEnabled: commentsVal,
 		allowComments: commentsVal,
 		pingbacksEnabled: pingbacksVal,
-		excludeFromSearch: Boolean(post.excludeFromSearch),
-		enableToc: post.enableToc !== false,
+		excludeFromSearch: excludeFromSearchVal,
+		enableToc: post.enableToc !== false && !hasDisabledTocCustomField,
 		readingTime: typeof post.readingTime === 'number' ? post.readingTime : 1,
 		wordCount: typeof post.wordCount === 'number' ? post.wordCount : 0,
 		metaTitle: String(post.metaTitle ?? ''),
@@ -467,13 +492,13 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		robotsNofollow: nofollowVal,
 		noindex: noindexVal,
 		nofollow: nofollowVal,
-		noarchive: Boolean(post.noarchive),
-		nosnippet: Boolean(post.nosnippet),
+		noarchive: noarchiveVal,
+		nosnippet: nosnippetVal,
 		maxImagePreview: String(post.maxImagePreview ?? 'large'),
 		maxSnippet: typeof post.maxSnippet === 'number' ? post.maxSnippet : -1,
 		schemaType: (post.schemaType as PostSchemaType) || 'BlogPosting',
 		faqItems: parseFaqItemsJson(post.faqItems as string | null),
-		customJsonLd: String(post.customJsonLd ?? ''),
+		customJsonLd: customJsonLdVal,
 		seoScore: typeof post.seoScore === 'number' ? post.seoScore : 0,
 		readabilityScore: typeof post.readabilityScore === 'number' ? post.readabilityScore : 0,
 		template: (post.template as PostTemplate) || 'default',
@@ -481,10 +506,10 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		format: formatVal,
 		language: String(post.language ?? 'en'),
 		translations: String(post.translations ?? ''),
-		seriesName: String(post.seriesName ?? ''),
+		seriesName: seriesNameVal,
 		seriesOrder: typeof post.seriesOrder === 'number' ? post.seriesOrder : null,
 		customCss: String(post.customCss ?? ''),
-		customFields: parseCustomFieldsJson(post.customFields as string | null),
+		customFields: visibleCustomFields,
 		publishedAt: toIsoOrEmpty(post.publishedAt as Date | string | null),
 		scheduledAt: toIsoOrEmpty(post.scheduledAt as Date | string | null),
 		expiresAt: toIsoOrEmpty(post.expiresAt as Date | string | null),
@@ -519,9 +544,39 @@ export function buildPostPayload(
 		.map((f) => ({ question: f.question.trim(), answer: f.answer.trim() }))
 		.filter((f) => f.question.length > 0 && f.answer.length > 0);
 
+	const INTERNAL_CF_KEYS = new Set([
+		'__enableToc',
+		'__subtitle',
+		'__noarchive',
+		'__nosnippet',
+		'__excludeFromSearch',
+		'__seriesName',
+		'__customJsonLd'
+	]);
 	const cleanCustomFields = form.customFields
 		.map((cf) => ({ key: cf.key.trim(), value: cf.value.trim() }))
-		.filter((cf) => cf.key.length > 0);
+		.filter((cf) => cf.key.length > 0 && !INTERNAL_CF_KEYS.has(cf.key));
+	if (!form.enableToc) {
+		cleanCustomFields.push({ key: '__enableToc', value: 'false' });
+	}
+	if (form.subtitle.trim()) {
+		cleanCustomFields.push({ key: '__subtitle', value: form.subtitle.trim() });
+	}
+	if (form.noarchive) {
+		cleanCustomFields.push({ key: '__noarchive', value: 'true' });
+	}
+	if (form.nosnippet) {
+		cleanCustomFields.push({ key: '__nosnippet', value: 'true' });
+	}
+	if (form.excludeFromSearch) {
+		cleanCustomFields.push({ key: '__excludeFromSearch', value: 'true' });
+	}
+	if (form.seriesName.trim()) {
+		cleanCustomFields.push({ key: '__seriesName', value: form.seriesName.trim() });
+	}
+	if (form.customJsonLd.trim()) {
+		cleanCustomFields.push({ key: '__customJsonLd', value: form.customJsonLd.trim() });
+	}
 
 	const cleanSecondaryKeywords = form.secondaryKeywords.map((kw) => kw.trim()).filter(Boolean);
 
@@ -642,12 +697,21 @@ export function canonicalFieldsAfterSave(
 		return savedVal;
 	};
 
+	const savedCustomFields =
+		typeof saved.customFields === 'string' ? parseCustomFieldsJson(saved.customFields) : null;
+	const savedCfValue = (key: string): string | undefined =>
+		savedCustomFields?.find((cf) => cf.key === key)?.value;
+
 	return {
 		...current,
 		id: typeof saved.id === 'number' ? saved.id : current.id,
 		title: typeof saved.title === 'string' ? saved.title : current.title,
 		slug: typeof saved.slug === 'string' ? saved.slug : current.slug,
-		subtitle: adoptOptionalString(current.subtitle, saved.subtitle),
+		subtitle: adoptOptionalString(current.subtitle, saved.subtitle ?? savedCfValue('__subtitle')),
+		seriesName: adoptOptionalString(
+			current.seriesName,
+			saved.seriesName ?? savedCfValue('__seriesName')
+		),
 		excerpt: adoptOptionalString(current.excerpt, saved.excerpt),
 		content: typeof saved.content === 'string' ? saved.content : current.content,
 		coverImage: typeof saved.coverImage === 'string' ? saved.coverImage : current.coverImage,
@@ -667,6 +731,13 @@ export function canonicalFieldsAfterSave(
 		twitterDescription: adoptOptionalString(current.twitterDescription, saved.twitterDescription),
 		twitterImage: adoptOptionalString(current.twitterImage, saved.twitterImage),
 		canonicalUrl: adoptOptionalString(current.canonicalUrl, saved.canonicalUrl),
+		focusKeyword: adoptOptionalString(current.focusKeyword, saved.focusKeyword),
+		secondaryKeywords:
+			typeof saved.secondaryKeywords === 'string'
+				? parseJsonStringArray(saved.secondaryKeywords)
+				: current.secondaryKeywords,
+		faqItems:
+			typeof saved.faqItems === 'string' ? parseFaqItemsJson(saved.faqItems) : current.faqItems,
 		seoScore: typeof saved.seoScore === 'number' ? saved.seoScore : current.seoScore,
 		readingTime: typeof saved.readingTime === 'number' ? saved.readingTime : current.readingTime,
 		wordCount: typeof saved.wordCount === 'number' ? saved.wordCount : current.wordCount,

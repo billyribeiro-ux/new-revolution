@@ -43,6 +43,7 @@ export const GET: RequestHandler = async ({ request }) => {
 			.filter((route) => {
 				return (
 					!route.includes('[') &&
+					route !== '/blogs' &&
 					!route.startsWith('/demo') &&
 					!route.startsWith('/lp') &&
 					!route.startsWith('/login') &&

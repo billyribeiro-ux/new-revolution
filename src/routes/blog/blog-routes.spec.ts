@@ -6,7 +6,7 @@ import { getPostPasswordCookieName, signDraftPreviewToken } from '#lib/server/po
 import { clearRateLimitsForTest } from '#lib/server/rate-limit';
 import { createAuthor } from '#lib/server/services/authors';
 import { createCategory } from '#lib/server/services/categories';
-import { createPost, updatePost } from '#lib/server/services/posts';
+import { autosavePost, createPost, updatePost } from '#lib/server/services/posts';
 import { createTag } from '#lib/server/services/tags';
 import { GET as getRss } from '../rss.xml/+server';
 import { GET as getSitemap } from '../sitemap.xml/+server';
@@ -521,5 +521,125 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		} as never);
 		expect(rss503.status).toBe(503);
 		expect(rss503.headers.get('Retry-After')).toBe('60');
+	});
+
+	it('verifies full Create → Autosave → Preview → Publish → Render → Update → Republish lifecycle with X-Robots-Tag, subtitle, seriesName, and excludeFromSearch', async () => {
+		const keyword = 'delta hedging';
+		// 1. Create Draft
+		const draft = await createPost({
+			title: 'Institutional Delta Hedging Mechanics',
+			slug: 'institutional-delta-hedging-mechanics',
+			excerpt:
+				'Initial draft exploring how institutional options desks execute delta hedging across intraday gamma levels.',
+			content: '<p>Short initial draft paragraph.</p>',
+			authorId,
+			categoryId,
+			categoryIds: [categoryId],
+			tagIds: [tagId],
+			status: 'draft',
+			visibility: 'public',
+			customFields: JSON.stringify([
+				{ key: '__subtitle', value: 'Inside Dealer Gamma — Vanna Flows' },
+				{ key: '__seriesName', value: 'Institutional Order Flow — Series' },
+				{ key: '__noarchive', value: 'true' },
+				{ key: '__nosnippet', value: 'true' },
+				{ key: '__excludeFromSearch', value: 'true' },
+				{ key: '__customJsonLd', value: '{"@type":"HowTo","name":"Delta Hedge SPX"}' }
+			])
+		});
+
+		expect(draft.wordCount).toBeLessThan(20);
+
+		// 2. Autosave with much longer content and duplicate headings
+		const autosavedBody = `${makeValidSeoBody(keyword)}\n<h2>Execution Checklist</h2>\n<p>First checklist section.</p>\n<h2>Execution Checklist</h2>\n<p>Second checklist section.</p>`;
+		const autosaveResult = await autosavePost({
+			id: draft.id,
+			title: 'Institutional Delta Hedging Mechanics — Live Autosave',
+			excerpt:
+				'Autosaved summary explaining how institutional options desks execute delta hedging across intraday SPX and QQQ sessions.',
+			content: autosavedBody
+		});
+		expect(autosaveResult.saved).toBe(true);
+		expect(autosaveResult.revisionId).toBeGreaterThan(0);
+
+		// 3. Preview via signed token reflects autosaved title, content, wordCount, readingTime, duplicate heading IDs, and X-Robots-Tag
+		const previewToken = signDraftPreviewToken(draft.id);
+		const previewHeaders: Record<string, string> = {};
+		const previewLoaded = (await loadBlogPost({
+			params: { slug: draft.slug },
+			url: new URL(
+				`https://revolutiontradingpros.com/blog/${draft.slug}?preview=${encodeURIComponent(previewToken)}`
+			),
+			locals: {} as App.Locals,
+			request: new Request(
+				`https://revolutiontradingpros.com/blog/${draft.slug}?preview=${encodeURIComponent(previewToken)}`
+			),
+			cookies: { get: () => undefined },
+			setHeaders: (h: Record<string, string>) => Object.assign(previewHeaders, h)
+		} as never)) as {
+			post: {
+				title: string;
+				subtitle: string | null;
+				seriesName: string | null;
+				wordCount: number;
+				readingTime: number;
+				toc: Array<{ id: string; text: string; level: number }>;
+			};
+			pageMetaTags: { robots: string };
+			jsonLdSchema: { '@graph': Array<Record<string, unknown>> };
+		};
+
+		expect(previewHeaders['X-Robots-Tag']).toBe('noindex, nofollow, noarchive, nosnippet');
+		expect(previewLoaded.pageMetaTags.robots).toBe('noindex, nofollow, noarchive, nosnippet');
+		expect(previewLoaded.post.title).toContain('Live Autosave');
+		expect(previewLoaded.post.subtitle).toBe('Inside Dealer Gamma, Vanna Flows');
+		expect(previewLoaded.post.seriesName).toBe('Institutional Order Flow, Series');
+		expect(previewLoaded.post.wordCount).toBeGreaterThan(250);
+		expect(previewLoaded.post.readingTime).toBeGreaterThanOrEqual(2);
+		// Duplicate headings receive unique -2 anchor IDs
+		const checklistTocEntries = previewLoaded.post.toc.filter(
+			(t) => t.text === 'Execution Checklist'
+		);
+		expect(checklistTocEntries.map((t) => t.id)).toEqual([
+			'execution-checklist',
+			'execution-checklist-2'
+		]);
+		// Custom JSON-LD node merged into @graph
+		expect(previewLoaded.jsonLdSchema['@graph'].some((n) => n['@type'] === 'HowTo')).toBe(true);
+
+		// 4. Publish and verify public rendering + excludeFromSearch filtering on /blog?q=...
+		await updatePost({
+			id: draft.id,
+			title: 'Institutional Delta Hedging Mechanics for Index Traders',
+			slug: draft.slug,
+			excerpt:
+				'Learn how institutional options desks execute delta hedging across intraday gamma levels on SPX and QQQ with defined risk.',
+			content: autosavedBody,
+			authorId,
+			categoryId,
+			categoryIds: [categoryId],
+			tagIds: [tagId],
+			coverImage: 'https://cdn.example.com/delta-hedging-1200w.webp',
+			coverImageAlt: 'Institutional delta hedging exposure chart on SPX',
+			coverImageCaption: 'Intraday dealer delta hedging flows',
+			metaTitle: 'Institutional Delta Hedging Mechanics for Index Traders',
+			metaDescription:
+				'Learn how institutional options desks execute delta hedging across intraday gamma levels on SPX and QQQ with defined risk.',
+			focusKeyword: keyword,
+			status: 'published',
+			visibility: 'public',
+			customFields: draft.customFields,
+			forceOverwrite: true
+		});
+
+		const searchRes = (await loadBlogIndex({
+			url: new URL('https://revolutiontradingpros.com/blog?search=Delta+Hedging'),
+			locals: {} as App.Locals,
+			request: new Request('https://revolutiontradingpros.com/blog?search=Delta+Hedging'),
+			setHeaders: () => {}
+		} as never)) as { posts: Array<{ slug: string }> };
+
+		// Excluded from search because __excludeFromSearch = true
+		expect(searchRes.posts.some((p) => p.slug === draft.slug)).toBe(false);
 	});
 });

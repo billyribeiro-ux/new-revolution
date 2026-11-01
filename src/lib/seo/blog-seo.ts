@@ -18,8 +18,11 @@ export interface BlogSeoHeadInput {
 	title: string;
 	description: string;
 	pathname: string;
+	canonicalOverride?: string | null;
 	indexable?: boolean;
 	nofollow?: boolean;
+	noarchive?: boolean;
+	nosnippet?: boolean;
 	ogType?: 'website' | 'article';
 	ogTitle?: string | null;
 	ogDescription?: string | null;
@@ -54,8 +57,10 @@ export function resolvePostModifiedIso(post: {
 export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 	const indexable = input.indexable ?? true;
 	const nofollow = input.nofollow ?? false;
+	const noarchive = input.noarchive ?? false;
+	const nosnippet = input.nosnippet ?? false;
 	const cleanPath = input.pathname === '/' ? '' : input.pathname.replace(/\/+$/, '');
-	const canonicalUrl = `${SITE_ORIGIN}${cleanPath}`;
+	const canonicalUrl = input.canonicalOverride?.trim() || `${SITE_ORIGIN}${cleanPath}`;
 
 	const renderedBudget = computeRenderedTitle(input.title, BRAND_NAME);
 	const titleTemplate = renderedBudget.brandAppended ? `%s | ${BRAND_NAME}` : '%s';
@@ -80,7 +85,13 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 		? Array.from(new Set(input.tags.map((t) => t.trim()).filter(Boolean)))
 		: [];
 
-	const robotsDirective = `${indexable ? 'index' : 'noindex'}, ${nofollow ? 'nofollow' : 'follow'}`;
+	const robotsTokens = [
+		indexable ? 'index' : 'noindex',
+		nofollow ? 'nofollow' : 'follow',
+		...(noarchive ? ['noarchive'] : []),
+		...(nosnippet ? ['nosnippet'] : [])
+	];
+	const robotsDirective = robotsTokens.join(', ');
 
 	const additionalMetaTags: Array<
 		{ name: string; content: string } | { property: string; content: string }
@@ -344,7 +355,16 @@ export function buildBlogPostJsonLd(
 	const graph: Record<string, unknown>[] = [
 		buildOrganizationEntity(origin),
 		buildBlogWebsiteEntity(origin),
-		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs)
+		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs),
+		{
+			'@type': 'WebPage',
+			'@id': `${pageUrl}#webpage`,
+			url: pageUrl,
+			name: input.title,
+			description: input.description ?? '',
+			isPartOf: { '@id': `${origin}/#website` },
+			breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+		}
 	];
 
 	let authorId = `${origin}/#organization`;
@@ -358,6 +378,7 @@ export function buildBlogPostJsonLd(
 			'@type': 'Person',
 			'@id': authorId,
 			name: input.author.name,
+			...(input.author.website ? { url: input.author.website } : {}),
 			...(input.author.jobTitle ? { jobTitle: input.author.jobTitle } : {}),
 			...(input.author.shortBio || input.author.bio
 				? { description: input.author.shortBio || input.author.bio }
@@ -376,7 +397,12 @@ export function buildBlogPostJsonLd(
 		});
 	}
 
-	const articleType = input.isPillar ? 'Article' : input.schemaType || 'BlogPosting';
+	const articleType =
+		input.schemaType && input.schemaType !== 'BlogPosting'
+			? input.schemaType
+			: input.isPillar
+				? 'Article'
+				: input.schemaType || 'BlogPosting';
 
 	const keywordsList = [
 		...(input.focusKeyword ? [input.focusKeyword] : []),
@@ -427,7 +453,7 @@ export function buildBlogPostJsonLd(
 		publisher: { '@id': `${origin}/#organization` },
 		mainEntityOfPage: {
 			'@type': 'WebPage',
-			'@id': pageUrl
+			'@id': `${pageUrl}#webpage`
 		},
 		isPartOf: { '@id': `${origin}/#website` },
 		speakable: {

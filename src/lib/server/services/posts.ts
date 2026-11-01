@@ -11,6 +11,7 @@ import {
 	isNull,
 	lt,
 	ne,
+	notIlike,
 	or
 } from 'drizzle-orm';
 import { sanitizePostHtml } from '../../sanitize-post-html';
@@ -79,11 +80,21 @@ async function lookupActiveMediaByUrls(
 	urls: string[]
 ): Promise<Map<string, MediaDimensionLookupItem>> {
 	const map = new Map<string, MediaDimensionLookupItem>();
-	if (urls.length === 0) return map;
+	const cleanUrls = Array.from(new Set(urls.map((u) => u.trim()).filter(Boolean)));
+	if (cleanUrls.length === 0) return map;
 
-	const targetSet = new Set(urls);
+	const targetSet = new Set(cleanUrls);
+	const candidateBlobUrls = new Set<string>(cleanUrls);
+	for (const u of cleanUrls) {
+		const baseCandidate = u.replace(
+			/-(?:\d+w|thumb|medium|large|full|crop-[a-z0-9x]+)(?=\.[a-z0-9]+$)/i,
+			''
+		);
+		candidateBlobUrls.add(baseCandidate);
+	}
+
 	const db = await ensureDbReady();
-	const rows = await db
+	let rows = await db
 		.select({
 			blobUrl: media.blobUrl,
 			variantsJson: media.variantsJson,
@@ -92,30 +103,49 @@ async function lookupActiveMediaByUrls(
 			altText: media.altText
 		})
 		.from(media)
-		.where(isNull(media.deletedAt));
+		.where(and(isNull(media.deletedAt), inArray(media.blobUrl, Array.from(candidateBlobUrls))));
 
-	for (const r of rows) {
-		if (targetSet.has(r.blobUrl)) {
-			map.set(r.blobUrl, {
-				blobUrl: r.blobUrl,
-				width: r.width,
-				height: r.height,
-				altText: r.altText
-			});
-		}
-		if (r.variantsJson && typeof r.variantsJson === 'object') {
-			for (const variant of Object.values(r.variantsJson)) {
-				if (variant?.url && targetSet.has(variant.url)) {
-					map.set(variant.url, {
-						blobUrl: variant.url,
-						width: variant.width ?? r.width,
-						height: variant.height ?? r.height,
-						altText: r.altText
-					});
+	const populateMap = (mediaRows: typeof rows) => {
+		for (const r of mediaRows) {
+			if (targetSet.has(r.blobUrl)) {
+				map.set(r.blobUrl, {
+					blobUrl: r.blobUrl,
+					width: r.width,
+					height: r.height,
+					altText: r.altText
+				});
+			}
+			if (r.variantsJson && typeof r.variantsJson === 'object') {
+				for (const variant of Object.values(r.variantsJson)) {
+					if (variant?.url && targetSet.has(variant.url)) {
+						map.set(variant.url, {
+							blobUrl: variant.url,
+							width: variant.width ?? r.width,
+							height: variant.height ?? r.height,
+							altText: r.altText
+						});
+					}
 				}
 			}
 		}
+	};
+
+	populateMap(rows);
+
+	if (map.size < targetSet.size) {
+		rows = await db
+			.select({
+				blobUrl: media.blobUrl,
+				variantsJson: media.variantsJson,
+				width: media.width,
+				height: media.height,
+				altText: media.altText
+			})
+			.from(media)
+			.where(isNull(media.deletedAt));
+		populateMap(rows);
 	}
+
 	return map;
 }
 
@@ -1348,6 +1378,12 @@ export async function listPublicPosts(options?: {
 		const escaped = options.search.trim().replace(/[%_\\]/g, '\\$&');
 		const pattern = `%${escaped}%`;
 		filters.push(or(ilike(posts.title, pattern), ilike(posts.excerpt, pattern))!);
+		filters.push(
+			or(
+				isNull(posts.customFields),
+				notIlike(posts.customFields, '%"__excludeFromSearch","value":"true"%')
+			)!
+		);
 	}
 
 	const whereClause = and(...filters)!;
@@ -1678,15 +1714,50 @@ export async function getPublicPostViewBySlug(
 		finalRelated = ranked;
 	}
 
-	const sanitizedBody = stripDuplicateLeadImage(sanitizePostHtml(post.content), post.coverImage);
-	const { html: normalizedHtml, toc } = normalizePostHeadings(sanitizedBody, post.title);
+	let effectiveTitle = post.title;
+	let effectiveExcerpt = post.excerpt;
+	let effectiveContent = post.content;
+	let effectiveWordCount = post.wordCount;
+	let effectiveReadingTime = post.readingTime;
+
+	if (options?.hasValidPreviewToken) {
+		const [latestRev] = await db
+			.select()
+			.from(revisions)
+			.where(eq(revisions.postId, post.id))
+			.orderBy(desc(revisions.createdAt), desc(revisions.id))
+			.limit(1);
+
+		if (
+			latestRev &&
+			latestRev.changeType === 'autosave' &&
+			latestRev.createdAt.getTime() >= post.updatedAt.getTime()
+		) {
+			effectiveTitle = latestRev.titleSnapshot || post.title;
+			effectiveExcerpt = latestRev.excerptSnapshot ?? post.excerpt;
+			effectiveContent = latestRev.contentSnapshot;
+			effectiveWordCount =
+				latestRev.wordCount > 0 ? latestRev.wordCount : countContentWords(effectiveContent);
+			effectiveReadingTime = computeReadingTime(effectiveWordCount);
+		}
+	}
+
+	const sanitizedBody = stripDuplicateLeadImage(
+		sanitizePostHtml(effectiveContent),
+		post.coverImage
+	);
+	const { html: normalizedHtml, toc } = normalizePostHeadings(sanitizedBody, effectiveTitle);
 
 	return {
 		status: 200 as const,
 		locked: false as const,
 		post: {
 			...stripPasswordFromPostRow(post),
+			title: effectiveTitle,
+			excerpt: effectiveExcerpt,
 			content: normalizedHtml,
+			wordCount: effectiveWordCount,
+			readingTime: effectiveReadingTime,
 			toc,
 			author: author ?? null,
 			category: category ?? null,

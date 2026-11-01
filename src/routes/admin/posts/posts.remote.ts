@@ -136,8 +136,9 @@ export const createPostRpc = command('unchecked', async (payload: PostCreateInpu
 		await guardWriteRateLimit(admin.id);
 		const post = await createPost(payload, admin.id);
 		const previewToken = signDraftPreviewToken(post.id);
+		const revisions = await listPostRevisions(post.id);
 		await getPosts().refresh();
-		return { post, previewToken };
+		return { post, revisions, previewToken };
 	} catch (err) {
 		throwRpcServiceError(err);
 	}
@@ -177,7 +178,8 @@ export const autosavePostRpc = command('unchecked', async (payload: PostAutosave
 		const admin = requireAdmin(event);
 		await guardWriteRateLimit(admin.id);
 		const result = await autosavePost(payload, admin.id);
-		return result;
+		const revisions = await listPostRevisions(payload.id);
+		return { ...result, revisions };
 	} catch (err) {
 		throwRpcServiceError(err);
 	}

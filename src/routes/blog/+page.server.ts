@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ url, locals, request, setHeaders })
 
 	const rawPage = Number(url.searchParams.get('page') ?? '1');
 	const page = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
-	const search = (url.searchParams.get('search') ?? '').trim();
+	const search = (url.searchParams.get('search') ?? url.searchParams.get('q') ?? '').trim();
 
 	try {
 		const [postsPage, categoriesWithCounts, featuredRaw] = await Promise.all([

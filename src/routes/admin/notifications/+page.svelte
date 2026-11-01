@@ -226,7 +226,7 @@
 
 <SEO
 	title="Notifications | Admin"
-	description="Review and manage Team Consulting 360 administrative notifications, alerts, and activity."
+	description="Review and manage Revolution Trading Pros administrative notifications, alerts, and activity."
 	noindex={true}
 />
 
@@ -237,8 +237,7 @@
 			{#each FILTERS as filter (filter.value)}
 				<button
 					type="button"
-					class="filter-chip"
-					class:filter-chip--active={status === filter.value}
+					class={['filter-chip', { 'filter-chip--active': status === filter.value }]}
 					aria-pressed={status === filter.value}
 					onclick={() => changeFilter(filter.value)}
 				>
@@ -263,9 +262,13 @@
 				<ul class="day-group__list">
 					{#each items as n (n.id)}
 						<li
-							class="notification-row"
-							class:notification-row--unread={!n.readAt}
-							class:notification-row--busy={busyIds.has(n.id)}
+							class={[
+								'notification-row',
+								{
+									'notification-row--unread': !n.readAt,
+									'notification-row--busy': busyIds.has(n.id)
+								}
+							]}
 							data-severity={n.severity}
 						>
 							<span class="notification-row__icon" aria-hidden="true">

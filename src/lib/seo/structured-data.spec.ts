@@ -13,6 +13,7 @@ import {
 	SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
 	SPX_PROFIT_PULSE_FAQ_ITEMS,
 	STOCK_INDEXES_LIST_FAQ_ITEMS,
+	SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS,
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
 	buildBlogsHubJsonLd,
@@ -30,6 +31,7 @@ import {
 	buildSmallAccountsRoomJsonLd,
 	buildSpxProfitPulseJsonLd,
 	buildStockIndexesListJsonLd,
+	buildSundayAlphaProtocolJsonLd,
 	buildSwingTradingRoomJsonLd
 } from './structured-data.ts';
 
@@ -687,5 +689,43 @@ describe('buildResourcesHubJsonLd', () => {
 
 		const faq = graph.find((n) => n['@type'] === 'FAQPage');
 		expect(faq).toBeUndefined();
+	});
+});
+
+describe('buildSundayAlphaProtocolJsonLd', () => {
+	const graph = buildSundayAlphaProtocolJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
+		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+		const refs = new Set<string>();
+		const ids = new Set<string>();
+		collectRefs(graph, refs);
+		collectDefinedIds(graph, ids);
+		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+	});
+
+	it('defines each top-level node @id only once', () => {
+		const topIds = graph.map((n) => n['@id']);
+		expect(new Set(topIds).size).toBe(topIds.length);
+	});
+
+	it('includes Billy Ribeiro Person, Sunday Alpha Protocol Product with 3 Offers ($47, $127, $447), and 5 FAQ items', () => {
+		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
+		expect(person['@type']).toBe('Person');
+		expect(person.name).toBe('Billy Ribeiro');
+
+		const product = graph.find((n) => n['@id'] === `${ORIGIN}/watchlist#protocol`) as Node;
+		expect(product['@type']).toBe('Product');
+		expect(product.name).toBe('Sunday Alpha Protocol™');
+		const offers = product.offers as { name: string; price: string }[];
+		expect(offers).toHaveLength(3);
+		expect(offers.map((o) => o.price)).toEqual(['47.00', '127.00', '447.00']);
+
+		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
+		const questions = faq.mainEntity as { name: string }[];
+		expect(questions).toHaveLength(5);
+		expect(questions.map((q) => q.name)).toEqual(
+			SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS.map((i) => i.question)
+		);
 	});
 });

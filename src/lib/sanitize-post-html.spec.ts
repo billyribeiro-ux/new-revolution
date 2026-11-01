@@ -207,4 +207,20 @@ describe('sanitizePostHtml (Section 7.1)', () => {
 		expect(once).toBe('<p>First paragraph</p><p>Second paragraph</p>');
 		expect(twice).toBe(once);
 	});
+
+	it('preserves TipTap tip callout attributes, single-dash callout classes, image data-size/data-media-id, and figure data-align', () => {
+		const input = [
+			'<div data-callout="tip" data-callout-type="tip" class="callout callout-tip"><p>Desk tip</p></div>',
+			'<figure class="blog-image-figure" data-align="left" data-size="medium"><img class="blog-image" src="https://revolutiontradingpros.com/media/chart.webp" alt="Chart" width="640" height="360" data-align="left" data-size="medium" data-media-id="med_123" /><figcaption>Caption</figcaption></figure>'
+		].join('');
+		const clean = sanitizePostHtml(input);
+		expect(clean).toContain(
+			'<div class="callout callout-tip" data-callout="tip" data-callout-type="tip"><p>Desk tip</p></div>'
+		);
+		expect(clean).toContain(
+			'<figure class="blog-image-figure" data-align="left" data-size="medium">'
+		);
+		expect(clean).toContain('data-size="medium"');
+		expect(clean).toContain('data-media-id="med_123"');
+	});
 });

@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 import {
 	buildBlogPageMetaTags,
 	buildBlogPostJsonLd,
@@ -26,6 +26,7 @@ import {
 import { getPublicPostViewBySlug } from '#lib/server/services/posts';
 import { extractCoverCrops } from '#lib/shared/cover-crops';
 import { coverSrcsetFromMedia, coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
+import { extractImageSrcsFromHtml } from '#lib/shared/seo/content-transform';
 import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
@@ -106,6 +107,7 @@ export const load: PageServerLoad = async ({
 
 	if (viewResult.locked) {
 		setNoStoreCache(setHeaders);
+		setHeaders({ 'X-Robots-Tag': 'noindex, nofollow' });
 		const lockedPayload = viewResult.payload;
 		const metaTags = buildBlogPageMetaTags({
 			title: lockedPayload.title,
@@ -139,32 +141,67 @@ export const load: PageServerLoad = async ({
 		setPublicReadCache(setHeaders, locals, request);
 	}
 
-	// Look up stored media dimensions for cover and body images
-	const allMediaRows = await db
-		.select({
-			blobUrl: media.blobUrl,
-			variantsJson: media.variantsJson,
-			width: media.width,
-			height: media.height
-		})
-		.from(media)
-		.where(isNull(media.deletedAt));
+	// Look up stored media dimensions for cover and body images (indexed by referenced URLs)
+	const referencedUrls = Array.from(
+		new Set(
+			[post.coverImage, ...extractImageSrcsFromHtml(post.content)]
+				.map((u) => u?.trim() ?? '')
+				.filter(Boolean)
+		)
+	);
+	const candidateBlobUrls = new Set<string>(referencedUrls);
+	for (const u of referencedUrls) {
+		candidateBlobUrls.add(
+			u.replace(/-(?:\d+w|thumb|medium|large|full|crop-[a-z0-9x]+)(?=\.[a-z0-9]+$)/i, '')
+		);
+	}
+
+	let allMediaRows =
+		candidateBlobUrls.size > 0
+			? await db
+					.select({
+						blobUrl: media.blobUrl,
+						variantsJson: media.variantsJson,
+						width: media.width,
+						height: media.height
+					})
+					.from(media)
+					.where(
+						and(isNull(media.deletedAt), inArray(media.blobUrl, Array.from(candidateBlobUrls)))
+					)
+			: [];
 
 	const mediaDimensionsByUrl = new Map<string, { width: number; height: number }>();
-	for (const m of allMediaRows) {
-		if (m.width && m.height) {
-			mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
-			if (m.variantsJson && typeof m.variantsJson === 'object') {
-				for (const variant of Object.values(m.variantsJson)) {
-					if (variant?.url) {
-						mediaDimensionsByUrl.set(variant.url, {
-							width: variant.width ?? m.width,
-							height: variant.height ?? m.height
-						});
+	const populateMediaMap = (rows: typeof allMediaRows) => {
+		for (const m of rows) {
+			if (m.width && m.height) {
+				mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
+				if (m.variantsJson && typeof m.variantsJson === 'object') {
+					for (const variant of Object.values(m.variantsJson)) {
+						if (variant?.url) {
+							mediaDimensionsByUrl.set(variant.url, {
+								width: variant.width ?? m.width,
+								height: variant.height ?? m.height
+							});
+						}
 					}
 				}
 			}
 		}
+	};
+	populateMediaMap(allMediaRows);
+
+	if (referencedUrls.some((u) => !mediaDimensionsByUrl.has(u))) {
+		allMediaRows = await db
+			.select({
+				blobUrl: media.blobUrl,
+				variantsJson: media.variantsJson,
+				width: media.width,
+				height: media.height
+			})
+			.from(media)
+			.where(isNull(media.deletedAt));
+		populateMediaMap(allMediaRows);
 	}
 
 	const coverDims = post.coverImage ? (mediaDimensionsByUrl.get(post.coverImage) ?? null) : null;
@@ -220,17 +257,47 @@ export const load: PageServerLoad = async ({
 		}
 	}
 
+	let subtitle = '';
+	let seriesName = '';
+	let noarchive = false;
+	let nosnippet = false;
+	let customJsonLdRaw = '';
+	if (post.customFields) {
+		try {
+			const parsedCustom: unknown = JSON.parse(post.customFields);
+			if (Array.isArray(parsedCustom)) {
+				for (const item of parsedCustom) {
+					if (!item || typeof item !== 'object') continue;
+					const k = String((item as Record<string, unknown>).key ?? '');
+					const v = String((item as Record<string, unknown>).value ?? '');
+					if (k === '__subtitle') subtitle = v.trim();
+					else if (k === '__seriesName') seriesName = v.trim();
+					else if (k === '__noarchive') noarchive = v === 'true';
+					else if (k === '__nosnippet') nosnippet = v === 'true';
+					else if (k === '__customJsonLd') customJsonLdRaw = v.trim();
+				}
+			}
+		} catch {
+			// ignore malformed customFields
+		}
+	}
+
 	const effectiveTitle = (post.metaTitle || post.title).trim();
 	const effectiveDescription = (post.metaDescription || post.excerpt || post.title).trim();
 	const modifiedIso = resolvePostModifiedIso(post);
 	const publishedIso = post.publishedAt ? new Date(post.publishedAt).toISOString() : modifiedIso;
+	const effectiveIndexable = post.isIndexable && !hasValidPreviewToken;
+	const effectiveNofollow = post.robotsNofollow || hasValidPreviewToken;
 
 	const metaTags = buildBlogPageMetaTags({
 		title: effectiveTitle,
 		description: effectiveDescription,
 		pathname: `/blog/${post.slug}`,
-		indexable: post.isIndexable && !hasValidPreviewToken,
-		nofollow: post.robotsNofollow,
+		canonicalOverride: post.canonicalUrl,
+		indexable: effectiveIndexable,
+		nofollow: effectiveNofollow,
+		noarchive,
+		nosnippet,
 		ogType: 'article',
 		ogTitle: post.ogTitle,
 		ogDescription: post.ogDescription,
@@ -250,7 +317,13 @@ export const load: PageServerLoad = async ({
 		tags: post.tags.map((t) => t.name)
 	});
 
-	const jsonLdSchema = buildBlogPostJsonLd({
+	if (!effectiveIndexable || effectiveNofollow || noarchive || nosnippet) {
+		setHeaders({
+			'X-Robots-Tag': String(metaTags.pageMetaTags.robots ?? 'noindex, nofollow')
+		});
+	}
+
+	let jsonLdSchema: Record<string, unknown> = buildBlogPostJsonLd({
 		locked: false,
 		slug: post.slug,
 		title: post.title,
@@ -287,6 +360,36 @@ export const load: PageServerLoad = async ({
 		faqItems: parsedFaqs
 	});
 
+	if (customJsonLdRaw) {
+		try {
+			const parsedSchema: unknown = JSON.parse(customJsonLdRaw);
+			if (parsedSchema && typeof parsedSchema === 'object' && !Array.isArray(parsedSchema)) {
+				const customObj = parsedSchema as Record<string, unknown>;
+				if (Array.isArray(customObj['@graph']) && Array.isArray(jsonLdSchema['@graph'])) {
+					jsonLdSchema = {
+						...jsonLdSchema,
+						'@graph': [
+							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
+							...(customObj['@graph'] as Record<string, unknown>[])
+						]
+					};
+				} else if (
+					typeof customObj['@type'] === 'string' &&
+					Array.isArray(jsonLdSchema['@graph'])
+				) {
+					const { '@context': _ignoredContext, ...restNode } = customObj;
+					void _ignoredContext;
+					jsonLdSchema = {
+						...jsonLdSchema,
+						'@graph': [...(jsonLdSchema['@graph'] as Record<string, unknown>[]), restNode]
+					};
+				}
+			}
+		} catch {
+			// ignore invalid customJsonLd JSON
+		}
+	}
+
 	return {
 		...metaTags,
 		jsonLdSchema,
@@ -294,6 +397,8 @@ export const load: PageServerLoad = async ({
 		payload: null,
 		post: {
 			...post,
+			subtitle: subtitle || null,
+			seriesName: seriesName || null,
 			content: finalBodyHtml,
 			// Stored/real dimensions only; null (attributes omitted) when the cover is not a library item.
 			coverWidth: resolvedCoverWidth,

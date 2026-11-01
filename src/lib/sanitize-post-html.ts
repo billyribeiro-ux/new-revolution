@@ -87,9 +87,16 @@ const GLOBAL_ALLOWED_CLASSES = new Set([
 	'wp-caption-text',
 	'callout',
 	'callout--info',
+	'callout--tip',
 	'callout--warning',
 	'callout--success',
 	'callout--danger',
+	'callout-info',
+	'callout-tip',
+	'callout-warning',
+	'callout-success',
+	'callout-danger',
+	'table-scroll',
 	'twitter-embed',
 	'vimeo-embed'
 ]);
@@ -561,6 +568,18 @@ function runSanitizePass(inputHtml: string): string {
 						) {
 							cleanAttribs['data-align'] = attribs['data-align'].trim().toLowerCase();
 						}
+						if (
+							attribs['data-size'] &&
+							/^(?:small|medium|large|full)$/i.test(attribs['data-size'].trim())
+						) {
+							cleanAttribs['data-size'] = attribs['data-size'].trim().toLowerCase();
+						}
+						if (
+							attribs['data-media-id'] &&
+							/^[a-zA-Z0-9_-]{1,128}$/.test(attribs['data-media-id'].trim())
+						) {
+							cleanAttribs['data-media-id'] = attribs['data-media-id'].trim();
+						}
 						// Image title (hover tooltip) authored in the editor's image menu. Plain text only;
 						// the serializer escapes attribute values.
 						if (attribs.title && attribs.title.trim() && attribs.title.length <= 300) {
@@ -572,6 +591,21 @@ function runSanitizePass(inputHtml: string): string {
 							attribs['data-description'].length <= 2000
 						) {
 							cleanAttribs['data-description'] = attribs['data-description'].trim();
+						}
+						break;
+					}
+					case 'figure': {
+						if (
+							attribs['data-align'] &&
+							/^(?:left|center|right|full)$/i.test(attribs['data-align'].trim())
+						) {
+							cleanAttribs['data-align'] = attribs['data-align'].trim().toLowerCase();
+						}
+						if (
+							attribs['data-size'] &&
+							/^(?:small|medium|large|full)$/i.test(attribs['data-size'].trim())
+						) {
+							cleanAttribs['data-size'] = attribs['data-size'].trim().toLowerCase();
 						}
 						break;
 					}
@@ -610,8 +644,12 @@ function runSanitizePass(inputHtml: string): string {
 						}
 						const rawCalloutType =
 							attribs['data-callout-type']?.trim() || attribs['data-callout']?.trim();
-						if (rawCalloutType && /^(?:info|warning|success|danger)$/i.test(rawCalloutType)) {
-							cleanAttribs['data-callout-type'] = rawCalloutType.toLowerCase();
+						if (rawCalloutType && /^(?:info|tip|warning|success|danger)$/i.test(rawCalloutType)) {
+							const normalizedCallout = rawCalloutType.toLowerCase();
+							if (attribs['data-callout'] !== undefined) {
+								cleanAttribs['data-callout'] = normalizedCallout;
+							}
+							cleanAttribs['data-callout-type'] = normalizedCallout;
 						}
 						break;
 					}

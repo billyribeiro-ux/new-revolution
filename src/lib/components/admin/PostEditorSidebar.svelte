@@ -14,6 +14,7 @@
 	} from '#lib/shared/schemas/posts';
 	import { normalizePostHeadings } from '#lib/shared/seo/toc';
 	import FeaturedImagePanel from './FeaturedImagePanel.svelte';
+	import TableOfContentsPanel from './TableOfContentsPanel.svelte';
 
 	interface CategoryOption {
 		id: number;
@@ -106,7 +107,6 @@
 	let creatingAuthor = $state(false);
 	let creatingCat = $state(false);
 	let creatingTag = $state(false);
-	let tocCopyStatus = $state('');
 
 	function toggleSidebarPanel(key: keyof SidebarPanelState) {
 		const updated: SidebarPanelState = {
@@ -323,44 +323,6 @@
 	let availableTagObjects = $derived(tags.filter((t) => !form.tagIds.includes(t.id)));
 
 	let derivedToc = $derived(normalizePostHeadings(form.content, form.title).toc);
-
-	function scrollToEditorHeading(headingText: string, level: number) {
-		if (typeof document === 'undefined') return;
-		const proseRoot =
-			document.querySelector('.rte-wrapper .prose-base') ??
-			document.querySelector('.post-editor-shell');
-		if (!proseRoot) return;
-		const candidates = proseRoot.querySelectorAll(`h${level}, h1, h2, h3, h4, h5, h6`);
-		const normalizedTarget = headingText.trim().toLowerCase();
-		for (const el of candidates) {
-			if ((el.textContent ?? '').trim().toLowerCase() === normalizedTarget) {
-				const prefersReduced =
-					typeof window !== 'undefined' &&
-					typeof window.matchMedia === 'function' &&
-					window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-				el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
-				break;
-			}
-		}
-	}
-
-	async function copyTocMarkdown() {
-		if (derivedToc.length === 0) return;
-		const md = derivedToc
-			.map((entry) => `${'  '.repeat(Math.max(0, entry.level - 2))}- [${entry.text}](#${entry.id})`)
-			.join('\n');
-		try {
-			if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-				await navigator.clipboard.writeText(md);
-				tocCopyStatus = 'Copied Markdown TOC';
-			} else {
-				tocCopyStatus = 'Clipboard unavailable in this browser';
-			}
-		} catch (err) {
-			console.warn('[PostEditorSidebar] Failed to copy TOC markdown:', err);
-			tocCopyStatus = 'Failed to copy TOC to clipboard';
-		}
-	}
 
 	let candidateRelatedPosts = $derived(allPosts.filter((p) => p.id !== form.id).slice(0, 40));
 </script>
@@ -852,47 +814,11 @@
 		</h3>
 
 		<div id="sidebar-panel-toc" class="sidebar-body" hidden={!panelState.toc}>
-			<div class="toc-header-row">
-				<label class="chk-row">
-					<input type="checkbox" bind:checked={form.enableToc} />
-					<span>Show TOC on Post</span>
-				</label>
-				<button
-					type="button"
-					class="btn-quick-add"
-					disabled={derivedToc.length === 0}
-					onclick={copyTocMarkdown}
-				>
-					Copy MD
-				</button>
-			</div>
-
-			{#if tocCopyStatus}
-				<p class="pw-note" role="status">{tocCopyStatus}</p>
-			{/if}
-
-			{#if derivedToc.length === 0}
-				<p class="empty-note">Add H1-H6 headings in the article body to generate a TOC.</p>
-			{:else}
-				<ul class="toc-preview-list">
-					{#each derivedToc as item (item.id)}
-						<li
-							class="toc-preview-item"
-							style="padding-left: {Math.max(0, item.level - 2) * 0.75}rem"
-						>
-							<button
-								type="button"
-								class="toc-preview-btn"
-								onclick={() => scrollToEditorHeading(item.text, item.level)}
-							>
-								<span class="toc-level-tag">H{item.level}</span>
-								<span class="toc-item-text">{item.text}</span>
-								<code class="toc-item-id">#{item.id}</code>
-							</button>
-						</li>
-					{/each}
-				</ul>
-			{/if}
+			<TableOfContentsPanel
+				content={form.content}
+				title={form.title}
+				bind:enableToc={form.enableToc}
+			/>
 		</div>
 	</section>
 
@@ -1228,72 +1154,6 @@
 		font-size: 0.78rem;
 		font-weight: 600;
 		cursor: pointer;
-	}
-
-	.toc-header-row {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-	}
-
-	.toc-preview-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.35rem;
-		max-height: 220px;
-		overflow-y: auto;
-	}
-
-	.toc-preview-item {
-		display: flex;
-		align-items: center;
-		font-size: 0.78rem;
-		color: var(--text);
-	}
-
-	.toc-preview-btn {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-		width: 100%;
-		padding: 0.2rem 0.35rem;
-		border: none;
-		border-radius: 4px;
-		background: transparent;
-		color: inherit;
-		font: inherit;
-		text-align: left;
-		cursor: pointer;
-		transition: background 0.15s ease;
-	}
-
-	.toc-preview-btn:hover,
-	.toc-preview-btn:focus-visible {
-		background: var(--bg-soft);
-	}
-
-	.toc-level-tag {
-		font-family: var(--font-mono);
-		font-size: 0.68rem;
-		color: var(--acid);
-		font-weight: 700;
-	}
-
-	.toc-item-text {
-		flex: 1;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.toc-item-id {
-		font-family: var(--font-mono);
-		font-size: 0.68rem;
-		color: var(--muted);
 	}
 
 	.cf-list {

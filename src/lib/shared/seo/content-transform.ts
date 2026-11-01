@@ -160,6 +160,7 @@ export interface ContentTransformPayload {
 	faqItems?: string | null;
 	focusKeyword?: string | null;
 	secondaryKeywords?: string | null;
+	customFields?: string | null;
 }
 
 export interface ContentTransformResult<T extends ContentTransformPayload> {
@@ -329,6 +330,32 @@ export async function applyContentSeoTransforms<T extends ContentTransformPayloa
 				if (kwChanged) {
 					clone.secondaryKeywords = JSON.stringify(nextKw);
 					changes.push('stripped_dashes:secondaryKeywords');
+				}
+			}
+		} catch {
+			// Invalid JSON will be caught by schema validation
+		}
+	}
+
+	if (typeof clone.customFields === 'string' && clone.customFields.trim() !== '') {
+		try {
+			const parsed: unknown = JSON.parse(clone.customFields);
+			if (Array.isArray(parsed)) {
+				let cfChanged = false;
+				const nextCf = parsed.map((entry) => {
+					if (typeof entry !== 'object' || entry === null) return entry;
+					const k = (entry as { key?: unknown }).key;
+					const v = (entry as { value?: unknown }).value;
+					if ((k === '__subtitle' || k === '__seriesName') && typeof v === 'string') {
+						const cleaned = replaceEmEnDashesInPlainText(v);
+						if (cleaned !== v) cfChanged = true;
+						return { key: k, value: cleaned };
+					}
+					return entry;
+				});
+				if (cfChanged) {
+					clone.customFields = JSON.stringify(nextCf);
+					changes.push('stripped_dashes:customFields');
 				}
 			}
 		} catch {

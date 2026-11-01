@@ -182,4 +182,92 @@ describe('Post Editor form-actions & Myers Word Diff Suite', () => {
 		expect(afterSave.metaTitle).toBe('');
 		expect(afterSave.excerpt).toBe('Custom user excerpt, with dash');
 	});
+
+	it('persists enableToc=false via __enableToc custom field and hydrates it cleanly without polluting visible customFields', () => {
+		const form = createEmptyForm();
+		form.title = 'Institutional Order Flow Guide';
+		form.slug = 'institutional-order-flow-guide';
+		form.enableToc = false;
+		form.customFields = [{ key: 'desk', value: 'SPX' }];
+
+		const payload = buildPostPayload(form);
+		expect(payload.enableToc).toBe(false);
+		expect(JSON.parse(payload.customFields as string)).toEqual([
+			{ key: 'desk', value: 'SPX' },
+			{ key: '__enableToc', value: 'false' }
+		]);
+
+		const rehydrated = hydrateFromFullPost({
+			id: 55,
+			title: 'Institutional Order Flow Guide',
+			slug: 'institutional-order-flow-guide',
+			customFields: payload.customFields
+		});
+		expect(rehydrated.enableToc).toBe(false);
+		expect(rehydrated.customFields).toEqual([{ key: 'desk', value: 'SPX' }]);
+	});
+
+	it('persists and rehydrates subtitle, noarchive, nosnippet, excludeFromSearch, seriesName, and customJsonLd via internal customFields keys and syncs normalized keywords/FAQs on save', () => {
+		const form = createEmptyForm();
+		form.title = 'Weekly Gamma Wall Playbook';
+		form.slug = 'weekly-gamma-wall-playbook';
+		form.subtitle = 'How Institutional Dealers Hedge 0DTE Pin Risk';
+		form.noarchive = true;
+		form.nosnippet = true;
+		form.excludeFromSearch = true;
+		form.seriesName = 'Dealer Gamma Mastery';
+		form.customJsonLd = '{"@type":"HowTo","name":"Hedge Gamma Risk"}';
+		form.customFields = [{ key: 'instrument', value: 'SPX' }];
+
+		const payload = buildPostPayload(form);
+		const packed = JSON.parse(payload.customFields as string) as Array<{
+			key: string;
+			value: string;
+		}>;
+		expect(packed).toEqual([
+			{ key: 'instrument', value: 'SPX' },
+			{ key: '__subtitle', value: 'How Institutional Dealers Hedge 0DTE Pin Risk' },
+			{ key: '__noarchive', value: 'true' },
+			{ key: '__nosnippet', value: 'true' },
+			{ key: '__excludeFromSearch', value: 'true' },
+			{ key: '__seriesName', value: 'Dealer Gamma Mastery' },
+			{ key: '__customJsonLd', value: '{"@type":"HowTo","name":"Hedge Gamma Risk"}' }
+		]);
+
+		const rehydrated = hydrateFromFullPost({
+			id: 88,
+			title: 'Weekly Gamma Wall Playbook',
+			slug: 'weekly-gamma-wall-playbook',
+			customFields: payload.customFields
+		});
+		expect(rehydrated.subtitle).toBe('How Institutional Dealers Hedge 0DTE Pin Risk');
+		expect(rehydrated.noarchive).toBe(true);
+		expect(rehydrated.nosnippet).toBe(true);
+		expect(rehydrated.excludeFromSearch).toBe(true);
+		expect(rehydrated.seriesName).toBe('Dealer Gamma Mastery');
+		expect(rehydrated.customJsonLd).toBe('{"@type":"HowTo","name":"Hedge Gamma Risk"}');
+		expect(rehydrated.customFields).toEqual([{ key: 'instrument', value: 'SPX' }]);
+
+		// Also verify canonicalFieldsAfterSave syncs server-normalized focusKeyword, secondaryKeywords, faqItems, __subtitle, and __seriesName
+		const afterSave = canonicalFieldsAfterSave(rehydrated, {
+			id: 88,
+			focusKeyword: 'dealer gamma, hedging',
+			secondaryKeywords: JSON.stringify(['zero dte, pin', 'options flow']),
+			faqItems: JSON.stringify([
+				{ question: 'What is pin risk?', answer: 'Expiration hedging pressure, near strike.' }
+			]),
+			customFields: JSON.stringify([
+				{ key: 'instrument', value: 'SPX' },
+				{ key: '__subtitle', value: 'How Institutional Dealers Hedge, 0DTE Pin Risk' },
+				{ key: '__seriesName', value: 'Dealer Gamma, Mastery' }
+			])
+		});
+		expect(afterSave.focusKeyword).toBe('dealer gamma, hedging');
+		expect(afterSave.secondaryKeywords).toEqual(['zero dte, pin', 'options flow']);
+		expect(afterSave.faqItems).toEqual([
+			{ question: 'What is pin risk?', answer: 'Expiration hedging pressure, near strike.' }
+		]);
+		expect(afterSave.subtitle).toBe('How Institutional Dealers Hedge, 0DTE Pin Risk');
+		expect(afterSave.seriesName).toBe('Dealer Gamma, Mastery');
+	});
 });

@@ -209,7 +209,11 @@ export const ImageWithDimensions = Image.extend({
 			},
 			size: {
 				default: null,
-				parseHTML: (element) => resolveImgElement(element).getAttribute('data-size') || null,
+				parseHTML: (element) => {
+					const img = resolveImgElement(element);
+					const figure = resolveFigureElement(element, img);
+					return img.getAttribute('data-size') || figure?.getAttribute('data-size') || null;
+				},
 				renderHTML: (attributes) => {
 					if (!attributes.size) return {};
 					return { 'data-size': String(attributes.size) };

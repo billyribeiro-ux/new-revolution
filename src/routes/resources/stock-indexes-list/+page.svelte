@@ -161,6 +161,18 @@
 	<Navbar />
 
 	<main id="main-content" class="indexes-page">
+		<nav class="breadcrumb-nav" aria-label="Breadcrumb">
+			<div class="container">
+				<ol class="breadcrumb-list">
+					<li><a href={resolve('/')}>Home</a></li>
+					<li aria-hidden="true">/</li>
+					<li><a href={resolve('/resources')}>Free Trading Resources</a></li>
+					<li aria-hidden="true">/</li>
+					<li aria-current="page">Major US &amp; Global Stock Market Indexes</li>
+				</ol>
+			</div>
+		</nav>
+
 		<!-- Hero Section -->
 		<section class="hero">
 			<div class="hero__bg">
@@ -176,6 +188,10 @@
 				<p class="hero__subtitle">
 					Your comprehensive guide to major stock market indexes. Understand how indexes work, track
 					market performance, and discover the best ways to gain exposure.
+				</p>
+				<p class="hero__byline">
+					Authored by <a href={resolve('/about')}>Billy Ribeiro</a> •
+					<time datetime="2026-10-31">Updated October 31, 2026</time>
 				</p>
 			</div>
 		</section>

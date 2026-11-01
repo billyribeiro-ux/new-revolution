@@ -78,7 +78,12 @@
 		margin-inline-end: 0.5rem;
 	}
 
-	.breadcrumb-list a {
+	.breadcrumb-list a,
+	.breadcrumb-bar__telemetry :global(a) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+		min-width: 24px;
 		color: var(--text);
 		text-decoration: underline;
 	}

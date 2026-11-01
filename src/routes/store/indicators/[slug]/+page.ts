@@ -28,19 +28,22 @@ export const entries: EntryGenerator = () => [
 
 export const load: PageLoad = ({ url, params }) => {
 	const slug = params?.slug || FLAGSHIP_SLUG;
-	// Every slug currently renders the same product template (identical title, copy and schema),
-	// so non-flagship URLs declare the flagship page as canonical to avoid duplicate-content
-	// indexing. Remove this once each product has its own unique content and metadata.
-	const canonicalUrl =
-		slug === FLAGSHIP_SLUG
-			? getCanonicalUrl(url)
-			: `${SITE_ORIGIN}/store/indicators/${FLAGSHIP_SLUG}`;
+	const isFlagship = slug === FLAGSHIP_SLUG;
+	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
 		// 27 chars before suffix -> "MP Early In & Out Indicator | Revolution Trading Pros" (53 chars total)
 		title: 'MP Early In & Out Indicator',
 		description: DESCRIPTION,
-		canonical: canonicalUrl,
+		canonical: isFlagship ? canonicalUrl : undefined,
+		robots: isFlagship ? 'index, follow' : 'noindex, nofollow',
+		additionalRobotsProps: isFlagship
+			? {
+					maxSnippet: -1,
+					maxImagePreview: 'large',
+					maxVideoPreview: -1
+				}
+			: undefined,
 		keywords: [
 			'MP Early In and Out indicator',
 			'MP_EarlyInNOut Pro indicator',

@@ -343,7 +343,7 @@
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		}
 	];
 </script>

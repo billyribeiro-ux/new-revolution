@@ -228,6 +228,10 @@
 }
 
 .inner-page .breadcrumb-list a {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 24px;
+	min-inline-size: 24px;
 	color: var(--text);
 	text-decoration: underline;
 	text-decoration-color: #4a525a;

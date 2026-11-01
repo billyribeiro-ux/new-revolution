@@ -17,7 +17,7 @@ export const load: LayoutLoad = ({ url }) => {
 	const socialImageUrl = `${SITE_ORIGIN}${BRAND_SOCIAL_IMAGE_PATH}`;
 
 	const baseTags = defineBaseMetaTags({
-		title: 'Live Stock & Options Trading Room, Mentorship & Custom Indicators',
+		title: 'Stock & Options Trading Rooms',
 		titleTemplate: `%s | ${BRAND_NAME}`,
 		robots: noIndex ? 'noindex, nofollow' : 'index, follow',
 		additionalRobotsProps: noIndex
@@ -28,15 +28,8 @@ export const load: LayoutLoad = ({ url }) => {
 					maxVideoPreview: -1
 				},
 		description:
-			'Explore Revolution Trading Pros: stock and options trading rooms, swing trading, small-account mentorship ($500+), custom indicators, trading courses, and video watchlists. Trading involves substantial risk.',
-		canonical: canonicalUrl,
-		languageAlternates: noIndex
-			? []
-			: [
-					{ hrefLang: 'en-us', href: canonicalUrl },
-					{ hrefLang: 'en-ca', href: canonicalUrl },
-					{ hrefLang: 'x-default', href: canonicalUrl }
-				],
+			'Live stock and options trading rooms, $500+ small-account mentorship, non-repainting indicators, courses, and video watchlists. People over profits.',
+		canonical: noIndex ? undefined : canonicalUrl,
 		openGraph: {
 			type: 'website',
 			url: canonicalUrl,
@@ -65,10 +58,6 @@ export const load: LayoutLoad = ({ url }) => {
 			{
 				name: 'theme-color',
 				content: '#0b0e12'
-			},
-			{
-				property: 'og:locale:alternate',
-				content: 'en_CA'
 			}
 		]
 	});

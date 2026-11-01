@@ -78,9 +78,13 @@ for (const file of files) {
 	else if (!html.includes(`id="${skip[1]}"`))
 		problems.push(`skip link target #${skip[1]} does not exist`);
 
+	const isNoIndex = /<meta[^>]*name="robots"[^>]*content="[^"]*noindex/i.test(html);
 	const canonical = html.match(/rel="canonical" href="([^"]+)"/)?.[1];
-	if (!canonical || !canonical.startsWith(ORIGIN))
+	if (isNoIndex) {
+		if (canonical) problems.push(`noindex page must not have canonical (${canonical})`);
+	} else if (!canonical || !canonical.startsWith(ORIGIN)) {
 		problems.push(`canonical is ${canonical ?? 'missing'}`);
+	}
 	for (const leak of ['localhost', 'sveltekit-prerender']) {
 		if (html.includes(leak)) problems.push(`leaks "${leak}"`);
 	}

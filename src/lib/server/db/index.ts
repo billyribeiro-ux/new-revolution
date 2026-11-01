@@ -91,26 +91,22 @@ export function getDb(): AppDatabase {
 
 async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 	if (process.env.VITEST) return;
-	const isMemoryDb = (process.env.DATABASE_URL ?? '').startsWith('memory://');
-	const totalCheck = await pglite.query<{ count: string }>(
-		`SELECT count(*)::text AS count FROM posts`
-	);
-	const totalPosts = Number(totalCheck.rows[0]?.count ?? '0');
-	if (totalPosts > 0 && !isMemoryDb) return;
 
 	const check = await pglite.query<{ count: string }>(
 		`SELECT count(*)::text AS count
 		 FROM posts p
 		 INNER JOIN categories c ON c.id = p.category_id
-		 WHERE c.slug = 'market-structure' AND p.status = 'published' AND p.visibility = 'public'`
+		 WHERE c.slug = 'market-structure'
+		   AND p.slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		   AND p.status = 'published'
+		   AND p.visibility = 'public'`
 	);
 	const existingCount = Number(check.rows[0]?.count ?? '0');
 	if (existingCount >= 2) return;
 
 	await pglite.exec(`
-		INSERT INTO authors (id, name, slug, job_title, credentials, bio, avatar, website, linkedin, twitter)
+		INSERT INTO authors (name, slug, job_title, credentials, bio, avatar, website, linkedin, twitter)
 		VALUES (
-			1,
 			'Billy Ribeiro',
 			'billy-ribeiro',
 			'Head Trader & Founder',
@@ -123,9 +119,8 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 		)
 		ON CONFLICT (slug) DO NOTHING;
 
-		INSERT INTO categories (id, name, slug, description, is_active, sort_order)
+		INSERT INTO categories (name, slug, description, is_active, sort_order)
 		VALUES (
-			1,
 			'Market Structure',
 			'market-structure',
 			'Institutional order flow, dealer gamma exposure, and options risk management playbooks.',
@@ -135,6 +130,10 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 		ON CONFLICT (slug) DO UPDATE SET
 			name = EXCLUDED.name,
 			is_active = true;
+
+		INSERT INTO tags (name, slug)
+		VALUES ('SPX Options', 'spx-options')
+		ON CONFLICT (slug) DO NOTHING;
 
 		INSERT INTO posts (
 			title,
@@ -277,8 +276,17 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			published = true,
 			password = EXCLUDED.password;
 
+		INSERT INTO post_tags (post_id, tag_id)
+		SELECT p.id, t.id
+		FROM posts p
+		CROSS JOIN tags t
+		WHERE p.slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		  AND t.slug = 'spx-options'
+		ON CONFLICT DO NOTHING;
+
 		SELECT setval('authors_id_seq', (SELECT COALESCE(MAX(id), 1) FROM authors));
 		SELECT setval('categories_id_seq', (SELECT COALESCE(MAX(id), 1) FROM categories));
+		SELECT setval('tags_id_seq', (SELECT COALESCE(MAX(id), 1) FROM tags));
 		SELECT setval('posts_id_seq', (SELECT COALESCE(MAX(id), 1) FROM posts));
 	`);
 }

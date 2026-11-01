@@ -1,10 +1,9 @@
 User-agent: *
 Allow: /
-Disallow: /login
-Disallow: /register
-Disallow: /dashboard
-Disallow: /admin
-Disallow: /checkout
 Disallow: /api/
+
+# AI search and grounding crawlers (Google-Extended) are explicitly permitted per owner policy.
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://revolutiontradingpros.com/sitemap.xml

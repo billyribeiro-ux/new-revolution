@@ -72,7 +72,7 @@
 			routes: [
 				{ label: 'Custom Non-Repainting Indicators', href: '/store/indicators' },
 				{ label: 'Institutional Market Scanners', href: '/store/scanners' },
-				{ label: 'Free Options Calculator', href: '/resources/options-calculator' }
+				{ label: 'Free Options Calculator', href: '/resources' }
 			]
 		},
 		{
@@ -87,7 +87,7 @@
 			routes: [
 				{ label: 'Live Day Trading Room', href: '/live-trading-rooms/day-trading-room' },
 				{ label: 'Swing Trading Room', href: '/live-trading-rooms/swing-trading-room' },
-				{ label: 'Explosive Swings Video Watchlist', href: '/alert-services/explosive-swings' }
+				{ label: 'Explosive Swings Video Watchlist', href: '/watchlist' }
 			]
 		}
 	];
@@ -160,7 +160,7 @@
 			primaryLinkLabel: 'Explore Swing Trading Room',
 			primaryLinkHref: '/live-trading-rooms/swing-trading-room',
 			secondaryLinkLabel: 'View Explosive Swings Alerts',
-			secondaryLinkHref: '/alert-services/explosive-swings'
+			secondaryLinkHref: '/watchlist'
 		},
 		{
 			tag: 'Starting Capital as Low as $500',
@@ -172,7 +172,7 @@
 			primaryLinkLabel: 'Explore Small Accounts Room',
 			primaryLinkHref: '/live-trading-rooms/small-accounts-room',
 			secondaryLinkLabel: 'Try Free Options Calculator',
-			secondaryLinkHref: '/resources/options-calculator'
+			secondaryLinkHref: '/resources'
 		},
 		{
 			tag: 'Intraday Velocity & Scalping',
@@ -281,7 +281,7 @@
 						Explore Our Live Trading Rooms
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
-					<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline">
+					<a href={resolve('/watchlist' as '/')} class="btn btn-outline">
 						See Video Watchlist &amp; Alert Tiers
 					</a>
 				</div>
@@ -421,7 +421,7 @@
 					</p>
 					<div class="crisis-card__resolution">
 						<strong>Our Solution:</strong> In our live rooms and our affordable alert-only tiers (<a
-							href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a
+							href={resolve('/watchlist' as '/')}>Explosive Swings</a
 						>
 						&amp;
 						<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>), we
@@ -648,7 +648,7 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
 					Get Video Watchlist &amp; Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

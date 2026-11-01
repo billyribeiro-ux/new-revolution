@@ -1,6 +1,5 @@
 import {
 	BLOG_ARTICLES,
-	FAQ_ITEMS,
 	MAIN_NAVIGATION,
 	MEMBERSHIP_TIERS,
 	STORE_TOOLS,
@@ -54,9 +53,41 @@ export function isNoIndexRoute(pathname: string): boolean {
 	);
 }
 
+/**
+ * Safely serializes a JSON-LD object for embedding inside `<script type="application/ld+json">`,
+ * escaping `<`, `>`, `&`, `U+2028`, and `U+2029` per SD-02.
+ */
+export function serializeJsonLd(schema: unknown): string {
+	return JSON.stringify(schema)
+		.replace(/</g, '\\u003c')
+		.replace(/>/g, '\\u003e')
+		.replace(/&/g, '\\u0026')
+		.replace(/\u2028/g, '\\u2028')
+		.replace(/\u2029/g, '\\u2029');
+}
+
+/**
+ * Escapes `<`, `>`, `&`, `U+2028`, and `U+2029` inside any rendered
+ * `<script type="application/ld+json">...</script>` block in HTML.
+ */
+export function escapeJsonLdBlocksInHtml(html: string): string {
+	return html.replace(
+		/(<script\b[^>]*type=["']application\/ld\+json["'][^>]*>)([\s\S]*?\})\s*(<\/script>)/gi,
+		(_match, openTag: string, body: string, closeTag: string) => {
+			const escaped = body
+				.replace(/</g, '\\u003c')
+				.replace(/>/g, '\\u003e')
+				.replace(/&/g, '\\u0026')
+				.replace(/\u2028/g, '\\u2028')
+				.replace(/\u2029/g, '\\u2029');
+			return `${openTag}${escaped}${closeTag}`;
+		}
+	);
+}
+
 export interface CatalogOffering {
 	id: string;
-	schemaType: 'Service' | 'Course';
+	schemaType: 'Service';
 	name: string;
 	serviceType?: string;
 	description: string;
@@ -100,11 +131,11 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 	{
 		id: 'explosive-swings',
 		schemaType: 'Service',
-		name: 'Explosive Swings',
+		name: 'Sunday Alpha Protocol Watchlist',
 		serviceType: 'Multi-Day Swing Trading Video Watchlist and Alert Service',
 		description:
 			'Multi-day stock and options video watchlists with pre-planned entry zones, profit targets, and stop-loss invalidation levels for working professionals.',
-		path: '/alert-services/explosive-swings'
+		path: '/watchlist'
 	},
 	{
 		id: 'private-mentorship',
@@ -117,8 +148,9 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 	},
 	{
 		id: 'trading-courses',
-		schemaType: 'Course',
+		schemaType: 'Service',
 		name: 'Stock & Options Trading Courses',
+		serviceType: 'Self-Paced Stock and Options Trading Curriculum',
 		description: STORE_TOOLS[1].description,
 		path: '/store/courses'
 	},
@@ -283,40 +315,24 @@ export function buildOfferCatalogEntity(origin: string) {
 		'@type': 'OfferCatalog',
 		'@id': `${origin}/#offer-catalog`,
 		name: 'Revolution Trading Pros Trading Rooms, Alert Services, Mentorship & Store',
-		url: `${origin}/memberships`,
+		url: `${origin}/live-trading-rooms/day-trading-room`,
 		numberOfItems: CANONICAL_OFFERINGS.length,
-		itemListElement: CANONICAL_OFFERINGS.map((offering, index) => {
-			const baseItem = {
-				'@type': offering.schemaType,
-				'@id': `${origin}${offering.path}#${offering.schemaType.toLowerCase()}`,
-				position: index + 1,
-				name: offering.name,
-				description: offering.description,
-				url: `${origin}${offering.path}`,
-				provider: {
-					'@id': `${origin}/#organization`
-				}
-			};
-
-			if (offering.schemaType === 'Course') {
-				return {
-					...baseItem,
-					hasCourseInstance: {
-						'@type': 'CourseInstance',
-						courseMode: 'online'
-					}
-				};
-			}
-
-			return {
-				...baseItem,
-				serviceType: offering.serviceType,
-				areaServed: [
-					{ '@type': 'Country', name: 'United States' },
-					{ '@type': 'Country', name: 'Canada' }
-				]
-			};
-		})
+		itemListElement: CANONICAL_OFFERINGS.map((offering, index) => ({
+			'@type': offering.schemaType,
+			'@id': `${origin}${offering.path}#${offering.schemaType.toLowerCase()}`,
+			position: index + 1,
+			name: offering.name,
+			description: offering.description,
+			url: `${origin}${offering.path}`,
+			provider: {
+				'@id': `${origin}/#organization`
+			},
+			serviceType: offering.serviceType,
+			areaServed: [
+				{ '@type': 'Country', name: 'United States' },
+				{ '@type': 'Country', name: 'Canada' }
+			]
+		}))
 	};
 }
 
@@ -329,7 +345,7 @@ export function buildWebSiteEntity(origin: string) {
 		alternateName: `${BRAND_NAME} — ${BRAND_SLOGAN}`,
 		description:
 			'Stock and options trading education, live trading rooms, swing trading alerts, small-account mentorship ($500+), custom indicators, and scanners.',
-		inLanguage: ['en-US', 'en-CA'],
+		inLanguage: 'en-US',
 		publisher: {
 			'@id': `${origin}/#organization`
 		}
@@ -349,9 +365,9 @@ export function buildHomepageJsonLd(origin: string) {
 				'@type': 'WebPage',
 				'@id': `${origin}/#webpage`,
 				url: origin,
-				name: 'Live Stock & Options Trading Room, Mentorship & Custom Indicators | Revolution Trading Pros',
+				name: 'Stock & Options Trading Rooms | Revolution Trading Pros',
 				description:
-					'Explore Revolution Trading Pros: stock and options trading rooms, swing trading, small-account mentorship ($500+), custom indicators, trading courses, and video watchlists. Trading involves substantial risk.',
+					'Live stock and options trading rooms, $500+ small-account mentorship, non-repainting indicators, courses, and video watchlists. People over profits.',
 				inLanguage: 'en-US',
 				isPartOf: {
 					'@id': `${origin}/#website`
@@ -368,15 +384,7 @@ export function buildHomepageJsonLd(origin: string) {
 				mainEntity: {
 					'@id': `${origin}/#offer-catalog`
 				},
-				hasPart: [
-					{ '@id': `${origin}/#faq` },
-					{ '@id': `${origin}/#navigation` },
-					{ '@id': `${origin}/#latest-blogs` }
-				],
-				speakable: {
-					'@type': 'SpeakableSpecification',
-					cssSelector: ['#hero-title', '.hero-lead', '#faq-title']
-				}
+				hasPart: [{ '@id': `${origin}/#navigation` }, { '@id': `${origin}/#latest-blogs` }]
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -408,23 +416,6 @@ export function buildHomepageJsonLd(origin: string) {
 					url: `${origin}${article.href}`,
 					name: article.title
 				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${origin}/#faq`,
-				url: `${origin}/#faq`,
-				isPartOf: {
-					'@id': `${origin}/#webpage`
-				},
-				mainEntity: FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${origin}/#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: item.answer
-					}
-				}))
 			}
 		]
 	};
@@ -440,7 +431,7 @@ export function buildAboutJsonLd(origin: string) {
 			buildOfferCatalogEntity(origin),
 			buildWebSiteEntity(origin),
 			{
-				'@type': ['AboutPage', 'ProfilePage'],
+				'@type': 'ProfilePage',
 				'@id': `${aboutUrl}#webpage`,
 				url: aboutUrl,
 				name: 'About Us & Proven Track Record | Revolution Trading Pros',
@@ -461,12 +452,7 @@ export function buildAboutJsonLd(origin: string) {
 				},
 				breadcrumb: {
 					'@id': `${aboutUrl}#breadcrumb`
-				},
-				hasPart: [
-					{
-						'@id': `${aboutUrl}#faq`
-					}
-				]
+				}
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -481,27 +467,10 @@ export function buildAboutJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'About',
+						name: 'About Revolution Trading Pros',
 						item: aboutUrl
 					}
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${aboutUrl}#faq`,
-				url: `${aboutUrl}#faq`,
-				isPartOf: {
-					'@id': `${aboutUrl}#webpage`
-				},
-				mainEntity: ABOUT_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${aboutUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: item.answer
-					}
-				}))
 			}
 		]
 	};
@@ -555,7 +524,7 @@ export function buildMissionJsonLd(origin: string) {
 				about: { '@id': `${origin}/#organization` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
 				breadcrumb: { '@id': `${missionUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${missionUrl}#charter` }, { '@id': `${missionUrl}#faq` }]
+				hasPart: [{ '@id': `${missionUrl}#charter` }]
 			},
 			{
 				'@type': 'CreativeWork',
@@ -575,18 +544,6 @@ export function buildMissionJsonLd(origin: string) {
 					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
 					{ '@type': 'ListItem', position: 2, name: 'Our Mission', item: missionUrl }
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${missionUrl}#faq`,
-				url: `${missionUrl}#faq`,
-				isPartOf: { '@id': `${missionUrl}#webpage` },
-				mainEntity: MISSION_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${missionUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -642,8 +599,7 @@ export function buildMentorshipJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'Service',
@@ -672,20 +628,8 @@ export function buildMentorshipJsonLd(origin: string) {
 				'@id': `${pageUrl}#breadcrumb`,
 				itemListElement: [
 					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
-					{ '@type': 'ListItem', position: 2, name: 'Mentorship', item: pageUrl }
+					{ '@type': 'ListItem', position: 2, name: '1-on-1 Mentorship', item: pageUrl }
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: MENTORSHIP_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -746,8 +690,7 @@ export function buildDayTradingRoomJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'Service',
@@ -775,18 +718,6 @@ export function buildDayTradingRoomJsonLd(origin: string) {
 					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
 					{ '@type': 'ListItem', position: 3, name: 'Day Trading Room', item: pageUrl }
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: DAY_TRADING_ROOM_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -848,8 +779,7 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'Service',
@@ -878,18 +808,6 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
 					{ '@type': 'ListItem', position: 3, name: 'Swing Trading Room', item: pageUrl }
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SWING_TRADING_ROOM_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -949,8 +867,7 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'Service',
@@ -978,18 +895,6 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 					{ '@type': 'ListItem', position: 2, name: 'Live Trading Rooms', item: pageUrl },
 					{ '@type': 'ListItem', position: 3, name: 'Small Accounts Room', item: pageUrl }
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SMALL_ACCOUNTS_ROOM_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -1089,8 +994,7 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 				about: { '@id': `${pageUrl}#catalog` },
 				mainEntity: { '@id': `${pageUrl}#catalog` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1098,7 +1002,12 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 				itemListElement: [
 					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
 					{ '@type': 'ListItem', position: 2, name: 'Store', item: pageUrl },
-					{ '@type': 'ListItem', position: 3, name: 'Indicators', item: pageUrl }
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'Indicators from Revolution Trading Pros',
+						item: pageUrl
+					}
 				]
 			},
 			{
@@ -1112,18 +1021,6 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 					position: index + 1,
 					name: item.name,
 					description: item.hook
-				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: INDICATORS_STORE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
 				}))
 			}
 		]
@@ -1181,8 +1078,7 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				about: { '@id': `${pageUrl}#catalog` },
 				mainEntity: { '@id': `${pageUrl}#catalog` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1190,7 +1086,12 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				itemListElement: [
 					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
 					{ '@type': 'ListItem', position: 2, name: 'Store', item: pageUrl },
-					{ '@type': 'ListItem', position: 3, name: 'Courses', item: pageUrl }
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'Courses from Revolution Trading Pros',
+						item: pageUrl
+					}
 				]
 			},
 			{
@@ -1202,24 +1103,8 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				itemListElement: coursesCatalog.map((course, index) => ({
 					'@type': 'ListItem',
 					position: index + 1,
-					item: {
-						'@type': 'Course',
-						name: course.title,
-						description: course.hook,
-						provider: { '@id': `${origin}/#organization` }
-					}
-				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: COURSES_STORE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+					name: course.title,
+					description: course.hook
 				}))
 			}
 		]
@@ -1276,13 +1161,12 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 				url: pageUrl,
 				name: 'Move Prior to The Move Course | Revolution Trading Pros',
 				description:
-					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.',
+					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim and TradingView tools.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
-				mainEntity: { '@id': `${pageUrl}#course` },
+				mainEntity: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1292,7 +1176,7 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Courses',
+						name: 'Trading Courses',
 						item: `${origin}/store/courses`
 					},
 					{
@@ -1304,35 +1188,17 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 				]
 			},
 			{
-				'@type': 'Course',
-				'@id': `${pageUrl}#course`,
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
 				name: 'Get the NEW Automated Move Prior to The Move™ Ultra System',
 				description:
-					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim & TradingView tools.',
+					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim and TradingView tools.',
 				provider: { '@id': `${origin}/#organization` },
-				instructor: {
-					'@type': 'Person',
-					'@id': `${origin}/#founder`,
-					name: 'Billy Ribeiro',
-					jobTitle: 'Founder & Head Institutional Trader'
-				},
-				hasCourseInstance: {
-					'@type': 'CourseInstance',
-					courseMode: 'Online',
-					courseWorkload: 'Self-Paced On-Demand HD Modules'
-				}
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SINGLE_COURSE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
+				serviceType: 'Self-Paced Options Trading Curriculum and Non-Repainting Indicator Suite',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				]
 			}
 		]
 	};
@@ -1387,8 +1253,7 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#software` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1398,7 +1263,7 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Indicators',
+						name: 'Store: Indicators',
 						item: `${origin}/store/indicators`
 					},
 					{
@@ -1422,18 +1287,6 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 					'@id': `${origin}/#founder`,
 					name: 'Billy Ribeiro'
 				}
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SINGLE_INDICATOR_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -1488,8 +1341,7 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1527,18 +1379,6 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 				},
 				description:
 					'Real-time SPX and 0DTE index options trade alerts paired with pre-market video watchlists, institutional dealer gamma walls, and exact entry, profit target, and hard stop-loss levels.'
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SPX_PROFIT_PULSE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -1635,8 +1475,7 @@ export function buildScannersStoreJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#catalog` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1652,7 +1491,7 @@ export function buildScannersStoreJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 3,
-						name: 'Scanners',
+						name: 'Trading Scanners',
 						item: pageUrl
 					}
 				]
@@ -1673,18 +1512,6 @@ export function buildScannersStoreJsonLd(origin: string) {
 						operatingSystem: scanner.operatingSystem,
 						url: `${pageUrl}/${scanner.slug}`
 					}
-				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SCANNERS_STORE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
 				}))
 			}
 		]
@@ -1744,8 +1571,7 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#software` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1755,7 +1581,7 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Scanners',
+						name: 'Store: Scanners',
 						item: `${origin}/store/scanners`
 					},
 					{
@@ -1779,18 +1605,6 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 					'@id': `${origin}/#founder`,
 					name: 'Billy Ribeiro'
 				}
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SINGLE_SCANNER_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -1875,20 +1689,6 @@ export function buildEtfStocksListJsonLd(origin: string) {
 					position: index + 1,
 					name: `${etf.symbol} — ${etf.name}`
 				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: ETF_STOCKS_LIST_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: {
-						'@type': 'Answer',
-						text: item.answer
-					}
-				}))
 			}
 		]
 	};
@@ -1960,8 +1760,7 @@ export function buildStockIndexesListJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#index-list` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -1971,13 +1770,13 @@ export function buildStockIndexesListJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Resources',
-						item: pageUrl
+						name: 'Free Trading Resources',
+						item: `${origin}/resources`
 					},
 					{
 						'@type': 'ListItem',
 						position: 3,
-						name: 'Stock Indexes List',
+						name: 'Major US & Global Stock Market Indexes',
 						item: pageUrl
 					}
 				]
@@ -1992,18 +1791,6 @@ export function buildStockIndexesListJsonLd(origin: string) {
 					position: index + 1,
 					name: `${idx.symbol} — ${idx.name}`
 				}))
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: STOCK_INDEXES_LIST_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
@@ -2013,7 +1800,7 @@ export const RESOURCES_HUB_UTILITIES = [
 	{
 		name: 'Options Profit, Risk & Greeks Calculator',
 		description: 'Position Sizing, Delta/Theta Simulation & Breakeven Mapping',
-		path: '/resources/options-calculator'
+		path: '/resources'
 	},
 	{
 		name: 'Complete ETF Stocks & Sector Directory',
@@ -2148,8 +1935,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#protocol` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
-				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
-				hasPart: [{ '@id': `${pageUrl}#faq` }]
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
 			{
 				'@type': 'Service',
@@ -2175,6 +1961,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				name: 'Sunday Alpha Protocol™',
 				description:
 					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.',
+				image: `${origin}${BRAND_SOCIAL_IMAGE_PATH}`,
 				brand: {
 					'@id': `${origin}/#organization`
 				},
@@ -2216,23 +2003,109 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Sunday Alpha Protocol™ Watchlist',
+						name: 'Alert Services',
+						item: `${origin}/alert-services/spx-profit-pulse`
+					},
+					{
+						'@type': 'ListItem',
+						position: 3,
+						name: 'Weekly Stock & Options Video Watchlist',
 						item: pageUrl
 					}
 				]
-			},
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
 		]
 	};
+}
+
+export function buildTrustPageJsonLd(
+	origin: string,
+	config: {
+		path: string;
+		breadcrumbName: string;
+		title: string;
+		description: string;
+		schemaType?: 'WebPage' | 'ContactPage';
+	}
+) {
+	const pageUrl = `${origin}${config.path}`;
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': config.schemaType ?? 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: `${config.title} | ${BRAND_NAME}`,
+				description: config.description,
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${origin}/#organization` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: config.breadcrumbName, item: pageUrl }
+				]
+			}
+		]
+	};
+}
+
+export function buildContactPageJsonLd(origin: string) {
+	return buildTrustPageJsonLd(origin, {
+		path: '/contact',
+		breadcrumbName: 'Contact',
+		title: 'Contact Our Trading Desk',
+		description:
+			'Contact Revolution Trading Pros for live trading room support, mentorship inquiries, indicator setup help, and media verification. People over profits.',
+		schemaType: 'ContactPage'
+	});
+}
+
+export function buildEditorialPolicyPageJsonLd(origin: string) {
+	return buildTrustPageJsonLd(origin, {
+		path: '/editorial-policy',
+		breadcrumbName: 'Editorial Policy',
+		title: 'Editorial Policy & Standards',
+		description:
+			'Read the Revolution Trading Pros editorial policy covering research verification, primary exchange citations, conflict disclosures, and risk standards.'
+	});
+}
+
+export function buildPrivacyPolicyPageJsonLd(origin: string) {
+	return buildTrustPageJsonLd(origin, {
+		path: '/privacy-policy',
+		breadcrumbName: 'Privacy Policy',
+		title: 'Privacy Policy & Data Security',
+		description:
+			'Learn how Revolution Trading Pros collects, protects, and handles member account data, cookies, and analytics across US and Canadian jurisdictions.'
+	});
+}
+
+export function buildTermsOfServicePageJsonLd(origin: string) {
+	return buildTrustPageJsonLd(origin, {
+		path: '/terms-of-service',
+		breadcrumbName: 'Terms of Service',
+		title: 'Terms of Service & Disclosures',
+		description:
+			'Review the Terms of Service, educational risk disclosures, and U.S. (SEC/CFTC/FINRA) and Canadian (OSC/BCSC/ASC) regulatory notices for our platform.'
+	});
+}
+
+export function buildRefundPolicyPageJsonLd(origin: string) {
+	return buildTrustPageJsonLd(origin, {
+		path: '/refund-policy',
+		breadcrumbName: 'Refund Policy',
+		title: 'Cancellation & Refund Policy',
+		description:
+			'Transparent subscription cancellation, billing terms, and refund policy for Revolution Trading Pros memberships, alert services, and digital software.'
+	});
 }

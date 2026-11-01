@@ -1,0 +1,42 @@
+[
+	{
+		"template": "home",
+		"url": "/",
+		"violations": []
+	},
+	{
+		"template": "profile",
+		"url": "/about",
+		"violations": []
+	},
+	{
+		"template": "static",
+		"url": "/our-mission",
+		"violations": []
+	},
+	{
+		"template": "static-resource",
+		"url": "/resources/stock-indexes-list",
+		"violations": []
+	},
+	{
+		"template": "membership-product",
+		"url": "/live-trading-rooms/day-trading-room",
+		"violations": []
+	},
+	{
+		"template": "listing",
+		"url": "/store/courses",
+		"violations": []
+	},
+	{
+		"template": "product",
+		"url": "/store/courses/move-prior-to-the-move-ultra",
+		"violations": []
+	},
+	{
+		"template": "blog-listing",
+		"url": "/blog",
+		"violations": []
+	}
+]

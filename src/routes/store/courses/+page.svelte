@@ -156,7 +156,7 @@
 			description:
 				'Affordable alert-only video watchlists with exact entries, profit exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		}
 	];
 
@@ -602,7 +602,7 @@
 										>Live Trading Rooms</a
 									>
 									and
-									<a href={resolve('/alert-services/explosive-swings' as '/')}>Alert Services</a>
+									<a href={resolve('/watchlist' as '/')}>Alert Services</a>
 									let you execute those playbooks alongside our desk in real time. Our
 									<a href={resolve('/mentorship' as '/')}>1-on-1 Mentorship</a> is an application-and-approval-only
 									private coaching partnership for Portfolio Managers, Pro Traders, and Struggling Traders

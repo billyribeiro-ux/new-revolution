@@ -109,7 +109,7 @@
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		}
 	];
 
@@ -498,7 +498,7 @@
 										>Swing Trading Room</a
 									>
 									and
-									<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>
+									<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>
 									alert tier.
 								</p>
 							{:else}

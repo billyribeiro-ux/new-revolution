@@ -75,6 +75,6 @@ describe('/resources/+page.svelte component', () => {
 		await expect.element(ctaH2).toBeInTheDocument();
 
 		const ctaLink = page.getByRole('link', { name: /Get Started Free/i });
-		await expect.element(ctaLink).toHaveAttribute('href', '/signup');
+		await expect.element(ctaLink).toHaveAttribute('href', '/contact');
 	});
 });

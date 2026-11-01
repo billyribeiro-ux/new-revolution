@@ -62,7 +62,7 @@
 		| '/live-trading-rooms/day-trading-room'
 		| '/live-trading-rooms/swing-trading-room'
 		| '/live-trading-rooms/small-accounts-room'
-		| '/alert-services/explosive-swings'
+		| '/watchlist'
 		| '/store/indicators';
 
 	interface RoomCta {
@@ -312,7 +312,7 @@
 			description:
 				'Pair SPX Profit Pulse with our flagship multi-day stock and options video watchlist alerts.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		},
 		{
 			badge: 'Zero-Repaint Tools',

@@ -425,7 +425,7 @@
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/alert-services/explosive-swings'
+			href: '/watchlist'
 		}
 	];
 
@@ -457,7 +457,7 @@
 				</ol>
 				<p class="breadcrumb-bar__member">
 					<span>Already a Member?</span>
-					<a href={resolve('/login' as '/')}>Sign In Here →</a>
+					<a href={resolve('/admin/login' as '/')}>Sign In Here →</a>
 				</p>
 			</div>
 		</nav>

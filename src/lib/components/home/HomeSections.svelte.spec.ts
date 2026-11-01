@@ -101,7 +101,7 @@ describe('Modular Homepage Section Components', () => {
 			.element(
 				page.getByRole('heading', {
 					level: 3,
-					name: /Behind the Reported 600% Overnight OXY Put-Options Trade/i
+					name: /Institutional Order Flow & the S&P 500 Gamma Flip Playbook/i
 				})
 			)
 			.toBeInTheDocument();

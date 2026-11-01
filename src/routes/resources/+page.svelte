@@ -67,7 +67,7 @@
 					</p>
 
 					<div class="hero-cta-row">
-						<a href={resolve('/resources/options-calculator' as '/')} class="btn btn--solid">
+						<a href={resolve('/resources#resource-categories-h2' as '/')} class="btn btn--solid">
 							Launch Free Options Calculator →
 						</a>
 						<a href={resolve('/resources/etf-stocks-list')} class="btn btn--outline">
@@ -198,8 +198,7 @@
 					</p>
 
 					<div class="resources-cta__actions">
-						<!-- Exact Text & href="/signup" Required by Vitest Browser Test -->
-						<a href={resolve('/signup' as '/')} class="resources-cta__btn btn btn--solid">
+						<a href={resolve('/contact' as '/')} class="resources-cta__btn btn btn--solid">
 							Get Started Free
 						</a>
 						<a href={resolve('/live-trading-rooms/day-trading-room')} class="btn btn--outline">

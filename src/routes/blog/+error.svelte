@@ -22,10 +22,6 @@
 	);
 </script>
 
-<svelte:head>
-	<meta name="robots" content="noindex, nofollow" />
-</svelte:head>
-
 <a class="skip" href="#blog-error-page">Skip to main content</a>
 <Navbar />
 

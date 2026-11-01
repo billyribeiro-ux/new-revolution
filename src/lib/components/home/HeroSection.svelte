@@ -60,8 +60,9 @@
 			<div class="hero-ctas">
 				<a
 					class="btn btn-primary"
-					href={resolve('/memberships' as '/')}
-					onclick={(e) => onPreviewNavigate?.('/memberships', 'memberships', e)}
+					href={resolve('/live-trading-rooms/day-trading-room' as '/')}
+					onclick={(e) =>
+						onPreviewNavigate?.('/live-trading-rooms/day-trading-room', 'memberships', e)}
 				>
 					Explore Our Memberships
 					<span class="arrow" aria-hidden="true">

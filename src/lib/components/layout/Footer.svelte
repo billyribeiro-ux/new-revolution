@@ -69,7 +69,7 @@
 				<nav class="footer-col" aria-labelledby={col.id}>
 					<p class="footer-col-title" id={col.id}>{col.title}</p>
 					<ul>
-						{#each col.links as link (link.href)}
+						{#each col.links as link (link.label)}
 							<li>
 								<a
 									href={resolve(link.href as '/')}
@@ -231,6 +231,10 @@
 	}
 
 	.footer-col a {
+		display: inline-flex;
+		align-items: center;
+		min-block-size: 24px;
+		min-inline-size: 24px;
 		font-family: var(--font-sans);
 		font-weight: 500;
 		font-size: 0.875rem;

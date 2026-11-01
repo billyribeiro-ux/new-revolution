@@ -17,12 +17,17 @@ import {
 	SWING_TRADING_ROOM_FAQ_ITEMS,
 	buildAboutJsonLd,
 	buildBlogsHubJsonLd,
+	buildContactPageJsonLd,
 	buildCoursesStoreJsonLd,
 	buildDayTradingRoomJsonLd,
+	buildEditorialPolicyPageJsonLd,
 	buildEtfStocksListJsonLd,
+	buildHomepageJsonLd,
 	buildIndicatorsStoreJsonLd,
 	buildMentorshipJsonLd,
 	buildMissionJsonLd,
+	buildPrivacyPolicyPageJsonLd,
+	buildRefundPolicyPageJsonLd,
 	buildResourcesHubJsonLd,
 	buildScannersStoreJsonLd,
 	buildSingleCourseJsonLd,
@@ -32,12 +37,25 @@ import {
 	buildSpxProfitPulseJsonLd,
 	buildStockIndexesListJsonLd,
 	buildSundayAlphaProtocolJsonLd,
-	buildSwingTradingRoomJsonLd
+	buildSwingTradingRoomJsonLd,
+	buildTermsOfServicePageJsonLd,
+	escapeJsonLdBlocksInHtml,
+	serializeJsonLd
 } from './structured-data.ts';
 
 const ORIGIN = 'https://example.com';
 
 type Node = Record<string, unknown>;
+
+const FORBIDDEN_TYPES = new Set([
+	'FAQPage',
+	'HowTo',
+	'Course',
+	'CourseInstance',
+	'SpeakableSpecification',
+	'SpecialAnnouncement',
+	'ClaimReview'
+]);
 
 function collectRefs(value: unknown, refs: Set<string>) {
 	if (Array.isArray(value)) {
@@ -59,44 +77,99 @@ function collectDefinedIds(value: unknown, ids: Set<string>) {
 	}
 }
 
+function collectTypes(value: unknown, types: Set<string>) {
+	if (Array.isArray(value)) {
+		for (const item of value) collectTypes(item, types);
+	} else if (value && typeof value === 'object') {
+		const obj = value as Node;
+		const t = obj['@type'];
+		if (typeof t === 'string') types.add(t);
+		else if (Array.isArray(t)) {
+			for (const entry of t) if (typeof entry === 'string') types.add(entry);
+		}
+		for (const v of Object.values(obj)) collectTypes(v, types);
+	}
+}
+
+function assertGraphIntegrity(graph: Node[]) {
+	expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
+	const refs = new Set<string>();
+	const ids = new Set<string>();
+	const types = new Set<string>();
+	collectRefs(graph, refs);
+	collectDefinedIds(graph, ids);
+	collectTypes(graph, types);
+	expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
+
+	const topIds = graph.map((n) => n['@id']);
+	expect(new Set(topIds).size).toBe(topIds.length);
+
+	for (const forbidden of FORBIDDEN_TYPES) {
+		expect(types.has(forbidden)).toBe(false);
+	}
+}
+
+describe('JSON-LD XSS escaping (SD-02)', () => {
+	it('escapes </script>, <!--, <, >, and & inside serializeJsonLd and escapeJsonLdBlocksInHtml while remaining valid JSON', () => {
+		const payload = {
+			'@context': 'https://schema.org',
+			name: '</script><script>alert(1)</script> <!-- comment --> & test'
+		};
+		const serialized = serializeJsonLd(payload);
+		expect(serialized).not.toContain('</script>');
+		expect(serialized).not.toContain('<script>');
+		expect(serialized).not.toContain('<!--');
+		expect(serialized).toContain('\\u003c/script\\u003e');
+		expect(JSON.parse(serialized)).toEqual(payload);
+
+		const html = `<head><script type="application/ld+json">{"name":"</script><script>alert(1)</script>"}</script></head>`;
+		const escapedHtml = escapeJsonLdBlocksInHtml(html);
+		expect(escapedHtml).toContain(
+			'\\u003c/script\\u003e\\u003cscript\\u003ealert(1)\\u003c/script\\u003e'
+		);
+	});
+});
+
+describe('Visible FAQ item data exports', () => {
+	it('keeps non-empty visible FAQ arrays for native <details> accordions', () => {
+		for (const faqList of [
+			ABOUT_FAQ_ITEMS,
+			MISSION_FAQ_ITEMS,
+			MENTORSHIP_FAQ_ITEMS,
+			DAY_TRADING_ROOM_FAQ_ITEMS,
+			SWING_TRADING_ROOM_FAQ_ITEMS,
+			SMALL_ACCOUNTS_ROOM_FAQ_ITEMS,
+			INDICATORS_STORE_FAQ_ITEMS,
+			COURSES_STORE_FAQ_ITEMS,
+			SINGLE_COURSE_FAQ_ITEMS,
+			SINGLE_INDICATOR_FAQ_ITEMS,
+			SPX_PROFIT_PULSE_FAQ_ITEMS,
+			SCANNERS_STORE_FAQ_ITEMS,
+			SINGLE_SCANNER_FAQ_ITEMS,
+			STOCK_INDEXES_LIST_FAQ_ITEMS,
+			SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS
+		]) {
+			expect(faqList.length).toBeGreaterThanOrEqual(4);
+		}
+	});
+});
+
+describe('buildHomepageJsonLd', () => {
+	const graph = buildHomepageJsonLd(ORIGIN)['@graph'] as Node[];
+
+	it('satisfies graph integrity and excludes restricted/retired types', () => {
+		assertGraphIntegrity(graph);
+	});
+});
+
 describe('buildAboutJsonLd', () => {
 	const graph = buildAboutJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('contains the entities required for the about page', () => {
-		const types = graph.flatMap((n) => (Array.isArray(n['@type']) ? n['@type'] : [n['@type']]));
-		for (const t of [
-			'EducationalOrganization',
-			'Person',
-			'WebSite',
-			'AboutPage',
-			'BreadcrumbList',
-			'FAQPage'
-		]) {
-			expect(types).toContain(t);
-		}
-	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string; acceptedAnswer: { text: string } }[];
-		expect(questions.map((q) => q.name)).toEqual(ABOUT_FAQ_ITEMS.map((i) => i.question));
-		expect(questions.map((q) => q.acceptedAnswer.text)).toEqual(
-			ABOUT_FAQ_ITEMS.map((i) => i.answer)
-		);
+	it('satisfies graph integrity and uses ProfilePage with mainEntity Person (SD-09)', () => {
+		assertGraphIntegrity(graph);
+		const page = graph.find((n) => n['@id'] === `${ORIGIN}/about#webpage`) as Node;
+		expect(page['@type']).toBe('ProfilePage');
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/#founder` });
 	});
 
 	it('uses absolute URLs in breadcrumbs', () => {
@@ -110,70 +183,31 @@ describe('buildAboutJsonLd', () => {
 describe('buildMissionJsonLd', () => {
 	const graph = buildMissionJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('resolves every @id reference inside the graph', () => {
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('is a WebPage about the organization, not a profile page', () => {
+	it('satisfies graph integrity and is a WebPage about the organization', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/our-mission#webpage`) as Node;
 		expect(page['@type']).toBe('WebPage');
 		expect(page.about).toEqual({ '@id': `${ORIGIN}/#organization` });
 		expect(page.mainEntity).toBeUndefined();
-	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions.map((q) => q.name)).toEqual(MISSION_FAQ_ITEMS.map((i) => i.question));
 	});
 });
 
 describe('buildMentorshipJsonLd', () => {
 	const graph = buildMentorshipJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('resolves every @id reference inside the graph', () => {
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('describes the mentorship as a Service for all three audiences', () => {
+	it('satisfies graph integrity and describes the mentorship as a Service for all three audiences', () => {
+		assertGraphIntegrity(graph);
 		const service = graph.find((n) => n['@id'] === `${ORIGIN}/mentorship#service`) as Node;
 		expect(service['@type']).toBe('Service');
 		expect(service.audience).toHaveLength(3);
-	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions.map((q) => q.name)).toEqual(MENTORSHIP_FAQ_ITEMS.map((i) => i.question));
 	});
 });
 
 describe('buildDayTradingRoomJsonLd', () => {
 	const graph = buildDayTradingRoomJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Day Trading Room as a Service linked from the WebPage', () => {
+	it('satisfies graph integrity and describes the Day Trading Room as a Service linked from the WebPage', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/day-trading-room#webpage`
 		) as Node;
@@ -188,33 +222,13 @@ describe('buildDayTradingRoomJsonLd', () => {
 		expect(service['@type']).toBe('Service');
 		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(DAY_TRADING_ROOM_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildSwingTradingRoomJsonLd', () => {
 	const graph = buildSwingTradingRoomJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Swing Trading Room as a Service linked from the WebPage', () => {
+	it('satisfies graph integrity and describes the Swing Trading Room as a Service linked from the WebPage', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/swing-trading-room#webpage`
 		) as Node;
@@ -229,35 +243,13 @@ describe('buildSwingTradingRoomJsonLd', () => {
 		expect(service['@type']).toBe('Service');
 		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(
-			SWING_TRADING_ROOM_FAQ_ITEMS.map((i) => i.question)
-		);
-	});
 });
 
 describe('buildSmallAccountsRoomJsonLd', () => {
 	const graph = buildSmallAccountsRoomJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Small Accounts Room as a Service linked from the WebPage', () => {
+	it('satisfies graph integrity and describes the Small Accounts Room as a Service linked from the WebPage', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/live-trading-rooms/small-accounts-room#webpage`
 		) as Node;
@@ -272,35 +264,13 @@ describe('buildSmallAccountsRoomJsonLd', () => {
 		expect(service['@type']).toBe('Service');
 		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(
-			SMALL_ACCOUNTS_ROOM_FAQ_ITEMS.map((i) => i.question)
-		);
-	});
 });
 
 describe('buildBlogsHubJsonLd', () => {
 	const graph = buildBlogsHubJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Blog Hub as a CollectionPage and Blog linked to the Organization', () => {
+	it('satisfies graph integrity and describes the Blog Hub as a CollectionPage and Blog linked to the Organization', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/blogs#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
 		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/blogs#blog` });
@@ -314,21 +284,8 @@ describe('buildBlogsHubJsonLd', () => {
 describe('buildIndicatorsStoreJsonLd', () => {
 	const graph = buildIndicatorsStoreJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Indicators Store as a CollectionPage with an 8-item ItemList', () => {
+	it('satisfies graph integrity and describes the Indicators Store as a CollectionPage with an 8-item ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/indicators#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
 		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/indicators#catalog` });
@@ -338,33 +295,13 @@ describe('buildIndicatorsStoreJsonLd', () => {
 		expect(catalog.numberOfItems).toBe(8);
 		expect((catalog.itemListElement as unknown[]).length).toBe(8);
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(4);
-		expect(questions.map((q) => q.name)).toEqual(INDICATORS_STORE_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildCoursesStoreJsonLd', () => {
 	const graph = buildCoursesStoreJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Courses Store as a CollectionPage with an 8-item Course ItemList', () => {
+	it('satisfies graph integrity and describes the Courses Store as a CollectionPage with an 8-item ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/courses#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
 		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/courses#catalog` });
@@ -374,50 +311,24 @@ describe('buildCoursesStoreJsonLd', () => {
 		expect(catalog.numberOfItems).toBe(8);
 		expect((catalog.itemListElement as unknown[]).length).toBe(8);
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(4);
-		expect(questions.map((q) => q.name)).toEqual(COURSES_STORE_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildSingleCourseJsonLd', () => {
 	const slug = 'move-prior-to-the-move-ultra';
 	const graph = buildSingleCourseJsonLd(ORIGIN, slug)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Single Course page as a WebPage with Course mainEntity and Billy Ribeiro as instructor', () => {
+	it('satisfies graph integrity and describes the Single Course page as a WebPage with Service mainEntity', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/courses/${slug}#webpage`) as Node;
 		expect(page['@type']).toBe('WebPage');
-		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/courses/${slug}#course` });
+		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/courses/${slug}#service` });
 
-		const course = graph.find((n) => n['@id'] === `${ORIGIN}/store/courses/${slug}#course`) as Node;
-		expect(course['@type']).toBe('Course');
-		expect(course.name).toBe('Get the NEW Automated Move Prior to The Move™ Ultra System');
-		expect(course.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
-		expect((course.instructor as Node).name).toBe('Billy Ribeiro');
-	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(SINGLE_COURSE_FAQ_ITEMS.map((i) => i.question));
+		const service = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/store/courses/${slug}#service`
+		) as Node;
+		expect(service['@type']).toBe('Service');
+		expect(service.name).toBe('Get the NEW Automated Move Prior to The Move™ Ultra System');
+		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
 });
 
@@ -425,21 +336,8 @@ describe('buildSingleIndicatorJsonLd', () => {
 	const slug = 'move-prior-to-the-move-system';
 	const graph = buildSingleIndicatorJsonLd(ORIGIN, slug)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Single Indicator page as a WebPage with SoftwareApplication mainEntity and Billy Ribeiro as creator', () => {
+	it('satisfies graph integrity and describes the Single Indicator page as a WebPage with SoftwareApplication mainEntity', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/store/indicators/${slug}#webpage`
 		) as Node;
@@ -454,33 +352,13 @@ describe('buildSingleIndicatorJsonLd', () => {
 		expect(software.applicationCategory).toBe('FinanceApplication');
 		expect((software.creator as Node).name).toBe('Billy Ribeiro');
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(4);
-		expect(questions.map((q) => q.name)).toEqual(SINGLE_INDICATOR_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildSpxProfitPulseJsonLd', () => {
 	const graph = buildSpxProfitPulseJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes SPX Profit Pulse as a Service linked from the WebPage', () => {
+	it('satisfies graph integrity and describes SPX Profit Pulse as a Service linked from the WebPage', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/alert-services/spx-profit-pulse#webpage`
 		) as Node;
@@ -498,33 +376,13 @@ describe('buildSpxProfitPulseJsonLd', () => {
 		);
 		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(4);
-		expect(questions.map((q) => q.name)).toEqual(SPX_PROFIT_PULSE_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildScannersStoreJsonLd', () => {
 	const graph = buildScannersStoreJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Scanners Store as a CollectionPage with an 8-item SoftwareApplication ItemList', () => {
+	it('satisfies graph integrity and describes the Scanners Store as a CollectionPage with an 8-item SoftwareApplication ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/store/scanners#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
 		expect(page.mainEntity).toEqual({ '@id': `${ORIGIN}/store/scanners#catalog` });
@@ -534,33 +392,13 @@ describe('buildScannersStoreJsonLd', () => {
 		expect(catalog.numberOfItems).toBe(8);
 		expect((catalog.itemListElement as unknown[]).length).toBe(8);
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (4 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(4);
-		expect(questions.map((q) => q.name)).toEqual(SCANNERS_STORE_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildSingleScannerJsonLd', () => {
 	const graph = buildSingleScannerJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the High Octane Scanner as a SoftwareApplication linked to the Founder', () => {
+	it('satisfies graph integrity and describes the High Octane Scanner as a SoftwareApplication linked to the Founder', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/store/scanners/high-octane-scanner#webpage`
 		) as Node;
@@ -580,33 +418,13 @@ describe('buildSingleScannerJsonLd', () => {
 			name: 'Billy Ribeiro'
 		});
 	});
-
-	it('keeps FAQ schema in sync with the visible FAQ source (5 questions)', () => {
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(SINGLE_SCANNER_FAQ_ITEMS.map((i) => i.question));
-	});
 });
 
 describe('buildEtfStocksListJsonLd', () => {
 	const graph = buildEtfStocksListJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the ETF Stock List page as a CollectionPage with a 12-item ItemList', () => {
+	it('satisfies graph integrity and describes the ETF Stock List page as a CollectionPage with a 12-item ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/resources/etf-stocks-list#webpage`
 		) as Node;
@@ -624,21 +442,8 @@ describe('buildEtfStocksListJsonLd', () => {
 describe('buildStockIndexesListJsonLd', () => {
 	const graph = buildStockIndexesListJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Stock Indexes List page as a CollectionPage with a 10-item ItemList and 5 FAQs', () => {
+	it('satisfies graph integrity and describes the Stock Indexes List page as a CollectionPage with a 10-item ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find(
 			(n) => n['@id'] === `${ORIGIN}/resources/stock-indexes-list#webpage`
 		) as Node;
@@ -650,34 +455,14 @@ describe('buildStockIndexesListJsonLd', () => {
 		) as Node;
 		expect(list['@type']).toBe('ItemList');
 		expect(list.numberOfItems).toBe(10);
-
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(
-			STOCK_INDEXES_LIST_FAQ_ITEMS.map((i) => i.question)
-		);
 	});
 });
 
 describe('buildResourcesHubJsonLd', () => {
 	const graph = buildResourcesHubJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('describes the Resources Hub page as a CollectionPage with a 3-item utilities ItemList and no hidden FAQPage', () => {
+	it('satisfies graph integrity and describes the Resources Hub page as a CollectionPage with a 3-item utilities ItemList', () => {
+		assertGraphIntegrity(graph);
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/resources#webpage`) as Node;
 		expect(page['@type']).toBe('CollectionPage');
 		expect(page.name).toBe('Free Trading Resources & Tools | Revolution Trading Pros');
@@ -686,30 +471,14 @@ describe('buildResourcesHubJsonLd', () => {
 		const list = graph.find((n) => n['@id'] === `${ORIGIN}/resources#utilities`) as Node;
 		expect(list['@type']).toBe('ItemList');
 		expect(list.numberOfItems).toBe(3);
-
-		const faq = graph.find((n) => n['@type'] === 'FAQPage');
-		expect(faq).toBeUndefined();
 	});
 });
 
 describe('buildSundayAlphaProtocolJsonLd', () => {
 	const graph = buildSundayAlphaProtocolJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('is JSON-serialisable and every @id reference resolves inside the graph', () => {
-		expect(() => JSON.parse(JSON.stringify(graph))).not.toThrow();
-		const refs = new Set<string>();
-		const ids = new Set<string>();
-		collectRefs(graph, refs);
-		collectDefinedIds(graph, ids);
-		expect([...refs].filter((ref) => !ids.has(ref))).toEqual([]);
-	});
-
-	it('defines each top-level node @id only once', () => {
-		const topIds = graph.map((n) => n['@id']);
-		expect(new Set(topIds).size).toBe(topIds.length);
-	});
-
-	it('includes Billy Ribeiro Person, Sunday Alpha Protocol Product with 3 Offers ($47, $127, $447), and 5 FAQ items', () => {
+	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Protocol Product with image and 3 Offers ($47, $127, $447)', () => {
+		assertGraphIntegrity(graph);
 		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
 		expect(person['@type']).toBe('Person');
 		expect(person.name).toBe('Billy Ribeiro');
@@ -717,15 +486,26 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 		const product = graph.find((n) => n['@id'] === `${ORIGIN}/watchlist#protocol`) as Node;
 		expect(product['@type']).toBe('Product');
 		expect(product.name).toBe('Sunday Alpha Protocol™');
+		expect(product.image).toBe(`${ORIGIN}/og-image.png`);
 		const offers = product.offers as { name: string; price: string }[];
 		expect(offers).toHaveLength(3);
 		expect(offers.map((o) => o.price)).toEqual(['47.00', '127.00', '447.00']);
+	});
+});
 
-		const faq = graph.find((n) => n['@type'] === 'FAQPage') as Node;
-		const questions = faq.mainEntity as { name: string }[];
-		expect(questions).toHaveLength(5);
-		expect(questions.map((q) => q.name)).toEqual(
-			SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS.map((i) => i.question)
-		);
+describe('Trust & Policy JSON-LD builders (YMYL-07)', () => {
+	it('builds valid ContactPage and WebPage graphs for all 5 trust pages', () => {
+		for (const [builder, expectedPath, expectedType] of [
+			[buildContactPageJsonLd, '/contact', 'ContactPage'],
+			[buildEditorialPolicyPageJsonLd, '/editorial-policy', 'WebPage'],
+			[buildPrivacyPolicyPageJsonLd, '/privacy-policy', 'WebPage'],
+			[buildTermsOfServicePageJsonLd, '/terms-of-service', 'WebPage'],
+			[buildRefundPolicyPageJsonLd, '/refund-policy', 'WebPage']
+		] as const) {
+			const graph = builder(ORIGIN)['@graph'] as Node[];
+			assertGraphIntegrity(graph);
+			const page = graph.find((n) => n['@id'] === `${ORIGIN}${expectedPath}#webpage`) as Node;
+			expect(page['@type']).toBe(expectedType);
+		}
 	});
 });

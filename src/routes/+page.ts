@@ -15,9 +15,9 @@ export const load: PageLoad = ({ url }) => {
 	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
-		title: 'Live Stock & Options Trading Room, Mentorship & Custom Indicators',
+		title: 'Live Stock & Options Trading Rooms',
 		description:
-			'Explore Revolution Trading Pros: stock and options trading rooms, swing trading, small-account mentorship ($500+), custom indicators, trading courses, and video watchlists. Trading involves substantial risk.',
+			'Join Revolution Trading Pros for live stock and options trading rooms, 1-on-1 mentorship, video watchlists, and non-repainting indicators. Zero hype.',
 		keywords: [
 			'live stock and options trading room',
 			'best options trading mentorship',

@@ -50,7 +50,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 	},
 	{
 		id: 'small-account-compounding-blueprint',
-		slug: 'small-account-compounding-blueprint',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 02 // $500+ Capital Engineering',
 		title: 'The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint',
 		track: 'small-accounts',
@@ -74,7 +74,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 	},
 	{
 		id: 'options-greeks-and-volatility-mastery',
-		slug: 'options-greeks-and-volatility-mastery',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 03 // Options Pricing & Asymmetry',
 		title: 'Options Greeks Mastery: Delta, Gamma, Theta & Vega Execution',
 		track: 'options-greeks',
@@ -91,11 +91,11 @@ export const coursesCatalog: readonly TradingCourse[] = [
 			'Module 3: The Theta Time-Decay Machine: Structuring 15–20 Delta Credit Spreads',
 			'Module 4: Vega & Volatility Regimes: Buying Low IV vs. Selling High IV'
 		],
-		room: { label: 'Try Free: Options Calculator →', href: '/resources/options-calculator' }
+		room: { label: 'Explore: ETF & Options Liquidity List →', href: '/resources/etf-stocks-list' }
 	},
 	{
 		id: 'working-pro-swing-trading-system',
-		slug: 'working-pro-swing-trading-system',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 04 // 9-to-5 Schedule Architecture',
 		title: 'Multi-Day Swing Trading for Working Professionals (20-Minute Routine)',
 		track: 'swing-macro',
@@ -119,7 +119,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 	},
 	{
 		id: 'spx-0dte-and-index-gamma-execution',
-		slug: 'spx-0dte-and-index-gamma-execution',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 05 // High-Velocity Index Options',
 		title: 'SPX & Index Options Execution: Dealer Gamma Walls & Intraday Flow',
 		track: 'options-greeks',
@@ -140,7 +140,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 	},
 	{
 		id: 'contrarian-distribution-and-shorting',
-		slug: 'contrarian-distribution-and-shorting',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 06 // The +600% OXY Put Playbook',
 		title: 'Contrarian Distribution & Put Options: Fading Retail Euphoria Live',
 		track: 'intraday-orderflow',
@@ -157,11 +157,11 @@ export const coursesCatalog: readonly TradingCourse[] = [
 			'Module 3: Identifying climax Volume, Abandoned Tops & Failed Breakout Candles',
 			'Module 4: Structuring Put Contracts & Debit Spreads for Asymmetric Downside Velocity'
 		],
-		room: { label: 'Pairs With: Explosive Swings →', href: '/alert-services/explosive-swings' }
+		room: { label: 'Pairs With: Weekly Video Watchlist →', href: '/watchlist' }
 	},
 	{
 		id: 'macro-cycle-inflection-mastery',
-		slug: 'macro-cycle-inflection-mastery',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 07 // 2020 & 2022 Top/Bottom Playbook',
 		title: 'Macro Cycle Inflection Timing: Calling Generational Tops & Bottoms',
 		track: 'swing-macro',
@@ -182,7 +182,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 	},
 	{
 		id: 'institutional-risk-and-trader-psychology',
-		slug: 'institutional-risk-and-trader-psychology',
+		slug: 'move-prior-to-the-move-ultra',
 		code: 'Course 08 // Mechanical Discipline & Mindset',
 		title: 'Ironclad Risk Architecture & Eradicating Retail Self-Sabotage',
 		track: 'small-accounts',

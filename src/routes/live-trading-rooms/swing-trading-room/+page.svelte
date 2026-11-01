@@ -359,7 +359,7 @@
 				<div class="swing-blueprint__footer">
 					<p class="swing-blueprint__note">
 						Only want the video watchlist &amp; alerts without the full room? See
-						<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings →</a>
+						<a href={resolve('/watchlist' as '/')}>Explosive Swings →</a>
 					</p>
 				</div>
 			</aside>
@@ -562,15 +562,12 @@
 						<h3 class="route-card__title">Explosive Swings (Alert Service)</h3>
 						<p class="route-card__copy">
 							Prefer an ultra-affordable alert-only membership without full room sessions?
-							<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>
+							<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>
 							sends you our detailed video watchlists and trade alerts complete with exact targeted entries,
 							profit exits, and stop-loss levels.
 						</p>
 					</div>
-					<a
-						href={resolve('/alert-services/explosive-swings' as '/')}
-						class="btn btn-outline-dark btn--full"
-					>
+					<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark btn--full">
 						Explore Explosive Swings Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -647,7 +644,7 @@
 					Join the Swing Trading Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
 					Explore Explosive Swings Alerts
 				</a>
 				<a

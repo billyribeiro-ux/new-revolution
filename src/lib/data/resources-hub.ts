@@ -47,7 +47,7 @@ export const flagshipUtilities: FlagshipUtility[] = [
 		description:
 			'Calculate exact option profit targets, breakeven levels, Delta/Gamma/Theta/Vega sensitivity, and $500+ small account position sizing before entering a trade.',
 		ctaLabel: 'Open Options Calculator →',
-		href: '/resources/options-calculator'
+		href: '/resources#resource-categories-h2'
 	},
 	{
 		code: 'Public Utility 02 // Institutional Sector Map',
@@ -94,12 +94,12 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Understanding Options Basics',
-				href: '/blogs/ultimate-guide-to-options-greeks',
+				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
 				tag: 'Options 101'
 			},
 			{
 				label: 'Risk Management for New Traders',
-				href: '/blogs/risk-management-essentials-for-active-traders',
+				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
 				tag: 'Risk Rules'
 			}
 		]
@@ -114,17 +114,17 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Position Size Calculator',
-				href: '/resources/options-calculator',
+				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
 				tag: 'Live Tool'
 			},
 			{
 				label: 'Risk/Reward Calculator',
-				href: '/resources/options-calculator#risk-reward',
+				href: '/resources/stock-indexes-list',
 				tag: '3R–5R Math'
 			},
 			{
 				label: 'Options Profit Calculator',
-				href: '/resources/options-calculator',
+				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
 				tag: 'Greeks Engine'
 			},
 			{
@@ -154,12 +154,12 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Your First Option Trade',
-				href: '/blogs/ultimate-guide-to-options-greeks',
+				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
 				tag: 'Walkthrough'
 			},
 			{
 				label: 'Live Trade Walkthrough',
-				href: '/blogs/how-we-shorted-oxy-put-options-600-percent-overnight',
+				href: '/watchlist',
 				tag: '+600% OXY'
 			}
 		]
@@ -204,7 +204,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Managing Trading Emotions',
-				href: '/blogs/risk-management-essentials-for-active-traders',
+				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
 				tag: 'Mindset'
 			},
 			{
@@ -239,7 +239,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Glossary of Trading Terms',
-				href: '/blogs/ultimate-guide-to-options-greeks',
+				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
 				tag: 'Glossary'
 			},
 			{

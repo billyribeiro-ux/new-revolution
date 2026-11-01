@@ -1,0 +1,51 @@
+{
+	"template": "membership-product",
+	"url": "/live-trading-rooms/day-trading-room",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 56,
+		"lcpMs": 56,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "span.hero-h1__display"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+		],
+		"totalTransferBytes": 363963
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 25,
+		"undersizedTapTargetExamples": [
+			"a[35x15]: Home",
+			"a[150x17]: Small Accounts Room →",
+			"a[133x18]: Swing Trading Room",
+			"a[113x18]: Explosive Swings",
+			"a[144x18]: Small Accounts Room",
+			"a[109x17]: Day Trading Room",
+			"a[123x17]: Swing Trading Room",
+			"a[133x17]: Small Accounts Room",
+			"a[100x17]: All Memberships",
+			"a[97x17]: SPX Profit Pulse"
+		]
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

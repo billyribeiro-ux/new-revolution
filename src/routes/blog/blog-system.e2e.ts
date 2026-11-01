@@ -51,7 +51,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 		expect(graphTypes).toContain('BreadcrumbList');
 	});
 
-	test('renders /blog/[slug] with stable TOC links, 1-to-1 FAQPage JSON-LD parity, author box, and X share link', async ({
+	test('renders /blog/[slug] with stable TOC links, visible native <details> FAQ accordion, BlogPosting JSON-LD, author box, and X share link', async ({
 		page
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
@@ -72,15 +72,18 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 		await expect(xShareLink).toBeVisible();
 		await expect(xShareLink).toHaveAttribute('aria-label', /opens in new tab/i);
 
-		// Verify FAQ accordion matches JSON-LD FAQPage 1-to-1
+		// Verify visible FAQ accordion and BlogPosting + Person + BreadcrumbList JSON-LD (no restricted FAQPage)
+		await expect(page.locator('.faq-accordion details')).toHaveCount(2);
 		const jsonLdText = await page
 			.locator('script[type="application/ld+json"]')
 			.first()
 			.textContent();
 		const schema = JSON.parse(jsonLdText!);
-		const faqNode = schema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage');
-		expect(faqNode).toBeTruthy();
-		expect(faqNode.mainEntity).toHaveLength(2);
+		const graphTypes = schema['@graph'].map((n: { '@type': string }) => n['@type']);
+		expect(graphTypes.some((t: string) => t === 'Article' || t === 'BlogPosting')).toBe(true);
+		expect(graphTypes).toContain('Person');
+		expect(graphTypes).toContain('BreadcrumbList');
+		expect(graphTypes).not.toContain('FAQPage');
 	});
 
 	test('enforces password gate on password_protected post and unlocks content with valid password', async ({

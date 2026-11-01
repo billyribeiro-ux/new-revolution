@@ -26,7 +26,7 @@
 				<ol>
 					<li><a href={resolve('/')}>Home</a></li>
 					<li><a href={resolve('/blog')}>Blog</a></li>
-					<li aria-current="page">#{data.tag.name}</li>
+					<li aria-current="page">{data.tag.name}</li>
 				</ol>
 			</nav>
 			<span class="section-kicker">Tag Archive</span>

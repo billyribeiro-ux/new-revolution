@@ -571,7 +571,7 @@
 										>Swing Trading Room</a
 									>
 									or our affordable
-									<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>
+									<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>
 									video watchlist tier for multi-day setups with pre-planned entries, targets, and stops.
 								</p>
 							</div>

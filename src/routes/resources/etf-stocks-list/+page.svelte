@@ -60,7 +60,8 @@
 				{ label: 'ETF Stocks List' }
 			]}
 		>
-			<span>100% Free Public Resource</span> •
+			<span>Authored by <a href={resolve('/about')}>Billy Ribeiro</a></span> •
+			<time datetime="2026-10-31">Updated October 31, 2026</time> •
 			<span>12 Core ETFs + All 11 S&amp;P 500 Sectors</span>
 		</Breadcrumb>
 
@@ -115,7 +116,7 @@
 							Explore Popular ETFs Directory ↓
 						</a>
 						<a href="#etfs-by-sector" class="btn btn--outline"> Jump to All 11 Sector ETFs ↓ </a>
-						<a href={resolve('/resources/options-calculator' as '/')} class="btn btn--outline">
+						<a href={resolve('/resources' as '/')} class="btn btn--outline">
 							Free Options Risk Calculator →
 						</a>
 					</div>
@@ -147,7 +148,7 @@
 								or earnings blowup risk—making them ideal for our
 								<a href={resolve('/live-trading-rooms/swing-trading-room')}>Swing Trading Room</a>
 								and
-								<a href={resolve('/alert-services/explosive-swings' as '/')}>Explosive Swings</a>.
+								<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>.
 							</dd>
 						</div>
 						<div class="quick-ref-list__row">
@@ -502,7 +503,7 @@
 						<a href={resolve('/resources/stock-indexes-list')} class="btn btn--outline">
 							View Stock Indexes List (SPX, NDX, VIX) →
 						</a>
-						<a href={resolve('/resources/options-calculator' as '/')} class="btn btn--solid">
+						<a href={resolve('/resources' as '/')} class="btn btn--solid">
 							Launch Free Options Risk Calculator →
 						</a>
 					</div>

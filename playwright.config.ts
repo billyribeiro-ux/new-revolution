@@ -17,5 +17,5 @@ export default defineConfig({
 				process.env.POST_PASSWORD_SECRET || 'e2e-blog-password-secret-minimum-32-chars'
 		}
 	},
-	testMatch: '**/*.e2e.{ts,js}'
+	testMatch: ['**/*.e2e.{ts,js}', 'tests/seo/seo-standard.spec.ts']
 });

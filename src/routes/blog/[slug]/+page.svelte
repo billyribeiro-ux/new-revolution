@@ -293,7 +293,9 @@
 				<div class="article-byline-row">
 					{#if data.post.author}
 						<div class="byline-author">
-							<strong>{data.post.author.name}</strong>
+							<a href={resolve('/about')} class="byline-author-link">
+								<strong>{data.post.author.name}</strong>
+							</a>
 							{#if data.post.author.jobTitle}
 								<span class="byline-role">{data.post.author.jobTitle}</span>
 							{/if}
@@ -452,7 +454,9 @@
 							{/if}
 							<div class="author-bio-content">
 								<div class="author-bio-header">
-									<h2 class="author-name">{data.post.author.name}</h2>
+									<h2 class="author-name">
+										<a href={resolve('/about')} class="author-name-link">{data.post.author.name}</a>
+									</h2>
 									{#if data.post.author.jobTitle}
 										<span class="author-role">{data.post.author.jobTitle}</span>
 									{/if}
@@ -650,6 +654,24 @@
 	.article-breadcrumbs a {
 		color: var(--muted);
 		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+		min-width: 24px;
+	}
+
+	.byline-author-link,
+	.author-name-link {
+		color: var(--text);
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+	}
+
+	.byline-author-link:hover,
+	.author-name-link:hover {
+		color: var(--acid);
 	}
 
 	.article-breadcrumbs a:hover {
@@ -1058,6 +1080,10 @@
 	.author-links a {
 		color: var(--acid);
 		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+		min-width: 24px;
 	}
 
 	.article-share-bar {

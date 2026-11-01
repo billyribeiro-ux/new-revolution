@@ -7,7 +7,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
 > - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
 > - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
-> - **SEO Evidence Log (official Google sources, dated; read before making any SEO claim):** [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
+> - **SEO Standard, Decisions & Operations (mandatory for all routes, metadata, sitemaps, and JSON-LD):** [`docs/seo/SEO_STANDARD.md`](docs/seo/SEO_STANDARD.md), [`docs/seo/DECISIONS.md`](docs/seo/DECISIONS.md), [`docs/seo/OPERATIONS.md`](docs/seo/OPERATIONS.md), [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
 
 ---
@@ -101,13 +101,14 @@ Every public route under `src/routes/<route-path>/` requires two files:
 - **`title`:** _House convention (Google sets no title length limit; see [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md))._ Keep the page-specific `title` to **≤ 33 characters** so that when [`src/routes/+layout.svelte`](src/routes/+layout.svelte) appends `titleTemplate="%s | Revolution Trading Pros"` (+26 chars), the rendered `<title>` stays within **30–60 characters**. The `<h1>` should agree with the title.
 - **`description`:** _House convention (Google sets no meta-description length limit)._ Must be unique per route and between **140 and 158 characters** (enforced by unit and e2e tests).
 - **`canonical` & Origin:** Always construct canonical and OpenGraph URLs via `getCanonicalUrl(url)` and `SITE_ORIGIN` (`https://revolutiontradingpros.com`) from [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) so prerendered HTML never leaks `http://sveltekit-prerender` or `localhost`.
-- **Duplicate/Template `[slug]` Routes:** If a dynamic `[slug]` route renders shared fallback template content for non-flagship slugs, canonicalize non-flagship slugs to the flagship slug URL and list only canonical URLs in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts).
+- **Non-Indexable & Duplicate/Template `[slug]` Routes (`IDX-08`):** Never combine `noindex` with a `canonical` tag. Non-flagship dynamic `[slug]` routes that render shared fallback template content must emit `robots: 'noindex, nofollow'` and `canonical: undefined`, and must not be listed in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts).
 
 ### 3.3 Structured Data (`@graph` JSON-LD) Rules
 
-- Centralize all JSON-LD builders in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) and render them via `<JsonLd schema={pageGraph} />` from `svelte-meta-tags`.
+- Centralize all JSON-LD builders in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) and render them via `<JsonLd schema={pageGraph} />` from `svelte-meta-tags` (with `<`, `>`, `&` escaped as `\u003c`, `\u003e`, `\u0026` per `SD-02`).
 - Emit **one unified `@graph` per page** that references the shared `@id` entities (`ORGANIZATION_ID`, `FOUNDER_ID`, `WEBSITE_ID`, `OFFER_CATALOG_ID`) rather than duplicating disconnected JSON-LD blocks.
-- **1-to-1 FAQ Parity:** Whenever a page includes a `FAQPage` node in its `@graph`, every question and answer in the JSON-LD must match the visible FAQ text on the page 1-to-1, and every answer must be in the server-rendered HTML (use native `<details>`, never content injected only on click). Reason: Google's structured-data policy ("Don't mark up content that is not visible to readers of the page"). Google retired FAQ rich results in May 2026, so a new `FAQPage` is not a ranking tactic; add one only when the page has a real visible FAQ. Evidence and sources: [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md). `pnpm check:pages` enforces parity.
+- **No Restricted or Retired Schema Types (`SD-10`, `SD-15`):** Never emit `FAQPage` (restricted by Google in August 2023 to authoritative government and health sites), `HowTo` (retired September 2023), `Course` / `CourseInstance` (`Course Info` retired June 2025), `SpeakableSpecification`, `SpecialAnnouncement`, or `ClaimReview` in JSON-LD. Render visible FAQs in server-rendered HTML using native `<details>` elements.
+- **1-to-1 Breadcrumb Parity (`SD-05`):** Every inner page that emits a `BreadcrumbList` node in JSON-LD must render a matching `<nav aria-label="Breadcrumb">` in the DOM with identical item names and positions.
 - Add or update unit tests in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts) for every new structured-data builder.
 
 ---
@@ -134,5 +135,7 @@ When adding any new marketing route to the repository, complete every step in or
      pnpm lint
      pnpm test:unit --run
      pnpm build
+     pnpm check:pages
+     pnpm test:seo
      pnpm test:e2e
      ```

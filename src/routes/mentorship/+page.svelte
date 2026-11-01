@@ -962,7 +962,7 @@
 				>
 					Small Accounts Room ($500+)
 				</a>
-				<a href={resolve('/alert-services/explosive-swings' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
 					Explosive Swings Video Watchlist
 				</a>
 				<a href={resolve('/store/indicators' as '/')} class="btn btn-outline-dark">

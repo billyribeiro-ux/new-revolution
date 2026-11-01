@@ -119,8 +119,8 @@
 				<ArrowUpRightIcon size={13} weight="bold" aria-hidden="true" />
 			</a>
 			<a
-				href={resolve('/resources/free-trading-ebook' as '/')}
-				onclick={(e) => handleLinkClick('/resources/free-trading-ebook', 'ebook', e)}
+				href={resolve('/resources' as '/')}
+				onclick={(e) => handleLinkClick('/resources', 'ebook', e)}
 			>
 				<BookOpenIcon size={16} weight="bold" aria-hidden="true" />
 				Free Trading eBook
@@ -212,16 +212,16 @@
 
 		<div class="nav-actions">
 			<a
-				href={resolve('/login' as '/')}
+				href={resolve('/admin/login' as '/')}
 				class="btn btn-outline"
-				onclick={(e) => handleLinkClick('/login', undefined, e)}
+				onclick={(e) => handleLinkClick('/admin/login', undefined, e)}
 			>
 				Member Login
 			</a>
 			<a
-				href={resolve('/memberships' as '/')}
+				href={resolve('/live-trading-rooms/day-trading-room' as '/')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/memberships', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={14} weight="bold" aria-hidden="true" />
 			</a>
@@ -320,16 +320,16 @@
 
 		<div class="mobile-nav-actions">
 			<a
-				href={resolve('/login' as '/')}
+				href={resolve('/admin/login' as '/')}
 				class="btn btn-outline"
-				onclick={(e) => handleLinkClick('/login', undefined, e)}
+				onclick={(e) => handleLinkClick('/admin/login', undefined, e)}
 			>
 				<SignInIcon size={16} weight="bold" aria-hidden="true" /> Member Login
 			</a>
 			<a
-				href={resolve('/memberships' as '/')}
+				href={resolve('/live-trading-rooms/day-trading-room' as '/')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/memberships', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={15} weight="bold" aria-hidden="true" />
 			</a>

@@ -110,8 +110,9 @@
 		// `page.url` is read-only in SvelteKit 3: edit a copy.
 		const next = new URL(page.url.href);
 		next.searchParams.delete(name);
-		// eslint-disable-next-line svelte/no-navigation-without-resolve -- dynamic query removal
-		await goto(`${next.pathname}${next.search}${next.hash}`, { replaceState: true });
+		await goto(resolve(`${next.pathname}${next.search}${next.hash}` as '/'), {
+			replaceState: true
+		});
 	}
 
 	async function openLinkedContact(raw: string): Promise<void> {

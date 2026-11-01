@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
 	import type { AdminNotification } from '#lib/types/db.js';
 	import {
@@ -364,8 +365,7 @@
 			// targetHref is a runtime app-path string from the DB (e.g. /admin/analytics),
 			// not a statically-known route ID — goto() accepts a plain string directly,
 			// so resolve()'s typed-route overload (which rejects bare string) is not used here.
-			// eslint-disable-next-line svelte/no-navigation-without-resolve -- runtime DB path string
-			await goto(notification.targetHref);
+			await goto(resolve(notification.targetHref as '/'));
 		} catch (err) {
 			notificationError = refusalMessage(err, 'Unable to open notification.');
 		}

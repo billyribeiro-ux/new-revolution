@@ -310,15 +310,15 @@ async function testGa4(row: IntegrationConnection): Promise<TestResult> {
 		};
 	}
 	const payload = {
-		client_id: `tc360.integration.${Date.now()}`,
+		client_id: `rtp.integration.${Date.now()}`,
 		events: [
 			{
-				name: 'tc360_integration_test',
+				name: 'rtp_integration_test',
 				params: {
 					debug_mode: true,
 					engagement_time_msec: 1,
 					session_id: Date.now().toString(),
-					source: 'tc360_admin_integrations'
+					source: 'rtp_admin_integrations'
 				}
 			}
 		]
@@ -550,7 +550,7 @@ export async function getResendRuntimeConfig() {
 				source: 'integration' as const,
 				apiKey: secrets['apiKey'],
 				fromEmail: config.fromEmail,
-				fromName: config.fromName ?? 'Steven Johnson',
+				fromName: config.fromName ?? 'Revolution Trading Pros',
 				replyTo: config.replyTo ?? config.fromEmail,
 				notifyEmail: config.notifyEmail ?? env['LEAD_NOTIFY_EMAIL'] ?? null
 			};
@@ -561,9 +561,9 @@ export async function getResendRuntimeConfig() {
 	return {
 		source: 'env' as const,
 		apiKey,
-		fromEmail: env['LEAD_FROM_EMAIL']?.trim() || 'steven@teamconsulting360.com',
-		fromName: env['LEAD_FROM_NAME']?.trim() || 'Steven Johnson',
-		replyTo: env['LEAD_FROM_EMAIL']?.trim() || 'steven@teamconsulting360.com',
+		fromEmail: env['LEAD_FROM_EMAIL']?.trim() || 'support@revolutiontradingpros.com',
+		fromName: env['LEAD_FROM_NAME']?.trim() || 'Revolution Trading Pros',
+		replyTo: env['LEAD_FROM_EMAIL']?.trim() || 'support@revolutiontradingpros.com',
 		notifyEmail: env['LEAD_NOTIFY_EMAIL']?.trim() || null
 	};
 }

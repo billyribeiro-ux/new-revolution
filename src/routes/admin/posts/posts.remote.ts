@@ -177,7 +177,8 @@ export const autosavePostRpc = command('unchecked', async (payload: PostAutosave
 		const admin = requireAdmin(event);
 		await guardWriteRateLimit(admin.id);
 		const result = await autosavePost(payload, admin.id);
-		return result;
+		const revisions = await listPostRevisions(payload.id);
+		return { ...result, revisions };
 	} catch (err) {
 		throwRpcServiceError(err);
 	}

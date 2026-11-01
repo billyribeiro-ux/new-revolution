@@ -266,7 +266,8 @@
 
 .prose-base img[data-align='left'],
 .prose-base .blog-image[data-align='left'],
-.prose-base figure[data-align='left'] {
+.prose-base figure[data-align='left'],
+.prose-base figure:has(img[data-align='left']) {
 	float: left;
 	max-width: 48%;
 	margin: 0.5rem 1.5rem 1rem 0;
@@ -274,7 +275,8 @@
 
 .prose-base img[data-align='right'],
 .prose-base .blog-image[data-align='right'],
-.prose-base figure[data-align='right'] {
+.prose-base figure[data-align='right'],
+.prose-base figure:has(img[data-align='right']) {
 	float: right;
 	max-width: 48%;
 	margin: 0.5rem 0 1rem 1.5rem;
@@ -282,10 +284,18 @@
 
 .prose-base img[data-align='full'],
 .prose-base .blog-image[data-align='full'],
-.prose-base figure[data-align='full'] {
+.prose-base figure[data-align='full'],
+.prose-base figure:has(img[data-align='full']) {
 	width: 100%;
 	max-width: 100%;
 	margin: 1.6rem 0;
+}
+
+.prose-base figure:has(img[data-align='left']) img[data-align='left'],
+.prose-base figure:has(img[data-align='right']) img[data-align='right'] {
+	float: none;
+	max-width: 100%;
+	margin: 0 auto;
 }
 
 .prose-base figure,

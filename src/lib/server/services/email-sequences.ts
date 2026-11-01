@@ -373,7 +373,7 @@ export async function processDueEnrollments(
 			if (!claim?.payload) continue;
 			lease = { id: claim.id, token };
 			const messageId = await delivery.send(claim.payload, {
-				idempotencyKey: `tc360/sequence/${claim.id}`
+				idempotencyKey: `rtp/sequence/${claim.id}`
 			});
 			if (!messageId) throw new Error('Email provider did not accept the message');
 			// Persist acceptance and progression in one transaction. A crash after

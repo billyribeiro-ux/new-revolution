@@ -27,6 +27,11 @@
 	import { pickedAlt, resolveCoverFromPick } from './post-editor/image-pick';
 	import { generateSlug, normaliseSlug, isValidSlug } from '#lib/shared/seo/slug';
 	import { applyPostAutofill } from '#lib/shared/seo/autofill';
+	import {
+		replaceEmEnDashesInHtml,
+		replaceEmEnDashesInPlainText,
+		stripLeadingDuplicateHeading
+	} from '#lib/shared/seo/content-transform';
 	import { META_TITLE_MAX } from '#lib/shared/seo/meta-budget';
 	import { getSeoScore } from '#lib/shared/seo/score';
 	import type { PostStatus } from '#lib/shared/schemas/posts';
@@ -293,27 +298,40 @@
 	}
 
 	let seoEvaluation = $derived.by(() => {
+		const cleanTitle = replaceEmEnDashesInPlainText(form.title);
+		const cleanContent = stripLeadingDuplicateHeading(
+			replaceEmEnDashesInHtml(form.content),
+			cleanTitle
+		).html;
 		const autofilled = applyPostAutofill({
-			title: form.title,
-			content: form.content,
-			excerpt: form.excerpt,
-			metaTitle: form.metaTitle,
-			metaDescription: form.metaDescription,
-			ogTitle: form.ogTitle,
-			ogDescription: form.ogDescription,
+			title: cleanTitle,
+			content: cleanContent,
+			excerpt: replaceEmEnDashesInPlainText(form.excerpt),
+			metaTitle: replaceEmEnDashesInPlainText(form.metaTitle),
+			metaDescription: replaceEmEnDashesInPlainText(form.metaDescription),
+			ogTitle: replaceEmEnDashesInPlainText(form.ogTitle),
+			ogDescription: replaceEmEnDashesInPlainText(form.ogDescription),
 			ogImage: form.ogImage,
 			twitterCardType: form.twitterCardType,
-			twitterTitle: form.twitterTitle,
-			twitterDescription: form.twitterDescription,
+			twitterTitle: replaceEmEnDashesInPlainText(form.twitterTitle),
+			twitterDescription: replaceEmEnDashesInPlainText(form.twitterDescription),
 			twitterImage: form.twitterImage,
 			coverImage: form.coverImage,
-			coverImageAlt: form.coverImageAlt,
-			coverImageCaption: form.coverImageCaption,
-			focusKeyword: form.focusKeyword,
+			coverImageAlt: replaceEmEnDashesInPlainText(form.coverImageAlt),
+			coverImageCaption: replaceEmEnDashesInPlainText(form.coverImageCaption),
+			focusKeyword: replaceEmEnDashesInPlainText(form.focusKeyword),
 			schemaType: form.schemaType,
 			language: form.language,
 			canonicalUrl: form.canonicalUrl
 		});
+
+		const cleanFaqs = form.faqItems.map((item) => ({
+			question: replaceEmEnDashesInPlainText(item.question),
+			answer: replaceEmEnDashesInPlainText(item.answer)
+		}));
+		const cleanSecondaryKeywords = form.secondaryKeywords.map((kw) =>
+			replaceEmEnDashesInPlainText(kw)
+		);
 
 		return getSeoScore({
 			title: autofilled.title,
@@ -335,8 +353,8 @@
 			categoryIds: form.categoryIds,
 			tagIds: form.tagIds,
 			focusKeyword: autofilled.focusKeyword ?? '',
-			secondaryKeywords: JSON.stringify(form.secondaryKeywords),
-			faqItems: JSON.stringify(form.faqItems),
+			secondaryKeywords: JSON.stringify(cleanSecondaryKeywords),
+			faqItems: JSON.stringify(cleanFaqs),
 			publishedAt: form.publishedAt || null
 		});
 	});
@@ -671,13 +689,16 @@
 
 		autosaveStatus = 'saving';
 		try {
-			await autosavePostRpc({
+			const res = await autosavePostRpc({
 				id: form.id,
 				title: form.title,
 				excerpt: form.excerpt || null,
 				content: form.content,
 				expectedUpdatedAt: form.expectedUpdatedAt ?? undefined
 			});
+			if (Array.isArray((res as { revisions?: unknown })?.revisions)) {
+				revisions = (res as { revisions: RevisionItem[] }).revisions;
+			}
 			isDirtySinceAutosave = false;
 			autosaveStatus = 'saved';
 			lastSavedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

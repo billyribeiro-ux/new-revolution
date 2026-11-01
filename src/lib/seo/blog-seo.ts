@@ -18,6 +18,7 @@ export interface BlogSeoHeadInput {
 	title: string;
 	description: string;
 	pathname: string;
+	canonicalOverride?: string | null;
 	indexable?: boolean;
 	nofollow?: boolean;
 	ogType?: 'website' | 'article';
@@ -55,7 +56,7 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 	const indexable = input.indexable ?? true;
 	const nofollow = input.nofollow ?? false;
 	const cleanPath = input.pathname === '/' ? '' : input.pathname.replace(/\/+$/, '');
-	const canonicalUrl = `${SITE_ORIGIN}${cleanPath}`;
+	const canonicalUrl = input.canonicalOverride?.trim() || `${SITE_ORIGIN}${cleanPath}`;
 
 	const renderedBudget = computeRenderedTitle(input.title, BRAND_NAME);
 	const titleTemplate = renderedBudget.brandAppended ? `%s | ${BRAND_NAME}` : '%s';
@@ -344,7 +345,16 @@ export function buildBlogPostJsonLd(
 	const graph: Record<string, unknown>[] = [
 		buildOrganizationEntity(origin),
 		buildBlogWebsiteEntity(origin),
-		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs)
+		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs),
+		{
+			'@type': 'WebPage',
+			'@id': `${pageUrl}#webpage`,
+			url: pageUrl,
+			name: input.title,
+			description: input.description ?? '',
+			isPartOf: { '@id': `${origin}/#website` },
+			breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+		}
 	];
 
 	let authorId = `${origin}/#organization`;
@@ -376,7 +386,12 @@ export function buildBlogPostJsonLd(
 		});
 	}
 
-	const articleType = input.isPillar ? 'Article' : input.schemaType || 'BlogPosting';
+	const articleType =
+		input.schemaType && input.schemaType !== 'BlogPosting'
+			? input.schemaType
+			: input.isPillar
+				? 'Article'
+				: input.schemaType || 'BlogPosting';
 
 	const keywordsList = [
 		...(input.focusKeyword ? [input.focusKeyword] : []),

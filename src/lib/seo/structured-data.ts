@@ -2079,3 +2079,160 @@ export function buildResourcesHubJsonLd(origin: string) {
 		]
 	};
 }
+
+export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
+	{
+		id: 'sunday-dispatch-time',
+		question: 'When exactly do I receive the Sunday Alpha Protocol every week?',
+		answer:
+			'The Sunday Alpha Protocol is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard—one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
+	},
+	{
+		id: 'markets-and-asset-classes',
+		question: 'What markets and asset classes do you cover?',
+		answer:
+			'We focus strictly on high-liquidity U.S. large-cap equities (such as TSLA, NVDA, AMD, AAPL, MSFT, META) and major index ETFs (SPY, QQQ) where options bid-ask spreads are tight and institutional dark-pool volume is transparent. We never trade illiquid penny stocks, micro-caps, or futures.'
+	},
+	{
+		id: 'risk-to-reward-math',
+		question: 'How does the 1:2.50 minimum Risk-to-Reward math work?',
+		answer:
+			'Every setup is engineered so that the weighted blended return across Target 1 (50% scale at 1.6R), Target 2 (30% scale at 2.8R), and Target 3 (20% runner at 4.3R) equals or exceeds a 1:2.50 Risk-to-Reward multiplier. If a setup cannot mathematically clear 1:2.50 against structural invalidation, it is discarded.'
+	},
+	{
+		id: 'screen-time-requirements',
+		question: 'Do I need to sit in front of screens during market hours?',
+		answer:
+			'No. Entries require a 15-minute candle close confirmation and swing holds span 2 to 5 trading sessions. You simply set price alerts on your brokerage platform on Sunday evening and execute when triggers confirm.'
+	},
+	{
+		id: 'cancellation-policy',
+		question: 'What is your cancellation policy?',
+		answer:
+			'You can cancel your subscription at any time with a single click inside your self-service Stripe billing portal with zero recurring obligations. If you lock in the $47/month Founding Member rate, that price is grandfathered for the life of your active membership.'
+	}
+] as const;
+
+export function buildSundayAlphaProtocolJsonLd(origin: string) {
+	const pageUrl = `${origin}/watchlist`;
+
+	return {
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
+			{
+				'@type': 'Person',
+				'@id': `${origin}/#billy-ribeiro`,
+				name: 'Billy Ribeiro',
+				jobTitle: 'Chief Market Strategist & Founder',
+				affiliation: {
+					'@type': 'Organization',
+					'@id': `${origin}/#organization`,
+					name: BRAND_NAME,
+					url: origin
+				},
+				description:
+					'Proprietary market technician and macro strategist known for calling major macroeconomic inflection points, including the March 2020 pandemic bottom to the cent and the 2022 market cycle extremes.',
+				sameAs: ['https://twitter.com/BillyRibeiro', 'https://tradingview.com/u/BillyRibeiro']
+			},
+			{
+				'@type': 'WebPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Sunday Alpha Protocol™ Watchlist | Revolution Trading Pros',
+				description:
+					'Institutional stock & options swing blueprints by Billy Ribeiro. Every Sunday at 5 PM EST, get 5-7 setups with 15m triggers, cent stops & 1:2.50+ R:R.',
+				inLanguage: 'en-US',
+				isPartOf: { '@id': `${origin}/#website` },
+				about: { '@id': `${pageUrl}#protocol` },
+				primaryImageOfPage: { '@id': `${origin}/#logo` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				hasPart: [{ '@id': `${pageUrl}#faq` }]
+			},
+			{
+				'@type': 'Service',
+				'@id': `${pageUrl}#service`,
+				name: 'Sunday Alpha Protocol™ — Institutional Stock & Options Swing Trading Blueprint',
+				url: pageUrl,
+				provider: { '@id': `${origin}/#organization` },
+				serviceType: 'Institutional Stock and Options Swing Trading Watchlist Blueprint',
+				areaServed: [
+					{ '@type': 'Country', name: 'United States' },
+					{ '@type': 'Country', name: 'Canada' }
+				],
+				audience: {
+					'@type': 'Audience',
+					audienceType: 'Beginners, Active Stock & Options Swing Traders, and Portfolio Allocators'
+				},
+				description:
+					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.'
+			},
+			{
+				'@type': 'Product',
+				'@id': `${pageUrl}#protocol`,
+				name: 'Sunday Alpha Protocol™',
+				description:
+					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.',
+				brand: {
+					'@id': `${origin}/#organization`
+				},
+				offers: [
+					{
+						'@type': 'Offer',
+						name: 'Founding Member Monthly',
+						price: '47.00',
+						priceCurrency: 'USD',
+						availability: 'https://schema.org/InStock',
+						url: `${pageUrl}#pricing`,
+						priceValidUntil: '2026-12-31'
+					},
+					{
+						'@type': 'Offer',
+						name: 'Quarterly Protocol Pass',
+						price: '127.00',
+						priceCurrency: 'USD',
+						availability: 'https://schema.org/InStock',
+						url: `${pageUrl}#pricing`,
+						priceValidUntil: '2026-12-31'
+					},
+					{
+						'@type': 'Offer',
+						name: 'Annual VIP Founding Pass',
+						price: '447.00',
+						priceCurrency: 'USD',
+						availability: 'https://schema.org/InStock',
+						url: `${pageUrl}#pricing`,
+						priceValidUntil: '2026-12-31'
+					}
+				]
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: 'Sunday Alpha Protocol™ Watchlist',
+						item: pageUrl
+					}
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				'@id': `${pageUrl}#faq`,
+				url: `${pageUrl}#faq`,
+				isPartOf: { '@id': `${pageUrl}#webpage` },
+				mainEntity: SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS.map((item) => ({
+					'@type': 'Question',
+					'@id': `${pageUrl}#faq-${item.id}`,
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer }
+				}))
+			}
+		]
+	};
+}

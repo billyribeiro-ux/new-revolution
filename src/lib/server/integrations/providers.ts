@@ -32,21 +32,21 @@ export const integrationDefinitions: Record<IntegrationProvider, IntegrationDefi
 				label: 'From email',
 				type: 'email',
 				required: true,
-				placeholder: 'steven@teamconsulting360.com'
+				placeholder: 'support@revolutiontradingpros.com'
 			},
 			{
 				key: 'fromName',
 				label: 'From name',
 				type: 'text',
 				required: false,
-				placeholder: 'Steven Johnson'
+				placeholder: 'Revolution Trading Pros'
 			},
 			{
 				key: 'replyTo',
 				label: 'Reply-to email',
 				type: 'email',
 				required: false,
-				placeholder: 'steven@teamconsulting360.com'
+				placeholder: 'support@revolutiontradingpros.com'
 			},
 			{
 				key: 'notifyEmail',

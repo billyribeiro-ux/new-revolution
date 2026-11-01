@@ -30,7 +30,7 @@
 	const POLL_VISIBLE_MS = 20_000;
 	const POLL_HIDDEN_MS = 60_000;
 	const HIDDEN_PAUSE_AFTER_MS = 10 * 60_000;
-	const BROADCAST_CHANNEL = 'tc360-notif-poll';
+	const BROADCAST_CHANNEL = 'rtp-notif-poll';
 	/**
 	 * A follower that hears nothing for this many of its own poll intervals
 	 * takes over. The leader broadcasts after every successful poll, 304s
@@ -431,8 +431,7 @@
 <div class="notification-center">
 	<button
 		type="button"
-		class="notification-bell"
-		class:active={notificationsOpen}
+		class={['notification-bell', { active: notificationsOpen }]}
 		{@attach notificationsOpen && measurePanel}
 		onclick={toggleNotifications}
 		aria-label={`Notifications${notificationCount ? `, ${notificationCount} unread` : ''}`}
@@ -491,8 +490,7 @@
 						aria-selected={folder === tab.value}
 						aria-controls="admin-notification-tabpanel"
 						tabindex={folder === tab.value ? 0 : -1}
-						class="notification-tab"
-						class:active={folder === tab.value}
+						class={['notification-tab', { active: folder === tab.value }]}
 						onclick={() => switchFolder(tab.value)}
 						onkeydown={(event) => handleTabKeydown(event, index)}
 					>
@@ -518,8 +516,7 @@
 					<div class="notification-list">
 						{#each notifications as notification (notification.id)}
 							<article
-								class="notification-item"
-								class:unread={!notification.readAt}
+								class={['notification-item', { unread: !notification.readAt }]}
 								data-severity={notification.severity}
 							>
 								<button

@@ -31,7 +31,7 @@ import { logger } from '#lib/server/logger.js';
  *   file, as one line. The service account must be added as a user on
  *   the Search Console property.
  * - GSC_SITE_URL: the exact property identifier, either
- *   "sc-domain:teamconsulting360.com" or "https://www.teamconsulting360.com/".
+ *   "sc-domain:revolutiontradingpros.com" or "https://revolutiontradingpros.com/".
  *
  * Setup runbook: SEO/runbooks/google-indexing-operations.md
  */

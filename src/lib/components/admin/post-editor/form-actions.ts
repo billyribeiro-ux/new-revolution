@@ -164,7 +164,7 @@ export const DEFAULT_SIDEBAR_PANEL_STATE: SidebarPanelState = {
 	featuredImage: true,
 	tags: true,
 	postAttributes: true,
-	toc: false,
+	toc: true,
 	customFields: false
 };
 
@@ -175,7 +175,7 @@ export function loadSidebarPanelState(): SidebarPanelState {
 	try {
 		const raw = localStorage.getItem(SIDEBAR_PANELS_STORAGE_KEY);
 		if (!raw) return { ...DEFAULT_SIDEBAR_PANEL_STATE };
-		const parsed = JSON.parse(raw) as Partial<Record<keyof SidebarPanelState, unknown>>;
+		const parsed = JSON.parse(raw) as Partial<Record<keyof SidebarPanelState | '_v', unknown>>;
 		if (!parsed || typeof parsed !== 'object') return { ...DEFAULT_SIDEBAR_PANEL_STATE };
 		return {
 			publish:
@@ -195,7 +195,10 @@ export function loadSidebarPanelState(): SidebarPanelState {
 				typeof parsed.postAttributes === 'boolean'
 					? parsed.postAttributes
 					: DEFAULT_SIDEBAR_PANEL_STATE.postAttributes,
-			toc: typeof parsed.toc === 'boolean' ? parsed.toc : DEFAULT_SIDEBAR_PANEL_STATE.toc,
+			toc:
+				parsed._v === 2 && typeof parsed.toc === 'boolean'
+					? parsed.toc
+					: DEFAULT_SIDEBAR_PANEL_STATE.toc,
 			customFields:
 				typeof parsed.customFields === 'boolean'
 					? parsed.customFields
@@ -209,7 +212,7 @@ export function loadSidebarPanelState(): SidebarPanelState {
 export function saveSidebarPanelState(state: SidebarPanelState): void {
 	if (typeof localStorage === 'undefined') return;
 	try {
-		localStorage.setItem(SIDEBAR_PANELS_STORAGE_KEY, JSON.stringify(state));
+		localStorage.setItem(SIDEBAR_PANELS_STORAGE_KEY, JSON.stringify({ ...state, _v: 2 }));
 	} catch {
 		// ignore storage errors
 	}
@@ -410,6 +413,11 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 	);
 	const nofollowVal = Boolean(post.robotsNofollow ?? post.nofollow);
 	const formatVal = ((post.postFormat ?? post.format) as PostFormat) || 'standard';
+	const allCustomFields = parseCustomFieldsJson(post.customFields as string | null);
+	const hasDisabledTocCustomField = allCustomFields.some(
+		(cf) => cf.key === '__enableToc' && cf.value === 'false'
+	);
+	const visibleCustomFields = allCustomFields.filter((cf) => cf.key !== '__enableToc');
 
 	return {
 		...empty,
@@ -447,7 +455,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		allowComments: commentsVal,
 		pingbacksEnabled: pingbacksVal,
 		excludeFromSearch: Boolean(post.excludeFromSearch),
-		enableToc: post.enableToc !== false,
+		enableToc: post.enableToc !== false && !hasDisabledTocCustomField,
 		readingTime: typeof post.readingTime === 'number' ? post.readingTime : 1,
 		wordCount: typeof post.wordCount === 'number' ? post.wordCount : 0,
 		metaTitle: String(post.metaTitle ?? ''),
@@ -484,7 +492,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		seriesName: String(post.seriesName ?? ''),
 		seriesOrder: typeof post.seriesOrder === 'number' ? post.seriesOrder : null,
 		customCss: String(post.customCss ?? ''),
-		customFields: parseCustomFieldsJson(post.customFields as string | null),
+		customFields: visibleCustomFields,
 		publishedAt: toIsoOrEmpty(post.publishedAt as Date | string | null),
 		scheduledAt: toIsoOrEmpty(post.scheduledAt as Date | string | null),
 		expiresAt: toIsoOrEmpty(post.expiresAt as Date | string | null),
@@ -521,7 +529,10 @@ export function buildPostPayload(
 
 	const cleanCustomFields = form.customFields
 		.map((cf) => ({ key: cf.key.trim(), value: cf.value.trim() }))
-		.filter((cf) => cf.key.length > 0);
+		.filter((cf) => cf.key.length > 0 && cf.key !== '__enableToc');
+	if (!form.enableToc) {
+		cleanCustomFields.push({ key: '__enableToc', value: 'false' });
+	}
 
 	const cleanSecondaryKeywords = form.secondaryKeywords.map((kw) => kw.trim()).filter(Boolean);
 

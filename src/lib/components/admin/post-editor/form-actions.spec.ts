@@ -182,4 +182,28 @@ describe('Post Editor form-actions & Myers Word Diff Suite', () => {
 		expect(afterSave.metaTitle).toBe('');
 		expect(afterSave.excerpt).toBe('Custom user excerpt, with dash');
 	});
+
+	it('persists enableToc=false via __enableToc custom field and hydrates it cleanly without polluting visible customFields', () => {
+		const form = createEmptyForm();
+		form.title = 'Institutional Order Flow Guide';
+		form.slug = 'institutional-order-flow-guide';
+		form.enableToc = false;
+		form.customFields = [{ key: 'desk', value: 'SPX' }];
+
+		const payload = buildPostPayload(form);
+		expect(payload.enableToc).toBe(false);
+		expect(JSON.parse(payload.customFields as string)).toEqual([
+			{ key: 'desk', value: 'SPX' },
+			{ key: '__enableToc', value: 'false' }
+		]);
+
+		const rehydrated = hydrateFromFullPost({
+			id: 55,
+			title: 'Institutional Order Flow Guide',
+			slug: 'institutional-order-flow-guide',
+			customFields: payload.customFields
+		});
+		expect(rehydrated.enableToc).toBe(false);
+		expect(rehydrated.customFields).toEqual([{ key: 'desk', value: 'SPX' }]);
+	});
 });

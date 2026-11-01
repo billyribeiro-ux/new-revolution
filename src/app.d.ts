@@ -7,9 +7,6 @@ declare global {
 	interface Window {
 		gtag: (...args: unknown[]) => void;
 		dataLayer: unknown[];
-		tc360GaMeasurementId?: string | null;
-		tc360GtagInitialized?: boolean;
-		tc360GoogleTagId?: string | null;
 	}
 
 	namespace App {
@@ -31,5 +28,3 @@ declare global {
 		// interface Platform {}
 	}
 }
-
-export {};

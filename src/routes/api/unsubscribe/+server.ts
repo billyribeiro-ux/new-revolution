@@ -103,7 +103,7 @@ function htmlResponse(title: string, message: string, status: number, confirm = 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex,nofollow">
-	<title>${safeTitle}, Team Consulting 360</title>
+	<title>${safeTitle} | Revolution Trading Pros</title>
 	<style>${PAGE_STYLE}</style>
 </head>
 <body>

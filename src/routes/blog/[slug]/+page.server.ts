@@ -1,5 +1,5 @@
 import { error, fail, redirect } from '@sveltejs/kit';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
 import {
 	buildBlogPageMetaTags,
 	buildBlogPostJsonLd,
@@ -26,6 +26,7 @@ import {
 import { getPublicPostViewBySlug } from '#lib/server/services/posts';
 import { extractCoverCrops } from '#lib/shared/cover-crops';
 import { coverSrcsetFromMedia, coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
+import { extractImageSrcsFromHtml } from '#lib/shared/seo/content-transform';
 import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
@@ -139,32 +140,67 @@ export const load: PageServerLoad = async ({
 		setPublicReadCache(setHeaders, locals, request);
 	}
 
-	// Look up stored media dimensions for cover and body images
-	const allMediaRows = await db
-		.select({
-			blobUrl: media.blobUrl,
-			variantsJson: media.variantsJson,
-			width: media.width,
-			height: media.height
-		})
-		.from(media)
-		.where(isNull(media.deletedAt));
+	// Look up stored media dimensions for cover and body images (indexed by referenced URLs)
+	const referencedUrls = Array.from(
+		new Set(
+			[post.coverImage, ...extractImageSrcsFromHtml(post.content)]
+				.map((u) => u?.trim() ?? '')
+				.filter(Boolean)
+		)
+	);
+	const candidateBlobUrls = new Set<string>(referencedUrls);
+	for (const u of referencedUrls) {
+		candidateBlobUrls.add(
+			u.replace(/-(?:\d+w|thumb|medium|large|full|crop-[a-z0-9x]+)(?=\.[a-z0-9]+$)/i, '')
+		);
+	}
+
+	let allMediaRows =
+		candidateBlobUrls.size > 0
+			? await db
+					.select({
+						blobUrl: media.blobUrl,
+						variantsJson: media.variantsJson,
+						width: media.width,
+						height: media.height
+					})
+					.from(media)
+					.where(
+						and(isNull(media.deletedAt), inArray(media.blobUrl, Array.from(candidateBlobUrls)))
+					)
+			: [];
 
 	const mediaDimensionsByUrl = new Map<string, { width: number; height: number }>();
-	for (const m of allMediaRows) {
-		if (m.width && m.height) {
-			mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
-			if (m.variantsJson && typeof m.variantsJson === 'object') {
-				for (const variant of Object.values(m.variantsJson)) {
-					if (variant?.url) {
-						mediaDimensionsByUrl.set(variant.url, {
-							width: variant.width ?? m.width,
-							height: variant.height ?? m.height
-						});
+	const populateMediaMap = (rows: typeof allMediaRows) => {
+		for (const m of rows) {
+			if (m.width && m.height) {
+				mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
+				if (m.variantsJson && typeof m.variantsJson === 'object') {
+					for (const variant of Object.values(m.variantsJson)) {
+						if (variant?.url) {
+							mediaDimensionsByUrl.set(variant.url, {
+								width: variant.width ?? m.width,
+								height: variant.height ?? m.height
+							});
+						}
 					}
 				}
 			}
 		}
+	};
+	populateMediaMap(allMediaRows);
+
+	if (referencedUrls.some((u) => !mediaDimensionsByUrl.has(u))) {
+		allMediaRows = await db
+			.select({
+				blobUrl: media.blobUrl,
+				variantsJson: media.variantsJson,
+				width: media.width,
+				height: media.height
+			})
+			.from(media)
+			.where(isNull(media.deletedAt));
+		populateMediaMap(allMediaRows);
 	}
 
 	const coverDims = post.coverImage ? (mediaDimensionsByUrl.get(post.coverImage) ?? null) : null;
@@ -229,8 +265,9 @@ export const load: PageServerLoad = async ({
 		title: effectiveTitle,
 		description: effectiveDescription,
 		pathname: `/blog/${post.slug}`,
+		canonicalOverride: post.canonicalUrl,
 		indexable: post.isIndexable && !hasValidPreviewToken,
-		nofollow: post.robotsNofollow,
+		nofollow: post.robotsNofollow || hasValidPreviewToken,
 		ogType: 'article',
 		ogTitle: post.ogTitle,
 		ogDescription: post.ogDescription,

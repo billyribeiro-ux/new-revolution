@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildBlogPostJsonLd } from './blog-seo';
+import { buildBlogPageMetaTags, buildBlogPostJsonLd } from './blog-seo';
 
 const ORIGIN = 'https://revolutiontradingpros.com';
 const base = {
@@ -75,5 +75,43 @@ describe('buildBlogPostJsonLd image crops', () => {
 	it('emits no image at all without a cover', () => {
 		const a = article({ slug: 'p', title: 't' });
 		expect(a.image).toBeUndefined();
+	});
+
+	it('includes a WebPage node and honors explicit schemaType overrides', () => {
+		const jsonLd = buildBlogPostJsonLd({
+			...base,
+			isPillar: true,
+			schemaType: 'TechArticle'
+		});
+		const graph = jsonLd['@graph'] as Array<Record<string, unknown>>;
+		const webPage = graph.find((n) => n['@type'] === 'WebPage');
+		const techArticle = graph.find((n) => n['@type'] === 'TechArticle');
+		expect(webPage).toBeDefined();
+		expect(webPage?.['@id']).toBe(`${ORIGIN}/blog/post#webpage`);
+		expect(techArticle).toBeDefined();
+	});
+});
+
+describe('buildBlogPageMetaTags', () => {
+	it('honors canonicalOverride and preview nofollow', () => {
+		const overridden = buildBlogPageMetaTags({
+			title: 'SPX 0DTE Guide',
+			description: 'Educational breakdown of SPX 0DTE gamma exposure and execution risk.',
+			pathname: '/blog/spx-0dte-guide',
+			canonicalOverride: 'https://revolutiontradingpros.com/blog/flagship-spx-guide'
+		});
+		expect(overridden.pageMetaTags.canonical).toBe(
+			'https://revolutiontradingpros.com/blog/flagship-spx-guide'
+		);
+
+		const previewMeta = buildBlogPageMetaTags({
+			title: 'Draft Preview',
+			description: 'Draft preview description.',
+			pathname: '/blog/draft-preview',
+			indexable: false,
+			nofollow: true
+		});
+		expect(previewMeta.pageMetaTags.robots).toBe('noindex, nofollow');
+		expect(previewMeta.pageMetaTags.canonical).toBeUndefined();
 	});
 });

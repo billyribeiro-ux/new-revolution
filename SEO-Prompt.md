@@ -95,3 +95,7 @@ Complete the implementation, then provide a concise report covering:
 5. Confirmation that `AGENTS.md` contains the mandatory standards for future development.
 
 **Success means a clean, verified, maintainable, production-ready repository with consistent, evidence-based engineering and technical SEO practices—not simply a passing audit report.**
+
+---
+
+**Mandatory add-on:** also execute `seo-audit.md` rules 11-16, Phase 1B (audit the SEO documents against Google's live pages and the code), Phase 3e (adversarial sweep) and the Phase 6 completion gate. Nothing in this prompt replaces them.

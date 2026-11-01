@@ -57,6 +57,13 @@ These rules exist so that nothing in your output is unverified. Breaking any of 
 9. **Business decisions belong to the owner.** Preferred host, locales, which sections are noindex, the AI opt-out, `Google-Extended`, and removing or redirecting any public URL: ask, then record the answer in `docs/seo/DECISIONS.md`.
 10. **pnpm only. TypeScript strict. Zero errors, zero warnings.**
 
+11. **Primary sources only, and read all of each page.** Evidence is the Google page itself (developers.google.com, status.search.google.com) or the installed package's files. A news article, blog summary, or search-result snippet is `[secondary]`: it can point you to a page but never justifies a PASS, a standard row, or a DECISIONS entry. `WebFetch` returns at most the first 100,000 characters and often a nav-heavy page: when the answer says it covered only part of the page, **fetch again with `offset` until the whole page (or the section you need) is covered**, or record the unread range as `NOT AUDITED` in `docs/SEO_EVIDENCE.md`. Quote the page's own "Last updated" date for every Google rule you rely on.
+12. **Nothing inherited is trusted.** Earlier sessions, earlier audit files (`docs/seo/audit/*`), `docs/SEO_EVIDENCE.md`, `AGENTS.md`, `DECISIONS.md` and the standard itself are **claims to re-verify**, not evidence. Re-fetch every `G:` source before reusing a conclusion. A claim copied forward from a previous run is a defect.
+13. **No residual †.** Every requirement row in the standard that is marked † (not re-fetched) or cites a `[secondary]` source must be fetched and rewritten with a primary citation and date during this run. A run that ends with † rows still unverified is incomplete unless each is listed in the final report as `NOT AUDITED` with the reason.
+14. **A fix is not done until it is proven against the built output.** Unit tests and `pnpm check` prove the code you wrote, not what ships. For every changed behaviour, `curl` the running `pnpm preview` before and after and record both outputs.
+15. **Do not report the absence of a deployment as a finding.** If the site is undeployed or content is unpublished, list each `REQUIRES-PRODUCTION` item **once** in the Phase 8 owner action list, and spend the run on everything that can be verified locally. Never use "needs production" to skip a check that can run against `pnpm preview`.
+16. **Find it yourself.** The owner will not hand you the defects. If your report lists only issues that a previous report or a failing gate already named, you have not audited. Phase 3e (adversarial sweep) is mandatory, and its output is a section of the final report even when it finds nothing.
+
 ---
 
 # PHASE 0 — PREFLIGHT (no edits yet)
@@ -81,6 +88,24 @@ For every requirement ID in the standard that is marked **†**, or whose source
 Then fetch, via Svelte MCP, every `SK:*` page the standard cites, plus `kit/configuration` (or its current equivalent), `kit/hooks`, `kit/load`, and `kit/routing`.
 
 Also fetch the live Google structured-data **Search Gallery** and record which types are currently supported. This list governs SD-10.
+
+# PHASE 1B — AUDIT THE STANDARD AND EVERY SEO DOCUMENT (before touching code)
+
+The documents that tell future agents what to do are part of the system under audit. For **each** file below, read it in full, then check every factual claim about Google, Svelte or the repo:
+
+- `docs/seo/SEO_STANDARD.md` and any copy of it (`diff` them; copies must be identical or one must be removed), `docs/SEO_EVIDENCE.md`, `docs/seo/DECISIONS.md`, `docs/seo/OPERATIONS.md`, `docs/NEW_PAGE_PLAYBOOK.md`, `AGENTS.md`, `seo-audit.md`, `seo-verify.md`, `SEO-Prompt.md`, and any other `*.md` that mentions SEO (`grep -il "seo\|canonical\|json-ld\|sitemap" **/*.md`).
+
+For every claim, do all of these:
+
+1. **Fetch the Google page it cites** (rule 11) and compare the claim to the page's wording. Record a mismatch as a `STANDARD-DEFECT` with the quote that disproves it. Typical defects: an invented requirement ("multiple of 48px"), a required property that is only recommended, a date that is off, a citation to a page that does not contain the statement, a summary attributed to Google that Google never wrote.
+2. **Fetch the Google changelog (`/search/updates`) in full, every 100,000-character slice**, and `status.search.google.com/summary`. List every entry from 1 January of the previous year to the reference date that touches a requirement in the standard, and every ranking update in the current year. Add what is missing; delete what is unevidenced.
+3. **Fetch the Search Central blog index** and read every post dated within the last 6 months, including posts that announce future changes (e.g. new robots.txt signals).
+4. **Fetch the live structured-data gallery** and reconcile SD-10 type by type: for each type the docs ban, confirm it is retired in the gallery or its own page, and for each type the gallery still lists, confirm the ban is labelled "project policy", not "Google forbids".
+5. **Cross-check the documents against each other and against the code.** Search all documents for the same topic (FAQPage, HowTo, Course, Speakable, Google-Extended, AI opt-out, phone/address, `X-Robots-Tag`, HSTS) and list every pair that disagrees. Then check the code: does the page, header, or JSON-LD the document describes actually exist in the built output? A document that describes something the build does not produce is a defect.
+6. **Verify framework claims against the installed version**, not memory: open the installed package's `.d.ts`/source for every config option and API the standard names, and cite `[CODE node_modules/...:line]`.
+7. **Make the fix in the same run.** Update the standard, the evidence log, DECISIONS, the playbook, the OPERATIONS checklist and `AGENTS.md` together, re-sync any copy, and add a CHANGELOG entry that names each corrected row.
+
+Write the findings to `docs/seo/audit/01b-standard-audit.md`: row ID, old claim, Google's wording with URL and page date, fix. Zero findings is acceptable only if the file shows every row was checked.
 
 # PHASE 2 — INVENTORY (every page, every site)
 
@@ -195,6 +220,23 @@ Store the reports under `docs/seo/audit/03-lab/`.
 
 Write `docs/seo/audit/03-matrix-baseline.md` with one row per **requirement ID × template**: status, the failing URLs (or the count plus 5 examples), and the evidence tag. URL-level requirements must be evaluated on **every** URL, not a sample.
 
+### 3e. Adversarial sweep (mandatory; do not skip because the gates are green)
+
+Passing the repo's own tests proves only what those tests assert. Attack the build:
+
+1. **Independent crawl of the built output.** Write a throwaway crawler **outside the repo** (`/tmp`) that does not reuse `tests/seo/*`. Start `pnpm preview` with the e2e environment, fetch every `<loc>` in the sitemap, and assert for each URL: status 200; exactly one `<title>`, description, canonical, robots meta and each required `og:*`/`twitter:*` tag; canonical == sitemap URL == `og:url`; `lang`, charset, viewport; one `<h1>` and the landmarks; every `<img>` has `alt` and dimensions; every JSON-LD block parses, has `@context`, contains no restricted type, and its `BreadcrumbList` names appear in a visible breadcrumb `<nav>`; no duplicate titles or descriptions. Prove the crawler can fail (point it at a deliberately broken fixture once).
+2. **Link graph.** BFS from `/` over real `<a href>`s (resolve relative hrefs): broken links, redirecting internal links, orphans, click depth.
+3. **Status codes and variants.** An unknown slug for **every** dynamic route returns 404 with no canonical; `/x/` redirects with 308; upper-case variants canonicalize; `?utm_source=x&sort=1` canonicalizes to the clean URL; `/robots.txt`, `/sitemap.xml`, `/rss.xml` headers and bodies.
+4. **Noindex set.** The sitemap contains no noindex URL; every noindex URL carries the directive in the meta robots or `X-Robots-Tag` and is not disallowed in robots.txt; the noindex set equals the inventory's.
+5. **Request-controlled behaviour in `hooks`/middleware.** Read every branch of `handle`. For each place a **request header, cookie, query parameter or host** changes a response, ask: can a stranger trigger this, and is that response cacheable (`Cache-Control: public`, `s-maxage`)? Replay the request with `curl` before and after any fix. A test-only switch in production code is a defect. Remove it, do not document it.
+6. **Cache-poisoning and cloaking probes.** Request the same URL with a Googlebot user agent, a mobile user agent, `Accept-Language`, `Cookie`, `X-Forwarded-Host` and `X-Forwarded-Proto`; the HTML (and its canonical and robots) must be identical unless the standard says otherwise.
+7. **Author-controlled content paths.** Anything an editor or admin can type that reaches public HTML, JSON-LD, meta tags, robots directives or redirects (custom JSON-LD fields, schema-type pickers, canonical overrides, slugs, redirect maps) must be validated against the same rules as hand-written markup (SD-10, SD-02, URL-02). Check the **editor UI text** too: help text that promises behaviour the code does not have is a defect.
+8. **Placeholders and fabricated data.** Grep the source and the built HTML for fictional or placeholder values (`555-01`, `example.com`, `lorem`, `TODO`, `@example`, invented ratings/prices/credentials). Confirm environment-variable fallbacks cannot bake a placeholder into prerendered output (check what happens with the variable unset during `building`).
+9. **Dependencies.** `pnpm audit` with severity, package, and path for each finding; classify as runtime-reachable or build-only by following the path; do not upgrade without owner approval.
+10. **Tests that assert the wrong thing.** Grep tests for assertions that lock in a banned behaviour (e.g. a test expecting a restricted type to appear) and for tests that cannot fail (`expect(fn.length)`, always-true assertions). Fix or delete them and say so.
+
+Write the results (including "no finding") to `docs/seo/audit/03e-adversarial.md`.
+
 # PHASE 4 — PLAN
 
 Write `docs/seo/audit/04-plan.md`:
@@ -241,6 +283,14 @@ Rules while implementing:
    - report every disagreement with evidence.
 
    Resolve every disagreement with new evidence before continuing.
+
+**Completion gate (all must be true, else the run is not finished):**
+
+- `docs/seo/audit/01b-standard-audit.md` and `03e-adversarial.md` exist and cover every row/step.
+- No requirement row in the standard is marked † or cites a `[secondary]` source, except rows listed as `NOT AUDITED` in the report.
+- Every document pair that disagreed (Phase 1B step 5) now agrees, and every copy of the standard is byte-identical.
+- Every code change has a before/after `curl` against `pnpm preview` recorded (rule 14).
+- The final report contains the sections **Defects found by this run** (not previously known), **Corrected claims in documents**, and **NOT AUDITED** with reasons. An empty "Defects found by this run" section requires a written explanation of which Phase 3e steps were executed.
 
 # PHASE 7 — STANDARDS FOR FUTURE PAGES (AGENTS.md + CLAUDE.md)
 
@@ -294,12 +344,13 @@ Write `docs/seo/audit/08-report.md` containing exactly:
 2. **Counts:** URLs audited, rows per status, baseline FAIL count → final FAIL count (which must be 0).
 3. **Commits:** a list mapping each commit to the requirement IDs it closed.
 4. **STANDARD-OUTDATED items**, with the live-doc citations.
-5. **Owner action list:** every REQUIRES-HUMAN, REQUIRES-PRODUCTION, and BLOCKED item, each with the exact next step and URL. This covers:
+5. **Run-specific sections:** Defects found by this run (not named by any earlier report or failing gate), Corrected claims in documents (old claim, Google's wording, URL, page date), and NOT AUDITED (what, why).
+6. **Owner action list:** every REQUIRES-HUMAN, REQUIRES-PRODUCTION, and BLOCKED item, each with the exact next step and URL. This covers:
    - Search Console: verify the property, submit the sitemap, run URL Inspection per template, record the AI opt-out decision
    - Rich Results Test per template
    - CrUX re-check 28 days after deploy
    - author credentials
    - missing business data
-6. **Gate commands** with their final output: `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm seo:test`, `pnpm build`, and `unlighthouse-ci`, each with exit code 0 and 0 warnings.
+7. **Gate commands** with their final output: `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm seo:test`, `pnpm build`, and `unlighthouse-ci`, each with exit code 0 and 0 warnings.
 
 Don't summarize beyond this report. Don't claim the site will rank #1. Report what is technically verified.

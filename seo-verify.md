@@ -8,6 +8,8 @@ A previous Claude session ran `/seo-audit` on this repository and reported it fi
 
 Treat every line of `docs/seo/audit/08-report.md`, every commit on the audit branch, and every PASS row as an **unverified claim made by someone else**. You confirm a claim only by reproducing it yourself in this session. Anything you can't reproduce is a defect.
 
+Re-run `seo-audit.md` Phase 1B and Phase 3e yourself, from scratch, before reading the previous run's findings; a verification that only re-checks what the previous run already claimed will miss what it missed.
+
 You are not here to be agreeable. A run that finds zero defects is acceptable **only** if every check below was actually executed and its output recorded.
 
 ---

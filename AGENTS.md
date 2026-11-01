@@ -12,6 +12,19 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 
 ---
 
+## 0. When Asked For An SEO Audit
+
+Follow [`seo-audit.md`](seo-audit.md) end to end; do not summarize it or run a subset. These parts are mandatory and are where earlier audits missed defects:
+
+- **Rules 11-16** (primary Google pages only, page through every fetch with `offset`, nothing inherited is trusted, no residual † rows, prove fixes against `pnpm preview`, find defects yourself).
+- **Phase 1B:** audit the standard, `docs/SEO_EVIDENCE.md`, `DECISIONS.md`, the playbook and this file against Google's live pages, the full changelog and the code, and fix contradictions in the same run.
+- **Phase 3e:** the adversarial sweep (independent crawl of the built output, link graph, request-controlled behaviour in `hooks`, author-controlled content paths, placeholder data, `pnpm audit`, tests that assert the wrong thing).
+- **Completion gate** in Phase 6 and the extra report sections in Phase 8.
+
+An undeployed site or unpublished content is never a reason to skip a check that can run against `pnpm preview`.
+
+---
+
 ## 1. Mandatory Font Hosting Standard
 
 All website fonts must be self-hosted, preferably sourced from Fontsource.org. Use optimized WOFF2 files, preserve the existing typography, and maintain a centralized font configuration within the CSS Single Source of Truth (SSOT).
@@ -107,7 +120,7 @@ Every public route under `src/routes/<route-path>/` requires two files:
 
 - Centralize all JSON-LD builders in [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) and render them via `<JsonLd schema={pageGraph} />` from `svelte-meta-tags` (with `<`, `>`, `&` escaped as `\u003c`, `\u003e`, `\u0026` per `SD-02`).
 - Emit **one unified `@graph` per page** that references the shared `@id` entities (`ORGANIZATION_ID`, `FOUNDER_ID`, `WEBSITE_ID`, `OFFER_CATALOG_ID`) rather than duplicating disconnected JSON-LD blocks.
-- **No Restricted or Retired Schema Types (`SD-10`, `SD-15`):** Never emit `FAQPage` (restricted by Google in August 2023 to authoritative government and health sites), `HowTo` (retired September 2023), `Course` / `CourseInstance` (`Course Info` retired June 2025), `SpeakableSpecification`, `SpecialAnnouncement`, or `ClaimReview` in JSON-LD. Render visible FAQs in server-rendered HTML using native `<details>` elements.
+- **No Restricted or Retired Schema Types (`SD-10`, `SD-15`):** Never emit `FAQPage` (restricted to government/health sites on 2023-09-14; the rich result stopped appearing 2026-05-07 and its docs were removed 2026-06-15), `HowTo` (docs removed 2023-09-14, no longer shown), `Course` / `CourseInstance` (`Course Info` retired June 2025; only the Course _list_ carousel remains in the gallery), `SpeakableSpecification` (still in the 2026-10-16 gallery but beta, US/English, news-oriented — a project choice not to emit), `SpecialAnnouncement`, or `ClaimReview` in JSON-LD. Render visible FAQs in server-rendered HTML using native `<details>` elements.
 - **1-to-1 Breadcrumb Parity (`SD-05`):** Every inner page that emits a `BreadcrumbList` node in JSON-LD must render a matching `<nav aria-label="Breadcrumb">` in the DOM with identical item names and positions.
 - Add or update unit tests in [`src/lib/seo/structured-data.spec.ts`](src/lib/seo/structured-data.spec.ts) for every new structured-data builder.
 

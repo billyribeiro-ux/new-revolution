@@ -19,10 +19,7 @@ const SKIPPED_REDIRECT_PREFIXES = [
 	'/rss.xml'
 ];
 
-export function isNonProductionHost(hostname: string, headers?: Headers): boolean {
-	if (headers?.get('x-seo-nonprod-test') === '1') {
-		return true;
-	}
+export function isNonProductionHost(hostname: string): boolean {
 	const vercelEnv = process.env.VERCEL_ENV || process.env.CF_PAGES_BRANCH || '';
 	if (vercelEnv && vercelEnv !== 'production' && vercelEnv !== 'main') {
 		return true;
@@ -188,7 +185,7 @@ const handleApp: Handle = async ({ event, resolve }) => {
 		building
 	});
 
-	if (isNoIndexRoute(pathname) || isNonProductionHost(event.url.hostname, event.request.headers)) {
+	if (isNoIndexRoute(pathname) || isNonProductionHost(event.url.hostname)) {
 		const headers = new Headers(response.headers);
 		if (!headers.has('X-Robots-Tag')) {
 			headers.set('X-Robots-Tag', 'noindex, nofollow');

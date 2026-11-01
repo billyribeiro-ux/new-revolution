@@ -9,6 +9,33 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-01 — SEO audit prompt hardened (`seo-audit.md`)
+
+#### Docs (2026-11-01)
+
+- `seo-audit.md`: added evidence rules 11-16 (primary sources only, page through truncated fetches, nothing inherited is trusted, no residual †, built-output proof, agent must find defects itself), Phase 1B (audit every SEO document against Google, the changelog and the code), Phase 3e (adversarial sweep), a completion gate, and extra report sections. `AGENTS.md` §0, `SEO-Prompt.md` and `seo-verify.md` now point to them.
+
+### 2026-11-01 — SEO markdown files re-verified against Google docs fetched 2026-11-01
+
+#### Docs (2026-11-01)
+
+- `docs/seo/SEO_STANDARD.md` (and its root copy `SEO_STANDARD.md`): every `G:` row re-fetched; corrected META-07 (favicon: no "multiple of 48px" rule), SD-04, SD-07, SD-08, SD-09, SD-10 (dated retirements; Speakable/Course-list still in gallery), SD-13 (`hasPart`/`cssSelector` are recommended, not required), IDX-05 (410 not special), IDX-07, IDX-12, SPAM-11 (Google's actual wording), section 11 header, MON-02 (primary source; unverified "June 2026 announcement" removed), MON-03; IDX-04 verified against installed `@sveltejs/kit` types.
+- `docs/SEO_EVIDENCE.md`: rows 22-33 added, row 1 and row 14 corrected, §3 pruned.
+- `docs/seo/DECISIONS.md`: Google-Extended citation fixed; FAQ date fixed; `/contact` description now matches the built page (no phone or mailing address).
+- `docs/NEW_PAGE_PLAYBOOK.md`: template no longer shows a `FAQPage` or `Course` node. `docs/seo/OPERATIONS.md`: pre-launch data and preview-noindex checklist.
+
+### 2026-11-01 — Removed request-header `noindex` switch from `handle` (IDX-09, security)
+
+#### Security (2026-11-01)
+
+- `isNonProductionHost` (`src/hooks.server.ts`) no longer honors the `x-seo-nonprod-test: 1` request header. On a CDN-cacheable SSR route (e.g. `/blog`, `Cache-Control: public, s-maxage=300`) any client could make the origin answer `X-Robots-Tag: noindex, nofollow` and have it cached for everyone. Nothing in `src`/`tests` used the header. Regression test: `src/hooks.server.spec.ts`.
+
+### 2026-11-01 — AGENTS.md schema-type history corrected against fetched Google docs
+
+#### Docs (2026-11-01)
+
+- `AGENTS.md` §3.3: FAQPage/HowTo/Speakable/Course status restated from Google pages fetched 2026-11-01 (FAQ feature ended 2026-05-07; Speakable remains in the gallery as a beta feature).
+
 ### 2026-11-01 — Restricted schema types can no longer enter blog JSON-LD via custom JSON-LD (SD-10/SD-15)
 
 #### Fixed (2026-11-01, verification pass)

@@ -116,21 +116,9 @@ export function buildYourPageJsonLd(origin: string) {
 					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
 					{ '@type': 'ListItem', position: 2, name: '<Page>', item: pageUrl }
 				]
-			},
-			// domain node(s): Service / Course / SoftwareApplication / ItemList …
-			// FAQPage only if the page shows a visible FAQ (Google retired FAQ rich results in May 2026; this is not a ranking tactic):
-			{
-				'@type': 'FAQPage',
-				'@id': `${pageUrl}#faq`,
-				url: `${pageUrl}#faq`,
-				isPartOf: { '@id': `${pageUrl}#webpage` },
-				mainEntity: YOUR_PAGE_FAQ_ITEMS.map((item) => ({
-					'@type': 'Question',
-					'@id': `${pageUrl}#faq-${item.id}`,
-					name: item.question,
-					acceptedAnswer: { '@type': 'Answer', text: item.answer }
-				}))
 			}
+			// domain node(s): Service / SoftwareApplication / Product / ItemList … (no Course/CourseInstance: project policy, see AGENTS.md §3.3)
+			// No FAQPage node: Google's FAQ rich result stopped appearing 2026-05-07 (SD-10). Render a visible FAQ as <details> in the page instead.
 		]
 	};
 }
@@ -385,7 +373,7 @@ Rules live in `docs/CSS_STANDARDS.md`; these are the traps that actually happene
 **SEO**
 
 - `pnpm check:pages` after `pnpm build` verifies: one h1, a valid skip link, canonical on `https://revolutiontradingpros.com`, no
-  `localhost`/`sveltekit-prerender`, parseable JSON-LD, and FAQ JSON-LD text present in the visible HTML.
+  `localhost`/`sveltekit-prerender`, parseable JSON-LD, and no `FAQPage`/`HowTo` node in the JSON-LD (SD-10).
 - Description/title lengths are asserted in the page spec (§3.5); they are house conventions, not Google rules.
 - Before making **any** SEO claim or adding markup "for Google", read `docs/SEO_EVIDENCE.md` (official sources, quoted, dated). Key facts: FAQ rich results are gone (May 2026); structured data must match visible text; no special markup is needed for AI Overviews; no confirmed ranking update exists for Oct 30, 2026. Anything not in that log must be fetched from the official page and added there first.
 - Sitemap rules are in §4. URLs: lowercase, hyphens, never change content by `#fragment`.
@@ -469,8 +457,7 @@ Do not spread these patterns. Fix them only as an explicit, scoped task and re-r
    (`prettier --check .`). Put docs and prompts in `docs/`.
 9. **Do not trust a template you have not compiled.** The old `AGENTS.md` `+page.ts` template imported a nonexistent `SITE_NAME` and a
    nonexistent `/og-default.png`; it never type-checked. When you change a template, paste it into a temp route and run `pnpm check`.
-10. **FAQ markup is not a Google feature anymore** (retired May 2026). Do not add FAQ sections or `FAQPage` nodes for SEO; keep parity
-    on the ones that exist (`docs/SEO_EVIDENCE.md` rows 1-2).
+10. **FAQ markup is not a Google feature anymore** (stopped appearing 2026-05-07; docs removed 2026-06-15). Never emit `FAQPage` nodes; a visible `<details>` FAQ for readers is fine (`docs/SEO_EVIDENCE.md` row 1).
 
 ---
 

@@ -16,15 +16,15 @@
 
 ## 2. Generative AI Search & Snippet Controls (`MON-02`, `MON-03`, `META-14`)
 
-- **Search Console Generative-AI Opt-Out (`MON-02`):** **Do not opt out** (`AI_SEARCH_OPT_OUT = no`). All indexable public pages emit `index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1` so pages remain eligible for both classic Google Search rich snippets, Google Discover large image previews, and AI Overviews / AI Mode citations (`[CODE src/routes/+layout.ts:30-37]`, `[CODE src/lib/seo/blog-seo.ts:113-119]`).
-- **`Google-Extended` Crawler Control (`MON-03`):** **Allow `Google-Extended`** in [`static/robots.txt`](../../static/robots.txt) (`User-agent: Google-Extended` / `Allow: /` `[CODE static/robots.txt:15-16]`). Per Google's documentation (`[DOC https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers §google-extended]`), `Google-Extended` governs Gemini training/grounding and does not control inclusion in Google Search or AI Overviews.
+- **Search Console Generative-AI Opt-Out (`MON-02`):** **Do not opt out** (`AI_SEARCH_OPT_OUT = no`). All indexable public pages emit `index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1` so pages remain eligible for classic Google Search snippets, Discover large image previews (`max-image-preview:large`), and generative AI features. Google says generative AI features need no extra requirements beyond being indexed and snippet-eligible (`[DOC ai-features, 2025-12-10]`); the Search Console generative AI control is documented at `[DOC control-what-you-share, 2026-10-21]` (`[CODE src/routes/+layout.ts:30-37]`, `[CODE src/lib/seo/blog-seo.ts:113-119]`).
+- **`Google-Extended` Crawler Control (`MON-03`):** **Allow `Google-Extended`** in [`static/robots.txt`](../../static/robots.txt) (`User-agent: Google-Extended` / `Allow: /` `[CODE static/robots.txt:15-16]`). Per Google (`[DOC https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers, updated 2026-10-30]`), `Google-Extended` is a standalone token for Gemini training and grounding and "does not impact a site's inclusion in Google Search nor is it used as a ranking signal". Google plans to support a shared AI training signal in early 2027 (`[DOC https://developers.google.com/search/blog/2026/10/ai-training-control]`); revisit this decision then. The earlier citation (`overview-google-crawlers`) does not contain a Google-Extended entry.
 
 ---
 
 ## 3. YMYL Trust Pages & Internal Link Graph (`YMYL-07`, `IDX-04`, `IDX-10`, `IDX-11`)
 
 - **Five Mandatory YMYL Trust Pages Built (`YMYL-07`):**
-  1. [`/contact`](../../src/routes/contact/+page.svelte) — Physical mailing address, support email (`support@revolutiontradingpros.com`), phone (`+1-800-555-0199`), operating hours, and interactive inquiry form matching `Organization.contactPoint`.
+  1. [`/contact`](../../src/routes/contact/+page.svelte) — Support email (`support@revolutiontradingpros.com`), market-hours availability, and an inquiry form. **No phone number and no mailing address are published**: `SUPPORT_CONTACT` in `src/lib/data/site.ts` is intentionally empty until real values exist (checked in the built `contact.html` on 2026-11-01). An earlier version of this line listed a `555-0199` phone and a mailing address that the page never rendered.
   2. [`/editorial-policy`](../../src/routes/editorial-policy/+page.svelte) — Primary-source verification, distinction between live and hypothetical/backtested results, human-authored disclosure, and timestamped correction policy (`YMYL-03`, `YMYL-08`, `YMYL-09`).
   3. [`/privacy-policy`](../../src/routes/privacy-policy/+page.svelte) — Data collection, session cookies, analytics, third-party processors, and CCPA/CPRA/PIPEDA privacy rights.
   4. [`/terms-of-service`](../../src/routes/terms-of-service/+page.svelte) — Educational-only non-advisory scope, U.S. (SEC/CFTC/FINRA) and Canadian (OSC/BCSC/ASC) regulatory disclosures, options risk warnings, and IP rules.
@@ -36,7 +36,7 @@
 ## 4. Structured Data & Rich-Result Eligibility (`SD-08`, `SD-10`, `SD-15`)
 
 - **Retired & Restricted Schema Types Removed (`SD-10`, `SD-15`):**
-  - `FAQPage` JSON-LD removed from all pages (restricted by Google to authoritative government and health sites since August 2023; visible `<details>` FAQ accordions remain in the server-rendered DOM).
-  - `Course`, `CourseInstance`, and `SpeakableSpecification` JSON-LD removed from all pages.
+  - `FAQPage` JSON-LD removed from all pages (restricted to government/health sites on 2023-09-14, no longer shown since 2026-05-07, docs removed 2026-06-15; visible `<details>` FAQ accordions remain in the server-rendered DOM).
+  - `Course`, `CourseInstance`, and `SpeakableSpecification` JSON-LD removed from all pages (project policy: the Course list carousel and Speakable beta are still in Google's 2026-10-16 gallery but do not fit this site).
 - **Visible Price Parity for `Product` + `Offer` (`SD-08`):**
   - `Product` + `Offer` (`AggregateOffer` with `$47`–`$447` USD pricing and `image`) is emitted only on `/watchlist`, where those exact prices are visibly rendered in the DOM (`[CODE src/lib/seo/structured-data.ts:1388-1409]`).

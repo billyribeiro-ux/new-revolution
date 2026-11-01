@@ -59,6 +59,12 @@ Once DNS for `revolutiontradingpros.com` and `www.revolutiontradingpros.com` is 
    ```
 3. Verify `Strict-Transport-Security` header is present on `https://revolutiontradingpros.com/` (also set in `src/hooks.server.ts` when `event.url.protocol === 'https:'` or `x-forwarded-proto === 'https'`).
 
+### 2.1a Pre-launch data and decisions (re-checked 2026-11-01)
+
+1. Set real `PUBLIC_CONTACT_PHONE`, `PUBLIC_CONTACT_EMAIL`, `PUBLIC_CALENDLY_URL` and `PUBLIC_APP_URL` in Vercel for Production **and** Preview. `src/lib/config/site.ts` falls back to placeholders (including the fictional `(800) 555-0199`) only in dev and during `building`; a missing value must never be allowed to bake a placeholder into prerendered HTML. After the first production build, run `grep -rl "555-01" .svelte-kit/output/prerendered` and expect no output.
+2. Prerendered pages are static files on Vercel, so `handle` in `src/hooks.server.ts` cannot add `X-Robots-Tag` to them on preview deployments. Protect previews with Vercel Deployment Protection, or add `headers` in `vercel.json`, and verify with `curl -I` on a preview URL (`IDX-09`).
+3. Re-read the `Google-Extended` decision (`DECISIONS.md` §2) when Google ships the shared AI training signal (announced for early 2027).
+
 ### 2.2 Google Search Console & Rich Results Verification (`MON-01`, `MAP-06`, `SD-12`)
 
 1. Verify the `revolutiontradingpros.com` Domain property in [Google Search Console](https://search.google.com/search-console).

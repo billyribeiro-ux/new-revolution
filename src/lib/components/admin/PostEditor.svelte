@@ -1047,7 +1047,7 @@
 				{#if gateRefusal.errors.length > 0}
 					<p class="gate-refusal-label">Fix these before publishing (blocking items are marked):</p>
 					<ul class="gate-refusal-list">
-						{#each gateRefusal.errors as issue, i (i)}
+						{#each gateRefusal.errors as issue (issue.message)}
 							<li>
 								<span class="gate-tag">{issue.blocking ? 'Blocking' : 'Error'}</span>
 								{issue.message}{issue.points === null ? '' : ` (-${issue.points})`}
@@ -1058,7 +1058,7 @@
 				{#if gateRefusal.warnings.length > 0}
 					<p class="gate-refusal-label">Warnings:</p>
 					<ul class="gate-refusal-list">
-						{#each gateRefusal.warnings as issue, i (i)}
+						{#each gateRefusal.warnings as issue (issue.message)}
 							<li>
 								<span class="gate-tag">Warning</span>
 								{issue.message}{issue.points === null ? '' : ` (-${issue.points})`}

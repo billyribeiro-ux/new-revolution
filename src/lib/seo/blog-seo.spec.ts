@@ -103,6 +103,16 @@ describe('buildBlogPostJsonLd image crops', () => {
 	});
 });
 
+describe('buildBlogPostJsonLd retired schema types', () => {
+	it('never emits HowTo, even for a legacy schemaType value (SD-15)', () => {
+		const graph = buildBlogPostJsonLd({ ...base, schemaType: 'HowTo' })['@graph'] as Array<
+			Record<string, unknown>
+		>;
+		expect(graph.some((n) => n['@type'] === 'HowTo')).toBe(false);
+		expect(graph.some((n) => n['@type'] === 'BlogPosting')).toBe(true);
+	});
+});
+
 describe('buildBlogPageMetaTags', () => {
 	it('honors canonicalOverride, preview nofollow, noarchive, and nosnippet directives', () => {
 		const overridden = buildBlogPageMetaTags({

@@ -106,7 +106,7 @@ export interface AutofillablePostFields {
 	coverImageAlt?: string | null;
 	coverImageCaption?: string | null;
 	focusKeyword?: string | null;
-	schemaType?: 'Article' | 'BlogPosting' | 'NewsArticle' | 'HowTo' | null;
+	schemaType?: 'Article' | 'BlogPosting' | 'NewsArticle' | null;
 	language?: string | null;
 	canonicalUrl?: string | null;
 }

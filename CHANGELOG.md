@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-01 — Retired `HowTo` schema type removed from blog posts (SD-15)
+
+#### Fixed (2026-11-01)
+
+- `HowTo` is no longer selectable as a post Schema Type (`src/lib/shared/schemas/posts.ts`, `src/lib/shared/seo/autofill.ts`), and `buildBlogPostJsonLd` (`src/lib/seo/blog-seo.ts`) maps a legacy `HowTo` value to `BlogPosting`, so the retired type can no longer reach public JSON-LD. Regression test added in `src/lib/seo/blog-seo.spec.ts`.
+- Corrected the admin FAQ note (`PostEditorMainColumn.svelte`), which wrongly claimed FAQPage markup is emitted; only the visible accordion is rendered.
+
 ### 2026-10-31 18:16 EDT (`2026-10-31T22:16:00Z`) — Complete `/dev/tc` Executive Backend Admin Dashboard Port (All 14 Sections, Services, Remote Functions, API Routes, D3 Charts & Audit Fixes)
 
 #### Added (2026-10-31 18:16 EDT)

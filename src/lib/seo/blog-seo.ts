@@ -388,12 +388,14 @@ export function buildBlogPostJsonLd(
 		});
 	}
 
+	// HowTo rich results were retired (SD-15); a legacy row must not leak it into the graph.
+	const schemaType = input.schemaType === 'HowTo' ? 'BlogPosting' : input.schemaType;
 	const articleType =
-		input.schemaType && input.schemaType !== 'BlogPosting'
-			? input.schemaType
+		schemaType && schemaType !== 'BlogPosting'
+			? schemaType
 			: input.isPillar
 				? 'Article'
-				: input.schemaType || 'BlogPosting';
+				: schemaType || 'BlogPosting';
 
 	const keywordsList = [
 		...(input.focusKeyword ? [input.focusKeyword] : []),

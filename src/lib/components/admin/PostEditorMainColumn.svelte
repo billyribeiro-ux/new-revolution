@@ -598,20 +598,19 @@
 				aria-controls="panel-faq"
 				onclick={() => toggleMainPanel('faq')}
 			>
-				<span>FAQ Schema &amp; Q&amp;A</span>
+				<span>FAQ &amp; Q&amp;A</span>
 				<span class="metabox-sub">{form.faqItems.length} item(s)</span>
 			</button>
 		</h3>
 
 		<div id="panel-faq" class="metabox-body" hidden={activeMainTab !== 'faq'}>
 			<p class="muted-note">
-				Aim for 3 or more items with answers over 40 characters. FAQ rich results were retired by
-				Google in May 2026, but FAQPage markup is still emitted for Bing Copilot and visible Q&amp;A
-				helps AI answer surfaces.
+				Aim for 3 or more items with answers over 40 characters. FAQ items render as a visible
+				accordion on the post; no FAQPage JSON-LD is emitted because Google restricts that type.
 			</p>
 
 			<div class="repeater-header">
-				<strong class="field-label">FAQ Items (1:1 Visible Accordion + JSON-LD)</strong>
+				<strong class="field-label">FAQ Items (visible accordion)</strong>
 				<button type="button" class="btn-inline" onclick={addFaqRow}> + Add FAQ Item </button>
 			</div>
 

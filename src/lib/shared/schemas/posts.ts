@@ -22,7 +22,7 @@ export type PostStatus = (typeof POST_STATUS_VALUES)[number];
 export const POST_VISIBILITY_VALUES = ['public', 'members', 'password_protected'] as const;
 export type PostVisibility = (typeof POST_VISIBILITY_VALUES)[number];
 
-export const POST_SCHEMA_TYPE_VALUES = ['Article', 'BlogPosting', 'NewsArticle', 'HowTo'] as const;
+export const POST_SCHEMA_TYPE_VALUES = ['Article', 'BlogPosting', 'NewsArticle'] as const;
 export type PostSchemaType = (typeof POST_SCHEMA_TYPE_VALUES)[number];
 
 export const TWITTER_CARD_TYPE_VALUES = ['summary', 'summary_large_image'] as const;

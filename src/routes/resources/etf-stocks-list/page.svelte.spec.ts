@@ -89,7 +89,8 @@ describe('/resources/etf-stocks-list page', () => {
 
 		const crumbs = document.querySelectorAll('.breadcrumb-list li');
 		expect(crumbs.length).toBe(3);
-		expect(crumbs[2].querySelector('[aria-current="page"]')?.textContent).toBe('ETF Stocks List');
+		expect(crumbs[2].getAttribute('aria-current')).toBe('page');
+		expect(crumbs[2].textContent?.trim()).toBe('ETF Stocks List');
 		expect(crumbs[2].querySelector('a')).toBeNull();
 	});
 });

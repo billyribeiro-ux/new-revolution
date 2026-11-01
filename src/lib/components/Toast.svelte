@@ -30,7 +30,7 @@
 		{#each toasts as item (item.id)}
 			<!-- Visual only. The store announces each toast once through the app
 			     shell's live regions; a live role here as well read it twice. -->
-			<div class="toast toast--{item.type}" class:toast--exiting={exitingIds.has(item.id)}>
+			<div class={[`toast toast--${item.type}`, { 'toast--exiting': exitingIds.has(item.id) }]}>
 				{#if item.type === 'success'}
 					<CheckCircleIcon class="toast__icon toast__icon--success" size={20} aria-hidden="true" />
 				{:else if item.type === 'error'}

@@ -497,10 +497,14 @@
 					{#each activity as item (item.type + '-' + item.id)}
 						<div class="feed__row">
 							<div
-								class="feed__dot"
-								class:lead={item.type === 'lead'}
-								class:contact={item.type === 'contact'}
-								class:post={item.type === 'post'}
+								class={[
+									'feed__dot',
+									{
+										lead: item.type === 'lead',
+										contact: item.type === 'contact',
+										post: item.type === 'post'
+									}
+								]}
 							></div>
 							<div class="feed__body">
 								<span class="feed__name">{item.title}</span>

@@ -218,7 +218,7 @@
 		{:else if sequences.length === 0}
 			<p class="state">No sequences yet. Create one to start sending weekly follow-ups.</p>
 		{:else}
-			<div class="table-wrap" class:is-refreshing={refreshing} aria-busy={refreshing}>
+			<div class={['table-wrap', { 'is-refreshing': refreshing }]} aria-busy={refreshing}>
 				<table class="tbl">
 					<thead>
 						<tr>
@@ -236,7 +236,7 @@
 								<td class="muted">{seq.triggerSource}</td>
 								<td>{seq.stepCount}</td>
 								<td>
-									<span class="badge" class:badge--active={seq.isActive}>
+									<span class={['badge', { 'badge--active': seq.isActive }]}>
 										{seq.isActive ? 'Active' : 'Inactive'}
 									</span>
 								</td>

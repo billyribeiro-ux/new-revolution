@@ -18,21 +18,21 @@
 	} = $props();
 
 	let storageKey = $derived(`wp-metabox-${id}`);
-	let isOpen = $state(untrack(() => defaultOpen));
 
-	let metaboxHydrated = false;
-
-	$effect(() => {
-		void id;
-		if (metaboxHydrated || pinned) return;
-		metaboxHydrated = true;
-		try {
-			const saved = localStorage.getItem(`wp-metabox-${id}`);
-			if (saved !== null) isOpen = saved === 'true';
-		} catch {
-			// storage unavailable (Safari private mode, quota exceeded)
+	function getInitialOpen(): boolean {
+		if (pinned) return defaultOpen;
+		if (typeof window !== 'undefined') {
+			try {
+				const saved = window.localStorage.getItem(`wp-metabox-${id}`);
+				if (saved !== null) return saved === 'true';
+			} catch {
+				// storage unavailable (Safari private mode, quota exceeded)
+			}
 		}
-	});
+		return defaultOpen;
+	}
+
+	let isOpen = $state(untrack(() => getInitialOpen()));
 
 	function toggle() {
 		if (pinned) return;
@@ -50,7 +50,7 @@
 	loses its heading role), and the body stays in the DOM while collapsed so
 	`aria-controls` resolves; it used to be removed, leaving a dangling id.
 -->
-<div class="wp-panel" class:wp-panel--collapsed={!isOpen}>
+<div class={['wp-panel', { 'wp-panel--collapsed': !isOpen }]}>
 	<h3 class="wp-panel__heading">
 		<button
 			type="button"

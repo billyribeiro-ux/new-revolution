@@ -346,7 +346,7 @@
 			>
 		</div>
 	{:else}
-		<div class="inbox-split" class:is-refreshing={refreshing} aria-busy={refreshing}>
+		<div class={['inbox-split', { 'is-refreshing': refreshing }]} aria-busy={refreshing}>
 			<!-- Message List -->
 			<div class="message-list">
 				{#if contacts.length === 0}
@@ -355,9 +355,13 @@
 					{#each contacts as contact (contact.id)}
 						<button
 							type="button"
-							class="message-item"
-							class:unread={contact.status === 'unread'}
-							class:selected={selectedContact?.id === contact.id}
+							class={[
+								'message-item',
+								{
+									unread: contact.status === 'unread',
+									selected: selectedContact?.id === contact.id
+								}
+							]}
 							onclick={() => selectContact(contact)}
 						>
 							<div class="message-item__header">

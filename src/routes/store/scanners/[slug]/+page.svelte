@@ -535,8 +535,7 @@
 								type="button"
 								role="tab"
 								aria-selected={selectedCadence === 'monthly'}
-								class="cadence-btn"
-								class:cadence-btn--active={selectedCadence === 'monthly'}
+								class={['cadence-btn', { 'cadence-btn--active': selectedCadence === 'monthly' }]}
 								onclick={() => (selectedCadence = 'monthly')}
 							>
 								Monthly Access Cadence
@@ -545,8 +544,7 @@
 								type="button"
 								role="tab"
 								aria-selected={selectedCadence === 'annual'}
-								class="cadence-btn"
-								class:cadence-btn--active={selectedCadence === 'annual'}
+								class={['cadence-btn', { 'cadence-btn--active': selectedCadence === 'annual' }]}
 								onclick={() => (selectedCadence = 'annual')}
 							>
 								Annual Access Cadence
@@ -600,8 +598,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activeTerminalMode === 'options-ignition'}
-								class="terminal-tab"
-								class:terminal-tab--active={activeTerminalMode === 'options-ignition'}
+								class={[
+									'terminal-tab',
+									{ 'terminal-tab--active': activeTerminalMode === 'options-ignition' }
+								]}
 								onclick={() => (activeTerminalMode = 'options-ignition')}
 							>
 								{terminalModes['options-ignition'].label}
@@ -610,8 +610,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activeTerminalMode === 'multi-tf-squeeze'}
-								class="terminal-tab"
-								class:terminal-tab--active={activeTerminalMode === 'multi-tf-squeeze'}
+								class={[
+									'terminal-tab',
+									{ 'terminal-tab--active': activeTerminalMode === 'multi-tf-squeeze' }
+								]}
 								onclick={() => (activeTerminalMode = 'multi-tf-squeeze')}
 							>
 								{terminalModes['multi-tf-squeeze'].label}
@@ -620,8 +622,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activeTerminalMode === 'small-account-filter'}
-								class="terminal-tab"
-								class:terminal-tab--active={activeTerminalMode === 'small-account-filter'}
+								class={[
+									'terminal-tab',
+									{ 'terminal-tab--active': activeTerminalMode === 'small-account-filter' }
+								]}
 								onclick={() => (activeTerminalMode = 'small-account-filter')}
 							>
 								{terminalModes['small-account-filter'].label}
@@ -734,7 +738,7 @@
 
 				<div class="features-grid">
 					{#each scannerFeatures as feature (feature.id)}
-						<article class="feature-card" class:feature-card--bonus={feature.isBonus}>
+						<article class={['feature-card', { 'feature-card--bonus': feature.isBonus }]}>
 							<div>
 								<div class="feature-card__top">
 									<div class="feature-card__icon-box" aria-hidden="true">

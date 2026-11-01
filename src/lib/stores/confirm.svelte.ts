@@ -17,8 +17,6 @@
  *      is open is rejected with a guard error to surface the misuse loud
  *      (admin click handlers should not race their own dialogs).
  */
-import { writable, type Writable } from 'svelte/store';
-
 export type ConfirmTone = 'warning' | 'danger';
 
 export interface ConfirmRequest {
@@ -29,15 +27,20 @@ export interface ConfirmRequest {
 	tone?: ConfirmTone;
 }
 
-interface ActiveRequest extends ConfirmRequest {
+export interface ActiveRequest extends ConfirmRequest {
 	resolve: (value: boolean) => void;
 }
 
 /**
  * Currently-open dialog state. `null` when no dialog is showing. The host
- * component subscribes to this and renders <ConfirmDialog> when non-null.
+ * component reads `getActiveConfirm()` reactively and renders <ConfirmDialog>
+ * when non-null.
  */
-export const activeConfirm: Writable<ActiveRequest | null> = writable(null);
+let currentRequest = $state<ActiveRequest | null>(null);
+
+export function getActiveConfirm(): ActiveRequest | null {
+	return currentRequest;
+}
 
 let inFlight = false;
 
@@ -57,7 +60,7 @@ export function confirmAction(req: ConfirmRequest): Promise<boolean> {
 	}
 	inFlight = true;
 	return new Promise<boolean>((resolve) => {
-		activeConfirm.set({
+		currentRequest = {
 			title: req.title,
 			message: req.message ?? '',
 			confirmLabel: req.confirmLabel ?? 'Confirm',
@@ -65,9 +68,9 @@ export function confirmAction(req: ConfirmRequest): Promise<boolean> {
 			tone: req.tone ?? 'warning',
 			resolve: (value) => {
 				inFlight = false;
-				activeConfirm.set(null);
+				currentRequest = null;
 				resolve(value);
 			}
-		});
+		};
 	});
 }

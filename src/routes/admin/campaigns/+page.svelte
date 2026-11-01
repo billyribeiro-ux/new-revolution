@@ -267,7 +267,7 @@
 		{:else if campaigns.length === 0}
 			<p class="state">No campaigns yet.</p>
 		{:else}
-			<div class="table-wrap" class:is-refreshing={refreshing} aria-busy={refreshing}>
+			<div class={['table-wrap', { 'is-refreshing': refreshing }]} aria-busy={refreshing}>
 				<table class="tbl">
 					<thead>
 						<tr>

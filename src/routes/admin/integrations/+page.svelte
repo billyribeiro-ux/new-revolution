@@ -377,10 +377,14 @@
 							<h2>{integration.displayName}</h2>
 						</div>
 						<div
-							class:status-chip={true}
-							class:status-chip--connected={integration.status === 'connected'}
-							class:status-chip--failed={integration.status === 'failed'}
-							class:status-chip--disabled={integration.status === 'disabled'}
+							class={[
+								'status-chip',
+								{
+									'status-chip--connected': integration.status === 'connected',
+									'status-chip--failed': integration.status === 'failed',
+									'status-chip--disabled': integration.status === 'disabled'
+								}
+							]}
 						>
 							{#if integration.status === 'connected'}
 								<CheckCircleIcon size={15} weight="fill" />

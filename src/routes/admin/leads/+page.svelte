@@ -717,16 +717,14 @@
 	<nav class="leads-page__tabs" aria-label="Lead lifecycle">
 		<button
 			type="button"
-			class="tab"
-			class:tab--active={tab === 'active'}
+			class={['tab', { 'tab--active': tab === 'active' }]}
 			onclick={() => switchTab('active')}
 		>
 			Active
 		</button>
 		<button
 			type="button"
-			class="tab"
-			class:tab--active={tab === 'trash'}
+			class={['tab', { 'tab--active': tab === 'trash' }]}
 			onclick={() => switchTab('trash')}
 		>
 			Trash
@@ -1008,7 +1006,7 @@
 			</p>
 		</div>
 	{:else}
-		<div class="leads-table-wrap" class:is-refreshing={refreshing} aria-busy={refreshing}>
+		<div class={['leads-table-wrap', { 'is-refreshing': refreshing }]} aria-busy={refreshing}>
 			<table class="leads-table">
 				<thead>
 					<tr>
@@ -1035,8 +1033,10 @@
 					{#each leads as lead (lead.id)}
 						<tr
 							id="lead-row-{lead.id}"
-							class:row--selected={selectedIds.has(lead.id)}
-							class:row--linked={linkedLeadId === lead.id}
+							class={{
+								'row--selected': selectedIds.has(lead.id),
+								'row--linked': linkedLeadId === lead.id
+							}}
 							aria-current={linkedLeadId === lead.id ? 'true' : undefined}
 							tabindex={linkedLeadId === lead.id ? -1 : undefined}
 						>

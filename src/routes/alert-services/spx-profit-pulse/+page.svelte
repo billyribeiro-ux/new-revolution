@@ -475,8 +475,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeAlertTab === 'zero-dte-momentum'}
-							class="sim-tab"
-							class:sim-tab--active={activeAlertTab === 'zero-dte-momentum'}
+							class={['sim-tab', { 'sim-tab--active': activeAlertTab === 'zero-dte-momentum' }]}
 							onclick={() => (activeAlertTab = 'zero-dte-momentum')}
 						>
 							0DTE Ignition
@@ -485,8 +484,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeAlertTab === 'gamma-wall-reversal'}
-							class="sim-tab"
-							class:sim-tab--active={activeAlertTab === 'gamma-wall-reversal'}
+							class={['sim-tab', { 'sim-tab--active': activeAlertTab === 'gamma-wall-reversal' }]}
 							onclick={() => (activeAlertTab = 'gamma-wall-reversal')}
 						>
 							Gamma Reversal
@@ -495,8 +493,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeAlertTab === 'defined-risk-spread'}
-							class="sim-tab"
-							class:sim-tab--active={activeAlertTab === 'defined-risk-spread'}
+							class={['sim-tab', { 'sim-tab--active': activeAlertTab === 'defined-risk-spread' }]}
 							onclick={() => (activeAlertTab = 'defined-risk-spread')}
 						>
 							Vertical Spread
@@ -646,7 +643,7 @@
 
 				<div class="packages-grid">
 					{#each cadencePackages as pkg (pkg.id)}
-						<article class="package-card" class:package-card--featured={pkg.featured}>
+						<article class={['package-card', { 'package-card--featured': pkg.featured }]}>
 							<div>
 								{#if pkg.badgeText}
 									<div class="package-card__ribbon">{pkg.badgeText}</div>
@@ -674,9 +671,10 @@
 							<div class="package-card__footer">
 								<a
 									href={resolve('/contact' as '/')}
-									class="btn btn--full"
-									class:btn--solid={pkg.featured}
-									class:btn--outline={!pkg.featured}
+									class={[
+										'btn btn--full',
+										{ 'btn--solid': pkg.featured, 'btn--outline': !pkg.featured }
+									]}
 								>
 									{pkg.ctaLabel}
 								</a>

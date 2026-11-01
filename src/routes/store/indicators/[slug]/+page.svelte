@@ -391,8 +391,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activePreviewTab === 'three-levels'}
-								class="preview-tab"
-								class:preview-tab--active={activePreviewTab === 'three-levels'}
+								class={[
+									'preview-tab',
+									{ 'preview-tab--active': activePreviewTab === 'three-levels' }
+								]}
 								onclick={() => (activePreviewTab = 'three-levels')}
 							>
 								1. 3 Power Levels
@@ -401,8 +403,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activePreviewTab === 'early-in-out'}
-								class="preview-tab"
-								class:preview-tab--active={activePreviewTab === 'early-in-out'}
+								class={[
+									'preview-tab',
+									{ 'preview-tab--active': activePreviewTab === 'early-in-out' }
+								]}
 								onclick={() => (activePreviewTab = 'early-in-out')}
 							>
 								2. Early In/Out
@@ -411,8 +415,10 @@
 								type="button"
 								role="tab"
 								aria-selected={activePreviewTab === 'stats-engine'}
-								class="preview-tab"
-								class:preview-tab--active={activePreviewTab === 'stats-engine'}
+								class={[
+									'preview-tab',
+									{ 'preview-tab--active': activePreviewTab === 'stats-engine' }
+								]}
 								onclick={() => (activePreviewTab = 'stats-engine')}
 							>
 								3. Stats Tool
@@ -632,7 +638,7 @@
 
 				<div class="components-grid">
 					{#each systemComponents as comp (comp.id)}
-						<article id={comp.id} class="comp-card" class:comp-card--bonus={comp.isBonus}>
+						<article id={comp.id} class={['comp-card', { 'comp-card--bonus': comp.isBonus }]}>
 							<div>
 								<div class="comp-card__top">
 									<span class="meta-label">{comp.badge}</span>

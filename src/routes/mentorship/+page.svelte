@@ -700,8 +700,10 @@
 							<legend class="form-legend">01 // Select Your Candidate Track (Required)</legend>
 							<div class="track-selector-grid">
 								<label
-									class="track-radio-card"
-									class:track-radio-card--active={selectedTrack === 'portfolio-manager'}
+									class={[
+										'track-radio-card',
+										{ 'track-radio-card--active': selectedTrack === 'portfolio-manager' }
+									]}
 								>
 									<input
 										type="radio"
@@ -718,8 +720,10 @@
 								</label>
 
 								<label
-									class="track-radio-card"
-									class:track-radio-card--active={selectedTrack === 'professional-trader'}
+									class={[
+										'track-radio-card',
+										{ 'track-radio-card--active': selectedTrack === 'professional-trader' }
+									]}
 								>
 									<input
 										type="radio"
@@ -735,8 +739,10 @@
 								</label>
 
 								<label
-									class="track-radio-card"
-									class:track-radio-card--active={selectedTrack === 'struggling-trader'}
+									class={[
+										'track-radio-card',
+										{ 'track-radio-card--active': selectedTrack === 'struggling-trader' }
+									]}
 								>
 									<input
 										type="radio"

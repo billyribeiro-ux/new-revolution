@@ -1395,9 +1395,10 @@
 						</ul>
 						<a
 							href={resolve(tier.ctaHref as '/')}
-							class="btn-full"
-							class:btn-primary-gold={tier.featured}
-							class:btn-secondary-glass={!tier.featured}
+							class={[
+								'btn-full',
+								{ 'btn-primary-gold': tier.featured, 'btn-secondary-glass': !tier.featured }
+							]}
 						>
 							{tier.ctaLabel}
 						</a>

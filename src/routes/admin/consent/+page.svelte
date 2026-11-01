@@ -276,7 +276,7 @@
 	{:else if loadError}
 		<p class="state state--error">{loadError}</p>
 	{:else}
-		<div class:is-refreshing={refreshing} aria-busy={refreshing}>
+		<div class={{ 'is-refreshing': refreshing }} aria-busy={refreshing}>
 			<div class="kpis">
 				<div class="kpi">
 					<span class="kpi__val">{stats.total}</span>

@@ -570,8 +570,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeRadarTab === 'squeeze-radar'}
-							class="radar-tab"
-							class:radar-tab--active={activeRadarTab === 'squeeze-radar'}
+							class={['radar-tab', { 'radar-tab--active': activeRadarTab === 'squeeze-radar' }]}
 							onclick={() => (activeRadarTab = 'squeeze-radar')}
 						>
 							1. 18-TF Squeeze
@@ -580,8 +579,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeRadarTab === 'liquidity-sweep'}
-							class="radar-tab"
-							class:radar-tab--active={activeRadarTab === 'liquidity-sweep'}
+							class={['radar-tab', { 'radar-tab--active': activeRadarTab === 'liquidity-sweep' }]}
 							onclick={() => (activeRadarTab = 'liquidity-sweep')}
 						>
 							2. Stop-Hunt Sweep
@@ -590,8 +588,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeRadarTab === 'contrarian-oxy'}
-							class="radar-tab"
-							class:radar-tab--active={activeRadarTab === 'contrarian-oxy'}
+							class={['radar-tab', { 'radar-tab--active': activeRadarTab === 'contrarian-oxy' }]}
 							onclick={() => (activeRadarTab = 'contrarian-oxy')}
 						>
 							3. +600% OXY Scan
@@ -678,8 +675,7 @@
 							type="button"
 							role="tab"
 							aria-selected={activeCategory === tab.id}
-							class="filter-tab"
-							class:filter-tab--active={activeCategory === tab.id}
+							class={['filter-tab', { 'filter-tab--active': activeCategory === tab.id }]}
 							onclick={() => (activeCategory = tab.id)}
 						>
 							{tab.label}

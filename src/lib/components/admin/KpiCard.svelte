@@ -142,8 +142,9 @@
 			.domain([0, sparkData.length - 1])
 			.range([0, sparkW]);
 
+		// `|| 1`, not `?? 1`: an all-zero series has max 0, and a [0, 0] domain makes d3 draw every value mid-range.
 		const y = scaleLinear()
-			.domain([0, max(sparkData) ?? 1])
+			.domain([0, max(sparkData) || 1])
 			.range([sparkH - pad, pad]);
 
 		if (sparkType === 'area') {
@@ -207,7 +208,10 @@
 				.attr('fill', color)
 				.attr('opacity', (_, i) => 0.3 + 0.7 * (i / (sparkData.length - 1)));
 
-			bars.attr('y', (d) => y(d)).attr('height', (d) => sparkH - pad - y(d));
+			// A true zero is a 1px hairline: present on the axis, never mistaken for a value.
+			bars
+				.attr('y', (d) => (d > 0 ? y(d) : sparkH - pad - 1))
+				.attr('height', (d) => (d > 0 ? sparkH - pad - y(d) : 1));
 		}
 	}
 

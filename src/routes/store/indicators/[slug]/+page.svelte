@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -61,8 +62,7 @@
 		heroTitle: 'Predict Explosive Institutional Moves With The Move Prior to The Move™ System',
 		instructorName: 'Billy Ribeiro',
 		instructorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
-		instructorAvatar:
-			'https://revolutiontradingpros.com/wp-content/uploads/2025/05/Billy-no-grey-768x768.png.webp',
+		instructorAvatar: FOUNDER_PORTRAIT.src,
 		supportPhone: '+1 (203) 721-0940',
 		supportEmail: 'support@revolutiontradingpros.com',
 		whatsIncludedQuickList: [
@@ -310,7 +310,7 @@
 					<div class="instructor-strip">
 						<img
 							src={indicatorConfig.instructorAvatar}
-							alt={indicatorConfig.instructorName}
+							alt={FOUNDER_PORTRAIT.alt}
 							width="54"
 							height="54"
 							class="instructor-strip__avatar"
@@ -820,7 +820,7 @@
 						<div class="bio-card__left">
 							<img
 								src={indicatorConfig.instructorAvatar}
-								alt="Billy Ribeiro — Founder of Revolution Trading Pros"
+								alt={FOUNDER_PORTRAIT.alt}
 								width="200"
 								height="200"
 								loading="lazy"

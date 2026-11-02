@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -81,8 +82,7 @@
 			'Stop flipping through 500 charts by hand and arriving after the move is already over. The High Octane Scanner™ monitors thousands of liquid stocks, ETFs, and options chains in real time—surfacing multi-timeframe volatility squeezes, institutional liquidity sweeps, and unusual options flow before the crowd reacts.',
 		creatorName: 'Billy Ribeiro',
 		creatorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
-		creatorAvatar:
-			'https://revolutiontradingpros.com/wp-content/uploads/2025/05/Billy-no-grey-768x768.png.webp',
+		creatorAvatar: FOUNDER_PORTRAIT.src,
 		supportPhone: '+1 (203) 721-0940',
 		supportEmail: 'support@revolutiontradingpros.com',
 		coreBenefits: [
@@ -483,7 +483,7 @@
 					<div class="creator-strip">
 						<img
 							src={scannerConfig.creatorAvatar}
-							alt={scannerConfig.creatorName}
+							alt={FOUNDER_PORTRAIT.alt}
 							width="54"
 							height="54"
 							class="creator-strip__avatar"
@@ -1061,7 +1061,7 @@
 						<div class="creator-box__left">
 							<img
 								src={scannerConfig.creatorAvatar}
-								alt="Billy Ribeiro — Founder of Revolution Trading Pros"
+								alt={FOUNDER_PORTRAIT.alt}
 								width="180"
 								height="180"
 								loading="lazy"

@@ -9,6 +9,40 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-01 — Local run verified as if deployed (production build with the real `.env`, and dev mode)
+
+#### Verified (2026-11-01)
+
+- Booted the app both ways (`vite preview` after a production build, and `vite dev`) with the real `.env`, and walked all 27 sitemap pages, an unknown URL, all 14 admin routes, and a real editor session in a browser (type a title and body, open every panel, add an FAQ item, save a draft, see it in the list, trash and permanently delete it). Console errors, page errors, failed requests and 4xx/5xx: none, apart from the deliberate 404 probe.
+
+#### Fixed (2026-11-01)
+
+- **Five public pages requested a founder photo from `https://revolutiontradingpros.com/wp-content/uploads/...`**, a legacy WordPress path this app does not serve (the host returned an HTML page for it), so the image failed on every product and alert page (`net::ERR_CERT_COMMON_NAME_INVALID` locally, a broken image after deploy). The four hard-coded URLs are replaced by one `FOUNDER_PORTRAIT` constant in `src/lib/data/site.ts` pointing at the square brand emblem (`/icon-512.png`) with an honest alt text. The real portrait is not in the repository and was not recreated; it is tracked as temporary item T9 in `docs/TEMPORARY.md`.
+- Owner follow-up: the support phone `+1 (203) 721-0940` shown on the product pages (`supportPhone` in `src/routes/store/{indicators,courses,scanners}/[slug]/+page.svelte`) will be updated by the owner; `docs/seo/DECISIONS.md` and `SUPPORT_CONTACT` still publish no phone number.
+
+### 2026-11-01 — Svelte MCP audit of all 113 Svelte files; admin shell and blog editor coherence pass
+
+#### Audit (2026-11-01)
+
+- Ran `svelte-autofixer` (Svelte 5) on every `.svelte` and `.svelte.ts` file in `src` (109 + 4): 0 issues. 9 files returned suggestions, all reviewed against the Svelte docs and left unchanged with reasons: the D3 sparkline/chart attachments and the inbox/leads deep-link effects only touch the DOM or defer a remote call behind a cleaned-up timer (no state is assigned in the effect); `ImageControlMenu` uses `untrack` as a deliberate edge trigger; the "unused `eslint-disable`" hint for `consent.svelte.ts` is wrong for this repo's ESLint config (removing it fails `prefer-rest-params`). One reported `await` issue in `about/+page.svelte` did not reproduce when re-run directly.
+- The admin e2e tests that were skipped for lack of credentials now run against the seeded local admin (`docs/ADMIN_LOCAL_LOGIN.md`): 7 passed.
+- Browser audit of all 15 admin routes at 1440 px and 4 at 390 px (console errors, failed requests, labels, overflow, targets).
+
+#### Fixed (2026-11-01)
+
+- **Every admin page showed the public home page title** ("Stock & Options Trading Rooms | ...") and the marketing description and Open Graph tags. `src/routes/+layout.svelte` now skips `<MetaTags>` for the whole `/admin` tree; `src/routes/admin/+layout.svelte` sets one title per page from its nav list (`Posts | Admin | Revolution Trading Pros`, `New post`, `Edit post`) plus `noindex, nofollow`.
+- **Blog editor had no `<h1>`**: the "Add New Post" / "Edit Post" label in `PostEditorTopBar.svelte` is now an `<h1>`.
+- **Charts drew full-height bars for zero data** (`SparkBar`, `SparkArea`, `KpiCard`): `max(data) ?? 1` left a degenerate `[0, 0]` domain when every value is 0 (d3 maps all values to mid-range; the old code drew bars of height 37 of 78). Now `|| 1`, and a true zero is a 1 px hairline. The dashboard's Lead Captures card shows "No leads captured in this period." instead of a chart when the period has no leads.
+- **Dashboard KPI grid** orphaned the seventh tile ("Unread inbox"): seven columns on wide screens, four below 1280 px.
+- **Checkboxes were 13x13 px** (post table selects, category/tag lists, robots flags, integrations): all admin checkboxes are now 24x24 (WCAG 2.2 SC 2.5.8), accent-coloured; the rich-text editor's own task boxes are untouched. The media grid's 20 px select box is 24 px.
+- Post table Actions buttons no longer wrap onto a second line.
+- Corrected a code comment in `+layout.svelte` that repeated the false "favicon multiple of 48px" claim.
+
+#### Tests (2026-11-01)
+
+- `src/lib/components/admin/SparkBar.svelte.spec.ts` (fails on the old code: height 37 for zero values).
+- `src/routes/admin/admin-shell.e2e.ts`: per-page titles, robots and absent marketing meta, editor `<h1>`, checkbox sizes, Lead Captures empty state.
+
 ### 2026-11-01 — SEO audit prompt hardened (`seo-audit.md`)
 
 #### Docs (2026-11-01)

@@ -41,3 +41,15 @@ export const PRESS_MENTIONS: readonly PressMention[] = [
 	{ id: 'fox-news', name: 'FOX News' },
 	{ id: 'cheddar', name: 'Cheddar' }
 ] as const;
+
+/**
+ * Founder portrait shown in instructor and bio blocks. The real photo only ever existed on the legacy
+ * WordPress site (`/wp-content/uploads/2025/05/Billy-no-grey-768x768.png.webp`); that path is not served
+ * by this app and the host returned an HTML page for it on 2026-11-01, so linking to it left a broken
+ * image on every product page. Until the portrait is added to `static/`, the square brand emblem is
+ * shown with an honest alt text. Temporary item T9 in `docs/TEMPORARY.md`.
+ */
+export const FOUNDER_PORTRAIT = {
+	src: '/icon-512.png',
+	alt: 'Revolution Trading Pros emblem'
+} as const;

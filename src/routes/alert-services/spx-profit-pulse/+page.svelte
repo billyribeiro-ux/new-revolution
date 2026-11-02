@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
@@ -695,8 +696,8 @@
 					<div class="trader-box__grid">
 						<div class="trader-box__profile">
 							<img
-								src="https://revolutiontradingpros.com/wp-content/uploads/2025/05/Billy-no-grey-768x768.png.webp"
-								alt="Billy Ribeiro — Founder of Revolution Trading Pros"
+								src={FOUNDER_PORTRAIT.src}
+								alt={FOUNDER_PORTRAIT.alt}
 								width="190"
 								height="190"
 								loading="lazy"

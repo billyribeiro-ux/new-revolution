@@ -1572,6 +1572,11 @@
 		flex-wrap: wrap;
 	}
 
+	/* In a table row the Actions column grows and the title column wraps, not the buttons. */
+	.admin-table .row-actions {
+		flex-wrap: nowrap;
+	}
+
 	.btn-row {
 		padding: 0.3rem 0.6rem;
 		border-radius: 5px;

@@ -46,8 +46,9 @@
 			.domain([0, data.length - 1])
 			.range([0, w]);
 
+		// `|| 1`, not `?? 1`: an all-zero series has max 0, and a [0, 0] domain makes d3 draw every value mid-range.
 		const y = scaleLinear()
-			.domain([0, max(data) ?? 1])
+			.domain([0, max(data) || 1])
 			.range([h - padBottom, padTop]);
 
 		const areaPath = area<number>()

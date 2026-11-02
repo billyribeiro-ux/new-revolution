@@ -40,7 +40,14 @@
 	type Tab = 'active' | 'trash';
 	type Status = 'new' | 'contacted' | 'converted' | 'unsubscribed';
 	type EngagementFilter =
-		'all' | 'no_email' | 'sent' | 'delivered' | 'opened' | 'clicked' | 'bounced' | 'complained';
+		| 'all'
+		| 'no_email'
+		| 'sent'
+		| 'delivered'
+		| 'opened'
+		| 'clicked'
+		| 'bounced'
+		| 'complained';
 	type LeadRow = Lead & {
 		emailEngagement?: Exclude<EngagementFilter, 'all'>;
 		latestEmailEvent?: string | null;

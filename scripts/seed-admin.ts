@@ -39,7 +39,8 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const authSchema = { user, session, account, verification };
 // Loose schema parameter: callers may pass the app's full schema (with relations) or the auth tables only.
 export type SeedDatabase =
-	PgliteDatabase<Record<string, unknown>> | PostgresJsDatabase<Record<string, unknown>>;
+	| PgliteDatabase<Record<string, unknown>>
+	| PostgresJsDatabase<Record<string, unknown>>;
 export type SeedAuth = ReturnType<typeof createSeedAuth>;
 
 export class SeedAdminError extends Error {}

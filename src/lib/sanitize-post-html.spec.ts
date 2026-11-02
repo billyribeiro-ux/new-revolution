@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { isGoogleDocsHtml, isWordHtml, sanitizePostHtml } from './sanitize-post-html';
 
 describe('sanitizePostHtml (Section 7.1)', () => {

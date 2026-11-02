@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	SINGLE_SCANNER_FAQ_ITEMS,
@@ -42,7 +42,7 @@ describe('/store/scanners/[slug] page', () => {
 	});
 
 	it('renders the H1, interactive cadence toggle, 3-mode terminal preview, 6 feature cards, 3 suitability cards, 5 comparison rows, 2 packages, 4 reviews, 5 FAQs, and 5 room CTA cards', async () => {
-		render(SingleScannerPage, {
+		await render(SingleScannerPage, {
 			params: { slug: 'high-octane-scanner' },
 			data: {
 				pageMetaTags: {},

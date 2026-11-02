@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import {
 	ABOUT_FAQ_ITEMS,
 	COURSES_STORE_FAQ_ITEMS,

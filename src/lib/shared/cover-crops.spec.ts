@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { coverSrcsetFromMedia } from './cover-srcset';
 import { extractCoverCrops, isCropVariant, planCoverCrops } from './cover-crops';
 

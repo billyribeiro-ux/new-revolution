@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	buildStockIndexesListJsonLd,
@@ -37,7 +37,7 @@ describe('/resources/stock-indexes-list page', () => {
 	});
 
 	it('renders the H1, S&P 500 feature section, 10 index cards with region filtering, and 5 interactive FAQs', async () => {
-		render(Page, {
+		await render(Page, {
 			data: {
 				pageMetaTags: {},
 				jsonLdSchema: buildStockIndexesListJsonLd(SITE_ORIGIN)

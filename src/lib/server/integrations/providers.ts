@@ -1,7 +1,11 @@
 import type { IntegrationProvider } from '#lib/shared/schemas/integrations.js';
 
 export type IntegrationStatus =
-	'not_configured' | 'configured' | 'connected' | 'failed' | 'disabled';
+	| 'not_configured'
+	| 'configured'
+	| 'connected'
+	| 'failed'
+	| 'disabled';
 export type IntegrationTestStatus = 'success' | 'failed' | 'skipped';
 
 export type IntegrationDefinition = {

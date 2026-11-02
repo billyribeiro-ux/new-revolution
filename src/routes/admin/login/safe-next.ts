@@ -24,7 +24,7 @@ export function safeAdminNext(raw: string | null | undefined): string {
 	if (raw.charAt(0) !== '/') return ADMIN_HOME_PATH;
 	if (raw.charAt(1) === '/' || raw.charAt(1) === '\\') return ADMIN_HOME_PATH;
 	if (raw.includes('\\') || raw.includes(':')) return ADMIN_HOME_PATH;
-	// eslint-disable-next-line no-control-regex -- deliberately rejecting control characters and spaces
+	// oxlint-disable-next-line no-control-regex -- deliberately rejecting control characters and spaces
 	if (/[\u0000- \u007f]/.test(raw)) return ADMIN_HOME_PATH;
 	if (/%(2e|2f|5c)/i.test(raw)) return ADMIN_HOME_PATH;
 

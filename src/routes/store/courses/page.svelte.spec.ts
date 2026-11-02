@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	COURSES_STORE_FAQ_ITEMS,
@@ -36,7 +36,7 @@ describe('/store/courses page', () => {
 	});
 
 	it('renders the H1, diagnostic router, 8 course cards, interactive track filter tabs, 6 deliverables, 5 comparison rows, and 4 FAQs', async () => {
-		render(CoursesStorePage, {
+		await render(CoursesStorePage, {
 			params: {},
 			data: {
 				pageMetaTags: {},

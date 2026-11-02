@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { applyPostAutofill } from './autofill';
 import { applyContentSeoTransforms } from './content-transform';
 import { normalizePostHeadings } from './toc';

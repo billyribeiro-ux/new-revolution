@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import '../../../app.css';
 import {
@@ -35,7 +35,7 @@ describe('/live-trading-rooms/day-trading-room/+page.svelte (Vitest Browser Mode
 	});
 
 	it('renders the H1, 4 daily schedule blocks, 4 intraday setups, 5 comparison rows, 3 routing cards, and 5 FAQs', async () => {
-		render(DayTradingRoomPage, {
+		await render(DayTradingRoomPage, {
 			params: {},
 			data: {
 				baseMetaTags: {},

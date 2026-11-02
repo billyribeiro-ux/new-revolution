@@ -392,24 +392,24 @@ Say what you ran and what you skipped.
 | a `.svelte` file                   | its page/component spec, `pnpm check` (svelte-check: 0 errors, **0 warnings**, which includes unused CSS selectors), then `svelte-autofixer` |
 | `structured-data.ts` / data module | `pnpm exec vitest run src/lib` and the page spec that renders it                                                                             |
 | a stylesheet or CSS in a component | `pnpm check:css`, `pnpm check`                                                                                                               |
-| a doc or script                    | `pnpm exec prettier --check <file>` and run the script itself                                                                                |
+| a doc or script                    | `pnpm exec vp fmt --check <file>` and run the script itself                                                                                  |
 
-Use `pnpm exec vitest run <path>` for a single spec. Browser specs run in Chromium via Playwright.
+Use `pnpm exec vp test run <path>` for a single spec. Browser specs run in Chromium via Playwright.
 
 ### 7.2 Full gate (once, before push/merge)
 
 ```bash
 pnpm check:css
 pnpm check
-pnpm lint            # prettier --check . && eslint .  (includes svelte/no-navigation-without-resolve)
+pnpm lint            # vp fmt --check . && vp lint . && eslint "**/*.svelte"  (svelte/no-navigation-without-resolve runs via ESLint)
 pnpm test:unit --run
 pnpm build
 pnpm check:pages     # all prerendered pages; must be fully green (50/50 at last run)
 pnpm exec playwright test   # e2e; `pnpm test:e2e` also runs `playwright install` (a download), avoid unless browsers are missing
 ```
 
-`pnpm lint` fails on any `<a href>` that is not wrapped in `resolve()`. Prettier reformats `.svelte` aggressively: run
-`pnpm exec prettier --write <file>` and then re-run `pnpm check`.
+`pnpm lint` fails on any `<a href>` that is not wrapped in `resolve()`. The formatter (Oxfmt, run through Vite+) reformats `.svelte`
+files: run `pnpm exec vp fmt <file>` and then re-run `pnpm check`.
 
 Never push to `main`. Branch first, push once, merge separately (a push invalidates the green checks you were about to merge).
 
@@ -454,7 +454,7 @@ Do not spread these patterns. Fix them only as an explicit, scoped task and re-r
    `git worktree add /tmp/<name> -b <branch> origin/main` (+ `pnpm install --frozen-lockfile --offline`), never `git stash` in a shared
    checkout, and re-read `git status` before trusting a baseline.
 8. **Keep non-source files out of `src/`.** A 578-line prompt `.md` committed under `src/` made `pnpm lint` fail on `main`
-   (`prettier --check .`). Put docs and prompts in `docs/`.
+   (`vp fmt --check .`). Put docs and prompts in `docs/`.
 9. **Do not trust a template you have not compiled.** The old `AGENTS.md` `+page.ts` template imported a nonexistent `SITE_NAME` and a
    nonexistent `/og-default.png`; it never type-checked. When you change a template, paste it into a temp route and run `pnpm check`.
 10. **FAQ markup is not a Google feature anymore** (stopped appearing 2026-05-07; docs removed 2026-06-15). Never emit `FAQPage` nodes; a visible `<details>` FAQ for readers is fine (`docs/SEO_EVIDENCE.md` row 1).

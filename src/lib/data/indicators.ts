@@ -5,7 +5,10 @@
  */
 
 export type IndicatorCategory =
-	'order-flow' | 'volatility-squeeze' | 'options-levels' | 'trend-momentum';
+	| 'order-flow'
+	| 'volatility-squeeze'
+	| 'options-levels'
+	| 'trend-momentum';
 export type IndicatorCategoryFilter = 'all' | IndicatorCategory;
 export type IndicatorChartPattern = 'reversal' | 'squeeze' | 'levels' | 'volume';
 

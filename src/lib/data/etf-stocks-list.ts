@@ -6,7 +6,11 @@
  */
 
 export type EtfFilterCategory =
-	'all' | 'index-core' | 'small-account-options' | 'global-macro' | 'income-defensive';
+	| 'all'
+	| 'index-core'
+	| 'small-account-options'
+	| 'global-macro'
+	| 'income-defensive';
 
 export interface FeaturedETF {
 	symbol: string;

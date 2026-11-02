@@ -1,5 +1,5 @@
-import { page, userEvent } from 'vitest/browser';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { page, userEvent } from 'vite-plus/test/browser';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import type { MediaItem } from '#lib/shared/media-upload';
 import MediaLibrary from './MediaLibrary.svelte';
@@ -120,7 +120,7 @@ describe('MediaLibrary picker', () => {
 	it('renders items with alt text on the image and a No Alt badge when alt is missing', async () => {
 		const withAlt = makeItem('with-alt');
 		const noAlt = makeItem('no-alt', { alt_text: '' });
-		render(MediaLibrary, {
+		await render(MediaLibrary, {
 			mode: 'page',
 			initialItems: [withAlt, noAlt],
 			initialFolders: [],
@@ -147,7 +147,7 @@ describe('MediaLibrary picker', () => {
 			}
 			return jsonResponse({ error: `unexpected ${url}` }, 500);
 		});
-		render(MediaLibrary, { mode: 'page', initialItems: [makeItem('seed')], initialTotal: 1 });
+		await render(MediaLibrary, { mode: 'page', initialItems: [makeItem('seed')], initialTotal: 1 });
 
 		await page.getByRole('tab', { name: 'Upload Files' }).click();
 		const input = document.querySelector<HTMLInputElement>('#ml-upload-input')!;
@@ -198,7 +198,7 @@ describe('MediaLibrary picker', () => {
 			}
 			return jsonResponse({ error: `unexpected ${url}` }, 500);
 		});
-		render(MediaLibrary, { mode: 'page', initialItems: items, initialTotal: 3 });
+		await render(MediaLibrary, { mode: 'page', initialItems: items, initialTotal: 3 });
 
 		await page.getByRole('checkbox', { name: 'Select a.webp for bulk actions' }).click();
 		await page.getByRole('button', { name: 'Select all on page' }).click();
@@ -238,7 +238,7 @@ describe('MediaLibrary picker', () => {
 			}
 			return jsonResponse({ error: `unexpected ${url}` }, 500);
 		});
-		render(MediaLibrary, {
+		await render(MediaLibrary, {
 			mode: 'page',
 			initialItems: items,
 			initialFolders: ['charts'],
@@ -306,7 +306,7 @@ describe('MediaLibrary picker', () => {
 
 	it('emits the select payload with the exact alignment, size, url and dimensions', async () => {
 		const onSelect = vi.fn();
-		render(MediaLibrary, {
+		await render(MediaLibrary, {
 			mode: 'modal',
 			isOpen: true,
 			initialItems: [makeItem('a')],

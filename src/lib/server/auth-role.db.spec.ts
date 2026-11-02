@@ -3,7 +3,7 @@
 // @ts-expect-error untyped SvelteKit internal export
 import { with_request_store } from '@sveltejs/kit/internal/server';
 import { eq } from 'drizzle-orm';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vite-plus/test';
 import { createTestDatabase, setActiveDbForTest } from './db';
 import { user } from './db/schema';
 

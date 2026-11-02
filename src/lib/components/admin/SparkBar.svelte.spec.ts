@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import SparkBar from './SparkBar.svelte';
 
@@ -11,7 +11,7 @@ function bars(): { y: number; height: number }[] {
 
 describe('SparkBar', () => {
 	it('draws an all-zero series as hairlines on the baseline, not as tall bars', async () => {
-		render(SparkBar, { data: [0, 0, 0, 0, 0], height: 80 });
+		await render(SparkBar, { data: [0, 0, 0, 0, 0], height: 80 });
 		await expect.poll(() => bars().length).toBe(5);
 		for (const bar of bars()) {
 			expect(bar.height).toBe(1);
@@ -21,7 +21,7 @@ describe('SparkBar', () => {
 	});
 
 	it('scales real values against the series maximum', async () => {
-		render(SparkBar, { data: [0, 5, 10], height: 80 });
+		await render(SparkBar, { data: [0, 5, 10], height: 80 });
 		await expect.poll(() => bars().length).toBe(3);
 		const [zero, half, full] = bars();
 		expect(zero!.height).toBe(1);

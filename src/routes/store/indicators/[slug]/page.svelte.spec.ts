@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	SINGLE_INDICATOR_FAQ_ITEMS,
@@ -43,7 +43,7 @@ describe('/store/indicators/[slug] page', () => {
 	});
 
 	it('renders the H1, interactive 3-tab preview, 6 system components & bonuses, 3 suitability pillars, enrollment dossier, instructor bio, 4 member reviews, 4 FAQs, and 5 room CTA cards', async () => {
-		render(SingleIndicatorPage, {
+		await render(SingleIndicatorPage, {
 			params: { slug: 'move-prior-to-the-move-system' },
 			data: {
 				pageMetaTags: {},

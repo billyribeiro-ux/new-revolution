@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { eq } from 'drizzle-orm';
 import sharp from 'sharp';
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vite-plus/test';
 import { createTestDatabase, setActiveDbForTest } from '../db';
 import { createDiskStorageDriver } from '../media-storage';
 import { media, posts, redirects, user } from '../db/schema';

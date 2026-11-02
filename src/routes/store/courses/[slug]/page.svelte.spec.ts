@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	SINGLE_COURSE_FAQ_ITEMS,
@@ -41,7 +41,7 @@ describe('/store/courses/[slug] page', () => {
 	});
 
 	it('renders the H1, 2 package cards, 5 anchored component blocks, 6 curriculum modules, instructor bio, 6 unique member reviews, 5 FAQs, and 5 room CTA cards', async () => {
-		render(SingleCoursePage, {
+		await render(SingleCoursePage, {
 			params: { slug: 'move-prior-to-the-move-ultra' },
 			data: {
 				pageMetaTags: {},

@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 import { createTestDatabase, setActiveDbForTest } from '../db';
 import { media, user } from '../db/schema';
 import { setMediaStorageDriverForTest, type BlobStorageDriver } from '../media-storage';

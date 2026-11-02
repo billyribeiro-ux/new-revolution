@@ -134,7 +134,8 @@ export async function moveMediaRequest(id: string, folder: string): Promise<void
 }
 
 export type BulkResult<T> =
-	{ item: T; ok: true } | { item: T; ok: false; error: MediaRequestError | Error };
+	| { item: T; ok: true }
+	| { item: T; ok: false; error: MediaRequestError | Error };
 
 /**
  * Runs `worker` over `items` with at most `limit` in flight. Never rejects: each item yields an

@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import '../../../app.css';
 import Page from './+page.svelte';
@@ -42,7 +42,7 @@ describe('/store/scanners/+page.svelte', () => {
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy (zero H4s), and 4 semantic H3 FAQ summaries', async () => {
-		render(Page, {
+		await render(Page, {
 			data: {
 				pageMetaTags: {},
 				jsonLdSchema: buildScannersStoreJsonLd(SITE_ORIGIN)
@@ -67,7 +67,7 @@ describe('/store/scanners/+page.svelte', () => {
 	});
 
 	it('switches the interactive Live Radar Terminal across all 3 radar engines and filters the 8-scanner catalog', async () => {
-		render(Page, {
+		await render(Page, {
 			data: {
 				pageMetaTags: {},
 				jsonLdSchema: buildScannersStoreJsonLd(SITE_ORIGIN)

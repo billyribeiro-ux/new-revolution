@@ -208,9 +208,11 @@ export async function runLabAudit(outDir: string): Promise<{
 					}
 					const w = window as PerfWindow;
 					const nav = performance.getEntriesByType('navigation')[0] as
-						PerformanceNavigationTiming | undefined;
+						| PerformanceNavigationTiming
+						| undefined;
 					const fcp = performance.getEntriesByName('first-contentful-paint')[0] as
-						PerformanceEntry | undefined;
+						| PerformanceEntry
+						| undefined;
 					const resources = performance.getEntriesByType('resource') as Array<
 						PerformanceResourceTiming & { renderBlockingStatus?: string }
 					>;

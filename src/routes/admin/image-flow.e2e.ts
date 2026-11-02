@@ -319,7 +319,8 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			return data['@graph'] ?? [data as Record<string, unknown>];
 		});
 		const posting = nodes.find((n) => n['@type'] === 'BlogPosting') as
-			{ image?: { '@type': string; url: string; width?: number; height?: number }[] } | undefined;
+			| { image?: { '@type': string; url: string; width?: number; height?: number }[] }
+			| undefined;
 		expect(posting, 'BlogPosting node').toBeTruthy();
 		const images = posting!.image;
 		expect(Array.isArray(images)).toBe(true);

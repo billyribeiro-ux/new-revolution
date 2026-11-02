@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import ConfirmDialog from './ConfirmDialog.svelte';
 import RevisionDiffViewer from './RevisionDiffViewer.svelte';
@@ -97,7 +97,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 		const onConfirm = vi.fn();
 		const onCancel = vi.fn();
 
-		render(ConfirmDialog, {
+		await render(ConfirmDialog, {
 			open: true,
 			title: 'Unpublish Live Article',
 			message: 'Switching status to Draft will remove this post from /blog.',
@@ -120,7 +120,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 		const onRestore = vi.fn();
 		const onClose = vi.fn();
 
-		render(RevisionDiffViewer, {
+		await render(RevisionDiffViewer, {
 			open: true,
 			revision: {
 				id: 42,
@@ -154,7 +154,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 	});
 
 	it('renders PostCard with responsive srcset derived from variant URL', async () => {
-		render(PostCard, {
+		await render(PostCard, {
 			post: {
 				id: 1,
 				title: 'Institutional Order Flow Playbook',
@@ -191,7 +191,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 	});
 
 	it('verifies RichTextEditor canvas carries .prose-base with max-width: 900px, status bar, and accessible toolbar toggles', async () => {
-		render(RichTextEditor, {
+		await render(RichTextEditor, {
 			content: '<h2>Market Structure Heading</h2><p>Institutional risk management paragraph.</p>',
 			onChange: () => {},
 			onStatsChange: () => {}
@@ -232,7 +232,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 				})
 		);
 
-		render(PostEditor, {
+		await render(PostEditor, {
 			initialPost: {
 				id: 77,
 				title: 'Live Zero DTE Playbook',
@@ -370,7 +370,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 			)
 		);
 
-		render(MediaLibrary, {
+		await render(MediaLibrary, {
 			mode: 'modal',
 			isOpen: true,
 			initialItems: SAMPLE_MEDIA_ITEMS,
@@ -408,7 +408,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 	});
 
 	it('marks PostEditor dirty on non-title field edits, shows 0/60 rendered when title and metaTitle are empty, and closes RevisionDiffViewer on Escape', async () => {
-		render(PostEditor, {
+		await render(PostEditor, {
 			initialPost: null,
 			categories: [{ id: 1, name: 'Options Strategy', slug: 'options-strategy' }],
 			tags: [{ id: 1, name: '0DTE', slug: '0dte' }],

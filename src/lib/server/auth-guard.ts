@@ -14,7 +14,8 @@ export interface AuthenticatedAdmin {
  */
 export function requireAdmin(
 	event:
-		Pick<RequestEvent, 'locals'> | { locals?: Partial<App.Locals>; request?: Request; url?: URL }
+		| Pick<RequestEvent, 'locals'>
+		| { locals?: Partial<App.Locals>; request?: Request; url?: URL }
 ): AuthenticatedAdmin {
 	const user = event.locals?.user;
 

@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import '../../../app.css';
 import HeroSection from './HeroSection.svelte';
@@ -16,7 +16,7 @@ import type { CaseStudy, ClosingContent, FaqItem, StoreToolCard } from '#lib/dat
 
 describe('Modular Homepage Section Components', () => {
 	it('renders HeroSection with deskStatus and custom proofItems/trustMetrics overrides', async () => {
-		render(HeroSection, {
+		await render(HeroSection, {
 			deskStatus: { edition: 'DOSSIER / 002', statusLabel: 'VERIFIED' },
 			proofItems: [
 				{
@@ -46,7 +46,7 @@ describe('Modular Homepage Section Components', () => {
 			}
 		];
 
-		render(CaseStudiesSection, { studies: customStudies });
+		await render(CaseStudiesSection, { studies: customStudies });
 
 		await expect
 			.element(page.getByRole('heading', { level: 3, name: 'SPX 5800 Call Spread Execution' }))
@@ -55,7 +55,7 @@ describe('Modular Homepage Section Components', () => {
 	});
 
 	it('renders ManifestoSection with scoped WCAG AA negative comparison styling', async () => {
-		render(ManifestoSection);
+		await render(ManifestoSection);
 
 		await expect
 			.element(
@@ -74,14 +74,14 @@ describe('Modular Homepage Section Components', () => {
 	});
 
 	it('renders PersonasSection, MembershipsSection, MentorshipSection, and BlogSection with SSOT defaults', async () => {
-		render(PersonasSection);
+		await render(PersonasSection);
 		await expect
 			.element(
 				page.getByRole('heading', { level: 3, name: 'Working Professionals & Swing Traders' })
 			)
 			.toBeInTheDocument();
 
-		render(MembershipsSection);
+		await render(MembershipsSection);
 		await expect
 			.element(
 				page.getByRole('heading', {
@@ -91,12 +91,12 @@ describe('Modular Homepage Section Components', () => {
 			)
 			.toBeInTheDocument();
 
-		render(MentorshipSection);
+		await render(MentorshipSection);
 		await expect
 			.element(page.getByRole('heading', { level: 2, name: /Private 1-on-1 Mentorship/i }))
 			.toBeInTheDocument();
 
-		render(BlogSection);
+		await render(BlogSection);
 		await expect
 			.element(
 				page.getByRole('heading', {
@@ -124,7 +124,7 @@ describe('Modular Homepage Section Components', () => {
 			}
 		];
 
-		render(StoreToolsSection, { tools: customTools });
+		await render(StoreToolsSection, { tools: customTools });
 
 		await expect
 			.element(
@@ -146,7 +146,7 @@ describe('Modular Homepage Section Components', () => {
 			}
 		];
 
-		render(FaqSection, { faqs: customFaqs });
+		await render(FaqSection, { faqs: customFaqs });
 
 		await expect
 			.element(
@@ -184,7 +184,7 @@ describe('Modular Homepage Section Components', () => {
 			}
 		};
 
-		render(ClosingSection, { content: customClosing, onPreviewNavigate: handlePreview });
+		await render(ClosingSection, { content: customClosing, onPreviewNavigate: handlePreview });
 
 		const primaryCta = page.getByRole('link', { name: /Join Swing Trading Room/i });
 		await expect.element(primaryCta).toBeInTheDocument();

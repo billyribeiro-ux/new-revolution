@@ -68,14 +68,14 @@
 		<div class="topbar-left">
 			<button type="button" class="btn-topbar" onclick={onBack}> Back to Posts </button>
 
-			<span class="topbar-title">
+			<h1 class="topbar-title">
 				{postId ? 'Edit Post' : 'Add New Post'}
 				{#if isDirty}
 					<span class="dirty-dot" title="Unsaved changes">
 						<span class="sr-only">Unsaved changes</span>
 					</span>
 				{/if}
-			</span>
+			</h1>
 
 			<span class={['status-pill', `status-${status}`]}>
 				{status.toUpperCase()}
@@ -204,6 +204,7 @@
 	}
 
 	.topbar-title {
+		margin: 0;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.45rem;

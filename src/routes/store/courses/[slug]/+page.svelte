@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -66,8 +67,7 @@
 			'Discover how Billy Ribeiro targets institutional accumulation, multi-timeframe volatility squeezes, and liquidity sweeps in any timeframe—before the retail breakout candle even prints.',
 		instructorName: 'Billy Ribeiro',
 		instructorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
-		instructorAvatar:
-			'https://revolutiontradingpros.com/wp-content/uploads/2025/05/Billy-no-grey-768x768.png.webp',
+		instructorAvatar: FOUNDER_PORTRAIT.src,
 		platformsSupported: 'Available for ThinkorSwim & TradingView • All Timeframes (1-Min to Weekly)'
 	};
 
@@ -406,7 +406,7 @@
 						<div class="hosted-by-box__profile">
 							<img
 								src={courseConfig.instructorAvatar}
-								alt={courseConfig.instructorName}
+								alt={FOUNDER_PORTRAIT.alt}
 								width="64"
 								height="64"
 								class="hosted-by-box__avatar"
@@ -1073,7 +1073,7 @@
 						<div class="instructor-box__profile">
 							<img
 								src={courseConfig.instructorAvatar}
-								alt="Billy Ribeiro — Founder of Revolution Trading Pros"
+								alt={FOUNDER_PORTRAIT.alt}
 								width="220"
 								height="220"
 								loading="lazy"

@@ -445,7 +445,7 @@
 					<h3>Lead Captures</h3>
 					<span class="chart-card__total">{fmt(kpis.leads30d)} in {kpis.windowDays}d</span>
 				</div>
-				{#if dailyLeads.length > 1}
+				{#if dailyLeads.length > 1 && leadSparkData.some((n) => n > 0)}
 					<div class="chart-card__body">
 						<SparkBar data={leadSparkData} color="#34d399" width={600} height={180} />
 					</div>
@@ -455,7 +455,7 @@
 						<span>{dailyLeads[dailyLeads.length - 1]?.date ?? ''}</span>
 					</div>
 				{:else}
-					<div class="chart-card__empty">No lead data yet.</div>
+					<div class="chart-card__empty">No leads captured in this period.</div>
 				{/if}
 			</div>
 
@@ -639,9 +639,10 @@
 	}
 
 	/* ── KPI Grid ──────────────────────────────────────────────────── */
+	/* Seven tiles (four KpiCards + three .kpi tiles): one row on wide screens. */
 	.kpi-grid {
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
+		grid-template-columns: repeat(7, minmax(0, 1fr));
 		gap: 1rem;
 		margin-top: 1.75rem;
 	}
@@ -992,6 +993,11 @@
 	}
 
 	/* ── Responsive ────────────────────────────────────────────────── */
+	@media (max-width: 1279px) {
+		.kpi-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
 	@media (max-width: 1024px) {
 		.kpi-grid {
 			grid-template-columns: repeat(3, 1fr);

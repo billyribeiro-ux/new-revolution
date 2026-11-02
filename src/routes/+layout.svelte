@@ -8,6 +8,10 @@
 
 	let { data, children }: LayoutProps = $props();
 
+	const isAdminArea = $derived(
+		page.url.pathname === '/admin' || page.url.pathname.startsWith('/admin/')
+	);
+
 	let metaTags = $derived.by(() => {
 		const merged = deepMerge(data.baseMetaTags, page.data.pageMetaTags);
 		if (page.error || page.status >= 400) {
@@ -33,14 +37,16 @@
 </script>
 
 <svelte:head>
-	<!-- Brand emblem icons (static/). Google requires favicon sizes that are multiples of 48px. -->
+	<!-- Brand emblem icons (static/). Google: square favicon, larger than 48x48 recommended, crawlable at a stable URL. -->
 	<link rel="icon" href={asset('favicon.ico')} sizes="48x48" />
 	<link rel="icon" href={asset('favicon-48x48.png')} type="image/png" sizes="48x48" />
 	<link rel="icon" href={asset('icon-192.png')} type="image/png" sizes="192x192" />
 	<link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
 </svelte:head>
 
-{#if !page.url.pathname.startsWith('/admin/login')}
+<!-- The admin tree is noindex and sets its own title and robots (admin/+layout.svelte), so it must not inherit the marketing meta.
+	 Its error pages render without that layout and still need the error title from MetaTags. -->
+{#if !isAdminArea || page.error}
 	<MetaTags {...metaTags} />
 {/if}
 

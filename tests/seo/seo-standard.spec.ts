@@ -202,9 +202,14 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 						link,
 						`${entry.url} breadcrumb item ${idx + 1} must be a navigable <a> link`
 					).toHaveCount(1);
+					// SvelteKit renders relative hrefs in server HTML ("./", "../") and root-relative ones after
+					// hydration, so compare where the link resolves, which is identical in both states.
 					const href = (await link.getAttribute('href')) ?? '';
+					const resolvedPath = new URL(href, page.url()).pathname;
 					const expectedPath = new URL(breadcrumbJsonUrls[idx]).pathname;
-					expect(href, `${entry.url} breadcrumb item ${idx + 1} href`).toBe(expectedPath);
+					expect(resolvedPath, `${entry.url} breadcrumb item ${idx + 1} href "${href}"`).toBe(
+						expectedPath
+					);
 				}
 
 				// Final breadcrumb item in DOM must have aria-current="page"

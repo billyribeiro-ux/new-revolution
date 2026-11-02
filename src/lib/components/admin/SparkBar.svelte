@@ -38,8 +38,9 @@
 			.paddingInner(0.25)
 			.paddingOuter(0.1);
 
+		// `|| 1`, not `?? 1`: an all-zero series has max 0, and a [0, 0] domain makes d3 draw every value mid-range.
 		const y = scaleLinear()
-			.domain([0, max(data) ?? 1])
+			.domain([0, max(data) || 1])
 			.range([height - padBottom, padTop]);
 
 		svg
@@ -47,9 +48,10 @@
 			.data(data)
 			.join('rect')
 			.attr('x', (_, i) => x(i) ?? 0)
-			.attr('y', (d) => y(d))
+			// A true zero is a 1px hairline: present on the axis, never mistaken for a value.
+			.attr('y', (d) => (d > 0 ? y(d) : height - padBottom - 1))
 			.attr('width', x.bandwidth())
-			.attr('height', (d) => height - padBottom - y(d))
+			.attr('height', (d) => (d > 0 ? height - padBottom - y(d) : 1))
 			.attr('rx', barRadius)
 			.attr('fill', color)
 			// A single bar is the latest one: full strength, not 0 / 0.

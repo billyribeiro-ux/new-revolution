@@ -50,7 +50,28 @@
 		if (href === '/admin') return currentPath === '/admin';
 		return currentPath === href || currentPath.startsWith(`${href}/`);
 	}
+
+	/** Editor routes sit under the Posts nav item but are different pages. */
+	const subPageTitles: Record<string, string> = {
+		'/admin/posts/new': 'New post',
+		'/admin/posts/[id]': 'Edit post'
+	};
+
+	/** One title per page, taken from the nav list so the tab, history and route announcements match the sidebar. */
+	const pageTitle = $derived(
+		(page.route.id && subPageTitles[page.route.id]) ||
+			navItems.find((item) => isActive(item.href))?.label ||
+			'Admin'
+	);
 </script>
+
+<!-- The login page sets its own head. Everything else under /admin is private: noindex, no marketing meta. -->
+<svelte:head>
+	{#if !isLoginRoute}
+		<title>{pageTitle} | Admin | Revolution Trading Pros</title>
+		<meta name="robots" content="noindex, nofollow" />
+	{/if}
+</svelte:head>
 
 {#if isLoginRoute}
 	{@render children()}
@@ -173,6 +194,18 @@
 {/if}
 
 <style>
+	/* WCAG 2.2 SC 2.5.8 (AA): pointer targets are at least 24x24 CSS px. Native checkboxes render at
+	   13x13, so every admin checkbox (row selects, category and tag lists, robots flags) is sized here once.
+	   The rich-text editor's own task-list boxes are left to the editor's styles. */
+	.admin-shell :global(input[type='checkbox']:not(.ProseMirror *)) {
+		inline-size: 1.5rem;
+		block-size: 1.5rem;
+		margin: 0;
+		flex: none;
+		accent-color: var(--acid);
+		cursor: pointer;
+	}
+
 	.admin-shell {
 		--font-heading: var(--font-display);
 		--font-body: var(--font-sans);

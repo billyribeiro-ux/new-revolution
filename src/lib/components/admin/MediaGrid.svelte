@@ -309,8 +309,8 @@
 		position: absolute;
 		top: 8px;
 		left: 8px;
-		width: 20px;
-		height: 20px;
+		width: 1.5rem;
+		height: 1.5rem;
 		margin: 0;
 		accent-color: var(--acid);
 		cursor: pointer;

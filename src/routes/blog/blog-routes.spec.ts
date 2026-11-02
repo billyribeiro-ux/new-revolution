@@ -503,19 +503,29 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		} as never);
 		expect(rss304.status).toBe(304);
 
-		// Sitemap includes published post with <image:image>
+		// While /blog is gated (launch-gate.ts) the sitemap lists no blog URL, even for a published post.
+		// TODO(launch): when '/blog' leaves UNLAUNCHED_ROUTE_PREFIXES restore the assertions that the post URL and
+		// its <image:image> are listed (see docs/seo/LAUNCH_TRACKER.md).
 		const sitemapRes = await getSitemap({
 			request: new Request('https://revolutiontradingpros.com/sitemap.xml')
 		} as never);
 		expect(sitemapRes.status).toBe(200);
 		const sitemapXml = await sitemapRes.text();
-		expect(sitemapXml).toContain(
-			'<loc>https://revolutiontradingpros.com/blog/options-gamma-exposure-playbook</loc>'
-		);
-		expect(sitemapXml).toContain('<image:image>');
+		expect(sitemapXml).not.toContain('/blog');
+		expect(sitemapXml).not.toContain('/store');
+		expect(sitemapXml).not.toContain('<image:image>');
+		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
 
-		// Simulated DB failure -> 503 with Retry-After: 60
+		// Simulated DB failure -> the sitemap still answers 200, because while gated it never queries the blog
+		// database (on a deployment without a connected database it used to be a 500).
 		setSimulatedDbFailure(new Error('DB connection lost'));
+		const sitemapDuringOutage = await getSitemap({
+			request: new Request('https://revolutiontradingpros.com/sitemap.xml')
+		} as never);
+		expect(sitemapDuringOutage.status).toBe(200);
+		expect(await sitemapDuringOutage.text()).toBe(sitemapXml);
+
+		// ...while the RSS feed, which does read the database, answers 503 with Retry-After: 60
 		const rss503 = await getRss({
 			request: new Request('https://revolutiontradingpros.com/rss.xml')
 		} as never);

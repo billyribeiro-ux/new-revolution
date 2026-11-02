@@ -20,8 +20,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                       | Owner session                                      | Area / files claimed                                                                                                                                                                                                                                                                                                                                                                                            | Started    | Status                       |
+| ---------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------- |
+| `feat/ymyl-launch-hardening` | Claude (YMYL / launch-readiness audit, 2026-11-02) | `src/lib/data/launch-gate.ts` (new), `src/lib/data/homepage.ts`, `src/routes/+page.svelte`, home sections (`HeroSection`, `CaseStudiesSection`), `Navbar.svelte`, `Footer.svelte`, `src/lib/seo/structured-data.ts` (`isNoIndexRoute`, founder/org entities), `src/routes/sitemap.xml/+server.ts`, `src/hooks.server.ts` (font preload filter), `vercel.json`, `docs/seo/*`, `docs/seo/audit/02-inventory.json` | 2026-11-02 | ready for review (no PR yet) |
 
 ## Recently finished
 

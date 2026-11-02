@@ -40,7 +40,7 @@
 	<section class="content-section" aria-labelledby="verification-h2">
 		<div class="section-header">
 			<span class="section-kicker">People Over Profits</span>
-			<h2 id="verification-h2" class="section-h2">Our Four Editorial Commitments</h2>
+			<h2 id="verification-h2" class="section-h2">Our Three Editorial Commitments</h2>
 		</div>
 		<div class="card-grid">
 			<article class="info-card">

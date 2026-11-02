@@ -40,7 +40,10 @@ import {
 	buildSwingTradingRoomJsonLd,
 	buildTermsOfServicePageJsonLd,
 	escapeJsonLdBlocksInHtml,
-	serializeJsonLd
+	serializeJsonLd,
+	buildFounderEntity,
+	buildOrganizationEntity,
+	isNoIndexRoute
 } from './structured-data.ts';
 
 const ORIGIN = 'https://example.com';
@@ -182,6 +185,68 @@ describe('buildHomepageJsonLd', () => {
 
 	it('satisfies graph integrity, excludes restricted/retired types, and omits single-item BreadcrumbList on root homepage (SD-05)', () => {
 		assertGraphIntegrity(graph, { isHomepage: true });
+	});
+
+	it('does not advertise gated store products, blog articles or navigation entries', () => {
+		const urls = JSON.stringify(graph);
+		expect(urls).not.toContain(`${ORIGIN}/store`);
+		expect(urls).not.toContain(`${ORIGIN}/blog`);
+		expect(graph.some((n) => n['@id'] === `${ORIGIN}/#latest-blogs`)).toBe(false);
+		const webpage = graph.find((n) => n['@id'] === `${ORIGIN}/#webpage`) as Node;
+		expect(webpage.hasPart).toEqual([{ '@id': `${ORIGIN}/#navigation` }]);
+	});
+});
+
+describe('founder and organization entities (YMYL entity signals)', () => {
+	const founder = buildFounderEntity(ORIGIN) as Node;
+	const org = buildOrganizationEntity(ORIGIN) as Node;
+
+	it('emits one Person node tied to the organization, titled exactly as the About page shows it', () => {
+		expect(founder['@type']).toBe('Person');
+		expect(founder['@id']).toBe(`${ORIGIN}/#founder`);
+		expect(founder.name).toBe('Billy Ribeiro');
+		expect(founder.jobTitle).toBe('Founder & Head Trader');
+		expect(founder.worksFor).toEqual({ '@id': `${ORIGIN}/#organization` });
+		expect(org.founder).toEqual({ '@id': `${ORIGIN}/#founder` });
+	});
+
+	it('asserts no unevidenced performance or endorsement claims in machine-readable form', () => {
+		const text = JSON.stringify(founder);
+		expect(text).not.toMatch(/McGoldrick|Goldman|OXY|600%|future of trading|2020|2022/);
+	});
+
+	it('publishes no telephone or email until real values exist in SUPPORT_CONTACT', () => {
+		const contact = org.contactPoint as Node;
+		expect(contact.contactType).toBe('customer support');
+		expect(contact.url).toBe(`${ORIGIN}/contact`);
+		expect(contact).not.toHaveProperty('telephone');
+		expect(contact).not.toHaveProperty('email');
+	});
+});
+
+describe('isNoIndexRoute launch gate', () => {
+	it.each([
+		'/store',
+		'/store/courses',
+		'/store/indicators/move-prior-to-the-move-system',
+		'/blog',
+		'/blog/any-post',
+		'/blog/tag/spx-options'
+	])('treats %s as noindex while it is gated', (path) => {
+		expect(isNoIndexRoute(path)).toBe(true);
+	});
+
+	it.each(['/', '/about', '/mentorship', '/resources/etf-stocks-list', '/blogger', '/storefront'])(
+		'leaves %s indexable',
+		(path) => {
+			expect(isNoIndexRoute(path)).toBe(false);
+		}
+	);
+
+	it('still blocks the always-private prefixes', () => {
+		for (const path of ['/admin', '/admin/login', '/login', '/checkout', '/demo/playwright']) {
+			expect(isNoIndexRoute(path)).toBe(true);
+		}
 	});
 });
 

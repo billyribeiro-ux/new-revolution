@@ -2,7 +2,8 @@ import { definePageMetaTags } from 'svelte-meta-tags';
 import {
 	buildSingleScannerJsonLd,
 	getCanonicalUrl,
-	SITE_ORIGIN
+	SITE_ORIGIN,
+	isNoIndexRoute
 } from '#lib/seo/structured-data.ts';
 import type { EntryGenerator, PageLoad } from './$types';
 
@@ -29,15 +30,17 @@ export const entries: EntryGenerator = () => [
 export const load: PageLoad = ({ url, params }) => {
 	const slug = params?.slug || FLAGSHIP_SLUG;
 	const isFlagship = slug === FLAGSHIP_SLUG;
+	// The flagship is the only indexable product, and only once /store has launched (#lib/data/launch-gate.ts).
+	const indexable = isFlagship && !isNoIndexRoute(url.pathname);
 	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
 		// 27 chars before suffix -> "High Octane Options Scanner | Revolution Trading Pros" (53 chars total)
 		title: 'High Octane Options Scanner',
 		description: DESCRIPTION,
-		canonical: isFlagship ? canonicalUrl : undefined,
-		robots: isFlagship ? 'index, follow' : 'noindex, nofollow',
-		additionalRobotsProps: isFlagship
+		canonical: indexable ? canonicalUrl : undefined,
+		robots: indexable ? 'index, follow' : 'noindex, nofollow',
+		additionalRobotsProps: indexable
 			? {
 					maxSnippet: -1,
 					maxImagePreview: 'large',

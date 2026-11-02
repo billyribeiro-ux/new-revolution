@@ -139,7 +139,7 @@
 		"app": "root",
 		"route": "/store/courses",
 		"url": "/store/courses",
-		"indexable": true,
+		"indexable": false,
 		"template": "listing",
 		"paramSource": "static (src/routes/store/courses/+page.ts:11 prerender=true)"
 	},
@@ -147,7 +147,7 @@
 		"app": "root",
 		"route": "/store/indicators",
 		"url": "/store/indicators",
-		"indexable": true,
+		"indexable": false,
 		"template": "listing",
 		"paramSource": "static (src/routes/store/indicators/+page.ts:11 prerender=true)"
 	},
@@ -155,7 +155,7 @@
 		"app": "root",
 		"route": "/store/scanners",
 		"url": "/store/scanners",
-		"indexable": true,
+		"indexable": false,
 		"template": "listing",
 		"paramSource": "static (src/routes/store/scanners/+page.ts:11 prerender=true)"
 	},
@@ -163,7 +163,7 @@
 		"app": "root",
 		"route": "/store/courses/[slug]",
 		"url": "/store/courses/move-prior-to-the-move-ultra",
-		"indexable": true,
+		"indexable": false,
 		"template": "product",
 		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
 	},
@@ -235,7 +235,7 @@
 		"app": "root",
 		"route": "/store/indicators/[slug]",
 		"url": "/store/indicators/move-prior-to-the-move-system",
-		"indexable": true,
+		"indexable": false,
 		"template": "product",
 		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
 	},
@@ -371,7 +371,7 @@
 		"app": "root",
 		"route": "/store/scanners/[slug]",
 		"url": "/store/scanners/high-octane-scanner",
-		"indexable": true,
+		"indexable": false,
 		"template": "product",
 		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
 	},
@@ -443,7 +443,7 @@
 		"app": "root",
 		"route": "/blog",
 		"url": "/blog",
-		"indexable": true,
+		"indexable": false,
 		"template": "listing",
 		"paramSource": "SSR (src/routes/blog/+page.server.ts:8 prerender=false)"
 	},
@@ -451,7 +451,7 @@
 		"app": "root",
 		"route": "/blog/[slug]",
 		"url": "/blog/institutional-order-flow-and-gamma-flip-playbook",
-		"indexable": true,
+		"indexable": false,
 		"template": "article",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:169-197 + content/blog-posts/blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md"
 	},
@@ -459,7 +459,7 @@
 		"app": "root",
 		"route": "/blog/[slug]",
 		"url": "/blog/zero-dte-risk-management-and-position-sizing-rules",
-		"indexable": true,
+		"indexable": false,
 		"template": "article",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:199-227 + content/blog-posts/blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md"
 	},
@@ -475,7 +475,7 @@
 		"app": "root",
 		"route": "/blog/category/[slug]",
 		"url": "/blog/category/market-structure",
-		"indexable": true,
+		"indexable": false,
 		"template": "listing",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:126-137 (postCount >= 2)"
 	},

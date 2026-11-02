@@ -128,11 +128,24 @@ describe('buildBlogPostJsonLd retired schema types', () => {
 });
 
 describe('buildBlogPageMetaTags', () => {
+	it('forces noindex and no canonical on every /blog path while the blog is gated (launch-gate.ts)', () => {
+		const gated = buildBlogPageMetaTags({
+			title: 'SPX 0DTE Guide',
+			description: 'Educational breakdown of SPX 0DTE gamma exposure and execution risk.',
+			pathname: '/blog/spx-0dte-guide',
+			canonicalOverride: 'https://revolutiontradingpros.com/blog/flagship-spx-guide',
+			indexable: true
+		});
+		expect(gated.pageMetaTags.robots).toBe('noindex, follow');
+		expect(gated.pageMetaTags.canonical).toBeUndefined();
+	});
+
+	// A non-gated pathname isolates the directive logic that applies once the blog launches.
 	it('honors canonicalOverride, preview nofollow, noarchive, and nosnippet directives', () => {
 		const overridden = buildBlogPageMetaTags({
 			title: 'SPX 0DTE Guide',
 			description: 'Educational breakdown of SPX 0DTE gamma exposure and execution risk.',
-			pathname: '/blog/spx-0dte-guide',
+			pathname: '/guides/spx-0dte-guide',
 			canonicalOverride: 'https://revolutiontradingpros.com/blog/flagship-spx-guide',
 			noarchive: true,
 			nosnippet: true
@@ -145,7 +158,7 @@ describe('buildBlogPageMetaTags', () => {
 		const previewMeta = buildBlogPageMetaTags({
 			title: 'Draft Preview',
 			description: 'Draft preview description.',
-			pathname: '/blog/draft-preview',
+			pathname: '/guides/draft-preview',
 			indexable: false,
 			nofollow: true
 		});

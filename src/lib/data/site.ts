@@ -53,3 +53,13 @@ export const FOUNDER_PORTRAIT = {
 	src: '/icon-512.png',
 	alt: 'Revolution Trading Pros emblem'
 } as const;
+
+/**
+ * The founder as shown to readers and emitted as the `Person` node (`#founder`) in JSON-LD. One value so the
+ * visible byline and the structured data cannot drift apart (they disagreed before: "Head Market Strategist"
+ * on /about, "Head Institutional Trader" in the schema).
+ */
+export const FOUNDER = {
+	name: 'Billy Ribeiro',
+	jobTitle: 'Founder & Head Trader'
+} as const;

@@ -8,7 +8,8 @@ import {
 import { coursesCatalog } from '#lib/data/courses.ts';
 import { featuredETFs } from '#lib/data/etf-stocks-list.ts';
 import { indicatorsCatalog } from '#lib/data/indicators.ts';
-import { SOCIAL_LINKS } from '#lib/data/site.ts';
+import { FOUNDER, SOCIAL_LINKS, SUPPORT_CONTACT } from '#lib/data/site.ts';
+import { isLaunchedHref, isUnlaunchedRoute } from '#lib/data/launch-gate.ts';
 
 export const BRAND_NAME = 'Revolution Trading Pros';
 export const BRAND_SLOGAN = 'Educate. Innovate. Prosper.';
@@ -48,8 +49,12 @@ export function getCanonicalUrl(url: Pick<URL, 'pathname'>): string {
 }
 
 export function isNoIndexRoute(pathname: string): boolean {
-	return NOINDEX_ROUTE_PREFIXES.some(
-		(prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+	return (
+		NOINDEX_ROUTE_PREFIXES.some(
+			(prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+		) ||
+		// Routes behind the launch gate (`#lib/data/launch-gate.ts`) stay out of the index until they launch.
+		isUnlaunchedRoute(pathname)
 	);
 }
 
@@ -280,7 +285,10 @@ export function buildOrganizationEntity(origin: string) {
 			'@type': 'ContactPoint',
 			contactType: 'customer support',
 			url: `${origin}/contact`,
-			availableLanguage: ['en-US', 'en-CA']
+			availableLanguage: ['en-US', 'en-CA'],
+			// Only real, published values: `SUPPORT_CONTACT` is empty until the owner supplies them.
+			...(SUPPORT_CONTACT.phone ? { telephone: SUPPORT_CONTACT.phone } : {}),
+			...(SUPPORT_CONTACT.email ? { email: SUPPORT_CONTACT.email } : {})
 		},
 		hasOfferCatalog: {
 			'@id': `${origin}/#offer-catalog`
@@ -292,14 +300,16 @@ export function buildFounderEntity(origin: string) {
 	return {
 		'@type': 'Person',
 		'@id': `${origin}/#founder`,
-		name: 'Billy Ribeiro',
-		jobTitle: 'Founder & Head Institutional Trader',
+		name: FOUNDER.name,
+		jobTitle: FOUNDER.jobTitle,
 		url: `${origin}/about`,
 		worksFor: {
 			'@id': `${origin}/#organization`
 		},
+		// Deliberately claim-free: mentorship and performance statements are not machine-asserted here because
+		// no primary evidence is published for them. The founder's own account is on /about#institutional-mentorship.
 		description:
-			'Founder of Revolution Trading Pros. Mentored directly by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." Known for calling the 2020 and 2022 market cycle tops and bottoms and executing a live 600% overnight return on Occidental Petroleum (OXY) Put Options.',
+			'Founder of Revolution Trading Pros, a stock and options trading education company.',
 		knowsAbout: [
 			'Institutional Order Flow Execution',
 			'Options Day Trading and Swing Trading',
@@ -310,14 +320,17 @@ export function buildFounderEntity(origin: string) {
 	};
 }
 
+/** Offerings that are live; store products behind the launch gate are not advertised to search engines. */
+const LAUNCHED_OFFERINGS = CANONICAL_OFFERINGS.filter((offering) => isLaunchedHref(offering.path));
+
 export function buildOfferCatalogEntity(origin: string) {
 	return {
 		'@type': 'OfferCatalog',
 		'@id': `${origin}/#offer-catalog`,
 		name: 'Revolution Trading Pros Trading Rooms, Alert Services, Mentorship & Store',
 		url: `${origin}/live-trading-rooms/day-trading-room`,
-		numberOfItems: CANONICAL_OFFERINGS.length,
-		itemListElement: CANONICAL_OFFERINGS.map((offering, index) => ({
+		numberOfItems: LAUNCHED_OFFERINGS.length,
+		itemListElement: LAUNCHED_OFFERINGS.map((offering, index) => ({
 			'@type': offering.schemaType,
 			'@id': `${origin}${offering.path}#${offering.schemaType.toLowerCase()}`,
 			position: index + 1,
@@ -354,6 +367,8 @@ export function buildWebSiteEntity(origin: string) {
 
 export function buildHomepageJsonLd(origin: string) {
 	const navigationElements = buildNavigationElements(origin);
+	// The homepage blog section is hidden while /blog is gated, so its list must not be in the graph either.
+	const blogListed = isLaunchedHref('/blog');
 
 	return {
 		'@graph': [
@@ -381,7 +396,10 @@ export function buildHomepageJsonLd(origin: string) {
 				mainEntity: {
 					'@id': `${origin}/#offer-catalog`
 				},
-				hasPart: [{ '@id': `${origin}/#navigation` }, { '@id': `${origin}/#latest-blogs` }]
+				hasPart: [
+					{ '@id': `${origin}/#navigation` },
+					...(blogListed ? [{ '@id': `${origin}/#latest-blogs` }] : [])
+				]
 			},
 			{
 				'@type': 'ItemList',
@@ -390,18 +408,22 @@ export function buildHomepageJsonLd(origin: string) {
 				numberOfItems: navigationElements.length,
 				itemListElement: navigationElements
 			},
-			{
-				'@type': 'ItemList',
-				'@id': `${origin}/#latest-blogs`,
-				name: 'Latest Market Intelligence Articles',
-				numberOfItems: BLOG_ARTICLES.length,
-				itemListElement: BLOG_ARTICLES.map((article, idx) => ({
-					'@type': 'ListItem',
-					position: idx + 1,
-					url: `${origin}${article.href}`,
-					name: article.title
-				}))
-			}
+			...(blogListed
+				? [
+						{
+							'@type': 'ItemList',
+							'@id': `${origin}/#latest-blogs`,
+							name: 'Latest Market Intelligence Articles',
+							numberOfItems: BLOG_ARTICLES.length,
+							itemListElement: BLOG_ARTICLES.map((article, idx) => ({
+								'@type': 'ListItem',
+								position: idx + 1,
+								url: `${origin}${article.href}`,
+								name: article.title
+							}))
+						}
+					]
+				: [])
 		]
 	};
 }

@@ -52,7 +52,7 @@
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>2. Options &amp; Leverage Risk Disclosure</h3>
+				<h3 id="options-leverage-risk-disclosure">2. Options &amp; Leverage Risk Disclosure</h3>
 				<p>
 					Options trading involves substantial risk of loss and is not suitable for every investor.
 					Before trading options, read the Characteristics and Risks of Standardized Options

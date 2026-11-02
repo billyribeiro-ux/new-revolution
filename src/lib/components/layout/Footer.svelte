@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import logo from '#lib/assets/REvolution-Trading-Pros-logo.png?enhanced';
 	import { FOOTER_COLUMNS } from '#lib/data/homepage.ts';
 	import PreFooter from './PreFooter.svelte';
 	import EnvelopeIcon from 'phosphor-svelte/lib/EnvelopeIcon';
@@ -52,7 +51,12 @@
 					onclick={(e) => handleClick('/', 'top', e)}
 				>
 					<span class="brand-logo-wrap">
-						<enhanced:img src={logo} alt="Revolution Trading Pros emblem" />
+						<enhanced:img
+							src="#lib/assets/REvolution-Trading-Pros-logo.png?w=360"
+							alt="Revolution Trading Pros emblem"
+							loading="lazy"
+							decoding="async"
+						/>
 					</span>
 					<span class="brand-text">
 						<span class="brand-name">REVOLUTION<br />TRADING PROS</span>
@@ -98,9 +102,7 @@
 				than their initial investment. Leverage, short-term trading, market volatility, and
 				liquidity can increase the risk of loss. Educational content, hypothetical examples, trade
 				ideas, alerts, and commentary are not guarantees of performance. Past performance does not
-				predict future results. Consult appropriately registered professionals where needed. The
-				regulatory status, geographic eligibility, and full legal disclosures of any offered
-				services must be reviewed before launch.
+				predict future results. Consult appropriately registered professionals where needed.
 			</p>
 		</div>
 

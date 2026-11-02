@@ -5,6 +5,7 @@ import {
 	createFeedErrorResponse,
 	matchesIfNoneMatch
 } from '#lib/server/posts/cache';
+import { isUnlaunchedRoute } from '#lib/data/launch-gate';
 import { listPublicCategoriesWithCounts } from '#lib/server/services/categories';
 import { listSitemapBlogEntries } from '#lib/server/services/posts';
 import { listPublicTagsWithCounts } from '#lib/server/services/tags';
@@ -50,7 +51,9 @@ export const GET: RequestHandler = async ({ request }) => {
 					!route.startsWith('/register') &&
 					!route.startsWith('/dashboard') &&
 					!route.startsWith('/admin') &&
-					!route.startsWith('/checkout')
+					!route.startsWith('/checkout') &&
+					// Routes behind the launch gate are noindex, so listing them would contradict their robots tag.
+					!isUnlaunchedRoute(route)
 				);
 			})
 			.sort((a, b) => {
@@ -68,14 +71,19 @@ export const GET: RequestHandler = async ({ request }) => {
 			{ path: '/store/courses/move-prior-to-the-move-ultra' },
 			{ path: '/store/indicators/move-prior-to-the-move-system' },
 			{ path: '/store/scanners/high-octane-scanner' }
-		].filter(({ path }) => hasRoute(path));
+		].filter(({ path }) => hasRoute(path) && !isUnlaunchedRoute(path));
 
 		// 3. DB-backed public blog posts, indexable categories, and indexable tags (Section 10.8)
-		const [publicPosts, publicCategories, publicTags] = await Promise.all([
-			listSitemapBlogEntries(),
-			listPublicCategoriesWithCounts(),
-			listPublicTagsWithCounts()
-		]);
+		// While /blog is gated none of it is listed, so the database is not queried at all. That also keeps the
+		// sitemap answering 200 on a deployment whose blog database is not connected yet (it was a 500 there).
+		const blogListed = !isUnlaunchedRoute('/blog');
+		const [publicPosts, publicCategories, publicTags] = blogListed
+			? await Promise.all([
+					listSitemapBlogEntries(),
+					listPublicCategoriesWithCounts(),
+					listPublicTagsWithCounts()
+				])
+			: [[], [], []];
 
 		let newestBlogModifiedIso: string | undefined;
 		for (const post of publicPosts) {

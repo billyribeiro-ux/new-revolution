@@ -9,6 +9,7 @@
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
+	import { FOUNDER } from '#lib/data/site.ts';
 	import { ABOUT_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import type { PageProps } from './$types';
 
@@ -274,10 +275,11 @@
 
 				<dl class="credentials-list">
 					<div class="credentials-list__row">
-						<dt>Founder &amp; Head Market Strategist</dt>
+						<dt>{FOUNDER.jobTitle}</dt>
 						<dd>
-							<strong>Billy Ribeiro</strong> — Founder &amp; Head Market Strategist at Revolution
-							Trading Pros (<time datetime="2026-10-31">Updated October 31, 2026</time>).
+							<strong>{FOUNDER.name}</strong> — {FOUNDER.jobTitle} at Revolution Trading Pros (<time
+								datetime="2026-10-31">Updated October 31, 2026</time
+							>).
 						</dd>
 					</div>
 					<div class="credentials-list__row">
@@ -371,7 +373,7 @@
 						</strong>
 					</p>
 
-					<h3 class="subsection-h3 origin-narrative__spaced">
+					<h3 id="institutional-mentorship" class="subsection-h3 origin-narrative__spaced">
 						2. The Goldman Sachs Mentorship: Learning From Mark "Goldfinger" McGoldrick
 					</h3>
 					<p class="body-paragraph">

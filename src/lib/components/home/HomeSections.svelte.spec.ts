@@ -12,13 +12,18 @@ import MentorshipSection from './MentorshipSection.svelte';
 import BlogSection from './BlogSection.svelte';
 import FaqSection from './FaqSection.svelte';
 import ClosingSection from './ClosingSection.svelte';
-import type { CaseStudy, ClosingContent, FaqItem, StoreToolCard } from '#lib/data/homepage.ts';
+import type {
+	ClosingContent,
+	FaqItem,
+	StoreToolCard,
+	VerifiedCaseStudy
+} from '#lib/data/homepage.ts';
 
 describe('Modular Homepage Section Components', () => {
-	it('renders HeroSection with deskStatus and custom proofItems/trustMetrics overrides', async () => {
+	it('renders HeroSection with deskStatus and custom standardItems/trustMetrics overrides', async () => {
 		await render(HeroSection, {
 			deskStatus: { edition: 'DOSSIER / 002', statusLabel: 'VERIFIED' },
-			proofItems: [
+			standardItems: [
 				{
 					number: '01',
 					title: 'Custom Institutional Proof Item',
@@ -35,23 +40,87 @@ describe('Modular Homepage Section Components', () => {
 		await expect.element(page.getByText('Options & Equities')).toBeInTheDocument();
 	});
 
-	it('renders CaseStudiesSection with custom studies prop overrides for cross-route reuse', async () => {
-		const customStudies: CaseStudy[] = [
+	it('renders HeroSection with attributed founder claim, a link to the About anchor, and no pending markers', async () => {
+		await render(HeroSection, {
+			deskStatus: { edition: 'THE EXECUTION DOSSIER / 001', statusLabel: 'RISK FIRST' }
+		});
+
+		const body = document.body.textContent ?? '';
+		expect(body).not.toMatch(/PROOF PENDING|DOCUMENTATION PENDING|publication pending|Publish:/i);
+
+		const link = page.getByRole('link', {
+			name: 'Read the background and context on our About page.'
+		});
+		await expect.element(link).toBeInTheDocument();
+		expect(document.querySelector('a.authority-link')?.getAttribute('href')).toMatch(
+			/about#institutional-mentorship$/
+		);
+
+		// The third-party name must not appear inside the unattributed brand slogan.
+		expect(document.querySelector('blockquote.hero-slogan')?.textContent).not.toContain(
+			'McGoldrick'
+		);
+	});
+
+	it('renders nothing for CaseStudiesSection by default or when a record is incomplete', async () => {
+		const { container } = await render(CaseStudiesSection);
+		expect(container.querySelector('section')).toBeNull();
+
+		const incomplete = {
+			id: 'x',
+			kicker: '01 / X',
+			title: 'Half-filled trade',
+			summary: 'Missing most of its evidence.',
+			contractSymbol: '',
+			strike: '',
+			expiration: 'soon',
+			enteredAt: '',
+			exitedAt: '',
+			positionSize: '',
+			maxRisk: '',
+			result: '',
+			chart: { src: '', width: 1200, height: 675, alt: '' }
+		} satisfies VerifiedCaseStudy;
+		const second = await render(CaseStudiesSection, { studies: [incomplete] });
+		expect(second.container.querySelector('section')).toBeNull();
+	});
+
+	it('renders a fully documented CaseStudiesSection record with every evidence field and chart dimensions', async () => {
+		const studies: VerifiedCaseStudy[] = [
 			{
-				kicker: 'SPX 0DTE Case Study',
-				state: 'Documented',
+				id: 'fixture',
+				kicker: '01 / FIXTURE',
 				title: 'SPX 5800 Call Spread Execution',
-				description: 'Planned pre-market gamma wall inflection with defined 1R risk.',
-				evidenceRequirement: 'timestamped alert log, option chain snapshot, and exit fill.'
+				summary: 'Planned pre-market gamma wall inflection with defined 1R risk.',
+				contractSymbol: 'SPXW260116C05800000',
+				strike: '$5,800',
+				expiration: '2026-01-16',
+				enteredAt: '2026-01-14T09:45:00-05:00',
+				exitedAt: '2026-01-14T15:10:00-05:00',
+				positionSize: '2 contracts',
+				maxRisk: '$640',
+				result: 'Fixture result',
+				chart: {
+					src: '/fixture.webp',
+					width: 1200,
+					height: 675,
+					alt: 'SPX 15-minute chart showing price rejecting the 5800 gamma wall'
+				}
 			}
 		];
 
-		await render(CaseStudiesSection, { studies: customStudies });
+		await render(CaseStudiesSection, { studies });
 
 		await expect
 			.element(page.getByRole('heading', { level: 3, name: 'SPX 5800 Call Spread Execution' }))
 			.toBeInTheDocument();
-		await expect.element(page.getByText('SPX 0DTE Case Study')).toBeInTheDocument();
+		await expect.element(page.getByText('SPXW260116C05800000')).toBeInTheDocument();
+		await expect.element(page.getByText('Maximum risk')).toBeInTheDocument();
+		const img = document.querySelector('img.case-chart');
+		expect(img?.getAttribute('width')).toBe('1200');
+		expect(img?.getAttribute('height')).toBe('675');
+		expect(img?.getAttribute('alt')).toContain('gamma wall');
+		expect(document.querySelectorAll('dl.case-facts time').length).toBe(3);
 	});
 
 	it('renders ManifestoSection with scoped WCAG AA negative comparison styling', async () => {

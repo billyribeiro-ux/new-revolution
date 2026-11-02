@@ -19,6 +19,22 @@ const SKIPPED_REDIRECT_PREFIXES = [
 	'/rss.xml'
 ];
 
+/**
+ * Font files worth a `<link rel="preload">`: the upright Latin faces that paint the first screen of text.
+ * Fontsource ships each family as unicode-range subsets (cyrillic, greek, vietnamese, latin-ext) plus italics,
+ * and the browser fetches those only when a character needs them, so preloading all 18 files made every page
+ * download fonts it never used and delayed first paint. Matching is on the file name, which is stable across
+ * the content hash (`montserrat-latin-wght-normal.<hash>.woff2`) and also present in the source `filename`.
+ */
+const PRELOADED_FONT_FILES = ['montserrat-latin-wght-normal.', 'sofia-sans-latin-wght-normal.'];
+
+export function shouldPreload(input: { type: string; path: string; filename?: string }): boolean {
+	if (input.type === 'js' || input.type === 'css') return true;
+	if (input.type !== 'font') return false;
+	const name = input.filename ?? input.path;
+	return PRELOADED_FONT_FILES.some((file) => name.includes(file));
+}
+
 export function isNonProductionHost(hostname: string): boolean {
 	const vercelEnv = process.env.VERCEL_ENV || process.env.CF_PAGES_BRANCH || '';
 	if (vercelEnv && vercelEnv !== 'production' && vercelEnv !== 'main') {
@@ -164,7 +180,7 @@ const handleApp: Handle = async ({ event, resolve }) => {
 	const customResolve: typeof resolve = (resolvedEvent, opts) =>
 		resolve(resolvedEvent, {
 			...opts,
-			preload: ({ type }) => type === 'js' || type === 'css' || type === 'font',
+			preload: shouldPreload,
 			transformPageChunk: ({ html, done }) => {
 				const transformed = opts?.transformPageChunk
 					? opts.transformPageChunk({ html, done })

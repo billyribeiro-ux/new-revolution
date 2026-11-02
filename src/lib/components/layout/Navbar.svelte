@@ -3,8 +3,8 @@
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 	import { prefersReducedMotion } from 'svelte/motion';
-	import logo from '#lib/assets/REvolution-Trading-Pros-logo.png?enhanced';
 	import { MAIN_NAVIGATION } from '#lib/data/homepage.ts';
+	import { FREE_EBOOK_AVAILABLE } from '#lib/data/launch-gate.ts';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import BookOpenIcon from 'phosphor-svelte/lib/BookOpenIcon';
 	import ShieldCheckIcon from 'phosphor-svelte/lib/ShieldCheckIcon';
@@ -118,14 +118,16 @@
 				1-on-1 Mentorship
 				<ArrowUpRightIcon size={13} weight="bold" aria-hidden="true" />
 			</a>
-			<a
-				href={resolve('/resources' as '/')}
-				onclick={(e) => handleLinkClick('/resources', 'ebook', e)}
-			>
-				<BookOpenIcon size={16} weight="bold" aria-hidden="true" />
-				Free Trading eBook
-				<ArrowUpRightIcon size={13} weight="bold" aria-hidden="true" />
-			</a>
+			{#if FREE_EBOOK_AVAILABLE}
+				<a
+					href={resolve('/resources' as '/')}
+					onclick={(e) => handleLinkClick('/resources', 'ebook', e)}
+				>
+					<BookOpenIcon size={16} weight="bold" aria-hidden="true" />
+					Free Trading eBook
+					<ArrowUpRightIcon size={13} weight="bold" aria-hidden="true" />
+				</a>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -139,7 +141,14 @@
 			onclick={(e) => handleLinkClick('/', 'top', e)}
 		>
 			<span class="brand-logo-wrap">
-				<enhanced:img src={logo} alt="Revolution Trading Pros emblem" fetchpriority="high" />
+				<!-- ?w=360: the emblem is drawn at most ~174x46 CSS px (object-fit: cover), so 360 px covers 2x DPR. The 3163 px source
+						made the browser fetch a ~1600-3200 px wide file for a 46 px box. -->
+				<enhanced:img
+					src="#lib/assets/REvolution-Trading-Pros-logo.png?w=360"
+					alt="Revolution Trading Pros emblem"
+					fetchpriority="high"
+					decoding="async"
+				/>
 			</span>
 			<span class="brand-text">
 				<span class="brand-name">REVOLUTION<br />TRADING PROS</span>

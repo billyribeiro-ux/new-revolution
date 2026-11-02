@@ -9,6 +9,37 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-02 — YMYL and launch-readiness hardening (`feat/ymyl-launch-hardening`)
+
+Audit of the temporary Vercel deployment against a launch-readiness brief. Each item was checked against the built output, the live temp URL and Google/Vercel/SvelteKit primary sources first; what the evidence disproved was left alone and is listed in [`docs/seo/LAUNCH_TRACKER.md`](docs/seo/LAUNCH_TRACKER.md) §E.
+
+#### Added (2026-11-02)
+
+- **Launch gate** (`src/lib/data/launch-gate.ts`, `TEMPORARY` T10): `/store/*` and `/blog/*` are removed from the navigation, footer, homepage sections, sitemap, offer-catalog and homepage JSON-LD, and emit `noindex` with no canonical (`isNoIndexRoute`, store product pages, `buildBlogPageMetaTags`). `static/robots.txt` is unchanged on purpose (`docs/seo/DECISIONS.md` §5).
+- **`VerifiedCaseStudy` + `isPublishableCaseStudy`** (`homepage.ts`, `TEMPORARY` T11): the homepage "receipts" section renders only fully documented trades (contract symbol, strike, expiration, entry/exit timestamps, size, maximum risk, result, 1200×675 chart with alt). There are none yet, so it does not render.
+- **`vercel.json` headers:** `X-Robots-Tag: noindex, nofollow, noarchive` on hosts ending `.vercel.app` (prerendered pages never reach the `handle` hook), plus `X-Content-Type-Options`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy`.
+- **Footer "Risk Disclosure"** link to `/terms-of-service#options-leverage-risk-disclosure`; `id="institutional-mentorship"` on the About mentorship heading.
+- `FOUNDER` in `src/lib/data/site.ts` (one name and title for the byline and the schema `Person`).
+- Docs: `docs/seo/LAUNCH_TRACKER.md`, `docs/seo/DECISIONS.md` §5, `docs/SEO_EVIDENCE.md` rows 34-39.
+
+#### Changed (2026-11-02)
+
+- **Homepage copy is free of authoring text:** removed "Evidence publication pending", "PROOF PENDING", three "DOCUMENTATION PENDING" cards, the "SVELTE 5 / SVELTEKIT 3.1 ENTERPRISE BLUEPRINT" watermark, the "Preview route…" toast and its link interception (it also swallowed any `href` with a `#fragment`), and the footer sentence "…must be reviewed before launch." The hero panel now restates `/editorial-policy`; the founder's mentorship is worded as the founder's own account with a link to `/about#institutional-mentorship`; the CTA "See Track Record & Evidence" is "Meet the Founder".
+- **Fonts:** `shouldPreload` in `src/hooks.server.ts` preloads 2 of 18 font files (upright Latin faces only). Lab result on a mobile profile, same machine, median of 5: LCP 1248 → 852 ms, CLS 0.0055 → 0, 18 → 3 font requests.
+- **Logo:** `?w=360` on both `<enhanced:img>` (was a 3163 px source for a ~46 px box); `width="360" height="95"`, AVIF 5.9 KB (was 25–32 KB), `decoding="async"`.
+- **Schema:** founder `Person` description no longer asserts mentorship or performance claims and its `jobTitle` matches the visible byline; Organization `contactPoint` adds `telephone`/`email` only from `SUPPORT_CONTACT` (empty today).
+- Homepage HTML 141,988 → 107,481 bytes.
+
+#### Removed (2026-11-02)
+
+- The homepage eBook form, the announcement-bar eBook link and the footer eBook link are hidden (`FREE_EBOOK_AVAILABLE = false`): the form only validated and sent nothing, and the eBook does not exist.
+
+#### Fixed (2026-11-02)
+
+- **`/sitemap.xml` returned HTTP 500 on the deployed temp URL** because it queried a blog database that is not connected there. While `/blog` is gated it runs no blog queries. (`/blog` and `/rss.xml` still 500 there until `DATABASE_URL` is set; `LAUNCH_TRACKER.md` §A.)
+- `/editorial-policy` heading said "Four Editorial Commitments" above three cards.
+- Tests: updated for the gate and new copy (`homepage.spec.ts`, `HomeSections.svelte.spec.ts`, `blog-seo.spec.ts`, `blog-routes.spec.ts`, `page.svelte.e2e.ts`, `tests/seo/seo-standard.spec.ts`, `docs/seo/audit/02-inventory.json`); added `launch-gate.spec.ts`, the `shouldPreload` cases, and structured-data cases. `page.svelte.e2e.ts` `.reveal` floor 20 → 15 because three sections are gated (17 present).
+
 ### 2026-11-02 — Toolchain migrated to Vite+ (`vp`)
 
 #### Changed (2026-11-02)

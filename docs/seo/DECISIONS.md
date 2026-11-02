@@ -40,3 +40,17 @@
   - `Course`, `CourseInstance`, and `SpeakableSpecification` JSON-LD removed from all pages (project policy: the Course list carousel and Speakable beta are still in Google's 2026-10-16 gallery but do not fit this site).
 - **Visible Price Parity for `Product` + `Offer` (`SD-08`):**
   - `Product` + `Offer` (`AggregateOffer` with `$47`–`$447` USD pricing and `image`) is emitted only on `/watchlist`, where those exact prices are visibly rendered in the DOM (`[CODE src/lib/seo/structured-data.ts:1388-1409]`).
+
+---
+
+## 5. Launch Gate, Temporary-Host Protection & Unevidenced Claims (`IDX-08`, `YMYL-03`, `YMYL-06`)
+
+**Recorded:** 2026-11-02 · **Authority:** Repository Owner (`Billy Ribeiro`), launch-readiness audit. Evidence for every line is in [`LAUNCH_TRACKER.md`](LAUNCH_TRACKER.md) and `docs/SEO_EVIDENCE.md` rows 34-39.
+
+- **Unlaunched sections are kept out with `noindex`, not robots.txt.** `/store/*` and `/blog/*` are listed in `UNLAUNCHED_ROUTE_PREFIXES` (`src/lib/data/launch-gate.ts`). While listed they are removed from the navigation, footer, homepage sections, `sitemap.xml`, offer-catalog JSON-LD and the homepage `ItemList`, and they emit `noindex` with no canonical (`isNoIndexRoute`). `static/robots.txt` stays as it is: Google says robots.txt is not a way to keep a page out of search and a disallowed URL can still be indexed, and a `Disallow` would stop Google reading the `noindex` (`SEO_EVIDENCE.md` row 35). Launching a section is one edit plus the steps in `LAUNCH_TRACKER.md` §D.
+- **The temporary `*.vercel.app` host is `noindex` at the platform layer.** `vercel.json` sets `X-Robots-Tag: noindex, nofollow, noarchive` for hosts ending `.vercel.app`. The hook in `src/hooks.server.ts` cannot do this alone because prerendered pages are served as static files and never reach `handle` (`SEO_EVIDENCE.md` row 38). The production domain is unaffected. HSTS is left to Vercel, which already sends the header.
+- **No phone number or postal address is published until the owner supplies verified values.** `SUPPORT_CONTACT` stays the single input; the Organization `contactPoint` adds `telephone`/`email` only when they are non-empty. `src/lib/config/site.ts` holds a fabricated address and phone and must not be used for display or schema.
+- **The homepage makes no performance or endorsement claim it cannot evidence.** The founder's mentorship is worded as the founder's own account and links to `/about#institutional-mentorship`. The 2020, 2022 and OXY results appear on the homepage only as a `VerifiedCaseStudy` record (contract symbol, strike, expiration, entry and exit timestamps, size, maximum risk, result, chart with alt text); an incomplete record never renders, and there are no records yet. The schema `Person` (`#founder`) carries no such claims. Other pages still carry them; see `LAUNCH_TRACKER.md` §A and §F.
+- **One founder title.** `FOUNDER.jobTitle` ("Founder & Head Trader", from the owner's brief) feeds the byline on `/about` and the schema `Person`.
+- **Free eBook hidden.** `FREE_EBOOK_AVAILABLE = false` hides the homepage form (it only validated and sent nothing), the announcement-bar link and the footer link.
+- **Fonts:** only the upright Latin faces of Montserrat and Sofia Sans are preloaded; other subsets and italics load on demand through `unicode-range`.

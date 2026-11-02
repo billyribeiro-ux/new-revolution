@@ -1,3 +1,5 @@
+import { FREE_EBOOK_AVAILABLE, isLaunchedHref } from './launch-gate.ts';
+
 export type NavIconKey =
 	| 'broadcast'
 	| 'bell'
@@ -36,7 +38,7 @@ export interface NavItem {
 	children?: SubMenuItem[];
 }
 
-export const MAIN_NAVIGATION: readonly NavItem[] = [
+const FULL_NAVIGATION: readonly NavItem[] = [
 	{
 		id: 'live-trading-rooms',
 		icon: 'broadcast',
@@ -172,30 +174,47 @@ export const MAIN_NAVIGATION: readonly NavItem[] = [
 	}
 ] as const;
 
-export interface ProofDossierItem {
+/**
+ * Navigation shown to visitors and crawlers: `FULL_NAVIGATION` minus anything behind the launch gate
+ * (`#lib/data/launch-gate.ts`). A dropdown whose children are all gated disappears with them.
+ */
+export const MAIN_NAVIGATION: readonly NavItem[] = FULL_NAVIGATION.flatMap((item): NavItem[] => {
+	if (item.children) {
+		const children = item.children.filter((child) => isLaunchedHref(child.href));
+		return children.length > 0 ? [{ ...item, children }] : [];
+	}
+	return !item.href || isLaunchedHref(item.href) ? [item] : [];
+});
+
+export interface DocumentationStandardItem {
 	number: string;
 	title: string;
 	description: string;
 }
 
-export const PROOF_DOSSIER_ITEMS: readonly ProofDossierItem[] = [
+/**
+ * Hero panel: how content is documented. Each line restates a commitment already published on
+ * `/editorial-policy` (src/routes/editorial-policy/+page.svelte, "Our Editorial Commitments" cards 1 and 2
+ * and the "Editorial Disclosure" strip), so the homepage never claims more than the policy page does.
+ */
+export const DOCUMENTATION_STANDARD_ITEMS: readonly DocumentationStandardItem[] = [
 	{
 		number: '01',
-		title: 'Mark “Goldfinger” McGoldrick Institutional Mentorship',
+		title: 'Primary sources, cited',
 		description:
-			'Founder-reported professional mentorship and “future of trading” quote; independently verifiable attribution should be published.'
+			'Contract specifications, settlement rules and tax references cite primary sources such as Cboe, CME Group, the SEC, FINRA, the OSC and IRS documentation.'
 	},
 	{
 		number: '02',
-		title: 'Reported +600% Overnight OXY Put Trade',
+		title: 'Risk stated before reward',
 		description:
-			'A defined-risk put-options case study to support with strike, expiration, actual fills, timestamps, capital at risk, and loss exposure.'
+			'No strategy, indicator or alert service is presented as a guaranteed return. Setups state invalidation levels, position-sizing limits and realistic drawdown risk.'
 	},
 	{
 		number: '03',
-		title: 'Reported 2020 & 2022 Turning-Point Calls',
+		title: 'Education, not advice',
 		description:
-			'Historical market timing claims to document against contemporaneous dated alerts, charts, and the underlying market structure.'
+			'Content is for educational purposes only and is not personalized investment advice. Trading involves substantial risk of loss.'
 	}
 ] as const;
 
@@ -223,43 +242,86 @@ export const TRUST_BAR_METRICS: readonly TrustMetric[] = [
 	}
 ] as const;
 
-export interface CaseStudy {
-	kicker: string;
-	state: string;
-	title: string;
-	description: string;
-	evidenceRequirement: string;
+/** An image of the trade as it was communicated, 1200x675, served from `static/`. */
+export interface CaseStudyChart {
+	src: string;
+	width: 1200;
+	height: 675;
+	/** Describe the market structure shown, not just "chart". */
+	alt: string;
 }
 
-export const CASE_STUDIES: readonly CaseStudy[] = [
-	{
-		kicker: '01 / 2020',
-		state: 'DOCUMENTATION PENDING',
-		title: 'The 2020 COVID Market Top & Bottom',
-		description:
-			'Founder-reported market turning-point calls. The eventual analysis should distinguish the pre-move prediction from later interpretation and explain the claimed liquidity and price-structure signals.',
-		evidenceRequirement:
-			'dated original alerts, archived charts, exact market reference levels, and outcome comparison.'
-	},
-	{
-		kicker: '02 / 2022',
-		state: 'DOCUMENTATION PENDING',
-		title: 'The 2022 Market Cycle Top & Bottom',
-		description:
-			'A reported top-and-bottom market call. The planned breakdown can examine distribution, volatility, confirmation criteria, invalidation levels, and the complete record of contemporaneous predictions.',
-		evidenceRequirement:
-			'advance communications, precise dates, relevant symbols, and adverse scenarios.'
-	},
-	{
-		kicker: '03 / OXY',
-		state: 'DOCUMENTATION PENDING',
-		title: 'The Reported +600% Overnight OXY Put Trade',
-		description:
-			'The founder describes an overnight OXY put-options trade during a period of reported Warren Buffett buying. A transparent study must separate publicity from the actual option position and its risk.',
-		evidenceRequirement:
-			'option symbol, strike, expiry, timestamps, fills, sizing, realized return, and maximum loss.'
-	}
-] as const;
+/**
+ * A fully documented trade. Every field is required on purpose: the homepage renders a case study only if
+ * all of it is real (see `isPublishableCaseStudy`), so there is no way to ship a half-filled "pending" card.
+ */
+export interface VerifiedCaseStudy {
+	id: string;
+	/** e.g. `01 / OXY` */
+	kicker: string;
+	title: string;
+	/** What was communicated and why, in one or two sentences. */
+	summary: string;
+	/** Full option contract symbol, e.g. OCC format. */
+	contractSymbol: string;
+	strike: string;
+	/** ISO date (YYYY-MM-DD). */
+	expiration: string;
+	/** ISO 8601 timestamps with offset, e.g. 2022-03-01T15:42:10-05:00. */
+	enteredAt: string;
+	exitedAt: string;
+	positionSize: string;
+	/** Maximum loss on the position, stated in dollars or % of account. */
+	maxRisk: string;
+	/** Realised result, with the fills it is computed from. */
+	result: string;
+	chart: CaseStudyChart;
+}
+
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:\d{2})$/;
+
+/** A calendar date that really exists: `2026-02-31` matches the pattern but round-trips to a different day. */
+const isRealDate = (iso: string) => {
+	const time = Date.parse(`${iso}T00:00:00Z`);
+	return (
+		ISO_DATE.test(iso) && !Number.isNaN(time) && new Date(time).toISOString().slice(0, 10) === iso
+	);
+};
+
+/** True only when every required field is filled and the dates parse. Incomplete records never render. */
+export function isPublishableCaseStudy(study: VerifiedCaseStudy): boolean {
+	const text = [
+		study.id,
+		study.kicker,
+		study.title,
+		study.summary,
+		study.contractSymbol,
+		study.strike,
+		study.positionSize,
+		study.maxRisk,
+		study.result,
+		study.chart.src,
+		study.chart.alt
+	];
+	return (
+		text.every((value) => value.trim().length > 0) &&
+		isRealDate(study.expiration) &&
+		ISO_INSTANT.test(study.enteredAt) &&
+		ISO_INSTANT.test(study.exitedAt) &&
+		!Number.isNaN(Date.parse(study.enteredAt)) &&
+		!Number.isNaN(Date.parse(study.exitedAt)) &&
+		Date.parse(study.exitedAt) >= Date.parse(study.enteredAt)
+	);
+}
+
+/**
+ * Documented trades for the homepage "receipts" section. Intentionally empty: the repository holds no
+ * contract symbols, fills, timestamps or chart captures for the founder's reported 2020, 2022 or OXY calls,
+ * and this site does not invent them. Add a record here once the original alerts and broker fills exist;
+ * the section appears by itself. Tracked in docs/seo/LAUNCH_TRACKER.md.
+ */
+export const VERIFIED_CASE_STUDIES: readonly VerifiedCaseStudy[] = [] as const;
 
 export interface ComparisonPoint {
 	lead: string;
@@ -741,7 +803,7 @@ export interface FooterColumn {
 	}[];
 }
 
-export const FOOTER_COLUMNS: readonly FooterColumn[] = [
+const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 	{
 		id: 'footer-rooms',
 		title: 'LIVE TRADING ROOMS',
@@ -798,8 +860,9 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 	},
 	{
 		id: 'footer-store',
-		title: 'STORE & TOOLS',
-		ariaLabel: 'Store, courses, indicators, and scanners',
+		// With the store gated only "Our Mission" is left, so the column is renamed rather than left mislabelled.
+		title: isLaunchedHref('/store') ? 'STORE & TOOLS' : 'COMPANY',
+		ariaLabel: isLaunchedHref('/store') ? 'Store, courses, indicators, and scanners' : 'Company',
 		links: [
 			{
 				label: 'Courses',
@@ -843,11 +906,15 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 				href: '/resources/stock-indexes-list',
 				previewTarget: 'tools'
 			},
-			{
-				label: 'Free Trading eBook',
-				href: '/resources#resource-categories-h2',
-				previewTarget: 'ebook'
-			},
+			...(FREE_EBOOK_AVAILABLE
+				? [
+						{
+							label: 'Free Trading eBook',
+							href: '/resources#resource-categories-h2',
+							previewTarget: 'ebook'
+						}
+					]
+				: []),
 			{
 				label: 'Blogs',
 				href: '/blog',
@@ -881,6 +948,11 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 				previewTarget: 'footer'
 			},
 			{
+				label: 'Risk Disclosure',
+				href: '/terms-of-service#options-leverage-risk-disclosure',
+				previewTarget: 'footer'
+			},
+			{
 				label: 'Refund Policy',
 				href: '/refund-policy',
 				previewTarget: 'footer'
@@ -888,3 +960,9 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
 		]
 	}
 ] as const;
+
+/** Footer columns with every link behind the launch gate removed; a column left empty is dropped. */
+export const FOOTER_COLUMNS: readonly FooterColumn[] = FULL_FOOTER_COLUMNS.map((column) => ({
+	...column,
+	links: column.links.filter((link) => isLaunchedHref(link.href))
+})).filter((column) => column.links.length > 0);

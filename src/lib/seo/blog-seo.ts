@@ -5,7 +5,8 @@ import {
 	BRAND_SOCIAL_IMAGE_PATH,
 	BRAND_SOCIAL_IMAGE_WIDTH,
 	SITE_ORIGIN,
-	buildOrganizationEntity
+	buildOrganizationEntity,
+	isNoIndexRoute
 } from './structured-data';
 import { computeRenderedTitle } from '#lib/shared/seo/meta-budget';
 
@@ -55,7 +56,9 @@ export function resolvePostModifiedIso(post: {
 }
 
 export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
-	const indexable = input.indexable ?? true;
+	// Anything under a gated prefix (#lib/data/launch-gate.ts) is noindex whatever the post says, so the meta tag
+	// agrees with the X-Robots-Tag header that hooks.server.ts adds for the same paths.
+	const indexable = (input.indexable ?? true) && !isNoIndexRoute(input.pathname);
 	const nofollow = input.nofollow ?? false;
 	const noarchive = input.noarchive ?? false;
 	const nosnippet = input.nosnippet ?? false;

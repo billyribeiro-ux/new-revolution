@@ -16,6 +16,7 @@
 	import BlogSection from '#lib/components/home/BlogSection.svelte';
 	import FaqSection from '#lib/components/home/FaqSection.svelte';
 	import ClosingSection from '#lib/components/home/ClosingSection.svelte';
+	import { FREE_EBOOK_AVAILABLE, isLaunchedHref } from '#lib/data/launch-gate.ts';
 	import { getDeskStatus } from './home.remote.ts';
 	import type { PageProps } from './$types';
 
@@ -24,9 +25,10 @@
 	const deskStatus = await getDeskStatus();
 
 	let docScrollHeight = $state(4000);
-	let toastMessage = $state('');
-	let toastVisible = $state(false);
-	let toastTimer: ReturnType<typeof setTimeout> | undefined;
+
+	// Sections that promote something not live yet stay out of the page (docs/seo/LAUNCH_TRACKER.md).
+	const storeLive = isLaunchedHref('/store');
+	const blogLive = isLaunchedHref('/blog');
 
 	let scrollPercent = $derived.by(() => {
 		const y = scrollY.current ?? 0;
@@ -47,57 +49,6 @@
 		return () => resizeObserver.disconnect();
 	}
 
-	function announceToast(message: string) {
-		toastMessage = message;
-		toastVisible = true;
-		clearTimeout(toastTimer);
-		toastTimer = setTimeout(() => {
-			toastVisible = false;
-		}, 4600);
-	}
-
-	// Routes that are built; links to these navigate normally instead of showing the preview toast.
-	const LIVE_ROUTES = new Set([
-		'/about',
-		'/our-mission',
-		'/mentorship',
-		'/live-trading-rooms/day-trading-room',
-		'/live-trading-rooms/swing-trading-room',
-		'/live-trading-rooms/small-accounts-room',
-		'/alert-services/spx-profit-pulse',
-		'/watchlist',
-		'/blog',
-		'/blog/institutional-order-flow-and-gamma-flip-playbook',
-		'/blog/zero-dte-risk-management-and-position-sizing-rules',
-		'/store/indicators',
-		'/store/courses',
-		'/store/scanners',
-		'/resources',
-		'/resources/etf-stocks-list',
-		'/resources/stock-indexes-list',
-		'/contact',
-		'/editorial-policy',
-		'/privacy-policy',
-		'/terms-of-service',
-		'/refund-policy',
-		'/admin/login',
-		'/sitemap.xml'
-	]);
-
-	function handlePreviewLink(href: string, targetId?: string, event?: MouseEvent) {
-		if (LIVE_ROUTES.has(href)) return;
-		event?.preventDefault();
-		if (targetId && typeof document !== 'undefined') {
-			const element = document.getElementById(targetId);
-			if (element) {
-				element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-			}
-		}
-		announceToast(
-			`Preview route: ${href} · Single-source homepage blueprint; connect destination route before launch.`
-		);
-	}
-
 	function scrollToTop() {
 		if (typeof window !== 'undefined') {
 			window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -109,23 +60,29 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<Navbar {scrollPercent} onPreviewNavigate={handlePreviewLink} />
+<Navbar {scrollPercent} />
 
 <main id="main" {@attach measureDocumentHeight}>
-	<HeroSection {deskStatus} onPreviewNavigate={handlePreviewLink} />
+	<HeroSection {deskStatus} />
 	<CaseStudiesSection />
 	<ManifestoSection />
-	<PersonasSection onPreviewNavigate={handlePreviewLink} />
-	<MembershipsSection onPreviewNavigate={handlePreviewLink} />
-	<StoreToolsSection onPreviewNavigate={handlePreviewLink} />
-	<MentorshipSection onPreviewNavigate={handlePreviewLink} />
-	<EbookSection />
-	<BlogSection onPreviewNavigate={handlePreviewLink} />
+	<PersonasSection />
+	<MembershipsSection />
+	{#if storeLive}
+		<StoreToolsSection />
+	{/if}
+	<MentorshipSection />
+	{#if FREE_EBOOK_AVAILABLE}
+		<EbookSection />
+	{/if}
+	{#if blogLive}
+		<BlogSection />
+	{/if}
 	<FaqSection />
-	<ClosingSection onPreviewNavigate={handlePreviewLink} />
+	<ClosingSection />
 </main>
 
-<Footer currentYear={deskStatus.updatedYear} showPress onPreviewNavigate={handlePreviewLink} />
+<Footer currentYear={deskStatus.updatedYear} showPress />
 
 <button
 	type="button"
@@ -137,42 +94,7 @@
 	<ArrowUpIcon size={18} weight="bold" aria-hidden="true" />
 </button>
 
-<div class="preview-label">SVELTE 5 / SVELTEKIT 3.1 ENTERPRISE BLUEPRINT</div>
-
-<div class={['toast', { show: toastVisible }]} id="toast" role="status" aria-live="polite">
-	{toastMessage}
-</div>
-
 <style>
-	.toast {
-		position: fixed;
-		z-index: 300;
-		inset-block-end: 28px;
-		inset-inline-start: 50%;
-		transform: translate(-50%, 24px);
-		background: #e9fbba;
-		color: #142016;
-		box-shadow: 0 18px 65px rgba(0, 0, 0, 0.55);
-		border: 1px solid #9ac558;
-		padding: 15px 18px;
-		max-inline-size: min(480px, calc(100vw - 28px));
-		inline-size: max-content;
-		opacity: 0;
-		pointer-events: none;
-		transition:
-			opacity 0.23s var(--ease-out),
-			transform 0.23s var(--ease-out);
-		font-family: var(--font-sans);
-		font-weight: 500;
-		font-size: 0.875rem;
-		line-height: 1.6;
-	}
-
-	.toast.show {
-		opacity: 1;
-		transform: translate(-50%, 0);
-	}
-
 	.backtotop {
 		position: fixed;
 		inset-inline-end: 14px;
@@ -200,36 +122,10 @@
 		transform: translateY(0);
 	}
 
-	.preview-label {
-		position: fixed;
-		inset-block-end: 0;
-		inset-inline-start: 0;
-		z-index: 55;
-		background: #12181c;
-		color: #a5b5ab;
-		padding: 7px 13px;
-		border: 1px solid #35453b;
-		border-inline-start: 0;
-		border-block-end: 0;
-		font-family: var(--font-sans);
-		font-weight: 700;
-		font-size: 0.6875rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		pointer-events: none;
-		display: none;
-	}
-
 	@media (min-width: 640px) {
 		.backtotop {
 			inset-inline-end: 24px;
 			inset-block-end: 26px;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.preview-label {
-			display: block;
 		}
 	}
 </style>

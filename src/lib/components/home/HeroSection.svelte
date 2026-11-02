@@ -2,9 +2,9 @@
 	import { resolve } from '$app/paths';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import {
-		PROOF_DOSSIER_ITEMS,
+		DOCUMENTATION_STANDARD_ITEMS,
 		TRUST_BAR_METRICS,
-		type ProofDossierItem,
+		type DocumentationStandardItem,
 		type TrustMetric
 	} from '#lib/data/homepage.ts';
 
@@ -15,14 +15,14 @@
 
 	interface Props {
 		deskStatus: DeskStatus;
-		proofItems?: readonly ProofDossierItem[];
+		standardItems?: readonly DocumentationStandardItem[];
 		trustMetrics?: readonly TrustMetric[];
 		onPreviewNavigate?: (href: string, targetId?: string, event?: MouseEvent) => void;
 	}
 
 	let {
 		deskStatus,
-		proofItems = PROOF_DOSSIER_ITEMS,
+		standardItems = DOCUMENTATION_STANDARD_ITEMS,
 		trustMetrics = TRUST_BAR_METRICS,
 		onPreviewNavigate
 	}: Props = $props();
@@ -48,14 +48,16 @@
 				education, transparent trade planning, defined risk, and a genuine commitment to people.
 			</p>
 			<p class="hero-authority">
-				Our founder’s story includes reported mentorship from Mark “Goldfinger” McGoldrick, advance
-				market calls during 2020 and 2022, and a reported overnight OXY put-options return. These
-				claims belong in documented, timestamped case studies—not unquestioned marketing slogans.
+				Founder Billy Ribeiro reports being mentored by Mark “Goldfinger” McGoldrick, who he says
+				called him “the future of trading.” That is the founder’s own account, not an independent
+				endorsement.
+				<a class="authority-link" href={resolve('/about#institutional-mentorship' as '/')}>
+					Read the background and context on our About page.
+				</a>
 			</p>
 			<blockquote class="hero-slogan">
 				“Educate. Innovate. Prosper.”<br />
-				Wall Street Protects Its Own. Mark “Goldfinger” McGoldrick Called Us the Future of Trading.
-				<span class="highlight">We Are the Revolution.</span>
+				Wall Street Protects Its Own. <span class="highlight">We Are the Revolution.</span>
 			</blockquote>
 			<div class="hero-ctas">
 				<a
@@ -74,7 +76,7 @@
 					href={resolve('/about' as '/')}
 					onclick={(e) => onPreviewNavigate?.('/about', 'track-record', e)}
 				>
-					See Track Record &amp; Evidence
+					Meet the Founder
 					<span class="arrow" aria-hidden="true">
 						<ArrowUpRightIcon size={16} weight="bold" />
 					</span>
@@ -86,11 +88,11 @@
 			</p>
 		</div>
 
-		<aside class="proof-panel" aria-label="Founder-reported track record overview">
+		<aside class="proof-panel" aria-label="How we document our work">
 			<div class="panel-top">
 				<div>
 					<div class="panel-top-title">{deskStatus.edition}</div>
-					<div class="panel-top-sub">Founder-reported history • Evidence publication pending</div>
+					<div class="panel-top-sub">Our documentation standard</div>
 				</div>
 				<span class="panel-badge">{deskStatus.statusLabel}</span>
 			</div>
@@ -121,8 +123,8 @@
 			</div>
 
 			<div class="panel-content">
-				<h2 class="panel-head">The story behind<br />the desk.</h2>
-				{#each proofItems as item (item.number)}
+				<h2 class="panel-head">How every idea<br />is documented.</h2>
+				{#each standardItems as item (item.number)}
 					<div class="proof-item">
 						<span class="proof-number">{item.number}</span>
 						<div>
@@ -136,15 +138,14 @@
 			<div class="proof-foot">
 				<a
 					class="text-link acid"
-					href={resolve('/about' as '/')}
-					onclick={(e) => onPreviewNavigate?.('/about', 'track-record', e)}
+					href={resolve('/editorial-policy' as '/')}
+					onclick={(e) => onPreviewNavigate?.('/editorial-policy', 'footer', e)}
 				>
-					Explore the case studies
+					Read the editorial policy
 					<span class="arrow" aria-hidden="true">
 						<ArrowUpRightIcon size={14} weight="bold" />
 					</span>
 				</a>
-				<span class="evidence-flag">PROOF PENDING</span>
 			</div>
 		</aside>
 	</div>
@@ -222,6 +223,17 @@
 		letter-spacing: 0.005em;
 		max-inline-size: min(70ch, 680px);
 		margin-block-end: 24px;
+	}
+
+	.authority-link {
+		color: var(--acid);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.authority-link:hover,
+	.authority-link:focus-visible {
+		color: var(--acid2);
 	}
 
 	.hero-slogan {
@@ -377,10 +389,6 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 12px;
-	}
-
-	.evidence-flag {
-		color: var(--status-amber-text);
 	}
 
 	.trust-bar {

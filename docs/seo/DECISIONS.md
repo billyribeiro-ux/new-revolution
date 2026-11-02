@@ -55,3 +55,15 @@
 - **Free eBook hidden.** `FREE_EBOOK_AVAILABLE = false` hides the homepage form (it only validated and sent nothing), the announcement-bar link and the footer link.
 - **Fonts:** only the upright Latin faces of Montserrat and Sofia Sans are preloaded; other subsets and italics load on demand through `unicode-range`.
 - **robots.txt does not disallow `/admin`, `/login` or `/checkout`** (2026-11-02). Commit `2eaf6a5` added those lines; they were removed again because Google cannot read a `noindex` on a URL it may not fetch and can still list the bare URL, and `/admin/login` is linked from every header. These routes are kept out of search by `X-Robots-Tag`/meta `noindex`. `tests/seo/seo-standard.spec.ts` enforces this. `/api/`, the token/session query parameters and the non-existent `/member-login` and `/account` paths remain disallowed.
+
+---
+
+## 6. Blog Engine Decisions (`IDX-08`, `MAP-01`, `FEED-01`)
+
+**Recorded:** 2026-11-02 · **Authority:** Repository Owner (approved the evidence-based recommendations). Evidence: `blog-editor-report.md` Part B, `docs/blog/COVERAGE_MATRIX.md`; sources are Google's HTTP-status, pagination and Article documents and Vercel's CDN-cache and purge documents.
+
+1. **Deleted posts return 404, not 410.** Google treats all 4xx except 429 the same and removes the URL from the index for both; 410 adds a tombstone for no Google benefit. A soft 404 (200 with an error-like page) is the thing to prevent.
+2. **No author archives for now.** Article authorship points at the existing founder `Person` (`#founder`, `/about`). Build `/blog/author/[slug]` when a second real author exists. Google requires no author page; `author.url` need only identify the author, with `sameAs` as the alternative.
+3. **Pagination:** pages 2+ are indexable with their own self-canonical; out-of-range pages return 404; search and filter results stay `noindex`; tracking parameters are stripped from canonicals. Policy choice: Google documents "give each page its own canonical" but offers no ranking evidence either way.
+4. **Cache freshness:** purge by cache tag on every lifecycle event, using delete for unpublish and delete. The numeric target is set only after measuring on a preview deployment (`docs/blog/FRESHNESS.md`). Needs the owner's authorization for either the `@vercel/functions` dependency or a Vercel API token.
+5. **Scheduling:** stored as a UTC instant (`timestamptz`, already true); the editor shows its time zone explicitly (default `America/New_York`); inputs without an offset are rejected.

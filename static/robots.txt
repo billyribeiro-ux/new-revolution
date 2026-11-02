@@ -13,13 +13,8 @@ User-agent: GoogleOther
 Allow: /
 Allow: /_app/immutable/
 Disallow: /api/
-Disallow: /admin$
-Disallow: /admin/
-Disallow: /login$
-Disallow: /login/
 Disallow: /member-login$
 Disallow: /member-login/
-Disallow: /checkout/
 Disallow: /account/
 Disallow: /*?session_id=
 Disallow: /*?token=
@@ -33,13 +28,8 @@ User-agent: Applebot
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /api/
-Disallow: /admin$
-Disallow: /admin/
-Disallow: /login$
-Disallow: /login/
 Disallow: /member-login$
 Disallow: /member-login/
-Disallow: /checkout/
 Disallow: /account/
 
 # 4. OpenAI, Anthropic & Perplexity Search / Grounding Crawlers
@@ -51,13 +41,8 @@ User-agent: ClaudeBot
 User-agent: PerplexityBot
 Allow: /
 Disallow: /api/
-Disallow: /admin$
-Disallow: /admin/
-Disallow: /login$
-Disallow: /login/
 Disallow: /member-login$
 Disallow: /member-login/
-Disallow: /checkout/
 Disallow: /account/
 
 # 5. All Other Standard Search Crawlers (Bingbot, DuckDuckBot, etc.)
@@ -65,16 +50,15 @@ User-agent: *
 Allow: /
 Allow: /_app/immutable/
 Disallow: /api/
-Disallow: /admin$
-Disallow: /admin/
-Disallow: /login$
-Disallow: /login/
 Disallow: /member-login$
 Disallow: /member-login/
-Disallow: /checkout/
 Disallow: /account/
 Disallow: /*?session_id=
 Disallow: /*?token=
+
+# Note: /admin, /login and /checkout are deliberately NOT disallowed. Google cannot read a noindex
+# on a blocked URL and may still list it; those routes are kept out of search with noindex
+# (X-Robots-Tag and meta robots). See docs/seo/DECISIONS.md section 5.
 
 # 6. Canonical XML Sitemap
 Sitemap: https://revolutiontradingpros.com/sitemap.xml

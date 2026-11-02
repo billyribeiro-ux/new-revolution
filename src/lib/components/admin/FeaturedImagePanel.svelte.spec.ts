@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
-import { page } from 'vitest/browser';
+import { describe, expect, it, vi } from 'vite-plus/test';
+import { page } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-svelte';
 import FeaturedImagePanel from './FeaturedImagePanel.svelte';
 
@@ -9,7 +9,7 @@ const PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAA
 describe('FeaturedImagePanel', () => {
 	it('shows only the choose button when there is no cover', async () => {
 		const onPick = vi.fn();
-		render(FeaturedImagePanel, {
+		await render(FeaturedImagePanel, {
 			coverImage: '',
 			coverImageAlt: '',
 			coverImageCaption: '',
@@ -21,7 +21,7 @@ describe('FeaturedImagePanel', () => {
 	});
 
 	it('previews the saved URL with its real dimensions and flags missing alt as required', async () => {
-		render(FeaturedImagePanel, {
+		await render(FeaturedImagePanel, {
 			coverImage: PIXEL,
 			coverImageAlt: '',
 			coverImageCaption: '',
@@ -39,7 +39,7 @@ describe('FeaturedImagePanel', () => {
 	});
 
 	it('does not claim a dimension it does not know', async () => {
-		render(FeaturedImagePanel, {
+		await render(FeaturedImagePanel, {
 			coverImage: PIXEL,
 			coverImageAlt: 'A chart',
 			coverImageCaption: '',
@@ -51,7 +51,7 @@ describe('FeaturedImagePanel', () => {
 
 	it('Remove clears url, alt and caption', async () => {
 		const onChange = vi.fn();
-		render(FeaturedImagePanel, {
+		await render(FeaturedImagePanel, {
 			coverImage: PIXEL,
 			coverImageAlt: 'A chart',
 			coverImageCaption: 'Cap',
@@ -65,7 +65,7 @@ describe('FeaturedImagePanel', () => {
 	});
 
 	it('says so, loudly, when the saved URL does not load', async () => {
-		render(FeaturedImagePanel, {
+		await render(FeaturedImagePanel, {
 			coverImage: 'http://localhost:9/definitely-missing.webp',
 			coverImageAlt: 'x',
 			coverImageCaption: ''

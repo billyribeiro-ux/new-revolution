@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { computeRenderedTitle } from './meta-budget';
 import { generateSlug, isReservedSlug, isValidSlug, normaliseSlug, SLUG_MAX_LEN } from './slug';
 import { isCategoryIndexable, isTagIndexable } from './taxonomy';

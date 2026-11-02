@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { page } from 'vitest/browser';
+import { describe, expect, it } from 'vite-plus/test';
+import { page } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-svelte';
 import Page from './+page.svelte';
 import { load } from './+page';
@@ -38,7 +38,7 @@ describe('/resources/+page.ts load()', () => {
 describe('/resources/+page.svelte component', () => {
 	it('renders the hero H1, 3 flagship utilities, 6 resource categories with exact H3 headings, 24 resource items, and bottom CTA banner', async () => {
 		const data = runLoad();
-		render(Page, { data: data as never });
+		await render(Page, { data: data as never });
 
 		const h1 = page.getByRole('heading', {
 			level: 1,

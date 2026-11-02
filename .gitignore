@@ -34,3 +34,4 @@ test-results
 # Local tooling
 .claude
 .gemini
+.vitest/

@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vite-plus/test';
 import { resolveBlogRedirect } from '../../hooks.server';
 import { createTestDatabase, setActiveDbForTest, setSimulatedDbFailure } from '#lib/server/db';
 import { media, redirects } from '#lib/server/db/schema';

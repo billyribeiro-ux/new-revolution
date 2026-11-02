@@ -78,7 +78,7 @@ function gtagConsent(mode: 'default' | 'update', params: GtagConsentParams): voi
 	window.dataLayer = window.dataLayer ?? [];
 	if (typeof window.gtag !== 'function') {
 		window.gtag = function gtag() {
-			// eslint-disable-next-line prefer-rest-params -- gtag.js requires the Arguments object shape; a rest-param array would be ignored
+			// oxlint-disable-next-line prefer-rest-params -- gtag.js requires the Arguments object shape; a rest-param array would be ignored
 			window.dataLayer.push(arguments);
 		};
 	}

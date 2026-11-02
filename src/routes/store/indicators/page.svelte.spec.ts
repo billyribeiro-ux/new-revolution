@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	INDICATORS_STORE_FAQ_ITEMS,
@@ -36,7 +36,7 @@ describe('/store/indicators page', () => {
 	});
 
 	it('renders the H1, 8 indicator cards, interactive category filter tabs, expandable technical specs, 5 comparison rows, 3 proof cards, and 4 FAQs', async () => {
-		render(IndicatorsStorePage, {
+		await render(IndicatorsStorePage, {
 			params: {},
 			data: {
 				pageMetaTags: {},
@@ -85,7 +85,8 @@ describe('/store/indicators page', () => {
 		const closed = document.querySelector<HTMLDetailsElement>(
 			'details.indicator-card__specs:not([open])'
 		);
-		(closed?.querySelector('summary') as HTMLElement).click();
+		expect(closed).not.toBeNull();
+		closed?.querySelector<HTMLElement>('summary')?.click();
 		expect(closed?.open).toBe(true);
 
 		// 5 comparison rows, 3 proof cards, 5 room CTA cards

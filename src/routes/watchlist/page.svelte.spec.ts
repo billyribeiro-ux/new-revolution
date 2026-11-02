@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import '../../app.css';
 import Page from './+page.svelte';
@@ -38,7 +38,7 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy, and 1-to-1 FAQ parity with schema', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},
@@ -59,7 +59,7 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 	});
 
 	it('renders the D3 Quantitative Terminal and switches across $TSLA, $NVDA, and $SPY blueprints', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},
@@ -81,7 +81,7 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 	});
 
 	it('renders all 3 mechanism acts, 3 suitability tiers, 3 Billy Ribeiro receipts, and 3 pricing tiers ($47, $127, $447)', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},

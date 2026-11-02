@@ -153,7 +153,7 @@ function decodeHtmlEntitiesForSchemeCheck(raw: string): string {
 			.replace(/&colon;/gi, ':')
 			.replace(/&tab;/gi, '')
 			.replace(/&newline;/gi, '')
-			// eslint-disable-next-line no-control-regex
+			// oxlint-disable-next-line no-control-regex
 			.replace(/[\u0000-\u0020\u007f-\u009f]+/g, '')
 	);
 }

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { enforcePublishSeoGate } from '#lib/shared/seo/score';
 import { parsePublishGateRefusal } from './publish-gate';
 

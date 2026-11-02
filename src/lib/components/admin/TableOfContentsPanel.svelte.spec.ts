@@ -1,11 +1,11 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import TableOfContentsPanel from './TableOfContentsPanel.svelte';
 
 describe('TableOfContentsPanel (Admin Post Editor)', () => {
 	it('renders empty state when post content has no headings', async () => {
-		render(TableOfContentsPanel, {
+		await render(TableOfContentsPanel, {
 			content: '<p>Just a paragraph with no headings.</p>',
 			enableToc: true
 		});
@@ -19,7 +19,7 @@ describe('TableOfContentsPanel (Admin Post Editor)', () => {
 	});
 
 	it('extracts H2–H3 headings, displays count badge, and toggles Show TOC on Post', async () => {
-		render(TableOfContentsPanel, {
+		await render(TableOfContentsPanel, {
 			content: '<h2>Market Structure</h2><h3>Gamma Flip Zone</h3><h2>Execution Blueprint</h2>',
 			enableToc: true
 		});

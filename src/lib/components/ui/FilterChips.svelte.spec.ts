@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import FilterChips from './FilterChips.svelte';
 
@@ -11,7 +11,7 @@ const options = [
 
 describe('FilterChips', () => {
 	it('is a named group of toggle buttons (not a tablist) with the bound value pressed', async () => {
-		render(FilterChips, { options, value: 'all', label: 'Filter things' } as never);
+		await render(FilterChips, { options, value: 'all', label: 'Filter things' } as never);
 
 		await expect.element(page.getByRole('group', { name: 'Filter things' })).toBeInTheDocument();
 		expect(document.querySelector('[role="tablist"], [role="tab"]')).toBeNull();
@@ -35,12 +35,17 @@ describe('FilterChips', () => {
 	});
 
 	it('applies the light tone class on light sections', async () => {
-		render(FilterChips, { options, value: 'all', label: 'Filter things', tone: 'light' } as never);
+		await render(FilterChips, {
+			options,
+			value: 'all',
+			label: 'Filter things',
+			tone: 'light'
+		} as never);
 		expect(document.querySelector('.filter-chips')?.classList.contains('is-light')).toBe(true);
 	});
 
 	it('moves the pressed state to the clicked option and keeps exactly one pressed', async () => {
-		render(FilterChips, { options, value: 'all', label: 'Filter things' } as never);
+		await render(FilterChips, { options, value: 'all', label: 'Filter things' } as never);
 
 		await page.getByRole('button', { name: 'Beta' }).click();
 		await expect

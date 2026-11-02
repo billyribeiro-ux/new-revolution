@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	buildSmallAccountsRoomJsonLd,
@@ -35,7 +35,7 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 	});
 
 	it('renders the H1, 4 compounding roadmap stages, 4 small-account playbooks, 5 comparison rows, 3 routing cards, and 5 FAQs', async () => {
-		render(SmallAccountsRoomPage, {
+		await render(SmallAccountsRoomPage, {
 			params: {},
 			data: {
 				baseMetaTags: {},

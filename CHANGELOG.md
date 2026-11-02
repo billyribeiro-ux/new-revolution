@@ -9,6 +9,43 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-02 — Toolchain migrated to Vite+ (`vp`)
+
+#### Changed (2026-11-02)
+
+- **Vite+ 1.4.0 via `vp migrate --no-interactive --no-agent --no-editor --no-hooks`** (run from the repo root; no agent, editor or git-hook files written). `vite` and `vitest` now resolve through the pnpm catalog (`vite` → `@voidzero-dev/vite-plus-core@1.4.0`, `vitest` 5.0.5, `vite-plus` 1.4.0). Prerequisites met before migrating: Vite 8.3.5, Vitest 5.0.5, Node 26.13.0 (Vite+ requires `^22.18.0 || ^24.11.0 || >=26.0.0`).
+- `vite.config.ts` imports from `vite-plus` and `vite-plus/test*`. Lint and format settings moved into its `lint` and `fmt` blocks. `dev`, `build`, `preview` and `test:unit` run through `vp`. `format` is `vp fmt .`.
+- **Formatting moved from Prettier to Oxfmt.** `prettier.config.js` and the Prettier devDependencies were removed, and the same options live in the `fmt` block. Oxfmt changed union-type layout in 84 files; no code changed.
+- Test files import `describe`/`expect`/`it` from `vite-plus/test`, and `page` from `vite-plus/test/browser`. Browser specs now `await render(...)`: `vitest-browser-svelte` 3.1.0 types `render` as returning a `Promise`, and the previous calls left that promise unhandled.
+- `vite.config.ts` lint block: Oxlint type-aware rules on, TypeScript compiler diagnostics off (`typeCheck: false`). `pnpm check` (svelte-check) stays the type gate, as before the migration.
+- **Vitest v4 and tsdown compatibility settings: none generated.** The migrator found nothing to insert in this project (no `pack` block, no Vitest v4 settings to add), so there were none to remove.
+
+#### Kept (2026-11-02)
+
+- **ESLint still lints `.svelte` files.** `eslint.config.js` and its devDependencies are restored, and `lint` runs `eslint "**/*.svelte"` after `vp lint`. Reason: Oxlint selects 109 `.svelte` files, but zero `svelte/*` rules are registered in `vp lint --rules`, and a probe `{@html}` file passed Oxlint while ESLint fails it with `svelte/no-at-html-tags`. Vite+'s lint guide does not document Svelte support, so the rules that enforce `svelte/no-navigation-without-resolve` (AGENTS.md) would have silently stopped. Revisit when Oxlint runs `eslint-plugin-svelte` rules on `.svelte` files.
+- `eslint-disable` directives in `.svelte` files are unchanged; they are valid again because ESLint runs on them. The migrator converted the directives in three `.ts` files to `oxlint-disable` because Oxlint lints those files.
+
+#### Fixed (2026-11-02)
+
+- **Unsafe optional-chaining call in the `/store/indicators` spec.** `(closed?.querySelector('summary') as HTMLElement).click()` would throw a `TypeError` instead of failing an assertion when `closed` is null. It now asserts `closed` is not null, then clicks with `?.`.
+
+#### Verified (2026-11-02)
+
+- `pnpm lint`: exit 0 (formatting clean, Oxlint 0 errors, ESLint on `.svelte` 0 problems).
+- `pnpm check` (svelte-check): 0 errors, 0 warnings, 2105 files. `vp check`: 0 errors, 48 warnings.
+- `pnpm check:css`: 90 custom properties, all declared. `pnpm check:pages`: 47 prerendered pages pass.
+- `pnpm run test:unit --run` (`vp test`): 375 of 375 tests pass across 63 files. The count matches the pre-migration run.
+- `pnpm build` (`vp build`): passes.
+- E2E against the built app on port 4174 (the port 4173 was held by another project's preview server, so the run used a temporary Playwright override that was then deleted): `test:seo` 3/3, full suite 30/30 with nothing skipped. Admin specs ran against the seeded local PGlite (`pnpm db:seed-admin`, `DATABASE_URL=pglite://local`).
+- `pnpm install --frozen-lockfile`: lockfile up to date. `pnpm dev` (`vp dev`) served `/`, `/blog`, `/admin/login`, `/store/indicators`, `/resources` with 200, an unknown route with 404, and logged no errors.
+
+#### Known warnings and gaps (2026-11-02)
+
+- **48 Oxlint warnings remain, unchanged.** 39 are `no-base-to-string` on `unknown`/`Record<string, unknown>` values in `src/lib/components/admin/post-editor/form-actions.ts` (`hydrateFromFullPost`), `src/lib/server/services/*`, and `src/routes/blog/[slug]/+page.server.ts`. They are type-aware warnings for pre-existing code the old non-type-aware ESLint never checked. A typed hydration schema would remove them. Also: 2 `no-useless-fallback-in-spread`, 2 `no-misused-spread`, 1 `no-new-array`, 1 `no-empty-file` (`src/lib/index.ts`), 1 `no-duplicate-type-constituents`, 1 `no-redundant-type-constituents`, 1 `await-thenable`.
+- `tests/` is outside `tsconfig.json` `include`, so its TypeScript is not type-checked, as before the migration.
+- The build reports a chunk-size warning and a missing `@img/sharp-libvips-dev/cplusplus` module; not compared against a pre-migration build yet.
+- The docs in `docs/NEW_PAGE_PLAYBOOK.md` now name the `vp` commands; the README's original scaffold command is historical and unchanged.
+
 ### 2026-11-01 — Local run verified as if deployed (production build with the real `.env`, and dev mode)
 
 #### Verified (2026-11-01)

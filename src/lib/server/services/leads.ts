@@ -448,7 +448,13 @@ export async function getEmailEventStats() {
 }
 
 type LeadEngagementState =
-	'no_email' | 'sent' | 'delivered' | 'opened' | 'clicked' | 'bounced' | 'complained';
+	| 'no_email'
+	| 'sent'
+	| 'delivered'
+	| 'opened'
+	| 'clicked'
+	| 'bounced'
+	| 'complained';
 
 export type LeadDashboardRow = {
 	id: number;

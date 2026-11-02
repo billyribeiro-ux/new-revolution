@@ -4,7 +4,10 @@
  */
 
 export type CourseTrack =
-	'small-accounts' | 'options-greeks' | 'intraday-orderflow' | 'swing-macro';
+	| 'small-accounts'
+	| 'options-greeks'
+	| 'intraday-orderflow'
+	| 'swing-macro';
 export type CourseTrackFilter = 'all' | CourseTrack;
 
 export interface TradingCourse {

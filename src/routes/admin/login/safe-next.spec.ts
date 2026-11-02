@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { ADMIN_HOME_PATH, safeAdminNext } from './safe-next.ts';
 
 describe('safeAdminNext', () => {

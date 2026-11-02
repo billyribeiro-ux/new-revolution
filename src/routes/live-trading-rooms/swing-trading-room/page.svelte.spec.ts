@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import {
 	buildSwingTradingRoomJsonLd,
@@ -35,7 +35,7 @@ describe('/live-trading-rooms/swing-trading-room (+page.ts & +page.svelte)', () 
 	});
 
 	it('renders the H1, 4 workflow steps, 4 swing playbooks, 5 comparison rows, 3 routing cards, and 5 FAQs', async () => {
-		render(SwingTradingRoomPage, {
+		await render(SwingTradingRoomPage, {
 			params: {},
 			data: {
 				baseMetaTags: {},

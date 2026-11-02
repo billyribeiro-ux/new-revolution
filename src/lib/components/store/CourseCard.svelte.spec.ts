@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import { coursesCatalog } from '#lib/data/courses.ts';
 import CourseCard from './CourseCard.svelte';
@@ -9,7 +9,7 @@ const regular = coursesCatalog[1];
 
 describe('CourseCard', () => {
 	it('renders one article named by its title link, which targets the typed detail route', async () => {
-		render(CourseCard, { course: regular });
+		await render(CourseCard, { course: regular });
 
 		const article = page.getByRole('article', { name: regular.title });
 		await expect.element(article).toBeInTheDocument();
@@ -22,14 +22,14 @@ describe('CourseCard', () => {
 	});
 
 	it('defaults to an h3 title', async () => {
-		render(CourseCard, { course: regular });
+		await render(CourseCard, { course: regular });
 		await expect
 			.element(page.getByRole('heading', { level: 3, name: regular.title }))
 			.toBeVisible();
 	});
 
 	it('uses the requested heading level and keeps heading and article ids paired', async () => {
-		render(CourseCard, { course: regular, headingLevel: 2 });
+		await render(CourseCard, { course: regular, headingLevel: 2 });
 		await expect
 			.element(page.getByRole('heading', { level: 2, name: regular.title }))
 			.toBeVisible();
@@ -40,7 +40,7 @@ describe('CourseCard', () => {
 	});
 
 	it('merges the class prop and forwards rest attributes onto the article', async () => {
-		render(CourseCard, {
+		await render(CourseCard, {
 			course: regular,
 			class: ['host-class', { 'is-extra': true }],
 			'data-testid': 'card'
@@ -55,7 +55,7 @@ describe('CourseCard', () => {
 	});
 
 	it('opens the syllabus by default on the featured card and shows every module', async () => {
-		render(CourseCard, { course: flagship });
+		await render(CourseCard, { course: flagship });
 		expect(flagship.featured).toBe(true);
 		expect((document.querySelector('details') as HTMLDetailsElement).open).toBe(true);
 		expect(document.querySelectorAll('.course-card__modules > li').length).toBe(
@@ -65,7 +65,7 @@ describe('CourseCard', () => {
 	});
 
 	it('keeps a collapsed syllabus crawlable: every module is in the DOM while closed', async () => {
-		render(CourseCard, { course: regular });
+		await render(CourseCard, { course: regular });
 		expect((document.querySelector('details') as HTMLDetailsElement).open).toBe(false);
 		expect(document.querySelectorAll('.course-card__modules > li').length).toBe(
 			regular.syllabus.length
@@ -76,7 +76,7 @@ describe('CourseCard', () => {
 	});
 
 	it('hides the decorative CTA from assistive technology so the title is the single detail link', async () => {
-		render(CourseCard, { course: regular });
+		await render(CourseCard, { course: regular });
 		expect(document.querySelector('.catalog-card__cta')?.getAttribute('aria-hidden')).toBe('true');
 		expect(document.querySelectorAll('a[href="/store/courses/' + regular.slug + '"]').length).toBe(
 			1

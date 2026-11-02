@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { decideAdminAccess, ADMIN_LOGIN_PATH } from './admin-access.ts';
 
 const admin = { name: 'Billy Ribeiro', email: 'owner@example.com', role: 'admin' };

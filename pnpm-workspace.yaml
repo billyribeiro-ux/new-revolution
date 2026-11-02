@@ -3,3 +3,17 @@ allowBuilds:
   esbuild: true
 overrides:
   drizzle-kit>@esbuild-kit/esm-loader: '-'
+  vite@*: 'catalog:'
+  vitest@*: 'catalog:'
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
+  vitest: 5.0.5
+  vite-plus: 1.4.0
+  '@vitest/browser-playwright': 5.0.5
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'

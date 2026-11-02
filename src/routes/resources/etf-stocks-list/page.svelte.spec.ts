@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import { buildEtfStocksListJsonLd, SITE_ORIGIN } from '#lib/seo/structured-data.ts';
 import { load } from './+page.ts';
@@ -33,7 +33,7 @@ describe('/resources/etf-stocks-list page', () => {
 	});
 
 	it('renders the H1, 5 ETF benefits, 5 ETF types, 12 featured ETFs, 11 sector ETF cards, 7 comparison rows, 4 FAQs, and 5 room CTAs', async () => {
-		render(Page, {
+		await render(Page, {
 			data: {
 				pageMetaTags: {},
 				jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN)
@@ -57,7 +57,7 @@ describe('/resources/etf-stocks-list page', () => {
 	});
 
 	it('filters the directory with accessible pressed state, a live result count, and an empty state', async () => {
-		render(Page, {
+		await render(Page, {
 			data: { pageMetaTags: {}, jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN) } as never
 		});
 
@@ -79,7 +79,7 @@ describe('/resources/etf-stocks-list page', () => {
 	});
 
 	it('renders a skip link to the main landmark and a breadcrumb whose last item is the current page', async () => {
-		render(Page, {
+		await render(Page, {
 			data: { pageMetaTags: {}, jsonLdSchema: buildEtfStocksListJsonLd(SITE_ORIGIN) } as never
 		});
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { buildBlogPageMetaTags, buildBlogPostJsonLd, dropRestrictedJsonLdNodes } from './blog-seo';
 
 const ORIGIN = 'https://revolutiontradingpros.com';

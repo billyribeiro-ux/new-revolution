@@ -1,11 +1,11 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import LoginPage from './+page.svelte';
 
 describe('/admin/login form', () => {
 	it('labels both fields and sets autocomplete hints for password managers', async () => {
-		render(LoginPage, { form: null });
+		await render(LoginPage, { form: null });
 
 		await expect.element(page.getByLabelText('Email')).toHaveAttribute('autocomplete', 'email');
 		await expect
@@ -15,7 +15,7 @@ describe('/admin/login form', () => {
 	});
 
 	it('announces a failure in role=alert and links it to both fields', async () => {
-		render(LoginPage, {
+		await render(LoginPage, {
 			form: { message: 'Email or password is incorrect.', email: 'owner@example.com' }
 		});
 
@@ -27,7 +27,7 @@ describe('/admin/login form', () => {
 	});
 
 	it('keeps the submitted email but never echoes a password back into the DOM', async () => {
-		render(LoginPage, {
+		await render(LoginPage, {
 			form: { message: 'Email or password is incorrect.', email: 'owner@example.com' }
 		});
 
@@ -39,7 +39,7 @@ describe('/admin/login form', () => {
 	});
 
 	it('is marked noindex, nofollow', async () => {
-		render(LoginPage, { form: null });
+		await render(LoginPage, { form: null });
 
 		const robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
 		expect(robots?.content).toBe('noindex,nofollow');

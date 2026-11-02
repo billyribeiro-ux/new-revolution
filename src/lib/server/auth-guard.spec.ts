@@ -1,5 +1,5 @@
 import { isHttpError } from '@sveltejs/kit';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { requireAdmin } from './auth-guard';
 
 const APP_URL = 'https://revolutiontradingpros.com/api/admin/posts';

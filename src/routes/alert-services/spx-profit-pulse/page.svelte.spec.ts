@@ -1,5 +1,5 @@
-import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { page } from 'vite-plus/test/browser';
+import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
 import '../../../app.css';
 import Page from './+page.svelte';
@@ -44,7 +44,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy (zero H4s), and 4 semantic H3 FAQ summaries', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},
@@ -70,7 +70,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 	});
 
 	it('switches the interactive SPX Alert Simulator across all 3 SPX playbooks', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},
@@ -105,7 +105,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 	});
 
 	it('renders all 6 deliverables, 4 SPX structural advantages, 3 membership cadences with zero prices, trader bio, 4 member reviews, and 5 ecosystem cards', async () => {
-		render(Page, {
+		await render(Page, {
 			params: {},
 			data: {
 				pageMetaTags: {},

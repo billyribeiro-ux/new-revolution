@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { eq } from 'drizzle-orm';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vite-plus/test';
 import { createTestDatabase } from '../src/lib/server/db';
 import { account, session, user } from '../src/lib/server/db/auth.schema.ts';
 import { userAdditionalFields } from '../src/lib/server/auth-options.ts';

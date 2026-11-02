@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vite-plus/test';
 import { coverSrcsetFromMedia, coverSrcsetFromUrl } from './cover-srcset';
 
 const BASE = 'https://cdn.example.test/media/chart-abc123def456';

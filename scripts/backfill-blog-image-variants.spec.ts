@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vite-plus/test';
 import sharp from 'sharp';
 import { eq } from 'drizzle-orm';
 import { createTestDatabase, setActiveDbForTest } from '../src/lib/server/db';

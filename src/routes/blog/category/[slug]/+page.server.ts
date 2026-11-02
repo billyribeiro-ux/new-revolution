@@ -2,19 +2,28 @@ import { error } from '@sveltejs/kit';
 import { buildBlogPageMetaTags, buildTaxonomyCollectionJsonLd } from '#lib/seo/blog-seo';
 import { sanitizePostHtml } from '#lib/sanitize-post-html';
 import { setPublicReadCache } from '#lib/server/posts/cache';
+import { listCacheTags } from '#lib/server/posts/cache-tags';
 import { listPublicCategoriesWithCounts } from '#lib/server/services/categories';
 import { listPublicPosts } from '#lib/server/services/posts';
 import { isCategoryIndexable } from '#lib/shared/seo/taxonomy';
+import {
+	BLOG_PAGE_SIZE,
+	isPageOutOfRange,
+	pageLabel,
+	parsePageParam
+} from '#lib/shared/blog/pagination';
 import type { PageServerLoad } from './$types';
 
 export const prerender = false;
 
 export const load: PageServerLoad = async ({ params, url, locals, request, setHeaders }) => {
-	setPublicReadCache(setHeaders, locals, request);
-
 	const slug = params.slug.trim().toLowerCase();
-	const rawPage = Number(url.searchParams.get('page') ?? '1');
-	const page = Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1;
+	// A malformed `page` is a 404, decided before anything is cached (docs/seo/DECISIONS.md section 6).
+	const parsedPage = parsePageParam(url.searchParams.get('page'));
+	if (!parsedPage.ok) {
+		error(404, 'Page not found');
+	}
+	const page = parsedPage.page;
 
 	const categoriesWithCounts = await listPublicCategoriesWithCounts();
 	const currentCategory = categoriesWithCounts.find(
@@ -22,20 +31,24 @@ export const load: PageServerLoad = async ({ params, url, locals, request, setHe
 	);
 
 	if (!currentCategory || currentCategory.postCount === 0) {
-		throw error(404, 'Category not found');
+		error(404, 'Category not found');
 	}
 
 	const postsPage = await listPublicPosts({
 		categoryId: currentCategory.id,
 		page,
-		perPage: 12
+		perPage: BLOG_PAGE_SIZE
 	});
 
-	if (postsPage.total === 0) {
-		throw error(404, 'Category not found');
+	if (postsPage.total === 0 || isPageOutOfRange(page, postsPage.totalPages)) {
+		error(404, 'Category not found');
 	}
 
-	const indexable = isCategoryIndexable(postsPage.total) && page === 1;
+	// Cached only now that the response is a real page: unknown slugs and bad pages never carry public cache headers.
+	setPublicReadCache(setHeaders, locals, request, listCacheTags());
+
+	// Indexable archives are indexable on every page, each with its own canonical.
+	const indexable = isCategoryIndexable(postsPage.total);
 
 	// Section 10.5: Sidebar lists indexable categories, ALWAYS including the current category
 	const sidebarCategories = categoriesWithCounts.filter(
@@ -68,22 +81,24 @@ export const load: PageServerLoad = async ({ params, url, locals, request, setHe
 				: null
 	}));
 
-	const title = (currentCategory.metaTitle || `${currentCategory.name} Trading Articles`).trim();
+	const title = `${(currentCategory.metaTitle || `${currentCategory.name} Trading Articles`).trim()}${pageLabel(page)}`;
 	const rawDescription = (
 		currentCategory.metaDescription ||
 		currentCategory.description ||
 		''
 	).trim();
-	const description =
+	const description = `${
 		rawDescription.length >= 110 && rawDescription.length <= 160
 			? rawDescription
-			: `Explore ${postsPage.total} institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under ${currentCategory.name}.`;
+			: `Explore ${postsPage.total} institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under ${currentCategory.name}.`
+	}${pageLabel(page)}`;
 
 	return {
 		...buildBlogPageMetaTags({
 			title,
 			description,
 			pathname: `/blog/category/${currentCategory.slug}`,
+			page,
 			indexable
 		}),
 		jsonLdSchema: buildTaxonomyCollectionJsonLd({

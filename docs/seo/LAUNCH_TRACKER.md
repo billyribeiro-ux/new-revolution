@@ -51,7 +51,7 @@ Status: ✅ done and verified · 🟡 done in code, needs a check after deploy �
 
 1. Remove its prefix from `UNLAUNCHED_ROUTE_PREFIXES` in `src/lib/data/launch-gate.ts`.
 2. Restore the sitemap assertions in `src/routes/blog/blog-routes.spec.ts` (post URL and `<image:image>` listed) and flip the matching rows in `docs/seo/audit/02-inventory.json` to `indexable: true`.
-3. Restore the nav/footer expectations in `src/lib/data/homepage.spec.ts` and `src/routes/page.svelte.e2e.ts`; update the `noindex` URL list in `tests/seo/seo-standard.spec.ts`.
+3. Remove the launch-gate mock in `src/routes/blog/blog-pagination.spec.ts` (it opens `/blog` for that spec only), then restore the nav/footer expectations in `src/lib/data/homepage.spec.ts` and `src/routes/page.svelte.e2e.ts`; update the `noindex` URL list in `tests/seo/seo-standard.spec.ts`.
 4. Replace authoring text that appears the moment a section returns: `BlogSection.svelte` ("proposed editorial content … must be authored before launch"), and any "Preview only" strings.
 5. `pnpm build`, `pnpm check:pages`, `pnpm test:seo`.
 

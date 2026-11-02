@@ -10,6 +10,7 @@ import { getClientIp } from '#lib/server/auth-guard';
 import { ensureDbReady } from '#lib/server/db';
 import { media, posts } from '#lib/server/db/schema';
 import { setNoStoreCache, setPublicReadCache } from '#lib/server/posts/cache';
+import { articleCacheTags } from '#lib/server/posts/cache-tags';
 import { highlightPostCodeBlocks } from '#lib/server/posts/highlight';
 import {
 	getPostPasswordCookieName,
@@ -139,7 +140,7 @@ export const load: PageServerLoad = async ({
 	if (isPrivateView) {
 		setNoStoreCache(setHeaders);
 	} else {
-		setPublicReadCache(setHeaders, locals, request);
+		setPublicReadCache(setHeaders, locals, request, articleCacheTags(post.slug));
 	}
 
 	// Look up stored media dimensions for cover and body images (indexed by referenced URLs)

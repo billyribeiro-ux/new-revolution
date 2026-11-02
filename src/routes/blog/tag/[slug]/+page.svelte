@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { pageHref } from '#lib/shared/blog/pagination';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import PostCard from '#lib/components/blog/PostCard.svelte';
@@ -50,7 +51,10 @@
 				<nav class="pagination-nav" aria-label="Tag pagination">
 					{#if data.pagination.page > 1}
 						<a
-							href={`${resolve('/blog/tag/[slug]', { slug: data.tag.slug })}?page=${data.pagination.page - 1}`}
+							href={pageHref(
+								resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
+								data.pagination.page - 1
+							)}
 							class="page-btn"
 						>
 							Previous Page
@@ -61,7 +65,10 @@
 					</span>
 					{#if data.pagination.page < data.pagination.totalPages}
 						<a
-							href={`${resolve('/blog/tag/[slug]', { slug: data.tag.slug })}?page=${data.pagination.page + 1}`}
+							href={pageHref(
+								resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
+								data.pagination.page + 1
+							)}
 							class="page-btn"
 						>
 							Next Page

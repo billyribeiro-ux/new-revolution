@@ -1,11 +1,14 @@
 // Folder: src/routes/sitemap.xml/
 // File:   +server.ts
 import {
+	buildPublicCacheControl,
+	CACHE_TAG_HEADER,
 	computeWeakOrStrongEtag,
 	createFeedErrorResponse,
 	matchesIfNoneMatch
 } from '#lib/server/posts/cache';
 import { isUnlaunchedRoute } from '#lib/data/launch-gate';
+import { BLOG_SITEMAP_TAG } from '#lib/server/posts/cache-tags';
 import { listPublicCategoriesWithCounts } from '#lib/server/services/categories';
 import { listSitemapBlogEntries } from '#lib/server/services/posts';
 import { listPublicTagsWithCounts } from '#lib/server/services/tags';
@@ -156,8 +159,7 @@ export const GET: RequestHandler = async ({ request }) => {
 		].join('\n');
 
 		const etag = computeWeakOrStrongEtag(xml);
-		const cacheControl =
-			'public, max-age=0, s-maxage=300, stale-while-revalidate=86400, stale-if-error=86400';
+		const cacheControl = buildPublicCacheControl(300);
 
 		if (matchesIfNoneMatch(request.headers.get('if-none-match'), etag)) {
 			return new Response(null, {
@@ -165,6 +167,7 @@ export const GET: RequestHandler = async ({ request }) => {
 				headers: {
 					ETag: etag,
 					'Cache-Control': cacheControl,
+					[CACHE_TAG_HEADER]: BLOG_SITEMAP_TAG,
 					'X-Robots-Tag': 'noindex'
 				}
 			});
@@ -176,6 +179,7 @@ export const GET: RequestHandler = async ({ request }) => {
 				'Content-Type': 'application/xml; charset=utf-8',
 				ETag: etag,
 				'Cache-Control': cacheControl,
+				[CACHE_TAG_HEADER]: BLOG_SITEMAP_TAG,
 				'X-Robots-Tag': 'noindex'
 			}
 		});

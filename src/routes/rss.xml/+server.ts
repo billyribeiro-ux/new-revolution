@@ -3,6 +3,7 @@ import { sanitizePostHtml } from '#lib/sanitize-post-html';
 import { ensureDbReady } from '#lib/server/db';
 import { media } from '#lib/server/db/schema';
 import { createFeedErrorResponse, createXmlFeedResponse } from '#lib/server/posts/cache';
+import { BLOG_FEED_TAG } from '#lib/server/posts/cache-tags';
 import { listPublicPosts } from '#lib/server/services/posts';
 import { buildRssFeedXml } from '#lib/shared/seo/rss';
 import type { RequestHandler } from './$types';
@@ -69,7 +70,7 @@ export const GET: RequestHandler = async ({ request }) => {
 			})
 		});
 
-		return createXmlFeedResponse(xml, request, 3600);
+		return createXmlFeedResponse(xml, request, 3600, [BLOG_FEED_TAG]);
 	} catch (err) {
 		console.error('[/rss.xml] Failed to generate RSS feed:', err);
 		return createFeedErrorResponse();

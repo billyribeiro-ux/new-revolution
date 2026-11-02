@@ -8,6 +8,7 @@ import {
 	buildOrganizationEntity,
 	isNoIndexRoute
 } from './structured-data';
+import { pageHref } from '#lib/shared/blog/pagination';
 import { computeRenderedTitle } from '#lib/shared/seo/meta-budget';
 
 export interface BlogBreadcrumbItem {
@@ -19,6 +20,8 @@ export interface BlogSeoHeadInput {
 	title: string;
 	description: string;
 	pathname: string;
+	/** 1-based page of a paginated archive. Page 2+ gets its own `?page=n` canonical; page 1 stays the bare path. */
+	page?: number;
 	canonicalOverride?: string | null;
 	indexable?: boolean;
 	nofollow?: boolean;
@@ -63,7 +66,8 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 	const noarchive = input.noarchive ?? false;
 	const nosnippet = input.nosnippet ?? false;
 	const cleanPath = input.pathname === '/' ? '' : input.pathname.replace(/\/+$/, '');
-	const canonicalUrl = input.canonicalOverride?.trim() || `${SITE_ORIGIN}${cleanPath}`;
+	const canonicalUrl =
+		input.canonicalOverride?.trim() || `${SITE_ORIGIN}${pageHref(cleanPath, input.page ?? 1)}`;
 
 	const renderedBudget = computeRenderedTitle(input.title, BRAND_NAME);
 	const titleTemplate = renderedBudget.brandAppended ? `%s | ${BRAND_NAME}` : '%s';

@@ -140,6 +140,35 @@ describe('buildBlogPageMetaTags', () => {
 		expect(gated.pageMetaTags.canonical).toBeUndefined();
 	});
 
+	// Non-gated pathnames isolate the pagination logic that applies once the archives launch.
+	it('gives page 2+ of an indexable archive its own ?page= canonical and og:url, and page 1 the bare URL', () => {
+		const base = {
+			title: 'Archive',
+			description: 'Educational archive description for the pagination canonical test.',
+			pathname: '/guides/archive'
+		};
+		const first = buildBlogPageMetaTags({ ...base, page: 1 });
+		const second = buildBlogPageMetaTags({ ...base, page: 2 });
+		const omitted = buildBlogPageMetaTags(base);
+		expect(first.pageMetaTags.canonical).toBe(`${ORIGIN}/guides/archive`);
+		expect(omitted.pageMetaTags.canonical).toBe(`${ORIGIN}/guides/archive`);
+		expect(second.pageMetaTags.canonical).toBe(`${ORIGIN}/guides/archive?page=2`);
+		expect(second.pageMetaTags.openGraph?.url).toBe(`${ORIGIN}/guides/archive?page=2`);
+		expect(second.pageMetaTags.robots).toMatch(/^index/);
+	});
+
+	it('keeps a non-indexable page free of a canonical whatever its page number', () => {
+		const meta = buildBlogPageMetaTags({
+			title: 'Search results',
+			description: 'Search results are never indexable.',
+			pathname: '/guides/archive',
+			page: 3,
+			indexable: false
+		});
+		expect(meta.pageMetaTags.canonical).toBeUndefined();
+		expect(meta.pageMetaTags.robots).toMatch(/^noindex/);
+	});
+
 	// A non-gated pathname isolates the directive logic that applies once the blog launches.
 	it('honors canonicalOverride, preview nofollow, noarchive, and nosnippet directives', () => {
 		const overridden = buildBlogPageMetaTags({

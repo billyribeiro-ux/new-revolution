@@ -9,6 +9,26 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-02 — Blog engine Phase 1a: cache headers, tags, pagination and 404 handling
+
+Plan and evidence: [`blog-editor-report.md`](blog-editor-report.md), [`docs/blog/COVERAGE_MATRIX.md`](docs/blog/COVERAGE_MATRIX.md), [`docs/blog/FRESHNESS.md`](docs/blog/FRESHNESS.md).
+
+#### Added (2026-11-02)
+
+- `src/lib/shared/blog/pagination.ts`, `src/lib/server/posts/cache-tags.ts`, `scripts/blog-coverage-probe.mjs`, `docs/blog/*`.
+- Every public blog response carries a `Vercel-Cache-Tag` (`blog-post:<slug>`, `blog-lists`, `blog-feed`, `blog-sitemap`). `invalidatePublicBlogCache` maps invalidated paths to tags and calls a registered `BlogCachePurger` (none registered yet; purge failures are logged, never swallowed).
+
+#### Changed (2026-11-02)
+
+- Public `Cache-Control` is `s-maxage=300, stale-while-revalidate=60, stale-if-error=3600` (was `swr=86400`, `sie=86400`), so removed content can be served for at most about 6 minutes instead of up to 24 hours.
+- Index, category and tag pages 2+ are indexable with their own `?page=n` canonical and a `(Page n)` title suffix (were `noindex` with no canonical). Search results stay `noindex`.
+- Pagination links go through `pageHref`; page 1 always links to the bare URL.
+
+#### Fixed (2026-11-02)
+
+- `?page=` beyond the last page, or malformed (`abc`, `0`, `1.5`, `01`), returned HTTP 200 with no articles (soft 404); now 404, uncached.
+- Unknown category and tag URLs returned a 404 with public cache headers, which Vercel's CDN caches; now uncached.
+
 ### 2026-11-02 — YMYL and launch-readiness hardening (`feat/ymyl-launch-hardening`)
 
 Audit of the temporary Vercel deployment against a launch-readiness brief. Each item was checked against the built output, the live temp URL and Google/Vercel/SvelteKit primary sources first; what the evidence disproved was left alone and is listed in [`docs/seo/LAUNCH_TRACKER.md`](docs/seo/LAUNCH_TRACKER.md) §E.

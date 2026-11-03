@@ -11,6 +11,10 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-03 — Dependency updates
 
+#### Added (2026-11-03)
+
+- `lightweight-charts` `^5.2.1` (TradingView; latest on npm as of 2026-11-03, published 2026-08-12; Apache-2.0). Installed only: nothing imports it yet.
+
 #### Changed (2026-11-03)
 
 - Updated to the latest published releases: `@threlte/core` 8.6.1 → 8.7.0, `@threlte/extras` 9.23.0 → 9.23.1, `better-auth` and `auth` (CLI) 1.7.14 → 1.7.15, `@electric-sql/pglite` (dev) 0.5.13 → 0.5.15, `svelte-check` (dev) 4.7.7 → 4.7.8, `globals` (dev) 17.13.0 → 17.14.0, `shiki` 4.5.0 → 4.6.0.

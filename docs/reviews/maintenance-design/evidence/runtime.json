@@ -1,841 +1,766 @@
 {
-  "metrics": [
-    {
-      "label": "mobile-320",
-      "httpStatus": 503,
-      "headers": {
-        "connection": "keep-alive",
-        "date": "Tue, 03 Nov 2026 21:58:13 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked",
-        "cache-control": "no-store, max-age=0",
-        "cdn-cache-control": "no-store",
-        "content-type": "text/html; charset=utf-8",
-        "vercel-cdn-cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-        "x-robots-tag": "noindex, nofollow"
-      },
-      "viewport": [
-        320,
-        568
-      ],
-      "document": [
-        358,
-        1541
-      ],
-      "hero": {
-        "x": 0,
-        "y": 55,
-        "width": 320,
-        "height": 700,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "h1": {
-        "x": 25.59375,
-        "y": 252.59375,
-        "width": 268.8125,
-        "height": 96.1875,
-        "font": "system-ui, sans-serif",
-        "size": "51.2px",
-        "lineHeight": "47.104px",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "status": {
-        "x": 174.078125,
-        "y": 16,
-        "width": 125.921875,
-        "height": 22,
-        "font": "ui-monospace, monospace",
-        "size": "9.6px",
-        "lineHeight": "normal",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "button": {
-        "x": 25.59375,
-        "y": 518.328125,
-        "width": 205.6875,
-        "height": 50,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(6, 7, 10)",
-        "background": "rgb(198, 161, 91)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "email": {
-        "x": 58.59375,
-        "y": 1226.984375,
-        "width": 261.546875,
-        "height": 18,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "27.2px",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "panel": {
-        "x": 25.59375,
-        "y": 1060.09375,
-        "width": 331.984375,
-        "height": 239.078125,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(255, 255, 255, 0.03)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "brand": {
-        "x": 20,
-        "y": 16,
-        "width": 138.078125,
-        "height": 22,
-        "font": "ui-monospace, monospace",
-        "size": "9.6px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "footer": {
-        "x": 0,
-        "y": 1364.171875,
-        "width": 320,
-        "height": 177.078125,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "17.92px",
-        "color": "rgb(210, 208, 202)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "chart": {
-        "x": 64,
-        "y": 159.84375,
-        "width": 352,
-        "height": 349.5,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "headings": [
-        [
-          "H1",
-          "We'll beback soon."
-        ],
-        [
-          "H2",
-          "Better tools.Same discipline."
-        ],
-        [
-          "H3",
-          "Talk to our team"
-        ]
-      ]
-    },
-    {
-      "label": "mobile-390",
-      "httpStatus": 503,
-      "headers": {
-        "connection": "keep-alive",
-        "date": "Tue, 03 Nov 2026 21:58:13 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked",
-        "cache-control": "no-store, max-age=0",
-        "cdn-cache-control": "no-store",
-        "content-type": "text/html; charset=utf-8",
-        "vercel-cdn-cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-        "x-robots-tag": "noindex, nofollow"
-      },
-      "viewport": [
-        390,
-        844
-      ],
-      "document": [
-        390,
-        1522
-      ],
-      "hero": {
-        "x": 0,
-        "y": 55,
-        "width": 390,
-        "height": 700,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "h1": {
-        "x": 31.1875,
-        "y": 252.59375,
-        "width": 327.625,
-        "height": 96.1875,
-        "font": "system-ui, sans-serif",
-        "size": "51.2px",
-        "lineHeight": "47.104px",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "status": {
-        "x": 210.6875,
-        "y": 16,
-        "width": 159.3125,
-        "height": 22,
-        "font": "ui-monospace, monospace",
-        "size": "9.6px",
-        "lineHeight": "normal",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "button": {
-        "x": 31.1875,
-        "y": 518.328125,
-        "width": 205.6875,
-        "height": 50,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(6, 7, 10)",
-        "background": "rgb(198, 161, 91)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "email": {
-        "x": 64.1875,
-        "y": 1226.984375,
-        "width": 261.546875,
-        "height": 18,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "27.2px",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "panel": {
-        "x": 31.1875,
-        "y": 1060.09375,
-        "width": 331.984375,
-        "height": 239.078125,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(255, 255, 255, 0.03)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "brand": {
-        "x": 20,
-        "y": 16,
-        "width": 174.6875,
-        "height": 22,
-        "font": "ui-monospace, monospace",
-        "size": "9.6px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "footer": {
-        "x": 0,
-        "y": 1364.171875,
-        "width": 390,
-        "height": 158.046875,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "17.92px",
-        "color": "rgb(210, 208, 202)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "chart": {
-        "x": 78,
-        "y": 159.84375,
-        "width": 429,
-        "height": 349.5,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "headings": [
-        [
-          "H1",
-          "We'll beback soon."
-        ],
-        [
-          "H2",
-          "Better tools.Same discipline."
-        ],
-        [
-          "H3",
-          "Talk to our team"
-        ]
-      ]
-    },
-    {
-      "label": "tablet-768",
-      "httpStatus": 503,
-      "headers": {
-        "connection": "keep-alive",
-        "date": "Tue, 03 Nov 2026 21:58:13 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked",
-        "cache-control": "no-store, max-age=0",
-        "cdn-cache-control": "no-store",
-        "content-type": "text/html; charset=utf-8",
-        "vercel-cdn-cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-        "x-robots-tag": "noindex, nofollow"
-      },
-      "viewport": [
-        768,
-        1024
-      ],
-      "document": [
-        768,
-        1257
-      ],
-      "hero": {
-        "x": 0,
-        "y": 46,
-        "width": 768,
-        "height": 760,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "h1": {
-        "x": 61.4375,
-        "y": 283.78125,
-        "width": 645.125,
-        "height": 129.1875,
-        "font": "system-ui, sans-serif",
-        "size": "69.12px",
-        "lineHeight": "63.5904px",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "status": {
-        "x": 526,
-        "y": 16,
-        "width": 203.609375,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "button": {
-        "x": 61.4375,
-        "y": 528.140625,
-        "width": 205.6875,
-        "height": 50,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(6, 7, 10)",
-        "background": "rgb(198, 161, 91)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "email": {
-        "x": 407.578125,
-        "y": 1043.484375,
-        "width": 261.546875,
-        "height": 18,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "27.2px",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "panel": {
-        "x": 374.578125,
-        "y": 876.59375,
-        "width": 331.984375,
-        "height": 239.078125,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(255, 255, 255, 0.03)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "brand": {
-        "x": 38.390625,
-        "y": 16,
-        "width": 226.46875,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "footer": {
-        "x": 0,
-        "y": 1187.28125,
-        "width": 768,
-        "height": 70.0625,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "17.92px",
-        "color": "rgb(210, 208, 202)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "chart": {
-        "x": 230.390625,
-        "y": 137.078125,
-        "width": 576,
-        "height": 569.25,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "headings": [
-        [
-          "H1",
-          "We'll beback soon."
-        ],
-        [
-          "H2",
-          "Better tools.Same discipline."
-        ],
-        [
-          "H3",
-          "Talk to our team"
-        ]
-      ]
-    },
-    {
-      "label": "laptop-1280",
-      "httpStatus": 503,
-      "headers": {
-        "connection": "keep-alive",
-        "date": "Tue, 03 Nov 2026 21:58:13 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked",
-        "cache-control": "no-store, max-age=0",
-        "cdn-cache-control": "no-store",
-        "content-type": "text/html; charset=utf-8",
-        "vercel-cdn-cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-        "x-robots-tag": "noindex, nofollow"
-      },
-      "viewport": [
-        1280,
-        720
-      ],
-      "document": [
-        1280,
-        1222
-      ],
-      "hero": {
-        "x": 0,
-        "y": 46,
-        "width": 1280,
-        "height": 668.921875,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "h1": {
-        "x": 102.390625,
-        "y": 188.3125,
-        "width": 740,
-        "height": 214.96875,
-        "font": "system-ui, sans-serif",
-        "size": "115.2px",
-        "lineHeight": "105.984px",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "status": {
-        "x": 1012.390625,
-        "y": 16,
-        "width": 203.609375,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "button": {
-        "x": 102.390625,
-        "y": 532.546875,
-        "width": 205.6875,
-        "height": 50,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(6, 7, 10)",
-        "background": "rgb(198, 161, 91)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "email": {
-        "x": 697,
-        "y": 966.65625,
-        "width": 261.546875,
-        "height": 18,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "27.2px",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "panel": {
-        "x": 664,
-        "y": 826.953125,
-        "width": 513.609375,
-        "height": 211.890625,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(255, 255, 255, 0.03)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "brand": {
-        "x": 64,
-        "y": 16,
-        "width": 226.46875,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "footer": {
-        "x": 0,
-        "y": 1151.890625,
-        "width": 1280,
-        "height": 70.0625,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "17.92px",
-        "color": "rgb(210, 208, 202)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "chart": {
-        "x": 394,
-        "y": 126.140625,
-        "width": 950,
-        "height": 500.9375,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "headings": [
-        [
-          "H1",
-          "We'll beback soon."
-        ],
-        [
-          "H2",
-          "Better tools.Same discipline."
-        ],
-        [
-          "H3",
-          "Talk to our team"
-        ]
-      ]
-    },
-    {
-      "label": "desktop-1440",
-      "httpStatus": 503,
-      "headers": {
-        "connection": "keep-alive",
-        "date": "Tue, 03 Nov 2026 21:58:13 GMT",
-        "keep-alive": "timeout=5",
-        "transfer-encoding": "chunked",
-        "cache-control": "no-store, max-age=0",
-        "cdn-cache-control": "no-store",
-        "content-type": "text/html; charset=utf-8",
-        "vercel-cdn-cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-        "x-robots-tag": "noindex, nofollow"
-      },
-      "viewport": [
-        1440,
-        900
-      ],
-      "document": [
-        1440,
-        1352
-      ],
-      "hero": {
-        "x": 0,
-        "y": 46,
-        "width": 1440,
-        "height": 760,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "h1": {
-        "x": 115.1875,
-        "y": 219.8125,
-        "width": 740,
-        "height": 239.5,
-        "font": "system-ui, sans-serif",
-        "size": "128px",
-        "lineHeight": "117.76px",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "status": {
-        "x": 1164.390625,
-        "y": 16,
-        "width": 203.609375,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "button": {
-        "x": 115.1875,
-        "y": 592.109375,
-        "width": 205.6875,
-        "height": 50,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(6, 7, 10)",
-        "background": "rgb(198, 161, 91)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "email": {
-        "x": 777,
-        "y": 1077.171875,
-        "width": 261.546875,
-        "height": 18,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "27.2px",
-        "color": "rgb(227, 197, 133)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "panel": {
-        "x": 744,
-        "y": 937.46875,
-        "width": 580.8125,
-        "height": 211.890625,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(255, 255, 255, 0.03)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "brand": {
-        "x": 72,
-        "y": 16,
-        "width": 226.46875,
-        "height": 13,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "footer": {
-        "x": 0,
-        "y": 1281.84375,
-        "width": 1440,
-        "height": 70.0625,
-        "font": "ui-monospace, monospace",
-        "size": "11.2px",
-        "lineHeight": "17.92px",
-        "color": "rgb(210, 208, 202)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "chart": {
-        "x": 562,
-        "y": 137.078125,
-        "width": 950,
-        "height": 569.25,
-        "font": "system-ui, sans-serif",
-        "size": "16px",
-        "lineHeight": "normal",
-        "color": "rgb(236, 234, 228)",
-        "background": "rgba(0, 0, 0, 0)",
-        "outline": "none",
-        "animation": "none"
-      },
-      "headings": [
-        [
-          "H1",
-          "We'll beback soon."
-        ],
-        [
-          "H2",
-          "Better tools.Same discipline."
-        ],
-        [
-          "H3",
-          "Talk to our team"
-        ]
-      ]
-    }
-  ],
-  "interaction": {
-    "first": {
-      "text": "Skip to content",
-      "outline": "rgb(227, 197, 133) solid 3px"
-    },
-    "skipped": {
-      "hash": "#main",
-      "active": "BODY",
-      "scrollY": 46
-    },
-    "primaryFocus": {
-      "text": "Contact our team ↗",
-      "outline": "rgb(227, 197, 133) solid 3px"
-    },
-    "contact": {
-      "hash": "#contact",
-      "active": "BODY",
-      "scrollY": 502
-    },
-    "emailFocus": {
-      "text": "support@revolutiontradingpros.com",
-      "href": "mailto:support@revolutiontradingpros.com",
-      "outline": "rgb(227, 197, 133) solid 3px"
-    },
-    "emailIntent": true,
-    "hoverBefore": {
-      "background": "rgb(198, 161, 91)",
-      "color": "rgb(6, 7, 10)"
-    },
-    "hoverAfter": {
-      "background": "rgb(198, 161, 91)",
-      "color": "rgb(6, 7, 10)"
-    },
-    "motion": {
-      "name": "pulse",
-      "duration": "4s",
-      "iterations": "infinite"
-    },
-    "reduced": "none"
-  },
-  "brand": {
-    "h1": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
-    "body": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
-    "logo": [
-      {
-        "src": "http://127.0.0.1:4173/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif",
-        "alt": "Revolution Trading Pros emblem"
-      }
-    ],
-    "acid": "#dcff65"
-  },
-  "errors": [],
-  "failed": [],
-  "maintenanceRequests": [
-    "http://127.0.0.1:4317/resources/stock-indexes-list",
-    "http://127.0.0.1:4317/resources/stock-indexes-list",
-    "http://127.0.0.1:4317/resources/stock-indexes-list",
-    "http://127.0.0.1:4317/resources/stock-indexes-list",
-    "http://127.0.0.1:4317/resources/stock-indexes-list",
-    "http://127.0.0.1:4317/",
-    "http://127.0.0.1:4317/"
-  ]
+	"metrics": [
+		{
+			"label": "mobile-320",
+			"httpStatus": 503,
+			"headers": {
+				"connection": "keep-alive",
+				"date": "Tue, 03 Nov 2026 21:58:13 GMT",
+				"keep-alive": "timeout=5",
+				"transfer-encoding": "chunked",
+				"cache-control": "no-store, max-age=0",
+				"cdn-cache-control": "no-store",
+				"content-type": "text/html; charset=utf-8",
+				"vercel-cdn-cache-control": "no-store",
+				"x-content-type-options": "nosniff",
+				"x-robots-tag": "noindex, nofollow"
+			},
+			"viewport": [320, 568],
+			"document": [358, 1541],
+			"hero": {
+				"x": 0,
+				"y": 55,
+				"width": 320,
+				"height": 700,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"h1": {
+				"x": 25.59375,
+				"y": 252.59375,
+				"width": 268.8125,
+				"height": 96.1875,
+				"font": "system-ui, sans-serif",
+				"size": "51.2px",
+				"lineHeight": "47.104px",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"status": {
+				"x": 174.078125,
+				"y": 16,
+				"width": 125.921875,
+				"height": 22,
+				"font": "ui-monospace, monospace",
+				"size": "9.6px",
+				"lineHeight": "normal",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"button": {
+				"x": 25.59375,
+				"y": 518.328125,
+				"width": 205.6875,
+				"height": 50,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(6, 7, 10)",
+				"background": "rgb(198, 161, 91)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"email": {
+				"x": 58.59375,
+				"y": 1226.984375,
+				"width": 261.546875,
+				"height": 18,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "27.2px",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"panel": {
+				"x": 25.59375,
+				"y": 1060.09375,
+				"width": 331.984375,
+				"height": 239.078125,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(255, 255, 255, 0.03)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"brand": {
+				"x": 20,
+				"y": 16,
+				"width": 138.078125,
+				"height": 22,
+				"font": "ui-monospace, monospace",
+				"size": "9.6px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"footer": {
+				"x": 0,
+				"y": 1364.171875,
+				"width": 320,
+				"height": 177.078125,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "17.92px",
+				"color": "rgb(210, 208, 202)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"chart": {
+				"x": 64,
+				"y": 159.84375,
+				"width": 352,
+				"height": 349.5,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"headings": [
+				["H1", "We'll beback soon."],
+				["H2", "Better tools.Same discipline."],
+				["H3", "Talk to our team"]
+			]
+		},
+		{
+			"label": "mobile-390",
+			"httpStatus": 503,
+			"headers": {
+				"connection": "keep-alive",
+				"date": "Tue, 03 Nov 2026 21:58:13 GMT",
+				"keep-alive": "timeout=5",
+				"transfer-encoding": "chunked",
+				"cache-control": "no-store, max-age=0",
+				"cdn-cache-control": "no-store",
+				"content-type": "text/html; charset=utf-8",
+				"vercel-cdn-cache-control": "no-store",
+				"x-content-type-options": "nosniff",
+				"x-robots-tag": "noindex, nofollow"
+			},
+			"viewport": [390, 844],
+			"document": [390, 1522],
+			"hero": {
+				"x": 0,
+				"y": 55,
+				"width": 390,
+				"height": 700,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"h1": {
+				"x": 31.1875,
+				"y": 252.59375,
+				"width": 327.625,
+				"height": 96.1875,
+				"font": "system-ui, sans-serif",
+				"size": "51.2px",
+				"lineHeight": "47.104px",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"status": {
+				"x": 210.6875,
+				"y": 16,
+				"width": 159.3125,
+				"height": 22,
+				"font": "ui-monospace, monospace",
+				"size": "9.6px",
+				"lineHeight": "normal",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"button": {
+				"x": 31.1875,
+				"y": 518.328125,
+				"width": 205.6875,
+				"height": 50,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(6, 7, 10)",
+				"background": "rgb(198, 161, 91)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"email": {
+				"x": 64.1875,
+				"y": 1226.984375,
+				"width": 261.546875,
+				"height": 18,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "27.2px",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"panel": {
+				"x": 31.1875,
+				"y": 1060.09375,
+				"width": 331.984375,
+				"height": 239.078125,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(255, 255, 255, 0.03)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"brand": {
+				"x": 20,
+				"y": 16,
+				"width": 174.6875,
+				"height": 22,
+				"font": "ui-monospace, monospace",
+				"size": "9.6px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"footer": {
+				"x": 0,
+				"y": 1364.171875,
+				"width": 390,
+				"height": 158.046875,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "17.92px",
+				"color": "rgb(210, 208, 202)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"chart": {
+				"x": 78,
+				"y": 159.84375,
+				"width": 429,
+				"height": 349.5,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"headings": [
+				["H1", "We'll beback soon."],
+				["H2", "Better tools.Same discipline."],
+				["H3", "Talk to our team"]
+			]
+		},
+		{
+			"label": "tablet-768",
+			"httpStatus": 503,
+			"headers": {
+				"connection": "keep-alive",
+				"date": "Tue, 03 Nov 2026 21:58:13 GMT",
+				"keep-alive": "timeout=5",
+				"transfer-encoding": "chunked",
+				"cache-control": "no-store, max-age=0",
+				"cdn-cache-control": "no-store",
+				"content-type": "text/html; charset=utf-8",
+				"vercel-cdn-cache-control": "no-store",
+				"x-content-type-options": "nosniff",
+				"x-robots-tag": "noindex, nofollow"
+			},
+			"viewport": [768, 1024],
+			"document": [768, 1257],
+			"hero": {
+				"x": 0,
+				"y": 46,
+				"width": 768,
+				"height": 760,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"h1": {
+				"x": 61.4375,
+				"y": 283.78125,
+				"width": 645.125,
+				"height": 129.1875,
+				"font": "system-ui, sans-serif",
+				"size": "69.12px",
+				"lineHeight": "63.5904px",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"status": {
+				"x": 526,
+				"y": 16,
+				"width": 203.609375,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"button": {
+				"x": 61.4375,
+				"y": 528.140625,
+				"width": 205.6875,
+				"height": 50,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(6, 7, 10)",
+				"background": "rgb(198, 161, 91)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"email": {
+				"x": 407.578125,
+				"y": 1043.484375,
+				"width": 261.546875,
+				"height": 18,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "27.2px",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"panel": {
+				"x": 374.578125,
+				"y": 876.59375,
+				"width": 331.984375,
+				"height": 239.078125,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(255, 255, 255, 0.03)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"brand": {
+				"x": 38.390625,
+				"y": 16,
+				"width": 226.46875,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"footer": {
+				"x": 0,
+				"y": 1187.28125,
+				"width": 768,
+				"height": 70.0625,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "17.92px",
+				"color": "rgb(210, 208, 202)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"chart": {
+				"x": 230.390625,
+				"y": 137.078125,
+				"width": 576,
+				"height": 569.25,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"headings": [
+				["H1", "We'll beback soon."],
+				["H2", "Better tools.Same discipline."],
+				["H3", "Talk to our team"]
+			]
+		},
+		{
+			"label": "laptop-1280",
+			"httpStatus": 503,
+			"headers": {
+				"connection": "keep-alive",
+				"date": "Tue, 03 Nov 2026 21:58:13 GMT",
+				"keep-alive": "timeout=5",
+				"transfer-encoding": "chunked",
+				"cache-control": "no-store, max-age=0",
+				"cdn-cache-control": "no-store",
+				"content-type": "text/html; charset=utf-8",
+				"vercel-cdn-cache-control": "no-store",
+				"x-content-type-options": "nosniff",
+				"x-robots-tag": "noindex, nofollow"
+			},
+			"viewport": [1280, 720],
+			"document": [1280, 1222],
+			"hero": {
+				"x": 0,
+				"y": 46,
+				"width": 1280,
+				"height": 668.921875,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"h1": {
+				"x": 102.390625,
+				"y": 188.3125,
+				"width": 740,
+				"height": 214.96875,
+				"font": "system-ui, sans-serif",
+				"size": "115.2px",
+				"lineHeight": "105.984px",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"status": {
+				"x": 1012.390625,
+				"y": 16,
+				"width": 203.609375,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"button": {
+				"x": 102.390625,
+				"y": 532.546875,
+				"width": 205.6875,
+				"height": 50,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(6, 7, 10)",
+				"background": "rgb(198, 161, 91)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"email": {
+				"x": 697,
+				"y": 966.65625,
+				"width": 261.546875,
+				"height": 18,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "27.2px",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"panel": {
+				"x": 664,
+				"y": 826.953125,
+				"width": 513.609375,
+				"height": 211.890625,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(255, 255, 255, 0.03)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"brand": {
+				"x": 64,
+				"y": 16,
+				"width": 226.46875,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"footer": {
+				"x": 0,
+				"y": 1151.890625,
+				"width": 1280,
+				"height": 70.0625,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "17.92px",
+				"color": "rgb(210, 208, 202)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"chart": {
+				"x": 394,
+				"y": 126.140625,
+				"width": 950,
+				"height": 500.9375,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"headings": [
+				["H1", "We'll beback soon."],
+				["H2", "Better tools.Same discipline."],
+				["H3", "Talk to our team"]
+			]
+		},
+		{
+			"label": "desktop-1440",
+			"httpStatus": 503,
+			"headers": {
+				"connection": "keep-alive",
+				"date": "Tue, 03 Nov 2026 21:58:13 GMT",
+				"keep-alive": "timeout=5",
+				"transfer-encoding": "chunked",
+				"cache-control": "no-store, max-age=0",
+				"cdn-cache-control": "no-store",
+				"content-type": "text/html; charset=utf-8",
+				"vercel-cdn-cache-control": "no-store",
+				"x-content-type-options": "nosniff",
+				"x-robots-tag": "noindex, nofollow"
+			},
+			"viewport": [1440, 900],
+			"document": [1440, 1352],
+			"hero": {
+				"x": 0,
+				"y": 46,
+				"width": 1440,
+				"height": 760,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"h1": {
+				"x": 115.1875,
+				"y": 219.8125,
+				"width": 740,
+				"height": 239.5,
+				"font": "system-ui, sans-serif",
+				"size": "128px",
+				"lineHeight": "117.76px",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"status": {
+				"x": 1164.390625,
+				"y": 16,
+				"width": 203.609375,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"button": {
+				"x": 115.1875,
+				"y": 592.109375,
+				"width": 205.6875,
+				"height": 50,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(6, 7, 10)",
+				"background": "rgb(198, 161, 91)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"email": {
+				"x": 777,
+				"y": 1077.171875,
+				"width": 261.546875,
+				"height": 18,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "27.2px",
+				"color": "rgb(227, 197, 133)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"panel": {
+				"x": 744,
+				"y": 937.46875,
+				"width": 580.8125,
+				"height": 211.890625,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(255, 255, 255, 0.03)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"brand": {
+				"x": 72,
+				"y": 16,
+				"width": 226.46875,
+				"height": 13,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"footer": {
+				"x": 0,
+				"y": 1281.84375,
+				"width": 1440,
+				"height": 70.0625,
+				"font": "ui-monospace, monospace",
+				"size": "11.2px",
+				"lineHeight": "17.92px",
+				"color": "rgb(210, 208, 202)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"chart": {
+				"x": 562,
+				"y": 137.078125,
+				"width": 950,
+				"height": 569.25,
+				"font": "system-ui, sans-serif",
+				"size": "16px",
+				"lineHeight": "normal",
+				"color": "rgb(236, 234, 228)",
+				"background": "rgba(0, 0, 0, 0)",
+				"outline": "none",
+				"animation": "none"
+			},
+			"headings": [
+				["H1", "We'll beback soon."],
+				["H2", "Better tools.Same discipline."],
+				["H3", "Talk to our team"]
+			]
+		}
+	],
+	"interaction": {
+		"first": {
+			"text": "Skip to content",
+			"outline": "rgb(227, 197, 133) solid 3px"
+		},
+		"skipped": {
+			"hash": "#main",
+			"active": "BODY",
+			"scrollY": 46
+		},
+		"primaryFocus": {
+			"text": "Contact our team ↗",
+			"outline": "rgb(227, 197, 133) solid 3px"
+		},
+		"contact": {
+			"hash": "#contact",
+			"active": "BODY",
+			"scrollY": 502
+		},
+		"emailFocus": {
+			"text": "support@revolutiontradingpros.com",
+			"href": "mailto:support@revolutiontradingpros.com",
+			"outline": "rgb(227, 197, 133) solid 3px"
+		},
+		"emailIntent": true,
+		"hoverBefore": {
+			"background": "rgb(198, 161, 91)",
+			"color": "rgb(6, 7, 10)"
+		},
+		"hoverAfter": {
+			"background": "rgb(198, 161, 91)",
+			"color": "rgb(6, 7, 10)"
+		},
+		"motion": {
+			"name": "pulse",
+			"duration": "4s",
+			"iterations": "infinite"
+		},
+		"reduced": "none"
+	},
+	"brand": {
+		"h1": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"body": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"logo": [
+			{
+				"src": "http://127.0.0.1:4173/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif",
+				"alt": "Revolution Trading Pros emblem"
+			}
+		],
+		"acid": "#dcff65"
+	},
+	"errors": [],
+	"failed": [],
+	"maintenanceRequests": [
+		"http://127.0.0.1:4317/resources/stock-indexes-list",
+		"http://127.0.0.1:4317/resources/stock-indexes-list",
+		"http://127.0.0.1:4317/resources/stock-indexes-list",
+		"http://127.0.0.1:4317/resources/stock-indexes-list",
+		"http://127.0.0.1:4317/resources/stock-indexes-list",
+		"http://127.0.0.1:4317/",
+		"http://127.0.0.1:4317/"
+	]
 }

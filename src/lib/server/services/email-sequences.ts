@@ -620,7 +620,7 @@ export async function listSubscribers(filters?: {
 	return { subscribers, total: Number(totalRows[0]?.count ?? 0) };
 }
 
-function csvCell(val: unknown): string {
+function csvCell(val: string | number | null | undefined): string {
 	const raw = String(val ?? '').replace(/"/g, '""');
 	return /^[=+\-@\t\r]/.test(raw) ? `"'${raw}"` : `"${raw}"`;
 }

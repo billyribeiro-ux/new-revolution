@@ -23,6 +23,7 @@ Run the application and open the maintenance page using the supported activation
 Inspect representative mobile, tablet, and desktop sizes, including a short laptop viewport. Exercise every visible control and observe loading, hover, focus, error, and reduced-motion states where applicable.
 
 Evaluate:
+
 - First impression and clarity within five seconds.
 - Visual hierarchy, composition, alignment, spacing, and balance.
 - Typography, readability, contrast, and text wrapping.
@@ -49,6 +50,7 @@ Include source links. Do not copy another product’s branding, assets, or disti
 Present one cohesive recommendation with enough detail to review and implement.
 
 Specify:
+
 - The central visual concept and its relationship to the existing brand.
 - Page structure and content hierarchy.
 - Typography roles, spacing rhythm, content widths, and responsive layout.
@@ -74,6 +76,7 @@ For each proposed change, include:
 Observed issue | proposed change | user/brand benefit | affected components | priority | effort | acceptance criteria
 
 Prioritize:
+
 1. Clarity, broken interactions, accessibility, and responsive defects.
 2. Brand consistency, hierarchy, typography, and layout.
 3. Purposeful trading visuals and interaction refinement.
@@ -86,6 +89,7 @@ Keep the plan idiomatic to the installed Svelte version. Address lifecycle clean
 6. DELIVER A CONCRETE DESIGN REVIEW
 
 Provide:
+
 - A candid assessment of the current experience, including its strongest elements.
 - Prioritized findings supported by screenshots, code references, or interaction evidence.
 - The recommended design direction and annotated layout.

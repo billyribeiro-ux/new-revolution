@@ -8,7 +8,7 @@ const targetingSchema = z.object({
 		.max(2048)
 		.regex(/^\/(?!\/)[^?#]*$/)
 		.refine((path) =>
-			[...path].every(
+			Array.from(path).every(
 				(character) => character.charCodeAt(0) >= 32 && character.charCodeAt(0) !== 127
 			)
 		),

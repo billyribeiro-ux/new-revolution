@@ -146,7 +146,7 @@ export async function runBounded<T>(
 	limit: number,
 	worker: (item: T) => Promise<void>
 ): Promise<BulkResult<T>[]> {
-	const results: BulkResult<T>[] = new Array(items.length);
+	const results: BulkResult<T>[] = [];
 	let next = 0;
 	async function lane(): Promise<void> {
 		while (next < items.length) {

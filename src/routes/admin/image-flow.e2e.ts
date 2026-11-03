@@ -6,6 +6,7 @@ import {
 	type Page
 } from '@playwright/test';
 import sharp from 'sharp';
+import { isUnlaunchedRoute } from '../../lib/data/launch-gate.ts';
 
 /*
  * Owner-critical image flow, end to end through the real UI:
@@ -289,7 +290,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		await expect(page.locator('tr', { hasText: TITLE }).first()).toContainText(/published/i);
 	});
 
-	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and sitemap image', async () => {
+	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap', async () => {
 		const request = context.request;
 		const res = await page.goto(`/blog/${slug}`);
 		expect(res?.status()).toBe(200);
@@ -345,7 +346,19 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		expect((await fetchImage(request, bodySrc)).pixels).toBeGreaterThan(0);
 
 		const sitemap = await (await request.get('/sitemap.xml')).text();
-		expect(sitemap).toContain(`<image:loc>${coverUrl}</image:loc>`);
+		if (isUnlaunchedRoute(`/blog/${slug}`)) {
+			// The launch gate excludes noindex content and its images from discovery.
+			await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+				'content',
+				'noindex, follow'
+			);
+			await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+			expect(sitemap).not.toContain(`/blog/${slug}</loc>`);
+			expect(sitemap).not.toContain(`<image:loc>${coverUrl}</image:loc>`);
+		} else {
+			expect(sitemap).toContain(`/blog/${slug}</loc>`);
+			expect(sitemap).toContain(`<image:loc>${coverUrl}</image:loc>`);
+		}
 		expect(sitemap).not.toContain('<image:title>');
 	});
 });

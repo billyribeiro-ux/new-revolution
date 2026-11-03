@@ -40,6 +40,19 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 	let categoryId = 0;
 	let tagId = 0;
 
+	it('rejects a file supplied as an article password before attempting unlock', async () => {
+		const form = new FormData();
+		form.set('password', new File(['content'], 'password.txt'));
+		const result = await slugActions.unlock({
+			params: { slug: 'protected-article' },
+			request: new Request('https://revolutiontradingpros.com/blog/protected-article?/unlock', {
+				method: 'POST',
+				body: form
+			})
+		} as never);
+		expect(result).toMatchObject({ status: 400 });
+	});
+
 	beforeAll(async () => {
 		process.env.POST_PASSWORD_SECRET = 'test-post-password-secret-at-least-32-chars!!';
 		testDbCtx = await createTestDatabase();

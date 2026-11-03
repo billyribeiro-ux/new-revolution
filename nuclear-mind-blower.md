@@ -9,6 +9,7 @@ This is an audit and design proposal—not authorization to modify production co
 THE OUTCOME
 
 Deliver a proposal that makes this particular product substantially better:
+
 - Easier to understand.
 - More effective for its users.
 - More coherent and distinctive.
@@ -24,6 +25,7 @@ Do not stop after describing how you would conduct the audit. Perform the availa
 1. ESTABLISH CONTEXT AND ACCESS
 
 Determine from the available product, repository, documentation, and session context:
+
 - What the product does.
 - Its intended users and their most important tasks.
 - Its business objectives and primary conversion or completion goals.
@@ -49,6 +51,7 @@ Inspect all accessible primary surfaces. Exercise the most important journeys fr
 When a running application is accessible, interact with it. Source inspection and screenshots supplement interaction; they do not establish that a workflow works.
 
 Inspect relevant:
+
 - First impressions, value communication, and onboarding.
 - Navigation, wayfinding, search, and information architecture.
 - Core workflows and repeated tasks.
@@ -72,6 +75,7 @@ Distinguish inspected, interacted with, inferred, blocked, and not tested. Never
 3. UNDERSTAND THE BRAND BEFORE REDESIGNING IT
 
 Extract the existing visual language:
+
 - Logo and brand assets.
 - Color roles.
 - Typography and editorial voice.
@@ -81,6 +85,7 @@ Extract the existing visual language:
 - Motion and interaction personality.
 
 Identify:
+
 - Strong elements worth preserving.
 - Inconsistencies that weaken recognition.
 - Generic elements that make the product interchangeable.
@@ -95,6 +100,7 @@ Do not impose a fashionable aesthetic before understanding the product.
 Evaluate the product at three connected levels.
 
 Product and user experience:
+
 - Can users understand what this is and why it matters?
 - Is the next useful action apparent?
 - Does navigation match how users think about their tasks?
@@ -104,6 +110,7 @@ Product and user experience:
 - Which existing capabilities add complexity without sufficient value?
 
 Visual and content design:
+
 - Composition, hierarchy, alignment, balance, and spacing.
 - Typography, readability, text wrapping, and content density.
 - Color, contrast, surfaces, borders, imagery, and iconography.
@@ -112,6 +119,7 @@ Visual and content design:
 - Brand expression, trust, and visual distinctiveness.
 
 Interaction and accessibility:
+
 - Affordances, feedback, state transitions, and responsiveness.
 - Keyboard operation, focus order, focus restoration, and dialog behavior.
 - Semantic structure and accessible names.
@@ -123,6 +131,7 @@ For each significant finding, explain:
 Observed condition → affected task → consequence → recommended change.
 
 Separate:
+
 - Demonstrable defects.
 - Recommendations supported by established design principles.
 - Product hypotheses requiring validation.
@@ -141,6 +150,7 @@ When research tools are available, examine a small set of high-quality, relevant
 Prefer official documentation, firsthand inspection, and attributable examples.
 
 For each reference, identify:
+
 - The specific pattern or principle.
 - The problem it solves.
 - Why it is relevant here.
@@ -158,6 +168,7 @@ If research is unavailable, continue using available evidence and disclose that 
 Develop two or three meaningfully different design directions appropriate to the product.
 
 For each, briefly describe:
+
 - The central concept.
 - The intended user experience.
 - Its relationship to the brand.
@@ -172,6 +183,7 @@ Develop the recommended direction in detail. Do not leave me with an unresolved 
 7. SPECIFY THE RECOMMENDED EXPERIENCE
 
 Define concrete decisions for:
+
 - Information architecture and navigation.
 - Screen structure and content hierarchy.
 - Placement and prominence of actions.
@@ -193,6 +205,7 @@ Do not default to gradients, glass effects, oversized headlines, rounded cards, 
 Match the design to the context. A dense analytical workspace, a consumer onboarding flow, and an editorial website should not receive the same visual treatment.
 
 For proposed features, account for:
+
 - Entry and exit.
 - Defaults.
 - Loading and empty states.
@@ -209,6 +222,7 @@ Do not propose fake live data, fabricated social proof, misleading urgency, dead
 Propose three to five particularly valuable improvements that could elevate the product beyond routine cosmetic cleanup.
 
 For each, explain:
+
 - The observed problem or unmet need.
 - The proposed experience.
 - Why it fits this product.
@@ -228,6 +242,7 @@ Do not finish with written recommendations alone when visual creation tools are 
 Select the highest-impact screen or workflow and produce a reviewable representation of the recommended direction.
 
 Include:
+
 - The existing experience and its specific weaknesses.
 - The proposed redesign using realistic, product-appropriate content.
 - Representative wide and narrow layouts where relevant.
@@ -237,6 +252,7 @@ Include:
 Show enough of the surrounding navigation and workflow to establish how the redesign fits the product.
 
 Choose the strongest format supported by your tools:
+
 - Interactive prototype when interaction is central.
 - Rendered mockup when visual composition is central.
 - Annotated wireframe when structure and flow are central.
@@ -275,6 +291,7 @@ Provide a prioritized plan using:
 Issue/opportunity | proposed change | evidence/rationale | expected benefit | effort | dependencies | acceptance criteria
 
 Group the work into:
+
 - Essential usability, accessibility, and responsive fixes.
 - High-impact visual and workflow improvements.
 - Optional differentiating enhancements.
@@ -284,6 +301,7 @@ Use relative effort unless you have enough implementation evidence for a credibl
 Define verifiable acceptance criteria rather than “looks better” or “feels polished.”
 
 Identify:
+
 - Components or templates affected.
 - Design tokens and reusable patterns to establish.
 - Content and asset requirements.
@@ -298,6 +316,7 @@ Prefer a small, consistent design system that serves the product over unnecessar
 Lead with the most consequential insight.
 
 Provide:
+
 1. Overall diagnosis and inspection scope.
 2. What is already strong and should be preserved.
 3. Prioritized findings supported by evidence.

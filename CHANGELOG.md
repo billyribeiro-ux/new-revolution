@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-03 — Repository diagnostics and validation repairs
+
+- Specialize the generic catalog component in a typed Svelte test fixture so both Svelte diagnostics and plain TypeScript can check the tests. Include the SEO test tooling in the TypeScript project and prompt VS Code to use the workspace SDK; document type-generation and editor recovery.
+- Replace unsafe object-to-string coercions with scalar checks in editor hydration, article unlock/custom fields and error handling; narrow CSV inputs, correct test mocks and remove redundant constructs reported by lint. Add focused malformed-input regressions.
+- Reject malformed breadcrumb names in the SEO crawler; align the admin image-flow sitemap assertions with the existing blog launch gate, and await the Svelte DOM update explicitly in the image-menu test.
+- Format the six existing evidence/prompt files that blocked the full lint command; evidence JSON values are preserved.
+
 ### 2026-11-03 — Vite+ agent documentation
 
 - Added a sourced Vite+ workflow for project scripts, Svelte-specific checks, test authoring and explicitly requested upgrades; linked it from the agent entry points and README.

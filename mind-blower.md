@@ -17,6 +17,7 @@ Optimize for a product that is distinctive, useful, accessible, trustworthy, and
 1. UNDERSTAND BEFORE JUDGING
 
 Determine:
+
 - What the product does and who it serves.
 - The most important user tasks and business objectives.
 - The intended brand personality and existing visual language.
@@ -34,6 +35,7 @@ Inspect the running experience using available browser or desktop tools. Reading
 Inventory the discoverable screens, navigation destinations, and major user journeys. Follow the important journeys from entry to completion.
 
 Inspect relevant:
+
 - First impressions and onboarding.
 - Navigation, search, wayfinding, and information hierarchy.
 - Forms, menus, dialogs, tables, charts, and settings.
@@ -53,6 +55,7 @@ Maintain a compact coverage record. Identify what you inspected and what remains
 Evaluate both the overall system and the details:
 
 Product and UX:
+
 - Can users understand the value and identify their next action?
 - Can they complete important tasks with minimal confusion?
 - Does the information architecture match their mental model?
@@ -60,6 +63,7 @@ Product and UX:
 - What useful capability is missing, and what existing complexity should be removed?
 
 Visual design:
+
 - Composition, hierarchy, balance, alignment, and spacing.
 - Typography, readability, line length, and content density.
 - Color, contrast, surfaces, borders, imagery, and iconography.
@@ -67,6 +71,7 @@ Visual design:
 - Brand distinctiveness and quality of execution.
 
 Interaction:
+
 - Affordances, feedback, state transitions, and perceived responsiveness.
 - Discoverability and efficient repeated use.
 - Error prevention, reversibility, and recovery.
@@ -96,6 +101,7 @@ Develop two or three meaningfully different design directions appropriate to thi
 Then select one recommended direction and develop it deeply.
 
 Define:
+
 - The central design idea and brand expression.
 - Information architecture and page/screen structure.
 - The hierarchy of content and actions.
@@ -115,6 +121,7 @@ Preserve recognizable brand strengths. Do not default to gradients, glass effect
 Include three to five standout improvements that could materially elevate the experience.
 
 For each, explain:
+
 - The current problem or unmet need.
 - The proposed experience.
 - Why it fits this product and its users.
@@ -137,6 +144,7 @@ Translate the recommendation into a prioritized plan:
 Issue/opportunity | proposed change | evidence/rationale | expected benefit | effort | dependencies | acceptance criteria
 
 Separate:
+
 - Essential fixes.
 - High-impact design and workflow improvements.
 - Optional differentiating enhancements.
@@ -146,6 +154,7 @@ Define acceptance criteria that someone can actually verify. Identify technical 
 8. DELIVER A DECISIVE DESIGN REVIEW
 
 Structure your response around:
+
 - A clear overall diagnosis.
 - What is already strong and should be preserved.
 - The most consequential problems, supported by evidence.

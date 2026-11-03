@@ -22,6 +22,6 @@ export async function writeAuditLog(
 		action: entry.action,
 		entityType: entry.entityType,
 		entityId: String(entry.entityId),
-		summary: actorId ? { ...(entry.summary ?? {}), actorId } : (entry.summary ?? {})
+		summary: actorId ? { ...entry.summary, actorId } : (entry.summary ?? {})
 	});
 }

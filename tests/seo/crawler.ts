@@ -352,7 +352,7 @@ function collectSchemaTypes(node: unknown, out: Set<string>): void {
 	}
 }
 
-function extractBreadcrumbNamesFromJsonLd(blocks: JsonLdBlockResult[]): string[] {
+export function extractBreadcrumbNamesFromJsonLd(blocks: JsonLdBlockResult[]): string[] {
 	for (const b of blocks) {
 		if (!b.parsed) continue;
 		const graph = Array.isArray(b.parsed['@graph'])
@@ -362,9 +362,18 @@ function extractBreadcrumbNamesFromJsonLd(blocks: JsonLdBlockResult[]): string[]
 			if (!node || typeof node !== 'object') continue;
 			const rec = node as Record<string, unknown>;
 			if (rec['@type'] === 'BreadcrumbList' && Array.isArray(rec.itemListElement)) {
-				return (rec.itemListElement as Array<Record<string, unknown>>)
-					.map((item) => String(item.name ?? '').trim())
-					.filter(Boolean);
+				return rec.itemListElement.map((item: unknown) => {
+					if (
+						!item ||
+						typeof item !== 'object' ||
+						!('name' in item) ||
+						typeof item.name !== 'string' ||
+						!item.name.trim()
+					) {
+						throw new Error('BreadcrumbList items must have nonempty string names.');
+					}
+					return item.name.trim();
+				});
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vite-plus/test';
 import { page } from 'vite-plus/test/browser';
 import { render } from 'vitest-browser-svelte';
+import { tick } from 'svelte';
 import ImageControlMenu from './ImageControlMenu.svelte';
 
 let anchor: HTMLImageElement;
@@ -106,12 +107,13 @@ describe('ImageControlMenu', () => {
 		});
 		await page.getByRole('button', { name: 'Alt', exact: true }).click();
 		await page.getByLabelText(/Title/).click();
-		await page
+		page
 			.getByLabelText(/Title/)
 			.element()
 			.dispatchEvent(
 				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
 			);
+		await tick();
 		expect(document.querySelector('.menu-editor')).toBeNull();
 		expect(onEditDetails).toHaveBeenCalledOnce();
 	});

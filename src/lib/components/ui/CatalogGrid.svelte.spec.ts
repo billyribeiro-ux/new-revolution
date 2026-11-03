@@ -2,7 +2,7 @@ import { createRawSnippet } from 'svelte';
 import { page } from 'vite-plus/test/browser';
 import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
-import CatalogGrid from './CatalogGrid.svelte';
+import CatalogGridFixture from './__tests__/CatalogGridFixture.svelte';
 
 interface Item {
 	id: string;
@@ -22,7 +22,7 @@ const items: Item[] = [
 
 describe('CatalogGrid', () => {
 	it('renders a semantic list with one keyed item per entry, in order', async () => {
-		await render(CatalogGrid<Item>, {
+		await render(CatalogGridFixture, {
 			items,
 			key: (i: Item) => i.id,
 			total: 3,
@@ -35,7 +35,7 @@ describe('CatalogGrid', () => {
 	});
 
 	it('announces the filtered count through a status region', async () => {
-		await render(CatalogGrid<Item>, {
+		await render(CatalogGridFixture, {
 			items: items.slice(0, 2),
 			key: (i: Item) => i.id,
 			total: 3,
@@ -47,7 +47,7 @@ describe('CatalogGrid', () => {
 	});
 
 	it('marks only featured items so the host grid can span them', async () => {
-		await render(CatalogGrid<Item>, {
+		await render(CatalogGridFixture, {
 			items,
 			key: (i: Item) => i.id,
 			isFeatured: (i: Item) => i.lead === true,
@@ -62,7 +62,7 @@ describe('CatalogGrid', () => {
 	});
 
 	it('shows the default and a custom empty message when there are no items', async () => {
-		const first = await render(CatalogGrid<Item>, {
+		const first = await render(CatalogGridFixture, {
 			items: [],
 			key: (i: Item) => i.id,
 			total: 3,
@@ -75,7 +75,7 @@ describe('CatalogGrid', () => {
 	});
 
 	it('marks the status and list light only on light sections', async () => {
-		await render(CatalogGrid<Item>, {
+		await render(CatalogGridFixture, {
 			items,
 			key: (i: Item) => i.id,
 			total: 3,
@@ -90,7 +90,7 @@ describe('CatalogGrid', () => {
 	});
 
 	it('uses a custom empty message when provided', async () => {
-		await render(CatalogGrid<Item>, {
+		await render(CatalogGridFixture, {
 			items: [],
 			key: (i: Item) => i.id,
 			total: 3,

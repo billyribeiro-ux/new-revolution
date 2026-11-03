@@ -95,7 +95,8 @@ type Handler = (url: string, init: RequestInit | undefined) => Response | Promis
 
 function mockFetch(handler: Handler) {
 	return vi.spyOn(globalThis, 'fetch').mockImplementation(async (input, init) => {
-		return handler(String(input), init);
+		const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+		return handler(url, init);
 	});
 }
 
@@ -228,7 +229,8 @@ describe('MediaLibrary picker', () => {
 		mockFetch((url, init) => {
 			if (init?.method === 'PATCH') {
 				const id = url.split('/').pop()!;
-				patches.push({ id, body: JSON.parse(String(init.body)) });
+				if (typeof init.body !== 'string') throw new Error('Expected a JSON string request body');
+				patches.push({ id, body: JSON.parse(init.body) });
 				return id === 'b'
 					? jsonResponse({ error: 'Folder name is invalid.' }, 400)
 					: jsonResponse({ item: items[0] });

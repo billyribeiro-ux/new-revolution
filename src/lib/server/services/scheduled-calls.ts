@@ -128,7 +128,7 @@ export async function getUpcomingCallsCount(now = new Date()): Promise<number> {
 	return rows[0]?.n ?? 0;
 }
 
-function csvCell(val: unknown): string {
+function csvCell(val: string | number | null | undefined): string {
 	const raw = String(val ?? '').replace(/"/g, '""');
 	return /^[=+\-@\t\r]/.test(raw) ? `"'${raw}"` : `"${raw}"`;
 }

@@ -354,6 +354,15 @@ function parseFaqItemsJson(raw: string | null | undefined): FaqFormItem[] {
 	return [];
 }
 
+/** Preserve scalar form values without persisting object stringifications. */
+function toFormString(value: unknown, fallback = ''): string {
+	if (typeof value === 'string') return value;
+	if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+		return String(value);
+	}
+	return fallback;
+}
+
 function parseCustomFieldsJson(raw: string | null | undefined): CustomFieldFormItem[] {
 	if (!raw || !raw.trim()) return [];
 	try {
@@ -372,7 +381,7 @@ function parseCustomFieldsJson(raw: string | null | undefined): CustomFieldFormI
 		if (typeof parsed === 'object' && parsed !== null) {
 			return Object.entries(parsed as Record<string, unknown>).map(([key, val]) => ({
 				key,
-				value: typeof val === 'string' ? val : String(val ?? '')
+				value: toFormString(val)
 			}));
 		}
 	} catch {
@@ -427,27 +436,27 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 	]);
 	const hasDisabledTocCustomField = findInternalCf('__enableToc') === 'false';
 	const visibleCustomFields = allCustomFields.filter((cf) => !INTERNAL_CF_KEYS.has(cf.key));
-	const subtitleVal = String(post.subtitle ?? findInternalCf('__subtitle') ?? '');
+	const subtitleVal = toFormString(post.subtitle ?? findInternalCf('__subtitle'));
 	const noarchiveVal = Boolean(post.noarchive ?? findInternalCf('__noarchive') === 'true');
 	const nosnippetVal = Boolean(post.nosnippet ?? findInternalCf('__nosnippet') === 'true');
 	const excludeFromSearchVal = Boolean(
 		post.excludeFromSearch ?? findInternalCf('__excludeFromSearch') === 'true'
 	);
-	const seriesNameVal = String(post.seriesName ?? findInternalCf('__seriesName') ?? '');
-	const customJsonLdVal = String(post.customJsonLd ?? findInternalCf('__customJsonLd') ?? '');
+	const seriesNameVal = toFormString(post.seriesName ?? findInternalCf('__seriesName'));
+	const customJsonLdVal = toFormString(post.customJsonLd ?? findInternalCf('__customJsonLd'));
 
 	return {
 		...empty,
 		id: typeof post.id === 'number' ? post.id : null,
-		title: String(post.title ?? ''),
-		slug: String(post.slug ?? ''),
+		title: toFormString(post.title),
+		slug: toFormString(post.slug),
 		slugManuallyEdited: Boolean(post.slug),
 		subtitle: subtitleVal,
-		excerpt: String(post.excerpt ?? ''),
-		content: String(post.content ?? ''),
-		coverImage: String(post.coverImage ?? ''),
-		coverImageAlt: String(post.coverImageAlt ?? ''),
-		coverImageCaption: String(post.coverImageCaption ?? ''),
+		excerpt: toFormString(post.excerpt),
+		content: toFormString(post.content),
+		coverImage: toFormString(post.coverImage),
+		coverImageAlt: toFormString(post.coverImageAlt),
+		coverImageCaption: toFormString(post.coverImageCaption),
 		categoryId: primaryCatId,
 		categoryIds: catIds.length > 0 ? catIds : primaryCatId ? [primaryCatId] : [],
 		tagIds: Array.isArray(post.tagIds)
@@ -457,7 +466,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 			? (post.relatedPostIds as number[]).filter((n) => Number.isInteger(n) && n > 0)
 			: [],
 		authorId: typeof post.authorId === 'number' && post.authorId > 0 ? post.authorId : null,
-		coAuthorIds: String(post.coAuthorIds ?? ''),
+		coAuthorIds: toFormString(post.coAuthorIds),
 		status: (post.status as PostStatus) || 'draft',
 		visibility: (post.visibility as PostVisibility) || 'public',
 		passwordPlaintext: '',
@@ -475,17 +484,17 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		enableToc: post.enableToc !== false && !hasDisabledTocCustomField,
 		readingTime: typeof post.readingTime === 'number' ? post.readingTime : 1,
 		wordCount: typeof post.wordCount === 'number' ? post.wordCount : 0,
-		metaTitle: String(post.metaTitle ?? ''),
-		metaDescription: String(post.metaDescription ?? ''),
-		focusKeyword: String(post.focusKeyword ?? ''),
+		metaTitle: toFormString(post.metaTitle),
+		metaDescription: toFormString(post.metaDescription),
+		focusKeyword: toFormString(post.focusKeyword),
 		secondaryKeywords: parseJsonStringArray(post.secondaryKeywords as string | null),
-		canonicalUrl: String(post.canonicalUrl ?? ''),
-		ogTitle: String(post.ogTitle ?? ''),
-		ogDescription: String(post.ogDescription ?? ''),
-		ogImage: String(post.ogImage ?? ''),
-		twitterTitle: String(post.twitterTitle ?? ''),
-		twitterDescription: String(post.twitterDescription ?? ''),
-		twitterImage: String(post.twitterImage ?? ''),
+		canonicalUrl: toFormString(post.canonicalUrl),
+		ogTitle: toFormString(post.ogTitle),
+		ogDescription: toFormString(post.ogDescription),
+		ogImage: toFormString(post.ogImage),
+		twitterTitle: toFormString(post.twitterTitle),
+		twitterDescription: toFormString(post.twitterDescription),
+		twitterImage: toFormString(post.twitterImage),
 		twitterCardType:
 			(post.twitterCardType as TwitterCardType) === 'summary' ? 'summary' : 'summary_large_image',
 		robotsNoindex: noindexVal,
@@ -494,7 +503,7 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		nofollow: nofollowVal,
 		noarchive: noarchiveVal,
 		nosnippet: nosnippetVal,
-		maxImagePreview: String(post.maxImagePreview ?? 'large'),
+		maxImagePreview: toFormString(post.maxImagePreview, 'large'),
 		maxSnippet: typeof post.maxSnippet === 'number' ? post.maxSnippet : -1,
 		schemaType: (post.schemaType as PostSchemaType) || 'BlogPosting',
 		faqItems: parseFaqItemsJson(post.faqItems as string | null),
@@ -504,17 +513,17 @@ export function hydrateFromFullPost(post: Record<string, unknown>): PostEditorFo
 		template: (post.template as PostTemplate) || 'default',
 		postFormat: formatVal,
 		format: formatVal,
-		language: String(post.language ?? 'en'),
-		translations: String(post.translations ?? ''),
+		language: toFormString(post.language, 'en'),
+		translations: toFormString(post.translations),
 		seriesName: seriesNameVal,
 		seriesOrder: typeof post.seriesOrder === 'number' ? post.seriesOrder : null,
-		customCss: String(post.customCss ?? ''),
+		customCss: toFormString(post.customCss),
 		customFields: visibleCustomFields,
 		publishedAt: toIsoOrEmpty(post.publishedAt as Date | string | null),
 		scheduledAt: toIsoOrEmpty(post.scheduledAt as Date | string | null),
 		expiresAt: toIsoOrEmpty(post.expiresAt as Date | string | null),
-		lastEditedBy: String(post.lastEditedBy ?? ''),
-		revisionNotes: String(post.revisionNotes ?? ''),
+		lastEditedBy: toFormString(post.lastEditedBy),
+		revisionNotes: toFormString(post.revisionNotes),
 		expectedUpdatedAt: updatedAtIso || null
 	};
 }

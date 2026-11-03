@@ -1,17 +1,17 @@
 {
-  "cls": 0,
-  "resources": [],
-  "paint": [
-    {
-      "name": "first-paint",
-      "startTime": 24
-    },
-    {
-      "name": "first-contentful-paint",
-      "startTime": 24
-    }
-  ],
-  "consoleErrors": [
-    "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
-  ]
+	"cls": 0,
+	"resources": [],
+	"paint": [
+		{
+			"name": "first-paint",
+			"startTime": 24
+		},
+		{
+			"name": "first-contentful-paint",
+			"startTime": 24
+		}
+	],
+	"consoleErrors": [
+		"Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+	]
 }

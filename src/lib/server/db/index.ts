@@ -1,4 +1,4 @@
-import { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, readdirSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { PGlite } from '@electric-sql/pglite';
 import { drizzle as drizzlePglite, type PgliteDatabase } from 'drizzle-orm/pglite';
@@ -14,12 +14,18 @@ export type AppDatabase = PgliteDatabase<typeof schema> & {
 	): Promise<{ -readonly [K in keyof U]: Awaited<U[K]> }>;
 };
 
-const MIGRATION_SQL_PATH = resolve(process.cwd(), 'drizzle/0000_blog_system.sql');
+const MIGRATIONS_DIR = resolve(process.cwd(), 'drizzle');
 
+// Every `drizzle/NNNN_*.sql` file in order. Each is forward-only and idempotent, so replaying all of them on an
+// existing PGlite store is safe.
 let cachedMigrationSql: string | null = null;
 function getMigrationSql(): string {
 	if (!cachedMigrationSql) {
-		cachedMigrationSql = readFileSync(MIGRATION_SQL_PATH, 'utf8');
+		cachedMigrationSql = readdirSync(MIGRATIONS_DIR)
+			.filter((name) => /^\d{4}_.+\.sql$/.test(name))
+			.sort()
+			.map((name) => readFileSync(resolve(MIGRATIONS_DIR, name), 'utf8'))
+			.join('\n');
 	}
 	return cachedMigrationSql;
 }

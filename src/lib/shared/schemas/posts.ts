@@ -336,7 +336,9 @@ export type PostCreateInput = z.input<typeof postBaseObjectSchema>;
 export const postUpdateObjectSchema = postBaseObjectSchema.extend({
 	id: z.number().int().positive(),
 	expectedUpdatedAt: z.string().nullish(),
-	forceOverwrite: z.boolean().optional().default(false)
+	forceOverwrite: z.boolean().optional().default(false),
+	/** Typo or formatting fix: save without moving the editorial modification date (dateModified, feed, lastmod). */
+	minorEdit: z.boolean().optional().default(false)
 });
 
 export const postUpdateSchema = applyPostLifecycleRefinements(postUpdateObjectSchema, {

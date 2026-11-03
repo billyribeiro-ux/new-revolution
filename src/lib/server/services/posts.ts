@@ -506,6 +506,7 @@ export async function updatePost(
 		actorUserId,
 		expectedUpdatedAt: parsed.expectedUpdatedAt,
 		forceOverwrite: parsed.forceOverwrite,
+		minorEdit: parsed.minorEdit,
 		values: {
 			title: autofilled.title,
 			slug: autofilled.slug,
@@ -1438,7 +1439,6 @@ export async function listSitemapBlogEntries() {
 			slug: posts.slug,
 			coverImage: posts.coverImage,
 			publishedAt: posts.publishedAt,
-			updatedAt: posts.updatedAt,
 			contentUpdatedAt: posts.contentUpdatedAt
 		})
 		.from(posts)

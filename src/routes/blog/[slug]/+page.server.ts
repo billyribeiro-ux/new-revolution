@@ -287,7 +287,7 @@ export const load: PageServerLoad = async ({
 	const effectiveTitle = (post.metaTitle || post.title).trim();
 	const effectiveDescription = (post.metaDescription || post.excerpt || post.title).trim();
 	const modifiedIso = resolvePostModifiedIso(post);
-	const publishedIso = post.publishedAt ? new Date(post.publishedAt).toISOString() : modifiedIso;
+	const publishedIso = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
 	const effectiveIndexable = post.isIndexable && !hasValidPreviewToken;
 	const effectiveNofollow = post.robotsNofollow || hasValidPreviewToken;
 
@@ -336,7 +336,6 @@ export const load: PageServerLoad = async ({
 		coverImageHeight: resolvedCoverHeight,
 		coverImageCrops: extractCoverCrops(coverMediaRow?.variantsJson),
 		publishedAt: post.publishedAt,
-		updatedAt: post.updatedAt,
 		contentUpdatedAt: post.contentUpdatedAt,
 		createdAt: post.createdAt,
 		wordCount: post.wordCount,

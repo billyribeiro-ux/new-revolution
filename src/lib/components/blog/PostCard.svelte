@@ -10,7 +10,6 @@
 		coverImage?: string | null;
 		coverImageAlt?: string | null;
 		publishedAt?: Date | string | null;
-		updatedAt?: Date | string | null;
 		contentUpdatedAt?: Date | string | null;
 		readingTime?: number | null;
 		featured?: boolean;
@@ -38,7 +37,7 @@
 	let { post, eager = false, headingLevel = 'h3' }: Props = $props();
 
 	let srcset = $derived(coverSrcsetFromUrl(post.coverImage));
-	let displayDate = $derived(post.publishedAt ?? post.contentUpdatedAt ?? post.updatedAt ?? null);
+	let displayDate = $derived(post.publishedAt ?? post.contentUpdatedAt ?? null);
 	let formattedDate = $derived(
 		displayDate
 			? new Date(displayDate).toLocaleDateString('en-US', {

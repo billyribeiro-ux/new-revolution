@@ -58,7 +58,6 @@ export const load: PageServerLoad = async ({ params, url, locals, request, setHe
 		coverImage: p.coverImage,
 		coverImageAlt: p.coverImageAlt,
 		publishedAt: p.publishedAt,
-		updatedAt: p.updatedAt,
 		contentUpdatedAt: p.contentUpdatedAt,
 		readingTime: p.readingTime,
 		featured: p.featured,

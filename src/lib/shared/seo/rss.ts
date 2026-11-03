@@ -24,14 +24,16 @@ export function absoluteUrl(pathOrUrl: string, origin: string = DEFAULT_FEED_ORI
 	return `${cleanOrigin}${cleanPath === '/' ? '' : cleanPath}`;
 }
 
+/**
+ * Editorial modification date: `contentUpdatedAt`, else `publishedAt`, else null.
+ * Never `updatedAt` (bumped by any row write: featured toggle, counters, restores) and never `createdAt`
+ * (predates publication), so feeds, sitemaps and JSON-LD cannot report a change that readers would not see.
+ */
 export function resolvePostModifiedDate(post: {
 	contentUpdatedAt?: Date | string | null;
-	updatedAt?: Date | string | null;
 	publishedAt?: Date | string | null;
-	createdAt?: Date | string | null;
 }): Date | null {
-	const candidate =
-		post.contentUpdatedAt ?? post.updatedAt ?? post.publishedAt ?? post.createdAt ?? null;
+	const candidate = post.contentUpdatedAt ?? post.publishedAt ?? null;
 	if (!candidate) return null;
 	const date = candidate instanceof Date ? candidate : new Date(candidate);
 	return Number.isNaN(date.getTime()) ? null : date;
@@ -48,7 +50,6 @@ export interface RssFeedItemInput {
 	publishedAt?: Date | string | null;
 	createdAt?: Date | string | null;
 	contentUpdatedAt?: Date | string | null;
-	updatedAt?: Date | string | null;
 	enclosure?: {
 		url: string;
 		type: string;

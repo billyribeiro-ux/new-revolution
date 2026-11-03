@@ -10,6 +10,7 @@ import {
 } from './structured-data';
 import { pageHref } from '#lib/shared/blog/pagination';
 import { computeRenderedTitle } from '#lib/shared/seo/meta-budget';
+import { resolvePostModifiedDate } from '#lib/shared/seo/rss';
 
 export interface BlogBreadcrumbItem {
 	name: string;
@@ -46,16 +47,12 @@ export interface BlogSeoHeadInput {
 	tags?: string[];
 }
 
+/** ISO form of the editorial modification date, or undefined when there is no trustworthy one (never an epoch placeholder). */
 export function resolvePostModifiedIso(post: {
 	contentUpdatedAt?: Date | string | null;
-	updatedAt?: Date | string | null;
 	publishedAt?: Date | string | null;
-	createdAt?: Date | string | null;
-}): string {
-	const raw = post.contentUpdatedAt ?? post.updatedAt ?? post.publishedAt ?? post.createdAt;
-	if (!raw) return new Date(0).toISOString();
-	const parsed = raw instanceof Date ? raw : new Date(raw);
-	return Number.isNaN(parsed.getTime()) ? new Date(0).toISOString() : parsed.toISOString();
+}): string | undefined {
+	return resolvePostModifiedDate(post)?.toISOString();
 }
 
 export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
@@ -206,7 +203,6 @@ export function buildBlogIndexJsonLd(
 		excerpt?: string | null;
 		coverImage?: string | null;
 		publishedAt?: Date | string | null;
-		updatedAt?: Date | string | null;
 		contentUpdatedAt?: Date | string | null;
 		author?: { name: string; slug: string } | null;
 	}>,
@@ -245,7 +241,7 @@ export function buildBlogIndexJsonLd(
 					url: `${origin}/blog/${p.slug}`,
 					description: p.excerpt ?? '',
 					datePublished: p.publishedAt ? new Date(p.publishedAt).toISOString() : undefined,
-					dateModified: resolvePostModifiedIso(p),
+					...(resolvePostModifiedIso(p) ? { dateModified: resolvePostModifiedIso(p) } : {}),
 					...(p.coverImage ? { image: p.coverImage } : {}),
 					...(p.author
 						? {
@@ -324,7 +320,6 @@ export function buildBlogPostJsonLd(
 		/** Fixed-ratio cover crops (see getMediaCropsForUrl). Used for Article `image` when present. */
 		coverImageCrops?: Array<{ aspect: string; url: string; width: number; height: number }> | null;
 		publishedAt?: Date | string | null;
-		updatedAt?: Date | string | null;
 		contentUpdatedAt?: Date | string | null;
 		createdAt?: Date | string | null;
 		wordCount?: number | null;
@@ -463,10 +458,8 @@ export function buildBlogPostJsonLd(
 					thumbnailUrl: imageNode.url
 				}
 			: {}),
-		datePublished: input.publishedAt
-			? new Date(input.publishedAt).toISOString()
-			: resolvePostModifiedIso(input),
-		dateModified: resolvePostModifiedIso(input),
+		...(input.publishedAt ? { datePublished: new Date(input.publishedAt).toISOString() } : {}),
+		...(resolvePostModifiedIso(input) ? { dateModified: resolvePostModifiedIso(input) } : {}),
 		inLanguage: 'en-US',
 		...(input.wordCount ? { wordCount: input.wordCount } : {}),
 		isAccessibleForFree: true,

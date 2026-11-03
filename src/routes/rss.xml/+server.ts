@@ -57,7 +57,6 @@ export const GET: RequestHandler = async ({ request }) => {
 					publishedAt: p.publishedAt,
 					createdAt: p.createdAt,
 					contentUpdatedAt: p.contentUpdatedAt,
-					updatedAt: p.updatedAt,
 					enclosure:
 						p.coverImage && enc
 							? {

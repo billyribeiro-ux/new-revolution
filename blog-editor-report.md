@@ -586,6 +586,12 @@ Standards for every phase: work in an isolated worktree off `main`; test fixture
 - **Gates:** `pnpm check` 0 errors and 0 warnings, format clean, lint exit 0, e2e (SEO contract, homepage, blog) 16 of 16.
 - **Not done in 1a:** the CDN purge (1b), any measurement on a deployment, and a decision on `stale-if-error` (kept at an hour).
 
+### Phase 2 results (2026-11-02)
+
+- **Changed:** `resolvePostModifiedDate` / `resolvePostModifiedIso` (`contentUpdatedAt ?? publishedAt ?? none`), `save-post.ts` (bump rule, `minorEdit`), `PostCard.svelte`, the loaders and sitemap query (no `updatedAt`), `blog-seo.ts` (omit unknown dates), and `drizzle/0001_content_updated_at_backfill.sql` with the migration runners.
+- **Tests added:** 14 (`modified-date.db.spec.ts`, `modified-date.spec.ts`). Mutation-checked: restoring the `updatedAt` fallback fails 2 of them. Server project: 38 files, 361 tests passing. `pnpm check` 0 errors and 0 warnings; format clean; lint shows only existing warnings.
+- **Not done:** the editor "minor edit" checkbox (UI; server contract is in place), running the backfill against production, e2e re-run (sitemap `lastmod` is not rendered while `/blog` is gated).
+
 ### Out of scope until authorized
 
 Deploying, publishing or unpublishing live content, editing production CMS records, destructive migrations, changing hosting or Search Console settings.

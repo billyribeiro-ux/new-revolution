@@ -9,7 +9,7 @@
 // Node's type stripping). It therefore builds its own Better Auth instance from the SAME option fragments
 // as src/lib/server/auth.ts (src/lib/server/auth-options.ts). The database selection mirrors
 // src/lib/server/db/index.ts (`isPlaceholderDatabaseUrl` -> local PGlite, otherwise postgres-js).
-import { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, readdirSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { betterAuth } from 'better-auth/minimal';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
@@ -25,7 +25,7 @@ import { emailAndPasswordOptions, userAdditionalFields } from '../src/lib/server
 export const SEED_ADMIN_NAME = 'Temporary Admin (seed)';
 export const MIN_PASSWORD_LENGTH = 12;
 export const SEED_PGLITE_DIR = '.svelte-kit/pglite-blog';
-export const SEED_MIGRATION_PATH = 'drizzle/0000_blog_system.sql';
+export const SEED_MIGRATIONS_DIR = 'drizzle';
 // Must match the placeholder rules in src/lib/server/db/index.ts (`isPlaceholderDatabaseUrl`).
 export const PLACEHOLDER_DATABASE_URL_MARKERS = [
 	'user:password@host:port/db-name',
@@ -275,7 +275,12 @@ export async function openSeedTarget(env: SeedEnv): Promise<{
 	mkdirSync(dataDir, { recursive: true });
 	const pglite = new PGlite(dataDir);
 	// Same forward-only, idempotent migration the app runs on boot (ensureDbReady).
-	await pglite.exec(readFileSync(resolve(process.cwd(), SEED_MIGRATION_PATH), 'utf8'));
+	const migrationsDir = resolve(process.cwd(), SEED_MIGRATIONS_DIR);
+	for (const name of readdirSync(migrationsDir)
+		.filter((file) => /^\d{4}_.+\.sql$/.test(file))
+		.sort()) {
+		await pglite.exec(readFileSync(resolve(migrationsDir, name), 'utf8'));
+	}
 	const db = drizzlePglite(pglite, { schema: authSchema });
 	return {
 		ctx: { db, target: { label: `PGlite (local file) ${dataDir}`, isLocalPglite: true } },

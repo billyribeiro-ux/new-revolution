@@ -9,6 +9,22 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-02 — Blog engine Phase 2: trustworthy modified date (G3)
+
+Plan: [`blog-editor-report.md`](blog-editor-report.md) Part C, Phase 2.
+
+#### Changed (2026-11-02)
+
+- The modification date behind JSON-LD `dateModified`, RSS and sitemap `lastmod` is now `contentUpdatedAt`, else `publishedAt`, else none. It no longer falls back to `updatedAt` (moved by any row write) or `createdAt`.
+- `contentUpdatedAt` now also moves when the excerpt or cover image changes (was title and body only). `updatePost` accepts `minorEdit: true` to save an editorial change without moving it; the editor UI toggle is not built yet.
+- `dateModified` / `datePublished` are omitted when unknown instead of emitting `1970-01-01`. `updatedAt` is no longer sent to the public blog pages or read by the sitemap query.
+- `ensureDbReady`, `createTestDatabase` and `scripts/seed-admin.ts` now apply every `drizzle/NNNN_*.sql` in order (was `0000` only).
+
+#### Added (2026-11-02)
+
+- `drizzle/0001_content_updated_at_backfill.sql`: forward-only, idempotent. Fills published posts with no editorial date from `published_at`; never-published rows stay NULL. **Not run against production** (needs owner authorization).
+- Tests: `src/lib/server/db/modified-date.db.spec.ts` (featured toggle leaves the date alone while `updated_at` moves; body, title, excerpt and cover move it; minor edit; legacy row; backfill and its idempotence), `src/lib/shared/seo/modified-date.spec.ts`.
+
 ### 2026-11-02 — Blog engine Phase 1a: cache headers, tags, pagination and 404 handling
 
 Plan and evidence: [`blog-editor-report.md`](blog-editor-report.md), [`docs/blog/COVERAGE_MATRIX.md`](docs/blog/COVERAGE_MATRIX.md), [`docs/blog/FRESHNESS.md`](docs/blog/FRESHNESS.md).

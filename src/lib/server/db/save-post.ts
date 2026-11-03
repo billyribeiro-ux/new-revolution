@@ -10,6 +10,8 @@ export interface AtomicSavePostParams {
 	actorUserId?: string | null;
 	expectedUpdatedAt?: string | Date | null;
 	forceOverwrite?: boolean;
+	/** Editorial change that must not move the modification date (typo fix, formatting). Ignored on create. */
+	minorEdit?: boolean;
 	values: Partial<typeof posts.$inferInsert> & {
 		title: string;
 		slug: string;
@@ -161,16 +163,22 @@ export async function savePostWithRedirect(
 				}
 			}
 
-			// Determine `content_updated_at` (Section 7.8):
-			// Bumps on create or whenever title or body text changed (including quick-update title changes).
-			const titleOrContentChanged =
+			// Determine `content_updated_at`, the editorial modification date behind dateModified, feed and sitemap lastmod.
+			// Bumps on create or when title, body, excerpt or cover image actually change, unless the editor flags a
+			// minor edit. Never derived from `updated_at`, which any row write moves (featured toggle, restores, metadata).
+			const changed = <K extends 'title' | 'content' | 'excerpt' | 'coverImage'>(key: K) =>
+				params.values[key] !== undefined && existingRow?.[key] !== params.values[key];
+			const editorialChange =
 				!existingRow ||
-				existingRow.title !== params.values.title ||
-				existingRow.content !== params.values.content;
+				changed('title') ||
+				changed('content') ||
+				changed('excerpt') ||
+				changed('coverImage');
 
-			const contentUpdatedAt = titleOrContentChanged
-				? now
-				: (existingRow?.contentUpdatedAt ?? existingRow?.updatedAt ?? now);
+			const contentUpdatedAt =
+				editorialChange && !(params.minorEdit && existingRow)
+					? now
+					: (existingRow?.contentUpdatedAt ?? existingRow?.publishedAt ?? null);
 
 			const publishedAt = isPublished
 				? (existingRow?.publishedAt ?? params.values.publishedAt ?? now)

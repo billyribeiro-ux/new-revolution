@@ -7,6 +7,10 @@ import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
+	ssr: {
+		// Bundle the CJS sanitizer and its ESM parser for serverless loaders.
+		noExternal: ['sanitize-html', 'htmlparser2']
+	},
 	lint: {
 		plugins: ['oxc', 'typescript', 'unicorn'],
 		jsPlugins: [

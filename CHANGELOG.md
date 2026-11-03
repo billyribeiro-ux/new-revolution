@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-03 — Production maintenance and development Preview
+
+- Resume Vercel behind temporary authentication, publish the verified maintenance build, and keep normal application development on a separate protected Preview URL. Scope maintenance settings to Production and Preview independently; retain manual production promotion.
+- Provision a separate free-plan Neon Preview database and initialize the existing migrations on the verified empty database.
+- Bundle `sanitize-html` and its ESM parser in the server build: deployed Node 24 rejected their external CommonJS-to-ESM require before API handlers could execute. No sanitizer rules or dependency versions changed.
+
 ### 2026-11-03 — Repository diagnostics and validation repairs
 
 - Specialize the generic catalog component in a typed Svelte test fixture so both Svelte diagnostics and plain TypeScript can check the tests. Include the SEO test tooling in the TypeScript project and prompt VS Code to use the workspace SDK; document type-generation and editor recovery.

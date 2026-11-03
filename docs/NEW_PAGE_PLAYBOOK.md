@@ -7,7 +7,7 @@
 > **Rule of thumb:** this file tells you _what to do and in what order_. `AGENTS.md` and `CSS_STANDARDS.md` own the
 > _rules_ (token names, font rules, metadata limits). If you need a rule, read it there; do not copy it here.
 
-Every command below is `pnpm` only (`npm`, `yarn`, `bun` are blocked). Never install tooling globally.
+Every command below is `pnpm` only (`npm`, `yarn`, `bun` are blocked). Never install tooling globally. Read [`VITE_PLUS_WORKFLOW.md`](VITE_PLUS_WORKFLOW.md) for the current Vite+ command and verification contract.
 
 ---
 
@@ -321,7 +321,7 @@ Source of truth: Svelte MCP docs and `svelte-core-bestpractices`. Violations tha
 - **Dynamic CSS values:** `style:--name={value}` plus `var(--name)` in `<style>`; no inline style strings, no JS-driven styling.
 - **Parent → child styling:** custom properties or a `class` prop. Never `:global` to reach into a child you own.
 - Share repeated markup+CSS as a scoped component with a `children` snippet (`Breadcrumb.svelte`), not copied CSS.
-- **Declaration tags, not `{@const}`:** the Svelte docs mark `{@const x = y}` as legacy since 5.56; write `{const x = $derived(y)}` inside blocks (verified: Prettier, `svelte-check` and the autofixer accept it).
+- **Declaration tags, not `{@const}`:** the Svelte docs mark `{@const x = y}` as legacy since 5.56; write `{const x = $derived(y)}` inside blocks, and verify it with Oxfmt, `svelte-check` and the Svelte autofixer.
 - **Typed dynamic routes:** `resolve('/store/courses/[slug]', { slug: course.slug })` is checked against the route manifest (a wrong param key fails `pnpm check`); use it instead of template strings or `as '/'` whenever the route exists.
 - **Reusable components** (references: `CourseCard.svelte`, `FilterChips.svelte`, `Breadcrumb.svelte`): `interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'class'>` + `class?: ClassValue` + `...rest` spread; `$props.id()` for `aria-labelledby`; `<svelte:element this={\`h${level}\`}>`for a configurable heading level;`<script lang="ts" generics="T extends string">`with`$bindable()` for a typed v-model (`FilterChips`); data comes in as one typed prop (`course`), never as 15 loose props. Add a component spec (`*.svelte.spec.ts`) for its contract.
 - Do not suppress compiler warnings (`svelte-ignore`) to hide a problem. Example: `tabindex="0"` on a `role="region"` triggers
@@ -390,7 +390,7 @@ Say what you ran and what you skipped.
 | Changed                            | Run                                                                                                                                          |
 | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | a `.svelte` file                   | its page/component spec, `pnpm check` (svelte-check: 0 errors, **0 warnings**, which includes unused CSS selectors), then `svelte-autofixer` |
-| `structured-data.ts` / data module | `pnpm exec vitest run src/lib` and the page spec that renders it                                                                             |
+| `structured-data.ts` / data module | `pnpm exec vp test run src/lib` and the page spec that renders it                                                                            |
 | a stylesheet or CSS in a component | `pnpm check:css`, `pnpm check`                                                                                                               |
 | a doc or script                    | `pnpm exec vp fmt --check <file>` and run the script itself                                                                                  |
 
@@ -418,7 +418,7 @@ Never push to `main`. Branch first, push once, merge separately (a push invalida
 Compare real screenshots before and after. Procedure:
 
 1. `pnpm build` from the **current** tree (a stale `pnpm preview` serves the previous build: always rebuild before measuring).
-2. `pnpm exec vite preview --port 4173`, screenshot each affected route at **1280 px and 390 px**, `fullPage: true`, after
+2. `pnpm preview --port 4173`, screenshot each affected route at **1280 px and 390 px**, `fullPage: true`, after
    `await document.fonts.ready` and with animations/transitions disabled (`*{animation:none!important;transition:none!important}`).
 3. `git stash -u`, rebuild, screenshot again as "before", `git stash pop`.
 4. Diff pixel-by-pixel (a canvas in Chromium is enough; no diff library is installed). Expected result: **0 differing pixels**, or, if you
@@ -447,8 +447,8 @@ Do not spread these patterns. Fix them only as an explicit, scoped task and re-r
 4. `resolve()` is typed per route. A `RouteId` _union_ is not accepted, so `Breadcrumb.svelte` has one contained, commented `as '/'` cast.
 5. **Safari keyboard scrolling** of wide `overflow-x: auto` tables (e.g. the ETF comparison table) is unverified; Chromium/Firefox make
    scroll containers focusable natively.
-6. Prettier will rewrite attribute layout in `.svelte` files; never hand-edit around it, and never use `sed` for multi-line attribute edits
-   (an edit once removed a closing `>`). Use a script with an exact-match assertion, then Prettier, then `pnpm check`.
+6. Oxfmt will rewrite attribute layout in `.svelte` files; never hand-edit around it, and never use `sed` for multi-line attribute edits
+   (an edit once removed a closing `>`). Use a script with an exact-match assertion, then Oxfmt, then `pnpm check`.
 7. **Shared checkout, concurrent sessions.** On 2026-10-30 another actor committed (and merged, as PR #2) this work's _uncommitted_
    edits mid-session under an unrelated message, and `git switch` then silently replaced files. Do all verification in an isolated
    `git worktree add /tmp/<name> -b <branch> origin/main` (+ `pnpm install --frozen-lockfile --offline`), never `git stash` in a shared

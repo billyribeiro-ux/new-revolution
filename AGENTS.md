@@ -9,6 +9,18 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 > - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
 > - **SEO Standard, Decisions & Operations (mandatory for all routes, metadata, sitemaps, and JSON-LD):** [`docs/seo/SEO_STANDARD.md`](docs/seo/SEO_STANDARD.md), [`docs/seo/DECISIONS.md`](docs/seo/DECISIONS.md), [`docs/seo/OPERATIONS.md`](docs/seo/OPERATIONS.md), [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
+> - **Vite+ Tooling & Agent Workflow:** [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md) (read before selecting build, test, lint, formatting, migration or upgrade commands)
+
+---
+
+## Vite+ Command Safety
+
+This repository already uses the project-local Vite+ toolchain. Use the `pnpm` scripts in
+[`package.json`](package.json) and follow [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md).
+In particular, run `pnpm build` for a complete build: bare `vp build` skips the maintenance-output
+script. `pnpm check` runs Svelte diagnostics; `pnpm lint` also runs ESLint for Svelte-specific rules.
+Neither `vp check` nor `vp test` replaces all project checks. Preserve the Vite+/Vite/Vitest catalog
+alignment and existing test coverage. Do not migrate or upgrade the toolchain unless the task calls for it.
 
 ---
 
@@ -128,7 +140,7 @@ Every public route under `src/routes/<route-path>/` requires two files:
 
 ## 3. Verified Stack & SEO Contract (`docs/seo/SEO_STANDARD.md`)
 
-- **Verified Stack (`pnpm-lock.yaml`):** `svelte@5.57.3`, `@sveltejs/kit@3.1.0`, `@sveltejs/adapter-auto@8.0.1`, `vite@8.3.5`, `typescript@6.0.3`, `svelte-meta-tags@5.0.3`. SvelteKit 3 uses the `#lib` subpath import alias from [`package.json`](package.json) (`$lib` is removed) and `$app/state` (`$app/stores` is deprecated).
+- **Verified Stack (`pnpm-lock.yaml`):** `svelte@5.57.3`, `@sveltejs/kit@3.1.1`, `@sveltejs/adapter-vercel@7.0.2`, `vite-plus@1.4.0` (Vite `8.3.5`, Vitest `5.0.5`), `typescript@6.0.3`, `svelte-meta-tags@5.0.3`. SvelteKit 3 uses the `#lib` subpath import alias from [`package.json`](package.json) (`$lib` is removed) and `$app/state` (`$app/stores` is deprecated).
 - **SEO Contract Files:**
   - [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) — `SITE_ORIGIN`, `getCanonicalUrl`, `isNoIndexRoute`, `serializeJsonLd`, `escapeJsonLdBlocksInHtml`, and all marketing/store/trust `@graph` JSON-LD builders.
   - [`src/lib/seo/blog-seo.ts`](src/lib/seo/blog-seo.ts) — `buildBlogPageMetaTags`, `buildBlogIndexJsonLd`, `buildBlogPostJsonLd`, `buildTaxonomyCollectionJsonLd`.

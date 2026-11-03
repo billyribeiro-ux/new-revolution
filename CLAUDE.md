@@ -1,1 +1,2 @@
 @AGENTS.md
+@docs/VITE_PLUS_WORKFLOW.md

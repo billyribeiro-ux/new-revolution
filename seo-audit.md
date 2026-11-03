@@ -265,7 +265,7 @@ Implementation contracts (adapt the names to the installed versions you verified
   - hreflang alternates when there is more than one locale
 - **i18n (if more than one locale):** Paraglide JS 2 via `pnpm dlx sv add paraglide`, remove `@inlang/paraglide-sveltekit`, URL strategy first, hreflang links plus `x-default`, and per-locale `lang`/`dir`.
 - **Performance:** enhanced-img migration for local images, a CDN transform for remote images, LCP image priority, font subsetting and preload, third-party script reduction, `csr = false` where no JS is needed, and streaming for non-critical data.
-- **Tests:** turn the Phase 3 crawler into `tests/seo/*.spec.ts` assertions — one assertion per requirement ID, named with the ID (e.g. `test('URL-02 canonical self-referencing', …)`). Add a unit test for `serializeJsonLd` covering the `</script>` injection case. Add `pnpm` scripts `seo:audit` and `seo:test`, and a CI job running `pnpm build`, `pnpm seo:test`, and `unlighthouse-ci --budget`.
+- **Tests:** turn the Phase 3 crawler into `tests/seo/*.spec.ts` assertions — one assertion per requirement ID, named with the ID (e.g. `test('URL-02 canonical self-referencing', …)`). Add a unit test for `serializeJsonLd` covering the `</script>` injection case. Add a `seo:audit` script, use the existing `pnpm test:seo` script, and add a CI job running `pnpm build`, `pnpm test:seo`, and `unlighthouse-ci --budget`.
 
 Rules while implementing:
 
@@ -351,6 +351,6 @@ Write `docs/seo/audit/08-report.md` containing exactly:
    - CrUX re-check 28 days after deploy
    - author credentials
    - missing business data
-7. **Gate commands** with their final output: `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm seo:test`, `pnpm build`, and `unlighthouse-ci`, each with exit code 0 and 0 warnings.
+7. **Gate commands** with their final output: `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm test:seo`, `pnpm build`, and `unlighthouse-ci`, each with exit code 0 and 0 warnings.
 
 Don't summarize beyond this report. Don't claim the site will rank #1. Report what is technically verified.

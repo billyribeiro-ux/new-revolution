@@ -190,7 +190,7 @@ Before committing any CSS or component change, run:
 ```bash
 pnpm check:css       # Verifies 0 undeclared CSS custom properties and 0 hardcoded font family names across src/
 pnpm check           # svelte-check (0 errors, 0 warnings, including unused CSS selectors)
-pnpm lint            # Prettier + ESLint
+pnpm lint            # Oxfmt + Oxlint + ESLint for Svelte files
 pnpm test:unit --run # Vitest unit tests
 pnpm test:e2e        # Playwright end-to-end verification
 pnpm check:pages     # after `pnpm build`: prerendered-page contract (h1, skip link, canonical, FAQ parity)

@@ -74,11 +74,11 @@ You can preview the production build with `pnpm run preview`.
 | `vite`             | `^8.3.5`   |
 | `typescript`       | `6.0.3`    |
 | `@types/node`      | `^26.6.6`  |
-| `@threlte/core`    | `^8.6.1`   |
-| `@threlte/extras`  | `^9.22.4`  |
+| `@threlte/core`    | `^8.7.0`   |
+| `@threlte/extras`  | `^9.23.1`  |
 | `three`            | `^0.186.1` |
 | `gsap`             | `^3.15.0`  |
 | `phosphor-svelte`  | `^3.1.1`   |
 | `svelte-meta-tags` | `^5.0.3`   |
 | `drizzle-orm`      | `^0.45.4`  |
-| `better-auth`      | `^1.7.14`  |
+| `better-auth`      | `^1.7.15`  |

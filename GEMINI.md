@@ -3,7 +3,7 @@
 - **Language**: TypeScript (`6.0.3`, Node `26.13.0` LTS)
 - **Package Manager**: `pnpm` ONLY (`pnpm@12.16.1` enforced via `.npmrc` `engine-strict=true` and `package.json#engines`; `npm`, `yarn`, and `bun` are strictly blocked)
 - **Add-ons**: prettier, eslint, vitest, playwright, enhanced-img, sveltekit-adapter, drizzle, better-auth, mdsvex, ai-tools, experimental
-- **Key Dependencies**: `svelte@^5.57.3`, `@sveltejs/kit@^3.1.0`, `vite@^8.3.5`, `@threlte/core@^8.6.1`, `@threlte/extras@^9.23.0`, `three@^0.187.0`, `@types/node@^26.6.6`, `gsap@^3.15.0`, `phosphor-svelte@^3.1.1`, `svelte-meta-tags@^5.0.3`, `drizzle-orm@^0.45.4`, `better-auth@^1.7.14`
+- **Key Dependencies**: `svelte@^5.57.3`, `@sveltejs/kit@^3.1.1`, `vite@^8.3.5`, `@threlte/core@^8.7.0`, `@threlte/extras@^9.23.1`, `three@^0.187.0`, `@types/node@^26.6.6`, `gsap@^3.15.0`, `phosphor-svelte@^3.1.1`, `svelte-meta-tags@^5.0.3`, `drizzle-orm@^0.45.4`, `better-auth@^1.7.15`
 
 ---
 

@@ -9,6 +9,21 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-03 — Dependency updates
+
+#### Changed (2026-11-03)
+
+- Updated to the latest published releases: `@threlte/core` 8.6.1 → 8.7.0, `@threlte/extras` 9.23.0 → 9.23.1, `better-auth` and `auth` (CLI) 1.7.14 → 1.7.15, `@electric-sql/pglite` (dev) 0.5.13 → 0.5.15, `svelte-check` (dev) 4.7.7 → 4.7.8, `globals` (dev) 17.13.0 → 17.14.0, `shiki` 4.5.0 → 4.6.0.
+- **Not bumped: `vitest` and `@vitest/browser-playwright` stay at 5.0.5** (`pnpm-workspace.yaml` catalog). Bumping both to 5.1.0 broke 107 browser-mode tests (`browserTraceDomSnapshot` is undefined inside `vitest-browser-svelte` `render`). The cause is `vite-plus@1.4.0` (latest release), which pins its own `vitest` and `@vitest/browser-*` at exactly 5.0.5, so the test runner is 5.0.5 whatever the direct devDependency says. At 5.0.5, all 70 unit files (520 tests) pass and `pnpm peers check` is clean. Revisit when a `vite-plus` release pins vitest 5.1.0.
+- **Not bumped: `typescript` stays at 6.0.3**, which `AGENTS.md` pins. `7.0.2` is available; that is a separate decision.
+- `pnpm-workspace.yaml` `minimumReleaseAgeExclude` lists `@electric-sql/pglite@0.5.15`, so the install passes the release-age policy for that version.
+- Gate on this tree (2026-11-03): `pnpm check` 0 errors, 0 warnings (2117 files); `pnpm test:unit --run` 70 files, 520 tests passed; `pnpm build` exit 0; `pnpm check:css` OK (90 properties); `pnpm check:pages` 47 pages satisfy the contract; `pnpm test:seo` 3 passed; `pnpm test:e2e` 19 passed, 13 skipped (admin-credential gated, `HAS_ADMIN_CREDENTIALS`); `vp lint .` and `eslint "**/*.svelte"` exit 0. `vp fmt --check .` fails on `follow-up-prompt.md` and `improve-layout-prompt.md`, which fail the same way on `origin/main` and are not touched here.
+
+#### Docs (2026-11-03)
+
+- Version references updated to the new ranges: `README.md` (Key Dependency Versions), `GEMINI.md` (Key Dependencies; `@sveltejs/kit` corrected to `^3.1.1` to match `package.json`), `docs/BLOG_ADAPTATION_MAP.md` (better-auth, shiki), `docs/ADMIN_AUTH_PLAN.md` (better-auth). The `@better-auth/core` `disableSignUp` line reference (`init-options.d.mts` line 704) still matches 1.7.15.
+- `docs/seo/audit/00-environment.md`: dated addendum; the 2026-10-31 evidence rows are unchanged.
+
 ### 2026-11-03 — Deployment-time maintenance mode
 
 - Added a self-contained maintenance experience and Vercel Build Output API routing/functions for 503 responses, with a client-navigation state check and a documented deployment-time switch. Health and immutable application assets remain available; other application and API requests are blocked.

@@ -20,13 +20,13 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-- **Maintenance design implementation (Codex, 2026-11-03):** `scripts/maintenance-build.mjs`, maintenance HTML template, `tests/maintenance/*`, `docs/MAINTENANCE.md`, review implementation evidence and changelog. Working in the current checkout per the owner's request to implement here; preserve the other active session's files. Status: implementing and verifying.
-
 | Branch                       | Owner session                                      | Area / files claimed                                                                                                                                                                                                                                                                                                                                                                                            | Started    | Status                       |
 | ---------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------- |
 | `feat/ymyl-launch-hardening` | Claude (YMYL / launch-readiness audit, 2026-11-02) | `src/lib/data/launch-gate.ts` (new), `src/lib/data/homepage.ts`, `src/routes/+page.svelte`, home sections (`HeroSection`, `CaseStudiesSection`), `Navbar.svelte`, `Footer.svelte`, `src/lib/seo/structured-data.ts` (`isNoIndexRoute`, founder/org entities), `src/routes/sitemap.xml/+server.ts`, `src/hooks.server.ts` (font preload filter), `vercel.json`, `docs/seo/*`, `docs/seo/audit/02-inventory.json` | 2026-11-02 | ready for review (no PR yet) |
 
 ## Recently finished
+
+- **Maintenance desk notice (Codex, 2026-11-03; no PR):** implemented the approved responsive design, canonical typography, direct support and retry behavior; 15 cross-browser maintenance checks, 520 unit tests, 22 full browser tests and 47 prerendered pages passed. Evidence: `docs/reviews/maintenance-design/IMPLEMENTATION.md`. No deployment performed; Vercel preview remains outstanding.
 
 | PR  | What                                                                                                                                                  |
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |

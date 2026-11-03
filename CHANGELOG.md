@@ -28,6 +28,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 - Version references updated to the new ranges: `README.md` (Key Dependency Versions), `GEMINI.md` (Key Dependencies; `@sveltejs/kit` corrected to `^3.1.1` to match `package.json`), `docs/BLOG_ADAPTATION_MAP.md` (better-auth, shiki), `docs/ADMIN_AUTH_PLAN.md` (better-auth). The `@better-auth/core` `disableSignUp` line reference (`init-options.d.mts` line 704) still matches 1.7.15.
 - `docs/seo/audit/00-environment.md`: dated addendum; the 2026-10-31 evidence rows are unchanged.
 
+### 2026-11-03 — Maintenance desk notice design
+
+- Replaced the oversized maintenance hero and repeated contact section with a compact branded notice, direct support link, readable status, responsive illustrative chart and a document retry control with a no-JavaScript fallback.
+- Reuse the compiled root CSS and its existing Fontsource assets; embed the square brand emblem and validate template tokens and asset references during the build. The 320 px overflow is covered by regression tests.
+- Preserve deployment-time activation, 503/no-store responses and route exceptions. Add narrow-screen, retry/recovery, keyboard, reduced-motion and font-failure checks.
+
 ### 2026-11-03 — Deployment-time maintenance mode
 
 - Added a self-contained maintenance experience and Vercel Build Output API routing/functions for 503 responses, with a client-navigation state check and a documented deployment-time switch. Health and immutable application assets remain available; other application and API requests are blocked.

@@ -7,10 +7,25 @@ import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 
 const script = resolve('scripts/maintenance-build.mjs');
+const canonicalCss = await readFile('src/app.css', 'utf8');
 async function build(enabled, check) {
 	const dir = await mkdtemp(join(tmpdir(), 'maintenance-test-'));
 	try {
 		await mkdir(join(dir, '.vercel/output'), { recursive: true });
+		const client = join(dir, '.svelte-kit/output/client');
+		await mkdir(join(client, '.vite'), { recursive: true });
+		await mkdir(join(client, '_app/immutable/assets'), { recursive: true });
+		await writeFile(
+			join(client, '.vite/manifest.json'),
+			JSON.stringify({
+				'root.js': { name: 'nodes/0', css: ['_app/immutable/assets/theme.css'] }
+			})
+		);
+		await writeFile(
+			join(client, '_app/immutable/assets/theme.css'),
+			`${canonicalCss}\n@font-face{src:url(./font.woff2)}`
+		);
+		await writeFile(join(client, '_app/immutable/assets/font.woff2'), 'fixture');
 		await writeFile(
 			join(dir, '.vercel/output/config.json'),
 			JSON.stringify({ version: 3, routes: [{ handle: 'filesystem' }] })
@@ -56,6 +71,14 @@ test('normal deployment leaves pages available and exposes an uncached state', a
 		const state = invoke(dir, match(routes, '/maintenance-state.json').dest);
 		assert.equal(state.status, 200);
 		assert.equal(state.headers['cache-control'], 'no-store, max-age=0');
+		const preview = await readFile(
+			join(dir, '.svelte-kit/output/client/maintenance/index.html'),
+			'utf8'
+		);
+		assert.match(preview, /data-maintenance-theme/);
+		assert.match(preview, /url\("\/_app\/immutable\/assets\/font.woff2"\)/);
+		assert.match(preview, /data:image\/png;base64,/);
+		assert.doesNotMatch(preview, /<!-- maintenance:/);
 	});
 });
 test('maintenance deployment blocks pages, API, auth and nested routes before filesystem', async () => {
@@ -74,7 +97,7 @@ test('maintenance deployment blocks pages, API, auth and nested routes before fi
 			assert.equal(response.headers['vercel-cdn-cache-control'], 'no-store');
 			assert.equal(response.headers['retry-after'], undefined);
 		}
-		assert.match(invoke(dir, match(routes, '/').dest).body, /back soon/i);
+		assert.match(invoke(dir, match(routes, '/').dest).body, /Platform maintenance\./);
 		assert.match(invoke(dir, match(routes, '/api/lead').dest).headers['content-type'], /json/);
 		assert.equal(invoke(dir, match(routes, '/').dest, 'HEAD').body, undefined);
 		assert.equal(match(routes, '/api/health'), undefined);

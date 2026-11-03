@@ -2,11 +2,33 @@
 	import '../app.css';
 
 	import { asset } from '$app/paths';
+	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
+
+	// A deployment can replace prerendered pages with maintenance responses.
+	// Check on client navigation as well, including when Kit has preloaded a page.
+	onNavigate(async ({ to }) => {
+		try {
+			const response = await fetch('/maintenance-state.json', { cache: 'no-store' });
+			const state: unknown = await response.json();
+			if (
+				response.ok &&
+				typeof state === 'object' &&
+				state !== null &&
+				'maintenance' in state &&
+				state.maintenance === false
+			)
+				return;
+		} catch {
+			// Let a document request surface network or maintenance errors.
+		}
+		window.location.assign(to?.url.href ?? window.location.href);
+		return new Promise<never>(() => {});
+	});
 
 	const isAdminArea = $derived(
 		page.url.pathname === '/admin' || page.url.pathname.startsWith('/admin/')

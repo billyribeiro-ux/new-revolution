@@ -9,6 +9,11 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-03 — Deployment-time maintenance mode
+
+- Added a self-contained maintenance experience and Vercel Build Output API routing/functions for 503 responses, with a client-navigation state check and a documented deployment-time switch. Health and immutable application assets remain available; other application and API requests are blocked.
+- Added route/function regression tests and a browser navigation test. The source signup is replaced by the existing support contact because its in-memory storage is not durable. Vercel preview verification remains required.
+
 ### 2026-11-02 — Blog engine Phase 3: removal and redirect integrity (G10)
 
 #### Added (2026-11-02)

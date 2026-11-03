@@ -9,6 +9,18 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-02 — Blog engine Phase 3: removal and redirect integrity (G10)
+
+#### Added (2026-11-02)
+
+- `src/lib/server/posts/redirect-integrity.ts`: pure graph analysis (self-loop, cycle, chain, dangling target), an in-transaction loop/cycle check, a read-only full audit (`findRedirectIntegrityIssues`) and `isLiveBlogPath`.
+- Tests: `redirect-integrity.db.spec.ts` (13) and 2 article-loader cases in `blog-pagination.spec.ts` (draft and trashed articles answer 404 with no cache headers).
+
+#### Changed (2026-11-02)
+
+- `savePostWithRedirect` retires any active redirect whose source is the slug being saved (a live post owns its URL), and aborts and rolls back with `REDIRECT_INTEGRITY` if the active redirect graph would contain a loop, cycle or chain.
+- The redirect hook no longer serves a 301 whose target is unpublished, trashed or gone; the requested URL falls through to the router and answers 404.
+
 ### 2026-11-02 — Blog engine Phase 2: trustworthy modified date (G3)
 
 Plan: [`blog-editor-report.md`](blog-editor-report.md) Part C, Phase 2.

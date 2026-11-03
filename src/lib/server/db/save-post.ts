@@ -1,5 +1,6 @@
 import { and, desc, eq, inArray, isNull, ne } from 'drizzle-orm';
 import { ensureDbReady, type AppDatabase } from './index';
+import { findRedirectGraphIssues } from '../posts/redirect-integrity';
 import { postCategories, posts, postTags, redirects, relatedPosts, revisions } from './schema';
 
 export const AUTOSAVE_RETENTION_LIMIT = 20;
@@ -215,6 +216,18 @@ export async function savePostWithRedirect(
 				savedPost = updated[0];
 			}
 
+			// A live post owns its URL: any active redirect FROM this slug would shadow it (the redirect hook runs before
+			// the router), so retire it whether this is a create, a rename-back or a draft reusing an old slug.
+			await tx
+				.update(redirects)
+				.set({ isActive: false })
+				.where(
+					and(
+						eq(redirects.sourcePath, normalizeBlogPath(savedPost.slug)),
+						eq(redirects.isActive, true)
+					)
+				);
+
 			// Handle slug rename redirects & internal link rewrites (Section 7.11)
 			let renamedFromSlug: string | null = null;
 			let rewrittenInternalLinksCount = 0;
@@ -279,6 +292,15 @@ export async function savePostWithRedirect(
 						}
 					}
 				}
+			}
+
+			// Post-condition: the active redirect graph must stay loop-free and flat. Throwing rolls the whole save back.
+			const graphIssues = await findRedirectGraphIssues(tx);
+			if (graphIssues.length > 0) {
+				const first = graphIssues[0];
+				throw new Error(
+					`REDIRECT_INTEGRITY: ${first.kind} ${first.sourcePath} -> ${first.targetPath}. Save aborted.`
+				);
 			}
 
 			// Update category pivots

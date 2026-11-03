@@ -6,6 +6,7 @@ import { escapeJsonLdBlocksInHtml, isNoIndexRoute } from '#lib/seo/structured-da
 import { auth } from '#lib/server/auth.ts';
 import { ensureDbReady } from '#lib/server/db';
 import { redirects } from '#lib/server/db/schema';
+import { isLiveBlogPath } from '#lib/server/posts/redirect-integrity';
 import { requestLogger } from '#lib/server/logger.ts';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
@@ -95,6 +96,12 @@ export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 			.limit(1);
 
 		if (!matched) {
+			return null;
+		}
+
+		// Never 301 into a 404: a redirect whose target is unpublished, trashed or gone is skipped, so the
+		// requested URL falls through to the router and answers 404 itself.
+		if (!(await isLiveBlogPath(db, matched.targetPath))) {
 			return null;
 		}
 

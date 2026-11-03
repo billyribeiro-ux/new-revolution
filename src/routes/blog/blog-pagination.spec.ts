@@ -1,4 +1,6 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vite-plus/test';
+import { eq } from 'drizzle-orm';
+import { posts } from '#lib/server/db/schema';
 import { createTestDatabase, setActiveDbForTest } from '#lib/server/db';
 import {
 	clearInvalidatedCacheTagsForTest,
@@ -8,7 +10,7 @@ import {
 } from '#lib/server/posts/cache';
 import { createAuthor } from '#lib/server/services/authors';
 import { createCategory } from '#lib/server/services/categories';
-import { createPost } from '#lib/server/services/posts';
+import { createPost, trashPost } from '#lib/server/services/posts';
 import { createTag } from '#lib/server/services/tags';
 import { BLOG_PAGE_SIZE } from '#lib/shared/blog/pagination';
 import { load as loadBlogIndex } from './+page.server';
@@ -69,6 +71,8 @@ type Meta = { pageMetaTags: { title?: string; robots?: string; canonical?: strin
 describe('Blog pagination, 404 handling and cache tags', () => {
 	let ctx: Awaited<ReturnType<typeof createTestDatabase>>;
 	const slugs: string[] = [];
+	let fixtureAuthorId = 0;
+	let fixtureCategoryId = 0;
 
 	beforeAll(async () => {
 		process.env.POST_PASSWORD_SECRET = 'test-post-password-secret-at-least-32-chars!!';
@@ -90,6 +94,8 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 			description: 'Fixture category used only by tests.',
 			isActive: true
 		});
+		fixtureAuthorId = author.id;
+		fixtureCategoryId = category.id;
 		const tag = await createTag({
 			name: 'Pagination Tag',
 			slug: 'pagination-tag',
@@ -254,6 +260,45 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 			expect(headers['Cache-Control']).toContain('public');
 			expect(headers['Vercel-Cache-Tag']).toBe(`blog-post:${slug},blog-lists`);
 		});
+
+		it.each(['draft', 'trashed'] as const)(
+			'answers 404 with no cache headers for a %s article, never an empty 200',
+			async (state) => {
+				const slug = `unavailable-${state}-fixture`;
+				const keyword = `${state} fixture`;
+				const post = await createPost({
+					title: `Unavailable ${state} fixture article for removal tests`,
+					slug,
+					excerpt: `A ${state} fixture used only to prove removed content answers 404; it is not real content.`,
+					content: body(keyword),
+					authorId: fixtureAuthorId,
+					categoryId: fixtureCategoryId,
+					categoryIds: [fixtureCategoryId],
+					coverImage: `https://cdn.example.com/${slug}-1200w.webp`,
+					coverImageAlt: `Fixture chart for ${state} article`,
+					metaTitle: `Unavailable ${state} fixture article for removal tests`,
+					metaDescription: `A ${state} fixture used only to prove removed content answers 404; it is not real content and never ships.`,
+					focusKeyword: keyword,
+					status: 'draft',
+					visibility: 'public'
+				});
+				if (state === 'trashed') {
+					// Publish directly: the publish gate is covered elsewhere and is not what is under test here.
+					await ctx.db
+						.update(posts)
+						.set({ status: 'published', published: true, publishedAt: new Date() })
+						.where(eq(posts.id, post.id));
+					const live = event<PostEvent>(`/blog/${slug}`, { slug });
+					await loadBlogPost(live.evt);
+					await trashPost(post.id, null);
+				}
+
+				const { evt, headers } = event<PostEvent>(`/blog/${slug}`, { slug });
+				await expect(loadBlogPost(evt)).rejects.toMatchObject({ status: 404 });
+				expect(headers['Cache-Control']).toBeUndefined();
+				expect(headers['Vercel-Cache-Tag']).toBeUndefined();
+			}
+		);
 
 		it('sends no cache headers for an unknown article', async () => {
 			const { evt, headers } = event<PostEvent>('/blog/does-not-exist', { slug: 'does-not-exist' });

@@ -592,6 +592,12 @@ Standards for every phase: work in an isolated worktree off `main`; test fixture
 - **Tests added:** 14 (`modified-date.db.spec.ts`, `modified-date.spec.ts`). Mutation-checked: restoring the `updatedAt` fallback fails 2 of them. Server project: 38 files, 361 tests passing. `pnpm check` 0 errors and 0 warnings; format clean; lint shows only existing warnings.
 - **Not done:** the editor "minor edit" checkbox (UI; server contract is in place), running the backfill against production, e2e re-run (sitemap `lastmod` is not rendered while `/blog` is gated).
 
+### Phase 3 results (2026-11-02)
+
+- **Found by reading the code:** a new post, or a rename-back, reusing a slug that an older rename had redirected was shadowed by the old 301, because the redirect hook runs before the router. A redirect into an unpublished post answered 301 and then 404. Both are fixed; the first is retired at save time, the second is checked in the hook.
+- **Tests:** 15 new, mutation-checked (disabling the hook check, the slug-reuse retirement and the rollback guard failed 4 tests). Server project: 39 files, 374 tests passing; `pnpm check` 0 errors and 0 warnings.
+- **Not done:** a scheduled run of `findRedirectIntegrityIssues` (no scheduler decision yet; the function is ready to call from cron). The redirect response is `Cache-Control: public, max-age=300` with no cache tag, so a cached 301 can outlive a purge by up to 5 minutes; tagging it belongs with Phase 1b.
+
 ### Out of scope until authorized
 
 Deploying, publishing or unpublishing live content, editing production CMS records, destructive migrations, changing hosting or Search Console settings.

@@ -26,7 +26,7 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Recently finished
 
-- **Vite+ agent documentation (Codex, 2026-11-03; no PR):** added `docs/VITE_PLUS_WORKFLOW.md` and updated agent entry points and stale tooling/SEO-command references. Verified the local toolchain, Markdown formatting and links, `pnpm check`, and one Vite+ unit spec. No toolchain migration or dependency changes performed.
+- **Vite+ agent documentation (Codex, 2026-11-03; PR #18):** added `docs/VITE_PLUS_WORKFLOW.md` and updated agent entry points and stale tooling/SEO-command references. Verified the local toolchain, Markdown formatting and links, `pnpm check`, and one Vite+ unit spec. No toolchain migration or dependency changes performed.
 
 - **Maintenance desk notice (Codex, 2026-11-03; no PR):** implemented the approved responsive design, canonical typography, direct support and retry behavior; 15 cross-browser maintenance checks, 520 unit tests, 22 full browser tests and 47 prerendered pages passed. Evidence: `docs/reviews/maintenance-design/IMPLEMENTATION.md`. No deployment performed; Vercel preview remains outstanding.
 

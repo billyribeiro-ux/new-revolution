@@ -230,3 +230,7 @@ the other browsers; mobile widths; the publish of a scheduled post; the dashboar
 ## 2026-11-03 diagnostics follow-up
 
 Editor hydration now accepts scalar values without persisting accidental object stringifications, article unlock rejects file-valued passwords, and error matching requires string database details. Focused regressions cover malformed input. The image-menu test explicitly waits for Svelte's DOM update, and the admin image-flow test follows the existing blog launch gate when checking sitemap membership. The isolated seeded browser procedure is recorded in `docs/VITE_PLUS_WORKFLOW.md`; these changes do not alter roles, authentication bypasses or production account setup.
+
+## 2026-11-03 Vercel Preview setup
+
+The protected `develop` Preview uses a separate free-plan Neon database (`revolution-preview`, Preview scope only), initialized from the existing migrations after verifying it was empty. Its health endpoint reports a successful database query; admin and media APIs reject unauthenticated requests with 401, and the sign-in action returns the generic 400 refusal for an unknown account. No Preview admin account was created; create one through the documented seed procedure when needed. Production remains behind the maintenance gate and has no new database or account from this operation. The server sanitizer/parser are bundled to avoid a deployed Node 24 CommonJS/ESM loading failure. Evidence: `docs/reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md`.

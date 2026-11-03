@@ -20,13 +20,13 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-- `deploy/maintenance-production` (Codex, 2026-11-03): Vercel production maintenance / Preview setup; `vite.config.ts` server dependency bundling, maintenance deployment evidence, tooling/deployment docs and `CHANGELOG.md`.
-
 | Branch                       | Owner session                                      | Area / files claimed                                                                                                                                                                                                                                                                                                                                                                                            | Started    | Status                       |
 | ---------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------- |
 | `feat/ymyl-launch-hardening` | Claude (YMYL / launch-readiness audit, 2026-11-02) | `src/lib/data/launch-gate.ts` (new), `src/lib/data/homepage.ts`, `src/routes/+page.svelte`, home sections (`HeroSection`, `CaseStudiesSection`), `Navbar.svelte`, `Footer.svelte`, `src/lib/seo/structured-data.ts` (`isNoIndexRoute`, founder/org entities), `src/routes/sitemap.xml/+server.ts`, `src/hooks.server.ts` (font preload filter), `vercel.json`, `docs/seo/*`, `docs/seo/audit/02-inventory.json` | 2026-11-02 | ready for review (no PR yet) |
 
 ## Recently finished
+
+- **Production maintenance / Preview rollout (Codex, 2026-11-03; PR #20):** public maintenance deployed and verified; separate protected `develop` Preview with a new free-plan Neon database. Fixed deployed sanitizer module loading through SSR bundling; all required gates passed (529 unit tests, 35 browser tests, 3 SEO tests, 47 page contracts). Evidence: `docs/reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md`.
 
 - **Repository diagnostics repair (Codex, 2026-11-03; PR #19):** fixed generic test typing, included SEO tooling in type checks, cleared all lint findings, and verified authenticated E2E with a unique throwaway admin. All 529 unit tests, 35 browser tests (no skips), 3 SEO tests and 47 page contracts passed. Evidence: `docs/reviews/repository-diagnostics/VERIFICATION.md`. Vercel project remains paused.
 

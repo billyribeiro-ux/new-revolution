@@ -69,7 +69,7 @@ export function isUniqueViolation(
 			code === '23505' &&
 			table === target.table &&
 			(constraint === `${target.table}_${target.column}_unique` ||
-				String(detail ?? '').startsWith(`Key (${target.column})=`))
+				(typeof detail === 'string' && detail.startsWith(`Key (${target.column})=`)))
 		) {
 			return true;
 		}

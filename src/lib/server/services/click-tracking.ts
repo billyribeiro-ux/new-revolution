@@ -42,7 +42,7 @@ function truncateLinkText(value: string | null | undefined): string | null {
 	const trimmed = value.trim();
 	if (trimmed.length === 0) return null;
 	if (trimmed.length <= LINK_TEXT_MAX) return trimmed;
-	return [...trimmed].slice(0, LINK_TEXT_MAX).join('');
+	return Array.from(trimmed).slice(0, LINK_TEXT_MAX).join('');
 }
 
 /**

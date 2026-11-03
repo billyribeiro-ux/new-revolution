@@ -493,7 +493,7 @@ export async function backfillCoverCrops(options: BackfillOptions = {}): Promise
 				const rejected = settled.find((r): r is PromiseRejectedResult => r.status === 'rejected');
 				if (rejected) throw rejected.reason;
 
-				const merged: Record<string, MediaVariantRecord> = { ...(row.variantsJson ?? {}) };
+				const merged: Record<string, MediaVariantRecord> = { ...row.variantsJson };
 				crops.forEach((c, i) => {
 					merged[cropVariantKey(c.aspect)] = coverCropVariantRecord(
 						c,

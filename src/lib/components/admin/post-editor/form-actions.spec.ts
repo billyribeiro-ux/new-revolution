@@ -34,6 +34,25 @@ describe('Post Editor form-actions & Myers Word Diff Suite', () => {
 		expect(payloadClear.password).toBe('');
 	});
 
+	it('keeps scalar form values and ignores object stringifications from malformed post data', () => {
+		const hydrated = hydrateFromFullPost({
+			title: { unexpected: 'object' },
+			slug: ['not', 'a', 'slug'],
+			excerpt: 42,
+			language: null,
+			customFields: JSON.stringify({ count: 3, enabled: false, nested: { unsafe: true } })
+		});
+		expect(hydrated.title).toBe('');
+		expect(hydrated.slug).toBe('');
+		expect(hydrated.excerpt).toBe('42');
+		expect(hydrated.language).toBe('en');
+		expect(hydrated.customFields).toEqual([
+			{ key: 'count', value: '3' },
+			{ key: 'enabled', value: 'false' },
+			{ key: 'nested', value: '' }
+		]);
+	});
+
 	it('hydrates full post JSON fields and syncs canonical fields after save', () => {
 		const hydrated = hydrateFromFullPost({
 			id: 7,

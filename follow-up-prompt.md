@@ -45,6 +45,7 @@ Investigate how requests reach this application in development, the adapter outp
 Evaluate a small number of viable approaches, then choose and implement the simplest one that satisfies the acceptance criteria. Consider build/deployment-time maintenance variants, targeted rendering changes, or another officially supported routing mechanism when justified.
 
 Do not:
+
 - Assume a SvelteKit hook intercepts prerendered assets.
 - Introduce Vercel middleware that conflicts with supported SvelteKit deployment guidance.
 - Globally disable prerendering without evaluating its impact.
@@ -56,6 +57,7 @@ Use official, version-relevant documentation. Create a minimal routing experimen
 Unless an existing requirement demands runtime switching, a documented deployment-time switch is an acceptable default. Implement it completely if it meets the application’s needs.
 
 Distinguish:
+
 - Behavior proven locally.
 - Behavior established from generated adapter output.
 - Behavior requiring a Vercel preview or production environment.
@@ -65,6 +67,7 @@ Never present those as equivalent evidence.
 3. TRANSFER AND ADAPT THE PAGE
 
 Inspect the source implementation closely, then transfer its relevant:
+
 - Layout and visual hierarchy.
 - Components, styles, assets, and animations.
 - Chart behavior and responsive states.
@@ -73,6 +76,7 @@ Inspect the source implementation closely, then transfer its relevant:
 Adapt the code to destination conventions and installed dependencies. Preserve the intended design without copying obsolete patterns, secrets, unrelated configuration, or unsafe behavior.
 
 Use idiomatic Svelte 5:
+
 - Clear state ownership and appropriate reactivity.
 - Derived values for computed state.
 - Effects only for actual side effects.
@@ -93,6 +97,7 @@ If one exists, integrate with it using server-side validation, suitable abuse pr
 Do not transfer an in-memory subscriber store into a serverless deployment.
 
 If no durable service is available:
+
 - Complete the maintenance page and routing independently.
 - Do not leave an active form that pretends to save subscriptions.
 - Omit the unavailable notification interaction or provide an existing, truthful contact/status alternative.
@@ -103,6 +108,7 @@ Lack of notification infrastructure must not block the rest of the implementatio
 5. IMPLEMENT AND TEST IN COHERENT INCREMENTS
 
 Make working changes now. For each increment:
+
 - State the specific behavior being implemented.
 - Implement it.
 - Run the relevant checks.
@@ -112,6 +118,7 @@ Make working changes now. For each increment:
 Add focused regression tests for the maintenance gate and meaningful route exceptions.
 
 Test at least:
+
 - Enabled and disabled states.
 - Root and representative nested routes.
 - Direct navigation and client navigation.
@@ -124,6 +131,7 @@ Test at least:
 Use the actual project scripts. Run applicable formatting, linting, Svelte/TypeScript checks, tests, and production builds. Inspect adapter output where it is material to routing correctness.
 
 Run the rendered page in an available browser and inspect:
+
 - Desktop and mobile layouts.
 - Keyboard operation and focus.
 - Reduced motion.
@@ -146,6 +154,7 @@ Apply the same principle to deployment access: complete local implementation and
 A genuine blocker is a specific missing credential, permission, unavailable source artifact, or unresolved product requirement that prevents a particular operation.
 
 For each blocker:
+
 - Identify exactly which operation it prevents.
 - Complete all independent work.
 - Preserve a runnable, reviewable implementation.
@@ -158,6 +167,7 @@ Do not deploy or publish without authorization. Do not modify unrelated applicat
 8. REQUIRED HANDOFF
 
 Return:
+
 - What you actually implemented.
 - The important changed files.
 - The chosen routing design and why it covers prerendered requests.

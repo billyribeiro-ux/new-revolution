@@ -270,8 +270,10 @@ export const load: PageServerLoad = async ({
 			if (Array.isArray(parsedCustom)) {
 				for (const item of parsedCustom) {
 					if (!item || typeof item !== 'object') continue;
-					const k = String((item as Record<string, unknown>).key ?? '');
-					const v = String((item as Record<string, unknown>).value ?? '');
+					const { key, value } = item as Record<string, unknown>;
+					if (typeof key !== 'string' || typeof value !== 'string') continue;
+					const k = key;
+					const v = value;
 					if (k === '__subtitle') subtitle = v.trim();
 					else if (k === '__seriesName') seriesName = v.trim();
 					else if (k === '__noarchive') noarchive = v === 'true';
@@ -418,7 +420,8 @@ export const actions: Actions = {
 	unlock: async (event) => {
 		const slug = event.params.slug.trim().toLowerCase();
 		const formData = await event.request.formData();
-		const password = String(formData.get('password') ?? '').trim();
+		const passwordEntry = formData.get('password');
+		const password = typeof passwordEntry === 'string' ? passwordEntry.trim() : '';
 
 		if (!password) {
 			return fail(400, {

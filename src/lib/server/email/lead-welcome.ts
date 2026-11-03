@@ -48,7 +48,7 @@ function loadPdfBase64(): string | null {
 
 export function buildLeadWelcomeEmail(
 	recipientEmail: string,
-	recipientName?: string | undefined,
+	recipientName?: string,
 	options: { fromEmail?: string; fromName?: string; replyTo?: string } = {}
 ): {
 	from: string;

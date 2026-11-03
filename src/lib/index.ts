@@ -1,1 +1,2 @@
-// place files you want to import through the `#lib` alias in this folder.
+// Reserved package subpath entry point; import concrete modules via #lib/*
+export {};

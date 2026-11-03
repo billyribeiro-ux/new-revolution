@@ -226,3 +226,7 @@ New defects found and status:
 Not verified in P4: the media library thumbnails and cover image rendering on the public page (no servable URL locally);
 the cover image in OG/Twitter output; the full gate run (`pnpm build` and `pnpm test:e2e` were not run, per instructions);
 the other browsers; mobile widths; the publish of a scheduled post; the dashboard count query.
+
+## 2026-11-03 diagnostics follow-up
+
+Editor hydration now accepts scalar values without persisting accidental object stringifications, article unlock rejects file-valued passwords, and error matching requires string database details. Focused regressions cover malformed input. The image-menu test explicitly waits for Svelte's DOM update, and the admin image-flow test follows the existing blog launch gate when checking sitemap membership. The isolated seeded browser procedure is recorded in `docs/VITE_PLUS_WORKFLOW.md`; these changes do not alter roles, authentication bypasses or production account setup.

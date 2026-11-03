@@ -244,7 +244,7 @@ export async function getConsentStats(): Promise<{
  * silently truncated: an export that quietly omits rows is worse than no
  * export, because it looks authoritative when handed to a regulator.
  */
-function csvCell(val: unknown): string {
+function csvCell(val: string | number | null | undefined): string {
 	const raw = String(val ?? '').replace(/"/g, '""');
 	return /^[=+\-@\t\r]/.test(raw) ? `"'${raw}"` : `"${raw}"`;
 }

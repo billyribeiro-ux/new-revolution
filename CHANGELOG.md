@@ -9,6 +9,11 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-03 — Vite+ agent documentation
+
+- Added a sourced Vite+ workflow for project scripts, Svelte-specific checks, test authoring and explicitly requested upgrades; linked it from the agent entry points and README.
+- Corrected stale formatter, adapter/version and SEO test-command references in the engineering playbooks and audit instructions. No toolchain dependencies or test thresholds changed.
+
 ### 2026-11-03 — Dependency updates
 
 #### Added (2026-11-03)

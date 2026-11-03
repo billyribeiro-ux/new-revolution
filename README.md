@@ -1,84 +1,47 @@
-# sv
+# Revolution Trading Pros
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A SvelteKit application using Svelte 5, TypeScript, Vite+ and the Vercel adapter. The project already uses Vite+; it does not need to be scaffolded or migrated again.
 
-## Creating a project
+For agent instructions and project standards, start with [`AGENTS.md`](AGENTS.md). For the installed toolchain, command semantics and upgrade procedure, read [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md). New marketing routes and components also follow [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md) and [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Setup and development
 
-```sh
-# create a new project
-pnpm dlx sv create my-app
-```
-
-To recreate this project with the same configuration:
+The repository uses **pnpm only**, with the Node and pnpm versions declared in `package.json`. The workspace catalog and overrides live in `pnpm-workspace.yaml`.
 
 ```sh
-# recreate this project
-pnpm dlx sv@1.1.1 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright="demo:yes" enhanced-img sveltekit-adapter="adapter:vercel" drizzle="database:postgresql+postgresql:postgres.js+docker:no" better-auth="demo:password" mdsvex ai-tools="ide:claude-code,gemini+delivery:plugin+tools:mcp,svelte-code-writer,svelte-core-bestpractices,svelte-file-editor+mcpSetup:local" experimental="features:async,remoteFunctions" --install pnpm new-revolution-web
+pnpm install --frozen-lockfile
+pnpm exec vp --version
+pnpm exec vp toolchain
+pnpm dev
+# To open a browser when starting the dev server:
+pnpm dev --open
 ```
 
-## Adding features
+Use the project-local Vite+ CLI through `pnpm exec vp` when calling a built-in directly. No global CLI installation is needed.
 
-Add features to your project with `sv add`:
+## Checks and tests
 
 ```sh
-pnpm dlx sv add
+pnpm check:css
+pnpm check              # SvelteKit sync and svelte-check
+pnpm lint               # Oxfmt check, Oxlint, then ESLint for Svelte
+pnpm test:unit --run    # Vitest server and browser-component projects
+pnpm test:seo           # Playwright SEO gate
+pnpm test:e2e           # Playwright install followed by configured E2E tests
 ```
 
-For example, to add Tailwind CSS:
+`pnpm test` runs both the unit and E2E scripts. When browsers are already installed, `pnpm exec playwright test` runs the configured E2E tests without the install step. For an individual unit spec, use `pnpm exec vp test run path/to/file.spec.ts`.
+
+`pnpm exec vp check` is an additional Vite+ check, not a replacement for the project gates: this configuration has Vite+ compiler diagnostics disabled and retains `svelte-check` and Svelte-specific ESLint checks separately. Report actual failures, warnings and skips; do not assume a command passed because another check did.
+
+## Build and preview
 
 ```sh
-pnpm dlx sv add tailwindcss
+pnpm build
+pnpm check:pages
+pnpm preview
 ```
 
-## Developing
+Use `pnpm build` for the complete build: its package script runs Vite+ **and** the maintenance-output step. The bare `pnpm exec vp build` built-in does not run that additional step. See [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md) for the deployment-time maintenance switch and preview limitations.
 
-> **Note:** This project strictly enforces **`pnpm` (`pnpm@12.16.1`)** via `.npmrc` (`engine-strict=true`) and `package.json#engines`. Running `npm`, `yarn`, or `bun` is blocked.
-
-Once you've installed dependencies with `pnpm install`, start the development server:
-
-```sh
-pnpm run dev
-
-# or start the server and open the app in a new browser tab
-pnpm run dev --open
-```
-
-## Typechecking, Linting & Testing
-
-```sh
-pnpm run check
-pnpm run lint
-pnpm run format
-pnpm run test:unit --run
-pnpm run test:e2e
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-pnpm run build
-```
-
-You can preview the production build with `pnpm run preview`.
-
-## Key Dependency Versions
-
-| Package            | Version    |
-| :----------------- | :--------- |
-| `svelte`           | `^5.57.3`  |
-| `@sveltejs/kit`    | `^3.1.0`   |
-| `vite`             | `^8.3.5`   |
-| `typescript`       | `6.0.3`    |
-| `@types/node`      | `^26.6.6`  |
-| `@threlte/core`    | `^8.7.0`   |
-| `@threlte/extras`  | `^9.23.1`  |
-| `three`            | `^0.186.1` |
-| `gsap`             | `^3.15.0`  |
-| `phosphor-svelte`  | `^3.1.1`   |
-| `svelte-meta-tags` | `^5.0.3`   |
-| `drizzle-orm`      | `^0.45.4`  |
-| `better-auth`      | `^1.7.15`  |
+The source-of-truth versions are `package.json`, `pnpm-workspace.yaml` and `pnpm-lock.yaml`; use `pnpm exec vp toolchain` to inspect the locally selected Vite+ tools.

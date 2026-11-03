@@ -29,9 +29,9 @@ You are not here to be agreeable. A run that finds zero defects is acceptable **
 # CHECK 1 — CLEAN-ROOM REPRODUCTION
 
 1. `git worktree add ../seo-verify-<N> <AUDIT_REF>` and work **only** in that worktree, so nothing from local caches or uncommitted state leaks in.
-2. Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm seo:test`, and `pnpm build`. Record the exit code, **warning count**, and test counts (passed/failed/skipped) for each.
+2. Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm lint`, `pnpm test`, `pnpm test:seo`, and `pnpm build`. Record the exit code, **warning count**, and test counts (passed/failed/skipped) for each.
    - Any warning, failure, or skipped test introduced since `BASE_REF` is a DEFECT.
-3. Re-run the full audit tooling (`pnpm seo:audit` or the Phase 3 scripts) from scratch into `docs/seo/verify/pass-<N>/artifacts/`. Don't reuse any artifact the previous run produced.
+3. Re-run the full audit tooling (`pnpm seo:audit` if that script has been implemented, or the Phase 3 scripts) from scratch into `docs/seo/verify/pass-<N>/artifacts/`. Don't reuse any artifact the previous run produced.
 4. **Recompute every number in `08-report.md` yourself** from your fresh artifacts: URLs audited, rows per status, FAIL counts. Any mismatch is a DEFECT, even a small one.
 
 # CHECK 2 — CLAIM-BY-CLAIM FALSIFICATION
@@ -78,7 +78,7 @@ Write `docs/seo/verify/pass-<N>/diff-review.md`.
 
 # CHECK 5 — MUTATION TESTING (prove the tests actually test)
 
-A test that can't fail proves nothing. In a scratch branch inside the worktree, apply **each** mutation below **one at a time**. Run `pnpm seo:test` after each and confirm **the named test fails**, then revert. A mutation that doesn't cause a failure is a DEFECT: the gate is fake.
+A test that can't fail proves nothing. In a scratch branch inside the worktree, apply **each** mutation below **one at a time**. Run `pnpm test:seo` after each and confirm **the named test fails**, then revert. A mutation that doesn't cause a failure is a DEFECT: the gate is fake.
 
 | #   | Mutation                                                          | Must fail       |
 | --- | ----------------------------------------------------------------- | --------------- |
@@ -110,7 +110,7 @@ Then add **at least 5 mutations of your own** targeting requirements this repo a
 
 1. `CLAUDE.md` begins with `@AGENTS.md`, and `AGENTS.md` exists.
 2. Every file path in `AGENTS.md` exists. Every command runs and exits 0. Every requirement ID exists in the standard. Every version matches the lockfile.
-3. **Dogfood test.** In the scratch branch, create one new page of the most common template, **following only `AGENTS.md`**: a new article, say, or whatever the repo's main content type is. Don't consult the existing implementation. Run `pnpm seo:test` and the gate commands. If the new page fails any requirement, `AGENTS.md` is incomplete: DEFECT. Delete the scratch page afterwards.
+3. **Dogfood test.** In the scratch branch, create one new page of the most common template, **following only `AGENTS.md`**: a new article, say, or whatever the repo's main content type is. Don't consult the existing implementation. Run `pnpm test:seo` and the gate commands. If the new page fails any requirement, `AGENTS.md` is incomplete: DEFECT. Delete the scratch page afterwards.
 
 # CHECK 8 — PRODUCTION (only if the owner says the branch is deployed)
 

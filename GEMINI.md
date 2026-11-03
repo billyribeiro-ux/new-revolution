@@ -1,9 +1,12 @@
 ## Project Configuration
 
-- **Language**: TypeScript (`6.0.3`, Node `26.13.0` LTS)
+- **Language**: TypeScript (`6.0.3`, Node `26.13.0`)
 - **Package Manager**: `pnpm` ONLY (`pnpm@12.16.1` enforced via `.npmrc` `engine-strict=true` and `package.json#engines`; `npm`, `yarn`, and `bun` are strictly blocked)
-- **Add-ons**: prettier, eslint, vitest, playwright, enhanced-img, sveltekit-adapter, drizzle, better-auth, mdsvex, ai-tools, experimental
-- **Key Dependencies**: `svelte@^5.57.3`, `@sveltejs/kit@^3.1.1`, `vite@^8.3.5`, `@threlte/core@^8.7.0`, `@threlte/extras@^9.23.1`, `three@^0.187.0`, `@types/node@^26.6.6`, `gsap@^3.15.0`, `phosphor-svelte@^3.1.1`, `svelte-meta-tags@^5.0.3`, `drizzle-orm@^0.45.4`, `better-auth@^1.7.15`
+- **Toolchain**: Vite+ `1.4.0` (Vite `8.3.5`, Vitest `5.0.5`, Oxfmt, Oxlint); ESLint remains required for Svelte-specific rules. The `vite` dependency is the Vite+ core alias through the pnpm catalog.
+- **Add-ons**: Playwright, enhanced-img, adapter-vercel, Drizzle, Better Auth, mdsvex, ai-tools, experimental
+- **Key Dependencies**: `svelte@^5.57.3`, `@sveltejs/kit@^3.1.1`, `@threlte/core@^8.7.0`, `@threlte/extras@^9.23.1`, `three@^0.187.0`, `@types/node@^26.6.6`, `gsap@^3.15.0`, `phosphor-svelte@^3.1.1`, `svelte-meta-tags@^5.0.3`, `drizzle-orm@^0.45.4`, `better-auth@^1.7.15`
+
+Read [`AGENTS.md`](AGENTS.md) and [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md) before choosing project build, test, lint, formatting or upgrade commands. Use `pnpm build`, not bare `vp build`, for the complete production build, and retain `pnpm check` and `pnpm lint` as the Svelte/type and lint gates.
 
 ---
 

@@ -10,6 +10,8 @@
 
 Every pull request and production release must pass the following verification suite using `pnpm` exclusively:
 
+For Vite+ command semantics and project-specific build steps, see [`docs/VITE_PLUS_WORKFLOW.md`](../VITE_PLUS_WORKFLOW.md).
+
 ```bash
 # 1. CSS custom-property SSOT check
 pnpm check:css
@@ -17,7 +19,7 @@ pnpm check:css
 # 2. SvelteKit sync + svelte-check (0 errors, 0 warnings)
 pnpm check
 
-# 3. Prettier + ESLint (0 errors, 0 warnings)
+# 3. Oxfmt + Oxlint + ESLint for Svelte (0 errors, 0 warnings)
 pnpm lint
 
 # 4. Vitest unit & server tests (includes structured-data, blog-seo, and XSS-safe JSON-LD tests)

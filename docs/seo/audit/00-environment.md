@@ -4,6 +4,8 @@
 **Branch:** `seo/audit-2026-10-31` (`[CMD]` `git checkout -b seo/audit-2026-10-31`, exit 0)
 **Base Commit (`main`):** `7911485` (`[CMD]` `git rev-parse main`, exit 0)
 
+> **Addendum (2026-11-03, dependency update, branch `chore/deps-bump-2026-11`).** The §2 table and §4 results are the 2026-10-31 snapshot and stay as audit evidence. Versions resolved after the update: `svelte-check` 4.7.8 (was 4.7.7), `better-auth` 1.7.15 and `auth` 1.7.15 (were 1.7.14), `@electric-sql/pglite` 0.5.15, `@threlte/core` 8.7.0, `@threlte/extras` 9.23.1, `shiki` 4.6.0, `globals` 17.14.0. `vitest` and `@vitest/browser-playwright` stay at 5.0.5 (5.1.0 is blocked by the `vite-plus@1.4.0` pin; see CHANGELOG). Gate results for the updated tree are in the CHANGELOG entry, not in this table.
+
 ---
 
 ## 1. Standard & Svelte MCP Availability

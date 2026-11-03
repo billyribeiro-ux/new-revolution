@@ -1,4 +1,64 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, join, posix } from 'node:path';
+
+// Resolve assets from this build, never from hardcoded hashes or a second font import.
+async function renderMaintenancePage() {
+	const clientDir = '.svelte-kit/output/client';
+	const manifest = JSON.parse(await readFile(`${clientDir}/.vite/manifest.json`, 'utf8'));
+	const root = Object.entries(manifest).find(([, entry]) => entry.name === 'nodes/0');
+	const logo = Object.entries(manifest).find(([source]) =>
+		source.toLowerCase().endsWith('/revolution-trading-pros-logo.png')
+	)?.[1];
+	if (!root || !logo) throw new Error('Maintenance assets missing: root layout or brand emblem');
+	const visited = new Set();
+	const styles = new Set();
+	function collectStyles(key) {
+		if (visited.has(key)) return;
+		visited.add(key);
+		const entry = manifest[key];
+		if (!entry) throw new Error(`Missing manifest entry: ${key}`);
+		for (const imported of entry.imports ?? []) collectStyles(imported);
+		for (const css of entry.css ?? []) styles.add(css);
+	}
+	collectStyles(root[0]);
+	if (!styles.size) throw new Error('Maintenance assets missing: root stylesheet');
+	let theme = '';
+	for (const file of styles) {
+		const css = await readFile(join(clientDir, file), 'utf8');
+		// CSS is embedded to keep tokens available even if a font request fails.
+		const assets = [];
+		theme += css.replace(/url\(([^)]+)\)/g, (match, raw) => {
+			const url = raw.trim().replace(/^['"]|['"]$/g, '');
+			if (url.startsWith('data:') || url.startsWith('#')) return match;
+			const path = posix.normalize(posix.join(posix.dirname(file), url));
+			if (!path.startsWith('_app/immutable/')) {
+				throw new Error(`Maintenance stylesheet references an unexpected asset: ${url}`);
+			}
+			assets.push(path);
+			return `url("/${path}")`;
+		});
+		await Promise.all(assets.map((path) => access(join(clientDir, path))));
+	}
+	const template = await readFile(new URL('./templates/maintenance.html', import.meta.url), 'utf8');
+	for (const match of template.matchAll(/var\((--[\w-]+)/g)) {
+		if (!theme.includes(`${match[1]}:`)) throw new Error(`Undeclared maintenance token: ${match[1]}`);
+	}
+	if (/<\/style/i.test(theme)) throw new Error('Unexpected closing style tag in root stylesheet');
+	const logoPath = logo.file;
+	if (!logoPath.startsWith('_app/immutable/') || !/\.(avif|webp|png)$/.test(logoPath)) {
+		throw new Error('Unexpected maintenance emblem asset');
+	}
+	const mime = logoPath.endsWith('.avif') ? 'image/avif' : logoPath.endsWith('.webp') ? 'image/webp' : 'image/png';
+	const data = (await readFile(join(clientDir, logoPath))).toString('base64');
+	const html = template
+		.replace('<!-- maintenance:theme -->', () => `<style data-maintenance-theme>${theme}</style>`)
+		.replace('<!-- maintenance:emblem -->', () => `<img class="maintenance-emblem" src="data:${mime};base64,${data}" alt="" width="40" height="40" />`);
+	for (const output of [`${clientDir}/maintenance/index.html`, '.vercel/output/static/maintenance/index.html']) {
+		await mkdir(dirname(output), { recursive: true });
+		await writeFile(output, html);
+	}
+	return html;
+}
 
 // Run after adapter-vercel and add small, independent Build Output API functions.
 const filename = '.vercel/output/config.json';
@@ -12,6 +72,7 @@ const noStore = {
 	'vercel-cdn-cache-control': 'no-store',
 	'x-content-type-options': 'nosniff'
 };
+const maintenanceHtml = await renderMaintenancePage();
 async function createFunction(name, status, contentType, body) {
 	const dir = `.vercel/output/functions/${name}.func`;
 	await mkdir(dir, { recursive: true });
@@ -33,8 +94,7 @@ await createFunction(
 // The marker must be dynamic: Vercel's static handler can replace cache headers.
 config.routes.unshift({ src: '^/maintenance-state\\.json$', dest: '/__maintenance_state' });
 if (process.env.MAINTENANCE_MODE === 'true') {
-	const html = await readFile(new URL('../static/maintenance/index.html', import.meta.url), 'utf8');
-	await createFunction('__maintenance_page', 503, 'text/html; charset=utf-8', html);
+	await createFunction('__maintenance_page', 503, 'text/html; charset=utf-8', maintenanceHtml);
 	await createFunction(
 		'__maintenance_api',
 		503,

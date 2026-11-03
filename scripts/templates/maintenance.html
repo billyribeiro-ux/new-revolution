@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<link rel="icon" href="data:," />
+		<title>Platform Maintenance | Revolution Trading Pros</title>
+		<!-- maintenance:theme -->
+		<style>
+			body.maintenance-page {
+				display: flex;
+				flex-direction: column;
+				min-block-size: 100svh;
+				overflow-x: visible;
+			}
+
+			.maintenance-page [hidden] { display: none; }
+			.maintenance-page a, .maintenance-page button { -webkit-tap-highlight-color: transparent; }
+			.maintenance-container {
+				inline-size: min(100% - 48px, 1160px);
+				margin-inline: auto;
+			}
+
+			.maintenance-header {
+				padding-block: 20px;
+				border-block-end: 1px solid var(--line);
+			}
+			.maintenance-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+			.maintenance-brand { display: flex; align-items: center; gap: 12px; min-inline-size: 0; }
+			.maintenance-emblem { flex: none; inline-size: 40px; block-size: 40px; object-fit: contain; }
+			.maintenance-brand-name {
+				font-family: var(--font-display);
+				font-size: 13px;
+				font-weight: 800;
+				line-height: 1.2;
+				letter-spacing: -.02em;
+			}
+			.maintenance-brand-name span { display: block; }
+			.maintenance-status {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin: 0;
+				font-size: 14px;
+				line-height: 1.4;
+				font-weight: 600;
+				color: var(--status-amber-text);
+			}
+			.maintenance-status::before { content: ''; flex: none; inline-size: 7px; block-size: 7px; border-radius: 50%; background: currentColor; }
+			.maintenance-status-mobile { margin-block-end: 24px; }
+			.maintenance-status-desktop { display: none; }
+			.maintenance-main { display: grid; flex: 1; align-items: center; padding-block: 32px 40px; }
+			.maintenance-grid { display: grid; gap: 40px; align-items: center; }
+			.maintenance-grid > * { min-inline-size: 0; }
+			.maintenance-copy { max-inline-size: 38rem; }
+			.maintenance-kicker { display: none; color: var(--muted); margin-block-end: 16px; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+			.maintenance-title {
+				max-inline-size: 14ch;
+				margin: 0 0 24px;
+				font-family: var(--font-display);
+				font-size: clamp(2.25rem, 5.4vw, 4.5rem);
+				font-weight: 800;
+				line-height: 1.06;
+				letter-spacing: -.045em;
+				text-wrap: balance;
+			}
+			.maintenance-lede { max-inline-size: 36rem; margin: 0; font-size: 17px; line-height: 1.6; }
+			.maintenance-thanks { color: var(--muted); margin: 12px 0 0; font-size: 17px; line-height: 1.6; }
+			.maintenance-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 24px 16px; }
+			.maintenance-action {
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				min-block-size: 48px;
+				max-inline-size: 100%;
+				padding: 12px 18px;
+				border: 1px solid transparent;
+				border-radius: 2px;
+				font-family: var(--font-sans);
+				font-size: 16px;
+				font-weight: 700;
+				line-height: 1.4;
+				text-align: center;
+				text-decoration: none;
+				transition: background-color 140ms, border-color 140ms, color 140ms;
+			}
+			.maintenance-primary { background: var(--acid); color: var(--ink); }
+			.maintenance-primary:hover { background: var(--btn-acid-hover); }
+			.maintenance-primary:active { background: var(--acid2); }
+			.maintenance-secondary { background: transparent; color: var(--text); border-color: var(--btn-outline-border); }
+			.maintenance-secondary:hover { border-color: var(--acid); color: var(--acid); }
+			.maintenance-secondary:active { background: var(--panel); }
+			.maintenance-action:disabled { cursor: progress; color: var(--muted); border-color: var(--line-strong); }
+			.maintenance-support { margin: 0; max-inline-size: 36rem; font-size: 16px; line-height: 1.6; color: var(--muted); }
+			.maintenance-email { display: inline; padding: 0; color: var(--text); overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 4px; }
+			.maintenance-email:hover { color: var(--acid); }
+			.maintenance-helper { margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+			.maintenance-visual { display: none; margin: 0; padding: 24px; background: var(--panel); border: 1px solid var(--line); }
+			.maintenance-chart-label { margin: 0 0 20px; color: var(--muted); font-family: var(--font-mono); font-size: 13px; line-height: 1.5; }
+			.maintenance-chart { display: block; inline-size: 100%; block-size: auto; overflow: visible; }
+			.maintenance-chart-grid { fill: none; stroke: var(--line); }
+			.maintenance-chart-line { fill: none; stroke: var(--acid); stroke-width: 2; }
+			.maintenance-caption { margin-block-start: 24px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+			.maintenance-footer { border-block-start: 1px solid var(--line); padding-block: 20px; color: var(--muted); }
+			.maintenance-footer p { max-inline-size: 50rem; margin: 0; font-size: 14px; line-height: 1.6; }
+			@media (min-width: 480px) { .maintenance-brand-name { font-size: 14px; } }
+			@media (min-width: 768px) {
+				.maintenance-container { inline-size: min(100% - 64px, 1160px); }
+				.maintenance-status-desktop { display: flex; border: 1px solid var(--status-amber-border); padding: 8px 12px; }
+				.maintenance-status-mobile { display: none; }
+				.maintenance-main { padding-block: 48px; }
+				.maintenance-kicker { display: block; }
+				.maintenance-lede, .maintenance-thanks { font-size: 18px; }
+				.maintenance-visual { display: block; }
+				.maintenance-chart { max-block-size: 180px; }
+			}
+			@media (min-width: 1024px) {
+				.maintenance-container { inline-size: min(100% - 96px, 1160px); }
+				.maintenance-main { padding-block: 64px; }
+				.maintenance-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 64px; }
+				.maintenance-chart { max-block-size: none; }
+			}
+			@media (min-width: 768px) and (max-height: 740px) { .maintenance-main { padding-block: 32px; } }
+		</style>
+	</head>
+	<body class="maintenance-page">
+		<a class="skip" href="#maintenance-main">Skip to content</a>
+		<header class="maintenance-header">
+			<div class="maintenance-container maintenance-header-inner">
+				<div class="maintenance-brand">
+					<!-- maintenance:emblem -->
+					<span class="maintenance-brand-name"><span>REVOLUTION</span><span>TRADING PROS</span></span>
+				</div>
+				<p class="maintenance-status maintenance-status-desktop">Maintenance in progress</p>
+			</div>
+		</header>
+		<main class="maintenance-main" id="maintenance-main" tabindex="-1">
+			<div class="maintenance-container maintenance-grid">
+				<div class="maintenance-copy">
+					<p class="maintenance-status maintenance-status-mobile">Maintenance in progress</p>
+					<p class="maintenance-kicker">A note from the desk</p>
+					<h1 class="maintenance-title">Platform maintenance.</h1>
+					<p class="maintenance-lede">The site is temporarily unavailable while maintenance is in progress.</p>
+					<p class="maintenance-thanks">Thank you for your patience.</p>
+					<div class="maintenance-actions">
+						<a class="maintenance-action maintenance-primary" href="mailto:support@revolutiontradingpros.com">Email support</a>
+						<button class="maintenance-action maintenance-secondary" id="maintenance-retry" type="button" hidden>Try this page again</button>
+					</div>
+					<p class="maintenance-support">For account or support questions:<br /><a class="maintenance-email" href="mailto:support@revolutiontradingpros.com">support@revolutiontradingpros.com</a></p>
+					<p class="maintenance-helper" id="maintenance-retry-help" hidden>Refreshing this page checks whether access has been restored.</p>
+					<noscript><p class="maintenance-helper">Refresh this page to check whether access has been restored.</p></noscript>
+				</div>
+				<figure class="maintenance-visual">
+					<p class="maintenance-chart-label">MARKET STRUCTURE / ILLUSTRATIVE</p>
+					<svg class="maintenance-chart" viewBox="0 0 360 200" width="360" height="200" aria-hidden="true">
+						<path class="maintenance-chart-grid" d="M0 40H360M0 90H360M0 140H360M0 190H360" />
+						<path class="maintenance-chart-line" d="M0 155 30 139 59 151 88 115 117 124 146 97 176 111 206 66 236 88 266 59 296 72 326 42 360 53" />
+					</svg>
+					<figcaption class="maintenance-caption">Conceptual illustration · No live prices</figcaption>
+				</figure>
+			</div>
+		</main>
+		<footer class="maintenance-footer">
+			<div class="maintenance-container"><p>Trading involves substantial risk of loss. Content is educational and is not financial advice.</p></div>
+		</footer>
+		<script>
+			(() => {
+				const retry = document.getElementById('maintenance-retry');
+				const helper = document.getElementById('maintenance-retry-help');
+				if (!(retry instanceof HTMLButtonElement) || !helper) return;
+				const reset = () => {
+					retry.disabled = false;
+					retry.textContent = 'Try this page again';
+				};
+				retry.hidden = false;
+				helper.hidden = false;
+				retry.addEventListener('click', () => {
+					retry.disabled = true;
+					retry.textContent = 'Checking availability…';
+					window.location.reload();
+				});
+				window.addEventListener('pageshow', reset);
+			})();
+		</script>
+	</body>
+</html>

@@ -234,3 +234,10 @@ Editor hydration now accepts scalar values without persisting accidental object 
 ## 2026-11-03 Vercel Preview setup
 
 The protected `develop` Preview uses a separate free-plan Neon database (`revolution-preview`, Preview scope only), initialized from the existing migrations after verifying it was empty. Its health endpoint reports a successful database query; admin and media APIs reject unauthenticated requests with 401, and the sign-in action returns the generic 400 refusal for an unknown account. No Preview admin account was created; create one through the documented seed procedure when needed. Production remains behind the maintenance gate and has no new database or account from this operation. The server sanitizer/parser are bundled to avoid a deployed Node 24 CommonJS/ESM loading failure. Evidence: `docs/reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md`.
+
+## 2026-11-04 waitlist implementation
+
+A separate reopening-notification flow is implemented in `src/lib/server/waitlist/`, with a
+forward-only `0002_waitlist.sql` migration and dedicated operational handlers. It creates no auth
+accounts or memberships and does not reuse lead sales sequences. Deployment prerequisites and
+verification limits: [waitlist operations](reviews/maintenance-waitlist/OPERATIONS.md).

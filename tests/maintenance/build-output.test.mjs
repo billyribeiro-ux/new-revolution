@@ -64,7 +64,7 @@ function invoke(dir, dest, method = 'GET') {
 	);
 	return result;
 }
-test('normal deployment leaves pages available and exposes an uncached state', async () => {
+void test('normal deployment leaves pages available and exposes an uncached state', async () => {
 	await build(false, async (routes, dir) => {
 		assert.equal(match(routes, '/'), undefined);
 		assert.equal(match(routes, '/blog/article'), undefined);
@@ -81,7 +81,7 @@ test('normal deployment leaves pages available and exposes an uncached state', a
 		assert.doesNotMatch(preview, /<!-- maintenance:/);
 	});
 });
-test('maintenance deployment blocks pages, API, auth and nested routes before filesystem', async () => {
+void test('maintenance deployment blocks pages, API, auth and nested routes before filesystem', async () => {
 	await build(true, async (routes, dir) => {
 		for (const path of [
 			'/',
@@ -97,7 +97,7 @@ test('maintenance deployment blocks pages, API, auth and nested routes before fi
 			assert.equal(response.headers['vercel-cdn-cache-control'], 'no-store');
 			assert.equal(response.headers['retry-after'], undefined);
 		}
-		assert.match(invoke(dir, match(routes, '/').dest).body, /Platform maintenance\./);
+		assert.match(invoke(dir, match(routes, '/').dest).body, /A stronger trading experience/);
 		assert.match(invoke(dir, match(routes, '/api/lead').dest).headers['content-type'], /json/);
 		assert.equal(invoke(dir, match(routes, '/').dest, 'HEAD').body, undefined);
 		assert.equal(match(routes, '/api/health'), undefined);
@@ -105,5 +105,33 @@ test('maintenance deployment blocks pages, API, auth and nested routes before fi
 		assert.equal(invoke(dir, match(routes, '/api/healthcheck').dest).status, 503);
 		assert.equal(match(routes, '/_app/immutable/chunks/test.js'), undefined);
 		assert.equal(invoke(dir, match(routes, '/_app/version.json').dest).status, 503);
+	});
+});
+
+// Exceptions are exact; no namespace-wide API or document bypass is introduced.
+void test('waitlist operations bypass maintenance while lookalike routes stay blocked', async () => {
+	await build(true, async (routes) => {
+		for (const path of [
+			'/api/waitlist/signup',
+			'/api/waitlist/confirm',
+			'/api/waitlist/unsubscribe',
+			'/waitlist/confirm',
+			'/waitlist/unsubscribe',
+			'/api/cron/waitlist-email',
+			'/api/webhooks/resend',
+			'/privacy-policy'
+		]) {
+			assert.equal(match(routes, path), undefined, path);
+			assert.equal(match(routes, path + '/'), undefined, path + '/');
+			assert.ok(match(routes, path + '/extra'), path + '/extra');
+		}
+		for (const path of [
+			'/api/waitlist',
+			'/waitlist',
+			'/privacy-policy-other',
+			'/api/cron/email',
+			'/api/webhooks/other'
+		])
+			assert.ok(match(routes, path), path);
 	});
 });

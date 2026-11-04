@@ -9,6 +9,16 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-04 — Maintenance chart and verified reopening waitlist
+
+- Replace the static SVG with a bundled Lightweight Charts candlestick/volume/EMA panel and GSAP entrance; preserve mobile rendering, readable candle data, reduced motion and explicit pause/restart. Owner requested continuous playback; demonstration candles are explicitly simulated rather than attributed to an exchange.
+- Add forward-only Drizzle waitlist storage, hashed purpose-specific tokens, row-bound encrypted email outbox, durable abuse limits, provider retries/fencing, signed-event reconciliation, opt-out/suppression, retention and dry-run-first reopening batches.
+- Add operational signup/confirmation/unsubscribe/worker handlers and exact maintenance exceptions; preserve blocked admin/auth/lead routes. Document independent Production configuration and outstanding staged-cloud/mailbox checks. No deployment, production migration or live email send performed.
+
+### 2026-11-03 — Maintenance chart and verified waitlist plan
+
+- Document a repository-specific GSAP/Lightweight Charts redesign and durable Drizzle/Resend waitlist, including confirmation, retry/suppression semantics, exact maintenance exceptions, acceptance tests and Production provisioning requirements. Planning only; no application or deployment changes.
+
 ### 2026-11-03 — Production maintenance and development Preview
 
 - Resume Vercel behind temporary authentication, publish the verified maintenance build, and keep normal application development on a separate protected Preview URL. Scope maintenance settings to Production and Preview independently; retain manual production promotion.

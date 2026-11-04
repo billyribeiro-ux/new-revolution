@@ -9,249 +9,278 @@
 		<!-- maintenance:theme -->
 		<style>
 			body.maintenance-page {
+				min-block-size: 100svh;
 				display: flex;
 				flex-direction: column;
-				min-block-size: 100svh;
-				overflow-x: visible;
 			}
-
 			.maintenance-page [hidden] {
 				display: none;
 			}
 			.maintenance-page .skip {
 				inset-block-start: 0;
-				max-inline-size: calc(100% - 40px);
-				transform: translateY(calc(-100% - 24px));
+				transform: translateY(-150%);
 			}
 			.maintenance-page .skip:focus {
-				inset-block-start: 20px;
 				transform: translateY(0);
 			}
-			.maintenance-page a,
-			.maintenance-page button {
-				-webkit-tap-highlight-color: transparent;
-			}
 			.maintenance-container {
-				inline-size: min(100% - 48px, 1160px);
+				inline-size: min(100% - 40px, 1440px);
 				margin-inline: auto;
 			}
-
 			.maintenance-header {
-				padding-block: 20px;
 				border-block-end: 1px solid var(--line);
+				padding-block: 22px;
 			}
-			.maintenance-header-inner {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 24px;
-			}
-			.maintenance-brand {
+			.maintenance-header-inner,
+			.maintenance-brand,
+			.market-heading,
+			.chart-controls {
 				display: flex;
 				align-items: center;
 				gap: 12px;
-				min-inline-size: 0;
+			}
+			.maintenance-header-inner {
+				justify-content: space-between;
 			}
 			.maintenance-emblem {
-				flex: none;
 				inline-size: 40px;
 				block-size: 40px;
-				object-fit: contain;
 			}
 			.maintenance-brand-name {
-				font-family: var(--font-display);
-				font-size: 13px;
-				font-weight: 800;
-				line-height: 1.2;
+				font: 800 12px/1.2 var(--font-display);
 				letter-spacing: -0.02em;
 			}
 			.maintenance-brand-name span {
 				display: block;
 			}
 			.maintenance-status {
-				display: flex;
-				align-items: center;
-				gap: 10px;
 				margin: 0;
-				font-size: 14px;
-				line-height: 1.4;
-				font-weight: 600;
+				font-size: 13px;
 				color: var(--status-amber-text);
 			}
 			.maintenance-status::before {
-				content: '';
-				flex: none;
-				inline-size: 7px;
-				block-size: 7px;
-				border-radius: 50%;
-				background: currentColor;
-			}
-			.maintenance-status-mobile {
-				margin-block-end: 24px;
-			}
-			.maintenance-status-desktop {
-				display: none;
+				content: '●';
+				margin-inline-end: 8px;
 			}
 			.maintenance-main {
-				display: grid;
 				flex: 1;
+				display: grid;
 				align-items: center;
-				padding-block: 32px 40px;
+				padding-block: 48px;
 			}
 			.maintenance-grid {
 				display: grid;
-				gap: 40px;
+				gap: 36px;
 				align-items: center;
 			}
 			.maintenance-grid > * {
 				min-inline-size: 0;
 			}
-			.maintenance-copy {
-				max-inline-size: 38rem;
-			}
 			.maintenance-kicker {
-				display: none;
-				color: var(--muted);
-				margin-block-end: 16px;
-				font-size: 13px;
-				font-weight: 600;
-				letter-spacing: 0.1em;
+				color: var(--acid);
+				font: 600 12px/1.5 var(--font-mono);
 				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				margin: 0 0 20px;
 			}
 			.maintenance-title {
-				max-inline-size: 14ch;
-				margin: 0 0 24px;
-				font-family: var(--font-display);
-				font-size: clamp(2.25rem, 5.4vw, 4.5rem);
-				font-weight: 800;
-				line-height: 1.06;
-				letter-spacing: -0.045em;
+				font: 800 clamp(2.3rem, 4.5vw, 4.7rem)/1.04 var(--font-display);
+				letter-spacing: -0.055em;
 				text-wrap: balance;
-				overflow-wrap: anywhere;
+				margin: 0 0 24px;
+			}
+			.maintenance-title span {
+				color: var(--acid);
 			}
 			.maintenance-lede {
-				max-inline-size: 36rem;
-				margin: 0;
-				font-size: 17px;
-				line-height: 1.6;
-			}
-			.maintenance-thanks {
 				color: var(--muted);
-				margin: 12px 0 0;
-				font-size: 17px;
+				font-size: 18px;
 				line-height: 1.6;
+				max-inline-size: 38rem;
 			}
-			.maintenance-actions {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 12px;
-				margin-block: 24px 16px;
+			.waitlist-form {
+				margin-block: 28px 20px;
+			}
+			.waitlist-form label {
+				display: block;
+				font-size: 15px;
+				margin-block-end: 8px;
+			}
+			.waitlist-input {
+				width: 100%;
+				min-block-size: 52px;
+				padding: 14px;
+				background: var(--bg-soft);
+				color: var(--text);
+				border: 1px solid var(--line-strong);
+				border-radius: 2px;
+				font: 16px var(--font-sans);
+			}
+			.waitlist-consent {
+				display: flex !important;
+				align-items: flex-start;
+				gap: 10px;
+				margin-block: 14px;
+				color: var(--muted);
+				line-height: 1.5;
+			}
+			.waitlist-consent input {
+				flex: none;
+				margin-block-start: 5px;
+				accent-color: var(--acid);
+				inline-size: 18px;
+				block-size: 18px;
 			}
 			.maintenance-action {
 				display: inline-flex;
-				justify-content: center;
 				align-items: center;
-				min-block-size: 48px;
-				max-inline-size: 100%;
-				padding: 12px 18px;
-				border: 1px solid transparent;
+				justify-content: center;
+				min-block-size: 46px;
+				padding: 12px 16px;
+				border: 1px solid var(--line-strong);
 				border-radius: 2px;
-				font-family: var(--font-sans);
-				font-size: 16px;
-				font-weight: 700;
-				line-height: 1.4;
-				text-align: center;
-				text-decoration: none;
-				transition:
-					background-color 140ms,
-					border-color 140ms,
-					color 140ms;
-			}
-			.maintenance-primary {
-				background: var(--acid);
-				color: var(--ink);
-			}
-			.maintenance-primary:hover {
-				background: var(--btn-acid-hover);
-			}
-			.maintenance-primary:active {
-				background: var(--acid2);
-			}
-			.maintenance-secondary {
 				background: transparent;
 				color: var(--text);
-				border-color: var(--btn-outline-border);
+				font: 600 15px/1.4 var(--font-sans);
+				cursor: pointer;
+				text-decoration: none;
 			}
-			.maintenance-secondary:hover {
+			.maintenance-primary {
+				width: 100%;
+				background: var(--acid);
+				color: var(--ink);
 				border-color: var(--acid);
-				color: var(--acid);
 			}
-			.maintenance-secondary:active {
-				background: var(--panel);
+			.maintenance-primary:hover {
+				background: var(--acid2);
+				color: var(--ink);
 			}
 			.maintenance-action:disabled {
-				cursor: progress;
-				color: var(--muted);
-				border-color: var(--line-strong);
+				opacity: 0.65;
+				cursor: wait;
 			}
-			.maintenance-support {
-				margin: 0;
-				max-inline-size: 36rem;
-				font-size: 16px;
-				line-height: 1.6;
+			.maintenance-page :focus-visible {
+				outline: 2px solid var(--acid);
+				outline-offset: 4px;
+			}
+			.maintenance-helper,
+			.waitlist-status {
+				font-size: 14px;
+				line-height: 1.5;
 				color: var(--muted);
 			}
-			.maintenance-email {
-				display: inline;
-				padding: 0;
+			.waitlist-status {
+				min-block-size: 24px;
 				color: var(--text);
-				overflow-wrap: anywhere;
-				text-decoration: underline;
+			}
+			.maintenance-page a:not(.maintenance-action) {
+				color: var(--text);
 				text-underline-offset: 4px;
 			}
-			.maintenance-email:hover {
-				color: var(--acid);
-			}
-			.maintenance-helper {
-				margin: 12px 0 0;
-				font-size: 14px;
-				line-height: 1.5;
+			.maintenance-support {
+				margin-block: 20px 8px;
 				color: var(--muted);
+				font-size: 15px;
+				overflow-wrap: anywhere;
 			}
 			.maintenance-visual {
-				display: none;
 				margin: 0;
-				padding: 24px;
 				background: var(--panel);
-				border: 1px solid var(--line);
+				border: 1px solid var(--line-strong);
+				border-radius: 4px;
+				overflow: hidden;
 			}
-			.maintenance-chart-label {
-				margin: 0 0 20px;
+			.market-top {
+				padding: 22px 20px 14px;
+				border-block-end: 1px solid var(--line);
+			}
+			.market-heading {
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+			.market-heading h2 {
+				font: 700 18px/1.3 var(--font-display);
+				margin: 0;
+				letter-spacing: -0.03em;
+			}
+			.market-badge {
+				color: var(--acid);
+				font: 12px var(--font-mono);
+				border: 1px solid var(--line-strong);
+				padding: 6px 8px;
+			}
+			.market-meta {
 				color: var(--muted);
-				font-family: var(--font-mono);
-				font-size: 13px;
-				line-height: 1.5;
+				font: 12px/1.6 var(--font-mono);
+				margin: 10px 0;
 			}
-			.maintenance-chart {
-				display: block;
+			.market-readout {
+				min-block-size: 44px;
+				font: 12px/1.7 var(--font-mono);
+				color: var(--text);
+				margin: 0;
+				font-variant-numeric: tabular-nums;
+				overflow-wrap: anywhere;
+			}
+			.market-chart {
 				inline-size: 100%;
-				block-size: auto;
-				overflow: visible;
+				block-size: 360px;
 			}
-			.maintenance-chart-grid {
-				fill: none;
-				stroke: var(--line);
+			.market-legend {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 14px;
+				padding: 10px 20px 0;
+				font: 12px var(--font-mono);
+				color: var(--muted);
 			}
-			.maintenance-chart-line {
-				fill: none;
-				stroke: var(--acid);
-				stroke-width: 2;
+			.market-legend span:first-child {
+				color: var(--status-amber-text);
+			}
+			.chart-bottom {
+				padding: 16px 20px 20px;
+				border-block-start: 1px solid var(--line);
+			}
+			.chart-controls {
+				flex-wrap: wrap;
+			}
+			.chart-controls button {
+				flex: 1;
+				white-space: nowrap;
+				font-size: 13px;
 			}
 			.maintenance-caption {
-				margin-block-start: 24px;
 				color: var(--muted);
-				font-size: 14px;
-				line-height: 1.5;
+				font-size: 13px;
+				line-height: 1.6;
+				margin: 14px 0 0;
+			}
+			.market-table-wrap {
+				overflow: auto;
+				max-block-size: 300px;
+				margin-block-start: 12px;
+			}
+			.market-table {
+				width: 100%;
+				border-collapse: collapse;
+				font: 12px/1.7 var(--font-mono);
+				white-space: nowrap;
+			}
+			.market-table td,
+			.market-table th {
+				text-align: right;
+				padding: 8px;
+				border-block-end: 1px solid var(--line);
+			}
+			.market-details {
+				font-size: 13px;
+				margin-block-start: 14px;
+			}
+			.market-details summary {
+				cursor: pointer;
+				min-block-size: 44px;
+				display: list-item;
+				align-content: center;
 			}
 			.maintenance-footer {
 				border-block-start: 1px solid var(--line);
@@ -259,140 +288,194 @@
 				color: var(--muted);
 			}
 			.maintenance-footer p {
-				max-inline-size: 50rem;
-				margin: 0;
-				font-size: 14px;
+				font-size: 13px;
 				line-height: 1.6;
+				margin: 0;
 			}
-			@media (min-width: 480px) {
-				.maintenance-brand-name {
-					font-size: 14px;
-				}
+			.waitlist-trap {
+				position: absolute;
+				inset-inline-start: -10000px;
 			}
 			@media (min-width: 768px) {
 				.maintenance-container {
-					inline-size: min(100% - 64px, 1160px);
+					inline-size: min(100% - 64px, 1440px);
 				}
-				.maintenance-status-desktop {
-					display: flex;
-					border: 1px solid var(--status-amber-border);
-					padding: 8px 12px;
-				}
-				.maintenance-status-mobile {
-					display: none;
-				}
-				.maintenance-main {
-					padding-block: 48px;
-				}
-				.maintenance-kicker {
-					display: block;
-				}
-				.maintenance-lede,
-				.maintenance-thanks {
-					font-size: 18px;
-				}
-				.maintenance-visual {
-					display: block;
-				}
-				.maintenance-chart {
-					max-block-size: 180px;
+				.market-chart {
+					block-size: 480px;
 				}
 			}
-			@media (min-width: 1024px) {
-				.maintenance-container {
-					inline-size: min(100% - 96px, 1160px);
+			@media (min-width: 1100px) {
+				.maintenance-grid {
+					grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+					gap: 56px;
 				}
 				.maintenance-main {
 					padding-block: 64px;
 				}
-				.maintenance-grid {
-					grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-					gap: 64px;
-				}
-				.maintenance-chart {
-					max-block-size: none;
-				}
 			}
-			@media (min-width: 768px) and (max-height: 740px) {
-				.maintenance-main {
-					padding-block: 32px;
+			@media (max-width: 479px) {
+				.maintenance-status {
+					max-inline-size: 105px;
+				}
+				.market-top,
+				.chart-bottom {
+					padding-inline: 12px;
+				}
+				.market-readout {
+					font-size: 11px;
 				}
 			}
 		</style>
+		<!-- maintenance:client -->
 	</head>
 	<body class="maintenance-page">
 		<a class="skip" href="#maintenance-main">Skip to content</a>
 		<header class="maintenance-header">
 			<div class="maintenance-container maintenance-header-inner">
 				<div class="maintenance-brand">
-					<!-- maintenance:emblem -->
-					<span class="maintenance-brand-name"
+					<!-- maintenance:emblem --><span class="maintenance-brand-name"
 						><span>REVOLUTION</span><span>TRADING PROS</span></span
 					>
 				</div>
-				<p class="maintenance-status maintenance-status-desktop">Maintenance in progress</p>
+				<p class="maintenance-status">Maintenance in progress</p>
 			</div>
 		</header>
 		<main class="maintenance-main" id="maintenance-main" tabindex="-1">
 			<div class="maintenance-container maintenance-grid">
 				<div class="maintenance-copy">
-					<p class="maintenance-status maintenance-status-mobile">Maintenance in progress</p>
-					<p class="maintenance-kicker">A note from the desk</p>
-					<h1 class="maintenance-title">Platform maintenance.</h1>
+					<p class="maintenance-kicker">The next session starts here</p>
+					<h1 class="maintenance-title">
+						A stronger trading experience <span>is on the way.</span>
+					</h1>
 					<p class="maintenance-lede">
-						The site is temporarily unavailable while maintenance is in progress.
+						We’re working on the next chapter of Revolution Trading Pros. Leave your email and we’ll
+						let you know when the platform reopens.
 					</p>
-					<p class="maintenance-thanks">Thank you for your patience.</p>
-					<div class="maintenance-actions">
-						<a
-							class="maintenance-action maintenance-primary"
-							href="mailto:support@revolutiontradingpros.com"
-							>Email support</a
+					<form
+						class="waitlist-form"
+						id="waitlist-form"
+						action="/api/waitlist/signup"
+						method="post"
+					>
+						<label for="waitlist-email">Your email address</label>
+						<input
+							class="waitlist-input"
+							id="waitlist-email"
+							name="email"
+							type="email"
+							autocomplete="email"
+							maxlength="254"
+							placeholder="you@example.com"
+							required
+						/>
+						<label class="waitlist-consent"
+							><input name="consent" type="checkbox" required /><span
+								>Email me when Revolution Trading Pros reopens. Unsubscribe anytime.</span
+							></label
 						>
-						<button
-							class="maintenance-action maintenance-secondary"
-							id="maintenance-retry"
-							aria-describedby="maintenance-retry-help"
-							type="button"
-							hidden
-						>
-							Try this page again
+						<input type="hidden" name="consentVersion" value="reopening-2026-11-04" />
+						<div class="waitlist-trap" aria-hidden="true">
+							<label>Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+						</div>
+						<button class="maintenance-action maintenance-primary" type="submit">
+							Notify me when we reopen <span aria-hidden="true">&nbsp;↗</span>
 						</button>
-					</div>
+						<p class="waitlist-status" id="waitlist-status" role="status" aria-live="polite"></p>
+						<p class="maintenance-helper">
+							Confirm your email to join. No paid membership is created.
+							<a href="/privacy-policy">Privacy policy</a>
+						</p>
+					</form>
 					<p class="maintenance-support">
-						For account or support questions:<br /><a
-							class="maintenance-email"
-							href="mailto:support@revolutiontradingpros.com"
-							>support@revolutiontradingpros.com</a
-						>
+						Need a hand? <a href="mailto:support@revolutiontradingpros.com">Email support</a>
 					</p>
-					<p class="maintenance-helper" id="maintenance-retry-help" hidden>
-						Refreshing this page checks whether access has been restored.
-					</p>
+					<button id="maintenance-retry" class="maintenance-action" type="button" hidden>
+						Try this page again
+					</button>
 					<noscript
 						><p class="maintenance-helper">
-							Refresh this page to check whether access has been restored.
+							The signup works without JavaScript. Refresh this page to check whether access has
+							been restored.
 						</p></noscript
 					>
 				</div>
-				<figure class="maintenance-visual">
-					<p class="maintenance-chart-label">MARKET STRUCTURE / ILLUSTRATIVE</p>
-					<svg
-						class="maintenance-chart"
-						viewBox="0 0 360 200"
-						width="360"
-						height="200"
-						aria-hidden="true"
-					>
-						<path class="maintenance-chart-grid" d="M0 40H360M0 90H360M0 140H360M0 190H360" />
-						<path
-							class="maintenance-chart-line"
-							d="M0 155 30 139 59 151 88 115 117 124 146 97 176 111 206 66 236 88 266 59 296 72 326 42 360 53"
-						/>
-					</svg>
-					<figcaption class="maintenance-caption">
-						Conceptual illustration · No live prices
-					</figcaption>
+				<figure class="maintenance-visual" aria-labelledby="market-title">
+					<div class="market-top">
+						<div class="market-heading">
+							<h2 id="market-title">The market never stands still.</h2>
+							<span class="market-badge">PLAYBACK</span>
+						</div>
+						<p class="market-meta">MARKET STUDY / 5 MIN / SIMULATED / UTC</p>
+						<p class="market-readout" id="chart-readout">
+							Candlestick price action · 20-period EMA · Volume
+						</p>
+					</div>
+					<div class="market-legend">
+						<span>━ EMA 20</span><span>▥ Volume</span><span>No live prices</span>
+					</div>
+					<div
+						class="market-chart"
+						id="market-chart"
+						role="img"
+						aria-label="Simulated candlestick market playback with a 20-period exponential moving average and volume. Equivalent candle values are in the table below."
+					></div>
+					<div class="chart-bottom">
+						<p class="maintenance-helper" id="chart-fallback">
+							This market study uses demonstration candles, not exchange prices. Read the candle
+							table below.
+						</p>
+						<div class="chart-controls">
+							<button class="maintenance-action" id="chart-play" type="button" hidden>
+								Pause playback</button
+							><button class="maintenance-action" id="chart-restart" type="button" hidden>
+								Restart &amp; follow
+							</button>
+						</div>
+						<figcaption class="maintenance-caption">
+							Continuous simulated playback for demonstration. No live market data, trading signals
+							or performance results. Pan to explore; restart to follow again.
+						</figcaption>
+						<details class="market-details">
+							<summary>Read the candle data and chart credits</summary>
+							<p>
+								Demonstration data generated for this page. Times use UTC. The EMA uses 60 preceding
+								candles for warm-up.
+							</p>
+							<div
+								class="market-table-wrap"
+								tabindex="0"
+								role="region"
+								aria-label="Scrollable candle data"
+							>
+								<table class="market-table">
+									<caption>
+										Initial demonstration candles, UTC
+									</caption>
+									<thead>
+										<tr>
+											<th scope="col">Time</th>
+											<th scope="col">Open</th>
+											<th scope="col">High</th>
+											<th scope="col">Low</th>
+											<th scope="col">Close</th>
+											<th scope="col">Volume</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- maintenance:table -->
+									</tbody>
+								</table>
+							</div>
+							<p>
+								Charts by
+								<a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer"
+									>TradingView</a
+								>
+								Lightweight Charts™. Copyright (c) 2025 TradingView, Inc. Licensed under Apache
+								License 2.0.
+							</p>
+						</details>
+					</div>
 				</figure>
 			</div>
 		</main>
@@ -404,24 +487,5 @@
 				</p>
 			</div>
 		</footer>
-		<script>
-			(() => {
-				const retry = document.getElementById('maintenance-retry');
-				const helper = document.getElementById('maintenance-retry-help');
-				if (!(retry instanceof HTMLButtonElement) || !helper) return;
-				const reset = () => {
-					retry.disabled = false;
-					retry.textContent = 'Try this page again';
-				};
-				retry.hidden = false;
-				helper.hidden = false;
-				retry.addEventListener('click', () => {
-					retry.disabled = true;
-					retry.textContent = 'Checking availability…';
-					window.location.reload();
-				});
-				window.addEventListener('pageshow', reset);
-			})();
-		</script>
 	</body>
 </html>

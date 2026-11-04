@@ -10,15 +10,25 @@ For a local build-output inspection, run `MAINTENANCE_MODE=true pnpm build`; ins
 
 The enabled routing table matches before Vercel's filesystem route, so it also covers prerendered pages. Page and other non-API requests receive the independent HTML function; API requests receive a JSON function. Both return 503 with `no-store` browser and Vercel CDN headers and no `Retry-After` (there is no configured reliable reopening time). The status endpoint is a separate no-store function in normal deployments. The root layout checks it before completing a client-side navigation; a failed or unexpected check causes a document navigation. Content already displayed or previously downloaded in an open tab cannot be recalled.
 
-Only `/_app/immutable/` assets and the exact `/api/health` endpoint (including its trailing slash) bypass the gate. The existing health endpoint reports DB readiness and can independently return 503. All other routes, including login, admin, cron, webhooks, forms and auth APIs, are unavailable; plan the window around missed cron runs and webhook delivery/retry requirements. There is no client flag or administrative bypass. Operators can use the Vercel dashboard and the health probe. Avoid long maintenance windows if integrations cannot retry missed events. Maintenance mode is an availability control, not a confidentiality boundary: immutable application bundles and content already downloaded by a browser remain accessible.
+Immutable assets and exact health, waitlist signup/confirmation/unsubscribe, signed Resend webhook,
+authenticated waitlist worker, and privacy-policy paths bypass maintenance. Namespace lookalikes
+and nested suffixes stay blocked. Operational handlers enforce methods and authentication;
+confirmation and opt-out links are read-only GET documents followed by explicit POST actions.
+Admin/auth, the existing publisher cron, lead capture and unrelated APIs remain blocked.
+Maintenance is an availability control; immutable bundles remain accessible.
 
 The maintenance page is generated from `scripts/templates/maintenance.html`. The build embeds the root stylesheet from Vite's client manifest and the existing square brand emblem, so its tokens, layout and logo do not depend on another successful request. Fontsource imports remain solely in `src/app.css`; the embedded compiled stylesheet refers to that deployment's same-origin immutable WOFF2 files. If fonts cannot load, the notice uses the configured system fallback. The build checks that every template CSS token is declared and that referenced assets exist.
 
-The chart is static and explicitly illustrative; it is omitted below 768 px. The direct email action and visible address work without JavaScript. **Try this page again** performs a full document reload of the current URL, preserving its path and query; it does not call an API or SvelteKit's client router. The control resets on `pageshow`, including back/forward restoration. With JavaScript disabled, refresh instructions replace the button. No timers, animation loops or third-party scripts are used.
+The chart now uses a first-party bundled Lightweight Charts/GSAP entry, with continuous simulated
+candlesticks, volume and EMA. It remains visible on mobile and provides pause/restart and a native
+candle table. Reduced motion starts paused; offscreen/hidden playback stops advancing. The native
+waitlist form initializes independently and works without JavaScript. The retry button still performs
+a full document reload. See [waitlist operations](reviews/maintenance-waitlist/OPERATIONS.md) for
+configuration, privacy, encryption, scheduling and the outstanding cloud/mailbox release checks.
 
-For a design preview, run `pnpm build` and `pnpm preview`, then open `/maintenance/index.html`. This HTML is generated in the client and Vercel output directories; the unprocessed template is not a public static file. This preview path returns 200 in normal mode; the enabled Vercel gate returns the same experience with 503 for covered requests.
-
-The page offers the site's existing support email instead of the source page's non-durable notification signup. To restore subscriptions later, connect a durable subscriber service with consent, validation, abuse protection and operationally configured delivery; do not use the source in-memory set.
+Preview locally after `pnpm build` using `pnpm preview` and `/maintenance/index.html`. The local
+preview is not Vercel's routing engine. Capture defaults off until explicitly configured; an unavailable
+backend returns an honest error and never a saved-success message.
 
 Before production use, verify a Vercel preview with direct and nested URLs, an already-open tab from the normal integration deployment, 503 status/body and cache headers, API and health exceptions, assets, and a second deployment with maintenance off. Local route-table tests and `vercel dev` are not proof of deployed CDN behavior. Deployments may have skew-protected clients or intermediary caches; verify the actual hostname and deployment configuration used by visitors.
 

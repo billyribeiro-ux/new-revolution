@@ -7,6 +7,7 @@ import { emailEnrollments, emailEvents, emailSends, leads } from '#lib/server/db
 import { logger } from '#lib/server/logger.js';
 import { notifyResendEmailEvent } from '#lib/server/services/notifications.js';
 import { eq } from 'drizzle-orm';
+import { recordEvent } from '#lib/server/waitlist/service.ts';
 
 /**
  * Resend → Svix webhook signature verification.
@@ -101,7 +102,7 @@ function verifySvixSignature(
  * NOTHING` against the `email_events_svix_id_uq` unique index — a replay
  * cannot double-write.
  */
-export const POST: RequestHandler = async ({ request, locals }) => {
+const handleWebhook: RequestHandler = async ({ request, locals }) => {
 	const log = locals.logger ?? logger;
 	try {
 		const rawBody = await request.text();
@@ -205,6 +206,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		}
 
+		if (svixId && messageId) await recordEvent(svixId, messageId, event);
+
 		// Awaited: an un-awaited promise can be dropped once the serverless
 		// instance freezes after the response. The event is already stored, so
 		// a failed notification is logged and still answers 200.
@@ -227,3 +230,19 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		return Response.json({ error: 'Internal server error' }, { status: 500 });
 	}
 };
+
+export const POST: RequestHandler = async (event) => {
+	const response = await handleWebhook(event);
+	response.headers.set('cache-control', 'no-store');
+	response.headers.set('cdn-cache-control', 'no-store');
+	response.headers.set('vercel-cdn-cache-control', 'no-store');
+	return response;
+};
+
+import { methodNotAllowed } from '#lib/server/waitlist/http.ts';
+export const GET = methodNotAllowed('POST'),
+	HEAD = methodNotAllowed('POST'),
+	PUT = methodNotAllowed('POST'),
+	PATCH = methodNotAllowed('POST'),
+	DELETE = methodNotAllowed('POST'),
+	OPTIONS = methodNotAllowed('POST');

@@ -1,5 +1,36 @@
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, join, posix } from 'node:path';
+import { access, mkdir, readFile, writeFile, cp } from 'node:fs/promises';
+import { dirname, join, posix, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { build } from 'vite';
+import { demonstrationBars } from '../src/lib/maintenance/data.ts';
+
+const sourceRoot = fileURLToPath(new URL('../', import.meta.url));
+const entry = await build({
+	configFile: false,
+	base: '/_app/immutable/maintenance/',
+	root: sourceRoot,
+	publicDir: false,
+	logLevel: 'warn',
+	build: {
+		outDir: resolve('.svelte-kit/output/client/_app/immutable/maintenance'),
+		emptyOutDir: true,
+		manifest: true,
+		rollupOptions: {
+			input: join(sourceRoot, 'src/lib/maintenance/client.ts'),
+			output: { entryFileNames: 'desk-[hash].js', chunkFileNames: '[name]-[hash].js' }
+		}
+	}
+});
+if (!entry || Array.isArray(entry) || !('output' in entry))
+	throw new Error('Unexpected maintenance bundle');
+const clientEntry = entry.output.find((item) => item.type === 'chunk' && item.isEntry)?.fileName;
+if (!clientEntry) throw new Error('Missing maintenance entry');
+await mkdir('.vercel/output/static/_app/immutable', { recursive: true });
+await cp(
+	'.svelte-kit/output/client/_app/immutable/maintenance',
+	'.vercel/output/static/_app/immutable/maintenance',
+	{ recursive: true }
+);
 
 // Resolve assets from this build, never from hardcoded hashes or a second font import.
 async function renderMaintenancePage() {
@@ -48,6 +79,19 @@ async function renderMaintenancePage() {
 		'base64'
 	);
 	const html = template
+		.replace(
+			'<!-- maintenance:client -->',
+			() => `<script type="module" src="/_app/immutable/maintenance/${clientEntry}"></script>`
+		)
+		.replace('<!-- maintenance:table -->', () =>
+			demonstrationBars()
+				.slice(60, 160)
+				.map(
+					(b) =>
+						`<tr><th scope="row">${new Date(b.time * 1000).toISOString().slice(11, 16)}</th><td>${b.open.toFixed(2)}</td><td>${b.high.toFixed(2)}</td><td>${b.low.toFixed(2)}</td><td>${b.close.toFixed(2)}</td><td>${b.volume}</td></tr>`
+				)
+				.join('')
+		)
 		.replace('<!-- maintenance:theme -->', () => `<style data-maintenance-theme>${theme}</style>`)
 		.replace(
 			'<!-- maintenance:emblem -->',
@@ -105,11 +149,17 @@ if (process.env.MAINTENANCE_MODE === 'true') {
 		'application/json; charset=utf-8',
 		'{"error":"Service temporarily unavailable for maintenance"}'
 	);
-	// The health probe and immutable application assets remain available. All other
-	// paths, including auth, cron, webhooks and admin, are unavailable during the window.
+	// Only exact health, waitlist, provider-event and privacy paths escape the gate.
+	// Admin, auth, unrelated APIs and other cron jobs remain unavailable.
 	config.routes.unshift(
-		{ src: '^/api/(?!health/?$).*', dest: '/__maintenance_api' },
-		{ src: '^/(?!api/health/?$|_app/immutable/).*', dest: '/__maintenance_page' }
+		{
+			src: '^/api/(?!health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$).*',
+			dest: '/__maintenance_api'
+		},
+		{
+			src: '^/(?!api/(health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$)|waitlist/(confirm|unsubscribe)/?$|privacy-policy/?$|_app/immutable/).*',
+			dest: '/__maintenance_page'
+		}
 	);
 	console.log('Maintenance routes installed in Vercel build output.');
 }

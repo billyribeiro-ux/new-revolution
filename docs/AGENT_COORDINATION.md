@@ -26,6 +26,10 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Recently finished
 
+- **Maintenance chart and verified waitlist (Codex, 2026-11-04; branch `docs/maintenance-chart-waitlist-plan`, no PR):** implementation and local verification complete. Sources, migration, operational handlers, queue, chart and privacy updates stay in this branch worktree. Production/Resend setup, supported scheduling, real mailbox delivery and staged Vercel verification remain release prerequisites. Evidence: `docs/reviews/maintenance-waitlist/VERIFICATION.md`.
+
+- **Maintenance chart / verified waitlist planning (Codex, 2026-11-03; no PR):** `docs/maintenance-chart-waitlist-plan` adds `docs/MAINTENANCE_EXPERIENCE_PLAN.md` and a changelog entry. Verified installed packages, source behavior, official API guidance and Vercel environment scopes; Markdown formatting and whitespace checked. Planning only: no application, schema, email sends or deployment changes.
+
 - **Production maintenance / Preview rollout (Codex, 2026-11-03; PR #20):** public maintenance deployed and verified; separate protected `develop` Preview with a new free-plan Neon database. Fixed deployed sanitizer module loading through SSR bundling; all required gates passed (529 unit tests, 35 browser tests, 3 SEO tests, 47 page contracts). Evidence: `docs/reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md`.
 
 - **Repository diagnostics repair (Codex, 2026-11-03; PR #19):** fixed generic test typing, included SEO tooling in type checks, cleared all lint findings, and verified authenticated E2E with a unique throwaway admin. All 529 unit tests, 35 browser tests (no skips), 3 SEO tests and 47 page contracts passed. Evidence: `docs/reviews/repository-diagnostics/VERIFICATION.md`. Vercel project remains paused.

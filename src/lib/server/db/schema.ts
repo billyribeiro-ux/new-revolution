@@ -1065,3 +1065,5 @@ export type ConsentRecord = typeof consentRecords.$inferSelect;
 export type NewConsentRecord = typeof consentRecords.$inferInsert;
 
 export * from './auth.schema.ts';
+
+export * from './waitlist-schema.ts';

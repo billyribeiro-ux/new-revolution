@@ -42,6 +42,14 @@ export const variables = defineEnvVars({
 	RESEND_WEBHOOK_SECRET: { schema: optional },
 	CRON_SECRET: { schema: optional },
 
+	WAITLIST_SIGNUPS_ENABLED: { schema: optional },
+	WAITLIST_ORIGIN: { schema: optional },
+	WAITLIST_FROM_EMAIL: { schema: optional },
+	WAITLIST_REPLY_TO: { schema: optional },
+	WAITLIST_ENCRYPTION_KEY: { schema: optional },
+	WAITLIST_PREVIOUS_ENCRYPTION_KEY: { schema: optional },
+	WAITLIST_RATE_LIMIT_KEY: { schema: optional },
+	WAITLIST_TEST_RECIPIENTS: { schema: optional },
 	// ── Email ─────────────────────────────────────────────────────────────
 	RESEND_API_KEY: { schema: optional },
 	LEAD_FROM_EMAIL: { schema: optional },

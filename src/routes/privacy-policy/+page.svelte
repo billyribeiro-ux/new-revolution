@@ -51,6 +51,22 @@
 				</p>
 			</article>
 			<article class="info-card">
+				<h3>Reopening Waitlist</h3>
+				<p>
+					When you request a reopening notification, we store your email address, consent version,
+					request date and confirmation status. Resend processes confirmation and reopening emails
+					on our behalf. Joining does not create a paid membership or enroll you in a sales
+					sequence.
+				</p>
+				<p>
+					Unconfirmed requests are removed after 30 days. Processed email payloads are removed after
+					seven days and delivery metadata after 90 days. We retain confirmed subscriptions until
+					the reopening notification or your opt-out, and minimal suppression records to respect
+					opt-outs, bounces and complaints. Short-lived hashed abuse controls do not retain your raw
+					IP address. Every waitlist email includes an unsubscribe link.
+				</p>
+			</article>
+			<article class="info-card">
 				<h3>2. Payment Processing &amp; Encryption</h3>
 				<p>
 					All billing transactions are processed via PCI-DSS Level 1 encrypted payment

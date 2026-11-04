@@ -1,0 +1,86 @@
+[
+	{
+		"browser": "chromium",
+		"width": 320,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "chromium",
+		"width": 375,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "chromium",
+		"width": 768,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "chromium",
+		"width": 1440,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "firefox",
+		"width": 320,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "firefox",
+		"width": 375,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "firefox",
+		"width": 768,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "firefox",
+		"width": 1440,
+		"overflow": 0,
+		"canvas": 11,
+		"errors": []
+	},
+	{
+		"browser": "webkit",
+		"width": 320,
+		"overflow": 0,
+		"canvas": 7,
+		"errors": []
+	},
+	{
+		"browser": "webkit",
+		"width": 375,
+		"overflow": 0,
+		"canvas": 7,
+		"errors": []
+	},
+	{
+		"browser": "webkit",
+		"width": 768,
+		"overflow": 0,
+		"canvas": 7,
+		"errors": []
+	},
+	{
+		"browser": "webkit",
+		"width": 1440,
+		"overflow": 0,
+		"canvas": 7,
+		"errors": []
+	}
+]

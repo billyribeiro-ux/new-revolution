@@ -1,0 +1,634 @@
+[
+	{
+		"app": "root",
+		"route": "/",
+		"url": "/",
+		"indexable": true,
+		"template": "home",
+		"paramSource": "static (src/routes/+page.ts:12 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/about",
+		"url": "/about",
+		"indexable": true,
+		"template": "profile",
+		"paramSource": "static (src/routes/about/+page.ts:12 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/our-mission",
+		"url": "/our-mission",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/our-mission/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/contact",
+		"url": "/contact",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/contact/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/editorial-policy",
+		"url": "/editorial-policy",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/editorial-policy/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/privacy-policy",
+		"url": "/privacy-policy",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/privacy-policy/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/terms-of-service",
+		"url": "/terms-of-service",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/terms-of-service/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/refund-policy",
+		"url": "/refund-policy",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/refund-policy/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/mentorship",
+		"url": "/mentorship",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/mentorship/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/watchlist",
+		"url": "/watchlist",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/watchlist/+page.ts:6 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/alert-services/spx-profit-pulse",
+		"url": "/alert-services/spx-profit-pulse",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/alert-services/spx-profit-pulse/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/live-trading-rooms/day-trading-room",
+		"url": "/live-trading-rooms/day-trading-room",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/live-trading-rooms/day-trading-room/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/live-trading-rooms/swing-trading-room",
+		"url": "/live-trading-rooms/swing-trading-room",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/live-trading-rooms/swing-trading-room/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/live-trading-rooms/small-accounts-room",
+		"url": "/live-trading-rooms/small-accounts-room",
+		"indexable": true,
+		"template": "membership-product",
+		"paramSource": "static (src/routes/live-trading-rooms/small-accounts-room/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/resources",
+		"url": "/resources",
+		"indexable": true,
+		"template": "listing",
+		"paramSource": "static (src/routes/resources/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/resources/etf-stocks-list",
+		"url": "/resources/etf-stocks-list",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/resources/etf-stocks-list/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/resources/stock-indexes-list",
+		"url": "/resources/stock-indexes-list",
+		"indexable": true,
+		"template": "static",
+		"paramSource": "static (src/routes/resources/stock-indexes-list/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses",
+		"url": "/store/courses",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "static (src/routes/store/courses/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators",
+		"url": "/store/indicators",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "static (src/routes/store/indicators/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners",
+		"url": "/store/scanners",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "static (src/routes/store/scanners/+page.ts:11 prerender=true)"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/move-prior-to-the-move-ultra",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/move-prior-to-the-move-masterclass",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/small-account-compounding-blueprint",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/options-greeks-and-volatility-mastery",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/working-pro-swing-trading-system",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/spx-0dte-and-index-gamma-execution",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/contrarian-distribution-and-shorting",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/macro-cycle-inflection-mastery",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/courses/[slug]",
+		"url": "/store/courses/institutional-risk-and-trader-psychology",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/courses/[slug]/+page.ts:13-23"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/move-prior-to-the-move-system",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/move-prior-to-the-move-pro",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/mp-early-in-n-out-pro",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/multi-timeframe-squeeze-pro",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/institutional-volume-absorption",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/spx-dealer-gamma-levels",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/volatility-regime-compass",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/anchored-vwap-liquidity-bands",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/options-expected-move-corridor",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/mp-early-in-n-out",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/liquidity-sweep-radar",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/compression-squeeze-matrix",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/spx-gamma-zones",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/abandoned-bar-exhaustion",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/smart-money-volume-delta",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/hot-zone-time-structure",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/indicators/[slug]",
+		"url": "/store/indicators/true-thrust-trend-ribbon",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/indicators/[slug]/+page.ts:17-27 + src/lib/data/indicators.ts:76-264"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/high-octane-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/move-prior-to-the-move-radar",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/multi-timeframe-squeeze-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/liquidity-sweep-stop-hunt-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/small-account-affordable-options-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/working-pro-eod-swing-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/spx-dealer-gamma-iv-skew-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/smart-money-relative-volume-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/store/scanners/[slug]",
+		"url": "/store/scanners/opening-bell-gap-and-go-fade-scanner",
+		"indexable": false,
+		"template": "product",
+		"paramSource": "entries() in src/routes/store/scanners/[slug]/+page.ts:17-27"
+	},
+	{
+		"app": "root",
+		"route": "/blog",
+		"url": "/blog",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "SSR (src/routes/blog/+page.server.ts:8 prerender=false)"
+	},
+	{
+		"app": "root",
+		"route": "/blog/[slug]",
+		"url": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+		"indexable": false,
+		"template": "article",
+		"paramSource": "DB seed in src/lib/server/db/index.ts:169-197 + content/blog-posts/blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md"
+	},
+	{
+		"app": "root",
+		"route": "/blog/[slug]",
+		"url": "/blog/zero-dte-risk-management-and-position-sizing-rules",
+		"indexable": false,
+		"template": "article",
+		"paramSource": "DB seed in src/lib/server/db/index.ts:199-227 + content/blog-posts/blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md"
+	},
+	{
+		"app": "root",
+		"route": "/blog/[slug]",
+		"url": "/blog/private-desk-quarterly-gamma-levels-briefing",
+		"indexable": false,
+		"template": "article",
+		"paramSource": "DB seed password_protected in src/lib/server/db/index.ts:257-278"
+	},
+	{
+		"app": "root",
+		"route": "/blog/category/[slug]",
+		"url": "/blog/category/market-structure",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "DB seed in src/lib/server/db/index.ts:126-137 (postCount >= 2)"
+	},
+	{
+		"app": "root",
+		"route": "/demo/playwright",
+		"url": "/demo/playwright",
+		"indexable": false,
+		"template": "static",
+		"paramSource": "static (src/routes/demo/playwright/+page.svelte, /demo in NOINDEX_ROUTE_PREFIXES)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/login",
+		"url": "/admin/login",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR (src/routes/admin/login/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin",
+		"url": "/admin",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/+layout.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/analytics",
+		"url": "/admin/analytics",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/analytics/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/calls",
+		"url": "/admin/calls",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/calls/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/campaigns",
+		"url": "/admin/campaigns",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/campaigns/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/consent",
+		"url": "/admin/consent",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/consent/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/email-analytics",
+		"url": "/admin/email-analytics",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/email-analytics/+page.svelte)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/inbox",
+		"url": "/admin/inbox",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/inbox/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/integrations",
+		"url": "/admin/integrations",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/integrations/+page.svelte)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/leads",
+		"url": "/admin/leads",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/leads/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/media",
+		"url": "/admin/media",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/media/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/notifications",
+		"url": "/admin/notifications",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/notifications/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/posts",
+		"url": "/admin/posts",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/posts/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/posts/new",
+		"url": "/admin/posts/new",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/posts/new/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/posts/[id]",
+		"url": "/admin/posts/1",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/posts/[id]/+page.server.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/sequences",
+		"url": "/admin/sequences",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/sequences/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/admin/subscribers",
+		"url": "/admin/subscribers",
+		"indexable": false,
+		"template": "admin",
+		"paramSource": "SSR auth-gated (src/routes/admin/subscribers/+page.ts)"
+	},
+	{
+		"app": "root",
+		"route": "/blog/tag/[slug]",
+		"url": "/blog/tag/spx-options",
+		"indexable": false,
+		"template": "listing",
+		"paramSource": "DB tags table (src/routes/blog/tag/[slug]/+page.server.ts:18-35; requires >=3 public posts & >=20 total posts for indexable)"
+	}
+]

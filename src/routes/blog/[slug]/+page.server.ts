@@ -1,0 +1,488 @@
+import { error, fail, redirect } from '@sveltejs/kit';
+import { and, eq, inArray, isNull } from 'drizzle-orm';
+import {
+	buildBlogPageMetaTags,
+	buildBlogPostJsonLd,
+	dropRestrictedJsonLdNodes,
+	resolvePostModifiedIso
+} from '#lib/seo/blog-seo';
+import { getClientIp } from '#lib/server/auth-guard';
+import { ensureDbReady } from '#lib/server/db';
+import { media, posts } from '#lib/server/db/schema';
+import { setNoStoreCache, setPublicReadCache } from '#lib/server/posts/cache';
+import { articleCacheTags } from '#lib/server/posts/cache-tags';
+import { highlightPostCodeBlocks } from '#lib/server/posts/highlight';
+import {
+	getPostPasswordCookieName,
+	isPostLiveAtReadTime,
+	signPostUnlockToken,
+	verifyDraftPreviewToken,
+	verifyPostPassword,
+	verifyPostUnlockToken
+} from '#lib/server/posts/visibility';
+import {
+	consumeRateLimit,
+	RATE_LIMIT_PASSWORD_UNLOCK_ATTEMPTS,
+	RATE_LIMIT_PASSWORD_UNLOCK_WINDOW_MS
+} from '#lib/server/rate-limit';
+import { getPublicPostViewBySlug } from '#lib/server/services/posts';
+import { extractCoverCrops } from '#lib/shared/cover-crops';
+import { coverSrcsetFromMedia, coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
+import { extractImageSrcsFromHtml } from '#lib/shared/seo/content-transform';
+import type { Actions, PageServerLoad } from './$types';
+
+export const prerender = false;
+
+function lazyifyAndDimensionContentImages(
+	html: string,
+	mediaDimensionsByUrl: ReadonlyMap<string, { width: number; height: number }>
+): string {
+	return html.replace(/<img\b([^>]*)>/gi, (full, attrs: string) => {
+		// The sanitizer emits self-closed tags (`... />`); appending after the slash would yield `/ decoding=...`.
+		let updatedAttrs = attrs.replace(/\s*\/\s*$/, '');
+		if (!/\bloading\s*=/i.test(updatedAttrs)) {
+			updatedAttrs += ' loading="lazy"';
+		}
+		if (!/\bdecoding\s*=/i.test(updatedAttrs)) {
+			updatedAttrs += ' decoding="async"';
+		}
+		if (!/\bwidth\s*=/i.test(updatedAttrs) || !/\bheight\s*=/i.test(updatedAttrs)) {
+			const srcMatch = updatedAttrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
+			const dims = srcMatch ? mediaDimensionsByUrl.get(srcMatch[1]) : undefined;
+			if (dims) {
+				if (!/\bwidth\s*=/i.test(updatedAttrs)) {
+					updatedAttrs += ` width="${dims.width}"`;
+				}
+				if (!/\bheight\s*=/i.test(updatedAttrs)) {
+					updatedAttrs += ` height="${dims.height}"`;
+				}
+			}
+		}
+		return `<img${updatedAttrs}>`;
+	});
+}
+
+export const load: PageServerLoad = async ({
+	params,
+	url,
+	locals,
+	request,
+	cookies,
+	setHeaders
+}) => {
+	const slug = params.slug.trim().toLowerCase();
+	const isAdmin =
+		Boolean(locals.user) && (locals.user as { role?: string } | undefined)?.role === 'admin';
+
+	const db = await ensureDbReady();
+	const previewParam = url.searchParams.get('preview');
+	let hasValidPreviewToken = false;
+
+	if (previewParam) {
+		const [candidate] = await db
+			.select({ id: posts.id })
+			.from(posts)
+			.where(and(eq(posts.slug, slug), isNull(posts.deletedAt)))
+			.limit(1);
+		if (candidate && verifyDraftPreviewToken(previewParam, candidate.id)) {
+			hasValidPreviewToken = true;
+		}
+	}
+
+	const viewResult = await getPublicPostViewBySlug(slug, {
+		isAdmin,
+		hasValidPreviewToken,
+		isPasswordUnlocked: (postId, storedPasswordHash) => {
+			const cookieVal = cookies.get(getPostPasswordCookieName(postId));
+			return verifyPostUnlockToken(cookieVal, postId, storedPasswordHash);
+		}
+	});
+
+	if (viewResult.status === 404) {
+		throw error(404, 'Article not found');
+	}
+
+	if (viewResult.status === 403) {
+		setNoStoreCache(setHeaders);
+		throw error(403, "This post isn't available");
+	}
+
+	if (viewResult.locked) {
+		setNoStoreCache(setHeaders);
+		setHeaders({ 'X-Robots-Tag': 'noindex, nofollow' });
+		const lockedPayload = viewResult.payload;
+		const metaTags = buildBlogPageMetaTags({
+			title: lockedPayload.title,
+			description: lockedPayload.notice,
+			pathname: `/blog/${lockedPayload.slug}`,
+			indexable: false,
+			nofollow: true
+		});
+		const jsonLdSchema = buildBlogPostJsonLd({
+			locked: true,
+			slug: lockedPayload.slug,
+			title: lockedPayload.title
+		});
+
+		return {
+			...metaTags,
+			jsonLdSchema,
+			locked: true as const,
+			payload: lockedPayload,
+			post: null
+		};
+	}
+
+	const post = viewResult.post;
+	const isPrivateView =
+		isAdmin || hasValidPreviewToken || post.visibility !== 'public' || !post.isIndexable;
+
+	if (isPrivateView) {
+		setNoStoreCache(setHeaders);
+	} else {
+		setPublicReadCache(setHeaders, locals, request, articleCacheTags(post.slug));
+	}
+
+	// Look up stored media dimensions for cover and body images (indexed by referenced URLs)
+	const referencedUrls = Array.from(
+		new Set(
+			[post.coverImage, ...extractImageSrcsFromHtml(post.content)]
+				.map((u) => u?.trim() ?? '')
+				.filter(Boolean)
+		)
+	);
+	const candidateBlobUrls = new Set<string>(referencedUrls);
+	for (const u of referencedUrls) {
+		candidateBlobUrls.add(
+			u.replace(/-(?:\d+w|thumb|medium|large|full|crop-[a-z0-9x]+)(?=\.[a-z0-9]+$)/i, '')
+		);
+	}
+
+	let allMediaRows =
+		candidateBlobUrls.size > 0
+			? await db
+					.select({
+						blobUrl: media.blobUrl,
+						variantsJson: media.variantsJson,
+						width: media.width,
+						height: media.height
+					})
+					.from(media)
+					.where(
+						and(isNull(media.deletedAt), inArray(media.blobUrl, Array.from(candidateBlobUrls)))
+					)
+			: [];
+
+	const mediaDimensionsByUrl = new Map<string, { width: number; height: number }>();
+	const populateMediaMap = (rows: typeof allMediaRows) => {
+		for (const m of rows) {
+			if (m.width && m.height) {
+				mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
+				if (m.variantsJson && typeof m.variantsJson === 'object') {
+					for (const variant of Object.values(m.variantsJson)) {
+						if (variant?.url) {
+							mediaDimensionsByUrl.set(variant.url, {
+								width: variant.width ?? m.width,
+								height: variant.height ?? m.height
+							});
+						}
+					}
+				}
+			}
+		}
+	};
+	populateMediaMap(allMediaRows);
+
+	if (referencedUrls.some((u) => !mediaDimensionsByUrl.has(u))) {
+		allMediaRows = await db
+			.select({
+				blobUrl: media.blobUrl,
+				variantsJson: media.variantsJson,
+				width: media.width,
+				height: media.height
+			})
+			.from(media)
+			.where(isNull(media.deletedAt));
+		populateMediaMap(allMediaRows);
+	}
+
+	const coverDims = post.coverImage ? (mediaDimensionsByUrl.get(post.coverImage) ?? null) : null;
+	const resolvedCoverWidth = coverDims?.width ?? post.coverImageWidth ?? null;
+	const resolvedCoverHeight = coverDims?.height ?? post.coverImageHeight ?? null;
+	const coverMediaRow = post.coverImage
+		? allMediaRows.find(
+				(m) =>
+					m.blobUrl === post.coverImage ||
+					Object.values(m.variantsJson ?? {}).some((v) => v?.url === post.coverImage)
+			)
+		: undefined;
+	const coverSrcset = post.coverImage
+		? (coverSrcsetFromMedia(post.coverImage, coverMediaRow) ?? coverSrcsetFromUrl(post.coverImage))
+		: undefined;
+
+	const highlightedHtml = await highlightPostCodeBlocks(post.content);
+	const finalBodyHtml = lazyifyAndDimensionContentImages(highlightedHtml, mediaDimensionsByUrl);
+
+	let parsedFaqs: Array<{ question: string; answer: string }> = [];
+	if (post.faqItems) {
+		try {
+			const raw = JSON.parse(post.faqItems);
+			if (Array.isArray(raw)) {
+				parsedFaqs = raw.filter((f): f is { question: string; answer: string } =>
+					Boolean(
+						f &&
+						typeof f === 'object' &&
+						typeof f.question === 'string' &&
+						typeof f.answer === 'string' &&
+						f.question.trim() &&
+						f.answer.trim()
+					)
+				);
+			}
+		} catch (err) {
+			console.warn(`[/blog/${post.slug}] Malformed FAQ JSON on post #${post.id}:`, err);
+		}
+	}
+
+	let parsedSecondaryKeywords: string[] = [];
+	if (post.secondaryKeywords) {
+		try {
+			const raw = JSON.parse(post.secondaryKeywords);
+			if (Array.isArray(raw)) {
+				parsedSecondaryKeywords = raw.map((s) => String(s).trim()).filter(Boolean);
+			}
+		} catch (err) {
+			console.warn(
+				`[/blog/${post.slug}] Malformed secondaryKeywords JSON on post #${post.id}:`,
+				err
+			);
+		}
+	}
+
+	let subtitle = '';
+	let seriesName = '';
+	let noarchive = false;
+	let nosnippet = false;
+	let customJsonLdRaw = '';
+	if (post.customFields) {
+		try {
+			const parsedCustom: unknown = JSON.parse(post.customFields);
+			if (Array.isArray(parsedCustom)) {
+				for (const item of parsedCustom) {
+					if (!item || typeof item !== 'object') continue;
+					const { key, value } = item as Record<string, unknown>;
+					if (typeof key !== 'string' || typeof value !== 'string') continue;
+					const k = key;
+					const v = value;
+					if (k === '__subtitle') subtitle = v.trim();
+					else if (k === '__seriesName') seriesName = v.trim();
+					else if (k === '__noarchive') noarchive = v === 'true';
+					else if (k === '__nosnippet') nosnippet = v === 'true';
+					else if (k === '__customJsonLd') customJsonLdRaw = v.trim();
+				}
+			}
+		} catch {
+			// ignore malformed customFields
+		}
+	}
+
+	const effectiveTitle = (post.metaTitle || post.title).trim();
+	const effectiveDescription = (post.metaDescription || post.excerpt || post.title).trim();
+	const modifiedIso = resolvePostModifiedIso(post);
+	const publishedIso = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
+	const effectiveIndexable = post.isIndexable && !hasValidPreviewToken;
+	const effectiveNofollow = post.robotsNofollow || hasValidPreviewToken;
+
+	const metaTags = buildBlogPageMetaTags({
+		title: effectiveTitle,
+		description: effectiveDescription,
+		pathname: `/blog/${post.slug}`,
+		canonicalOverride: post.canonicalUrl,
+		indexable: effectiveIndexable,
+		nofollow: effectiveNofollow,
+		noarchive,
+		nosnippet,
+		ogType: 'article',
+		ogTitle: post.ogTitle,
+		ogDescription: post.ogDescription,
+		ogImage: post.ogImage || post.coverImage,
+		ogImageAlt: post.coverImageAlt || post.title,
+		ogImageWidth: resolvedCoverWidth,
+		ogImageHeight: resolvedCoverHeight,
+		twitterCard: post.twitterCardType === 'summary' ? 'summary' : 'summary_large_image',
+		twitterTitle: post.twitterTitle,
+		twitterDescription: post.twitterDescription,
+		twitterImage: post.twitterImage || post.ogImage || post.coverImage,
+		twitterImageAlt: post.coverImageAlt || post.title,
+		authorName: post.author?.name ?? null,
+		publishedTime: publishedIso,
+		modifiedTime: modifiedIso,
+		section: post.category?.name ?? null,
+		tags: post.tags.map((t) => t.name)
+	});
+
+	if (!effectiveIndexable || effectiveNofollow || noarchive || nosnippet) {
+		setHeaders({
+			'X-Robots-Tag': String(metaTags.pageMetaTags.robots ?? 'noindex, nofollow')
+		});
+	}
+
+	let jsonLdSchema: Record<string, unknown> = buildBlogPostJsonLd({
+		locked: false,
+		slug: post.slug,
+		title: post.title,
+		description: effectiveDescription,
+		coverImage: post.coverImage,
+		coverImageCaption: post.coverImageCaption,
+		coverImageWidth: resolvedCoverWidth,
+		coverImageHeight: resolvedCoverHeight,
+		coverImageCrops: extractCoverCrops(coverMediaRow?.variantsJson),
+		publishedAt: post.publishedAt,
+		contentUpdatedAt: post.contentUpdatedAt,
+		createdAt: post.createdAt,
+		wordCount: post.wordCount,
+		isPillar: post.isPillar,
+		schemaType: post.schemaType,
+		focusKeyword: post.focusKeyword,
+		secondaryKeywords: parsedSecondaryKeywords,
+		category: post.category ? { name: post.category.name, slug: post.category.slug } : null,
+		author: post.author
+			? {
+					name: post.author.name,
+					slug: post.author.slug,
+					jobTitle: post.author.jobTitle,
+					shortBio: post.author.shortBio,
+					bio: post.author.bio,
+					avatar: post.author.avatar,
+					linkedin: post.author.linkedin,
+					twitter: post.author.twitter,
+					website: post.author.website,
+					expertise: post.author.expertise
+				}
+			: null,
+		faqItems: parsedFaqs
+	});
+
+	if (customJsonLdRaw) {
+		try {
+			const parsedSchema: unknown = JSON.parse(customJsonLdRaw);
+			if (parsedSchema && typeof parsedSchema === 'object' && !Array.isArray(parsedSchema)) {
+				const customObj = parsedSchema as Record<string, unknown>;
+				if (Array.isArray(customObj['@graph']) && Array.isArray(jsonLdSchema['@graph'])) {
+					jsonLdSchema = {
+						...jsonLdSchema,
+						'@graph': [
+							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
+							...dropRestrictedJsonLdNodes(customObj['@graph'] as Record<string, unknown>[])
+						]
+					};
+				} else if (
+					typeof customObj['@type'] === 'string' &&
+					Array.isArray(jsonLdSchema['@graph'])
+				) {
+					const { '@context': _ignoredContext, ...restNode } = customObj;
+					void _ignoredContext;
+					jsonLdSchema = {
+						...jsonLdSchema,
+						'@graph': [
+							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
+							...dropRestrictedJsonLdNodes([restNode])
+						]
+					};
+				}
+			}
+		} catch {
+			// ignore invalid customJsonLd JSON
+		}
+	}
+
+	return {
+		...metaTags,
+		jsonLdSchema,
+		locked: false as const,
+		payload: null,
+		post: {
+			...post,
+			subtitle: subtitle || null,
+			seriesName: seriesName || null,
+			content: finalBodyHtml,
+			// Stored/real dimensions only; null (attributes omitted) when the cover is not a library item.
+			coverWidth: resolvedCoverWidth,
+			coverHeight: resolvedCoverHeight,
+			coverSrcset: coverSrcset ?? null,
+			faqList: parsedFaqs,
+			isPreview: hasValidPreviewToken
+		}
+	};
+};
+
+export const actions: Actions = {
+	unlock: async (event) => {
+		const slug = event.params.slug.trim().toLowerCase();
+		const formData = await event.request.formData();
+		const passwordEntry = formData.get('password');
+		const password = typeof passwordEntry === 'string' ? passwordEntry.trim() : '';
+
+		if (!password) {
+			return fail(400, {
+				unlockError: 'Please enter the article password.'
+			});
+		}
+
+		// Rate limit 10 attempts per 10 minutes per IP per slug BEFORE revealing 404 (Section 7.15)
+		const ip = getClientIp(event);
+		const rl = await consumeRateLimit({
+			key: `pw_unlock:${ip}:${slug}`,
+			limit: RATE_LIMIT_PASSWORD_UNLOCK_ATTEMPTS,
+			windowMs: RATE_LIMIT_PASSWORD_UNLOCK_WINDOW_MS
+		});
+
+		if (!rl.allowed) {
+			return fail(429, {
+				unlockError: 'Too many unlock attempts. Please wait 10 minutes before trying again.'
+			});
+		}
+
+		const db = await ensureDbReady();
+		const [row] = await db
+			.select()
+			.from(posts)
+			.where(and(eq(posts.slug, slug), isNull(posts.deletedAt)))
+			.limit(1);
+
+		if (
+			!row ||
+			!isPostLiveAtReadTime(row) ||
+			row.visibility !== 'password_protected' ||
+			!row.password
+		) {
+			throw error(404, 'Article not found');
+		}
+
+		if (!verifyPostPassword(password, row.password)) {
+			return fail(401, {
+				unlockError: 'Incorrect password. Please check and try again.'
+			});
+		}
+
+		let token: string;
+		try {
+			token = signPostUnlockToken(row.id, row.password);
+		} catch (err) {
+			console.error('[unlock] Cannot sign password unlock cookie:', err);
+			return fail(500, {
+				unlockError: 'Password unlock is temporarily unavailable.'
+			});
+		}
+
+		event.cookies.set(getPostPasswordCookieName(row.id), token, {
+			httpOnly: true,
+			sameSite: 'lax',
+			secure: event.url.protocol === 'https:' || process.env.NODE_ENV === 'production',
+			path: '/blog',
+			maxAge: 24 * 60 * 60
+		});
+
+		throw redirect(303, `/blog/${row.slug}`);
+	}
+};

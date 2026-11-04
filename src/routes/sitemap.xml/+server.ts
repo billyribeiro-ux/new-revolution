@@ -1,0 +1,190 @@
+// Folder: src/routes/sitemap.xml/
+// File:   +server.ts
+import {
+	buildPublicCacheControl,
+	CACHE_TAG_HEADER,
+	computeWeakOrStrongEtag,
+	createFeedErrorResponse,
+	matchesIfNoneMatch
+} from '#lib/server/posts/cache';
+import { isUnlaunchedRoute } from '#lib/data/launch-gate';
+import { BLOG_SITEMAP_TAG } from '#lib/server/posts/cache-tags';
+import { listPublicCategoriesWithCounts } from '#lib/server/services/categories';
+import { listSitemapBlogEntries } from '#lib/server/services/posts';
+import { listPublicTagsWithCounts } from '#lib/server/services/tags';
+import {
+	absoluteUrl,
+	DEFAULT_FEED_ORIGIN,
+	escapeXml,
+	resolvePostModifiedDate
+} from '#lib/shared/seo/rss';
+import type { RequestHandler } from './$types';
+
+export const GET: RequestHandler = async ({ request }) => {
+	const baseUrl = DEFAULT_FEED_ORIGIN;
+
+	try {
+		// 1. Automatically discover every +page.svelte route in src/routes/
+		const pageModules = import.meta.glob('/src/routes/**/+page.svelte');
+
+		const allRoutes = Object.keys(pageModules).map((filePath) => {
+			return (
+				filePath
+					.replace('/src/routes', '')
+					.replace('/+page.svelte', '')
+					.replace(/\/\([^)]+\)/g, '') || // Strip SvelteKit route groups like /(marketing)
+				'/'
+			);
+		});
+
+		// Dynamic `[param]` templates that exist in the build; a slug URL is only listable if one matches it.
+		const dynamicTemplates = allRoutes
+			.filter((route) => route.includes('['))
+			.map((route) => new RegExp(`^${route.replace(/\[[^\]]+\]/g, '[^/]+')}$`));
+		const hasRoute = (path: string) => dynamicTemplates.some((template) => template.test(path));
+
+		const discoveredRoutes = allRoutes
+			.filter((route) => {
+				return (
+					!route.includes('[') &&
+					route !== '/blogs' &&
+					!route.startsWith('/demo') &&
+					!route.startsWith('/lp') &&
+					!route.startsWith('/login') &&
+					!route.startsWith('/register') &&
+					!route.startsWith('/dashboard') &&
+					!route.startsWith('/admin') &&
+					!route.startsWith('/checkout') &&
+					// Routes behind the launch gate are noindex, so listing them would contradict their robots tag.
+					!isUnlaunchedRoute(route)
+				);
+			})
+			.sort((a, b) => {
+				if (a === '/') return -1;
+				if (b === '/') return 1;
+				return a.localeCompare(b);
+			});
+
+		// 2. Dynamic flagship routes
+		const dynamicRoutes: {
+			path: string;
+			lastmod?: string;
+			imageUrl?: string | null;
+		}[] = [
+			{ path: '/store/courses/move-prior-to-the-move-ultra' },
+			{ path: '/store/indicators/move-prior-to-the-move-system' },
+			{ path: '/store/scanners/high-octane-scanner' }
+		].filter(({ path }) => hasRoute(path) && !isUnlaunchedRoute(path));
+
+		// 3. DB-backed public blog posts, indexable categories, and indexable tags (Section 10.8)
+		// While /blog is gated none of it is listed, so the database is not queried at all. That also keeps the
+		// sitemap answering 200 on a deployment whose blog database is not connected yet (it was a 500 there).
+		const blogListed = !isUnlaunchedRoute('/blog');
+		const [publicPosts, publicCategories, publicTags] = blogListed
+			? await Promise.all([
+					listSitemapBlogEntries(),
+					listPublicCategoriesWithCounts(),
+					listPublicTagsWithCounts()
+				])
+			: [[], [], []];
+
+		let newestBlogModifiedIso: string | undefined;
+		for (const post of publicPosts) {
+			const modDate = resolvePostModifiedDate(post);
+			const modIso = modDate ? modDate.toISOString() : undefined;
+			if (modIso && (!newestBlogModifiedIso || modIso > newestBlogModifiedIso)) {
+				newestBlogModifiedIso = modIso;
+			}
+			dynamicRoutes.push({
+				path: `/blog/${post.slug}`,
+				lastmod: modIso,
+				imageUrl: post.coverImage ? absoluteUrl(post.coverImage, baseUrl) : null
+			});
+		}
+
+		for (const cat of publicCategories) {
+			if (cat.isIndexable) {
+				dynamicRoutes.push({
+					path: `/blog/category/${cat.slug}`
+				});
+			}
+		}
+
+		for (const tag of publicTags) {
+			if (tag.isIndexable) {
+				dynamicRoutes.push({
+					path: `/blog/tag/${tag.slug}`
+				});
+			}
+		}
+
+		const entries: {
+			path: string;
+			lastmod?: string;
+			imageUrl?: string | null;
+		}[] = [
+			...discoveredRoutes.map((path) => ({
+				path,
+				lastmod: path === '/blog' ? newestBlogModifiedIso : undefined
+			})),
+			...dynamicRoutes
+		];
+
+		const urlNodes = entries
+			.map(({ path, lastmod, imageUrl }) => {
+				const fullUrl = absoluteUrl(path, baseUrl);
+				const imageLines = imageUrl
+					? [
+							'    <image:image>',
+							`      <image:loc>${escapeXml(imageUrl)}</image:loc>`,
+							'    </image:image>'
+						]
+					: [];
+
+				return [
+					'  <url>',
+					`    <loc>${escapeXml(fullUrl)}</loc>`,
+					...(lastmod ? [`    <lastmod>${escapeXml(lastmod)}</lastmod>`] : []),
+					...imageLines,
+					'  </url>'
+				].join('\n');
+			})
+			.join('\n');
+
+		const xml = [
+			'<?xml version="1.0" encoding="UTF-8"?>',
+			'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+			urlNodes,
+			'</urlset>'
+		].join('\n');
+
+		const etag = computeWeakOrStrongEtag(xml);
+		const cacheControl = buildPublicCacheControl(300);
+
+		if (matchesIfNoneMatch(request.headers.get('if-none-match'), etag)) {
+			return new Response(null, {
+				status: 304,
+				headers: {
+					ETag: etag,
+					'Cache-Control': cacheControl,
+					[CACHE_TAG_HEADER]: BLOG_SITEMAP_TAG,
+					'X-Robots-Tag': 'noindex'
+				}
+			});
+		}
+
+		return new Response(xml, {
+			status: 200,
+			headers: {
+				'Content-Type': 'application/xml; charset=utf-8',
+				ETag: etag,
+				'Cache-Control': cacheControl,
+				[CACHE_TAG_HEADER]: BLOG_SITEMAP_TAG,
+				'X-Robots-Tag': 'noindex'
+			}
+		});
+	} catch (err) {
+		console.error('[/sitemap.xml] Failed to build sitemap:', err);
+		return createFeedErrorResponse();
+	}
+};

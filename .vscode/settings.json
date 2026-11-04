@@ -1,0 +1,16 @@
+{
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"files.saveConflictResolution": "overwriteFileOnDisk",
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/**": true,
+		"**/.svelte-kit/**": true,
+		"**/build/**": true,
+		"**/.pglite/**": true,
+		"**/test-results/**": true,
+		"**/playwright-report/**": true
+	}
+}

@@ -1,0 +1,526 @@
+import { definePageMetaTags } from 'svelte-meta-tags';
+import {
+	BRAND_NAME,
+	BRAND_SOCIAL_IMAGE_HEIGHT,
+	BRAND_SOCIAL_IMAGE_PATH,
+	BRAND_SOCIAL_IMAGE_WIDTH,
+	SITE_ORIGIN,
+	buildOrganizationEntity,
+	isNoIndexRoute
+} from './structured-data';
+import { pageHref } from '#lib/shared/blog/pagination';
+import { computeRenderedTitle } from '#lib/shared/seo/meta-budget';
+import { resolvePostModifiedDate } from '#lib/shared/seo/rss';
+
+export interface BlogBreadcrumbItem {
+	name: string;
+	path: string;
+}
+
+export interface BlogSeoHeadInput {
+	title: string;
+	description: string;
+	pathname: string;
+	/** 1-based page of a paginated archive. Page 2+ gets its own `?page=n` canonical; page 1 stays the bare path. */
+	page?: number;
+	canonicalOverride?: string | null;
+	indexable?: boolean;
+	nofollow?: boolean;
+	noarchive?: boolean;
+	nosnippet?: boolean;
+	ogType?: 'website' | 'article';
+	ogTitle?: string | null;
+	ogDescription?: string | null;
+	ogImage?: string | null;
+	ogImageAlt?: string | null;
+	ogImageWidth?: number | null;
+	ogImageHeight?: number | null;
+	twitterCard?: 'summary' | 'summary_large_image';
+	twitterTitle?: string | null;
+	twitterDescription?: string | null;
+	twitterImage?: string | null;
+	twitterImageAlt?: string | null;
+	authorName?: string | null;
+	publishedTime?: string | null;
+	modifiedTime?: string | null;
+	section?: string | null;
+	tags?: string[];
+}
+
+/** ISO form of the editorial modification date, or undefined when there is no trustworthy one (never an epoch placeholder). */
+export function resolvePostModifiedIso(post: {
+	contentUpdatedAt?: Date | string | null;
+	publishedAt?: Date | string | null;
+}): string | undefined {
+	return resolvePostModifiedDate(post)?.toISOString();
+}
+
+export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
+	// Anything under a gated prefix (#lib/data/launch-gate.ts) is noindex whatever the post says, so the meta tag
+	// agrees with the X-Robots-Tag header that hooks.server.ts adds for the same paths.
+	const indexable = (input.indexable ?? true) && !isNoIndexRoute(input.pathname);
+	const nofollow = input.nofollow ?? false;
+	const noarchive = input.noarchive ?? false;
+	const nosnippet = input.nosnippet ?? false;
+	const cleanPath = input.pathname === '/' ? '' : input.pathname.replace(/\/+$/, '');
+	const canonicalUrl =
+		input.canonicalOverride?.trim() || `${SITE_ORIGIN}${pageHref(cleanPath, input.page ?? 1)}`;
+
+	const renderedBudget = computeRenderedTitle(input.title, BRAND_NAME);
+	const titleTemplate = renderedBudget.brandAppended ? `%s | ${BRAND_NAME}` : '%s';
+	const fullTitle = renderedBudget.renderedTitle;
+
+	const resolvedOgImage =
+		input.ogImage && input.ogImage.startsWith('http')
+			? input.ogImage
+			: input.ogImage
+				? `${SITE_ORIGIN}${input.ogImage}`
+				: `${SITE_ORIGIN}${BRAND_SOCIAL_IMAGE_PATH}`;
+
+	const resolvedOgAlt = (input.ogImageAlt || input.title).trim();
+	const resolvedTwitterImage =
+		input.twitterImage && input.twitterImage.startsWith('http')
+			? input.twitterImage
+			: input.twitterImage
+				? `${SITE_ORIGIN}${input.twitterImage}`
+				: resolvedOgImage;
+
+	const dedupedTags = input.tags
+		? Array.from(new Set(input.tags.map((t) => t.trim()).filter(Boolean)))
+		: [];
+
+	const robotsTokens = [
+		indexable ? 'index' : 'noindex',
+		nofollow ? 'nofollow' : 'follow',
+		...(noarchive ? ['noarchive'] : []),
+		...(nosnippet ? ['nosnippet'] : [])
+	];
+	const robotsDirective = robotsTokens.join(', ');
+
+	const additionalMetaTags: Array<
+		{ name: string; content: string } | { property: string; content: string }
+	> = [{ name: 'theme-color', content: '#0b0e12' }];
+
+	if (input.authorName?.trim()) {
+		additionalMetaTags.push({
+			name: 'author',
+			content: input.authorName.trim()
+		});
+	}
+
+	return definePageMetaTags({
+		title: input.title,
+		titleTemplate,
+		description: input.description,
+		canonical: indexable ? canonicalUrl : undefined,
+		robots: robotsDirective,
+		additionalRobotsProps: indexable
+			? {
+					maxSnippet: -1,
+					maxImagePreview: 'large',
+					maxVideoPreview: -1
+				}
+			: undefined,
+		languageAlternates: [],
+		openGraph: {
+			type: input.ogType ?? 'website',
+			url: canonicalUrl,
+			locale: 'en_US',
+			siteName: BRAND_NAME,
+			title: input.ogTitle?.trim() || fullTitle,
+			description: input.ogDescription?.trim() || input.description,
+			images: [
+				{
+					url: resolvedOgImage,
+					secureUrl: resolvedOgImage,
+					alt: resolvedOgAlt,
+					...(input.ogImageWidth && input.ogImageHeight
+						? {
+								width: input.ogImageWidth,
+								height: input.ogImageHeight
+							}
+						: !input.ogImage
+							? {
+									width: BRAND_SOCIAL_IMAGE_WIDTH,
+									height: BRAND_SOCIAL_IMAGE_HEIGHT
+								}
+							: {})
+				}
+			],
+			...(input.ogType === 'article'
+				? {
+						article: {
+							publishedTime: input.publishedTime ?? undefined,
+							modifiedTime: input.modifiedTime ?? undefined,
+							section: input.section ?? undefined,
+							authors: input.authorName ? [input.authorName] : undefined,
+							tags: dedupedTags.length > 0 ? dedupedTags : undefined
+						}
+					}
+				: {})
+		},
+		twitter: {
+			cardType: input.twitterCard ?? 'summary_large_image',
+			title: input.twitterTitle?.trim() || input.ogTitle?.trim() || fullTitle,
+			description:
+				input.twitterDescription?.trim() || input.ogDescription?.trim() || input.description,
+			image: resolvedTwitterImage,
+			imageAlt: input.twitterImageAlt?.trim() || resolvedOgAlt
+		},
+		additionalMetaTags
+	});
+}
+
+function buildBlogWebsiteEntity(origin: string) {
+	return {
+		'@type': 'WebSite',
+		'@id': `${origin}/#website`,
+		url: origin,
+		name: BRAND_NAME,
+		publisher: {
+			'@id': `${origin}/#organization`
+		}
+	};
+}
+
+function buildBreadcrumbEntity(origin: string, pageUrl: string, items: BlogBreadcrumbItem[]) {
+	return {
+		'@type': 'BreadcrumbList',
+		'@id': `${pageUrl}#breadcrumb`,
+		itemListElement: items.map((item, idx) => ({
+			'@type': 'ListItem',
+			position: idx + 1,
+			name: item.name,
+			item: `${origin}${item.path === '/' ? '' : item.path}`
+		}))
+	};
+}
+
+export function buildBlogIndexJsonLd(
+	posts: Array<{
+		title: string;
+		slug: string;
+		excerpt?: string | null;
+		coverImage?: string | null;
+		publishedAt?: Date | string | null;
+		contentUpdatedAt?: Date | string | null;
+		author?: { name: string; slug: string } | null;
+	}>,
+	origin = SITE_ORIGIN
+) {
+	const pageUrl = `${origin}/blog`;
+	const topTen = posts.slice(0, 10);
+
+	return {
+		'@context': 'https://schema.org',
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildBlogWebsiteEntity(origin),
+			buildBreadcrumbEntity(origin, pageUrl, [
+				{ name: 'Home', path: '/' },
+				{ name: 'Blog', path: '/blog' }
+			]),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: `Trading Insights & Market Structure Blog | ${BRAND_NAME}`,
+				isPartOf: { '@id': `${origin}/#website` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'Blog',
+				'@id': `${pageUrl}#blog`,
+				url: pageUrl,
+				name: `${BRAND_NAME} Blog`,
+				publisher: { '@id': `${origin}/#organization` },
+				blogPost: topTen.map((p) => ({
+					'@type': 'BlogPosting',
+					'@id': `${origin}/blog/${p.slug}#article`,
+					headline: p.title,
+					url: `${origin}/blog/${p.slug}`,
+					description: p.excerpt ?? '',
+					datePublished: p.publishedAt ? new Date(p.publishedAt).toISOString() : undefined,
+					...(resolvePostModifiedIso(p) ? { dateModified: resolvePostModifiedIso(p) } : {}),
+					...(p.coverImage ? { image: p.coverImage } : {}),
+					...(p.author
+						? {
+								author: {
+									'@type': 'Person',
+									name: p.author.name
+								}
+							}
+						: {})
+				}))
+			}
+		]
+	};
+}
+
+const CROP_ORDER = ['16x9', '4x3', '1x1'] as const;
+
+/**
+ * Article `image` entries: one absolute ImageObject per crop, ordered 16x9, 4x3, 1x1. Crops under 50,000 px
+ * (Google's minimum, docs/SEO_EVIDENCE.md row 19) or with a non-positive size are dropped; callers fall back to
+ * the single cover ImageObject when this returns [].
+ */
+function buildArticleCropImages(
+	crops: Array<{ aspect: string; url: string; width: number; height: number }> | null | undefined,
+	origin: string,
+	caption?: string | null
+): Array<Record<string, unknown>> {
+	if (!crops?.length) return [];
+	const out: Array<Record<string, unknown>> = [];
+	for (const aspect of CROP_ORDER) {
+		const crop = crops.find((c) => c.aspect === aspect);
+		if (!crop?.url || !(crop.width > 0) || !(crop.height > 0)) continue;
+		if (crop.width * crop.height < 50_000) continue;
+		out.push({
+			'@type': 'ImageObject',
+			url: crop.url.startsWith('http') ? crop.url : `${origin}${crop.url}`,
+			width: crop.width,
+			height: crop.height,
+			...(caption ? { caption } : {})
+		});
+	}
+	return out;
+}
+
+/** Schema types Google restricted or retired (SD-10, SD-15); author-supplied JSON-LD may not emit them. */
+const RESTRICTED_SCHEMA_TYPES: ReadonlySet<string> = new Set([
+	'FAQPage',
+	'HowTo',
+	'Course',
+	'CourseInstance',
+	'SpeakableSpecification',
+	'SpecialAnnouncement',
+	'ClaimReview'
+]);
+
+export function dropRestrictedJsonLdNodes(
+	nodes: readonly Record<string, unknown>[]
+): Record<string, unknown>[] {
+	return nodes.filter((node) => {
+		const type = node['@type'];
+		const types = Array.isArray(type) ? type : [type];
+		return !types.some((t) => typeof t === 'string' && RESTRICTED_SCHEMA_TYPES.has(t));
+	});
+}
+
+export function buildBlogPostJsonLd(
+	input: {
+		locked?: boolean;
+		slug: string;
+		title: string;
+		description?: string;
+		coverImage?: string | null;
+		coverImageCaption?: string | null;
+		coverImageWidth?: number | null;
+		coverImageHeight?: number | null;
+		/** Fixed-ratio cover crops (see getMediaCropsForUrl). Used for Article `image` when present. */
+		coverImageCrops?: Array<{ aspect: string; url: string; width: number; height: number }> | null;
+		publishedAt?: Date | string | null;
+		contentUpdatedAt?: Date | string | null;
+		createdAt?: Date | string | null;
+		wordCount?: number | null;
+		isPillar?: boolean;
+		schemaType?: string | null;
+		focusKeyword?: string | null;
+		secondaryKeywords?: string[];
+		category?: { name: string; slug: string } | null;
+		author?: {
+			name: string;
+			slug: string;
+			jobTitle?: string | null;
+			shortBio?: string | null;
+			bio?: string | null;
+			avatar?: string | null;
+			linkedin?: string | null;
+			twitter?: string | null;
+			website?: string | null;
+			expertise?: string | null;
+		} | null;
+		faqItems?: Array<{ question: string; answer: string }>;
+	},
+	origin = SITE_ORIGIN
+) {
+	const pageUrl = `${origin}/blog/${input.slug}`;
+	const breadcrumbs: BlogBreadcrumbItem[] = [
+		{ name: 'Home', path: '/' },
+		{ name: 'Blog', path: '/blog' },
+		...(input.category && !input.locked
+			? [{ name: input.category.name, path: `/blog/category/${input.category.slug}` }]
+			: []),
+		{ name: input.title, path: `/blog/${input.slug}` }
+	];
+
+	// Section 7.15: Locked posts emit ONLY Organization, WebSite, and BreadcrumbList
+	if (input.locked) {
+		return {
+			'@context': 'https://schema.org',
+			'@graph': [
+				buildOrganizationEntity(origin),
+				buildBlogWebsiteEntity(origin),
+				buildBreadcrumbEntity(origin, pageUrl, breadcrumbs)
+			]
+		};
+	}
+
+	const graph: Record<string, unknown>[] = [
+		buildOrganizationEntity(origin),
+		buildBlogWebsiteEntity(origin),
+		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs),
+		{
+			'@type': 'WebPage',
+			'@id': `${pageUrl}#webpage`,
+			url: pageUrl,
+			name: input.title,
+			description: input.description ?? '',
+			isPartOf: { '@id': `${origin}/#website` },
+			breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+		}
+	];
+
+	let authorId = `${origin}/#organization`;
+	if (input.author) {
+		authorId = `${origin}/#author-${input.author.slug}`;
+		const sameAs = [input.author.linkedin, input.author.twitter, input.author.website].filter(
+			(u): u is string => Boolean(u && u.trim())
+		);
+
+		graph.push({
+			'@type': 'Person',
+			'@id': authorId,
+			name: input.author.name,
+			url: input.author.website || `${origin}/about`,
+			...(input.author.jobTitle ? { jobTitle: input.author.jobTitle } : {}),
+			...(input.author.shortBio || input.author.bio
+				? { description: input.author.shortBio || input.author.bio }
+				: {}),
+			...(input.author.avatar ? { image: input.author.avatar } : {}),
+			...(sameAs.length > 0 ? { sameAs } : {}),
+			worksFor: { '@id': `${origin}/#organization` },
+			...(input.author.expertise
+				? {
+						knowsAbout: input.author.expertise
+							.split(',')
+							.map((s) => s.trim())
+							.filter(Boolean)
+					}
+				: {})
+		});
+	}
+
+	// HowTo rich results were retired (SD-15); a legacy row must not leak it into the graph.
+	const schemaType = input.schemaType === 'HowTo' ? 'BlogPosting' : input.schemaType;
+	const articleType =
+		schemaType && schemaType !== 'BlogPosting'
+			? schemaType
+			: input.isPillar
+				? 'Article'
+				: schemaType || 'BlogPosting';
+
+	const keywordsList = [
+		...(input.focusKeyword ? [input.focusKeyword] : []),
+		...(input.secondaryKeywords ?? [])
+	].filter(Boolean);
+
+	const imageNode = input.coverImage
+		? {
+				'@type': 'ImageObject',
+				url: input.coverImage.startsWith('http')
+					? input.coverImage
+					: `${origin}${input.coverImage}`,
+				...(input.coverImageCaption ? { caption: input.coverImageCaption } : {}),
+				...(input.coverImageWidth && input.coverImageHeight
+					? {
+							width: input.coverImageWidth,
+							height: input.coverImageHeight
+						}
+					: {})
+			}
+		: undefined;
+
+	const articleImages = buildArticleCropImages(
+		input.coverImageCrops,
+		origin,
+		input.coverImageCaption
+	);
+
+	graph.push({
+		'@type': articleType,
+		'@id': `${pageUrl}#article`,
+		headline: input.title,
+		description: input.description ?? '',
+		...(imageNode
+			? {
+					image: articleImages.length > 0 ? articleImages : imageNode,
+					thumbnailUrl: imageNode.url
+				}
+			: {}),
+		...(input.publishedAt ? { datePublished: new Date(input.publishedAt).toISOString() } : {}),
+		...(resolvePostModifiedIso(input) ? { dateModified: resolvePostModifiedIso(input) } : {}),
+		inLanguage: 'en-US',
+		...(input.wordCount ? { wordCount: input.wordCount } : {}),
+		isAccessibleForFree: true,
+		author: { '@id': authorId },
+		publisher: { '@id': `${origin}/#organization` },
+		mainEntityOfPage: {
+			'@type': 'WebPage',
+			'@id': `${pageUrl}#webpage`
+		},
+		isPartOf: { '@id': `${origin}/#website` },
+		...(keywordsList.length > 0 ? { keywords: keywordsList.join(', ') } : {}),
+		...(input.category ? { articleSection: input.category.name } : {})
+	});
+
+	return {
+		'@context': 'https://schema.org',
+		'@graph': graph
+	};
+}
+
+export function buildTaxonomyCollectionJsonLd(
+	input: {
+		kind: 'category' | 'tag';
+		name: string;
+		slug: string;
+		description?: string | null;
+		posts: Array<{ title: string; slug: string }>;
+	},
+	origin = SITE_ORIGIN
+) {
+	const pagePath = `/blog/${input.kind}/${input.slug}`;
+	const pageUrl = `${origin}${pagePath}`;
+
+	return {
+		'@context': 'https://schema.org',
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildBlogWebsiteEntity(origin),
+			buildBreadcrumbEntity(origin, pageUrl, [
+				{ name: 'Home', path: '/' },
+				{ name: 'Blog', path: '/blog' },
+				{ name: input.name, path: pagePath }
+			]),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#collection`,
+				url: pageUrl,
+				name: `${input.name} Articles | ${BRAND_NAME}`,
+				description: input.description ?? `Articles filed under ${input.name}.`,
+				isPartOf: { '@id': `${origin}/#website` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+				mainEntity: {
+					'@type': 'ItemList',
+					itemListElement: input.posts.map((p, idx) => ({
+						'@type': 'ListItem',
+						position: idx + 1,
+						name: p.title,
+						url: `${origin}/blog/${p.slug}`
+					}))
+				}
+			}
+		]
+	};
+}

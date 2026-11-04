@@ -185,15 +185,16 @@ Base styles target `320px+` viewports first, scaling upward via `min-width` medi
 
 ## 6. Mandatory CSS Verification Checklist
 
-Before committing any CSS or component change, run:
+Before committing any CSS or component change, follow the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md) and run:
 
 ```bash
 pnpm check:css       # Verifies 0 undeclared CSS custom properties and 0 hardcoded font family names across src/
 pnpm check           # svelte-check (0 errors, 0 warnings, including unused CSS selectors)
 pnpm lint            # Oxfmt + Oxlint + ESLint for Svelte files
-pnpm test:unit --run # Vitest unit tests
+pnpm test:unit --run # Vite+ server and browser-component tests
+pnpm build           # Complete Vite+ build, including maintenance output
+pnpm check:pages     # Prerendered-page contract (h1, skip link, canonical, FAQ parity)
 pnpm test:e2e        # Playwright end-to-end verification
-pnpm check:pages     # after `pnpm build`: prerendered-page contract (h1, skip link, canonical, FAQ parity)
 ```
 
 For the step-by-step procedure to add a page or component (files, wiring, tests, visual diff, known debt), follow [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md).

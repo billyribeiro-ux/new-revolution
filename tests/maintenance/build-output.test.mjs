@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 
 const script = resolve('scripts/maintenance-build.mjs');
 const canonicalCss = await readFile('src/app.css', 'utf8');
-async function build(enabled, check) {
+async function build(enabled, check, signupSetting) {
 	const dir = await mkdtemp(join(tmpdir(), 'maintenance-test-'));
 	try {
 		await mkdir(join(dir, '.vercel/output'), { recursive: true });
@@ -30,9 +30,12 @@ async function build(enabled, check) {
 			join(dir, '.vercel/output/config.json'),
 			JSON.stringify({ version: 3, routes: [{ handle: 'filesystem' }] })
 		);
+		const env = { ...process.env, MAINTENANCE_MODE: enabled ? 'true' : 'false' };
+		if (signupSetting === undefined) delete env.WAITLIST_SIGNUPS_ENABLED;
+		else env.WAITLIST_SIGNUPS_ENABLED = signupSetting;
 		execFileSync(process.execPath, [script], {
 			cwd: dir,
-			env: { ...process.env, MAINTENANCE_MODE: enabled ? 'true' : 'false' }
+			env
 		});
 		const routes = JSON.parse(
 			await readFile(join(dir, '.vercel/output/config.json'), 'utf8')
@@ -80,6 +83,50 @@ void test('normal deployment leaves pages available and exposes an uncached stat
 		assert.match(preview, /data:image\/png;base64,/);
 		assert.doesNotMatch(preview, /<!-- maintenance:/);
 	});
+});
+
+void test('emitted maintenance documents offer signup only when explicitly enabled', async () => {
+	for (const signupSetting of [undefined, 'false', '1', 'true']) {
+		await build(
+			true,
+			async (routes, dir) => {
+				const documents = [
+					invoke(dir, match(routes, '/').dest).body,
+					await readFile(join(dir, '.svelte-kit/output/client/maintenance/index.html'), 'utf8'),
+					await readFile(join(dir, '.vercel/output/static/maintenance/index.html'), 'utf8')
+				];
+				for (const html of documents) {
+					assert.doesNotMatch(html, /<!-- maintenance:/);
+					assert.match(html, /mailto:support@revolutiontradingpros\.com/);
+					assert.match(html, /id="market-chart"/);
+					assert.match(html, /<img\b[^>]*width="40"[^>]*height="40"/);
+					const inputs = [...html.matchAll(/<input\b[^>]*>/g)].map((match) => match[0]);
+					if (signupSetting === 'true') {
+						assert.match(html, /id="waitlist-form"/);
+						assert.match(html, /action="\/api\/waitlist\/signup"/);
+						assert.match(html, /Leave your email/);
+						assert.match(html, /The signup works without JavaScript/);
+						assert.equal(inputs.length, 4);
+						const ids = inputs.map((input) => {
+							assert.match(input, /\bname="[^"]+"/);
+							const id = input.match(/\bid="([^"]+)"/)?.[1];
+							assert.ok(id, `Missing input id: ${input}`);
+							return id;
+						});
+						assert.equal(new Set(ids).size, ids.length);
+					} else {
+						assert.equal(inputs.length, 0);
+						assert.doesNotMatch(
+							html,
+							/<form\b|Leave your email|Notify me when we reopen|The signup works without JavaScript|Confirm your email to join/
+						);
+						assert.match(html, /Our support desk is here if you need assistance/);
+					}
+				}
+			},
+			signupSetting
+		);
+	}
 });
 void test('maintenance deployment blocks pages, API, auth and nested routes before filesystem', async () => {
 	await build(true, async (routes, dir) => {

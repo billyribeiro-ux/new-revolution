@@ -16,6 +16,7 @@ You are not here to be agreeable. A run that finds zero defects is acceptable **
 
 # RUN CONDITIONS
 
+- **Use the existing Vite+ workflow.** Read [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md), use the project `pnpm` scripts and preserve the complete `pnpm build`, Svelte diagnostics and Svelte ESLint gates in every reproduction and documentation example.
 - **Start in a fresh session.** The previous session's reasoning must not be in your context; only files on disk count. If this session also performed the audit, STOP and tell the owner to run `/clear` or open a new session first.
 - Read `docs/seo/SEO_STANDARD.md` and `.claude/commands/seo-audit.md` in full. **All rules in seo-audit.md's "NON-NEGOTIABLE EVIDENCE RULES" apply here unchanged**: evidence tags, no memory-as-evidence, installed version wins, no fabricated content, no cheating the gates, and owner decisions belong to the owner.
 - Set inputs:

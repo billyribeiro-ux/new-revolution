@@ -8,6 +8,8 @@ Audit **every route and every concrete URL** in this repository against `docs/se
 
 You are done only when the final matrix (Phase 8) has **zero FAIL rows** and every PASS row cites evidence produced **in this session**.
 
+**Repository toolchain:** read [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md) before running commands or adding command examples. This project already uses Vite+. Use its `pnpm` scripts, including the complete `pnpm build`, and retain the separate Svelte diagnostics and ESLint gates.
+
 ---
 
 # INPUTS (fill in before running; if a value is blank, ask the owner before Phase 4)
@@ -70,7 +72,7 @@ These rules exist so that nothing in your output is unverified. Breaking any of 
 
 1. Confirm `docs/seo/SEO_STANDARD.md` exists and read **all** of it. If it's missing, STOP and tell the owner.
 2. Confirm the Svelte MCP is available (`list-sections` succeeds). If it isn't, tell the owner to run
-   `claude mcp add -t stdio -s project svelte -- npx -y @sveltejs/mcp`
+   `claude mcp add -t stdio -s project svelte -- pnpm dlx @sveltejs/mcp`
    and STOP.
 3. Record the versions from rule 3 in `docs/seo/audit/00-environment.md`.
 4. Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm lint` (if defined), `pnpm test` (if defined), and `pnpm build`. Record exit codes and warning counts.

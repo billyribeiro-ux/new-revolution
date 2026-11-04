@@ -27,20 +27,53 @@ a full document reload. See [waitlist operations](reviews/maintenance-waitlist/O
 configuration, privacy, encryption, scheduling and the outstanding cloud/mailbox release checks.
 
 Preview locally after `pnpm build` using `pnpm preview` and `/maintenance/index.html`. The local
-preview is not Vercel's routing engine. Capture defaults off until explicitly configured; an unavailable
-backend returns an honest error and never a saved-success message.
+preview is not Vercel's routing engine. Capture defaults off until explicitly configured.
+`WAITLIST_SIGNUPS_ENABLED=true` controls both generated signup markup at build time and API
+acceptance at runtime. Unset, `false` and other values omit the form and reopening-email promise;
+the support notice, chart and retry remain available. Enabling capture requires the documented
+database/provider/scheduler/mailbox evidence and a new build. An unavailable backend returns an
+honest error and never a saved-success message.
 
 Before production use, verify a Vercel preview with direct and nested URLs, an already-open tab from the normal integration deployment, 503 status/body and cache headers, API and health exceptions, assets, and a second deployment with maintenance off. Local route-table tests and `vercel dev` are not proof of deployed CDN behavior. Deployments may have skew-protected clients or intermediary caches; verify the actual hostname and deployment configuration used by visitors.
 
-## Active Vercel setup (2026-11-03)
+## Active Vercel setup (checked 2026-11-04)
 
 - Project: `new-revolution`, team `will-ribeiros-projects`; resumed with the verified maintenance deployment on `revolutiontradingpros.com` and `www.revolutiontradingpros.com`.
 - Production: `MAINTENANCE_MODE=true`. Preview: `MAINTENANCE_MODE=false`. These are build-time values; changing either requires a new build.
-- Development branch: `develop`. Use <https://new-revolution-git-develop-will-ribeiros-projects.vercel.app> for the normal application. It requires Vercel authentication. `new-revolution-topaz.vercel.app` is a Production alias, not the development Preview.
+- Only `main` is retained after branch consolidation. The former `develop` Preview URL records the earlier rollout; a deleted branch is not a current development workflow. `new-revolution-topaz.vercel.app` is a Production alias, not a development Preview.
 - Project build override: `pnpm build`. Auto-assignment of custom Production domains is disabled; merges can create staged Production builds, but serving them publicly requires deliberate promotion.
+- Production waitlist database, email/provider, encryption, rate-limit and capture-enable variables were absent at the release investigation. Capture stays off, with support-only page copy, until the waitlist release prerequisites are satisfied.
 - Preview has its own Neon database, `revolution-preview`, provisioned on `free_v3` in `iad1`. The existing two SQL migrations initialized 50 tables on the verified empty database. It is connected only to Preview; no Production database or admin account was provisioned by this operation. Configure Production services before eventually disabling maintenance. Preview media storage still needs its own Blob configuration before uploads can be used.
 - Preserve `ssr.noExternal` for `sanitize-html` and `htmlparser2` in `vite.config.ts`: the Vercel Node 24 loader rejected their external CommonJS-to-ESM require even though local Node 26 checks passed. After changing these dependencies or SSR bundling, verify deployed dynamic pages and unauthenticated admin API 401 responses, not just prerendered pages.
 
 For a future cutover from a paused or older deployment, temporarily protect **All Deployments** before resuming, keep automatic Production-domain assignment disabled, and verify the staged maintenance build before promoting it. Restore the existing authentication scope that exempts Production domains only after confirming the public domains point to maintenance. Vercel's resume operation reset `autoAssignCustomDomains` to `true` during this rollout; it was explicitly returned to `false`. Recheck the actual settings after resuming rather than assuming they remain unchanged.
 
 Deployment evidence and verification boundaries: [2026-11-03 rollout](reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md).
+
+## A merged release is not a published release
+
+On 2026-11-04, the public domains still served `dpl_A7dnFG1hp9gczTQdDXxKG71FsPM3`
+from November 3 while the newer `main` build was `READY`. The project setting
+`autoAssignCustomDomains=false` kept that newer build staged. A successful Git push, squash
+merge or green build does not prove the public maintenance page changed.
+
+For an owner-authorized production update:
+
+1. Complete the [Vite+ gates](VITE_PLUS_WORKFLOW.md), including `pnpm build`, generated-page
+   contracts, both capture states and browser verification. Confirm the merged commit SHA.
+2. Inspect the exact new **Production** deployment with `vercel inspect <deployment-id> --json`.
+   Confirm its commit, `READY` state and Production environment. Preview success is insufficient.
+3. Check that staged build with `vercel curl / --deployment <deployment-id>` and the applicable
+   nested paths, blocked APIs, immutable chart/font assets and no-store headers. Check capture
+   behavior against the actual Production configuration, without submitting real email addresses.
+4. Promote that verified deployment with `vercel promote <deployment-id> --scope will-ribeiros-projects`.
+   Keep automatic domain assignment disabled; it protects subsequent unverified builds.
+5. Independently fetch both public domains and load the canonical domain in a clean browser.
+   Verify the new hero and chart, 503/no-store response, support/capture state, image dimensions,
+   form identifiers, keyboard controls and narrow-screen layout. Record the deployment ID and
+   evidence before reporting the public update complete. If it fails, restore the last verified
+   maintenance deployment and investigate.
+
+Vercel documents this as [promoting a staged production build](https://vercel.com/docs/deployments/promoting-a-deployment)
+and provides the [promotion CLI](https://vercel.com/docs/cli/promote). Promotion reassigns the
+Production domains to the selected build; it is a separate release step.

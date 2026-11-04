@@ -4,6 +4,8 @@ You are implementing a complete blog authoring and publishing system in THIS rep
 
 ## 0. Operating rules (read first, obey throughout)
 
+**Current toolchain:** this repository already uses Vite+. Follow [`../AGENTS.md`](../AGENTS.md) and [`VITE_PLUS_WORKFLOW.md`](VITE_PLUS_WORKFLOW.md) for all commands and new documentation examples. Use the project pnpm scripts and local `pnpm exec vp` commands, retaining the complete build, Svelte diagnostics and Svelte ESLint gates.
+
 1. **Zero assumptions about THIS repo.** Before writing anything, read it: `package.json`, framework version, ORM, auth, CSS approach, icon library, test setup, existing admin layout, existing `$lib/server` conventions. Then write a short "Adaptation map" (a table: tx-360 concept -> this repo's equivalent, or "missing, I will create it"). Do not invent files that you have not looked for. Where this prompt names a library and this repo already uses a different one for the same job, use this repo's one and say so.
 2. **Read before write.** Never edit a file you have not read in this session.
 3. **Evidence over memory.** Every library API you use (TipTap 3, sanitize-html, Svelte 5 runes, SvelteKit remote functions, Drizzle, sharp, Vercel Blob, Shiki) must be checked against installed source or current docs, not recalled. If the Svelte MCP is available, call `list-sections`, then `get-documentation` for every relevant section, write the code, then run `svelte-autofixer` on every `.svelte` and `.svelte.ts` file until clean. If the rust or other MCPs are irrelevant, ignore them.

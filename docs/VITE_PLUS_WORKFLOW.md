@@ -12,6 +12,14 @@ Verified on 2026-11-03 with `node -v`, `pnpm --version`, `pnpm exec vp --version
 - `vite.config.ts` owns Vite+, `lint`, `fmt` and Vitest project configuration. Vitest has a Node `server` project and a Playwright-browser `client` project. `playwright.config.ts` separately configures E2E and SEO browser tests.
 - This is an application, not a `vp pack` library. The 2026-11-02 migration recorded no generated Vitest-v4 or tsdown compatibility settings; re-evaluate the actual configuration if the toolchain changes. See [the migration record](../CHANGELOG.md).
 
+## Documentation command policy
+
+Apply this workflow to every new or updated README, agent prompt, playbook, checklist and operational runbook. Check command examples against `package.json`, `pnpm-workspace.yaml` and `vite.config.ts` before publishing them. The project already uses Vite+; routine work must not introduce another toolchain or repeat its migration.
+
+Document normal development, build, preview, lint and test workflows using the existing `pnpm` scripts below. For a direct Vite+ operation, use `pnpm exec vp`; use its `fmt`, `lint` and `test` commands rather than standalone Vite, Vitest or Prettier commands. Retain `pnpm check` and the complete `pnpm lint` script for the separate Svelte diagnostics and ESLint requirements. Playwright, database scripts and other tools keep their existing purpose-specific commands.
+
+If an authorized tooling change alters a command or its behavior, update this reference and affected examples in the same change. Preserve commands and results in dated changelog, audit and review evidence; when citing an older command as an example, identify it as historical and point readers here for the current workflow.
+
 ## Commands: project scripts and Vite+ built-ins
 
 Run project scripts through pnpm. `pnpm exec vp <command>` invokes the locally installed Vite+ built-in; `pnpm exec vp run <script>` asks Vite Task to run the named project script. Built-ins and project scripts can have different behavior ([official Vite+ run guide](https://viteplus.dev/guide/run)). In particular:

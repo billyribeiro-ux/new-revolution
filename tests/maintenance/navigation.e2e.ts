@@ -61,6 +61,10 @@ test('an open app navigates to maintenance and recovers after deactivation', asy
 	expect(blocked?.status()).toBe(503);
 	await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
 	await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
+	await expect(page.getByRole('link', { name: 'Skip to content' })).toHaveCSS(
+		'color',
+		'rgb(17, 21, 26)'
+	);
 	maintenance = false;
 	const restored = await page.goto('http://localhost:4173/about');
 	expect(restored?.status()).toBe(200);

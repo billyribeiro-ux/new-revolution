@@ -40,3 +40,16 @@ The build retains existing large application-chunk and optional Sharp tracing no
 Before promotion, inspect the merged commit's exact Production deployment and verify it through authenticated Vercel access: new hero, chart assets, disabled capture/support fallback, nested-route 503s, blocked APIs, privacy exception and no-store headers. Then promote that exact build and repeat browser/HTTP checks on both public hostnames. Save the deployment ID and public verification output in the release handoff.
 
 Production waitlist capture stays off until the separate database, provider, scheduler and real-mailbox prerequisites in [the waitlist operations guide](../maintenance-waitlist/OPERATIONS.md) pass. This release does not claim that email collection or delivery is configured.
+
+## Keyboard contrast follow-up
+
+The first public deployment exposed a separate contrast defect during final screenshot/keyboard QA:
+the focused skip link computed to `rgb(244, 245, 240)` on `rgb(220, 255, 101)`. The unlayered
+`.maintenance-page a:not(.maintenance-action)` rule overrode the shared layered skip-link ink color.
+Excluding `.skip` from that selector restores `var(--ink)` without duplicating the token value.
+
+The new focused-state browser assertion first failed with the white text, then passed with the
+corrected selector. The required local gates and the additional three-engine maintenance pass were
+rerun, including all 38 authenticated browser tests with no skips and 24 maintenance cases. Because
+the CLS session still owned port 4173, this follow-up used an ignored copy of the full test tree with
+only localhost origins changed to port 4198; test assertions and thresholds remained identical.

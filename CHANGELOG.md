@@ -9,6 +9,17 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-04 — Maintenance release and capture readiness
+
+- Diagnose the public-domain mismatch: manual domain promotion left the November 3 deployment live after later successful builds. Add an explicit staged Production verification, promotion and public-domain completion checklist.
+- Render the signup form, invitation and no-JavaScript signup promise only when capture is explicitly enabled. Production currently lacks the required waitlist services, so the support notice and simulated chart remain usable without advertising failing capture.
+- Give every maintenance form input a unique identifier while preserving names and labels. Test actual generated documents in both capture states, native markup, explicit image dimensions and browser rendering.
+
+### 2026-11-04 — Vite+ documentation command policy
+
+- Require all new and updated operational documentation and agent prompts to follow the existing local Vite+ workflow and project pnpm scripts, including the complete build and separate Svelte diagnostics/ESLint gates.
+- Replace remaining actionable `npx` examples with `pnpm dlx`, align media-preview instructions with the actual Vite+ scripts, and add the complete build to the CSS verification checklist. Preserve dated command evidence as historical records.
+
 ### 2026-11-04 — Consolidated repository history
 
 - Verify that all remaining branch changes are already integrated in `main`, including the Vite+ documentation, diagnostics fixes, production maintenance rollout and verified waitlist.

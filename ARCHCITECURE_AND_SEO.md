@@ -4,6 +4,8 @@
 
 ---
 
+**Current toolchain:** this repository already uses Vite+. Follow [`AGENTS.md`](AGENTS.md) and [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md) for all commands and tooling examples. Use the project `pnpm` scripts, including `pnpm build` for the complete application and maintenance output; use `pnpm exec vp` for direct Vite+ operations. Keep the Svelte diagnostics and Svelte ESLint gates.
+
 ## 1. BRAND IDENTITY, CORE ETHOS & VERIFIED AUTHORITY PILLARS
 
 Every marketing page, component, metadata tag, and JSON-LD schema block must faithfully reflect our core identity:

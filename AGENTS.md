@@ -22,6 +22,13 @@ script. `pnpm check` runs Svelte diagnostics; `pnpm lint` also runs ESLint for S
 Neither `vp check` nor `vp test` replaces all project checks. Preserve the Vite+/Vite/Vitest catalog
 alignment and existing test coverage. Do not migrate or upgrade the toolchain unless the task calls for it.
 
+Every new or updated README, agent prompt, playbook and operational runbook must follow this
+Vite+ command contract. Use the existing `pnpm` scripts for project workflows and `pnpm exec vp`
+for direct Vite+ commands; do not recommend standalone Vite, Vitest or Prettier commands. Verify
+examples against `package.json` and `vite.config.ts`, and update `docs/VITE_PLUS_WORKFLOW.md`
+when an authorized tooling change alters the workflow. Keep dated evidence accurate about the
+commands actually run, and label it as historical when it could be mistaken for current instructions.
+
 ---
 
 ## 0. When Asked For An SEO Audit

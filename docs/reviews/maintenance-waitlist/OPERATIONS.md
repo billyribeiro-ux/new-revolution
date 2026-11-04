@@ -1,7 +1,9 @@
 # Maintenance waitlist operations
 
-Implementation branch: `docs/maintenance-chart-waitlist-plan`. No production deployment,
-provider setup, live email sends or production migration is performed by this change.
+The implementation was merged from the former `docs/maintenance-chart-waitlist-plan` branch.
+That implementation did not configure Production services or send live email. The maintenance
+page can be published with capture off; provider setup, live mailbox verification and Production
+migration remain separate prerequisites for enabling email capture.
 
 The owner requested continuous playback on 2026-11-04. The current dataset is deterministic
 **simulated demonstration data**, explicitly labeled in the panel and accessible table.
@@ -31,7 +33,10 @@ following. The form initializes independently of chart/GSAP loading.
    Do not rely on the unrelated publisher cron or background promises. Daily-only scheduling
    does not provide prompt retries. Configure sufficient function duration for the batch.
 5. Set `WAITLIST_SIGNUPS_ENABLED=true` only after the controlled mailbox test, scheduler, and staged Vercel route/cache verification pass.
-   Changes to deployed environment values require redeployment. Public promotion is separate.
+   This value controls emitted signup markup during `pnpm build` as well as runtime acceptance.
+   Without the exact value `true`, the page offers support and omits the form and reopening-email
+   invitation. Changes require a new build. Verify and promote the exact Production deployment;
+   merging to `main` alone does not update the public domains.
 
 The POST signup response is 202 only after durable storage; it does not claim delivery or
 confirmed membership. A database error yields 503. The first send is bounded to 8 seconds

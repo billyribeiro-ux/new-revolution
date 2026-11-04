@@ -50,7 +50,7 @@ For PNG/JPEG/AVIF/WebP uploads the pipeline therefore also stores up to three We
 
 ## End-to-end tests
 
-`playwright.config.ts` builds and runs `vite preview` on port 4173. `vite preview` runs with `NODE_ENV=production`, where the driver
+`playwright.config.ts` runs `pnpm run build && pnpm run preview` on port 4173 using the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md). The complete build includes maintenance output. `pnpm preview` runs with `NODE_ENV=production`, where the driver
 selector refuses to guess, so the e2e `webServer.env` sets `MEDIA_STORAGE=disk` (files go to `.data/media`, served by `/media/[...path]`)
 and `ORIGIN=http://localhost:4173` (media URLs are absolute `<ORIGIN>/media/...`, so ORIGIN must equal the preview origin). This applies to the
 e2e server only. `src/routes/admin/image-flow.e2e.ts` uploads through the UI and deletes its media, post and tag afterwards.

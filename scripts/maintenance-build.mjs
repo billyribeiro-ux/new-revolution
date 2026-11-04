@@ -78,7 +78,23 @@ async function renderMaintenancePage() {
 	const data = (await readFile(new URL('../static/icon-192.png', import.meta.url))).toString(
 		'base64'
 	);
+	// The public page must not invite submissions while the API deliberately rejects them.
+	const signupsEnabled = process.env.WAITLIST_SIGNUPS_ENABLED === 'true';
 	const html = template
+		.replace('<!-- maintenance:introduction -->', () =>
+			signupsEnabled
+				? 'We’re working on the next chapter of Revolution Trading Pros. Leave your email and we’ll let you know when the platform reopens.'
+				: 'We’re working on the next chapter of Revolution Trading Pros. Please check back soon. Our support desk is here if you need assistance.'
+		)
+		.replace(
+			/<!-- maintenance:signup:start -->([\s\S]*?)<!-- maintenance:signup:end -->/,
+			(_, form) => (signupsEnabled ? form : '')
+		)
+		.replace('<!-- maintenance:noscript -->', () =>
+			signupsEnabled
+				? 'The signup works without JavaScript. Refresh this page to check whether access has been restored.'
+				: 'Refresh this page to check whether access has been restored.'
+		)
 		.replace(
 			'<!-- maintenance:client -->',
 			() => `<script type="module" src="/_app/immutable/maintenance/${clientEntry}"></script>`
@@ -98,6 +114,7 @@ async function renderMaintenancePage() {
 			() =>
 				`<img class="maintenance-emblem" src="data:image/png;base64,${data}" alt="" width="40" height="40" />`
 		);
+	if (/<!-- maintenance:/.test(html)) throw new Error('Unresolved maintenance template marker');
 	for (const output of [
 		`${clientDir}/maintenance/index.html`,
 		'.vercel/output/static/maintenance/index.html'

@@ -348,9 +348,9 @@
 						A stronger trading experience <span>is on the way.</span>
 					</h1>
 					<p class="maintenance-lede">
-						We’re working on the next chapter of Revolution Trading Pros. Leave your email and we’ll
-						let you know when the platform reopens.
+						<!-- maintenance:introduction -->
 					</p>
+					<!-- maintenance:signup:start -->
 					<form
 						class="waitlist-form"
 						id="waitlist-form"
@@ -368,14 +368,25 @@
 							placeholder="you@example.com"
 							required
 						/>
-						<label class="waitlist-consent"
-							><input name="consent" type="checkbox" required /><span
+						<label class="waitlist-consent" for="waitlist-consent"
+							><input id="waitlist-consent" name="consent" type="checkbox" required /><span
 								>Email me when Revolution Trading Pros reopens. Unsubscribe anytime.</span
 							></label
 						>
-						<input type="hidden" name="consentVersion" value="reopening-2026-11-04" />
+						<input
+							id="waitlist-consent-version"
+							type="hidden"
+							name="consentVersion"
+							value="reopening-2026-11-04"
+						/>
 						<div class="waitlist-trap" aria-hidden="true">
-							<label>Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+							<label for="waitlist-website"
+								>Website<input
+									id="waitlist-website"
+									name="website"
+									tabindex="-1"
+									autocomplete="off"
+							/></label>
 						</div>
 						<button class="maintenance-action maintenance-primary" type="submit">
 							Notify me when we reopen <span aria-hidden="true">&nbsp;↗</span>
@@ -386,6 +397,7 @@
 							<a href="/privacy-policy">Privacy policy</a>
 						</p>
 					</form>
+					<!-- maintenance:signup:end -->
 					<p class="maintenance-support">
 						Need a hand? <a href="mailto:support@revolutiontradingpros.com">Email support</a>
 					</p>
@@ -394,8 +406,7 @@
 					</button>
 					<noscript
 						><p class="maintenance-helper">
-							The signup works without JavaScript. Refresh this page to check whether access has
-							been restored.
+							<!-- maintenance:noscript -->
 						</p></noscript
 					>
 				</div>

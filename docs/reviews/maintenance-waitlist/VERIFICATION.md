@@ -88,3 +88,17 @@ transfer/CWV measurements were not independently certified by these local viewpo
 
 See [operations and rollout requirements](OPERATIONS.md). The browser handoff host was unavailable;
 local preview and the saved screenshots remain available for review.
+
+## Pre-merge revalidation
+
+[PR #21](https://github.com/billyribeiro-ux/new-revolution/pull/21) contains the implementation.
+Application revision `fab86a3` was rebased onto `origin/main` at `f8bb878` without conflicts.
+The full required gate was rerun before pushing: CSS tokens passed; Svelte/type diagnostics
+reported 0 errors and 0 warnings; lint passed; 75 unit/component files with 549 tests passed;
+`pnpm build` passed; 47 prerendered page contracts passed; all 3 standalone SEO tests passed;
+all 36 full browser tests passed with no skips; and 3 maintenance build-output tests passed.
+
+The first standalone SEO attempt encountered another process temporarily using port 4173.
+That process exited; the unmodified suite was rerun successfully. No test thresholds or
+assertions changed. A unique local test admin was revoked after the full authenticated run.
+Public capture and production migration remain subject to the operations prerequisites.

@@ -26,7 +26,7 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Recently finished
 
-- **Maintenance chart and verified waitlist (Codex, 2026-11-04; branch `docs/maintenance-chart-waitlist-plan`, no PR):** implementation and local verification complete. Sources, migration, operational handlers, queue, chart and privacy updates stay in this branch worktree. Production/Resend setup, supported scheduling, real mailbox delivery and staged Vercel verification remain release prerequisites. Evidence: `docs/reviews/maintenance-waitlist/VERIFICATION.md`.
+- **Maintenance chart and verified waitlist (Codex, 2026-11-04; branch `docs/maintenance-chart-waitlist-plan`, PR #21):** implementation and local verification complete. Sources, migration, operational handlers, queue, chart and privacy updates stay in this branch worktree. Production/Resend setup, supported scheduling, real mailbox delivery and staged Vercel verification remain release prerequisites. Evidence: `docs/reviews/maintenance-waitlist/VERIFICATION.md`.
 
 - **Maintenance chart / verified waitlist planning (Codex, 2026-11-03; no PR):** `docs/maintenance-chart-waitlist-plan` adds `docs/MAINTENANCE_EXPERIENCE_PLAN.md` and a changelog entry. Verified installed packages, source behavior, official API guidance and Vercel environment scopes; Markdown formatting and whitespace checked. Planning only: no application, schema, email sends or deployment changes.
 

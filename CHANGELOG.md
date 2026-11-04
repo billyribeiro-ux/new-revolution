@@ -11,6 +11,7 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-04 — Maintenance release and capture readiness
 
+- Keep the keyboard skip link's text on the SSOT ink color: the template's unlayered anchor styling otherwise overrides the shared layered rule and produces low-contrast white text on chartreuse. Verify the focused link in the browser.
 - Diagnose the public-domain mismatch: manual domain promotion left the November 3 deployment live after later successful builds. Add an explicit staged Production verification, promotion and public-domain completion checklist.
 - Render the signup form, invitation and no-JavaScript signup promise only when capture is explicitly enabled. Production currently lacks the required waitlist services, so the support notice and simulated chart remain usable without advertising failing capture.
 - Give every maintenance form input a unique identifier while preserving names and labels. Test actual generated documents in both capture states, native markup, explicit image dimensions and browser rendering.

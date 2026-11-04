@@ -24,6 +24,8 @@ No active work is currently claimed.
 
 ## Recently finished
 
+- **Maintenance keyboard contrast (Codex, 2026-11-04; PR #23):** a final deployed-browser check found the shared layered skip-link color overridden by unlayered maintenance anchor styling. Exclude the skip link from the generic anchor override so its shared `var(--ink)` color wins, and assert its computed focused color. Preserve the separate active CLS worktree.
+
 - **Maintenance release repair (Codex, 2026-11-04; PR #22):** add configuration-aware maintenance markup, unique form identifiers, enabled/disabled generated-output regressions, explicit Production promotion/public-verification instructions and the Vite+ documentation policy. Local gates passed: 549 unit/component tests, 38 authenticated browser tests (no skips), 3 SEO tests, 47 page contracts, 4 build-output tests and 24 additional three-engine maintenance cases. Production capture remains off until its service prerequisites pass. Evidence: `docs/reviews/maintenance-release/VERIFICATION.md`.
 
 - **Vite+ documentation policy (Codex, 2026-11-04; included in PR #22):** require current pnpm scripts and the project-local Vite+ CLI throughout operational docs and agent prompts. Correct remaining actionable npx examples, media-preview wording and the missing full build in CSS verification; keep dated command evidence intact. Verified changed-file Oxfmt, added local links, package-script alignment, identical SEO-standard copies and whitespace. The policy itself changes documentation only; it is included in the verified maintenance release. No toolchain migration or dependency changes.

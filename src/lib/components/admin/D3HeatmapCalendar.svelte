@@ -35,17 +35,36 @@
 		return `${y}-${m}-${day}`;
 	}
 
+	/** First drawn Sunday and "now". Shared by the drawing and the text alternative. */
+	function windowBounds(): { today: Date; startDate: Date } {
+		const today = new Date();
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- transient local, not reactive state
+		const startDate = new Date(today);
+		startDate.setDate(startDate.getDate() - weeks * 7);
+		startDate.setDate(startDate.getDate() - startDate.getDay()); // Align to Sunday
+		return { today, startDate };
+	}
+
+	/**
+	 * Text alternative for the mouse-only cell tooltips: exactly the days the
+	 * grid draws that carry fetched data, oldest first.
+	 */
+	const tableRows = $derived.by(() => {
+		const { today, startDate } = windowBounds();
+		const from = localDateKey(startDate);
+		const to = localDateKey(today);
+		return data
+			.filter((d) => d.date >= from && d.date <= to)
+			.sort((a, b) => a.date.localeCompare(b.date));
+	});
+
 	function render() {
 		if (!svgEl) return;
 
 		const svg = select(svgEl);
 		svg.selectAll('*').remove();
 
-		const today = new Date();
-		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- transient local, not reactive state
-		const startDate = new Date(today);
-		startDate.setDate(startDate.getDate() - weeks * 7);
-		startDate.setDate(startDate.getDate() - startDate.getDay()); // Align to Sunday
+		const { today, startDate } = windowBounds();
 
 		// Build a map of date -> value
 		const map = new Map(data.map((d) => [d.date, d.value]));
@@ -209,8 +228,22 @@
 </script>
 
 <div class="heatmap-wrap" {@attach chart}>
-	<svg role="img" aria-label="Activity heatmap"></svg>
+	<svg role="img" aria-label="Daily activity heatmap for the last {weeks} weeks"></svg>
 	<div class="heatmap-tooltip"></div>
+	<!-- A table ignores .sr-only's 1px size; this wrapper is what actually contains it. -->
+	<div class="sr-only">
+		<table data-testid="heatmap-data">
+			<caption>Views per day, last {weeks} weeks</caption>
+			<thead>
+				<tr><th scope="col">Date</th><th scope="col">Views</th></tr>
+			</thead>
+			<tbody>
+				{#each tableRows as row (row.date)}
+					<tr><th scope="row">{row.date}</th><td>{row.value.toLocaleString()}</td></tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <style>

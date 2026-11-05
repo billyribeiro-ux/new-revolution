@@ -675,49 +675,6 @@ export const EBOOK_PROFILES = [
 
 export type EbookProfile = (typeof EBOOK_PROFILES)[number];
 
-export interface BlogArticle {
-	id: string;
-	coverVariant: 'cover1' | 'cover2' | 'cover3';
-	coverLabel: string;
-	meta: string;
-	title: string;
-	excerpt: string;
-	href: string;
-}
-
-export const BLOG_ARTICLES: readonly BlogArticle[] = [
-	{
-		id: 'oxy-put-options',
-		coverVariant: 'cover1',
-		coverLabel: 'OPTIONS CASE STUDY / MARKET STRUCTURE',
-		meta: 'OPTIONS CASE STUDY • OCT 2026',
-		title: 'Institutional Order Flow & the S&P 500 Gamma Flip Playbook',
-		excerpt:
-			'How institutional dealer gamma positioning, zero-gamma flip levels, and call/put walls govern intraday S&P 500 index price action.',
-		href: '/blog/institutional-order-flow-and-gamma-flip-playbook'
-	},
-	{
-		id: 'small-account-blueprint',
-		coverVariant: 'cover2',
-		coverLabel: 'SMALL ACCOUNTS / CAPITAL PROTECTION',
-		meta: 'SMALL ACCOUNTS • OCT 2026',
-		title: '0DTE SPX Options Risk Management & Position Sizing Rules',
-		excerpt:
-			'How position sizing, contract selection, settlement, and hard invalidation stops protect limited capital during intraday index sessions.',
-		href: '/blog/zero-dte-risk-management-and-position-sizing-rules'
-	},
-	{
-		id: 'swing-trading-professionals',
-		coverVariant: 'cover3',
-		coverLabel: 'WORKING PROFESSIONALS / SWING SETUPS',
-		meta: 'SWING TRADING • OCT 2026',
-		title: 'How Working Professionals Use Video Watchlists & Planned Stops',
-		excerpt:
-			'Build a repeatable market review around your schedule with video watchlists, pre-set triggers, and pre-defined risk.',
-		href: '/blog'
-	}
-] as const;
-
 export interface FaqItem {
 	id: string;
 	question: string;

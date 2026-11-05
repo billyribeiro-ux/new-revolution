@@ -1,6 +1,10 @@
 # Admin Access, Better Auth and Blog Backend: Audit and Implementation Plan
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 > **2026-11-05 blog audit:** use [the current publishing guide](../blog%20implementation.md) and [audit evidence](reviews/blog-audit-2026-11-05/AUDIT.md) for current blog operations. The dated progress records below are historical. This audit changes documentation and adds read-only probes; it does not change admin/auth/database behavior. In particular, Trash restore currently returns a draft, author identity and timestamp policy still have recorded discrepancies, and hosted CDN purging is not connected.
+
+> **2026-11-05 discovery follow-up:** homepage/blog cards now share a CMS query with a single featured/newest lead and paginated remaining publications. The homepage is SSR so publication requires no rebuild; no-store reads apply to those two listings. This is separate from the historical admin plan below and the still-proposed intake importer. See [the handoff](BLOG_AGENT_HANDOFF.md).
 
 Status: **plan, nothing implemented yet** (branch `docs/admin-auth-plan`, base `origin/main` 5517043, 2026-10-31).
 Companion files: [`CHANGELOG.md`](../CHANGELOG.md), [`TEMPORARY.md`](TEMPORARY.md),

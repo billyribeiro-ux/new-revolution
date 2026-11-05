@@ -1,5 +1,4 @@
 import {
-	BLOG_ARTICLES,
 	MAIN_NAVIGATION,
 	MEMBERSHIP_TIERS,
 	STORE_TOOLS,
@@ -10,6 +9,7 @@ import { featuredETFs } from '#lib/data/etf-stocks-list.ts';
 import { indicatorsCatalog } from '#lib/data/indicators.ts';
 import { FOUNDER, SOCIAL_LINKS, SUPPORT_CONTACT } from '#lib/data/site.ts';
 import { isLaunchedHref, isUnlaunchedRoute } from '#lib/data/launch-gate.ts';
+import type { BlogCardPost } from '#lib/shared/blog/discovery';
 
 export const BRAND_NAME = 'Revolution Trading Pros';
 export const BRAND_SLOGAN = 'Educate. Innovate. Prosper.';
@@ -365,10 +365,10 @@ export function buildWebSiteEntity(origin: string) {
 	};
 }
 
-export function buildHomepageJsonLd(origin: string) {
+export function buildHomepageJsonLd(origin: string, articles: readonly BlogCardPost[] = []) {
 	const navigationElements = buildNavigationElements(origin);
-	// The homepage blog section is hidden while /blog is gated, so its list must not be in the graph either.
-	const blogListed = isLaunchedHref('/blog');
+	// Discoverable schema respects launch policy and never advertises unsaved editorial placeholders.
+	const blogListed = isLaunchedHref('/blog') && articles.length > 0;
 
 	return {
 		'@graph': [
@@ -414,11 +414,11 @@ export function buildHomepageJsonLd(origin: string) {
 							'@type': 'ItemList',
 							'@id': `${origin}/#latest-blogs`,
 							name: 'Latest Market Intelligence Articles',
-							numberOfItems: BLOG_ARTICLES.length,
-							itemListElement: BLOG_ARTICLES.map((article, idx) => ({
+							numberOfItems: articles.length,
+							itemListElement: articles.map((article, idx) => ({
 								'@type': 'ListItem',
 								position: idx + 1,
-								url: `${origin}${article.href}`,
+								url: `${origin}/blog/${article.slug}`,
 								name: article.title
 							}))
 						}

@@ -1,5 +1,7 @@
 # IMPLEMENTATION PROMPT: Production blog editor + blog system (port from tx-360)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 You are implementing a complete blog authoring and publishing system in THIS repository. It is a port of a system that already runs in production in another repo ("tx-360", a SvelteKit marketing site with an admin CMS). Everything below was audited from that source code with file and line evidence. Your job is to reproduce the strengths, and fix the listed defects instead of copying them.
 
 ## 0. Operating rules (read first, obey throughout)

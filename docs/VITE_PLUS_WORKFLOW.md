@@ -1,5 +1,7 @@
 # Vite+ workflow for this repository
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 This is the agent-facing reference for running, checking and changing this project's toolchain. Read it before choosing development, build, test, formatting or upgrade commands. `AGENTS.md`, the relevant task playbook and explicit user instructions still apply. Recheck `package.json`, `pnpm-workspace.yaml`, `pnpm-lock.yaml` and `vite.config.ts` rather than assuming the snapshot below remains current.
 
 ## Current setup
@@ -60,6 +62,8 @@ The committed `tsconfig.json` extends `$app/tsconfig` and lists `$app/types`, `n
 3. `pnpm exec tsc --noEmit` is a useful supplementary check; `pnpm check` remains required for Svelte files. Both commands include `src`, `scripts` and `tests` through the root config. Plain TypeScript sees Svelte's ambient `*.svelte` fallback rather than the component's generic declaration. When a test needs a concrete generic component, specialize it in a small typed Svelte fixture (see `src/lib/components/ui/__tests__/CatalogGridFixture.svelte`), then render that fixture. Do not cast to `any`, suppress errors or remove props checks. See [Svelte's TypeScript and generic-props documentation](https://svelte.dev/docs/svelte/typescript).
 
 ## Authenticated browser verification
+
+The homepage and CMS blog use request-time SSR for automatic publication discovery (owner requirement, 2026-11-05). `pnpm check:pages` covers the remaining static output; raw-HTML and browser tests separately verify homepage/blog cards. A lower static page count caused by this documented rendering change is not a skipped homepage check. Preserve the full build, all SEO/CWV thresholds and authenticated E2E.
 
 The admin suites skip when `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` are absent. Report those skips; they do not verify admin behavior. For a complete local run, use an isolated worktree, a throwaway account and `DATABASE_URL=pglite://e2e` for both seeding and Playwright. This selects the local `.svelte-kit/pglite-blog` file. The default `memory://e2e` creates a fresh in-memory database and cannot share a seeded account with the preview process.
 

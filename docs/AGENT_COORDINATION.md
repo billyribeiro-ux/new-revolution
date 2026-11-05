@@ -1,5 +1,7 @@
 # Agent Coordination (multiple sessions, one repository)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 The owner runs several AI sessions at once against this repo. They share one checkout and one remote.
 This file is how they avoid colliding. Read it **before** you start; update it **when** you start and finish.
 
@@ -20,10 +22,15 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                     | Owner session                   | Area / files claimed                                                                                                                                   | Started    | Status                                                                                                                            |
+| -------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/blog-audit-20261105` | Codex shared CMS blog discovery | Home/blog route loaders and components, shared blog discovery service/types/tests, homepage schema/data, cache tags and applicable documentation/tests | 2026-11-05 | Implementing owner-requested automatic listings and featured placement; preserve public maintenance and content review boundaries |
 
 ## Recently finished
+
+- **Blog handoff coverage (Codex, 2026-11-05; `docs/blog-audit-20261105`, no PR):** add the shared handoff and dated references across 40 agent-facing Markdown entry points, explicitly import it in Claude, update the changelog and correct the missing static blog-data-file recipe. Verify all handoff references/links, front matter, SEO-standard parity, preserved reference artifacts, formatting and whitespace. Documentation only; no application, CMS or deployment changes.
+
+- **Blog automation design (Codex, 2026-11-05; `docs/blog-audit-20261105`, no PR):** review all 164 official Svelte/Kit MCP sections; add a source-based package/validator/draft-import/preview plan and documentation coverage ledger. Clarify that JSON-LD already derives from CMS content. Validate changed-file formatting, local links, package-script examples, ledger partition and whitespace. No application implementation, content import, dependency upgrade or deployment.
 
 - **Blog audit and 0DTE plan (Codex, 2026-11-05; local branch `docs/blog-audit-20261105`, no PR requested):** document the complete CMS workflow and 17 engineering findings, review the original brief against current primary sources, and add the agent publishing guide linked from `AGENTS.md`. Evidence: `docs/reviews/blog-audit-2026-11-05/`. Final unit repeat: 559 passed; authenticated E2E: 39 passed without skips; standalone SEO: 3 passed; 47 static page contracts; Svelte MCP: 30 components. Four dependency advisories and the recorded content/launch blockers remain open. No application, hosted data or deployment changes; local throwaway admin revoked.
 

@@ -1,5 +1,7 @@
 # Blog Route & Publication Coverage Matrix (`docs/blog/COVERAGE_MATRIX.md`)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 **Phase 0 baseline, re-generated after Phase 1a** · **Generated:** 2026-11-02 from branch `feat/blog-phase1-cache-pagination` · **Tool:** `node scripts/blog-coverage-probe.mjs <baseUrl>`
 
 Verdicts: **pass**, **fail** (against the decisions in report Part C or the requirements in Part A), **n/a**, **not verified** (no evidence gathered yet; not a pass).

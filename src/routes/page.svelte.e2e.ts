@@ -359,10 +359,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(sitemapXml).not.toContain('/demo/');
 
-		// The homepage must not link to the gated blog or store (its blog cards pointed at URLs that 500 on a
-		// deployment without a database).
-		await expect(page.locator('.blog-card')).toHaveCount(0);
-		await expect(page.locator('main a[href*="blog"], main a[href*="store/"]')).toHaveCount(0);
+		// CMS-backed blog discovery is an owner-approved homepage exception. Store promotions stay gated.
+		await expect(page.locator('main a[href*="store/"]')).toHaveCount(0);
+		await expect(page.locator('#blog')).toBeVisible();
+		await expect(page.locator('#blog a[href$="/blog"]')).toBeVisible();
 
 		// The sitemap must only list live URLs, and must not stamp unverifiable dates on them.
 		const locs = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(

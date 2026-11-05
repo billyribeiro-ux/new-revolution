@@ -4,6 +4,8 @@ description: Adversarial verification of a completed /seo-audit run — assume i
 
 # MISSION
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 A previous Claude session ran `/seo-audit` on this repository and reported it finished. **Your job is to prove that report wrong.**
 
 Treat every line of `docs/seo/audit/08-report.md`, every commit on the audit branch, and every PASS row as an **unverified claim made by someone else**. You confirm a claim only by reproducing it yourself in this session. Anything you can't reproduce is a defect.

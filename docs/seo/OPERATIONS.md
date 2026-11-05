@@ -1,5 +1,7 @@
 # Technical SEO Operations & Verification Runbook (`docs/seo/OPERATIONS.md`)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 **Updated:** 2026-10-31
 **Companion Standard:** [`docs/seo/SEO_STANDARD.md`](SEO_STANDARD.md)
 **Recorded Owner Decisions:** [`docs/seo/DECISIONS.md`](DECISIONS.md)

@@ -9,6 +9,28 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Automatic CMS blog placement
+
+- Replace hardcoded homepage blog placeholders with the same public CMS discovery service used by `/blog`. Marked featured content leads; otherwise the newest eligible publication leads automatically. Exclude the lead before paginating the remaining articles, with all older articles reachable and no duplicate lead card.
+- Render actual covers and CMS card data on both surfaces, with one featured lead, responsive regular grids, homepage pagination and honest empty/unavailable states. Preserve draft/private/fixture/expiry visibility rules and derive homepage schema from visible saved cards after launch.
+- Make the homepage an explicit SSR exception to static marketing rendering so publishing needs no rebuild; homepage/blog-index reads are no-store. Document the owner-requested homepage discovery exception while retaining public maintenance and other launch protections.
+- Add shared-query database tests and focused component tests; extend authenticated image-flow E2E to prove a draft is absent and its publication appears in initial HTML and mobile/desktop cards on both pages. Update the publishing guide, agent handoff, rendering policy and operational records. The separate intake automation and article import remain unimplemented.
+- Final checks: 575 unit/component tests, 40 authenticated E2E tests with no skips, 3 SEO tests and 46 static page contracts pass. Retain four reviewed mobile/desktop publishing screenshots and clean Svelte MCP results in `docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md`; homepage SSR is verified separately from the remaining static pages.
+
+### 2026-11-05 — Blog handoff across agent documentation
+
+- Add `docs/BLOG_AGENT_HANDOFF.md` as the shared current-status and required-reading entry point for blog work, with an explicit inventory of 40 existing agent-facing Markdown files.
+- Add dated handoff references to agent configuration, README, engineering/SEO standards, prompts, playbooks and operational runbooks. Import the handoff explicitly from `CLAUDE.md`; preserve byte-identical SEO-standard copies and original editorial/evidence artifacts.
+- Make the current CMS workflow, automatic data-driven JSON-LD, proposed-but-unimplemented intake tooling, Svelte MCP review evidence and publication/launch boundaries discoverable from every inventoried entry point. No application or hosted content changes.
+- Correct the new-page playbook's obsolete instruction to edit the nonexistent `src/lib/data/blog-hub.ts`; point CMS card edits to saved post records and the publishing guide. Verify all 40 handoff references and their links, the Claude import, front matter and SEO-standard parity; check formatting across the 44 files in this documentation follow-up.
+
+### 2026-11-05 — Blog intake automation design
+
+- Add `docs/blog/AUTOMATION_PLAN.md` with a versioned package contract, shared preparation/report service, authenticated one-package draft intake, durable retry/conflict handling, real-media verification and content-specific preview acceptance criteria.
+- Clarify in `blog implementation.md` that post JSON-LD already derives from CMS fields and does not need a manual title entry. Link the proposed automation and distinguish it from the existing executable API workflow.
+- Review the official Svelte/SvelteKit MCP documentation and verify the installed Svelte 5.57.3 / Kit 3.1.1 baseline. Record that a 3.2.0 release could not be verified on November 5, 2026; preserve the existing toolchain and rendering architecture.
+- Documentation only: the intake tooling and publication/cache hardening remain implementation work. No application code, dependencies, CMS records, media, launch flags or deployments changed.
+
 ### 2026-11-05 — Blog workflow audit and 0DTE publication plan
 
 - Audit the blog routes, editor, service/transaction lifecycle, previews, taxonomy, media, scheduled publishing, metadata, feeds, caching and launch gate. Preserve source, HTTP, browser, dependency and Svelte MCP evidence in `docs/reviews/blog-audit-2026-11-05/`.

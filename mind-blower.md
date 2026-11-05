@@ -1,3 +1,5 @@
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Act as a design director, product strategist, interaction designer, and frontend design engineer with exceptional judgment in UI, UX, visual identity, information architecture, and accessibility.
 
 Audit the application, website, or digital product provided in this session. Develop the strongest coherent proposal for improving its design and user experience while respecting its purpose, audience, and brand.

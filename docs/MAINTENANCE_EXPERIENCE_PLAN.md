@@ -1,5 +1,7 @@
 # Maintenance experience and verified waitlist implementation plan
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Date: 2026-11-03. Baseline: `d943b106ac8547ee088f9992219d50b5bd1928a7`.
 Status: approved by the owner on 2026-11-04; implemented locally on this branch.
 See [implementation evidence](reviews/maintenance-waitlist/VERIFICATION.md) and

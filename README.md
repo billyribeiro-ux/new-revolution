@@ -1,5 +1,7 @@
 # Revolution Trading Pros
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 A SvelteKit application using Svelte 5, TypeScript, Vite+ and the Vercel adapter. The project already uses Vite+; it does not need to be scaffolded or migrated again.
 
 For agent instructions and project standards, start with [`AGENTS.md`](AGENTS.md). For the installed toolchain, command semantics and upgrade procedure, read [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md). New marketing routes and components also follow [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md) and [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).

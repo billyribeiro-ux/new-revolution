@@ -1,5 +1,7 @@
 # Mandatory Engineering & Agent Standards (`AGENTS.md`)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / SvelteKit 3, and SEO / AI-Search standards for every AI agent and engineer working in this repository.
 
 > **Companion References:**
@@ -7,6 +9,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
 > - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
 > - **Blog authoring and publishing (read before adding or updating CMS articles):** [`blog implementation.md`](<blog implementation.md>) — verified CMS workflow, importer limitations, media checks and launch requirements; audit evidence and the 0DTE implementation plan are linked there.
+> - **Blog automation and current status (mandatory before blog work):** [`docs/BLOG_AGENT_HANDOFF.md`](docs/BLOG_AGENT_HANDOFF.md), [`docs/blog/AUTOMATION_PLAN.md`](docs/blog/AUTOMATION_PLAN.md). JSON-LD already derives from CMS records; the proposed intake tooling is not implemented. Follow the handoff's evidence links and update its status/coverage when adding agent runbooks.
 > - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
 > - **SEO Standard, Decisions & Operations (mandatory for all routes, metadata, sitemaps, and JSON-LD):** [`docs/seo/SEO_STANDARD.md`](docs/seo/SEO_STANDARD.md), [`docs/seo/DECISIONS.md`](docs/seo/DECISIONS.md), [`docs/seo/OPERATIONS.md`](docs/seo/OPERATIONS.md), [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)
@@ -80,7 +83,7 @@ Full specification: [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).
 
 ## 3. Svelte 5, SvelteKit 3 & Enterprise SEO / AI-Search Architecture
 
-Every public marketing page must be prerendered (`SSG`), accessible, and ship unified metadata + Schema.org `@graph` JSON-LD.
+Build-time-stable public marketing pages must be prerendered (`SSG`), accessible, and ship unified metadata + Schema.org `@graph` JSON-LD. **CMS exception (owner requirement, 2026-11-05):** the homepage and `/blog/**` use server rendering (`prerender = false`) so publishing updates their initial HTML without a rebuild. They retain SSR, unified metadata, accessibility and browser verification. Read `docs/BLOG_AGENT_HANDOFF.md` for the shared listing contract.
 
 ### 3.1 Route File Structure (`+page.ts` + `+page.svelte`)
 

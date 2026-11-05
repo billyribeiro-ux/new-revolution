@@ -1,0 +1,152 @@
+$ vp test --run
+
+ RUN  v5.0.5 /private/tmp/wt-blog-audit-20261105
+
+ ❯ |client (chromium)| src/lib/components/home/HomeSections.svelte.spec.ts (9 tests | 1 failed) 1154ms
+   ❯ Modular Homepage Section Components (9)
+     × renders PersonasSection, MembershipsSection, MentorshipSection, and BlogSection with SSOT defaults 9ms
+ ❯ |server| src/routes/blog/blog-pagination.spec.ts (28 tests | 12 failed) 3363ms
+   ❯ Blog pagination, 404 handling and cache tags (28)
+     ❯ blog index (14)
+       × serves page 1 on the bare URL, indexable, with its own canonical and the lists tag 70ms
+       × serves page 2 indexable with its own self-referencing canonical and a distinct title 10ms
+       × returns 404 for ?page=3 beyond the last page, with no public cache headers 10ms
+       × returns 404 for ?page=99 beyond the last page, with no public cache headers 12ms
+       × returns 404 for ?page=100000 beyond the last page, with no public cache headers 13ms
+       × returns 404 for the malformed ?page="0" 0ms
+       × returns 404 for the malformed ?page="-1" 0ms
+       × returns 404 for the malformed ?page="1.5" 1ms
+       × returns 404 for the malformed ?page="abc" 1ms
+       × returns 404 for the malformed ?page="" 0ms
+       × returns 404 for the malformed ?page="01" 0ms
+       × returns 404 for the malformed ?page="1e2" 0ms
+ ❯ |server| src/routes/blog/blog-routes.spec.ts (9 tests | 1 failed) 2921ms
+   ❯ Public Blog Routes, Redirect Hook, Feeds & Password Unlock (9)
+     × serves published posts on /blog and /blog/[slug] with Shiki highlighting, TOC, and caching headers 84ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |client (chromium)| src/lib/components/home/HomeSections.svelte.spec.ts:145 > Modular Homepage Section Components > renders PersonasSection, MembershipsSection, MentorshipSection, and BlogSection with SSOT defaults
+TypeError: Cannot read properties of undefined (reading 'pagination')
+
+	in <unknown>
+	in BlogSection.svelte
+	in undefined
+
+ ❯ src/lib/components/home/BlogSection.svelte:42:21
+     40|     Articles are temporarily unavailable. Please try again later.
+     41|    </p>
+     42|   {:else if listing.pagination.total === 0}
+       |                     ^
+     43|    <p class="blog-empty">Articles will appear here once published.</p>
+     44|   {:else}
+ ❯ node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/index-client-D4T6kHwN.js?v=3f1852c5:704:3
+ ❯ update_reaction node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/runtime-4rt4ZXML.js?v=3f1852c5:4167:16
+ ❯ update_effect node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/runtime-4rt4ZXML.js?v=3f1852c5:4277:18
+ ❯ create_effect node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/runtime-4rt4ZXML.js?v=3f1852c5:3590:4
+ ❯ block node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/runtime-4rt4ZXML.js?v=3f1852c5:3782:15
+ ❯ Module.if_block node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/index-client-D4T6kHwN.js?v=3f1852c5:702:2
+ ❯ src/lib/components/home/BlogSection.svelte:255:14
+ ❯ Module.add_svelte_meta node_modules/.vite/vitest/d2a04d71301a8915217dd5faf81d12cffd6cd958/deps/runtime-4rt4ZXML.js?v=3f1852c5:1008:10
+ ❯ BlogSection src/lib/components/home/BlogSection.svelte:254:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > serves page 1 on the bare URL, indexable, with its own canonical and the lists tag
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ src/routes/blog/blog-pagination.spec.ts:148:39
+    146|    };
+    147|    expect(data.posts).toHaveLength(BLOG_PAGE_SIZE);
+    148|    expect(data.pagination.totalPages).toBe(2);
+       |                                       ^
+    149|    expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog`);
+    150|    expect(data.pageMetaTags.robots).toMatch(/^index/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > serves page 2 indexable with its own self-referencing canonical and a distinct title
+{
+  status: 404,
+  body: { status: 404, message: 'Page not found' },
+  constructor: 'Function<HttpError>',
+  toString: 'Function<toString>',
+  stacks: []
+}
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for ?page=3 beyond the last page, with no public cache headers
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for ?page=99 beyond the last page, with no public cache headers
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for ?page=100000 beyond the last page, with no public cache headers
+AssertionError: expected 'private, no-store, no-cache, must-rev…' to be undefined
+
+- Expected:
+undefined
+
++ Received:
+"private, no-store, no-cache, must-revalidate"
+
+ ❯ src/routes/blog/blog-pagination.spec.ts:184:38
+    182|     const { evt, headers } = event<IndexEvent>(`/blog?page=${page}`);
+    183|     await expect(loadBlogIndex(evt)).rejects.toMatchObject({ status: 4…
+    184|     expect(headers['Cache-Control']).toBeUndefined();
+       |                                      ^
+    185|     expect(headers['Vercel-Cache-Tag']).toBeUndefined();
+    186|    }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="0"
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="-1"
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="1.5"
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="abc"
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page=""
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="01"
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags > blog index > returns 404 for the malformed ?page="1e2"
+AssertionError: expected 'private, no-store, no-cache, must-rev…' to be undefined
+
+- Expected:
+undefined
+
++ Received:
+"private, no-store, no-cache, must-revalidate"
+
+ ❯ src/routes/blog/blog-pagination.spec.ts:194:38
+    192|     const { evt, headers } = event<IndexEvent>(`/blog?page=${encodeURI…
+    193|     await expect(loadBlogIndex(evt)).rejects.toMatchObject({ status: 4…
+    194|     expect(headers['Cache-Control']).toBeUndefined();
+       |                                      ^
+    195|    }
+    196|   );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL  |server| src/routes/blog/blog-routes.spec.ts > Public Blog Routes, Redirect Hook, Feeds & Password Unlock > serves published posts on /blog and /blog/[slug] with Shiki highlighting, TOC, and caching headers
+AssertionError: expected 'private, no-store, no-cache, must-rev…' to contain 'public'
+
+Expected: "public"
+Received: "private, no-store, no-cache, must-revalidate"
+
+ ❯ src/routes/blog/blog-routes.spec.ts:139:41
+    137|   } as never)) as Record<string, unknown>;
+    138|
+    139|   expect(indexHeaders['Cache-Control']).toContain('public');
+       |                                         ^
+    140|   expect((indexData.posts as unknown[]).length).toBeGreaterThanOrEqual…
+    141|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+
+ Test Files  3 failed | 76 passed (79)
+      Tests  14 failed | 561 passed (575)
+   Start at  12:36:18
+   Duration  25.76s (worker 42%, tests 29%, transform 18%, import 11%)
+
+[ELIFECYCLE] Command failed with exit code 1.

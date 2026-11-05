@@ -1,5 +1,7 @@
 # Revolution Trading Pros — Website Color & Visual Style Guide
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 **Version:** 1.0  
 **Reference date:** October 29, 2026  
 **Source of truth:** `revolution-trading-pros-homepage-preview.html` (the existing responsive HTML concept)  

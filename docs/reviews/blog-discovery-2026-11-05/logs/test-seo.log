@@ -1,0 +1,80 @@
+
+Running 3 tests using 1 worker
+
+  ✓  1 tests/seo/seo-standard.spec.ts:43:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › verifies robots.txt, sitemap.xml, rss.xml, and 404 error page contract (242ms)
+  ✓  2 tests/seo/seo-standard.spec.ts:88:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › crawls every indexable URL in 02-inventory.json and enforces metadata, canonical, JSON-LD, breadcrumb, image, and YMYL rules (1.4s)
+  ✓  3 tests/seo/seo-standard.spec.ts:252:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › enforces noindex and no canonical on non-indexable routes in 02-inventory.json (IDX-08) (848ms)
+
+  3 passed (14.8s)
+
+$ playwright test tests/seo/seo-standard.spec.ts
+[WebServer] $ vp build && node scripts/maintenance-build.mjs
+[WebServer] (node:84798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:84806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:84806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] [plugin builtin:vite-reporter]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:84806) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.mjs
+[WebServer]     - @react-email/render
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.cjs
+[WebServer]     - @react-email/render
+[WebServer]   .svelte-kit/output/server/chunks/auth.js
+[WebServer]     - @opentelemetry/api
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.cjs
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-libvips-/package
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/libvips.cjs
+[WebServer]     - @img/sharp-libvips-dev/include
+[WebServer]     - @img/sharp-libvips-dev/cplusplus
+[WebServer] (node:85271) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vp preview
+[WebServer] (node:85341) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:85349) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:85414) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

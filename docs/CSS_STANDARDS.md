@@ -1,5 +1,7 @@
 # Enterprise CSS Architecture & Typography Standards
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 > **Single Source of Truth (SSOT):** [`src/app.css`](../src/app.css)  
 > **Shared Inner-Page Stylesheet:** [`src/lib/styles/inner-page.css`](../src/lib/styles/inner-page.css)  
 > **Token Governance Script:** [`scripts/check-css-tokens.mjs`](../scripts/check-css-tokens.mjs) (`pnpm check:css`)

@@ -1,5 +1,7 @@
 # Blog System Adaptation Map (`tx-360` to `new-revolution-web`)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 For current Vite+ commands, test projects and upgrade guidance, see [`VITE_PLUS_WORKFLOW.md`](VITE_PLUS_WORKFLOW.md). This map records the blog adaptation rather than a new toolchain setup.
 
 | `tx-360` Concept             | `new-revolution-web` Equivalent / Adaptation                                                                                                                                                                                                                                                                                                                                                              |

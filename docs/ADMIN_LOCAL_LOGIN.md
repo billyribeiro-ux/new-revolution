@@ -1,5 +1,7 @@
 # Local admin login (temporary seed account)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 **TEMPORARY.** This account exists only for local testing. It is registered as **T2** in
 [`TEMPORARY.md`](TEMPORARY.md). Do not deploy it, and do not reuse its credentials anywhere else.
 

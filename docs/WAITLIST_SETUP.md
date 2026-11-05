@@ -1,5 +1,7 @@
 # Connect the maintenance waitlist
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 The page and mail workflow are implemented; the owner chose to connect services later. Until then,
 the email section stays visible with disabled native controls and a clear unavailable note. No request
 is accepted and no message is claimed as sent. Use the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md)

@@ -1,5 +1,9 @@
 # SEO & Launch Tracker (`docs/seo/LAUNCH_TRACKER.md`)
 
+> **2026-11-05 owner update:** the homepage now uses saved CMS blog cards independently of the section launch gate. Homepage/blog listings share a featured-first, paginated server service; homepage SSR is the documented SSG exception. This does not launch blog indexing, alter public maintenance or publish repository drafts. See [decisions §7](DECISIONS.md#7-automatic-cms-discovery-and-featured-placement-2026-11-05).
+
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 **Created:** 2026-11-02 · **Scope:** switching `revolutiontradingpros.com` from the temporary Vercel URL to production.
 **How to use:** tick a box only when the evidence column can be reproduced. Every row either points at code/output or says plainly that it cannot be done yet.
 

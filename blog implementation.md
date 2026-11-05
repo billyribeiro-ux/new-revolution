@@ -1,5 +1,7 @@
 # Blog implementation and publishing guide
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Verified against commit `e896ebc` on **November 5, 2026**. This is the current CMS workflow, with known gaps called out explicitly. Re-read the linked implementation before using this guide after a code change. The [audit and 0DTE implementation plan](docs/reviews/blog-audit-2026-11-05/AUDIT.md) and its machine-readable evidence explain the findings behind these instructions.
 
 ## 1. Read this before adding a post
@@ -11,6 +13,19 @@ Read [AGENTS.md](AGENTS.md), [the Vite+ workflow](docs/VITE_PLUS_WORKFLOW.md), [
 Putting Markdown in `blogs/`, `content/blog-posts/`, or the repository root does **not** make it appear on the website. `mdsvex` configuration does not connect those directories to the database.
 
 **Published and publicly indexable are separate states.** At this audit, `UNLAUNCHED_ROUTE_PREFIXES` in [launch-gate.ts](src/lib/data/launch-gate.ts) contains `/blog`. It suppresses blog canonicals, emits noindex and excludes the section from the sitemap/navigation. Saving or publishing one article does not launch the section. Keep that gate until a separate launch decision and the launch checklist are complete.
+
+### 1.1 Automatic homepage and blog placement
+
+Publishing an eligible public CMS record now populates **both** the homepage blog section and `/blog` through `getPublicBlogListing` in [the shared discovery service](src/lib/server/services/blog-discovery.ts). Do not add a title/card to a static array, homepage component or JSON-LD file.
+
+- Select the editor's **Featured** checkbox for the lead article. This is separate from **Featured Image**, which is the cover image. The existing save transaction permits one published featured record and demotes the previous one when another is selected.
+- If no eligible post is marked featured, the newest eligible publication automatically occupies the lead position. The lead appears at the top of the first unfiltered page, once; all other eligible posts appear below in publication order.
+- Regular posts are paginated **after** removing the lead: 12 per `/blog` page and 6 per homepage section page. Older posts remain reachable through `/blog?page=2` and `/?blogPage=2#blog`; counts include the lead without repeating it in the grid. Searching lists every matching post normally, including the featured article.
+- Draft, future-scheduled, expired, trashed, fixture, noindex and protected/member-only records do not become public cards. Saving a Markdown file is still not a CMS save or publication.
+- The homepage now uses SSR (`prerender = false`) to include saved card content in initial HTML without rebuilding. Homepage and blog-index responses are no-store so a fresh request sees publication changes; other blog surfaces still have the cache limitations recorded below.
+- The homepage blog section is the owner's explicit exception to hiding all blog promotion while launch-gated. Navigation/footer, noindex/canonical policy and sitemap/schema launch exclusions remain separate. Public maintenance mode is unchanged.
+
+Verify a draft is absent from both listings, publish through the normal service gate, then fetch both pages and inspect the actual card, cover and article link. Verify the chosen feature appears once above the regular grid. Test new publications, switching the feature and unpublishing. The image-flow E2E now checks actual initial HTML and 320/1440px browser rendering of both surfaces after publication.
 
 ## 2. Establish the actual environment
 
@@ -81,6 +96,10 @@ Evidence: [PostEditor](src/lib/components/admin/PostEditor.svelte), [form/payloa
 Autosave is not a full save: it snapshots title/body/excerpt into revisions and does not persist every sidebar field. Background autosave starts after a post has an ID; manual saving is required for a new draft. At most 20 autosave revisions are retained. Signed previews can show a newer autosave's title/body/excerpt over the saved record, so reload and compare the final saved version before release.
 
 ## 7. Programmatic authoring uses the same service
+
+The proposed [blog intake automation plan](docs/blog/AUTOMATION_PLAN.md) defines a shared validator, one-package draft importer, preview report and later publication hardening. Those tools are **not implemented yet**; use the existing CMS/API workflow below until the guide is updated with verified commands.
+
+**Do not add each new title to a JSON-LD file.** The article loader supplies the saved post data to `buildBlogPostJsonLd` in `src/lib/seo/blog-seo.ts`; the builder derives the headline, author, dates and media. Save the content fields and verify the generated graph. Change a shared builder only when changing the schema behavior, with its corresponding tests.
 
 For automation, prefer an authorized authenticated request to the existing REST API, or a controlled server-side call to `createPost`/`updatePost`/`patchPost`. Do not write SQL inserts as the normal publishing workflow.
 

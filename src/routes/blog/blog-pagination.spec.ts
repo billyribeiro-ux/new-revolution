@@ -31,8 +31,8 @@ vi.mock('#lib/data/launch-gate', async (importOriginal) => {
 });
 
 const ORIGIN = 'https://revolutiontradingpros.com';
-/** One more than a page, so page 2 exists and holds exactly one article. */
-const POST_COUNT = BLOG_PAGE_SIZE + 1;
+/** One lead plus a full regular page and one overflow article. */
+const POST_COUNT = BLOG_PAGE_SIZE + 2;
 
 function body(keyword: string): string {
 	const paragraph = `In this institutional ${keyword} guide, we examine liquidity pools, delta exposure, gamma walls, and risk-defined execution across volatile equity index sessions. Traders who master ${keyword} discipline protect their capital first and scale systematically.`;
@@ -138,20 +138,24 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 	});
 
 	describe('blog index', () => {
-		it('serves page 1 on the bare URL, indexable, with its own canonical and the lists tag', async () => {
+		it('serves one lead plus a full regular page with its own canonical and fresh no-store reads', async () => {
 			const { evt, headers } = event<IndexEvent>('/blog');
 			const data = (await loadBlogIndex(evt)) as unknown as Meta & {
 				posts: unknown[];
+				featuredPosts: Array<{ id: number }>;
 				pagination: { totalPages: number };
 			};
 			expect(data.posts).toHaveLength(BLOG_PAGE_SIZE);
+			expect(data.featuredPosts).toHaveLength(1);
+			expect(data.posts).not.toContainEqual(
+				expect.objectContaining({ id: data.featuredPosts[0].id })
+			);
 			expect(data.pagination.totalPages).toBe(2);
 			expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog`);
 			expect(data.pageMetaTags.robots).toMatch(/^index/);
-			expect(headers['Cache-Control']).toContain('s-maxage=300');
-			expect(headers['Cache-Control']).toContain('stale-while-revalidate=60');
-			expect(headers['Cache-Control']).not.toContain('86400');
-			expect(headers['Vercel-Cache-Tag']).toBe('blog-lists');
+			expect(headers['Cache-Control']).toContain('no-store');
+			expect(headers['Cache-Control']).not.toContain('public');
+			expect(headers['Vercel-Cache-Tag']).toBeUndefined();
 		});
 
 		it('treats an explicit ?page=1 as page 1 (canonical is the bare URL, no second indexable URL)', async () => {
@@ -202,10 +206,10 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 				slug: 'pagination-category'
 			});
 			const data = (await loadCategoryPage(evt)) as unknown as Meta & { posts: unknown[] };
-			expect(data.posts).toHaveLength(1);
+			expect(data.posts).toHaveLength(2);
 			expect(data.pageMetaTags.title).toContain('(Page 2)');
 			expect(headers['Vercel-Cache-Tag']).toBe('blog-lists');
-			// 13 posts is above the category indexing threshold, so the canonical must be the page's own URL.
+			// 14 posts is above the category indexing threshold, so the canonical must be the page's own URL.
 			expect(data.pageMetaTags.robots).toMatch(/^index/);
 			expect(data.pageMetaTags.canonical).toBe(
 				`${ORIGIN}/blog/category/pagination-category?page=2`
@@ -217,7 +221,7 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 				slug: 'pagination-tag'
 			});
 			const data = (await loadTagPage(evt)) as unknown as Meta & { posts: unknown[] };
-			expect(data.posts).toHaveLength(1);
+			expect(data.posts).toHaveLength(2);
 			if (data.pageMetaTags.robots?.startsWith('index')) {
 				expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog/tag/pagination-tag?page=2`);
 			} else {

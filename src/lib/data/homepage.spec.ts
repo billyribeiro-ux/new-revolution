@@ -14,7 +14,6 @@ import {
 	MENTORSHIP_STEPS,
 	EBOOK_TAKEAWAYS,
 	EBOOK_PROFILES,
-	BLOG_ARTICLES,
 	FAQ_ITEMS,
 	CLOSING_CONTENT,
 	FOOTER_COLUMNS
@@ -80,12 +79,6 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(MENTORSHIP_STEPS).toHaveLength(3);
 		expect(EBOOK_TAKEAWAYS).toHaveLength(4);
 		expect(EBOOK_PROFILES.length).toBeGreaterThanOrEqual(4);
-		expect(BLOG_ARTICLES).toHaveLength(3);
-		expect(BLOG_ARTICLES.map((b) => b.href)).toEqual([
-			'/blog/institutional-order-flow-and-gamma-flip-playbook',
-			'/blog/zero-dte-risk-management-and-position-sizing-rules',
-			'/blog'
-		]);
 		expect(FAQ_ITEMS).toHaveLength(5);
 		expect(CLOSING_CONTENT.primaryCta.href).toBe('/live-trading-rooms/day-trading-room');
 		expect(CLOSING_CONTENT.secondaryCta.href).toBe('/mentorship');

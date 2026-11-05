@@ -1,5 +1,7 @@
 # Maintenance deployments
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Maintenance mode is a **deployment-time** switch. It does not change an existing deployment and does not use the source project's CMS switch. The Vercel build command must run `pnpm build`, which runs `scripts/maintenance-build.mjs` after the Vercel adapter. The script installs routing and independent Node functions in `.vercel/output` using the [Build Output API](https://vercel.com/docs/build-output-api/configuration).
 
 1. Account for existing tabs: versions older than this integration do not have the navigation check, and already downloaded content cannot be recalled. Ask visitors to reload, or wait for those sessions to end, before relying on client-navigation behavior. A protected Preview can verify the normal integration without exposing the unfinished site publicly.

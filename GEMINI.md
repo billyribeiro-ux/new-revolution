@@ -1,5 +1,7 @@
 ## Project Configuration
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 - **Language**: TypeScript (`6.0.3`, Node `26.13.0`)
 - **Package Manager**: `pnpm` ONLY (`pnpm@12.16.1` enforced via `.npmrc` `engine-strict=true` and `package.json#engines`; `npm`, `yarn`, and `bun` are strictly blocked)
 - **Toolchain**: Vite+ `1.4.0` (Vite `8.3.5`, Vitest `5.0.5`, Oxfmt, Oxlint); ESLint remains required for Svelte-specific rules. The `vite` dependency is the Vite+ core alias through the pnpm catalog.

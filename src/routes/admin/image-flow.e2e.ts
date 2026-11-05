@@ -271,6 +271,13 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			await reloadedImg.evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth)
 		).toBeGreaterThan(0);
 
+		// Saving a draft must not place its card on either public discovery surface.
+		for (const path of ['/', '/blog']) {
+			const draftListing = await context.request.get(path);
+			expect(draftListing.status()).toBe(200);
+			expect(await draftListing.text()).not.toContain(`data-post-id="${postId}"`);
+		}
+
 		// Publish (the SEO gate must pass).
 		slug = await page.locator('#post-slug').inputValue();
 		expect(slug).toBeTruthy();
@@ -288,6 +295,42 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		expect(await gate.count(), 'publish gate did not block').toBe(0);
 		await page.waitForLoadState('networkidle');
 		await expect(page.locator('tr', { hasText: TITLE }).first()).toContainText(/published/i);
+	});
+
+	test('publishing automatically adds one real card to homepage and blog without a rebuild', async ({
+		request
+	}, testInfo) => {
+		for (const path of ['/', '/blog']) {
+			const response = await request.get(path);
+			expect(response.status()).toBe(200);
+			expect(response.headers()['cache-control']).toContain('no-store');
+			const html = await response.text();
+			expect(html).toContain(`data-post-id="${postId}"`);
+			expect(html).toContain(TITLE);
+			for (const width of [320, 1440]) {
+				await page.setViewportSize({ width, height: 1000 });
+				await page.goto(path);
+				const card = page.locator(`.blog-post-card[data-post-id="${postId}"]`);
+				await expect(card).toHaveCount(1);
+				await card.scrollIntoViewIfNeeded();
+				await expect(card).toBeVisible();
+				await expect(card.locator('h3 a')).toHaveAttribute('href', new RegExp(`/blog/${slug}$`));
+				const image = card.locator('img');
+				await expect(image).toHaveAttribute('alt', COVER_ALT);
+				await expect
+					.poll(() =>
+						image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
+					)
+					.toBe(true);
+				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+					true
+				);
+				await testInfo.attach(`cms-card-${path === '/' ? 'home' : 'blog'}-${width}.png`, {
+					body: await card.screenshot(),
+					contentType: 'image/png'
+				});
+			}
+		}
 	});
 
 	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap', async () => {

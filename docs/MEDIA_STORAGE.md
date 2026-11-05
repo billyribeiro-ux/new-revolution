@@ -1,5 +1,7 @@
 # Media storage
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Uploaded images (`POST /api/media/upload`) are converted to WebP with 480/800/1200 variants and stored through one
 driver, chosen by `selectMediaStorageDriver(process.env)` in `src/lib/server/media-storage.ts`.
 

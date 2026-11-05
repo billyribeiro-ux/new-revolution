@@ -12,6 +12,7 @@ import MentorshipSection from './MentorshipSection.svelte';
 import BlogSection from './BlogSection.svelte';
 import FaqSection from './FaqSection.svelte';
 import ClosingSection from './ClosingSection.svelte';
+import type { BlogListing } from '#lib/shared/blog/discovery';
 import type {
 	ClosingContent,
 	FaqItem,
@@ -142,7 +143,7 @@ describe('Modular Homepage Section Components', () => {
 			.toBeInTheDocument();
 	});
 
-	it('renders PersonasSection, MembershipsSection, MentorshipSection, and BlogSection with SSOT defaults', async () => {
+	it('renders section defaults and CMS-supplied featured and regular blog articles', async () => {
 		await render(PersonasSection);
 		await expect
 			.element(
@@ -165,15 +166,34 @@ describe('Modular Homepage Section Components', () => {
 			.element(page.getByRole('heading', { level: 2, name: /Private 1-on-1 Mentorship/i }))
 			.toBeInTheDocument();
 
-		await render(BlogSection);
+		const listing: BlogListing = {
+			featuredPosts: [
+				{ id: 101, slug: 'saved-featured-research', title: 'Saved featured research' }
+			],
+			posts: [{ id: 102, slug: 'saved-regular-research', title: 'Saved regular research' }],
+			search: '',
+			pagination: { page: 1, perPage: 6, total: 2, totalPages: 1 }
+		};
+		await render(BlogSection, { listing });
 		await expect
 			.element(
 				page.getByRole('heading', {
 					level: 3,
-					name: /Institutional Order Flow & the S&P 500 Gamma Flip Playbook/i
+					name: 'Saved featured research'
 				})
 			)
 			.toBeInTheDocument();
+		await expect
+			.element(page.getByRole('link', { name: 'Saved regular research', exact: true }))
+			.toHaveAttribute('href', '/blog/saved-regular-research');
+		expect(
+			[...document.querySelectorAll('#blog .blog-post-card')].map((node) =>
+				node.getAttribute('data-post-id')
+			)
+		).toEqual(['101', '102']);
+		expect(document.querySelector('#blog')?.textContent).not.toContain(
+			'Institutional Order Flow & the S&P 500 Gamma Flip Playbook'
+		);
 	});
 
 	it('renders StoreToolsSection with custom tools prop overrides for /store/* reuse', async () => {

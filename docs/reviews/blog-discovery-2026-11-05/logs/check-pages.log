@@ -1,0 +1,50 @@
+ok   /about
+ok   /alert-services/spx-profit-pulse
+ok   /contact
+ok   /editorial-policy
+ok   /live-trading-rooms/day-trading-room
+ok   /live-trading-rooms/small-accounts-room
+ok   /live-trading-rooms/swing-trading-room
+ok   /mentorship
+ok   /our-mission
+ok   /privacy-policy
+ok   /refund-policy
+ok   /resources/etf-stocks-list
+ok   /resources/stock-indexes-list
+ok   /resources
+ok   /store/courses/contrarian-distribution-and-shorting
+ok   /store/courses/institutional-risk-and-trader-psychology
+ok   /store/courses/macro-cycle-inflection-mastery
+ok   /store/courses/move-prior-to-the-move-masterclass
+ok   /store/courses/move-prior-to-the-move-ultra
+ok   /store/courses/options-greeks-and-volatility-mastery
+ok   /store/courses/small-account-compounding-blueprint
+ok   /store/courses/spx-0dte-and-index-gamma-execution
+ok   /store/courses/working-pro-swing-trading-system
+ok   /store/courses
+ok   /store/indicators/anchored-vwap-liquidity-bands
+ok   /store/indicators/institutional-volume-absorption
+ok   /store/indicators/move-prior-to-the-move-pro
+ok   /store/indicators/move-prior-to-the-move-system
+ok   /store/indicators/mp-early-in-n-out-pro
+ok   /store/indicators/multi-timeframe-squeeze-pro
+ok   /store/indicators/options-expected-move-corridor
+ok   /store/indicators/spx-dealer-gamma-levels
+ok   /store/indicators/volatility-regime-compass
+ok   /store/indicators
+ok   /store/scanners/high-octane-scanner
+ok   /store/scanners/liquidity-sweep-stop-hunt-scanner
+ok   /store/scanners/move-prior-to-the-move-radar
+ok   /store/scanners/multi-timeframe-squeeze-scanner
+ok   /store/scanners/opening-bell-gap-and-go-fade-scanner
+ok   /store/scanners/small-account-affordable-options-scanner
+ok   /store/scanners/smart-money-relative-volume-scanner
+ok   /store/scanners/spx-dealer-gamma-iv-skew-scanner
+ok   /store/scanners/working-pro-eod-swing-scanner
+ok   /store/scanners
+ok   /terms-of-service
+ok   /watchlist
+
+46 prerendered page(s) satisfy the contract.
+
+$ node scripts/check-prerendered-pages.mjs

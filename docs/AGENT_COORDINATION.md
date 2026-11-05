@@ -22,11 +22,12 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                     | Owner session                   | Area / files claimed                                                                                                                                   | Started    | Status                                                                                                                            |
-| -------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `docs/blog-audit-20261105` | Codex shared CMS blog discovery | Home/blog route loaders and components, shared blog discovery service/types/tests, homepage schema/data, cache tags and applicable documentation/tests | 2026-11-05 | Implementing owner-requested automatic listings and featured placement; preserve public maintenance and content review boundaries |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Automatic CMS blog discovery (Codex, 2026-11-05; [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27)):** share homepage/archive discovery, one selected-or-newest lead, paginated remaining posts, real media and no mock fallback. Add the owner-requested homepage SSR/discovery exceptions while preserving maintenance and other launch protections. Final gates pass: 575 unit/component tests, 40 authenticated E2E without skips, 3 SEO tests, 46 static contracts, clean four-component Svelte MCP and reviewed mobile/desktop screenshots. Evidence: `docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md`. No hosted content publication or Production promotion.
 
 - **Blog handoff coverage (Codex, 2026-11-05; `docs/blog-audit-20261105`, no PR):** add the shared handoff and dated references across 40 agent-facing Markdown entry points, explicitly import it in Claude, update the changelog and correct the missing static blog-data-file recipe. Verify all handoff references/links, front matter, SEO-standard parity, preserved reference artifacts, formatting and whitespace. Documentation only; no application, CMS or deployment changes.
 

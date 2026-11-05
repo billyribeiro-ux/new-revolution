@@ -11,6 +11,8 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-05 — Automatic CMS blog placement
 
+Review: [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27); no merge or Production promotion.
+
 - Replace hardcoded homepage blog placeholders with the same public CMS discovery service used by `/blog`. Marked featured content leads; otherwise the newest eligible publication leads automatically. Exclude the lead before paginating the remaining articles, with all older articles reachable and no duplicate lead card.
 - Render actual covers and CMS card data on both surfaces, with one featured lead, responsive regular grids, homepage pagination and honest empty/unavailable states. Preserve draft/private/fixture/expiry visibility rules and derive homepage schema from visible saved cards after launch.
 - Make the homepage an explicit SSR exception to static marketing rendering so publishing needs no rebuild; homepage/blog-index reads are no-store. Document the owner-requested homepage discovery exception while retaining public maintenance and other launch protections.

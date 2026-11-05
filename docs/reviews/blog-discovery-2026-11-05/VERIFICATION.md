@@ -2,6 +2,8 @@
 
 Date: **November 5, 2026** (America/New_York). Branch: `docs/blog-audit-20261105`.
 
+Review: [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27). Application/test source is committed in `061c356`; the source manifest proves the exact checked files. The PR is not a merge or Production promotion, and the existing protected development alias was not repointed.
+
 ## Implemented behavior
 
 The homepage previously used three hardcoded editorial placeholders, and the blog index could repeat its featured post below the featured area. The owner requested every new blog post to follow the same homepage/archive structure automatically.

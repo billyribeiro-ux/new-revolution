@@ -4,6 +4,25 @@ export interface TocEntry {
 	level: number;
 }
 
+export interface TocNode extends TocEntry {
+	children: TocNode[];
+}
+
+/** Preserve document order and nest each heading under its nearest earlier shallower heading. */
+export function buildTocTree(entries: readonly TocEntry[]): TocNode[] {
+	const roots: TocNode[] = [];
+	const parents: TocNode[] = [];
+	for (const entry of entries) {
+		const node: TocNode = { ...entry, children: [] };
+		while (parents.length > 0 && parents[parents.length - 1].level >= node.level) parents.pop();
+		const parent = parents[parents.length - 1];
+		if (parent) parent.children.push(node);
+		else roots.push(node);
+		parents.push(node);
+	}
+	return roots;
+}
+
 export function stripHtmlToText(html: string): string {
 	return html
 		.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ')

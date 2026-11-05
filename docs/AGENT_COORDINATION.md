@@ -22,8 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                        | Owner session        | Area / files claimed                                                             | Started    | Status                   |
+| ----------------------------- | -------------------- | -------------------------------------------------------------------------------- | ---------- | ------------------------ |
+| `design/article-toc-20261105` | Codex article design | Article template, TOC behavior and responsive layout, related tests and evidence | 2026-11-05 | Audit and implementation |
 
 ## Recently finished
 

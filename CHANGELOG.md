@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Article layout and desktop TOC
+
+- Align article titles, covers and reading columns within the shared responsive container. Place a sticky table of contents beside the article at 1180px and wider; hide it on narrower layouts.
+- Implement accessible native collapse/expand, a visible caret, active-heading tracking, independently scrollable contents and semantic nested heading lists using the shared CMS heading data. Preserve the per-post setting, heading links and article content.
+- Verify the real 0DTE article across three browser engines and six widths, including keyboard, no-JavaScript and reduced-motion checks. The official Svelte MCP, 576 unit/component tests, 48 Chromium E2E, 24 Firefox and 23 WebKit checks, the build, 46 page contracts and three SEO checks passed. A separate HTTPS check verifies WebKit's protected-post secure-cookie flow. Two unchanged source drafts remain repository-wide formatting exceptions. See `docs/reviews/article-toc-2026-11-05/VERIFICATION.md` for scope and plugin parity limitations.
+
 ### 2026-11-05 — Refine blog archive and disclosure layout
 
 - Squash-merge PR #31 as `7e31730` and promote verified Production deployment `dpl_9LaYzMKyN2JVb3eZrawor6Ntcfue`; 27 public browser cases pass across three engines and three widths. Maintenance remains off.

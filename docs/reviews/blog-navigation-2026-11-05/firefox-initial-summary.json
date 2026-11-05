@@ -1,0 +1,11 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T18:22:44.571Z",
+		"duration": 32895.508,
+		"expected": 10,
+		"skipped": 2,
+		"unexpected": 1,
+		"flaky": 0
+	},
+	"screenshots": ["firefox-navbar-desktop.png", "firefox-navbar-mobile.png"]
+}

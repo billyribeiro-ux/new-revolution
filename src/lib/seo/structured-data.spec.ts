@@ -188,10 +188,17 @@ describe('buildHomepageJsonLd', () => {
 		assertGraphIntegrity(graph, { isHomepage: true });
 	});
 
-	it('does not advertise gated store products, blog articles or navigation entries', () => {
+	it('includes visible Blog navigation while excluding gated store products and blog article lists', () => {
 		const urls = JSON.stringify(graph);
 		expect(urls).not.toContain(`${ORIGIN}/store`);
-		expect(urls).not.toContain(`${ORIGIN}/blog`);
+		const navigation = graph.find((n) => n['@id'] === `${ORIGIN}/#navigation`) as Node;
+		expect(navigation.itemListElement).toContainEqual(
+			expect.objectContaining({
+				'@type': 'SiteNavigationElement',
+				name: 'Blog',
+				url: `${ORIGIN}/blog`
+			})
+		);
 		expect(graph.some((n) => n['@id'] === `${ORIGIN}/#latest-blogs`)).toBe(false);
 		const webpage = graph.find((n) => n['@id'] === `${ORIGIN}/#webpage`) as Node;
 		expect(webpage.hasPart).toEqual([{ '@id': `${ORIGIN}/#navigation` }]);

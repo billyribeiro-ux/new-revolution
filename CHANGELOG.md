@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Visible Blog navigation and schema parity
+
+- Separate menu visibility from indexing policy: Blog appears in desktop/mobile navigation and the footer, while Store promotion and blog noindex/canonical/sitemap protections remain in place.
+- Derive navigation JSON-LD automatically from the same menu data. Add regression coverage for the visible Blog link, schema/DOM parity, actual navigation and responsive layouts; update the publishing guide and shared agent handoff with the exact policy.
+- Synchronize the saved-editor readiness assertion before reloading in Firefox; strengthen platform-aware keyboard focus assertions without changing product behavior or lowering thresholds. Verify saved CMS title/URL parity in archive and article JSON-LD.
+- Full acceptance and protected Preview evidence are recorded in `docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md`. Public Production maintenance remains unchanged.
+
 ### 2026-11-05 — Automatic CMS blog placement
 
 Review: [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27); no merge or Production promotion.

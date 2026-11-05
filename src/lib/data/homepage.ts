@@ -1,4 +1,4 @@
-import { FREE_EBOOK_AVAILABLE, isLaunchedHref } from './launch-gate.ts';
+import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
 
 export type NavIconKey =
 	| 'broadcast'
@@ -140,7 +140,7 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 	{
 		id: 'blogs',
 		icon: 'blog',
-		label: 'Blogs',
+		label: 'Blog',
 		href: '/blog',
 		previewTarget: 'blog'
 	},
@@ -175,15 +175,15 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 ] as const;
 
 /**
- * Navigation shown to visitors and crawlers: `FULL_NAVIGATION` minus anything behind the launch gate
- * (`#lib/data/launch-gate.ts`). A dropdown whose children are all gated disappears with them.
+ * Navigation shared by desktop/mobile, footer policy and navigation JSON-LD.
+ * Blog visibility is independent of its search-indexing gate; hidden dropdowns disappear.
  */
 export const MAIN_NAVIGATION: readonly NavItem[] = FULL_NAVIGATION.flatMap((item): NavItem[] => {
 	if (item.children) {
-		const children = item.children.filter((child) => isLaunchedHref(child.href));
+		const children = item.children.filter((child) => isNavigationHrefVisible(child.href));
 		return children.length > 0 ? [{ ...item, children }] : [];
 	}
-	return !item.href || isLaunchedHref(item.href) ? [item] : [];
+	return !item.href || isNavigationHrefVisible(item.href) ? [item] : [];
 });
 
 export interface DocumentationStandardItem {
@@ -873,7 +873,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 					]
 				: []),
 			{
-				label: 'Blogs',
+				label: 'Blog',
 				href: '/blog',
 				previewTarget: 'blog'
 			}
@@ -921,5 +921,5 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 /** Footer columns with every link behind the launch gate removed; a column left empty is dropped. */
 export const FOOTER_COLUMNS: readonly FooterColumn[] = FULL_FOOTER_COLUMNS.map((column) => ({
 	...column,
-	links: column.links.filter((link) => isLaunchedHref(link.href))
+	links: column.links.filter((link) => isNavigationHrefVisible(link.href))
 })).filter((column) => column.links.length > 0);

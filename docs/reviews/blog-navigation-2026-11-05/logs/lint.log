@@ -1,0 +1,9 @@
+$ vp fmt --check . && vp lint . && eslint "**/*.svelte"
+Checking formatting...
+
+docs/reviews/blog-navigation-2026-11-05/chromium-summary.json (0ms)
+docs/reviews/blog-navigation-2026-11-05/firefox-initial-summary.json (0ms)
+
+Format issues found in above 2 files. Run without `--check` to fix.
+Finished in 1447ms on 641 files using 28 threads.
+[ELIFECYCLE] Command failed with exit code 1.

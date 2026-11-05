@@ -257,6 +257,11 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		await page.waitForURL(/\/admin\/posts\/\d+$/);
 		await page.waitForLoadState('networkidle');
 		postId = new URL(page.url()).pathname.split('/').pop()!;
+		// The old create editor reports "All changes saved" before its fire-and-forget goto
+		// finishes. "Ready" belongs to the newly mounted saved editor; URL/network idle alone
+		// allowed Firefox's reload to interrupt that navigation (NS_BINDING_ABORTED).
+		await expect(page.locator('.autosave-indicator')).toHaveText('Ready');
+		await expect(page.locator('#post-title')).toHaveValue(TITLE);
 
 		// Reload: featured image + inline image persisted.
 		await page.reload();
@@ -307,6 +312,24 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			const html = await response.text();
 			expect(html).toContain(`data-post-id="${postId}"`);
 			expect(html).toContain(TITLE);
+			const graphs = [
+				...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)
+			].flatMap(
+				(match) =>
+					(JSON.parse(match[1]) as { '@graph'?: Record<string, unknown>[] })['@graph'] ?? []
+			);
+			if (path === '/blog') {
+				const blog = graphs.find((node) => node['@type'] === 'Blog');
+				expect(blog?.blogPost).toContainEqual(
+					expect.objectContaining({
+						'@type': 'BlogPosting',
+						headline: TITLE,
+						url: `https://revolutiontradingpros.com/blog/${slug}`
+					})
+				);
+			} else if (isUnlaunchedRoute('/blog')) {
+				expect(graphs.some((node) => String(node['@id']).endsWith('/#latest-blogs'))).toBe(false);
+			}
 			for (const width of [320, 1440]) {
 				await page.setViewportSize({ width, height: 1000 });
 				await page.goto(path);
@@ -363,9 +386,15 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			return data['@graph'] ?? [data as Record<string, unknown>];
 		});
 		const posting = nodes.find((n) => n['@type'] === 'BlogPosting') as
-			| { image?: { '@type': string; url: string; width?: number; height?: number }[] }
+			| {
+					headline: string;
+					'@id': string;
+					image?: { '@type': string; url: string; width?: number; height?: number }[];
+			  }
 			| undefined;
 		expect(posting, 'BlogPosting node').toBeTruthy();
+		expect(posting!.headline).toBe(TITLE);
+		expect(posting!['@id']).toBe(`https://revolutiontradingpros.com/blog/${slug}#article`);
 		const images = posting!.image;
 		expect(Array.isArray(images)).toBe(true);
 		expect(images).toHaveLength(3);

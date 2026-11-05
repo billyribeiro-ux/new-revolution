@@ -22,8 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                     | Owner session                              | Area / files claimed                                                                                                                                           | Started    | Status                                                                                                               |
+| -------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------- |
+| `docs/blog-audit-20261105` | Codex navbar and full discovery acceptance | Navigation data/policy/Navbar, schema parity, publishing/browser tests, current blog docs and review evidence; protected Preview deployment/alias verification | 2026-11-05 | Make Blog visible, preserve indexing/Production maintenance, reverify complete workflow and actual browser rendering |
 
 ## Recently finished
 

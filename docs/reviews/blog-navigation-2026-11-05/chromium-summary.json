@@ -1,0 +1,18 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T18:30:13.504Z",
+		"duration": 27682.909,
+		"expected": 41,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"screenshots": [
+		"chromium-cms-card-home-320.png",
+		"chromium-cms-card-home-1440.png",
+		"chromium-cms-card-blog-320.png",
+		"chromium-cms-card-blog-1440.png",
+		"chromium-navbar-desktop.png",
+		"chromium-navbar-mobile.png"
+	]
+}

@@ -2,7 +2,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-Verified against commit `e896ebc` on **November 5, 2026**. This is the current CMS workflow, with known gaps called out explicitly. Re-read the linked implementation before using this guide after a code change. The [audit and 0DTE implementation plan](docs/reviews/blog-audit-2026-11-05/AUDIT.md) and its machine-readable evidence explain the findings behind these instructions.
+Initial CMS audit: commit `e896ebc`, **November 5, 2026**. Subsequent automatic discovery and menu behavior is verified in [the current acceptance record](docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md). This is the current CMS workflow, with known gaps called out explicitly. Re-read the linked implementation before using this guide after a code change. The [audit and 0DTE implementation plan](docs/reviews/blog-audit-2026-11-05/AUDIT.md) and its machine-readable evidence explain the findings behind these instructions.
 
 ## 1. Read this before adding a post
 
@@ -12,7 +12,7 @@ Read [AGENTS.md](AGENTS.md), [the Vite+ workflow](docs/VITE_PLUS_WORKFLOW.md), [
 
 Putting Markdown in `blogs/`, `content/blog-posts/`, or the repository root does **not** make it appear on the website. `mdsvex` configuration does not connect those directories to the database.
 
-**Published and publicly indexable are separate states.** At this audit, `UNLAUNCHED_ROUTE_PREFIXES` in [launch-gate.ts](src/lib/data/launch-gate.ts) contains `/blog`. It suppresses blog canonicals, emits noindex and excludes the section from the sitemap/navigation. Saving or publishing one article does not launch the section. Keep that gate until a separate launch decision and the launch checklist are complete.
+**Published and publicly indexable are separate states.** At this audit, `UNLAUNCHED_ROUTE_PREFIXES` in [launch-gate.ts](src/lib/data/launch-gate.ts) contains `/blog`. It suppresses blog canonicals, emits noindex and excludes the section from the sitemap. Blog remains visible in desktop/mobile navigation, the footer and navigation JSON-LD by the owner’s November 5 request. Saving or publishing one article does not launch the section. Keep that gate until a separate launch decision and the launch checklist are complete.
 
 ### 1.1 Automatic homepage and blog placement
 
@@ -23,7 +23,7 @@ Publishing an eligible public CMS record now populates **both** the homepage blo
 - Regular posts are paginated **after** removing the lead: 12 per `/blog` page and 6 per homepage section page. Older posts remain reachable through `/blog?page=2` and `/?blogPage=2#blog`; counts include the lead without repeating it in the grid. Searching lists every matching post normally, including the featured article.
 - Draft, future-scheduled, expired, trashed, fixture, noindex and protected/member-only records do not become public cards. Saving a Markdown file is still not a CMS save or publication.
 - The homepage now uses SSR (`prerender = false`) to include saved card content in initial HTML without rebuilding. Homepage and blog-index responses are no-store so a fresh request sees publication changes; other blog surfaces still have the cache limitations recorded below.
-- The homepage blog section is the owner's explicit exception to hiding all blog promotion while launch-gated. Navigation/footer, noindex/canonical policy and sitemap/schema launch exclusions remain separate. Public maintenance mode is unchanged.
+- The homepage cards, Blog menu and footer link are visible while indexing remains gated. `MAIN_NAVIGATION` supplies desktop/mobile menus and `buildNavigationElements()` automatically supplies navigation JSON-LD; `isNavigationHrefVisible()` controls menu visibility separately from `isLaunchedHref()`. No per-post title edits belong in navigation or schema source. Noindex/canonical suppression, sitemap exclusion and homepage article-ItemList exclusion remain in force. Public maintenance mode is unchanged.
 
 Verify a draft is absent from both listings, publish through the normal service gate, then fetch both pages and inspect the actual card, cover and article link. Verify the chosen feature appears once above the regular grid. Test new publications, switching the feature and unpublishing. The image-flow E2E now checks actual initial HTML and 320/1440px browser rendering of both surfaces after publication.
 

@@ -1,0 +1,143 @@
+$ playwright install && playwright test --reporter=list,json src/routes/page.svelte.e2e.ts src/routes/admin/image-flow.e2e.ts --browser webkit --workers 1
+[WebServer] $ vp build && node scripts/maintenance-build.mjs
+[WebServer] (node:50024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:50072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:50072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] [plugin builtin:vite-reporter]
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:50072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.mjs
+[WebServer]     - @react-email/render
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.cjs
+[WebServer]     - @react-email/render
+[WebServer]   .svelte-kit/output/server/chunks/auth.js
+[WebServer]     - @opentelemetry/api
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.cjs
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-libvips-/package
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/libvips.cjs
+[WebServer]     - @img/sharp-libvips-dev/include
+[WebServer]     - @img/sharp-libvips-dev/cplusplus
+[WebServer] (node:51038) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vp preview
+[WebServer] (node:51104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:51130) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 13 tests using 1 worker
+
+(node:51235) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [webkit] › src/routes/admin/image-flow.e2e.ts:158:2 › Admin image flow: upload, feature, insert, publish, public page › creates a post with featured and inline images, saves a draft, reloads, and publishes (4.6s)
+  ✓   2 [webkit] › src/routes/admin/image-flow.e2e.ts:305:2 › Admin image flow: upload, feature, insert, publish, public page › publishing automatically adds one real card to homepage and blog without a rebuild (1.9s)
+  ✓   3 [webkit] › src/routes/admin/image-flow.e2e.ts:359:2 › Admin image flow: upload, feature, insert, publish, public page › public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap (920ms)
+  ✓   4 [webkit] › src/routes/page.svelte.e2e.ts:4:2 › Revolution Trading Pros Homepage Blueprint › enforces single H1 with whitespace separation and semantic H2/H3 outline (626ms)
+  ✓   5 [webkit] › src/routes/page.svelte.e2e.ts:36:2 › Revolution Trading Pros Homepage Blueprint › renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog (603ms)
+  ✓   6 [webkit] › src/routes/page.svelte.e2e.ts:117:2 › Revolution Trading Pros Homepage Blueprint › keeps Blog navigation, footer and JSON-LD aligned and navigates on desktop and mobile (1.9s)
+  ✘   7 [webkit] › src/routes/page.svelte.e2e.ts:198:2 › Revolution Trading Pros Homepage Blueprint › applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography (577ms)
+(node:52383) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   8 [webkit] › src/routes/page.svelte.e2e.ts:286:2 › Revolution Trading Pros Homepage Blueprint › handles desktop dropdown keyboard focus traversal and outside-click dismissal (6.3s)
+(node:52643) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [webkit] › src/routes/page.svelte.e2e.ts:319:2 › Revolution Trading Pros Homepage Blueprint › renders US/Canada hreflang tags, JSON-LD EducationalOrganization schema, OpenGraph/Twitter image metadata, robots.txt, and clean sitemap.xml (1.3s)
+  ✓  10 [webkit] › src/routes/page.svelte.e2e.ts:482:2 › Revolution Trading Pros Homepage Blueprint › verifies /about route has zero duplicate meta tags, valid AboutPage/ProfilePage JSON-LD, strict H1->H2->H3 hierarchy, and noindex on /demo/* (5.7s)
+  ✓  11 [webkit] › src/routes/page.svelte.e2e.ts:1146:2 › Revolution Trading Pros Homepage Blueprint › scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow (822ms)
+  ✓  12 [webkit] › src/routes/page.svelte.e2e.ts:1247:2 › Revolution Trading Pros Homepage Blueprint › handles mobile menu toggle, 48px tap targets, resize cleanup, and Escape key (787ms)
+  ✓  13 [webkit] › src/routes/page.svelte.e2e.ts:1280:2 › Revolution Trading Pros Homepage Blueprint › keeps all .reveal section elements visible (opacity: 1) when JavaScript is disabled (455ms)
+
+
+  1) [webkit] › src/routes/page.svelte.e2e.ts:198:2 › Revolution Trading Pros Homepage Blueprint › applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "solid"
+    Received: "none"
+
+      264 | 			};
+      265 | 		});
+    > 266 | 		expect(inputFocusOutline.outlineStyle).toBe('solid');
+          | 		                                       ^
+      267 | 		expect(inputFocusOutline.outlineWidth).toBe('3px');
+      268 | 		expect(inputFocusOutline.outlineColor).toBe('rgb(220, 255, 101)');
+      269 | 		expect(inputFocusOutline.outlineOffset).toBe('4px');
+        at /private/tmp/wt-blog-audit-20261105/src/routes/page.svelte.e2e.ts:266:42
+
+    Error Context: test-results/src-routes-page.svelte.e2e-f5d6b-x-and-Fontsource-typography-webkit/error-context.md
+
+  2) [webkit] › src/routes/page.svelte.e2e.ts:286:2 › Revolution Trading Pros Homepage Blueprint › handles desktop dropdown keyboard focus traversal and outside-click dismissal
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('nav.nav-links .nav-dropdown-trigger').first()
+    Expected: "false"
+    Received: "true"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('nav.nav-links .nav-dropdown-trigger').first() with timeout 5000ms
+      - waiting for locator('nav.nav-links .nav-dropdown-trigger').first()
+        14 × locator resolved to <button type="button" aria-haspopup="true" aria-expanded="true" class="nav-dropdown-trigger svelte-1n8e4t1">…</button>
+           - unexpected value "true"
+
+
+      310 |
+      311 | 		// Leaving the first .nav-item must close its dropdown
+    > 312 | 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
+          | 		                           ^
+      313 |
+      314 | 		// Tabbing into Alert Services submenu must set aria-expanded="true" on Alert Services trigger
+      315 | 		await page.keyboard.press('Tab'); // SPX Profit Pulse
+        at /private/tmp/wt-blog-audit-20261105/src/routes/page.svelte.e2e.ts:312:30
+
+    Error Context: test-results/src-routes-page.svelte.e2e-19656-and-outside-click-dismissal-webkit/error-context.md
+
+  2 failed
+    [webkit] › src/routes/page.svelte.e2e.ts:198:2 › Revolution Trading Pros Homepage Blueprint › applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography
+    [webkit] › src/routes/page.svelte.e2e.ts:286:2 › Revolution Trading Pros Homepage Blueprint › handles desktop dropdown keyboard focus traversal and outside-click dismissal
+  11 passed (1.1m)
+[ELIFECYCLE] Command failed with exit code 1.

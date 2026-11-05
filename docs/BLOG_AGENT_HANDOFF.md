@@ -29,7 +29,7 @@ Older prompts, adaptation notes and dated progress tables can describe prior sta
 
 The owner-requested discovery structure is implemented in `src/lib/server/services/blog-discovery.ts` and the homepage/blog route loaders. Every eligible published CMS post feeds both surfaces. One marked featured article leads; when none is marked, the newest publication leads. Regular posts exclude that lead before pagination (6 per homepage section page, 12 per blog page). Search includes matching featured posts as normal results.
 
-The homepage is now a documented SSR exception so new saved publications appear without a rebuild. Its blog section renders independently of the older homepage launch-hide condition; navigation, indexing, sitemap and gated-schema policy remain protected. Homepage and blog-index reads are no-store. Other cache/publishing hardening and the intake CLI remain proposed work. Do not report the entire automation plan complete.
+The homepage is now a documented SSR exception so new saved publications appear without a rebuild. Its blog section renders independently of the older homepage launch-hide condition; Blog is visible in desktop/mobile menus, footer and navigation JSON-LD from the shared navigation data. Indexing, sitemap and homepage article-ItemList exclusions remain in force. See `isNavigationHrefVisible()` versus `isLaunchedHref()`; menu visibility does not launch indexing. Homepage and blog-index reads are no-store. Other cache/publishing hardening and the intake CLI remain proposed work. Do not report the entire automation plan complete.
 
 A new repository draft still needs an approved CMS save/publication. This change does not import the archived Markdown packages, invent authors/media or publish the 0DTE article. See [publishing placement instructions](../blog%20implementation.md#11-automatic-homepage-and-blog-placement) and [the owner decision](seo/DECISIONS.md#7-automatic-cms-discovery-and-featured-placement-2026-11-05).
 
@@ -86,8 +86,8 @@ Editorial inputs under `blogs/` and `content/`, root code/content samples (`blog
 
 For every future agent prompt, README, playbook or runbook added to this repository, include a relative link to this handoff when it can guide blog work, and add it to this coverage list. Keep the current/proposed distinction accurate when automation is implemented; replace proposed names with tested commands and evidence.
 
-## Validation of this documentation update
+## Historical handoff-only validation
 
 Verified all **40** coverage-list entries carry exactly one handoff reference, every handoff link resolves, the Claude import exists, the SEO-standard copies remain byte-identical, audit-prompt YAML front matter is unchanged, and the four root reference artifacts remain untouched. Changed-file Vite+ formatting checks cover **44 files**, with whitespace checks for the tracked diff. The isolated worktree uses the installed toolchain with the same verification-only dependency-reinstall override documented in the Svelte review; no project tooling configuration changed.
 
-No application behavior changed, so this handoff does not claim new runtime test results. Re-run these documentation checks when adding an entry point or changing a handoff link.
+The original handoff-only update changed no application behavior. Current navigation and publishing acceptance is recorded in [the November 5 verification](reviews/blog-navigation-2026-11-05/VERIFICATION.md). Re-run these documentation checks when adding an entry point or changing a handoff link.

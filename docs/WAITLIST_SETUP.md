@@ -2,8 +2,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-The page and mail workflow are implemented; the owner chose to connect services later. Until then,
-the email section stays visible with disabled native controls and a clear unavailable note. No request
+The maintenance page and mail workflow are implemented; maintenance is currently off. When that page is active, its unconfigured email section stays visible with disabled native controls and a clear unavailable note. The owner deferred email/provider setup. No request
 is accepted and no message is claimed as sent. Use the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md)
 for all project checks/builds.
 
@@ -19,10 +18,9 @@ with `vercel alias set <verified-preview-url> new-revolution-development-will-ri
 Verify unauthenticated requests still redirect to Vercel SSO and the authenticated maintenance marker
 remains `false` after each change. Never point this alias at a Production maintenance build.
 
-## 2. Connect the services
+## 2. Complete the remaining service setup
 
-Create a dedicated Production Postgres database and a verified Resend sending domain. Configure
-these in Vercel → `new-revolution` → Production (never commit real values):
+Production Postgres is already connected: `revolution-production`, free_v3, iad1, initialized November 5. Preserve that Production-only connection and verify its health; do not create a second database or reuse Preview. Configure the remaining verified Resend sending domain and provider settings in Vercel → `new-revolution` → Production (never commit real values):
 
 | Variable                   | Purpose                                                         |
 | -------------------------- | --------------------------------------------------------------- |
@@ -42,7 +40,7 @@ Keep private operator environment files outside Git. `.env.example` lists the re
 Resend domain verification requires the sender's DNS records. Configure delivery, bounce and
 complaint callbacks to `https://www.revolutiontradingpros.com/api/webhooks/resend`.
 
-## 3. Initialize the intended database
+## 3. Database initialization — completed November 5
 
 With a private operator `.env` containing the intended URL, first review the target and migration list:
 
@@ -50,7 +48,7 @@ With a private operator `.env` containing the intended URL, first review the tar
 node --env-file-if-exists=.env scripts/waitlist-migrate.mjs
 ```
 
-This default run prints only the host, database name and file names; it does not connect or write.
+The current Production database already has all four migrations and 55 public tables. The commands below describe the initial-setup helper; do not reinitialize or repoint an existing database blindly. Future schema changes require a new forward migration. The default helper run prints only the host, database name and file names; it does not connect or write.
 Confirm this is the new Production database, then explicitly apply:
 
 ```sh

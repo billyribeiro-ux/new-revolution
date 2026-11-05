@@ -14,7 +14,7 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 - Align the archive, search, category, tag, article and protected-article shells with the existing `.container` and responsive section spacing. Preserve 900px article readability and centered media; remove conflicting fixed shells and narrow-screen grid/form overflow.
 - Add browser assertions against the actual navbar container across 320–2420px, including a 1536px centered shell at 2420px. Correct the CSS standards table to match the implemented width/gutter tokens; update the blog handoff and publishing guide.
 - Catch and fix a hosted-only homepage500 before release: its remote desk-status prerender function now explicitly permits runtime calls after the SSR conversion. Add a regression against the actual generated Vercel handler, rather than Vite preview alone.
-- At the owner’s explicit request, prepare maintenance off, a verified Production release and squash merge of PR #27. Initialize a separate free-plan Production Neon database with the four existing forward migrations; keep article preparation/publication for the subsequent discussion.
+- At the owner’s explicit request, switch maintenance off and squash-merge PR #27 as `b19c91f`. Promote exact verified Production `dpl_5QU1Tz3sngobduDUb1jKoqmaggpF`; staged and public three-engine acceptance each pass 18 rendering cases and eight HTTP checks. Initialize a separate free-plan Production Neon database with the four existing forward migrations; keep article preparation/publication for the subsequent discussion.
 - Evidence, exact release state and remaining article work are recorded in `docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md`.
 
 ### 2026-11-05 — Visible Blog navigation and schema parity

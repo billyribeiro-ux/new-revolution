@@ -35,7 +35,7 @@ A new repository draft still needs an approved CMS save/publication. This change
 
 Implementation and acceptance evidence: [575 unit/component tests, 40 authenticated browser tests, 3 SEO tests and reviewed screenshots](reviews/blog-discovery-2026-11-05/VERIFICATION.md). These are local implementation results; check the branch/release state before assuming a hosted deployment contains the feature.
 
-The owner’s subsequent November 5 instruction authorizes switching public maintenance off and squash-merging the verified implementation. Current deployment state is recorded in [layout/release acceptance](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Restore maintenance only on the owner’s later instruction. The original 0DTE article and its specified illustrations remain the next discussion; a normal website deployment does not import or approve that draft.
+The owner’s subsequent November 5 instruction has been completed: PR #27 is squash-merged and the normal public website is deployed with maintenance off. Current deployment state is recorded in [layout/release acceptance](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Restore maintenance only on the owner’s later instruction. The original 0DTE article and its specified illustrations remain the next discussion; a normal website deployment does not import or approve that draft.
 
 The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: true }`. The November 5 hosted check found that default build-only prerender functions can pass Vite preview while throwing in the generated Vercel handler. Preserve `tests/deployment/vercel-runtime.e2e.ts` and verify deployed HTTP/browser behavior after changing rendering mode.
 
@@ -88,7 +88,7 @@ The following **40 existing Markdown entry points, prompts, standards and runboo
 
 `CHANGELOG.md` records the handoff change and links here. This file supplies the shared status and required reading so future updates have one maintained destination.
 
-Editorial inputs under `blogs/` and `content/`, root code/content samples (`blog-sample.md`, `blog-sample-fixed.md`, `old-footer.md`, `menu-submenu.md`) and dated evidence under `docs/reviews/` or `docs/seo/audit/` are reference artifacts, not operational entry points. Their original content is preserved. When consulting an artifact, start with the current handoff above rather than treating the artifact as a fresh implementation directive.
+Editorial inputs under `blogs/` and `content/`, root code/content samples (`blog-sample.md`, `blog-sample-fixed.md`, `menu-submenu.md`) and dated evidence under `docs/reviews/` or `docs/seo/audit/` are reference artifacts, not operational entry points. Their authored content is preserved by this implementation. The owner separately retired `old-footer.md` on main; it is not an active reference. When consulting an artifact, start with the current handoff above rather than treating the artifact as a fresh implementation directive.
 
 For every future agent prompt, README, playbook or runbook added to this repository, include a relative link to this handoff when it can guide blog work, and add it to this coverage list. Keep the current/proposed distinction accurate when automation is implemented; replace proposed names with tested commands and evidence.
 

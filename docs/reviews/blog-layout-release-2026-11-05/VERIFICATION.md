@@ -41,7 +41,15 @@ The original 0DTE article, its financial/editorial corrections and specified ima
 
 ## Published deployment
 
-Exact merged commit, staged and public HTTP/browser proof are appended after release verification. A successful environment edit, merge, deployment status or HTTP 200 alone is insufficient proof: a queued Vercel deployment can return HTTP 200 with a “Deployment is building” page.
+[PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27) was squash-merged as **`b19c91f8749d8162f3be0b6d2a342ed4609700aa`**. The complete application/configuration scope matches reviewed head `26c4a74`; main additionally contains owner-authored editorial reference changes. No unrelated reference deletion was restored.
+
+Exact Production: **`dpl_5QU1Tz3sngobduDUb1jKoqmaggpF`**, `new-revolution-ca1oj6x7k-will-ribeiros-projects.vercel.app`, READY / Production / exact squash SHA. Its Production-configured staged URL passed **18 browser cases and eight HTTP checks** before explicit promotion. The public `https://www.revolutiontradingpros.com` then passed the same checks **without bypass credentials**. Root and blog return 200, maintenance state is false, database health is true, admin/media-list APIs return 401, login/RSS/sitemap return 200 and an unknown article returns404. The first immediate public probe during cutover returned 503; the subsequent alias/marker check and full clean-browser public run confirmed the new normal deployment. No further application change was made for that transition.
+
+Each browser run covers Chromium/Firefox/WebKit at 320, 1440 and 2420px on homepage/blog: loaded first-party fonts and brand image, visible desktop/mobile Blog navigation, centered container alignment, no overflow, no page/console/network errors, correct indexing controls and honest empty CMS state. Public Chrome was also opened and visually observed rendering the normal centered Blog layout. Generated test images/posts were never copied into Production.
+
+The private development alias now points to the verified corrected **Preview `dpl_9F5jprZgVDUwV7SAXfRWg2bjbGiz`**, source `26c4a74`, whose application matches the published build. Anonymous access still redirects to Vercel SSO. Automatic custom-domain assignment remains false and protection remains `all_except_custom_domains`. Production maintenance is off until the owner requests otherwise.
+
+See [release identity/parity](release.json), [Preview proof](hosted-preview/preview-proof.json), [staged Production proof](hosted-production-stage/production-stage-proof.json) and [public proof](public/public-proof.json), with screenshots alongside each. A successful build, promotion command or HTTP 200 alone is insufficient: the earlier queued deployment returned 200 with a “Deployment is building” page; the earlier 128d679 Preview built successfully but returned 500. These were caught before release.
 
 ## Hosted runtime defect found before merge
 
@@ -50,3 +58,7 @@ The build-successful Preview for head `128d679` returned HTTP 500 on `/`. Runtim
 The unchanged generated Vercel handler reproduced the same 500 locally with an isolated in-memory database, while `/blog` returned 200; see `logs/adapter-before-fix.log`. `getDeskStatus` now uses the documented `{ dynamic: true }` option, retaining its constant public payload at runtime. A permanent deployment E2E imports the generated handler directly in an isolated child process and verifies real SSR responses and desk-status content, without Vite's asset fallback or a shared test database. Official documentation, installed Kit implementation and MCP evidence are retained in `home-runtime-mcp.json`. The failing hosted build was not merged or promoted.
 
 The final full E2E suite includes the new generated-handler regression (**43 passed**). Two default-concurrency unit attempts hit the existing 10-second auth setup hook; those historical logs are retained. The isolated auth suite passed 3/3; the final full unit run passed 575/575 with `--maxWorkers 4`, preserving every test and timeout. No global worker, timeout or threshold configuration changed.
+
+## Release evidence follow-up
+
+This documentation-only follow-up records the final live state after the implementation squash merge. The application/source fingerprints remain identical to the tested and published release. The final repository-wide lint reports formatting in two newly inherited owner-authored references (`blogs/first-blog.md`, `blogs/head-to-head-blog.md`); those editorial files are preserved unchanged. Owned release documents pass formatting; Oxlint and Svelte ESLint pass separately. No article text was approved, imported or published. All 40 handoff entrypoint references, the Claude import and byte-identical SEO-standard copies were reverified. The owner’s retirement of the separate `old-footer.md` reference was preserved.

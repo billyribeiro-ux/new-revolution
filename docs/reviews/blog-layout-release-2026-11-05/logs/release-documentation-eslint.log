@@ -1,0 +1,2 @@
+pnpm exec eslint "**/*.svelte"
+Exit code: 0

@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+**Production status, November 5:** public Blob store `revolution-production-media` (`store_zWoSsUN6nA8DJ1wl`, iad1) is connected only to Production. The first article’s six real originals and generated variants/crops were uploaded through the existing media service and verified against hosted responses. Local disk remains the development/test driver. See [actual publication state](reviews/first-blog-2026-11-05/production.json).
+
 Uploaded images (`POST /api/media/upload`) are converted to WebP with 480/800/1200 variants and stored through one
 driver, chosen by `selectMediaStorageDriver(process.env)` in `src/lib/server/media-storage.ts`.
 

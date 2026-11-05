@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Publish the verified first article
+
+- Under the owner’s explicit “Publish after verification” instruction, publish `/blog/0dte-spx-options-strategy-guide` through the existing CMS lifecycle as the featured article on both homepage and archive. Save the real publication time and automatic JSON-LD from the verified 3,199-word revision.
+- Connect a dedicated public Vercel Blob store to Production only; upload six verified originals/social media and generate actual variants/crops through the existing media service. Configure a secure Production preview-signing key after confirming no protected/trashed content; masked sensitive exports are not valid signing material.
+- Squash-merge PR #29 as `e94fc23`; verify and promote exact rebuilt Production `dpl_EbGSBSiqZEEQnmTdKQ21TQpTnhEg`. Keep maintenance off and the existing indexing gate. Evict the blog’s tagged caches explicitly; no automatic CDN purger is claimed.
+- Preserve the original source brief and prepared input package. Record the actual hosted draft/public acceptance and publication state in `docs/reviews/first-blog-2026-11-05/VERIFICATION.md` and `production.json`; update the publishing and operational handoffs.
+
 ### 2026-11-05 — Evidence-based first article preparation
 
 - Prepare a complete, separately reviewed CMS package from `blogs/first-blog.md`, preserving the original brief. Correct regulatory transition, tax assumptions, dealer-inventory claims, payoff/EV distinctions, account-risk math and actual CTA routes using primary sources.

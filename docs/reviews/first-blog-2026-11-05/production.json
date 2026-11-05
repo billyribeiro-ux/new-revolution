@@ -1,0 +1,364 @@
+{
+	"publicationDate": "2026-11-05",
+	"ownerAuthorization": "Publish after verification",
+	"implementationPR": 29,
+	"mergeCommit": "e94fc2376721e0b45375dd46f63f3df5a8de6557",
+	"reviewedHead": "ae28fe29b3f3be00405471d1c0a6ad0d995a53ec",
+	"testedApplicationAndArticleParity": true,
+	"deployment": {
+		"id": "dpl_EbGSBSiqZEEQnmTdKQ21TQpTnhEg",
+		"url": "new-revolution-7fgvwhrug-will-ribeiros-projects.vercel.app",
+		"readyState": "READY",
+		"target": "production",
+		"gitSource": {
+			"ref": "main",
+			"repoId": 1438965350,
+			"sha": "e94fc2376721e0b45375dd46f63f3df5a8de6557",
+			"type": "github",
+			"prId": null
+		},
+		"originalDeploymentId": "dpl_GSjrqqHc6QPUXoUKeUSKgpYEmoaZ"
+	},
+	"publicUrl": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+	"post": {
+		"postId": 1,
+		"status": "published",
+		"publishedAt": "2026-11-05T21:29:51.520Z",
+		"updatedAt": "2026-11-05T21:29:51.520Z",
+		"wordCount": 3199,
+		"featured": true,
+		"savedBodySha256": "73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4",
+		"sourceBodySha256": "7565348e2efeb306d38465ae9487256db0d1995213ebf630cb2c1958ce1758a2",
+		"sourceMetaSha256": "2632a285fe24bf5c66edb8fdd7b3d0ebb930e3539e74740a70188ce24ab57a2d",
+		"score": {
+			"score": 97,
+			"publishable": true,
+			"band": "good",
+			"label": "Excellent",
+			"issues": [
+				{
+					"id": "body_img_missing_keyword_alt",
+					"severity": "warn",
+					"points": 3,
+					"blocking": false,
+					"message": "No body image alt text includes the focus keyword \"0DTE SPX options strategy\"."
+				}
+			],
+			"wordCount": 3199,
+			"externalAuthorityDomains": [
+				"ir.cboe.com",
+				"cboe.com",
+				"optionseducation.org",
+				"cdn.cboe.com",
+				"schwab.com",
+				"irs.gov",
+				"toslc.thinkorswim.com",
+				"finra.org",
+				"theocc.com"
+			]
+		}
+	},
+	"blobStore": {
+		"id": "store_zWoSsUN6nA8DJ1wl",
+		"name": "revolution-production-media",
+		"region": "iad1",
+		"access": "public",
+		"connectedEnvironments": ["production"]
+	},
+	"media": {
+		"execution-map": {
+			"id": "0313e5cf-16bf-4bda-92ca-281cd7d0eca4",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-1600w.webp",
+			"width": 1600,
+			"height": 900,
+			"bytes": 62810,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				},
+				{
+					"value": "full",
+					"label": "Full (1600x900)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-1600w.webp",
+					"width": 1600,
+					"height": 900,
+					"available": true
+				}
+			]
+		},
+		"tax-comparison": {
+			"id": "ed905171-382d-4f4e-bdf7-4fc6a4c0077a",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-1200w.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 43032,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"dealer-hedging": {
+			"id": "13d0a124-42d9-498e-b934-ceb45770c32f",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-1200w.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 50628,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"spread-payoffs": {
+			"id": "243e5612-e4c3-4e30-8647-177c6969315f",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-1200w.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 44138,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"session-plan": {
+			"id": "8a3d3990-2748-45a5-851d-18599e4f28b1",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-1200w.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 48132,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"execution-map-social": {
+			"id": "0420205c-e352-4f44-98f4-318e90957b56",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-social-78d6e91f4538-1200w.webp",
+			"width": 1200,
+			"height": 630,
+			"bytes": 37422,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-social-78d6e91f4538-480w.webp",
+					"width": 480,
+					"height": 252,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-social-78d6e91f4538-800w.webp",
+					"width": 800,
+					"height": 420,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-social-78d6e91f4538-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x630)",
+					"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-social-78d6e91f4538-1200w.webp",
+					"width": 1200,
+					"height": 630,
+					"available": true
+				}
+			]
+		}
+	},
+	"coverCrops": [
+		{
+			"aspect": "16x9",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-16x9.webp",
+			"width": 1200,
+			"height": 675
+		},
+		{
+			"aspect": "4x3",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-4x3.webp",
+			"width": 1200,
+			"height": 900
+		},
+		{
+			"aspect": "1x1",
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-1x1.webp",
+			"width": 900,
+			"height": 900
+		}
+	],
+	"previewSigningSetup": {
+		"maskedExportsRejected": true,
+		"newProductionKeyEntropyBits": 256,
+		"protectedPostsBeforeSetup": 0,
+		"trashedPostsBeforeSetup": 0
+	},
+	"cache": {
+		"manualTaggedEviction": true,
+		"tags": [
+			"blog-lists",
+			"blog-feed",
+			"blog-sitemap",
+			"blog-post:0dte-spx-options-strategy-guide"
+		],
+		"registeredAutomaticCdnPurgerImplemented": false
+	},
+	"maintenance": false,
+	"blogIndexingGateRemoved": false,
+	"adminAccountsCreated": 0,
+	"hostedAcceptance": {
+		"stagedDraftCases": 15,
+		"publicRenderingCases": 27,
+		"httpChecksPerRun": 7,
+		"graphCropsDecodedPerRun": 3,
+		"publicTaxonomyAndCtaChecks": 8,
+		"publicBypassCredentialsUsed": false,
+		"finalBrowserPageConsoleNetworkErrors": 0
+	}
+}

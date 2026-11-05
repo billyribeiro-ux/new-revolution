@@ -2,4 +2,4 @@ $ node --env-file-if-exists=.env scripts/seed-admin.ts
 .env not found. Continuing without it.
 Database: PGlite (local file) /private/tmp/wt-blog-audit-20261105/.svelte-kit/pglite-blog
 Account created: role=admin, email verified.
-email=blog-nav-d765c1fac943@example.invalid id=kcOn1kIGcjCxfs56nWslK5ftzykX5yoE role=admin action=created
+email=blog-nav-9b73a0464bf7@example.invalid id=smd8bB8Rr4QjFD2UM1tk0tmVmtz6NqyU role=admin action=created

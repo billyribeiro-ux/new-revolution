@@ -1,0 +1,38 @@
+{
+	"desired_svelte_version": "5.57.3",
+	"async": true,
+	"components": [
+		{
+			"filename": "src/lib/components/layout/Footer.svelte",
+			"result": {
+				"content": [
+					{
+						"type": "text",
+						"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+					}
+				],
+				"structuredContent": {
+					"issues": [],
+					"suggestions": [],
+					"require_another_tool_call_after_fixing": false
+				}
+			}
+		},
+		{
+			"filename": "src/routes/our-mission/+page.svelte",
+			"result": {
+				"content": [
+					{
+						"type": "text",
+						"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+					}
+				],
+				"structuredContent": {
+					"issues": [],
+					"suggestions": [],
+					"require_another_tool_call_after_fixing": false
+				}
+			}
+		}
+	]
+}

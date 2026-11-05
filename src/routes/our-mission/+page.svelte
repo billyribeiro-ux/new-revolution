@@ -1,4 +1,4 @@
-<!-- src/routes/our-mission/+page.svelte -->				
+<!-- src/routes/our-mission/+page.svelte -->
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';

@@ -323,7 +323,7 @@ computing gzip size...
 .svelte-kit/output/server/chunks/leads.js                                                            25.07 kB │ gzip:   7.67 kB │ map:    43.69 kB
 .svelte-kit/output/server/chunks/http.js                                                             25.22 kB │ gzip:   7.77 kB │ map:    47.57 kB
 .svelte-kit/output/server/entries/pages/live-trading-rooms/swing-trading-room/_page.svelte.js        25.42 kB │ gzip:   8.15 kB │ map:    34.84 kB
-.svelte-kit/output/server/entries/pages/our-mission/_page.svelte.js                                  25.77 kB │ gzip:   8.06 kB │ map:    35.47 kB
+.svelte-kit/output/server/entries/pages/our-mission/_page.svelte.js                                  25.76 kB │ gzip:   8.05 kB │ map:    35.47 kB
 .svelte-kit/output/server/entries/pages/live-trading-rooms/small-accounts-room/_page.svelte.js       25.79 kB │ gzip:   8.30 kB │ map:    35.34 kB
 .svelte-kit/output/server/chunks/analytics.js                                                        26.29 kB │ gzip:   7.16 kB │ map:    46.14 kB
 .svelte-kit/output/server/entries/pages/about/_page.svelte.js                                        28.28 kB │ gzip:   8.67 kB │ map:    38.84 kB
@@ -355,9 +355,9 @@ computing gzip size...
 .svelte-kit/output/server/chunks/posts.js                                                           492.89 kB │ gzip: 124.07 kB │ map:   956.54 kB
 .svelte-kit/output/server/chunks/auth.js                                                            873.43 kB │ gzip: 204.02 kB │ map: 1,642.62 kB
 
-✓ built in 2.20s
+✓ built in 1.60s
 Analysing routes
-(node:56693) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:67392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Building app
 transforming...
@@ -515,7 +515,7 @@ computing gzip size...
 .svelte-kit/output/client/_app/immutable/chunks/BmsfGsq-.js                                           9.43 kB │ gzip:   3.26 kB
 .svelte-kit/output/client/_app/immutable/nodes/9.CfP5X_8e.js                                         10.00 kB │ gzip:   3.92 kB
 .svelte-kit/output/client/_app/immutable/chunks/C0_A7kd1.js                                          10.75 kB │ gzip:   4.37 kB
-.svelte-kit/output/client/_app/immutable/entry/app.Dxk7v5fu.js                                       12.91 kB │ gzip:   3.44 kB
+.svelte-kit/output/client/_app/immutable/entry/app.BKYfEXvP.js                                       12.91 kB │ gzip:   3.44 kB
 .svelte-kit/output/client/_app/immutable/nodes/38.B-TCufNE.js                                        14.68 kB │ gzip:   5.58 kB
 .svelte-kit/output/client/_app/immutable/chunks/LyIl6H04.js                                          18.34 kB │ gzip:   6.43 kB
 .svelte-kit/output/client/_app/immutable/nodes/25.CbvXGaao.js                                        18.72 kB │ gzip:   6.09 kB
@@ -527,7 +527,7 @@ computing gzip size...
 .svelte-kit/output/client/_app/immutable/nodes/31.BfByi-e7.js                                        24.33 kB │ gzip:   8.94 kB
 .svelte-kit/output/client/_app/immutable/nodes/33.DWKWvuML.js                                        24.82 kB │ gzip:   9.00 kB
 .svelte-kit/output/client/_app/immutable/nodes/32.DaUeuY58.js                                        25.19 kB │ gzip:   9.17 kB
-.svelte-kit/output/client/_app/immutable/nodes/35.CKc1Z_wj.js                                        25.30 kB │ gzip:   8.95 kB
+.svelte-kit/output/client/_app/immutable/nodes/35.BIVsH_XJ.js                                        25.29 kB │ gzip:   8.94 kB
 .svelte-kit/output/client/_app/immutable/nodes/43.CL4bCfEI.js                                        27.53 kB │ gzip:   9.88 kB
 .svelte-kit/output/client/_app/immutable/nodes/5.C-NPXk3K.js                                         28.09 kB │ gzip:   9.82 kB
 .svelte-kit/output/client/_app/immutable/nodes/41.BYQhnVzm.js                                        29.14 kB │ gzip:  10.48 kB
@@ -553,19 +553,19 @@ computing gzip size...
 .svelte-kit/output/client/_app/immutable/chunks/DGFLXJip.js                                         127.17 kB │ gzip:  31.01 kB
 .svelte-kit/output/client/_app/immutable/chunks/BqJqJpfS.js                                         795.74 kB │ gzip: 252.66 kB
 
+✓ built in 1.47s
 [plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 1.57s
-(node:56693) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:67392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Prerendering
 transforming...
 ✓ 2 modules transformed.
 rendering chunks...
-✓ built in 8ms
+✓ built in 6ms
 
 Run npm run preview to preview your production build locally.
 
@@ -580,21 +580,21 @@ Warning: The following modules failed to locate dependencies that may (or may no
   .svelte-kit/output/server/chunks/auth.js
     - @opentelemetry/api
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
-    - @img/sharp-linux-arm64/sharp.node
-    - @img/sharp-wasm32/sharp.node
     - @img/sharp-darwin-x64/sharp.node
-    - @img/sharp-linux-x64/sharp.node
-    - @img/sharp-linuxmusl-x64/sharp.node
-    - @img/sharp-linux-riscv64/sharp.node
-    - @img/sharp-linuxmusl-arm64/sharp.node
     - @img/sharp-linux-arm/sharp.node
-    - @img/sharp-webcontainers-wasm32/sharp.node
-    - @img/sharp-freebsd-wasm32/sharp.node
+    - @img/sharp-linux-arm64/sharp.node
     - @img/sharp-linux-s390x/sharp.node
-    - @img/sharp-win32-arm64/sharp.node
     - @img/sharp-linux-ppc64/sharp.node
+    - @img/sharp-linux-riscv64/sharp.node
     - @img/sharp-win32-ia32/sharp.node
+    - @img/sharp-wasm32/sharp.node
+    - @img/sharp-linuxmusl-x64/sharp.node
+    - @img/sharp-win32-arm64/sharp.node
     - @img/sharp-win32-x64/sharp.node
+    - @img/sharp-freebsd-wasm32/sharp.node
+    - @img/sharp-linuxmusl-arm64/sharp.node
+    - @img/sharp-linux-x64/sharp.node
+    - @img/sharp-webcontainers-wasm32/sharp.node
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
     - @img/sharp-wasm32/versions
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
@@ -617,7 +617,7 @@ Warning: The following modules failed to locate dependencies that may (or may no
     - @img/sharp-wasm32/sharp.node
     - @img/sharp-libvips-/package
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/libvips.cjs
-    - @img/sharp-libvips-dev/cplusplus
     - @img/sharp-libvips-dev/include
+    - @img/sharp-libvips-dev/cplusplus
 Writing routes...
 ✔ done

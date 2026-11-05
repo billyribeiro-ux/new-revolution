@@ -12,7 +12,7 @@ The publishing guide, shared handoff, launch decisions, temporary registry, laun
 
 ## Verification record
 
-Final gate and hosted acceptance results are recorded below after completion. Logs preserve command output. A historical Firefox run exposed an unsynchronized immediate reload after Save Draft; its initial log and summary are retained separately rather than presented as a passing run.
+Final local gate results are recorded below; hosted acceptance is added after deployment verification. Logs preserve command output. A historical Firefox run exposed an unsynchronized immediate reload after Save Draft; its initial log and summary are retained separately rather than presented as a passing run.
 
 The full-file official Svelte MCP review targets installed Svelte **5.57.3**, with the actual async compiler setting, and reports zero issues/suggestions for Navbar. A temporary browser fixture measured seven menu items, no document/navigation overflow and no desktop brand/link/action overlap at fifteen widths from 320 to 1920px. It also verified mobile Blog active state on a child route and Escape dismissal; the passing measurement fixture was removed. Permanent E2E assertions cover navigation, schema parity, actual menu clicks, responsive visibility and indexing policy.
 
@@ -48,4 +48,4 @@ The hosted CMS was previously observed empty. Local publishing coverage does not
 | Documentation references           | 40 entrypoints, Claude import and identical SEO-standard copies verified |
 | Navbar official Svelte MCP         | 0 issues / 0 suggestions                                                 |
 
-The [source fingerprints](source-manifest.json), three engine summaries, [static navigation sweep](static-navigation.json), [documentation check](documentation-check.json), [MCP](svelte-mcp.json), [logs](logs/) and [screenshots](screenshots/) retain the evidence. Final lint results are added after formatting the generated evidence. Existing chunk-size/color and optional Vercel dependency-tracing notices remain; no dependency/toolchain change is included.
+The [source fingerprints](source-manifest.json), three engine summaries, [static navigation sweep](static-navigation.json), [documentation check](documentation-check.json), [MCP](svelte-mcp.json), [logs](logs/) and [screenshots](screenshots/) retain the evidence. Final lint runs after formatting generated evidence and the eight inherited main-branch formatting failures. The only mission-component formatting change removes trailing whitespace after its opening comment; the owner’s wording is preserved. Editorial Markdown formatting is included to satisfy the repository-wide formatter, without approving or publishing those drafts. Existing chunk-size/color and optional Vercel dependency-tracing notices remain; no dependency/toolchain change is included.

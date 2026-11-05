@@ -5,6 +5,6 @@ $ vp test --run
 
  Test Files  79 passed (79)
       Tests  575 passed (575)
-   Start at  13:20:56
-   Duration  30.97s (worker 42%, tests 30%, transform 18%, import 10%)
+   Start at  13:34:56
+   Duration  13.12s (worker 47%, tests 28%, transform 15%, import 10%)
 

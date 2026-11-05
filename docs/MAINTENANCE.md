@@ -86,7 +86,12 @@ The complete waitlist section remains visible while services are disconnected. S
 [the connection checklist](WAITLIST_SETUP.md) for enabling the form, immediate thank-you/confirmation
 mail, welcome receipt and separately consented progress updates. The owner will connect services later.
 
-Use the protected normal Preview for ongoing website work, with `MAINTENANCE_MODE=false`;
+Use the [protected development Preview](https://new-revolution-development-will-ribeiros-projects.vercel.app)
+for ongoing website work, with `MAINTENANCE_MODE=false`;
 `pnpm dev` also runs the normal local website. Public Production remains in maintenance. Do not
 use a Production deployment alias as the development URL or expose the unfinished website on a
 custom development domain.
+
+The stable alias currently pins the verified PR #25 Preview (`8560523`), whose tree equals merged
+`main` (`6c35cf2`). It requires Vercel sign-in. Repoint it only after verifying a newer normal Preview,
+as documented in [waitlist setup](WAITLIST_SETUP.md); it does not automatically follow `main`.

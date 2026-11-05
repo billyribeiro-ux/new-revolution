@@ -20,7 +20,7 @@ The CSS-standard width/gutter table, publishing guide and agent handoff now matc
 | Complete build                         | Pass, including maintenance output                  |
 | Static page contracts                  | 46 passed                                           |
 | Standalone SEO                         | 3 passed                                            |
-| Full authenticated Chromium E2E        | 42 passed                                           |
+| Full authenticated Chromium E2E        | 43 passed                                           |
 | Firefox homepage/publishing/layout E2E | 14 passed                                           |
 | WebKit homepage/publishing/layout E2E  | 14 passed                                           |
 | Final browser failures/skips/flaky     | 0 / 0 / 0                                           |
@@ -42,3 +42,11 @@ The original 0DTE article, its financial/editorial corrections and specified ima
 ## Published deployment
 
 Exact merged commit, staged and public HTTP/browser proof are appended after release verification. A successful environment edit, merge, deployment status or HTTP 200 alone is insufficient proof: a queued Vercel deployment can return HTTP 200 with a “Deployment is building” page.
+
+## Hosted runtime defect found before merge
+
+The build-successful Preview for head `128d679` returned HTTP 500 on `/`. Runtime logs identified `remote_prerender_not_dynamic` in `home.remote.js`. The homepage SSR conversion still called a default build-only `getDeskStatus` remote prerender function. Vite preview could reuse its generated asset, hiding the missing runtime implementation.
+
+The unchanged generated Vercel handler reproduced the same 500 locally with an isolated in-memory database, while `/blog` returned 200; see `logs/adapter-before-fix.log`. `getDeskStatus` now uses the documented `{ dynamic: true }` option, retaining its constant public payload at runtime. A permanent deployment E2E imports the generated handler directly in an isolated child process and verifies real SSR responses and desk-status content, without Vite's asset fallback or a shared test database. Official documentation, installed Kit implementation and MCP evidence are retained in `home-runtime-mcp.json`. The failing hosted build was not merged or promoted.
+
+The final full E2E suite includes the new generated-handler regression (**43 passed**). Two default-concurrency unit attempts hit the existing 10-second auth setup hook; those historical logs are retained. The isolated auth suite passed 3/3; the final full unit run passed 575/575 with `--maxWorkers 4`, preserving every test and timeout. No global worker, timeout or threshold configuration changed.

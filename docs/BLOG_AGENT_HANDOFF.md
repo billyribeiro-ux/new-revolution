@@ -37,6 +37,8 @@ Implementation and acceptance evidence: [575 unit/component tests, 40 authentica
 
 The owner’s subsequent November 5 instruction authorizes switching public maintenance off and squash-merging the verified implementation. Current deployment state is recorded in [layout/release acceptance](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Restore maintenance only on the owner’s later instruction. The original 0DTE article and its specified illustrations remain the next discussion; a normal website deployment does not import or approve that draft.
 
+The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: true }`. The November 5 hosted check found that default build-only prerender functions can pass Vite preview while throwing in the generated Vercel handler. Preserve `tests/deployment/vercel-runtime.e2e.ts` and verify deployed HTTP/browser behavior after changing rendering mode.
+
 Blog shells now use the same responsive `.container` as the rest of the website (1536px maximum on large screens); article prose retains a 900px reading limit. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
 
 ## Agent-document coverage

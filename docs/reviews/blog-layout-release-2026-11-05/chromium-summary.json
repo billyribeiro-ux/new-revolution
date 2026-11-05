@@ -1,8 +1,8 @@
 {
 	"stats": {
-		"startTime": "2026-11-05T19:03:48.296Z",
-		"duration": 25305.692000000003,
-		"expected": 42,
+		"startTime": "2026-11-05T19:25:11.678Z",
+		"duration": 27760.244,
+		"expected": 43,
 		"skipped": 0,
 		"unexpected": 0,
 		"flaky": 0

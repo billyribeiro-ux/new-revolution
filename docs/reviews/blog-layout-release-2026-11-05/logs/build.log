@@ -168,8 +168,8 @@ computing gzip size...
 .svelte-kit/output/server/entries/pages/alert-services/spx-profit-pulse/_page.ts.js                   1.53 kB │ gzip:   0.76 kB │ map:     2.05 kB
 .svelte-kit/output/server/entries/pages/admin/_page.server.ts.js                                      1.53 kB │ gzip:   0.76 kB │ map:     2.51 kB
 .svelte-kit/output/server/entries/pages/admin/subscribers/_page.svelte.js                             1.54 kB │ gzip:   0.66 kB │ map:    11.04 kB
-.svelte-kit/output/server/chunks/home.remote.js                                                       1.56 kB │ gzip:   0.79 kB │ map:     1.61 kB
 .svelte-kit/output/server/entries/pages/admin/posts/_page.server.ts.js                                1.57 kB │ gzip:   0.66 kB │ map:     2.67 kB
+.svelte-kit/output/server/chunks/home.remote.js                                                       1.58 kB │ gzip:   0.80 kB │ map:     1.76 kB
 .svelte-kit/output/server/entries/endpoints/api/campaign-events/_server.ts.js                         1.61 kB │ gzip:   0.69 kB │ map:     3.44 kB
 .svelte-kit/output/server/chunks/calls.remote.js                                                      1.63 kB │ gzip:   0.70 kB │ map:     1.91 kB
 .svelte-kit/output/server/entries/pages/our-mission/_page.ts.js                                       1.65 kB │ gzip:   0.66 kB │ map:     2.13 kB
@@ -349,15 +349,15 @@ computing gzip size...
 .svelte-kit/output/server/chunks/internal.js                                                        113.42 kB │ gzip:  30.32 kB │ map:   238.56 kB
 .svelte-kit/output/server/chunks/structured-data.js                                                 118.84 kB │ gzip:  30.71 kB │ map:   169.04 kB
 .svelte-kit/output/server/chunks/server3.js                                                         121.77 kB │ gzip:  32.03 kB │ map:   363.93 kB
-.svelte-kit/output/server/chunks/instance.js                                                        127.65 kB │ gzip:  33.69 kB │ map:   264.14 kB
+.svelte-kit/output/server/chunks/instance.js                                                        127.66 kB │ gzip:  33.69 kB │ map:   264.14 kB
 .svelte-kit/output/server/chunks/Footer.js                                                          154.38 kB │ gzip:  31.56 kB │ map:   292.76 kB
 .svelte-kit/output/server/chunks/PostEditor.js                                                      179.12 kB │ gzip:  38.97 kB │ map:   426.20 kB
 .svelte-kit/output/server/chunks/posts.js                                                           492.89 kB │ gzip: 124.07 kB │ map:   956.54 kB
 .svelte-kit/output/server/chunks/auth.js                                                            873.43 kB │ gzip: 204.02 kB │ map: 1,642.62 kB
 
-✓ built in 1.56s
+✓ built in 1.47s
 Analysing routes
-(node:14231) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:44290) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Building app
 transforming...
@@ -558,14 +558,10 @@ computing gzip size...
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 1.46s
-(node:14231) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+✓ built in 1.36s
+(node:44290) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Prerendering
-transforming...
-✓ 2 modules transformed.
-rendering chunks...
-✓ built in 5ms
 
 Run npm run preview to preview your production build locally.
 
@@ -579,24 +575,24 @@ Warning: The following modules failed to locate dependencies that may (or may no
     - @react-email/render
   .svelte-kit/output/server/chunks/auth.js
     - @opentelemetry/api
-  node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
-    - @img/sharp-wasm32/versions
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
     - @img/sharp-wasm32/sharp.node
+    - @img/sharp-darwin-x64/sharp.node
+    - @img/sharp-linux-arm/sharp.node
     - @img/sharp-linux-x64/sharp.node
     - @img/sharp-linux-ppc64/sharp.node
-    - @img/sharp-linux-riscv64/sharp.node
-    - @img/sharp-linux-arm64/sharp.node
-    - @img/sharp-linux-arm/sharp.node
-    - @img/sharp-win32-arm64/sharp.node
-    - @img/sharp-linux-s390x/sharp.node
-    - @img/sharp-darwin-x64/sharp.node
-    - @img/sharp-freebsd-wasm32/sharp.node
-    - @img/sharp-win32-ia32/sharp.node
-    - @img/sharp-linuxmusl-arm64/sharp.node
-    - @img/sharp-webcontainers-wasm32/sharp.node
-    - @img/sharp-win32-x64/sharp.node
     - @img/sharp-linuxmusl-x64/sharp.node
+    - @img/sharp-linuxmusl-arm64/sharp.node
+    - @img/sharp-win32-arm64/sharp.node
+    - @img/sharp-linux-arm64/sharp.node
+    - @img/sharp-win32-ia32/sharp.node
+    - @img/sharp-win32-x64/sharp.node
+    - @img/sharp-freebsd-wasm32/sharp.node
+    - @img/sharp-webcontainers-wasm32/sharp.node
+    - @img/sharp-linux-riscv64/sharp.node
+    - @img/sharp-linux-s390x/sharp.node
+  node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
+    - @img/sharp-wasm32/versions
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
     - @img/sharp-wasm32/versions
   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.cjs

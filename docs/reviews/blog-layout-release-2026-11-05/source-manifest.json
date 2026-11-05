@@ -11,6 +11,8 @@
 		"src/lib/data/launch-gate.ts": "ed4c2f79f677da564d98b9292ed28a5601501bad1a1d4a0497bc217b151bc064",
 		"src/lib/seo/structured-data.ts": "fcf0a2081872bf8a260fd2c94812f7150b7ed2b0c7a298d1dce8bcc56b41dd84",
 		"src/lib/server/services/blog-discovery.ts": "912327d960a1887f68a8f2d91c038c3dda0836b7359cd3c2dec15116889e3ec3",
-		"src/app.css": "83bdfebcddccf83829e3988c78251cb5d033c6ad57b12e5c1f34a907b059b6cf"
+		"src/app.css": "83bdfebcddccf83829e3988c78251cb5d033c6ad57b12e5c1f34a907b059b6cf",
+		"src/routes/home.remote.ts": "55b16d314d2cb2f5d4b5c9f9dfde44bffcdef65aceed4b76d4ea0f31643eee87",
+		"tests/deployment/vercel-runtime.e2e.ts": "de645eb546cf7253aa18d48aae1f5318263180957356fb7d1bd1def58ab6d936"
 	}
 }

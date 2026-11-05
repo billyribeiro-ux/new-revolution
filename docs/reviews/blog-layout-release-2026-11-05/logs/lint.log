@@ -2,4 +2,4 @@ $ vp fmt --check . && vp lint . && eslint "**/*.svelte"
 Checking formatting...
 
 All matched files use the correct format.
-Finished in 1448ms on 664 files using 28 threads.
+Finished in 1310ms on 669 files using 28 threads.

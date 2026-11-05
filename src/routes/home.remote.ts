@@ -2,13 +2,17 @@ import * as v from 'valibot';
 import { form, prerender } from '$app/server';
 import { EBOOK_PROFILES } from '#lib/data/homepage.ts';
 
-export const getDeskStatus = prerender(async () => {
-	return {
-		edition: 'THE EXECUTION DOSSIER / 001',
-		statusLabel: 'RISK FIRST',
-		updatedYear: 2026
-	};
-});
+// The homepage uses SSR for CMS discovery; keep this static payload callable at runtime.
+export const getDeskStatus = prerender(
+	async () => {
+		return {
+			edition: 'THE EXECUTION DOSSIER / 001',
+			statusLabel: 'RISK FIRST',
+			updatedYear: 2026
+		};
+	},
+	{ dynamic: true }
+);
 
 export const submitEbookLead = form(
 	v.object({

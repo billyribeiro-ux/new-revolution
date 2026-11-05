@@ -22,89 +22,98 @@
 <Navbar />
 
 <main id="blog-category-page" class="inner-page blog-taxonomy-page">
-	<section class="page-hero" aria-labelledby="cat-h1">
-		<div class="hero-inner">
-			<nav class="taxonomy-breadcrumbs" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li><a href={resolve('/blog')}>Blog</a></li>
-					<li aria-current="page">{data.category.name}</li>
-				</ol>
-			</nav>
-			<span class="section-kicker">Topic Archive</span>
-			<h1 id="cat-h1" class="hero-h1">{data.category.name}</h1>
-			{#if data.category.description}
-				<p class="hero-sub">{data.category.description}</p>
-			{/if}
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li><a href={resolve('/blog')}>Blog</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">{data.category.name}</li>
+			</ol>
+		</div>
+	</nav>
+
+	<section class="section page-hero" aria-labelledby="cat-h1">
+		<div class="container">
+			<div class="hero-inner">
+				<span class="section-kicker">Topic Archive</span>
+				<h1 id="cat-h1" class="hero-h1">{data.category.name}</h1>
+				{#if data.category.description}
+					<p class="hero-sub">{data.category.description}</p>
+				{/if}
+			</div>
 		</div>
 	</section>
 
-	<section class="content-section taxonomy-layout">
-		<div class="taxonomy-main">
-			{#if data.category.pillarHtml}
-				<div class="pillar-intro prose-base">
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html data.category.pillarHtml}
-				</div>
-			{/if}
+	<section class="section content-section">
+		<div class="container taxonomy-layout">
+			<div class="taxonomy-main">
+				{#if data.category.pillarHtml}
+					<div class="pillar-intro prose-base">
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html data.category.pillarHtml}
+					</div>
+				{/if}
 
-			<div class="taxonomy-grid">
-				{#each data.posts as post, idx (post.id)}
-					<PostCard {post} eager={idx === 0} headingLevel="h2" />
-				{/each}
+				<div class="taxonomy-grid">
+					{#each data.posts as post, idx (post.id)}
+						<PostCard {post} eager={idx === 0} headingLevel="h2" />
+					{/each}
+				</div>
+
+				{#if data.pagination.totalPages > 1}
+					<!-- eslint-disable svelte/no-navigation-without-resolve -- query-string pagination on resolved route -->
+					<nav class="pagination-nav" aria-label="Category pagination">
+						{#if data.pagination.page > 1}
+							<a
+								href={pageHref(
+									resolve('/blog/category/[slug]', { slug: data.category.slug }),
+									data.pagination.page - 1
+								)}
+								class="page-btn"
+							>
+								Previous Page
+							</a>
+						{/if}
+						<span class="page-indicator">
+							Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
+						</span>
+						{#if data.pagination.page < data.pagination.totalPages}
+							<a
+								href={pageHref(
+									resolve('/blog/category/[slug]', { slug: data.category.slug }),
+									data.pagination.page + 1
+								)}
+								class="page-btn"
+							>
+								Next Page
+							</a>
+						{/if}
+					</nav>
+					<!-- eslint-enable svelte/no-navigation-without-resolve -->
+				{/if}
 			</div>
 
-			{#if data.pagination.totalPages > 1}
-				<!-- eslint-disable svelte/no-navigation-without-resolve -- query-string pagination on resolved route -->
-				<nav class="pagination-nav" aria-label="Category pagination">
-					{#if data.pagination.page > 1}
-						<a
-							href={pageHref(
-								resolve('/blog/category/[slug]', { slug: data.category.slug }),
-								data.pagination.page - 1
-							)}
-							class="page-btn"
-						>
-							Previous Page
-						</a>
-					{/if}
-					<span class="page-indicator">
-						Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
-					</span>
-					{#if data.pagination.page < data.pagination.totalPages}
-						<a
-							href={pageHref(
-								resolve('/blog/category/[slug]', { slug: data.category.slug }),
-								data.pagination.page + 1
-							)}
-							class="page-btn"
-						>
-							Next Page
-						</a>
-					{/if}
-				</nav>
-				<!-- eslint-enable svelte/no-navigation-without-resolve -->
-			{/if}
+			<aside class="taxonomy-sidebar" aria-label="Categories navigation">
+				<h2 class="sidebar-h2">Categories</h2>
+				<ul class="sidebar-list">
+					{#each data.sidebarCategories as cat (cat.id)}
+						<li>
+							<a
+								href={resolve('/blog/category/[slug]', { slug: cat.slug })}
+								class={['sidebar-link', { 'is-active': cat.id === data.category.id }]}
+								aria-current={cat.id === data.category.id ? 'page' : undefined}
+							>
+								<span>{cat.name}</span>
+								<span class="sidebar-count">{cat.postCount}</span>
+							</a>
+						</li>
+					{/each}
+				</ul>
+				<a href={resolve('/blog')} class="back-all-link">All Blog Articles</a>
+			</aside>
 		</div>
-
-		<aside class="taxonomy-sidebar" aria-label="Categories navigation">
-			<h2 class="sidebar-h2">Categories</h2>
-			<ul class="sidebar-list">
-				{#each data.sidebarCategories as cat (cat.id)}
-					<li>
-						<a
-							href={resolve('/blog/category/[slug]', { slug: cat.slug })}
-							class={['sidebar-link', { 'is-active': cat.id === data.category.id }]}
-							aria-current={cat.id === data.category.id ? 'page' : undefined}
-						>
-							<span>{cat.name}</span>
-							<span class="sidebar-count">{cat.postCount}</span>
-						</a>
-					</li>
-				{/each}
-			</ul>
-			<a href={resolve('/blog')} class="back-all-link">All Blog Articles</a>
-		</aside>
 	</section>
 </main>
 
@@ -114,27 +123,6 @@
 	.hero-inner {
 		max-width: 820px;
 		margin: 0 auto;
-	}
-
-	.taxonomy-breadcrumbs ol {
-		display: flex;
-		gap: 0.5rem;
-		list-style: none;
-		padding: 0;
-		margin: 0 0 0.75rem;
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		color: var(--muted);
-	}
-
-	.taxonomy-breadcrumbs li + li::before {
-		content: '/';
-		margin-right: 0.5rem;
-	}
-
-	.taxonomy-breadcrumbs a {
-		color: var(--muted);
-		text-decoration: none;
 	}
 
 	.hero-sub {
@@ -159,9 +147,13 @@
 		border-radius: 12px;
 	}
 
+	.taxonomy-main {
+		min-inline-size: 0;
+	}
+
 	.taxonomy-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 		gap: 1.5rem;
 	}
 
@@ -218,6 +210,7 @@
 	.pagination-nav {
 		margin-top: 2rem;
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;

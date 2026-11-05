@@ -1,0 +1,192 @@
+{
+	"date": "2026-11-05",
+	"desiredSvelteVersion": "5.57.3",
+	"async": true,
+	"files": [
+		{
+			"path": "src/routes/blog/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/[slug]/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/category/[slug]/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/tag/[slug]/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/+error.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/SEO.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/PostCard.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/PostEditor.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/PostEditorMainColumn.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/PostEditorSidebar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/PostEditorTopBar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/RichTextEditor.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/FeaturedImagePanel.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaLibrary.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/RevisionDiffViewer.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/TableOfContentsPanel.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/posts/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/posts/new/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/posts/[id]/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/media/+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/rich-text/ImageControlMenu.svelte",
+			"issues": [],
+			"suggestions": [
+				"You are calling the function `untrack` inside an $effect. Please check if the function is reassigning a stateful variable because that's considered malpractice and check if it could use  `$derived` instead. Ignore this suggestion if you are sure this function is not assigning any stateful variable or if you can't check if it does."
+			],
+			"require_another_tool_call_after_fixing": true
+		},
+		{
+			"path": "src/lib/components/admin/MediaBulkBar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaToolbar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaSidebar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaUploadQueue.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaGrid.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaModalHeader.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/MediaUploadPanel.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/CollapsibleMetaBox.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/ConfirmDialog.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		}
+	],
+	"manualReview": {
+		"src/lib/components/admin/rich-text/ImageControlMenu.svelte": "Suggestion reviewed at lines 180–185: a monotonically changing altEditRequest opens a user-editable draft via untrack(openEditor). Converting these draft fields to derived values would change editing behavior. No code changed; treat this as an advisory, not an all-clear for application semantics."
+	}
+}

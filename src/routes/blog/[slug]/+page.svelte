@@ -201,41 +201,47 @@
 	class="inner-page blog-article-page"
 >
 	{#if data.locked && data.payload}
-		<section class="content-section locked-article-section" aria-labelledby="locked-h1">
-			<nav class="article-breadcrumbs" aria-label="Breadcrumb">
-				<ol>
+		<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+			<div class="container breadcrumb-bar__inner">
+				<ol class="breadcrumb-list">
 					<li><a href={resolve('/')}>Home</a></li>
+					<li aria-hidden="true">/</li>
 					<li><a href={resolve('/blog')}>Blog</a></li>
+					<li aria-hidden="true">/</li>
 					<li aria-current="page">{data.payload.title}</li>
 				</ol>
-			</nav>
+			</div>
+		</nav>
 
-			<div class="locked-card">
-				<span class="locked-badge">Protected Article</span>
-				<h1 id="locked-h1" class="article-h1">{data.payload.title}</h1>
-				<p class="locked-notice">{data.payload.notice}</p>
+		<section class="section content-section locked-article-section" aria-labelledby="locked-h1">
+			<div class="container">
+				<div class="locked-card">
+					<span class="locked-badge">Protected Article</span>
+					<h1 id="locked-h1" class="article-h1">{data.payload.title}</h1>
+					<p class="locked-notice">{data.payload.notice}</p>
 
-				{#if form?.unlockError}
-					<div class="unlock-error" role="alert">
-						{form.unlockError}
-					</div>
-				{/if}
+					{#if form?.unlockError}
+						<div class="unlock-error" role="alert">
+							{form.unlockError}
+						</div>
+					{/if}
 
-				<form method="POST" action="?/unlock" class="unlock-form">
-					<label for="unlock-password-input" class="unlock-label"> Access Password </label>
-					<div class="unlock-input-row">
-						<input
-							id="unlock-password-input"
-							type="password"
-							name="password"
-							autocomplete="current-password"
-							required
-							class="unlock-input"
-							placeholder="Enter password..."
-						/>
-						<button type="submit" class="unlock-submit-btn"> Unlock Article </button>
-					</div>
-				</form>
+					<form method="POST" action="?/unlock" class="unlock-form">
+						<label for="unlock-password-input" class="unlock-label"> Access Password </label>
+						<div class="unlock-input-row">
+							<input
+								id="unlock-password-input"
+								type="password"
+								name="password"
+								autocomplete="current-password"
+								required
+								class="unlock-input"
+								placeholder="Enter password..."
+							/>
+							<button type="submit" class="unlock-submit-btn"> Unlock Article </button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</section>
 	{:else if data.post}
@@ -245,23 +251,28 @@
 			</div>
 		{/if}
 
-		<article class="article-container">
-			<header class="article-header">
-				<nav class="article-breadcrumbs" aria-label="Breadcrumb">
-					<ol>
-						<li><a href={resolve('/')}>Home</a></li>
-						<li><a href={resolve('/blog')}>Blog</a></li>
-						{#if data.post.category}
-							<li>
-								<a href={resolve('/blog/category/[slug]', { slug: data.post.category.slug })}>
-									{data.post.category.name}
-								</a>
-							</li>
-						{/if}
-						<li aria-current="page">{data.post.title}</li>
-					</ol>
-				</nav>
+		<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+			<div class="container breadcrumb-bar__inner">
+				<ol class="breadcrumb-list">
+					<li><a href={resolve('/')}>Home</a></li>
+					<li aria-hidden="true">/</li>
+					<li><a href={resolve('/blog')}>Blog</a></li>
+					<li aria-hidden="true">/</li>
+					{#if data.post.category}
+						<li>
+							<a href={resolve('/blog/category/[slug]', { slug: data.post.category.slug })}>
+								{data.post.category.name}
+							</a>
+						</li>
+						<li aria-hidden="true">/</li>
+					{/if}
+					<li aria-current="page">{data.post.title}</li>
+				</ol>
+			</div>
+		</nav>
 
+		<article class="container article-container">
+			<header class="article-header">
 				<div class="article-meta-badges">
 					{#if data.post.category}
 						<a
@@ -628,36 +639,7 @@
 	}
 
 	.article-container {
-		max-width: 1280px;
-		margin: 0 auto;
-		padding: 2.5rem 1.5rem 5rem;
-	}
-
-	.article-breadcrumbs ol {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		list-style: none;
-		padding: 0;
-		margin: 0 0 1.25rem;
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		color: var(--muted);
-	}
-
-	.article-breadcrumbs li + li::before {
-		content: '/';
-		margin-right: 0.5rem;
-		color: var(--line-strong);
-	}
-
-	.article-breadcrumbs a {
-		color: var(--muted);
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		min-height: 24px;
-		min-width: 24px;
+		padding-block: 2.5rem 5rem;
 	}
 
 	.byline-author-link,
@@ -671,10 +653,6 @@
 
 	.byline-author-link:hover,
 	.author-name-link:hover {
-		color: var(--acid);
-	}
-
-	.article-breadcrumbs a:hover {
 		color: var(--acid);
 	}
 
@@ -1166,7 +1144,7 @@
 
 	.related-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 		gap: 1.35rem;
 		margin-top: 1.25rem;
 	}
@@ -1225,11 +1203,13 @@
 
 	.unlock-input-row {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.5rem;
 	}
 
 	.unlock-input {
-		flex: 1;
+		min-inline-size: 0;
+		flex: 1 1 12rem;
 		padding: 0.6rem 0.85rem;
 		border-radius: 8px;
 		background: var(--bg-soft);

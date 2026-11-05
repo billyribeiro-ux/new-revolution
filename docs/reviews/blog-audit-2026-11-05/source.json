@@ -1,0 +1,55 @@
+{
+	"draft": {
+		"inputFilename": "0DTE-spx-options-strategy.md",
+		"discoveredByImporterFilenamePattern": false,
+		"parsedTitle": "0DTE-spx-options-strategy.md",
+		"parsedSlug": "0DTE-spx-options-strategy",
+		"parsedBodyLength": 0,
+		"parsedImageSpecs": 0,
+		"parsedMetaDescription": "",
+		"actualProposedTitle": "0DTE SPX Options Strategy: GEX, EV Math & Execution (2026)",
+		"actualProposedTitleLength": 58,
+		"actualProposedDescription": "Data-backed 0DTE SPX options strategy guide: Cboe volume stats, GEX Call/Put walls, Iron Condor vs. Butterfly EV math, 2:30 PM exit rules & Section 1256 tax.",
+		"actualProposedDescriptionLength": 157,
+		"proposedDescriptionAcceptedByCms": false
+	},
+	"archive": {
+		"files": 40,
+		"nonemptyBodies": 40,
+		"imageSpecs": 201,
+		"descriptionsOutsideHouseRange": []
+	},
+	"placeholderGate": {
+		"score": 100,
+		"publishable": true,
+		"band": "good",
+		"label": "Excellent",
+		"issues": [],
+		"wordCount": 658,
+		"externalAuthorityDomains": ["cboe.com", "irs.gov"]
+	},
+	"offsetlessScheduleAccepted": true,
+	"nestedRestrictedSchemaAfterFilter": [
+		{
+			"@type": "WebPage",
+			"mainEntity": {
+				"@type": "FAQPage",
+				"mainEntity": []
+			}
+		}
+	],
+	"pillarArticleTypes": [
+		"EducationalOrganization",
+		"WebSite",
+		"BreadcrumbList",
+		"WebPage",
+		"Person",
+		"Article"
+	],
+	"blogAuthorEntityId": "https://revolutiontradingpros.com/#author-billy-ribeiro",
+	"sanitizer": {
+		"literalMath": "<p>$$\\frac{700}{1000}$$</p>",
+		"nativeDetails": "Risk?<p>Answer</p>",
+		"scriptedPayload": "<p>Safe</p><img src=\"x\" />"
+	}
+}

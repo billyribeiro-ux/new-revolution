@@ -32,11 +32,11 @@ export function isPageOutOfRange(page: number, totalPages: number): boolean {
 }
 
 /** `/blog` for page 1, `/blog?page=3` otherwise. Extra params (such as `search`) are kept, `page` is added last. */
-export function pageHref(
-	basePath: string,
+export function pageHref<T extends string>(
+	basePath: T,
 	page: number,
 	extra: Readonly<Record<string, string>> = {}
-): string {
+): T | `${T}?${string}` {
 	const params = new URLSearchParams(extra);
 	if (page > 1) params.set('page', String(page));
 	const query = params.toString();

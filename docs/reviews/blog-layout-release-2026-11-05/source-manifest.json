@@ -1,0 +1,18 @@
+{
+	"referenceDate": "2026-11-05",
+	"files": {
+		"src/routes/blog/+page.svelte": "1d96b4adf50774c2a36532d7af94d5e684fadffee349fd27a2059a8a9d65a3e2",
+		"src/routes/blog/[slug]/+page.svelte": "5a74126d729263091fe87308a66254e9e8f04a73e04fac2bec3bec1ba2e13b2a",
+		"src/routes/blog/category/[slug]/+page.svelte": "52bd3a3287b1db1efca954bd0e600aecd3960aa364944f2c360f50447757b83e",
+		"src/routes/blog/tag/[slug]/+page.svelte": "437ee08e0b4a824b296df8f7bff976d29c41559589f43c8867fcaa46c1b76ac5",
+		"src/routes/admin/image-flow.e2e.ts": "2cad9787dcc70d0e682d718b1a483d81200ac7a32963526dbfa8d66493cf0b4a",
+		"src/lib/components/blog/PostCard.svelte": "9a3baaebce61881319c03e84182f2945c0f78c93f7ba4a6cfe2ee83bd14d7fed",
+		"src/lib/data/homepage.ts": "de255f603afbd7fd6f7bb1b26f2f603d5c7b47913e0996506d4a1e275d202e22",
+		"src/lib/data/launch-gate.ts": "ed4c2f79f677da564d98b9292ed28a5601501bad1a1d4a0497bc217b151bc064",
+		"src/lib/seo/structured-data.ts": "fcf0a2081872bf8a260fd2c94812f7150b7ed2b0c7a298d1dce8bcc56b41dd84",
+		"src/lib/server/services/blog-discovery.ts": "912327d960a1887f68a8f2d91c038c3dda0836b7359cd3c2dec15116889e3ec3",
+		"src/app.css": "83bdfebcddccf83829e3988c78251cb5d033c6ad57b12e5c1f34a907b059b6cf",
+		"src/routes/home.remote.ts": "55b16d314d2cb2f5d4b5c9f9dfde44bffcdef65aceed4b76d4ea0f31643eee87",
+		"tests/deployment/vercel-runtime.e2e.ts": "de645eb546cf7253aa18d48aae1f5318263180957356fb7d1bd1def58ab6d936"
+	}
+}

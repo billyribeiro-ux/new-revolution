@@ -1,5 +1,7 @@
 # Agent Coordination (multiple sessions, one repository)
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 The owner runs several AI sessions at once against this repo. They share one checkout and one remote.
 This file is how they avoid colliding. Read it **before** you start; update it **when** you start and finish.
 
@@ -20,10 +22,19 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                     | Owner session                              | Area / files claimed                                                                                                                                                      | Started    | Status                                                                                                                                                                                |
+| -------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/blog-audit-20261105` | Codex navbar and full discovery acceptance | Blog templates/layout, navigation/schema parity, tests/docs; owner-authorized Production maintenance-off environment/database/deployment, squash merge and branch cleanup | 2026-11-05 | Latest owner request: shared-container alignment, discuss article/assets, turn maintenance off after acceptance, commit/push/squash merge; keep indexing gate pending separate launch |
 
 ## Recently finished
+
+- **Automatic CMS blog discovery (Codex, 2026-11-05; [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27)):** share homepage/archive discovery, one selected-or-newest lead, paginated remaining posts, real media and no mock fallback. Add the owner-requested homepage SSR/discovery exceptions while preserving maintenance and other launch protections. Final gates pass: 575 unit/component tests, 40 authenticated E2E without skips, 3 SEO tests, 46 static contracts, clean four-component Svelte MCP and reviewed mobile/desktop screenshots. Evidence: `docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md`. No hosted content publication or Production promotion.
+
+- **Blog handoff coverage (Codex, 2026-11-05; `docs/blog-audit-20261105`, no PR):** add the shared handoff and dated references across 40 agent-facing Markdown entry points, explicitly import it in Claude, update the changelog and correct the missing static blog-data-file recipe. Verify all handoff references/links, front matter, SEO-standard parity, preserved reference artifacts, formatting and whitespace. Documentation only; no application, CMS or deployment changes.
+
+- **Blog automation design (Codex, 2026-11-05; `docs/blog-audit-20261105`, no PR):** review all 164 official Svelte/Kit MCP sections; add a source-based package/validator/draft-import/preview plan and documentation coverage ledger. Clarify that JSON-LD already derives from CMS content. Validate changed-file formatting, local links, package-script examples, ledger partition and whitespace. No application implementation, content import, dependency upgrade or deployment.
+
+- **Blog audit and 0DTE plan (Codex, 2026-11-05; local branch `docs/blog-audit-20261105`, no PR requested):** document the complete CMS workflow and 17 engineering findings, review the original brief against current primary sources, and add the agent publishing guide linked from `AGENTS.md`. Evidence: `docs/reviews/blog-audit-2026-11-05/`. Final unit repeat: 559 passed; authenticated E2E: 39 passed without skips; standalone SEO: 3 passed; 47 static page contracts; Svelte MCP: 30 components. Four dependency advisories and the recorded content/launch blockers remain open. No application, hosted data or deployment changes; local throwaway admin revoked.
 
 - **Published maintenance and development handoff (Codex, 2026-11-04; PR #26):** promote exact verified application `6c35cf2` as `dpl_4r3cshbeVdWiba3ZhWzBPLiRFYJo`; staged and public acceptance each pass eight HTTP checks and six three-engine mobile/desktop cases. Provide a stable authenticated normal Preview, record final integrated gates and clarify isolated/staged/canonical email activation tests. Owner-deferred Production services remain disconnected, with visible disabled capture. No live email or Production migration performed. Evidence: `docs/reviews/maintenance-ready/VERIFICATION.md`.
 

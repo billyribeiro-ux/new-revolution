@@ -257,6 +257,11 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		await page.waitForURL(/\/admin\/posts\/\d+$/);
 		await page.waitForLoadState('networkidle');
 		postId = new URL(page.url()).pathname.split('/').pop()!;
+		// The old create editor reports "All changes saved" before its fire-and-forget goto
+		// finishes. "Ready" belongs to the newly mounted saved editor; URL/network idle alone
+		// allowed Firefox's reload to interrupt that navigation (NS_BINDING_ABORTED).
+		await expect(page.locator('.autosave-indicator')).toHaveText('Ready');
+		await expect(page.locator('#post-title')).toHaveValue(TITLE);
 
 		// Reload: featured image + inline image persisted.
 		await page.reload();
@@ -270,6 +275,13 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		expect(
 			await reloadedImg.evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth)
 		).toBeGreaterThan(0);
+
+		// Saving a draft must not place its card on either public discovery surface.
+		for (const path of ['/', '/blog']) {
+			const draftListing = await context.request.get(path);
+			expect(draftListing.status()).toBe(200);
+			expect(await draftListing.text()).not.toContain(`data-post-id="${postId}"`);
+		}
 
 		// Publish (the SEO gate must pass).
 		slug = await page.locator('#post-slug').inputValue();
@@ -288,6 +300,121 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		expect(await gate.count(), 'publish gate did not block').toBe(0);
 		await page.waitForLoadState('networkidle');
 		await expect(page.locator('tr', { hasText: TITLE }).first()).toContainText(/published/i);
+	});
+
+	test('publishing automatically adds one real card to homepage and blog without a rebuild', async ({
+		request
+	}, testInfo) => {
+		for (const path of ['/', '/blog']) {
+			const response = await request.get(path);
+			expect(response.status()).toBe(200);
+			expect(response.headers()['cache-control']).toContain('no-store');
+			const html = await response.text();
+			expect(html).toContain(`data-post-id="${postId}"`);
+			expect(html).toContain(TITLE);
+			const graphs = [
+				...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)
+			].flatMap(
+				(match) =>
+					(JSON.parse(match[1]) as { '@graph'?: Record<string, unknown>[] })['@graph'] ?? []
+			);
+			if (path === '/blog') {
+				const blog = graphs.find((node) => node['@type'] === 'Blog');
+				expect(blog?.blogPost).toContainEqual(
+					expect.objectContaining({
+						'@type': 'BlogPosting',
+						headline: TITLE,
+						url: `https://revolutiontradingpros.com/blog/${slug}`
+					})
+				);
+			} else if (isUnlaunchedRoute('/blog')) {
+				expect(graphs.some((node) => String(node['@id']).endsWith('/#latest-blogs'))).toBe(false);
+			}
+			for (const width of [320, 1440]) {
+				await page.setViewportSize({ width, height: 1000 });
+				await page.goto(path);
+				const card = page.locator(`.blog-post-card[data-post-id="${postId}"]`);
+				await expect(card).toHaveCount(1);
+				await card.scrollIntoViewIfNeeded();
+				await expect(card).toBeVisible();
+				await expect(card.locator('h3 a')).toHaveAttribute('href', new RegExp(`/blog/${slug}$`));
+				const image = card.locator('img');
+				await expect(image).toHaveAttribute('alt', COVER_ALT);
+				await expect
+					.poll(() =>
+						image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
+					)
+					.toBe(true);
+				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+					true
+				);
+				await testInfo.attach(`cms-card-${path === '/' ? 'home' : 'blog'}-${width}.png`, {
+					body: await card.screenshot(),
+					contentType: 'image/png'
+				});
+			}
+		}
+	});
+
+	test('aligns every blog surface with the shared site container from mobile to ultrawide', async ({
+		request
+	}, testInfo) => {
+		await page.goto(`/blog/${slug}`);
+		const categoryHref = await page.locator('.article-category-badge').getAttribute('href');
+		const tagHref = await page
+			.locator('.article-tag-list a', { hasText: TAG })
+			.getAttribute('href');
+		expect(categoryHref).toBeTruthy();
+		expect(tagHref).toBeTruthy();
+		const routes = [
+			{ name: 'index', href: '/blog' },
+			{ name: 'search', href: '/blog?search=E2E' },
+			{ name: 'category', href: categoryHref! },
+			{ name: 'tag', href: tagHref! },
+			{ name: 'article', href: `/blog/${slug}` }
+		];
+		for (const route of routes) {
+			expect((await request.get(route.href)).status()).toBe(200);
+			for (const width of [320, 768, 1440, 1920, 2420]) {
+				await page.setViewportSize({ width, height: 1000 });
+				await page.goto(route.href);
+				await expect(page.locator('main h1')).toHaveCount(1);
+				const reference = await page.locator('header.nav-shell > .container.nav').boundingBox();
+				expect(reference).not.toBeNull();
+				const shells = await page.locator('main .container').evaluateAll((elements) =>
+					elements.map((el) => {
+						const rect = el.getBoundingClientRect();
+						return { x: rect.x, width: rect.width };
+					})
+				);
+				expect(shells.length).toBeGreaterThan(0);
+				for (const shell of shells) {
+					expect(Math.abs(shell.x - reference!.x)).toBeLessThan(1);
+					expect(Math.abs(shell.width - reference!.width)).toBeLessThan(1);
+				}
+				if (width === 2420) {
+					expect(reference!.width).toBe(1536);
+					expect(reference!.x).toBe(442);
+				}
+				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+					true
+				);
+				if (route.name === 'article') {
+					const prose = await page.locator('.article-prose').boundingBox();
+					expect(prose).not.toBeNull();
+					expect(prose!.width).toBeLessThanOrEqual(900);
+				}
+				if (
+					(width === 2420 && ['index', 'article'].includes(route.name)) ||
+					(width === 320 && ['category', 'tag'].includes(route.name))
+				) {
+					await testInfo.attach(`layout-${route.name}-${width}.png`, {
+						body: await page.screenshot({ fullPage: true }),
+						contentType: 'image/png'
+					});
+				}
+			}
+		}
 	});
 
 	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap', async () => {
@@ -320,9 +447,15 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			return data['@graph'] ?? [data as Record<string, unknown>];
 		});
 		const posting = nodes.find((n) => n['@type'] === 'BlogPosting') as
-			| { image?: { '@type': string; url: string; width?: number; height?: number }[] }
+			| {
+					headline: string;
+					'@id': string;
+					image?: { '@type': string; url: string; width?: number; height?: number }[];
+			  }
 			| undefined;
 		expect(posting, 'BlogPosting node').toBeTruthy();
+		expect(posting!.headline).toBe(TITLE);
+		expect(posting!['@id']).toBe(`https://revolutiontradingpros.com/blog/${slug}#article`);
 		const images = posting!.image;
 		expect(Array.isArray(images)).toBe(true);
 		expect(images).toHaveLength(3);

@@ -2,10 +2,12 @@
  * Launch gate: the single place that says which parts of the site are not ready to be found yet.
  *
  * Gated routes still exist and still render (so they can be built out and reviewed), but they are
- * kept out of every discovery surface until the owner flips them live:
- *   - the primary/mobile navigation, the footer and the homepage sections that promote them
- *   - the sitemap (and its database queries)
- *   - indexing: they emit `noindex` and no canonical (see `isNoIndexRoute` in `#lib/seo/structured-data.ts`)
+ * kept out of search indexing until the owner flips them live:
+ *   - the sitemap (and its database queries), offer catalog and homepage article ItemList
+ *   - indexing: they emit `noindex` and no canonical (see `isNoIndexRoute`)
+ * The owner requested CMS-backed homepage cards and visible Blog navigation on 2026-11-05.
+ * Blog navigation, footer links and navigation JSON-LD are visible independently of indexing.
+ * Store navigation/promotion and the unwritten eBook remain hidden.
  *
  * Why `noindex` and not a robots.txt `Disallow`: Google documents that robots.txt "is not a mechanism
  * for keeping a web page out of Google", and a disallowed URL "might still" be indexed when it is linked.
@@ -35,4 +37,10 @@ export function isUnlaunchedRoute(pathname: string): boolean {
 /** True when an internal `href` (which may carry a query or hash) points at a route that is live. */
 export function isLaunchedHref(href: string): boolean {
 	return !isUnlaunchedRoute(href.split(/[?#]/, 1)[0] ?? href);
+}
+
+/** Menu visibility is separate from indexing: Blog is discoverable during private review. */
+export function isNavigationHrefVisible(href: string): boolean {
+	const pathname = href.split(/[?#]/, 1)[0] ?? href;
+	return pathname === '/blog' || pathname.startsWith('/blog/') || isLaunchedHref(href);
 }

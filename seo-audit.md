@@ -4,6 +4,8 @@ description: Evidence-gated technical SEO audit → implement → re-audit for a
 
 # MISSION
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Audit **every route and every concrete URL** in this repository against `docs/seo/SEO_STANDARD.md`. Implement every missing or incorrect item end to end. Then re-run the **identical** audit and prove, with artifacts, that each requirement is PASS, N-A, or BLOCKED with a stated reason.
 
 You are done only when the final matrix (Phase 8) has **zero FAIL rows** and every PASS row cites evidence produced **in this session**.

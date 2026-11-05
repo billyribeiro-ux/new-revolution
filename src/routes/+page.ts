@@ -8,10 +8,10 @@ import {
 } from '#lib/seo/structured-data.ts';
 import type { PageLoad } from './$types';
 
-/** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
-export const prerender = true;
+/** Server-rendered CMS discovery keeps new publications visible without a redeploy. */
+export const prerender = false;
 
-export const load: PageLoad = ({ url }) => {
+export const load: PageLoad = ({ url, data }) => {
 	const canonicalUrl = getCanonicalUrl(url);
 
 	const pageTags = definePageMetaTags({
@@ -47,9 +47,13 @@ export const load: PageLoad = ({ url }) => {
 		}
 	});
 
-	const jsonLdSchema = buildHomepageJsonLd(SITE_ORIGIN);
+	const jsonLdSchema = buildHomepageJsonLd(SITE_ORIGIN, [
+		...data.blogListing.featuredPosts,
+		...data.blogListing.posts
+	]);
 
 	return {
+		...data,
 		...pageTags,
 		jsonLdSchema
 	};

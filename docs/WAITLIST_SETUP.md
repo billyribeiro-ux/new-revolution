@@ -1,5 +1,7 @@
 # Connect the maintenance waitlist
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 The page and mail workflow are implemented; the owner chose to connect services later. Until then,
 the email section stays visible with disabled native controls and a clear unavailable note. No request
 is accepted and no message is claimed as sent. Use the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md)
@@ -7,12 +9,11 @@ for all project checks/builds.
 
 ## 1. Keep Production and development separate
 
-Public Production uses `MAINTENANCE_MODE=true`. Authenticated Vercel Preview uses
-`MAINTENANCE_MODE=false` and its own database. Local development uses `pnpm dev`. Keep the
+The owner authorized maintenance **off** on November 5. Production and Preview now have
+`MAINTENANCE_MODE=false` for new builds and separate databases; see [the published release evidence](reviews/blog-layout-release-2026-11-05/VERIFICATION.md) for the actual live deployment. Local development uses `pnpm dev`. Keep the
 Production database and email credentials scoped to Production; do not reuse Preview data or
-remove Preview authentication. A Production `.vercel.app` alias is also a maintenance deployment;
-use the [protected development Preview](https://new-revolution-development-will-ribeiros-projects.vercel.app) for development.
-This alias requires Vercel sign-in and points to the verified normal Preview from PR #25. It is a
+remove Preview authentication. Use the [protected development Preview](https://new-revolution-development-will-ribeiros-projects.vercel.app) for development.
+This alias requires Vercel sign-in. Its current snapshot is recorded in the release evidence; do not infer its version from the branch name. It is a
 snapshot, not an automatically advancing branch: after testing a newer normal Preview, repoint it
 with `vercel alias set <verified-preview-url> new-revolution-development-will-ribeiros-projects.vercel.app --scope will-ribeiros-projects`.
 Verify unauthenticated requests still redirect to Vercel SSO and the authenticated maintenance marker

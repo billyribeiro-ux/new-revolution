@@ -1,3 +1,5 @@
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Continue the maintenance integration. Your previous response is a discovery report, not a completed implementation.
 
 Use the findings you already established. Do not repeat repository discovery unless you need to verify something that may have changed.

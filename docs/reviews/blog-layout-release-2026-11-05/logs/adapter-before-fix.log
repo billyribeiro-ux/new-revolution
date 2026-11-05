@@ -1,0 +1,22 @@
+Error: remote_prerender_not_dynamic
+Unexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?
+https://svelte.dev/e/kit/remote_prerender_not_dynamic
+    at file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/home.remote.js:13:8
+    at file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:104:41
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:66:14)
+    at with_request_store (file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)
+    at run_remote_function (file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:104:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:585:19
+Error: remote_prerender_not_dynamic
+Unexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?
+https://svelte.dev/e/kit/remote_prerender_not_dynamic
+    at file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/home.remote.js:13:8
+    at file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:104:41
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:66:14)
+    at with_request_store (file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)
+    at run_remote_function (file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:104:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///private/tmp/wt-blog-audit-20261105/.vercel/output/functions/!%5B-%5D/catchall.func/.svelte-kit/output/server/chunks/remote.js:585:19
+{"pathname":"/","status":500,"title":"Live Stock &amp; Options Trading Rooms | Revolution Trading Pros"}
+{"pathname":"/blog","status":200,"title":"Market Structure &amp; Options Blog | Revolution Trading Pros"}

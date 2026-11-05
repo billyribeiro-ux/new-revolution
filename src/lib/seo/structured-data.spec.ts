@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vite-plus/test';
+import { describe, expect, it, vi } from 'vite-plus/test';
+import * as launchGate from '#lib/data/launch-gate.ts';
 import {
 	ABOUT_FAQ_ITEMS,
 	COURSES_STORE_FAQ_ITEMS,
@@ -187,13 +188,50 @@ describe('buildHomepageJsonLd', () => {
 		assertGraphIntegrity(graph, { isHomepage: true });
 	});
 
-	it('does not advertise gated store products, blog articles or navigation entries', () => {
+	it('includes visible Blog navigation while excluding gated store products and blog article lists', () => {
 		const urls = JSON.stringify(graph);
 		expect(urls).not.toContain(`${ORIGIN}/store`);
-		expect(urls).not.toContain(`${ORIGIN}/blog`);
+		const navigation = graph.find((n) => n['@id'] === `${ORIGIN}/#navigation`) as Node;
+		expect(navigation.itemListElement).toContainEqual(
+			expect.objectContaining({
+				'@type': 'SiteNavigationElement',
+				name: 'Blog',
+				url: `${ORIGIN}/blog`
+			})
+		);
 		expect(graph.some((n) => n['@id'] === `${ORIGIN}/#latest-blogs`)).toBe(false);
 		const webpage = graph.find((n) => n['@id'] === `${ORIGIN}/#webpage`) as Node;
 		expect(webpage.hasPart).toEqual([{ '@id': `${ORIGIN}/#navigation` }]);
+	});
+
+	it('derives the launched article list from the same saved CMS cards the page renders', () => {
+		const original = launchGate.isLaunchedHref;
+		const spy = vi
+			.spyOn(launchGate, 'isLaunchedHref')
+			.mockImplementation((href) => href === '/blog' || original(href));
+		try {
+			const cards = [
+				{ id: 92, title: 'Selected saved feature', slug: 'selected-saved-feature' },
+				{ id: 105, title: 'New saved publication', slug: 'new-saved-publication' }
+			];
+			const withArticles = buildHomepageJsonLd(ORIGIN, cards)['@graph'] as Node[];
+			const list = withArticles.find((n) => n['@id'] === `${ORIGIN}/#latest-blogs`) as Node;
+			expect(list.numberOfItems).toBe(2);
+			expect(list.itemListElement).toEqual(
+				cards.map((card, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: card.title,
+					url: `${ORIGIN}/blog/${card.slug}`
+				}))
+			);
+			assertGraphIntegrity(withArticles, { isHomepage: true });
+			expect(
+				buildHomepageJsonLd(ORIGIN)['@graph'].some((n) => n['@id'] === `${ORIGIN}/#latest-blogs`)
+			).toBe(false);
+		} finally {
+			spy.mockRestore();
+		}
 	});
 });
 

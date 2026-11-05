@@ -1,4 +1,4 @@
-import { FREE_EBOOK_AVAILABLE, isLaunchedHref } from './launch-gate.ts';
+import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
 
 export type NavIconKey =
 	| 'broadcast'
@@ -140,7 +140,7 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 	{
 		id: 'blogs',
 		icon: 'blog',
-		label: 'Blogs',
+		label: 'Blog',
 		href: '/blog',
 		previewTarget: 'blog'
 	},
@@ -175,15 +175,15 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 ] as const;
 
 /**
- * Navigation shown to visitors and crawlers: `FULL_NAVIGATION` minus anything behind the launch gate
- * (`#lib/data/launch-gate.ts`). A dropdown whose children are all gated disappears with them.
+ * Navigation shared by desktop/mobile, footer policy and navigation JSON-LD.
+ * Blog visibility is independent of its search-indexing gate; hidden dropdowns disappear.
  */
 export const MAIN_NAVIGATION: readonly NavItem[] = FULL_NAVIGATION.flatMap((item): NavItem[] => {
 	if (item.children) {
-		const children = item.children.filter((child) => isLaunchedHref(child.href));
+		const children = item.children.filter((child) => isNavigationHrefVisible(child.href));
 		return children.length > 0 ? [{ ...item, children }] : [];
 	}
-	return !item.href || isLaunchedHref(item.href) ? [item] : [];
+	return !item.href || isNavigationHrefVisible(item.href) ? [item] : [];
 });
 
 export interface DocumentationStandardItem {
@@ -675,49 +675,6 @@ export const EBOOK_PROFILES = [
 
 export type EbookProfile = (typeof EBOOK_PROFILES)[number];
 
-export interface BlogArticle {
-	id: string;
-	coverVariant: 'cover1' | 'cover2' | 'cover3';
-	coverLabel: string;
-	meta: string;
-	title: string;
-	excerpt: string;
-	href: string;
-}
-
-export const BLOG_ARTICLES: readonly BlogArticle[] = [
-	{
-		id: 'oxy-put-options',
-		coverVariant: 'cover1',
-		coverLabel: 'OPTIONS CASE STUDY / MARKET STRUCTURE',
-		meta: 'OPTIONS CASE STUDY • OCT 2026',
-		title: 'Institutional Order Flow & the S&P 500 Gamma Flip Playbook',
-		excerpt:
-			'How institutional dealer gamma positioning, zero-gamma flip levels, and call/put walls govern intraday S&P 500 index price action.',
-		href: '/blog/institutional-order-flow-and-gamma-flip-playbook'
-	},
-	{
-		id: 'small-account-blueprint',
-		coverVariant: 'cover2',
-		coverLabel: 'SMALL ACCOUNTS / CAPITAL PROTECTION',
-		meta: 'SMALL ACCOUNTS • OCT 2026',
-		title: '0DTE SPX Options Risk Management & Position Sizing Rules',
-		excerpt:
-			'How position sizing, contract selection, settlement, and hard invalidation stops protect limited capital during intraday index sessions.',
-		href: '/blog/zero-dte-risk-management-and-position-sizing-rules'
-	},
-	{
-		id: 'swing-trading-professionals',
-		coverVariant: 'cover3',
-		coverLabel: 'WORKING PROFESSIONALS / SWING SETUPS',
-		meta: 'SWING TRADING • OCT 2026',
-		title: 'How Working Professionals Use Video Watchlists & Planned Stops',
-		excerpt:
-			'Build a repeatable market review around your schedule with video watchlists, pre-set triggers, and pre-defined risk.',
-		href: '/blog'
-	}
-] as const;
-
 export interface FaqItem {
 	id: string;
 	question: string;
@@ -916,7 +873,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 					]
 				: []),
 			{
-				label: 'Blogs',
+				label: 'Blog',
 				href: '/blog',
 				previewTarget: 'blog'
 			}
@@ -964,5 +921,5 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 /** Footer columns with every link behind the launch gate removed; a column left empty is dropped. */
 export const FOOTER_COLUMNS: readonly FooterColumn[] = FULL_FOOTER_COLUMNS.map((column) => ({
 	...column,
-	links: column.links.filter((link) => isLaunchedHref(link.href))
+	links: column.links.filter((link) => isNavigationHrefVisible(link.href))
 })).filter((column) => column.links.length > 0);

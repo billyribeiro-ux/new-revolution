@@ -26,9 +26,8 @@
 
 	let docScrollHeight = $state(4000);
 
-	// Sections that promote something not live yet stay out of the page (docs/seo/LAUNCH_TRACKER.md).
+	// The CMS blog section is shown independently of the store's launch gate.
 	const storeLive = isLaunchedHref('/store');
-	const blogLive = isLaunchedHref('/blog');
 
 	let scrollPercent = $derived.by(() => {
 		const y = scrollY.current ?? 0;
@@ -75,9 +74,7 @@
 	{#if FREE_EBOOK_AVAILABLE}
 		<EbookSection />
 	{/if}
-	{#if blogLive}
-		<BlogSection />
-	{/if}
+	<BlogSection listing={data.blogListing} unavailable={data.blogUnavailable} />
 	<FaqSection />
 	<ClosingSection />
 </main>

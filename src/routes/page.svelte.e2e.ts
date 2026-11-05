@@ -33,7 +33,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('footer p.risk-box-title')).toHaveCount(1);
 	});
 
-	test('renders enhanced brand logo and the launched 6-item navigation menu & submenus (store and blog are gated)', async ({
+	test('renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog', async ({
 		page
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
@@ -66,11 +66,11 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			expect(logoStyles.objectPosition).toBe('0% 50%');
 		}
 
-		// Exact 6 top-level navigation items in order (Store and Blogs sit behind the launch gate)
+		// Seven visible top-level items; Store alone remains hidden
 		const topLevelNavItems = page.locator(
 			'nav.nav-links > .nav-item > .nav-dropdown-trigger, nav.nav-links > .nav-item > .nav-link'
 		);
-		await expect(topLevelNavItems).toHaveCount(6);
+		await expect(topLevelNavItems).toHaveCount(7);
 
 		const labels = (await topLevelNavItems.allTextContents()).map((t) => t.trim());
 		expect(labels).toEqual([
@@ -79,6 +79,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'Mentorship',
 			'Our Mission',
 			'About',
+			'Blog',
 			'Resources'
 		]);
 
@@ -101,7 +102,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		]);
 
 		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);
-		await expect(page.locator('nav.nav-links a[href$="blog"]')).toHaveCount(0);
+		await expect(page.locator('nav.nav-links a[href$="blog"]')).toBeVisible();
 
 		const resourcesSubmenu = page
 			.locator('ul[aria-label="Resources submenu"] a.dropdown-link')
@@ -113,8 +114,90 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		]);
 	});
 
-	test('applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography', async ({
+	test('keeps Blog navigation, footer and JSON-LD aligned and navigates on desktop and mobile', async ({
 		page
+	}, testInfo) => {
+		await page.setViewportSize({ width: 1440, height: 900 });
+		await page.goto('/');
+		const navigationSchema = await page
+			.locator('script[type="application/ld+json"]')
+			.evaluateAll((scripts) => {
+				const graphs = scripts.flatMap(
+					(script) => JSON.parse(script.textContent || '{}')['@graph'] || []
+				);
+				return graphs.find(
+					(node) => node['@id'] === 'https://revolutiontradingpros.com/#navigation'
+				);
+			});
+		const visibleLinks = await page.locator('nav.nav-links a').evaluateAll((links) =>
+			links.map((link) => ({
+				name: link.textContent?.trim(),
+				url:
+					'https://revolutiontradingpros.com' + new URL((link as HTMLAnchorElement).href).pathname
+			}))
+		);
+		expect(
+			navigationSchema.itemListElement.map((node: { name: string; url: string }) => ({
+				name: node.name,
+				url: node.url
+			}))
+		).toEqual(visibleLinks);
+		await expect(
+			page.locator('footer').getByRole('link', { name: 'Blog', exact: true })
+		).toBeVisible();
+		await testInfo.attach('navbar-desktop.png', {
+			body: await page.screenshot(),
+			contentType: 'image/png'
+		});
+		await page.locator('nav.nav-links').getByRole('link', { name: 'Blog', exact: true }).click();
+		await expect(page).toHaveURL(/\/blog$/);
+		await expect(page.locator('nav.nav-links a[href="/blog"]')).toHaveAttribute(
+			'aria-current',
+			'page'
+		);
+		await expect(page.locator('main h1')).toHaveCount(1);
+		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+		await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+
+		for (const width of [320, 768, 1024, 1280]) {
+			await page.setViewportSize({ width, height: 900 });
+			await page.goto('/');
+			const mobileToggle = page.getByRole('button', { name: 'Open navigation' });
+			const useMobileMenu = await mobileToggle.isVisible();
+			if (useMobileMenu) {
+				await mobileToggle.click();
+				await page.keyboard.press('Escape');
+				await expect(mobileToggle).toHaveAttribute('aria-expanded', 'false');
+				await mobileToggle.click();
+			}
+			const menu = page.locator(useMobileMenu ? '#mobileNavigation' : 'nav.nav-links');
+			const blogLink = menu.getByRole('link', { name: 'Blog', exact: true });
+			await expect(blogLink).toBeVisible();
+			const bounds = await blogLink.boundingBox();
+			expect(bounds).not.toBeNull();
+			expect(bounds!.x).toBeGreaterThanOrEqual(0);
+			expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+			expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+				true
+			);
+			if (width === 320)
+				await testInfo.attach('navbar-mobile.png', {
+					body: await page.screenshot(),
+					contentType: 'image/png'
+				});
+			await blogLink.click();
+			await expect(page).toHaveURL(/\/blog$/);
+			if (useMobileMenu)
+				await expect(page.getByRole('button', { name: 'Open navigation' })).toHaveAttribute(
+					'aria-expanded',
+					'false'
+				);
+		}
+	});
+
+	test('applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography', async ({
+		page,
+		browserName
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
 		await page.goto('/');
@@ -169,9 +252,13 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// Verify keyboard :focus-visible outline (3px solid #DCFF65 -> rgb(220, 255, 101), 4px offset). The rule is global;
 		// the eBook input that used to carry this check is gated off (launch-gate.ts), so the first hero CTA does.
 		const firstNameInput = page.locator('.hero-ctas a').first();
+		// macOS WebKit uses Option-Tab for full link navigation (WebKit bug 161394).
+		const tabKey = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
 		await firstNameInput.focus();
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Shift+Tab');
+		await page.keyboard.press(tabKey);
+		await page.keyboard.press(`Shift+${tabKey}`);
+		await expect(firstNameInput).toBeFocused();
+		expect(await firstNameInput.evaluate((el) => el.matches(':focus-visible'))).toBe(true);
 		const inputFocusOutline = await firstNameInput.evaluate((el) => {
 			const s = getComputedStyle(el);
 			return {
@@ -202,7 +289,8 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 	});
 
 	test('handles desktop dropdown keyboard focus traversal and outside-click dismissal', async ({
-		page
+		page,
+		browserName
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
 		await page.goto('/', { waitUntil: 'networkidle' });
@@ -218,19 +306,21 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await page.locator('h1.hero-h1').click();
 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
 
-		// Click to open first dropdown again, then Tab through its 3 submenu links to the next dropdown trigger
-		await firstTrigger.click();
+		// Explicit keyboard entry avoids macOS WebKit's mouse-click focus policy.
+		const tabKey = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
+		await firstTrigger.focus();
+		await page.keyboard.press('Enter');
 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
-		await page.keyboard.press('Tab'); // Day Trading Room
-		await page.keyboard.press('Tab'); // Swing Trading Room
-		await page.keyboard.press('Tab'); // Small Accounts Room
-		await page.keyboard.press('Tab'); // Alert Services trigger
-
-		// Leaving the first .nav-item must close its dropdown
+		const firstSubmenu = page.locator('ul[aria-label="Live Trading Rooms submenu"] a');
+		for (let index = 0; index < 3; index++) {
+			await page.keyboard.press(tabKey);
+			await expect(firstSubmenu.nth(index)).toBeFocused();
+		}
+		await page.keyboard.press(tabKey);
+		await expect(secondTrigger).toBeFocused();
 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
-
-		// Tabbing into Alert Services submenu must set aria-expanded="true" on Alert Services trigger
-		await page.keyboard.press('Tab'); // SPX Profit Pulse
+		await page.keyboard.press(tabKey);
+		await expect(page.locator('ul[aria-label="Alert Services submenu"] a').first()).toBeFocused();
 		await expect(secondTrigger).toHaveAttribute('aria-expanded', 'true');
 	});
 
@@ -359,10 +449,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(sitemapXml).not.toContain('/demo/');
 
-		// The homepage must not link to the gated blog or store (its blog cards pointed at URLs that 500 on a
-		// deployment without a database).
-		await expect(page.locator('.blog-card')).toHaveCount(0);
-		await expect(page.locator('main a[href*="blog"], main a[href*="store/"]')).toHaveCount(0);
+		// CMS-backed blog discovery is an owner-approved homepage exception. Store promotions stay gated.
+		await expect(page.locator('main a[href*="store/"]')).toHaveCount(0);
+		await expect(page.locator('#blog')).toBeVisible();
+		await expect(page.locator('#blog a[href$="/blog"]')).toBeVisible();
 
 		// The sitemap must only list live URLs, and must not stamp unverifiable dates on them.
 		const locs = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(

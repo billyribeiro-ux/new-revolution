@@ -1,5 +1,7 @@
 # Vite+ workflow for this repository
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 This is the agent-facing reference for running, checking and changing this project's toolchain. Read it before choosing development, build, test, formatting or upgrade commands. `AGENTS.md`, the relevant task playbook and explicit user instructions still apply. Recheck `package.json`, `pnpm-workspace.yaml`, `pnpm-lock.yaml` and `vite.config.ts` rather than assuming the snapshot below remains current.
 
 ## Current setup
@@ -61,9 +63,13 @@ The committed `tsconfig.json` extends `$app/tsconfig` and lists `$app/types`, `n
 
 ## Authenticated browser verification
 
+The homepage and CMS blog use request-time SSR for automatic publication discovery (owner requirement, 2026-11-05). `pnpm check:pages` covers the remaining static output; raw-HTML and browser tests separately verify homepage/blog cards. A lower static page count caused by this documented rendering change is not a skipped homepage check. Preserve the full build, all SEO/CWV thresholds and authenticated E2E.
+
 The admin suites skip when `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` are absent. Report those skips; they do not verify admin behavior. For a complete local run, use an isolated worktree, a throwaway account and `DATABASE_URL=pglite://e2e` for both seeding and Playwright. This selects the local `.svelte-kit/pglite-blog` file. The default `memory://e2e` creates a fresh in-memory database and cannot share a seeded account with the preview process.
 
 Generate a unique throwaway email for each run: login rate-limit state persists for 15 minutes even after the account is revoked. Set `ADMIN_SEED_EMAIL` / `ADMIN_SEED_PASSWORD`, matching `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD`, and local auth/password secrets in the process environment. Follow [the seed workflow](ADMIN_LOCAL_LOGIN.md), run `pnpm db:seed-admin`, then `pnpm test:e2e` with the same environment and `ORIGIN=http://localhost:4173`. Keep `MEDIA_STORAGE=disk` for the configured local preview. Revoke the test account with `pnpm db:seed-admin --revoke` after Playwright stops, including after failures. Never point these tests at production, reuse real credentials or commit generated data. Assert the current launch-gate policy for published blog routes; a published post can still be excluded from the sitemap while `/blog` is gated.
+
+The full `pnpm test:e2e` suite also exercises the generated Vercel handler directly in an isolated child process (`tests/deployment/vercel-runtime.e2e.ts`). Keep this deployment regression: Vite preview can serve generated remote-prerender assets that are unavailable to a deployed SSR function. Runtime-callable remote prerender functions need the documented `dynamic` option; build success and local preview HTTP200 do not establish hosted SSR readiness.
 
 ## If a Vite+ upgrade is explicitly requested
 

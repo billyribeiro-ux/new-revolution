@@ -1,0 +1,2 @@
+$ node scripts/check-css-tokens.mjs
+CSS tokens OK: 90 custom properties in use, all declared.

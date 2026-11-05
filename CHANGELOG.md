@@ -9,6 +9,53 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Shared blog layout and owner-authorized maintenance-off release
+
+- Align the archive, search, category, tag, article and protected-article shells with the existing `.container` and responsive section spacing. Preserve 900px article readability and centered media; remove conflicting fixed shells and narrow-screen grid/form overflow.
+- Add browser assertions against the actual navbar container across 320–2420px, including a 1536px centered shell at 2420px. Correct the CSS standards table to match the implemented width/gutter tokens; update the blog handoff and publishing guide.
+- Catch and fix a hosted-only homepage500 before release: its remote desk-status prerender function now explicitly permits runtime calls after the SSR conversion. Add a regression against the actual generated Vercel handler, rather than Vite preview alone.
+- At the owner’s explicit request, prepare maintenance off, a verified Production release and squash merge of PR #27. Initialize a separate free-plan Production Neon database with the four existing forward migrations; keep article preparation/publication for the subsequent discussion.
+- Evidence, exact release state and remaining article work are recorded in `docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md`.
+
+### 2026-11-05 — Visible Blog navigation and schema parity
+
+- Separate menu visibility from indexing policy: Blog appears in desktop/mobile navigation and the footer, while Store promotion and blog noindex/canonical/sitemap protections remain in place.
+- Derive navigation JSON-LD automatically from the same menu data. Add regression coverage for the visible Blog link, schema/DOM parity, actual navigation and responsive layouts; update the publishing guide and shared agent handoff with the exact policy.
+- Synchronize the saved-editor readiness assertion before reloading in Firefox; strengthen platform-aware keyboard focus assertions without changing product behavior or lowering thresholds. Verify saved CMS title/URL parity in archive and article JSON-LD.
+- Integrate the owner’s latest mission/editorial commit and format its eight inherited lint failures; the mission edit is trailing whitespace only. Preserve its authored text.
+- Full acceptance and protected Preview evidence are recorded in `docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md`. Public Production maintenance remains unchanged.
+
+### 2026-11-05 — Automatic CMS blog placement
+
+Review: [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27); no merge or Production promotion.
+
+- Replace hardcoded homepage blog placeholders with the same public CMS discovery service used by `/blog`. Marked featured content leads; otherwise the newest eligible publication leads automatically. Exclude the lead before paginating the remaining articles, with all older articles reachable and no duplicate lead card.
+- Render actual covers and CMS card data on both surfaces, with one featured lead, responsive regular grids, homepage pagination and honest empty/unavailable states. Preserve draft/private/fixture/expiry visibility rules and derive homepage schema from visible saved cards after launch.
+- Make the homepage an explicit SSR exception to static marketing rendering so publishing needs no rebuild; homepage/blog-index reads are no-store. Document the owner-requested homepage discovery exception while retaining public maintenance and other launch protections.
+- Add shared-query database tests and focused component tests; extend authenticated image-flow E2E to prove a draft is absent and its publication appears in initial HTML and mobile/desktop cards on both pages. Update the publishing guide, agent handoff, rendering policy and operational records. The separate intake automation and article import remain unimplemented.
+- Final checks: 575 unit/component tests, 40 authenticated E2E tests with no skips, 3 SEO tests and 46 static page contracts pass. Retain four reviewed mobile/desktop publishing screenshots and clean Svelte MCP results in `docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md`; homepage SSR is verified separately from the remaining static pages.
+
+### 2026-11-05 — Blog handoff across agent documentation
+
+- Add `docs/BLOG_AGENT_HANDOFF.md` as the shared current-status and required-reading entry point for blog work, with an explicit inventory of 40 existing agent-facing Markdown files.
+- Add dated handoff references to agent configuration, README, engineering/SEO standards, prompts, playbooks and operational runbooks. Import the handoff explicitly from `CLAUDE.md`; preserve byte-identical SEO-standard copies and original editorial/evidence artifacts.
+- Make the current CMS workflow, automatic data-driven JSON-LD, proposed-but-unimplemented intake tooling, Svelte MCP review evidence and publication/launch boundaries discoverable from every inventoried entry point. No application or hosted content changes.
+- Correct the new-page playbook's obsolete instruction to edit the nonexistent `src/lib/data/blog-hub.ts`; point CMS card edits to saved post records and the publishing guide. Verify all 40 handoff references and their links, the Claude import, front matter and SEO-standard parity; check formatting across the 44 files in this documentation follow-up.
+
+### 2026-11-05 — Blog intake automation design
+
+- Add `docs/blog/AUTOMATION_PLAN.md` with a versioned package contract, shared preparation/report service, authenticated one-package draft intake, durable retry/conflict handling, real-media verification and content-specific preview acceptance criteria.
+- Clarify in `blog implementation.md` that post JSON-LD already derives from CMS fields and does not need a manual title entry. Link the proposed automation and distinguish it from the existing executable API workflow.
+- Review the official Svelte/SvelteKit MCP documentation and verify the installed Svelte 5.57.3 / Kit 3.1.1 baseline. Record that a 3.2.0 release could not be verified on November 5, 2026; preserve the existing toolchain and rendering architecture.
+- Documentation only: the intake tooling and publication/cache hardening remain implementation work. No application code, dependencies, CMS records, media, launch flags or deployments changed.
+
+### 2026-11-05 — Blog workflow audit and 0DTE publication plan
+
+- Audit the blog routes, editor, service/transaction lifecycle, previews, taxonomy, media, scheduled publishing, metadata, feeds, caching and launch gate. Preserve source, HTTP, browser, dependency and Svelte MCP evidence in `docs/reviews/blog-audit-2026-11-05/`.
+- Review `blogs/0DTE-spx-options-strategy.md` against the current CMS and primary exchange/regulatory sources. Record publication blockers, verified arithmetic, broken CTA paths, outdated PDT assumptions, unsupported claims and a phased implementation plan; preserve the original brief unchanged.
+- Add `blog implementation.md` and link it from `AGENTS.md` so future agents follow the actual CMS authoring workflow, service schemas, real-media checks, review/publish steps and launch boundaries. Document the legacy importer's overwrite/gate-bypass risks and discrepancies between current code and older instructions.
+- No application code, dependencies, launch flags, hosted data or deployments changed. Validation and existing defects remain explicit in the audit; a working publish score is not presented as proof of financial accuracy or production readiness.
+
 ### 2026-11-04 — Published maintenance and development handoff
 
 - Promote the exact verified `6c35cf2` Production build, then independently verify both public domains and the maintenance experience across Chromium, Firefox and WebKit at 320px and 1440px. Keep future Production builds staged until verified.

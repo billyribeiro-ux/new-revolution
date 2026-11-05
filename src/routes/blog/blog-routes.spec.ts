@@ -136,8 +136,13 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 			setHeaders: (h: Record<string, string>) => Object.assign(indexHeaders, h)
 		} as never)) as Record<string, unknown>;
 
-		expect(indexHeaders['Cache-Control']).toContain('public');
-		expect((indexData.posts as unknown[]).length).toBeGreaterThanOrEqual(1);
+		expect(indexHeaders['Cache-Control']).toContain('no-store');
+		const listedPosts = [
+			...(indexData.featuredPosts as Array<{ id: number }>),
+			...(indexData.posts as Array<{ id: number }>)
+		];
+		expect(listedPosts.map((post) => post.id)).toContain(created.id);
+		expect(listedPosts.filter((post) => post.id === created.id)).toHaveLength(1);
 
 		// 2. Test /blog/[slug] load
 		const postHeaders: Record<string, string> = {};

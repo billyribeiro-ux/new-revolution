@@ -1,5 +1,7 @@
 # Distinguished Principal Engineer — Full Repository & SEO Audit
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 You are a Distinguished Principal Engineer (Level 8++) specializing in Svelte 5, SvelteKit 3, TypeScript, technical SEO, performance, and modern web architecture.
 
 This repository already uses Vite+. Follow [`AGENTS.md`](AGENTS.md) and [`docs/VITE_PLUS_WORKFLOW.md`](docs/VITE_PLUS_WORKFLOW.md) for all commands and new documentation examples, including the complete `pnpm build` and separate Svelte diagnostics/ESLint gates.

@@ -1,0 +1,9 @@
+{
+	"sourceCommit": "44efabf0c462c216d5d909f6341ae4d88fcd9477",
+	"staticSecretScanPassed": true,
+	"linuxX64SharpIncluded": true,
+	"runtime": "nodejs24.x",
+	"manifestsMatchRepository": true,
+	"workspaceOverrideRestored": true,
+	"pulledSecretsRemoved": true
+}

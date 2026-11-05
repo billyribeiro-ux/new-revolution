@@ -1,0 +1,17 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T17:53:39.036Z",
+		"duration": 24822.112999999998,
+		"expected": 40,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"retainedCardScreenshots": [
+		"cms-card-blog-1440.png",
+		"cms-card-blog-320.png",
+		"cms-card-home-1440.png",
+		"cms-card-home-320.png"
+	],
+	"exitCode": 0
+}

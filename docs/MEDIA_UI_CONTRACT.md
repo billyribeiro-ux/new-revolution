@@ -1,5 +1,7 @@
 # Media UI contract
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 ## Cover crops
 
 Service: `getMediaCropsForUrl(coverUrl)` from `src/lib/server/services/media.ts`.

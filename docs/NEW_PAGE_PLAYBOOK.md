@@ -1,5 +1,7 @@
 # New Page & Component Playbook
 
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 > **Audience:** every AI agent and engineer adding or changing a route, component, or stylesheet in this repo.
 > **Status:** mandatory. Follow it top to bottom; do not skip a step because it "looks obvious".
 > **Precedence when documents disagree:** `AGENTS.md` > this playbook > `docs/CSS_STANDARDS.md` > `GEMINI.md`.
@@ -12,6 +14,8 @@ Every command below is `pnpm` only (`npm`, `yarn`, `bun` are blocked). Never ins
 ---
 
 ## 0. The 60-second summary
+
+**CMS discovery exception:** new articles use the existing CMS, not new route/data files. The owner-requested homepage and `/blog/**` use SSR so publishing updates both listings without rebuilding. One featured lead appears above paginated regular posts. Read [the shared handoff](BLOG_AGENT_HANDOFF.md) and [publishing guide](../blog%20implementation.md) before applying the generic static-page recipe.
 
 1. Decide the page archetype (§1). Default is **Archetype A (inner-page)**.
 2. Read the files in §2. Fetch Svelte docs with the Svelte MCP **before** writing a `.svelte` file.
@@ -264,7 +268,7 @@ Follow this exact recipe; `CourseCard`, `IndicatorCard` and `BlogCard` are the w
 3. **Page**: `<FilterChips label=... options=... bind:value />` then `<CatalogGrid items key isFeatured total noun>` with `{#snippet children(item)}<ThingCard {item} />{/snippet}`. No per-page grid CSS, no `role="tablist"`.
 4. **Specs**: one component spec (`*.svelte.spec.ts`: link target, heading level, class + rest forwarding, disclosure open state, featured marker) and the page spec (list semantics, filter `aria-pressed`, status text). Note: `render()` returns a promise in this repo's vitest-browser-svelte, and a prop literally named `intro` collides with `mount()` options, so pass props via `{ props: {...} }` in that case.
 5. **Remove** the old global CSS for the mock from `inner-page.css` (check no other page uses the classes first) and prove no regression elsewhere with the pixel diff (§7.3).
-6. **Editing ONE card (blog cards).** Every post in `src/lib/data/blog-hub.ts` is an independent object, and the file header lists what each field does. Content (title, excerpt, category, dates, cover `image`) is edited in place. The look of a single card is edited only in that post's optional `presentation` block, with no component code involved: `focus: [x, y]` (percent anchor of the cover when cropped), `overlay: 'soft' | 'standard' | 'strong'` (scrim strength; all three are verified AA), `accent: 'acid' | 'acid2' | 'coral'` (badge + focus ring). Mock covers live in `static/blog-mocks/*.svg` (each stamped "MOCK COVER"); swap `image.src` for a real cover and drop `mock: true`. A cover should have a visually quiet top (title) and bottom (excerpt) third.
+6. **Adding or editing a CMS blog card.** Public blog cards derive from CMS post records through `getPublicBlogListing` in `src/lib/server/services/blog-discovery.ts`, used by both `src/routes/+page.server.ts` and `src/routes/blog/+page.server.ts`. Use the [publishing guide](../blog%20implementation.md) to update the saved article fields and real cover media, then verify the resulting card. The earlier recipe to edit `src/lib/data/blog-hub.ts` is obsolete: that file does not exist in the audited application. Shared component design changes still follow the CSS standard and require their own verification.
 7. **Light sections**: pass `tone="light"` to the `FilterChips`, the `CatalogGrid` and every card on a light surface (the `/blogs` list is the reference). Never reuse `--acid` as text or as a focus outline there.
 8. **Device check**: the width list and measurements in `docs/CSS_STANDARDS.md` §4.10, plus a computed WCAG contrast pass over every text node (composite semi-transparent backgrounds first; Chrome returns `color(srgb …)` for `color-mix()`). Disable the global `html { scroll-behavior: smooth }` in the test page, or Playwright click coordinates go stale.
 

@@ -14,25 +14,25 @@ import {
 	MENTORSHIP_STEPS,
 	EBOOK_TAKEAWAYS,
 	EBOOK_PROFILES,
-	BLOG_ARTICLES,
 	FAQ_ITEMS,
 	CLOSING_CONTENT,
 	FOOTER_COLUMNS
 } from './homepage.ts';
-import { FREE_EBOOK_AVAILABLE } from './launch-gate.ts';
+import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
 
 describe('homepage data and navigation taxonomy', () => {
-	it('shows only launched navigation: the Store dropdown and Blogs link are gated (launch-gate.ts)', () => {
+	it('shows Blog in navigation while Store remains hidden', () => {
 		expect(MAIN_NAVIGATION.map((item) => item.label)).toEqual([
 			'Live Trading Rooms',
 			'Alert Services',
 			'Mentorship',
 			'Our Mission',
 			'About',
+			'Blog',
 			'Resources'
 		]);
 
-		const [liveTradingRooms, alertServices, mentorship, ourMission, about, resources] =
+		const [liveTradingRooms, alertServices, mentorship, ourMission, about, blog, resources] =
 			MAIN_NAVIGATION;
 
 		expect(liveTradingRooms.children?.map((c) => c.label)).toEqual([
@@ -50,6 +50,9 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(ourMission.href).toBe('/our-mission');
 		expect(about.children).toBeUndefined();
 		expect(about.href).toBe('/about');
+		expect(blog.href).toBe('/blog');
+		expect(isLaunchedHref('/blog')).toBe(false);
+		expect(isNavigationHrefVisible('/blog?search=options#posts')).toBe(true);
 
 		expect(resources.children?.map((c) => c.label)).toEqual([
 			'Options Calculator',
@@ -61,9 +64,7 @@ describe('homepage data and navigation taxonomy', () => {
 			...(item.href ? [item.href] : []),
 			...(item.children?.map((c) => c.href) ?? [])
 		]);
-		expect(
-			allHrefs.filter((href) => href.startsWith('/store') || href.startsWith('/blog'))
-		).toEqual([]);
+		expect(allHrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
 	});
 
 	it('provides complete structured data for all 11 homepage sections and footer', () => {
@@ -80,12 +81,6 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(MENTORSHIP_STEPS).toHaveLength(3);
 		expect(EBOOK_TAKEAWAYS).toHaveLength(4);
 		expect(EBOOK_PROFILES.length).toBeGreaterThanOrEqual(4);
-		expect(BLOG_ARTICLES).toHaveLength(3);
-		expect(BLOG_ARTICLES.map((b) => b.href)).toEqual([
-			'/blog/institutional-order-flow-and-gamma-flip-playbook',
-			'/blog/zero-dte-risk-management-and-position-sizing-rules',
-			'/blog'
-		]);
 		expect(FAQ_ITEMS).toHaveLength(5);
 		expect(CLOSING_CONTENT.primaryCta.href).toBe('/live-trading-rooms/day-trading-room');
 		expect(CLOSING_CONTENT.secondaryCta.href).toBe('/mentorship');
@@ -102,11 +97,10 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 	});
 
-	it('keeps gated routes and the unwritten eBook out of every footer column', () => {
+	it('shows Blog in the footer while Store and the unwritten eBook remain hidden', () => {
 		const hrefs = FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.href));
-		expect(hrefs.filter((href) => href.startsWith('/store') || href.startsWith('/blog'))).toEqual(
-			[]
-		);
+		expect(hrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
+		expect(hrefs.filter((href) => href === '/blog')).toEqual(['/blog']);
 		expect(FREE_EBOOK_AVAILABLE).toBe(false);
 		expect(FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.label))).not.toContain(
 			'Free Trading eBook'

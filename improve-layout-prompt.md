@@ -1,3 +1,5 @@
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
 Act as a principal frontend engineer specializing in Svelte 5 and SvelteKit, and as a design director specializing in premium trading platforms, financial interfaces, interaction design, and accessibility.
 
 Audit the implemented maintenance-mode experience and produce an evidence-backed design improvement plan. This assignment is an audit and proposal: inspect the code and interact with the running page, but do not modify application code yet.

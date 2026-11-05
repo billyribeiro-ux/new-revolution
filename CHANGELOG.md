@@ -9,6 +9,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### Fixed — home page font-swap layout shift (CLS)
+
+- Root cause (measured on a production build with fonts held back and then released, which isolates the swap; identical with JS blocked): when the web fonts arrived after first paint, text reflowed from the unadjusted `system-ui` fallback, and `ch`-based `max-inline-size` boxes changed width because `ch` follows the first available font. Swap CLS on `/` across 30 widths (320–1920 px): mean 0.0619, max 0.150, 9/30 widths > 0.1.
+- `src/app.css`: weight-banded, metric-matched fallback faces (`Montserrat Variable Fallback`, `Sofia Sans Variable Fallback`: Arial / Liberation Sans / Arimo with measured `size-adjust`, ascent/descent/line-gap overrides, limited to the Fontsource Latin `unicode-range`), added to `--font-display` / `--font-sans` (SEO_STANDARD PERF-05). Generator: `scripts/generate-font-fallbacks.mjs`.
+- The home page and shared footer `ch` widths are converted to the exact `em` equivalent of each rule's declared web font. The global `h2`/`h3`/`p` rules keep `ch`.
+- Result on `/`: mean 0.0078, max 0.0596, 0/30 widths > 0.1. Settled layout across all 47 prerendered pages × 3 widths matches the previous build to within 0.1 px (sub-pixel `ch` rounding); the only larger differences were a pulsing animation and an italic face that had not loaded yet.
+- Known gaps: Android (no Arial) keeps the old system fallback. Inner pages still have `ch` widths in `inner-page.css` and a breadcrumb that wraps differently before the swap (baseline swap CLS up to 0.42).
+
 ### 2026-11-04 — Consolidated repository history
 
 - Verify that all remaining branch changes are already integrated in `main`, including the Vite+ documentation, diagnostics fixes, production maintenance rollout and verified waitlist.

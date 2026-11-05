@@ -215,7 +215,7 @@
 		font-size: 0.9375rem;
 		line-height: 1.7;
 		letter-spacing: 0.005em;
-		max-inline-size: 60ch;
+		max-inline-size: 34.8em; /* 60ch of Sofia Sans 400 */
 	}
 
 	.tool-body li::marker {

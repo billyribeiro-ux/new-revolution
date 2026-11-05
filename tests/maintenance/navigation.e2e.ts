@@ -1,5 +1,18 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import { buildEnabledMaintenancePage } from './enabled-page.ts';
+
+let enabledWaitlistPage: string;
+test.beforeAll(async () => {
+	enabledWaitlistPage = await buildEnabledMaintenancePage();
+});
+
+async function openEnabledWaitlist(page: Page) {
+	await page.route('**/maintenance/index.html', (route) =>
+		route.fulfill({ contentType: 'text/html', body: enabledWaitlistPage })
+	);
+	await page.goto('http://localhost:4173/maintenance/index.html');
+}
 
 test('an open app navigates to maintenance and recovers after deactivation', async ({
 	page,
@@ -48,6 +61,10 @@ test('an open app navigates to maintenance and recovers after deactivation', asy
 	expect(blocked?.status()).toBe(503);
 	await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
 	await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
+	await expect(page.getByRole('link', { name: 'Skip to content' })).toHaveCSS(
+		'color',
+		'rgb(17, 21, 26)'
+	);
 	maintenance = false;
 	const restored = await page.goto('http://localhost:4173/about');
 	expect(restored?.status()).toBe(200);
@@ -80,7 +97,7 @@ test('waitlist and chart reflow from 320px to desktop and preserve keyboard acce
 	page,
 	browserName
 }) => {
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await openEnabledWaitlist(page);
 	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
 	for (const width of [320, 375, 768, 1024, 1440]) {
 		await page.setViewportSize({ width, height: 844 });
@@ -105,7 +122,7 @@ test('waitlist and chart reflow from 320px to desktop and preserve keyboard acce
 test('playback can pause and restart; form shows provider-independent saved/error states', async ({
 	page
 }) => {
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await openEnabledWaitlist(page);
 	await expect(page.getByRole('button', { name: 'Pause playback' })).toBeVisible();
 	await page.getByRole('button', { name: 'Pause playback' }).click();
 	const readout = await page.locator('#chart-readout').innerText();
@@ -186,11 +203,53 @@ test('the core notice remains usable with JavaScript and web fonts unavailable',
 		'mailto:support@revolutiontradingpros.com'
 	);
 	await expect(page.getByRole('button', { name: 'Try this page again' })).toBeHidden();
-	await expect(page.getByText(/The signup works without JavaScript/)).toBeVisible();
+	await expect(page.locator('#waitlist-form')).toHaveCount(0);
+	await expect(page.getByText(/The signup works without JavaScript/)).toHaveCount(0);
 	expect(
 		await page.evaluate(
 			() => document.documentElement.scrollWidth - document.documentElement.clientWidth
 		)
 	).toBe(0);
 	await context.close();
+});
+
+test('disabled capture offers support without a failing form or reopening-email promise', async ({
+	page
+}) => {
+	await page.goto('http://localhost:4173/maintenance/index.html');
+	await expect(page.locator('#waitlist-form')).toHaveCount(0);
+	await expect(page.getByRole('link', { name: 'Email support', exact: true })).toBeVisible();
+	await expect(page.getByText(/Leave your email|Notify me when|Confirm your email/i)).toHaveCount(
+		0
+	);
+	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
+});
+
+test('enabled capture has identified controls and dimensioned images without JavaScript', async ({
+	browser
+}) => {
+	const context = await browser.newContext({ javaScriptEnabled: false });
+	try {
+		const page = await context.newPage();
+		await openEnabledWaitlist(page);
+		await expect(page.getByLabel('Your email address')).toBeVisible();
+		await expect(page.getByText(/The signup works without JavaScript/)).toBeVisible();
+		const warnings = await page.evaluate(() => ({
+			unnamedControls: [...document.querySelectorAll('input,select,textarea')]
+				.filter((element) => !element.id && !element.getAttribute('name'))
+				.map((element) => element.outerHTML),
+			lazyImagesWithoutSize: [...document.querySelectorAll('img[loading="lazy"]')]
+				.filter(
+					(element) =>
+						!(element.getAttribute('width') && element.getAttribute('height')) &&
+						getComputedStyle(element).aspectRatio === 'auto'
+				)
+				.map((element) => element.outerHTML)
+		}));
+		expect(warnings).toEqual({ unnamedControls: [], lazyImagesWithoutSize: [] });
+		await expect(page.locator('.maintenance-emblem')).toHaveAttribute('width', '40');
+		await expect(page.locator('.maintenance-emblem')).toHaveAttribute('height', '40');
+	} finally {
+		await context.close();
+	}
 });

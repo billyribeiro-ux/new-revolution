@@ -16,6 +16,17 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 - The home page and shared footer `ch` widths are converted to the exact `em` equivalent of each rule's declared web font. The global `h2`/`h3`/`p` rules keep `ch`.
 - Result on `/`: mean 0.0078, max 0.0596, 0/30 widths > 0.1. Settled layout across all 47 prerendered pages × 3 widths matches the previous build to within 0.1 px (sub-pixel `ch` rounding); the only larger differences were a pulsing animation and an italic face that had not loaded yet.
 - Known gaps: Android (no Arial) keeps the old system fallback. Inner pages still have `ch` widths in `inner-page.css` and a breadcrumb that wraps differently before the swap (baseline swap CLS up to 0.42).
+### 2026-11-04 — Maintenance release and capture readiness
+
+- Keep the keyboard skip link's text on the SSOT ink color: the template's unlayered anchor styling otherwise overrides the shared layered rule and produces low-contrast white text on chartreuse. Verify the focused link in the browser.
+- Diagnose the public-domain mismatch: manual domain promotion left the November 3 deployment live after later successful builds. Add an explicit staged Production verification, promotion and public-domain completion checklist.
+- Render the signup form, invitation and no-JavaScript signup promise only when capture is explicitly enabled. Production currently lacks the required waitlist services, so the support notice and simulated chart remain usable without advertising failing capture.
+- Give every maintenance form input a unique identifier while preserving names and labels. Test actual generated documents in both capture states, native markup, explicit image dimensions and browser rendering.
+
+### 2026-11-04 — Vite+ documentation command policy
+
+- Require all new and updated operational documentation and agent prompts to follow the existing local Vite+ workflow and project pnpm scripts, including the complete build and separate Svelte diagnostics/ESLint gates.
+- Replace remaining actionable `npx` examples with `pnpm dlx`, align media-preview instructions with the actual Vite+ scripts, and add the complete build to the CSS verification checklist. Preserve dated command evidence as historical records.
 
 ### 2026-11-04 — Consolidated repository history
 

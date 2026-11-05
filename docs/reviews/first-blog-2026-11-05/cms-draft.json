@@ -1,0 +1,279 @@
+{
+	"environment": "Isolated local PGlite + disk media; no hosted writes",
+	"id": 1,
+	"status": "draft",
+	"featured": true,
+	"exactSanitizedBodyMatch": true,
+	"savedBodySha256": "e54a6b705ed4c693e1cdcbc5752fc7b3f2c1a776e0d1bc1dd5e3128791c83fae",
+	"wordCount": 3199,
+	"readingTime": 16,
+	"score": {
+		"score": 97,
+		"publishable": true,
+		"band": "good",
+		"label": "Excellent",
+		"issues": [
+			{
+				"id": "body_img_missing_keyword_alt",
+				"severity": "warn",
+				"points": 3,
+				"blocking": false,
+				"message": "No body image alt text includes the focus keyword \"0DTE SPX options strategy\"."
+			}
+		],
+		"wordCount": 3199,
+		"externalAuthorityDomains": [
+			"ir.cboe.com",
+			"cboe.com",
+			"optionseducation.org",
+			"cdn.cboe.com",
+			"schwab.com",
+			"irs.gov",
+			"toslc.thinkorswim.com",
+			"finra.org",
+			"theocc.com"
+		]
+	},
+	"media": {
+		"execution-map": {
+			"id": "686abf96-56ac-4cb2-b98e-c506b8e365ce",
+			"width": 1600,
+			"height": 900,
+			"sizeBytes": 62810,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/execution-map-5499d7ec4eec-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/execution-map-5499d7ec4eec-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/execution-map-5499d7ec4eec-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				},
+				{
+					"value": "full",
+					"label": "Full (1600x900)",
+					"url": "http://localhost:4184/media/execution-map-5499d7ec4eec-1600w.webp",
+					"width": 1600,
+					"height": 900,
+					"available": true
+				}
+			]
+		},
+		"tax-comparison": {
+			"id": "2d4603ce-1c57-46e2-9c2a-b29be2b82b01",
+			"width": 1200,
+			"height": 675,
+			"sizeBytes": 43032,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/tax-comparison-4068bccdcd8d-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/tax-comparison-4068bccdcd8d-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/tax-comparison-4068bccdcd8d-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "http://localhost:4184/media/tax-comparison-4068bccdcd8d-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"dealer-hedging": {
+			"id": "435e9f70-b01d-47cc-925c-cc80c9ab2bf6",
+			"width": 1200,
+			"height": 675,
+			"sizeBytes": 50628,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/dealer-hedging-4467b2fa2c33-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/dealer-hedging-4467b2fa2c33-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/dealer-hedging-4467b2fa2c33-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "http://localhost:4184/media/dealer-hedging-4467b2fa2c33-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"spread-payoffs": {
+			"id": "984565d1-5ef3-4044-bbc1-34624415a8b3",
+			"width": 1200,
+			"height": 675,
+			"sizeBytes": 44138,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/spread-payoffs-6a4769e101d9-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/spread-payoffs-6a4769e101d9-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/spread-payoffs-6a4769e101d9-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "http://localhost:4184/media/spread-payoffs-6a4769e101d9-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"session-plan": {
+			"id": "cc556210-2513-4429-a762-e74569c564d8",
+			"width": 1200,
+			"height": 675,
+			"sizeBytes": 48132,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/session-plan-efa5f04486df-480w.webp",
+					"width": 480,
+					"height": 270,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/session-plan-efa5f04486df-800w.webp",
+					"width": 800,
+					"height": 450,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/session-plan-efa5f04486df-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x675)",
+					"url": "http://localhost:4184/media/session-plan-efa5f04486df-1200w.webp",
+					"width": 1200,
+					"height": 675,
+					"available": true
+				}
+			]
+		},
+		"execution-map-social": {
+			"id": "04ba9727-d7c2-49e4-89f0-2e248dff053c",
+			"width": 1200,
+			"height": 630,
+			"sizeBytes": 37422,
+			"availableSizes": [
+				{
+					"value": "thumbnail",
+					"label": "Thumbnail (480w)",
+					"url": "http://localhost:4184/media/execution-map-social-66ddc9b507bf-480w.webp",
+					"width": 480,
+					"height": 252,
+					"available": true
+				},
+				{
+					"value": "medium",
+					"label": "Medium (800w)",
+					"url": "http://localhost:4184/media/execution-map-social-66ddc9b507bf-800w.webp",
+					"width": 800,
+					"height": 420,
+					"available": true
+				},
+				{
+					"value": "large",
+					"label": "Large (1200w)",
+					"url": "http://localhost:4184/media/execution-map-social-66ddc9b507bf-1200w.webp",
+					"width": null,
+					"height": null,
+					"available": false
+				},
+				{
+					"value": "full",
+					"label": "Full (1200x630)",
+					"url": "http://localhost:4184/media/execution-map-social-66ddc9b507bf-1200w.webp",
+					"width": 1200,
+					"height": 630,
+					"available": true
+				}
+			]
+		}
+	}
+}

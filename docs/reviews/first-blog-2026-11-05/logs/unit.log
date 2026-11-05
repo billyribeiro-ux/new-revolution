@@ -1,0 +1,13 @@
+$ vp test --run --maxWorkers 4
+
+ RUN  v5.0.5 /private/tmp/wt-first-blog-20261105
+
+
+ Test Files  79 passed (79)
+      Tests  575 passed (575)
+   Start at  15:18:57
+   Duration  12.48s (worker 67%, tests 22%, transform 6%, import 5%)
+
+    Isolate  45 workers spawned · ~64ms startup each (spawn + environment, per file)
+             at least ~656ms faster with isolate: false — reuses workers across files instead of one per file
+

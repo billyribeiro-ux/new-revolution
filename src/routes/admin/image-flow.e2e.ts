@@ -356,6 +356,63 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		}
 	});
 
+	test('keeps wide CMS tables and code locally scrollable without widening the article', async () => {
+		const request = context.request;
+		const endpoint = `/api/admin/posts/${postId}`;
+		const before = await request.get(endpoint);
+		expect(before.status()).toBe(200);
+		const { post: original } = (await before.json()) as {
+			post: { content: string; updatedAt: string };
+		};
+		const table =
+			'<div class="table-scroll"><table><caption>Execution comparison</caption><thead><tr>' +
+			'<th scope="col">Structure</th><th scope="col">Example legs</th><th scope="col">Premium</th>' +
+			'<th scope="col">Maximum loss</th><th scope="col">Maximum profit</th></tr></thead><tbody><tr>' +
+			'<th scope="row">Short iron condor</th><td>Buy 7645 put, sell 7655 put; sell 7745 call, buy 7755 call</td>' +
+			'<td>3.00 credit</td><td>$700</td><td>$300</td></tr></tbody></table></div>';
+		const longCodeLine = `const settlementReview = "${'verify-before-expiration-'.repeat(10)}";`;
+		const richContent = `${original.content}<h2>Execution comparison</h2>${table}<pre><code class="language-javascript">${longCodeLine}</code></pre>`;
+		const headers = { Origin: new URL(page.url()).origin };
+		const patched = await request.patch(endpoint, {
+			headers,
+			data: { content: richContent, expectedUpdatedAt: original.updatedAt }
+		});
+		expect(patched.status()).toBe(200);
+		const { post: saved } = (await patched.json()) as { post: { updatedAt: string } };
+		try {
+			for (const width of [320, 375, 768, 1440]) {
+				await page.setViewportSize({ width, height: 1000 });
+				await page.goto(`/blog/${slug}`);
+				await page.evaluate(() => document.fonts.ready);
+				const tableScroll = page.locator('.article-prose .table-scroll');
+				await expect(tableScroll.getByRole('table')).toHaveCount(1);
+				await expect(tableScroll.getByRole('columnheader')).toHaveCount(5);
+				await expect(tableScroll.getByRole('rowheader')).toHaveText('Short iron condor');
+				const code = page.locator('.article-prose pre').last();
+				await expect(code).toHaveText(longCodeLine);
+				if (width <= 375) {
+					for (const region of [tableScroll, code]) {
+						const scroll = await region.evaluate((el) => {
+							el.scrollLeft = el.scrollWidth;
+							return { left: el.scrollLeft, width: el.clientWidth, content: el.scrollWidth };
+						});
+						expect(scroll.content).toBeGreaterThan(scroll.width);
+						expect(scroll.left).toBeGreaterThan(0);
+					}
+				}
+				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+					true
+				);
+			}
+		} finally {
+			const restored = await request.patch(endpoint, {
+				headers,
+				data: { content: original.content, expectedUpdatedAt: saved.updatedAt }
+			});
+			expect(restored.status()).toBe(200);
+		}
+	});
+
 	test('aligns every blog surface with the shared site container from mobile to ultrawide', async ({
 		request
 	}, testInfo) => {

@@ -1,0 +1,5 @@
+$ node --env-file-if-exists=.env scripts/seed-admin.ts
+.env not found. Continuing without it.
+Database: PGlite (local file) /private/tmp/wt-first-blog-20261105/.svelte-kit/pglite-blog
+Account created: role=admin, email verified.
+email=blog-nav-d8b92602cff2@example.invalid id=PsXYvmbpzQoJnnFRTGfVIpnNdv0UXt7g role=admin action=created

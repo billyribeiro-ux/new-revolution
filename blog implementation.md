@@ -224,3 +224,9 @@ Cache invalidation currently records tags but has **no registered CDN purger**. 
 Record the final slug/post ID/environment, approved sources, actual media URLs, actual publication time, tests with results/skips, preview evidence and remaining blockers. Update `CHANGELOG.md` under Unreleased and finish the coordination claim. Update the temporary registry only if creating/removing a temporary mechanism.
 
 Do not remove launch protection, deploy, mass-import, retire old public URLs or claim production/Search Console verification as a side effect of adding an article. Those are separate actions with their own evidence and authorization.
+
+## 12. First reviewed article example
+
+The [0DTE SPX package](content/articles/0dte-spx-options-strategy-guide/README.md) shows the separation between source research, corrected CMS body, environment-independent metadata, plain FAQs, encoded graphics and a claim ledger. The owner selected `blogs/first-blog.md`; its original bytes remain intact. Follow the package's actual upload/save mapping and [acceptance evidence](docs/reviews/first-blog-2026-11-05/VERIFICATION.md), rather than posting the entire source brief or treating the package JSON as a ready REST request. A `MediaItem` upload response exposes `urls.original` and `available_sizes`; `blobUrl` and `variantsJson` are database-row fields.
+
+CMS HTML has no Svelte scope classes. The shared article template applies `overflow-x: auto` to `.table-scroll` through `:global` so wide semantic comparison tables remain inside the reading column. Code blocks already scroll independently. Check real rich content at narrow widths; short paragraph fixtures did not reveal the original table overflow.

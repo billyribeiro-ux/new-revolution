@@ -937,6 +937,12 @@
 		width: 100%;
 	}
 
+	/* CMS HTML has no Svelte scope class; keep wide semantic tables locally scrollable. */
+	.article-prose :global(.table-scroll) {
+		max-inline-size: 100%;
+		overflow-x: auto;
+	}
+
 	.article-service-cta {
 		margin: 3rem 0;
 		padding: 1.75rem;

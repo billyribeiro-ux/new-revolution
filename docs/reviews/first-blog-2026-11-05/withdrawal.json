@@ -1,0 +1,12 @@
+{
+	"environment": "Isolated local rehearsal only",
+	"anonymousDraftStatus": 404,
+	"absentFromHomepageArchiveRss": true,
+	"signedPreviewStatus": 200,
+	"noStore": true,
+	"noindex": true,
+	"finalStatus": "draft",
+	"featured": true,
+	"exactSanitizedBodyMatch": true,
+	"noHostedWrites": true
+}

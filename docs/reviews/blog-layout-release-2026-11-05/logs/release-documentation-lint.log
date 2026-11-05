@@ -1,0 +1,9 @@
+$ vp fmt --check . && vp lint . && eslint "**/*.svelte"
+Checking formatting...
+
+blogs/first-blog.md (43ms)
+blogs/head-to-head-blog.md (57ms)
+
+Format issues found in above 2 files. Run without `--check` to fix.
+Finished in 1613ms on 674 files using 28 threads.
+[ELIFECYCLE] Command failed with exit code 1.

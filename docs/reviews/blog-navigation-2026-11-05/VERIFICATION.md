@@ -36,6 +36,7 @@ The hosted CMS was previously observed empty. Local publishing coverage does not
 | ---------------------------------- | ------------------------------------------------------------------------ |
 | CSS tokens                         | 98 custom properties, all declared                                       |
 | Svelte diagnostics                 | 0 errors / 0 warnings                                                    |
+| Repository lint                    | Formatting, Oxlint and Svelte ESLint pass                                |
 | Unit/component tests               | 79 files / 575 passed                                                    |
 | Full build                         | Pass, including maintenance output                                       |
 | Static page contracts              | 46 passed                                                                |

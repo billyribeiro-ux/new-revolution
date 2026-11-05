@@ -34,5 +34,10 @@
 				}
 			}
 		}
-	]
+	],
+	"sourceCommit": "44efabf0c462c216d5d909f6341ae4d88fcd9477",
+	"reviewedSourceSha256": {
+		"src/lib/components/layout/Footer.svelte": "dcc5e2fb00a0b8495d1a39ee570a8f19fed85ffc61435a4f07492e6726932bd7",
+		"src/routes/our-mission/+page.svelte": "23ac822022e48873d75179151f572c3ee3d95df0d970d37539a74d9855c48dba"
+	}
 }

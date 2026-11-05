@@ -1,0 +1,30 @@
+$ vp test --run
+
+ RUN  v5.0.5 /private/tmp/wt-blog-audit-20261105
+
+ ❯ |server| src/lib/maintenance/data.spec.ts (7 tests | 1 failed) 5119ms
+   ❯ maintenance market study (7)
+     × keeps tick prices bounded while candle wicks and volume accumulate 5060ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| src/lib/maintenance/data.spec.ts > maintenance market study > keeps tick prices bounded while candle wicks and volume accumulate
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/lib/maintenance/data.spec.ts:40:2
+     38|   }
+     39|  });
+     40|  it('keeps tick prices bounded while candle wicks and volume accumulat…
+       |  ^
+     41|   for (const bar of demonstrationBars()) {
+     42|    const sample = createBarPlayback(bar);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 75 passed (76)
+      Tests  1 failed | 558 passed (559)
+   Start at  11:25:27
+   Duration  33.32s (worker 45%, tests 24%, transform 21%, import 10%)
+
+[ELIFECYCLE] Command failed with exit code 1.

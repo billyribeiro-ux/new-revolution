@@ -1,5 +1,7 @@
 # Admin Access, Better Auth and Blog Backend: Audit and Implementation Plan
 
+> **2026-11-05 blog audit:** use [the current publishing guide](../blog%20implementation.md) and [audit evidence](reviews/blog-audit-2026-11-05/AUDIT.md) for current blog operations. The dated progress records below are historical. This audit changes documentation and adds read-only probes; it does not change admin/auth/database behavior. In particular, Trash restore currently returns a draft, author identity and timestamp policy still have recorded discrepancies, and hosted CDN purging is not connected.
+
 Status: **plan, nothing implemented yet** (branch `docs/admin-auth-plan`, base `origin/main` 5517043, 2026-10-31).
 Companion files: [`CHANGELOG.md`](../CHANGELOG.md), [`TEMPORARY.md`](TEMPORARY.md),
 [`AGENT_COORDINATION.md`](AGENT_COORDINATION.md), [`BLOG_ADAPTATION_MAP.md`](BLOG_ADAPTATION_MAP.md),

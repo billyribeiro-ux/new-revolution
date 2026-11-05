@@ -6,6 +6,7 @@ This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / 
 >
 > - **CSS & Typography Standards:** [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md)
 > - **New Page / Component Playbook (follow step by step):** [`docs/NEW_PAGE_PLAYBOOK.md`](docs/NEW_PAGE_PLAYBOOK.md)
+> - **Blog authoring and publishing (read before adding or updating CMS articles):** [`blog implementation.md`](<blog implementation.md>) — verified CMS workflow, importer limitations, media checks and launch requirements; audit evidence and the 0DTE implementation plan are linked there.
 > - **Admin/Auth Plan, Changelog, Temporary-items registry, multi-session coordination (read before touching admin, auth, hooks or the DB; update when you finish):** [`docs/ADMIN_AUTH_PLAN.md`](docs/ADMIN_AUTH_PLAN.md), [`CHANGELOG.md`](CHANGELOG.md), [`docs/TEMPORARY.md`](docs/TEMPORARY.md), [`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)
 > - **SEO Standard, Decisions & Operations (mandatory for all routes, metadata, sitemaps, and JSON-LD):** [`docs/seo/SEO_STANDARD.md`](docs/seo/SEO_STANDARD.md), [`docs/seo/DECISIONS.md`](docs/seo/DECISIONS.md), [`docs/seo/OPERATIONS.md`](docs/seo/OPERATIONS.md), [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md)
 > - **Project & Tooling Configuration:** [`GEMINI.md`](GEMINI.md) (`pnpm` ONLY; `npm`, `yarn`, and `bun` are strictly blocked)

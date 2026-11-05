@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Blog workflow audit and 0DTE publication plan
+
+- Audit the blog routes, editor, service/transaction lifecycle, previews, taxonomy, media, scheduled publishing, metadata, feeds, caching and launch gate. Preserve source, HTTP, browser, dependency and Svelte MCP evidence in `docs/reviews/blog-audit-2026-11-05/`.
+- Review `blogs/0DTE-spx-options-strategy.md` against the current CMS and primary exchange/regulatory sources. Record publication blockers, verified arithmetic, broken CTA paths, outdated PDT assumptions, unsupported claims and a phased implementation plan; preserve the original brief unchanged.
+- Add `blog implementation.md` and link it from `AGENTS.md` so future agents follow the actual CMS authoring workflow, service schemas, real-media checks, review/publish steps and launch boundaries. Document the legacy importer's overwrite/gate-bypass risks and discrepancies between current code and older instructions.
+- No application code, dependencies, launch flags, hosted data or deployments changed. Validation and existing defects remain explicit in the audit; a working publish score is not presented as proof of financial accuracy or production readiness.
+
 ### 2026-11-04 — Published maintenance and development handoff
 
 - Promote the exact verified `6c35cf2` Production build, then independently verify both public domains and the maintenance experience across Chromium, Firefox and WebKit at 320px and 1440px. Keep future Production builds staged until verified.

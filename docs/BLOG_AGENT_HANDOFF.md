@@ -35,6 +35,10 @@ A new repository draft still needs an approved CMS save/publication. This change
 
 Implementation and acceptance evidence: [575 unit/component tests, 40 authenticated browser tests, 3 SEO tests and reviewed screenshots](reviews/blog-discovery-2026-11-05/VERIFICATION.md). These are local implementation results; check the branch/release state before assuming a hosted deployment contains the feature.
 
+The owner’s subsequent November 5 instruction authorizes switching public maintenance off and squash-merging the verified implementation. Current deployment state is recorded in [layout/release acceptance](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Restore maintenance only on the owner’s later instruction. The original 0DTE article and its specified illustrations remain the next discussion; a normal website deployment does not import or approve that draft.
+
+Blog shells now use the same responsive `.container` as the rest of the website (1536px maximum on large screens); article prose retains a 900px reading limit. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
+
 ## Agent-document coverage
 
 The following **40 existing Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.

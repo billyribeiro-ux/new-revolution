@@ -21,134 +21,141 @@
 <Navbar />
 
 <main id="blog-page" class="inner-page blog-index-page">
-	<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-		<ol class="breadcrumb-list">
-			<li><a href={resolve('/')}>Home</a></li>
-			<li aria-hidden="true">/</li>
-			<li aria-current="page">Blog</li>
-		</ol>
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Blog</li>
+			</ol>
+		</div>
 	</nav>
 
-	<section class="page-hero" aria-labelledby="blog-index-h1">
-		<div class="hero-inner">
-			<span class="section-kicker">Market Intelligence & Research</span>
-			<h1 id="blog-index-h1" class="hero-h1">Institutional Stock & Options Trading Blog</h1>
-			<p class="hero-sub">
-				In-depth market structure analysis, Options Greeks breakdowns, small-account risk
-				management, and execution playbooks authored by <a href={resolve('/about')}>Billy Ribeiro</a
-				>
-				and the Revolution Trading Pros desk (<time datetime="2026-10-31"
-					>Updated October 31, 2026</time
-				>).
-			</p>
+	<section class="section page-hero" aria-labelledby="blog-index-h1">
+		<div class="container">
+			<div class="hero-inner">
+				<span class="section-kicker">Market Intelligence & Research</span>
+				<h1 id="blog-index-h1" class="hero-h1">Institutional Stock & Options Trading Blog</h1>
+				<p class="hero-sub">
+					In-depth market structure analysis, Options Greeks breakdowns, small-account risk
+					management, and execution playbooks authored by <a href={resolve('/about')}
+						>Billy Ribeiro</a
+					>
+					and the Revolution Trading Pros desk (<time datetime="2026-10-31"
+						>Updated October 31, 2026</time
+					>).
+				</p>
 
-			<form method="GET" action={resolve('/blog')} class="blog-search-form" role="search">
-				<label for="blog-search-input" class="sr-only">Search articles</label>
-				<input
-					id="blog-search-input"
-					type="search"
-					name="search"
-					value={data.search}
-					placeholder="Search articles by keyword..."
-					class="blog-search-input"
-				/>
-				<button type="submit" class="blog-search-btn">Search</button>
-			</form>
+				<form method="GET" action={resolve('/blog')} class="blog-search-form" role="search">
+					<label for="blog-search-input" class="sr-only">Search articles</label>
+					<input
+						id="blog-search-input"
+						type="search"
+						name="search"
+						value={data.search}
+						placeholder="Search articles by keyword..."
+						class="blog-search-input"
+					/>
+					<button type="submit" class="blog-search-btn">Search</button>
+				</form>
+			</div>
 		</div>
 	</section>
 
-	<section class="content-section" aria-label="Blog navigation and articles">
-		<nav class="category-pill-nav" aria-label="Blog categories">
-			<a href={resolve('/blog')} class="category-pill is-active" aria-current="page">
-				All Articles
-			</a>
-			{#each data.categories as cat (cat.id)}
-				<a href={resolve('/blog/category/[slug]', { slug: cat.slug })} class="category-pill">
-					{cat.name} ({cat.postCount})
+	<section class="section content-section" aria-label="Blog navigation and articles">
+		<div class="container">
+			<nav class="category-pill-nav" aria-label="Blog categories">
+				<a href={resolve('/blog')} class="category-pill is-active" aria-current="page">
+					All Articles
 				</a>
-			{/each}
-		</nav>
+				{#each data.categories as cat (cat.id)}
+					<a href={resolve('/blog/category/[slug]', { slug: cat.slug })} class="category-pill">
+						{cat.name} ({cat.postCount})
+					</a>
+				{/each}
+			</nav>
 
-		{#if data.featuredPosts.length > 0}
-			<section class="featured-section" aria-labelledby="featured-articles-heading">
-				<h2 id="featured-articles-heading" class="section-h2">Featured Article</h2>
-				<div class="featured-grid">
-					{#each data.featuredPosts as post, idx (post.id)}
-						<PostCard {post} eager={idx === 0} headingLevel="h3" lead />
-					{/each}
-				</div>
+			{#if data.featuredPosts.length > 0}
+				<section class="featured-section" aria-labelledby="featured-articles-heading">
+					<h2 id="featured-articles-heading" class="section-h2">Featured Article</h2>
+					<div class="featured-grid">
+						{#each data.featuredPosts as post, idx (post.id)}
+							<PostCard {post} eager={idx === 0} headingLevel="h3" lead />
+						{/each}
+					</div>
+				</section>
+				<hr class="blog-divider" />
+			{/if}
+
+			<section class="all-articles-section" aria-labelledby="all-articles-heading">
+				<h2 id="all-articles-heading" class="section-h2">
+					{data.search
+						? `Search Results for "${data.search}"`
+						: data.featuredPosts.length > 0
+							? 'More Articles'
+							: 'All Articles'}
+				</h2>
+
+				{#if data.posts.length === 0}
+					<div class="empty-blog-box">
+						<p>
+							{data.featuredPosts.length > 0
+								? 'More articles will appear here once published.'
+								: 'No published articles match your query yet.'}
+						</p>
+						{#if data.search}
+							<a href={resolve('/blog')} class="reset-search-link">Clear search filter</a>
+						{/if}
+					</div>
+				{:else}
+					<div class="articles-grid">
+						{#each data.posts as post, idx (post.id)}
+							<PostCard
+								{post}
+								eager={data.featuredPosts.length === 0 && idx === 0}
+								headingLevel="h3"
+							/>
+						{/each}
+					</div>
+				{/if}
+
+				{#if data.pagination.totalPages > 1}
+					<nav class="pagination-nav" aria-label="Blog pagination">
+						{#if data.pagination.page > 1}
+							<a
+								href={resolve(
+									pageHref(
+										'/blog',
+										data.pagination.page - 1,
+										data.search ? { search: data.search } : {}
+									)
+								)}
+								class="page-btn"
+							>
+								Previous Page
+							</a>
+						{/if}
+						<span class="page-indicator">
+							Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
+						</span>
+						{#if data.pagination.page < data.pagination.totalPages}
+							<a
+								href={resolve(
+									pageHref(
+										'/blog',
+										data.pagination.page + 1,
+										data.search ? { search: data.search } : {}
+									)
+								)}
+								class="page-btn"
+							>
+								Next Page
+							</a>
+						{/if}
+					</nav>
+				{/if}
 			</section>
-			<hr class="blog-divider" />
-		{/if}
-
-		<section class="all-articles-section" aria-labelledby="all-articles-heading">
-			<h2 id="all-articles-heading" class="section-h2">
-				{data.search
-					? `Search Results for "${data.search}"`
-					: data.featuredPosts.length > 0
-						? 'More Articles'
-						: 'All Articles'}
-			</h2>
-
-			{#if data.posts.length === 0}
-				<div class="empty-blog-box">
-					<p>
-						{data.featuredPosts.length > 0
-							? 'More articles will appear here once published.'
-							: 'No published articles match your query yet.'}
-					</p>
-					{#if data.search}
-						<a href={resolve('/blog')} class="reset-search-link">Clear search filter</a>
-					{/if}
-				</div>
-			{:else}
-				<div class="articles-grid">
-					{#each data.posts as post, idx (post.id)}
-						<PostCard
-							{post}
-							eager={data.featuredPosts.length === 0 && idx === 0}
-							headingLevel="h3"
-						/>
-					{/each}
-				</div>
-			{/if}
-
-			{#if data.pagination.totalPages > 1}
-				<nav class="pagination-nav" aria-label="Blog pagination">
-					{#if data.pagination.page > 1}
-						<a
-							href={resolve(
-								pageHref(
-									'/blog',
-									data.pagination.page - 1,
-									data.search ? { search: data.search } : {}
-								)
-							)}
-							class="page-btn"
-						>
-							Previous Page
-						</a>
-					{/if}
-					<span class="page-indicator">
-						Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
-					</span>
-					{#if data.pagination.page < data.pagination.totalPages}
-						<a
-							href={resolve(
-								pageHref(
-									'/blog',
-									data.pagination.page + 1,
-									data.search ? { search: data.search } : {}
-								)
-							)}
-							class="page-btn"
-						>
-							Next Page
-						</a>
-					{/if}
-				</nav>
-			{/if}
-		</section>
+		</div>
 	</section>
 </main>
 

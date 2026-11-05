@@ -22,9 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                     | Owner session                              | Area / files claimed                                                                                                                                           | Started    | Status                                                                                                               |
-| -------------------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------------- |
-| `docs/blog-audit-20261105` | Codex navbar and full discovery acceptance | Navigation data/policy/Navbar, schema parity, publishing/browser tests, current blog docs and review evidence; protected Preview deployment/alias verification | 2026-11-05 | Make Blog visible, preserve indexing/Production maintenance, reverify complete workflow and actual browser rendering |
+| Branch                     | Owner session                              | Area / files claimed                                                                                                                                                      | Started    | Status                                                                                                                                                                                |
+| -------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/blog-audit-20261105` | Codex navbar and full discovery acceptance | Blog templates/layout, navigation/schema parity, tests/docs; owner-authorized Production maintenance-off environment/database/deployment, squash merge and branch cleanup | 2026-11-05 | Latest owner request: shared-container alignment, discuss article/assets, turn maintenance off after acceptance, commit/push/squash merge; keep indexing gate pending separate launch |
 
 ## Recently finished
 

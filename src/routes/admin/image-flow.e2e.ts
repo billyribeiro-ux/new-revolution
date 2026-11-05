@@ -356,6 +356,67 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		}
 	});
 
+	test('aligns every blog surface with the shared site container from mobile to ultrawide', async ({
+		request
+	}, testInfo) => {
+		await page.goto(`/blog/${slug}`);
+		const categoryHref = await page.locator('.article-category-badge').getAttribute('href');
+		const tagHref = await page
+			.locator('.article-tag-list a', { hasText: TAG })
+			.getAttribute('href');
+		expect(categoryHref).toBeTruthy();
+		expect(tagHref).toBeTruthy();
+		const routes = [
+			{ name: 'index', href: '/blog' },
+			{ name: 'search', href: '/blog?search=E2E' },
+			{ name: 'category', href: categoryHref! },
+			{ name: 'tag', href: tagHref! },
+			{ name: 'article', href: `/blog/${slug}` }
+		];
+		for (const route of routes) {
+			expect((await request.get(route.href)).status()).toBe(200);
+			for (const width of [320, 768, 1440, 1920, 2420]) {
+				await page.setViewportSize({ width, height: 1000 });
+				await page.goto(route.href);
+				await expect(page.locator('main h1')).toHaveCount(1);
+				const reference = await page.locator('header.nav-shell > .container.nav').boundingBox();
+				expect(reference).not.toBeNull();
+				const shells = await page.locator('main .container').evaluateAll((elements) =>
+					elements.map((el) => {
+						const rect = el.getBoundingClientRect();
+						return { x: rect.x, width: rect.width };
+					})
+				);
+				expect(shells.length).toBeGreaterThan(0);
+				for (const shell of shells) {
+					expect(Math.abs(shell.x - reference!.x)).toBeLessThan(1);
+					expect(Math.abs(shell.width - reference!.width)).toBeLessThan(1);
+				}
+				if (width === 2420) {
+					expect(reference!.width).toBe(1536);
+					expect(reference!.x).toBe(442);
+				}
+				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+					true
+				);
+				if (route.name === 'article') {
+					const prose = await page.locator('.article-prose').boundingBox();
+					expect(prose).not.toBeNull();
+					expect(prose!.width).toBeLessThanOrEqual(900);
+				}
+				if (
+					(width === 2420 && ['index', 'article'].includes(route.name)) ||
+					(width === 320 && ['category', 'tag'].includes(route.name))
+				) {
+					await testInfo.attach(`layout-${route.name}-${width}.png`, {
+						body: await page.screenshot({ fullPage: true }),
+						contentType: 'image/png'
+					});
+				}
+			}
+		}
+	});
+
 	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap', async () => {
 		const request = context.request;
 		const res = await page.goto(`/blog/${slug}`);

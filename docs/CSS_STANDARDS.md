@@ -67,15 +67,15 @@ All shared design tokens are declared **once** inside `@layer tokens` (`:root`) 
 
 ### 2.3 Elevation & Layout Tokens
 
-| Token           | Value                             | Role                                                             |
-| :-------------- | :-------------------------------- | :--------------------------------------------------------------- |
-| `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)` | Standard elevated card shadow                                    |
-| `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)` | Medium interactive hover shadow                                  |
-| `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`  | Deep modal / featured panel shadow                               |
-| `--max`         | `100%` → `1600px`                 | Responsive container max-width (scales across the 6 breakpoints) |
-| `--gutter`      | `24px` → `64px`                   | Responsive horizontal container padding                          |
-| `--nav-height`  | `73px`                            | Sticky navigation bar height offset                              |
-| `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`  | Standard institutional motion easing                             |
+| Token           | Value                                      | Role                                                             |
+| :-------------- | :----------------------------------------- | :--------------------------------------------------------------- |
+| `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)`          | Standard elevated card shadow                                    |
+| `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)`          | Medium interactive hover shadow                                  |
+| `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`           | Deep modal / featured panel shadow                               |
+| `--max`         | `100%` → `1320px` → `1440px` → `1536px`    | Responsive container max-width (scales across the 6 breakpoints) |
+| `--gutter`      | `24px`–`112px` (responsive, not monotonic) | Responsive horizontal container padding                          |
+| `--nav-height`  | `73px`                                     | Sticky navigation bar height offset                              |
+| `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`           | Standard institutional motion easing                             |
 
 ### 2.4 Contextual Component Custom Properties
 

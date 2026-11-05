@@ -21,82 +21,91 @@
 <Navbar />
 
 <main id="blog-tag-page" class="inner-page blog-taxonomy-page">
-	<section class="page-hero" aria-labelledby="tag-h1">
-		<div class="hero-inner">
-			<nav class="taxonomy-breadcrumbs" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li><a href={resolve('/blog')}>Blog</a></li>
-					<li aria-current="page">{data.tag.name}</li>
-				</ol>
-			</nav>
-			<span class="section-kicker">Tag Archive</span>
-			<h1 id="tag-h1" class="hero-h1">#{data.tag.name}</h1>
-			{#if data.tag.description}
-				<p class="hero-sub">{data.tag.description}</p>
-			{/if}
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li><a href={resolve('/blog')}>Blog</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">{data.tag.name}</li>
+			</ol>
+		</div>
+	</nav>
+
+	<section class="section page-hero" aria-labelledby="tag-h1">
+		<div class="container">
+			<div class="hero-inner">
+				<span class="section-kicker">Tag Archive</span>
+				<h1 id="tag-h1" class="hero-h1">#{data.tag.name}</h1>
+				{#if data.tag.description}
+					<p class="hero-sub">{data.tag.description}</p>
+				{/if}
+			</div>
 		</div>
 	</section>
 
-	<section class="content-section taxonomy-layout">
-		<div class="taxonomy-main">
-			<div class="taxonomy-grid">
-				{#each data.posts as post, idx (post.id)}
-					<PostCard {post} eager={idx === 0} headingLevel="h2" />
-				{/each}
+	<section class="section content-section">
+		<div class="container taxonomy-layout">
+			<div class="taxonomy-main">
+				<div class="taxonomy-grid">
+					{#each data.posts as post, idx (post.id)}
+						<PostCard {post} eager={idx === 0} headingLevel="h2" />
+					{/each}
+				</div>
+
+				{#if data.pagination.totalPages > 1}
+					<!-- eslint-disable svelte/no-navigation-without-resolve -- query-string pagination on resolved route -->
+					<nav class="pagination-nav" aria-label="Tag pagination">
+						{#if data.pagination.page > 1}
+							<a
+								href={pageHref(
+									resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
+									data.pagination.page - 1
+								)}
+								class="page-btn"
+							>
+								Previous Page
+							</a>
+						{/if}
+						<span class="page-indicator">
+							Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
+						</span>
+						{#if data.pagination.page < data.pagination.totalPages}
+							<a
+								href={pageHref(
+									resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
+									data.pagination.page + 1
+								)}
+								class="page-btn"
+							>
+								Next Page
+							</a>
+						{/if}
+					</nav>
+					<!-- eslint-enable svelte/no-navigation-without-resolve -->
+				{/if}
 			</div>
 
-			{#if data.pagination.totalPages > 1}
-				<!-- eslint-disable svelte/no-navigation-without-resolve -- query-string pagination on resolved route -->
-				<nav class="pagination-nav" aria-label="Tag pagination">
-					{#if data.pagination.page > 1}
-						<a
-							href={pageHref(
-								resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
-								data.pagination.page - 1
-							)}
-							class="page-btn"
-						>
-							Previous Page
-						</a>
-					{/if}
-					<span class="page-indicator">
-						Page {data.pagination.page} of {data.pagination.totalPages} ({data.pagination.total} articles)
-					</span>
-					{#if data.pagination.page < data.pagination.totalPages}
-						<a
-							href={pageHref(
-								resolve('/blog/tag/[slug]', { slug: data.tag.slug }),
-								data.pagination.page + 1
-							)}
-							class="page-btn"
-						>
-							Next Page
-						</a>
-					{/if}
-				</nav>
-				<!-- eslint-enable svelte/no-navigation-without-resolve -->
-			{/if}
+			<aside class="taxonomy-sidebar" aria-label="Tags navigation">
+				<h2 class="sidebar-h2">Topics & Tags</h2>
+				<ul class="sidebar-list">
+					{#each data.sidebarTags as tag (tag.id)}
+						<li>
+							<a
+								href={resolve('/blog/tag/[slug]', { slug: tag.slug })}
+								class={['sidebar-link', { 'is-active': tag.id === data.tag.id }]}
+								aria-current={tag.id === data.tag.id ? 'page' : undefined}
+							>
+								<span>#{tag.name}</span>
+								<span class="sidebar-count">{tag.postCount}</span>
+							</a>
+						</li>
+					{/each}
+				</ul>
+				<a href={resolve('/blog')} class="back-all-link">All Blog Articles</a>
+			</aside>
 		</div>
-
-		<aside class="taxonomy-sidebar" aria-label="Tags navigation">
-			<h2 class="sidebar-h2">Topics & Tags</h2>
-			<ul class="sidebar-list">
-				{#each data.sidebarTags as tag (tag.id)}
-					<li>
-						<a
-							href={resolve('/blog/tag/[slug]', { slug: tag.slug })}
-							class={['sidebar-link', { 'is-active': tag.id === data.tag.id }]}
-							aria-current={tag.id === data.tag.id ? 'page' : undefined}
-						>
-							<span>#{tag.name}</span>
-							<span class="sidebar-count">{tag.postCount}</span>
-						</a>
-					</li>
-				{/each}
-			</ul>
-			<a href={resolve('/blog')} class="back-all-link">All Blog Articles</a>
-		</aside>
 	</section>
 </main>
 
@@ -106,27 +115,6 @@
 	.hero-inner {
 		max-width: 820px;
 		margin: 0 auto;
-	}
-
-	.taxonomy-breadcrumbs ol {
-		display: flex;
-		gap: 0.5rem;
-		list-style: none;
-		padding: 0;
-		margin: 0 0 0.75rem;
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		color: var(--muted);
-	}
-
-	.taxonomy-breadcrumbs li + li::before {
-		content: '/';
-		margin-right: 0.5rem;
-	}
-
-	.taxonomy-breadcrumbs a {
-		color: var(--muted);
-		text-decoration: none;
 	}
 
 	.hero-sub {
@@ -143,9 +131,13 @@
 		align-items: start;
 	}
 
+	.taxonomy-main {
+		min-inline-size: 0;
+	}
+
 	.taxonomy-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 		gap: 1.5rem;
 	}
 
@@ -202,6 +194,7 @@
 	.pagination-nav {
 		margin-top: 2rem;
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;

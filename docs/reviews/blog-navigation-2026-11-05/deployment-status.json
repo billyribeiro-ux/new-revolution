@@ -1,0 +1,48 @@
+{
+	"referenceDate": "2026-11-05",
+	"replacement": {
+		"id": "dpl_8pfdBeE5sRf1rB5KDC6Q2TcU94Ru",
+		"url": "new-revolution-dewiw9kdn-will-ribeiros-projects.vercel.app",
+		"readyState": "READY",
+		"readySubstate": "STAGED",
+		"prebuilt": true,
+		"isInSystemBuildsQueue": false,
+		"errorMessage": null,
+		"meta": {
+			"sourceCommit": "44efabf0c462c216d5d909f6341ae4d88fcd9477",
+			"verification": "blog-navigation-2026-11-05",
+			"actor": "codex",
+			"lambdaRuntimeStats": "{\"nodejs\":2}"
+		}
+	},
+	"developmentAlias": {
+		"deploymentId": "dpl_2ZHf4QWgjxv2DpiZSQFFzA88vHtx",
+		"unchanged": true
+	},
+	"project": {
+		"productionDeployment": "dpl_4r3cshbeVdWiba3ZhWzBPLiRFYJo",
+		"autoAssignCustomDomains": false,
+		"ssoProtection": {
+			"deploymentType": "all_except_custom_domains"
+		},
+		"nodeVersion": "26.x"
+	},
+	"publicBlog": {
+		"status": 503,
+		"maintenanceCopyPresent": true
+	},
+	"authenticatedReplacementBlog": {
+		"status": 200,
+		"title": "Deployment is building",
+		"applicationVerified": false,
+		"observedBeforeReady": true
+	},
+	"localChrome": {
+		"url": "http://127.0.0.1:4173/blog",
+		"BlogMenuVisible": true,
+		"BlogFooterVisible": true,
+		"featuredAboveRegularArticles": true,
+		"content": "Seeded development examples; no hosted publication"
+	},
+	"recordType": "Historical navigation follow-up before the owner requested layout changes and Production maintenance off"
+}

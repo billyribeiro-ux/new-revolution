@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Shared blog layout and owner-authorized maintenance-off release
+
+- Align the archive, search, category, tag, article and protected-article shells with the existing `.container` and responsive section spacing. Preserve 900px article readability and centered media; remove conflicting fixed shells and narrow-screen grid/form overflow.
+- Add browser assertions against the actual navbar container across 320–2420px, including a 1536px centered shell at 2420px. Correct the CSS standards table to match the implemented width/gutter tokens; update the blog handoff and publishing guide.
+- At the owner’s explicit request, prepare maintenance off, a verified Production release and squash merge of PR #27. Initialize a separate free-plan Production Neon database with the four existing forward migrations; keep article preparation/publication for the subsequent discussion.
+- Evidence, exact release state and remaining article work are recorded in `docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md`.
+
 ### 2026-11-05 — Visible Blog navigation and schema parity
 
 - Separate menu visibility from indexing policy: Blog appears in desktop/mobile navigation and the footer, while Store promotion and blog noindex/canonical/sitemap protections remain in place.

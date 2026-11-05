@@ -1,0 +1,22 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T19:03:48.296Z",
+		"duration": 25305.692000000003,
+		"expected": 42,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"screenshots": [
+		"chromium-cms-card-home-320.png",
+		"chromium-cms-card-home-1440.png",
+		"chromium-cms-card-blog-320.png",
+		"chromium-cms-card-blog-1440.png",
+		"chromium-layout-index-2420.png",
+		"chromium-layout-category-320.png",
+		"chromium-layout-tag-320.png",
+		"chromium-layout-article-2420.png",
+		"chromium-navbar-desktop.png",
+		"chromium-navbar-mobile.png"
+	]
+}

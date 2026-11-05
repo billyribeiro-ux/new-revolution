@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+**Current owner instruction — November 5, 2026:** maintenance is to be **off** for the normal public website until the owner asks to restore it. The Production environment variable is now `false`; the published deployment and browser/HTTP proof are recorded in [the layout/release acceptance record](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Changing the variable alone does not change the live deployment. A dedicated free-plan Production Neon database has been initialized separately from Preview. Keep waitlist capture disabled until its separate provider/mailbox prerequisites pass.
+
 Maintenance mode is a **deployment-time** switch. It does not change an existing deployment and does not use the source project's CMS switch. The Vercel build command must run `pnpm build`, which runs `scripts/maintenance-build.mjs` after the Vercel adapter. The script installs routing and independent Node functions in `.vercel/output` using the [Build Output API](https://vercel.com/docs/build-output-api/configuration).
 
 1. Account for existing tabs: versions older than this integration do not have the navigation check, and already downloaded content cannot be recalled. Ask visitors to reload, or wait for those sessions to end, before relying on client-navigation behavior. A protected Preview can verify the normal integration without exposing the unfinished site publicly.
@@ -38,7 +40,7 @@ honest error and never a saved-success message.
 
 Before production use, verify a Vercel preview with direct and nested URLs, an already-open tab from the normal integration deployment, 503 status/body and cache headers, API and health exceptions, assets, and a second deployment with maintenance off. Local route-table tests and `vercel dev` are not proof of deployed CDN behavior. Deployments may have skew-protected clients or intermediary caches; verify the actual hostname and deployment configuration used by visitors.
 
-## Active Vercel setup (checked 2026-11-04)
+## Historical Vercel setup (checked 2026-11-04; superseded by the current release record)
 
 - Project: `new-revolution`, team `will-ribeiros-projects`; resumed with the verified maintenance deployment on `revolutiontradingpros.com` and `www.revolutiontradingpros.com`.
 - Production: `MAINTENANCE_MODE=true`. Preview: `MAINTENANCE_MODE=false`. These are build-time values; changing either requires a new build.
@@ -80,7 +82,7 @@ Vercel documents this as [promoting a staged production build](https://vercel.co
 and provides the [promotion CLI](https://vercel.com/docs/cli/promote). Promotion reassigns the
 Production domains to the selected build; it is a separate release step.
 
-## Current maintenance / development handoff
+## Historical maintenance / development handoff (November 4)
 
 The maintenance chart uses conventional green/red candles and volume, bounded intrabar movement
 and crosshair inspection. It remains explicitly simulated; it is not represented as live market data.

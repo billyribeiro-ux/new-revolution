@@ -106,7 +106,7 @@
 		color: var(--text-secondary);
 		font-size: 0.9375rem;
 		line-height: 1.7;
-		max-inline-size: 60ch;
+		max-inline-size: 34.8em; /* 60ch of Sofia Sans 400 */
 	}
 
 	.questions__copy a {

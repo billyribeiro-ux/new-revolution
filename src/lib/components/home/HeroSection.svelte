@@ -221,7 +221,7 @@
 		font-size: 1rem;
 		line-height: 1.78;
 		letter-spacing: 0.005em;
-		max-inline-size: min(70ch, 680px);
+		max-inline-size: min(40.6em, 680px); /* 70ch of Sofia Sans 400 */
 		margin-block-end: 24px;
 	}
 
@@ -258,7 +258,7 @@
 		letter-spacing: 0.01em;
 		color: #8b939b;
 		margin-block-start: 19px;
-		max-inline-size: 65ch;
+		max-inline-size: 37.7em; /* 65ch of Sofia Sans 400 */
 	}
 
 	.proof-panel {

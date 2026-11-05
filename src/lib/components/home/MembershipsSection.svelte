@@ -153,7 +153,7 @@
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 60ch;
+		max-inline-size: 34.8em; /* 60ch of Sofia Sans 400 */
 		color: #46504e;
 	}
 

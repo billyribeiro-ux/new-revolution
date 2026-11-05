@@ -214,7 +214,7 @@
 		font-size: 0.875rem;
 		line-height: 1.75;
 		color: #9ba4a8;
-		max-inline-size: 32ch;
+		max-inline-size: 18.56em; /* 32ch of Sofia Sans 400 */
 	}
 
 	.footer-col-title {
@@ -266,7 +266,7 @@
 		font-size: 0.75rem;
 		line-height: 1.85;
 		letter-spacing: 0.01em;
-		max-inline-size: min(110ch, 1200px);
+		max-inline-size: min(63.8em, 1200px); /* 110ch of Sofia Sans 400 */
 		color: #949b9e;
 		margin-block: 0;
 		margin-inline: auto;
@@ -282,7 +282,7 @@
 		text-transform: uppercase;
 		color: #d8dfd1;
 		inline-size: 100%;
-		max-inline-size: min(110ch, 1200px);
+		max-inline-size: min(65.3283em, 1200px); /* 110ch of Sofia Sans 700 */
 		margin-block: 0 10px;
 		margin-inline: auto;
 		text-align: center;

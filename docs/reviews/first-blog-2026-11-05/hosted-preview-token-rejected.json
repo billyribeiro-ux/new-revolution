@@ -1,0 +1,9 @@
+{
+	"origin": "https://new-revolution-fhk7llskt-will-ribeiros-projects.vercel.app",
+	"mode": "draft",
+	"cases": [],
+	"http": [],
+	"graphCrops": [],
+	"passed": false,
+	"error": "Expected values to be strictly equal:\n\n404 !== 200\n"
+}

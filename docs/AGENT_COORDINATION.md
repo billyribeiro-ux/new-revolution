@@ -22,7 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-None.
+| Branch                                 | Owner session     | Area / files claimed                                                                                         | Started    | Status                                                                                                                                                            |
+| -------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/first-blog-publication-20261105` | Codex publication | Verified first article, Production media/CMS publication, PR #29 release, operational evidence and changelog | 2026-11-05 | Owner explicitly chose publish after verification; provision required durable media, save/verify draft, deploy tested table fix, publish and verify public result |
 
 ## Recently finished
 

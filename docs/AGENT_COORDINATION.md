@@ -27,6 +27,8 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Recently finished
 
+- **Article layout and desktop TOC (Codex, November 5; [PR #33](https://github.com/billyribeiro-ux/new-revolution/pull/33)):** align the article reading column and add a responsive, keyboard-operable sticky TOC with semantic heading hierarchy. Local real-article rendering, 576 unit tests, 48 Chromium, 24 Firefox, 23 WebKit and separate WebKit HTTPS unlock checks pass. Plugin parity limitations and full evidence: `docs/reviews/article-toc-2026-11-05/VERIFICATION.md`.
+
 - **Blog design release evidence (Codex, November 5):** PR #31 squash `7e31730` is live as `dpl_9LaYzMKyN2JVb3eZrawor6Ntcfue`; 27 public browser cases pass across homepage, archive and article, three widths and three engines. Maintenance remains off. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.
 
 - **Blog archive and footer refinement (Codex, November 5; [PR #31](https://github.com/billyribeiro-ux/new-revolution/pull/31)):** redesign the archive hierarchy and lead media and align the full risk disclosure with the shared container; preserve CMS discovery and disclosure wording. Local visual audit, 575 unit tests, 44 Chromium E2E, 15 Firefox and 15 WebKit, 3 SEO checks, build and page contracts pass. Two unchanged source drafts fail repository-wide formatting. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.

@@ -23,6 +23,7 @@ async function loginAsAdmin(page: Page): Promise<void> {
 	await page.getByLabel('Password', { exact: true }).fill(ADMIN_PASSWORD);
 	await page.getByRole('button', { name: 'Sign in' }).click();
 	await page.waitForURL((url) => !url.pathname.startsWith('/admin/login'));
+	await page.waitForLoadState('networkidle');
 }
 
 test.describe('Blog System & Prose Parity E2E Suite', () => {

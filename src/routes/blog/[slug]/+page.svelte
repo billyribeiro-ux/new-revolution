@@ -8,6 +8,7 @@
 	import PostCard from '#lib/components/blog/PostCard.svelte';
 	import SEO from '#lib/components/blog/SEO.svelte';
 	import { SITE_ORIGIN } from '#lib/seo/structured-data';
+	import { buildTocTree, type TocNode } from '#lib/shared/seo/toc';
 	import type { ActionData, PageData } from './$types';
 
 	interface Props {
@@ -19,13 +20,13 @@
 
 	let readingProgress = $state(0);
 	let activeHeadingId = $state('');
-	let tocDetailsOpen = $state(true);
 	let copyLinkStatus = $state('');
 	let canNativeShare = $state(false);
 
 	// Server (getPublicPostViewBySlug) already runs normalizePostHeadings once (SSOT)
 	// and supplies 1:1 synchronized heading IDs and TOC items.
 	let toc = $derived(data.post?.toc ?? []);
+	let tocTree = $derived(buildTocTree(toc));
 	let processedContent = $derived(data.post?.content ?? '');
 	let isTocEnabled = $derived.by(() => {
 		const raw = data.post?.customFields;
@@ -67,9 +68,6 @@
 		if (typeof window === 'undefined') return;
 
 		activeHeadingId = toc[0]?.id ?? '';
-		if (window.innerWidth < 768) {
-			tocDetailsOpen = false;
-		}
 		canNativeShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
 
 		// Pageview analytics tracking (Section 10.9)
@@ -104,52 +102,63 @@
 
 	/**
 	 * Reactive TOC scroll-spy attachment (re-runs whenever `toc` or the `<details>`
-	 * panel node changes across client-side post navigations) and keeps the active
-	 * entry visible inside the sticky TOC scroll container via `panel.scrollTop` math.
+	 * panel node changes across client-side post navigations). Only scroll the TOC
+	 * when its active heading changes and the reader is not interacting with it.
 	 */
 	function setupTocScrollSpy(panel: HTMLElement) {
 		const items = toc;
 		if (typeof window === 'undefined' || items.length < 3) return;
 
-		const headingElements = items
-			.map((item) => document.getElementById(item.id))
-			.filter((element): element is HTMLElement => element !== null);
+		const headingElements = items.map((item) => ({
+			id: item.id,
+			element: document.getElementById(item.id)
+		}));
+		const nav = panel.querySelector<HTMLElement>('nav');
+		const links = new Map(
+			Array.from(panel.querySelectorAll<HTMLElement>('[data-toc-id]')).map((link) => [
+				link.dataset.tocId,
+				link
+			])
+		);
 
-		if (headingElements.length === 0) return;
+		if (!nav || headingElements.every(({ element }) => !element)) return;
 
-		const followActiveInPanel = (activeLink: HTMLElement | null) => {
-			if (!activeLink) return;
-			if (panel.scrollHeight <= panel.clientHeight) return;
-			const itemTop = activeLink.offsetTop;
-			const itemBottom = itemTop + activeLink.offsetHeight;
-			const viewTop = panel.scrollTop;
-			const viewBottom = viewTop + panel.clientHeight;
-			const margin = 24;
-			if (itemTop < viewTop + margin) {
-				panel.scrollTop = Math.max(0, itemTop - margin);
-			} else if (itemBottom > viewBottom - margin) {
-				panel.scrollTop = itemBottom - panel.clientHeight + margin;
-			}
+		const followActiveInPanel = (activeLink: HTMLElement | null, force = false) => {
+			if (!activeLink || !nav.clientHeight || (!force && panel.matches(':focus-within, :hover')))
+				return;
+			const item = activeLink.getBoundingClientRect();
+			const viewport = nav.getBoundingClientRect();
+			if (item.top < viewport.top) nav.scrollTop += item.top - viewport.top;
+			else if (item.bottom > viewport.bottom) nav.scrollTop += item.bottom - viewport.bottom;
 		};
 
+		let lastCurrentId = '';
 		const updateActiveHeading = () => {
+			if (!window.matchMedia('(min-width: 1180px)').matches) return;
 			let currentId = items[0]?.id ?? '';
-			for (const item of items) {
-				const el = document.getElementById(item.id);
-				if (el && el.getBoundingClientRect().top <= 150) {
-					currentId = item.id;
+			for (const { id, element } of headingElements) {
+				if (element && element.getBoundingClientRect().top <= 150) {
+					currentId = id;
 				}
 			}
-			activeHeadingId = currentId;
-			if (currentId) {
-				followActiveInPanel(panel.querySelector<HTMLElement>(`[data-toc-id="${currentId}"]`));
+			if (lastCurrentId !== currentId) {
+				lastCurrentId = currentId;
+				activeHeadingId = currentId;
+				followActiveInPanel(links.get(currentId) ?? null);
 			}
 		};
 
+		const onToggle = () => {
+			if (panel.hasAttribute('open')) followActiveInPanel(links.get(lastCurrentId) ?? null, true);
+		};
 		updateActiveHeading();
+		panel.addEventListener('toggle', onToggle);
 		window.addEventListener('scroll', updateActiveHeading, { passive: true });
+		window.addEventListener('resize', updateActiveHeading, { passive: true });
 		return () => {
+			panel.removeEventListener('toggle', onToggle);
 			window.removeEventListener('scroll', updateActiveHeading);
+			window.removeEventListener('resize', updateActiveHeading);
 		};
 	}
 
@@ -271,7 +280,7 @@
 			</div>
 		</nav>
 
-		<article class="container article-container">
+		<article class={['container', 'article-container', { 'has-toc': showToc }]}>
 			<header class="article-header">
 				<div class="article-meta-badges">
 					{#if data.post.category}
@@ -367,48 +376,40 @@
 				</figure>
 			{/if}
 
+			{#if showToc}
+				<aside class="article-toc-aside" aria-label="Table of contents">
+					<details {@attach setupTocScrollSpy} class="toc-details" open>
+						<summary class="toc-summary">
+							<span>Table of Contents</span>
+							<span class="toc-toggle-icon" aria-hidden="true">
+								<CaretDownIcon class="toc-caret" size={16} weight="bold" />
+							</span>
+						</summary>
+						<nav aria-label="Article sections">
+							{#snippet renderTocItems(items: TocNode[])}
+								{#each items as item (item.id)}
+									<li class="toc-item">
+										<a
+											href={`#${item.id}`}
+											data-toc-id={item.id}
+											class={['toc-link', { 'toc-link--active': activeHeadingId === item.id }]}
+											aria-current={activeHeadingId === item.id ? 'location' : undefined}
+											onclick={() => {
+												activeHeadingId = item.id;
+											}}>{item.text}</a
+										>
+										{#if item.children.length > 0}
+											<ol>{@render renderTocItems(item.children)}</ol>
+										{/if}
+									</li>
+								{/each}
+							{/snippet}
+							<ol class="toc-list">{@render renderTocItems(tocTree)}</ol>
+						</nav>
+					</details>
+				</aside>
+			{/if}
 			<div class={['article-body-layout', { 'has-toc': showToc }]}>
-				{#if showToc}
-					<aside class="article-toc-aside" aria-label="Table of contents">
-						<details {@attach setupTocScrollSpy} class="toc-details" bind:open={tocDetailsOpen}>
-							<summary
-								class="toc-summary"
-								onclick={(e) => {
-									if (typeof window !== 'undefined' && window.innerWidth >= 768) {
-										e.preventDefault();
-										tocDetailsOpen = true;
-									}
-								}}
-							>
-								<span>Table of Contents</span>
-								<CaretDownIcon class="toc-caret" size={16} weight="bold" aria-hidden="true" />
-							</summary>
-							<nav aria-label="Article sections">
-								<ol class="toc-list">
-									{#each toc as item (item.id)}
-										<li class={`toc-item toc-level-${item.level}`}>
-											<a
-												href={`#${item.id}`}
-												data-toc-id={item.id}
-												class={['toc-link', { 'toc-link--active': activeHeadingId === item.id }]}
-												aria-current={activeHeadingId === item.id ? 'location' : undefined}
-												onclick={() => {
-													activeHeadingId = item.id;
-													if (typeof window !== 'undefined' && window.innerWidth < 768) {
-														tocDetailsOpen = false;
-													}
-												}}
-											>
-												{item.text}
-											</a>
-										</li>
-									{/each}
-								</ol>
-							</nav>
-						</details>
-					</aside>
-				{/if}
-
 				<div class="article-main-column">
 					<div class="prose-base article-prose">
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -755,7 +756,7 @@
 	}
 
 	.article-cover-figure {
-		max-width: 960px;
+		max-width: 900px;
 		margin: 0 auto 2.5rem;
 	}
 
@@ -782,31 +783,62 @@
 		align-items: start;
 	}
 
+	.article-toc-aside {
+		display: none;
+	}
+
 	@media (min-width: 1180px) {
-		.article-body-layout.has-toc {
+		.article-container.has-toc {
+			display: grid;
 			grid-template-columns: clamp(260px, 20vw, 300px) minmax(0, 900px);
-			align-items: stretch;
+			column-gap: 2.5rem;
+			justify-content: center;
+		}
+
+		.article-container.has-toc > .article-header,
+		.article-container.has-toc > .article-cover-figure {
+			grid-column: 2;
+			width: 100%;
+			max-width: 900px;
+			margin-inline: 0;
+		}
+
+		.article-container.has-toc > .article-header {
+			grid-row: 1;
+		}
+		.article-container.has-toc > .article-cover-figure {
+			grid-row: 2;
+		}
+		.article-container.has-toc > .article-body-layout {
+			grid-column: 2;
+			grid-row: 3;
+		}
+		.article-container.has-toc > .related-articles-section {
+			grid-column: 1 / -1;
+			grid-row: 4;
+		}
+		.article-container.has-toc > .back-to-blog-row {
+			grid-column: 1 / -1;
+			grid-row: 5;
 		}
 
 		.article-toc-aside {
+			display: block;
+			grid-column: 1;
+			grid-row: 1 / 4;
 			align-self: stretch;
+			min-width: 0;
 		}
 
 		.toc-details {
 			position: sticky;
 			top: 96px;
-			max-height: calc(100vh - 120px);
-			overflow-y: auto;
-			overscroll-behavior: contain;
-			scrollbar-width: thin;
 		}
 	}
 
 	.toc-details {
 		background: var(--panel);
-		border: 1px solid var(--line);
-		border-radius: 14px;
-		padding: 1.15rem;
+		border: 1px solid var(--line-strong);
 	}
 
 	.toc-summary {
@@ -814,12 +846,10 @@
 		font-weight: 800;
 		font-size: 0.78rem;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: var(--acid);
-		min-height: 28px;
-		margin: 0 0 0.85rem;
-		padding-bottom: 0.75rem;
-		border-bottom: 1px solid var(--line);
+		letter-spacing: 0.08em;
+		color: var(--text);
+		min-height: 60px;
+		padding: 0.75rem 1rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -832,9 +862,27 @@
 		display: none;
 	}
 
+	.toc-summary:focus-visible {
+		outline: 3px solid var(--acid);
+		outline-offset: -3px;
+	}
+
+	.toc-summary:hover .toc-toggle-icon {
+		border-color: var(--acid);
+		color: var(--acid);
+	}
+
+	.toc-toggle-icon {
+		display: grid;
+		place-items: center;
+		flex: 0 0 32px;
+		width: 32px;
+		height: 32px;
+		border: 1px solid var(--line-strong);
+		color: var(--text);
+	}
+
 	.toc-summary :global(.toc-caret) {
-		flex-shrink: 0;
-		color: var(--muted);
 		transition: transform 0.2s ease;
 	}
 
@@ -842,26 +890,18 @@
 		transform: rotate(180deg);
 	}
 
-	@media (min-width: 768px) {
-		.toc-summary {
-			cursor: default;
-		}
-
-		.toc-summary :global(.toc-caret) {
-			display: none;
-		}
-
-		.toc-details > nav {
-			display: block;
-		}
+	.toc-details:not([open]) > nav {
+		display: none;
 	}
 
-	@media (max-width: 767px) {
-		.toc-details:not([open]) .toc-summary {
-			margin-bottom: 0;
-			padding-bottom: 0;
-			border-bottom: none;
-		}
+	.toc-details > nav {
+		max-height: max(6rem, calc(100vh - 180px));
+		max-height: max(6rem, calc(100dvh - 180px));
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		scrollbar-width: thin;
+		border-top: 1px solid var(--line);
+		padding: 0.65rem 0.65rem 0.85rem;
 	}
 
 	.toc-list {
@@ -870,41 +910,23 @@
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.2rem;
+		gap: 0.15rem;
 		font-size: 0.84rem;
 	}
 
-	@media (min-width: 768px) and (max-width: 1179px) {
-		.toc-list {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 0.4rem 1rem;
-		}
-	}
-
 	.toc-item a {
-		position: relative;
 		color: var(--muted);
 		text-decoration: none;
 		display: block;
-		padding: 0.45rem 0.65rem 0.45rem 0.9rem;
-		border-left: 3px solid transparent;
-		border-radius: 0 8px 8px 0;
-		line-height: 1.35;
+		padding: 0.55rem 0.65rem 0.55rem 0.85rem;
+		border-left: 2px solid transparent;
+		line-height: 1.4;
 		font-weight: 600;
+		overflow-wrap: anywhere;
 		transition:
 			color 0.15s ease,
 			background 0.15s ease,
 			border-color 0.15s ease;
-	}
-
-	.toc-item a::before {
-		content: '';
-		position: absolute;
-		inset: 0 auto 0 0;
-		width: 3px;
-		border-radius: 999px;
-		background: transparent;
 	}
 
 	.toc-item a[aria-current='location'],
@@ -913,23 +935,12 @@
 		color: var(--text);
 		border-left-color: var(--acid);
 		background: rgba(220, 255, 101, 0.08);
-		font-weight: 700;
 	}
 
-	.toc-item a[aria-current='location']::before,
-	.toc-item a.toc-link--active::before,
-	.toc-item a:hover::before {
-		background: var(--acid);
-	}
-
-	.toc-level-3 {
-		padding-inline-start: 0.85rem;
-	}
-
-	.toc-level-4,
-	.toc-level-5,
-	.toc-level-6 {
-		padding-inline-start: 1.5rem;
+	.toc-item ol {
+		list-style: none;
+		margin: 0;
+		padding-inline-start: 0.75rem;
 	}
 
 	.article-main-column {
@@ -1235,7 +1246,9 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.reading-progress-fill {
+		.reading-progress-fill,
+		.toc-item a,
+		.toc-summary :global(.toc-caret) {
 			transition: none;
 		}
 	}

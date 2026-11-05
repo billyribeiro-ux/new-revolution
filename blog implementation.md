@@ -60,6 +60,7 @@ The CMS stores **HTML**, not Markdown, MDX or Svelte. The [TipTap extension regi
 
 - Start with prose or an H2. The template already renders the H1, excerpt, author, publication date and cover. Do not paste a second article title or cover at the start of the body.
 - Use H2 sections and H3 subsections in order. [Heading normalization](src/lib/shared/seo/toc.ts) assigns stable unique IDs and derives the TOC. Review the saved result; hand-written IDs are stripped by sanitization.
+- The shared article template renders a nested, collapsible TOC for enabled posts with at least three headings at viewport widths of 1180px and above. It is hidden below that width. Do not paste a manual TOC into article content; verify heading links, keyboard disclosure and desktop/mobile visibility in the saved post.
 - Use real `<a href>` links, paragraphs, lists, blockquotes, figures and semantic tables. For wide tables, use an allowed `<div class="table-scroll">` wrapper and test it on mobile. Do not paste `<head>`, scripts, styles, Svelte components or metadata into the body.
 - There is no registered math renderer. Replace LaTeX such as `$$\\frac{700}{1000}$$` with readable text, e.g. `700 / (700 + 300) = 70%`, or a verified accessible graphic with equivalent text.
 - Store FAQs in the editor's FAQ fields as plain question/answer strings. The article template renders native `<details>`. Pasted body `<details>/<summary>` wrappers are stripped; FAQPage JSON-LD is prohibited by project policy.
@@ -213,7 +214,7 @@ Against `pnpm preview --port 4173`, verify:
 - One title/description/robots tag, one H1, one unified JSON-LD graph; DOM breadcrumbs equal schema names/positions. Canonical absent while gated; after an authorized launch, canonical must use the production origin and strip tracking queries.
 - Real author and visible dates agree with the schema. Use the existing `SEO.svelte` wrapper; do not paste the brief's raw `<script>` or add another metadata system. Note the current founder-ID discrepancy in the audit before changing author builders.
 - Every cover/body/variant URL decodes to the intended graphic, has matching alt/caption/dimensions, and uses self-hosted fonts where relevant. Inspect image bytes rather than just HTTP 200.
-- All internal/outbound citations and CTAs resolve and support the associated claims. Test TOC anchors, search, category/tag pages, sharing and mobile layouts at 320/375/768/1440 widths.
+- All internal/outbound citations and CTAs resolve and support the associated claims. Test TOC anchors and disclosure, search, category/tag pages, sharing and responsive layouts at 320/375/768/1179/1180/1440 widths.
 - RSS contains the correct live public content and no private content. While `/blog` is gated, its content can still appear in RSS; the gate is not access control. Sitemap must exclude blog URLs while gated. After launch, confirm actual sitemap entries and update `docs/seo/audit/02-inventory.json` for tested concrete URLs.
 - Errors have the expected status. Slug redirects resolve directly to the live target; malformed/out-of-range pagination returns 404.
 

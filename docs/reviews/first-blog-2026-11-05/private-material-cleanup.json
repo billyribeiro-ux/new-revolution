@@ -1,0 +1,22 @@
+{
+	"scannedFiles": 990,
+	"remainingPrivateValueMatches": 0,
+	"generatedPrivateEnvModuleRemoved": true,
+	"publicPages": [
+		{
+			"path": "/",
+			"status": 200,
+			"privateValuesExposed": false
+		},
+		{
+			"path": "/blog",
+			"status": 200,
+			"privateValuesExposed": false
+		},
+		{
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"privateValuesExposed": false
+		}
+	]
+}

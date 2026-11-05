@@ -1,0 +1,87 @@
+[
+	{
+		"key": "execution-map",
+		"file": "assets/execution-map.webp",
+		"width": 1600,
+		"height": 900,
+		"bytes": 62810,
+		"maxBytes": 90000,
+		"sha256": "ab3d4a54f5aaad366e44c0b2d2fe275ef2dc0d70e80b0e7d1b65e0ced009bd94",
+		"alt": "Hypothetical SPX price path between illustrative 7,650 and 7,750 levels, alongside contract, payoff and evidence checks.",
+		"title": "0DTE SPX: structure before the trade",
+		"caption": "Figure 1. Original hypothetical price-map illustration. Levels are teaching examples, not live prices, measured dealer inventory or trading signals.",
+		"provenance": "Original code-generated educational diagram; Sofia Sans font from self-hosted OFL Fontsource package; no third-party market imagery."
+	},
+	{
+		"key": "tax-comparison",
+		"file": "assets/tax-comparison.webp",
+		"width": 1200,
+		"height": 675,
+		"bytes": 43032,
+		"maxBytes": 65000,
+		"sha256": "97da5ba1d9d7f3e2057856c2fb2191862ca911b38f6f476d6de86d5a0e8dd1c1",
+		"provenance": "Original code-generated educational diagram; Sofia Sans font from self-hosted OFL Fontsource package; no third-party market imagery.",
+		"alt": "Illustrative base-rate calculation on $100,000 of gains: $26,800 using a 60/40 split and assumed 20% and 37% rates, versus $37,000 at an assumed 37% rate.",
+		"title": "Section 1256: an illustrative base-rate comparison",
+		"caption": "Figure 2. Arithmetic illustration using assumed top base rates. Excludes net investment income tax, state taxes and individual circumstances; not a guaranteed tax saving."
+	},
+	{
+		"key": "dealer-hedging",
+		"file": "assets/dealer-hedging.webp",
+		"width": 1200,
+		"height": 675,
+		"bytes": 50628,
+		"maxBytes": 70000,
+		"sha256": "1a9140d45210b4e420f0c76330effe1e328ed4ef0599c3bc3fbbd3c2afcdefcd",
+		"provenance": "Original code-generated educational diagram; Sofia Sans font from self-hosted OFL Fontsource package; no third-party market imagery.",
+		"alt": "Conditional hedging diagram: a long-gamma dealer sells underlying after a rise and buys after a fall; a short-gamma dealer does the opposite.",
+		"title": "Conditional dealer delta hedging",
+		"caption": "Figure 3. Simplified delta-hedging directions, assuming the stated dealer position and other inputs unchanged. No claimed average range or forecast."
+	},
+	{
+		"key": "spread-payoffs",
+		"file": "assets/spread-payoffs.webp",
+		"width": 1200,
+		"height": 675,
+		"bytes": 44138,
+		"maxBytes": 75000,
+		"sha256": "ea23e316785b2e582bd228e68cdccd99b716cd61f31fe8ee0b2660f1ed58e8b8",
+		"provenance": "Original code-generated educational diagram; Sofia Sans font from self-hosted OFL Fontsource package; no third-party market imagery.",
+		"alt": "Three hypothetical expiration payoff charts for a $300-credit iron condor, a $320-debit bear put spread and a $140-debit equal-wing call butterfly.",
+		"title": "Terminal payoff is different from expected return",
+		"caption": "Figure 4. Exact piecewise expiration payoffs for the examples in the table. Fees and slippage excluded; curves are not return distributions or pre-expiry marks."
+	},
+	{
+		"key": "session-plan",
+		"file": "assets/session-plan.webp",
+		"width": 1200,
+		"height": 675,
+		"bytes": 48132,
+		"maxBytes": 70000,
+		"sha256": "0f6b13d45993d3b10dbdb01a2da6b2e6dde67bbd23dd7b49f7cf111e556d1420",
+		"provenance": "Original code-generated educational diagram; Sofia Sans font from self-hosted OFL Fontsource package; no third-party market imagery.",
+		"alt": "Illustrative full-session workflow: observe the open, evaluate conditions, manage risk and review exit exposure; 2:30 p.m. is marked as an optional planning checkpoint.",
+		"title": "A session checklist, not a timed trading signal",
+		"caption": "Figure 5. Illustrative Eastern-time workflow for a normal full trading day. No measured probability, gamma curve or mandatory 2:30 p.m. exit is asserted."
+	},
+	{
+		"key": "execution-map-card",
+		"file": "assets/execution-map-card.webp",
+		"width": 800,
+		"height": 450,
+		"bytes": 26474,
+		"maxBytes": 35000,
+		"sha256": "2008a16059853dada1684e98128bec899d5734e4555c4ec221c7e297c533d6e8",
+		"provenance": "Original execution-map derivative; contain fit preserves labels."
+	},
+	{
+		"key": "execution-map-social",
+		"file": "assets/execution-map-social.webp",
+		"width": 1200,
+		"height": 630,
+		"bytes": 37422,
+		"maxBytes": 80000,
+		"sha256": "ca1a6bd883d0e29456068f5cd69b87e85c69243470bfeec970d014f39eb0c357",
+		"provenance": "Original execution-map derivative; contain fit preserves labels."
+	}
+]

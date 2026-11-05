@@ -9,6 +9,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Evidence-based first article preparation
+
+- Prepare a complete, separately reviewed CMS package from `blogs/first-blog.md`, preserving the original brief. Correct regulatory transition, tax assumptions, dealer-inventory claims, payoff/EV distinctions, account-risk math and actual CTA routes using primary sources.
+- Create five original labeled diagrams plus card/social derivatives with verified WebP dimensions, byte budgets, provenance and font licensing. Keep hypothetical prices and unverified ThinkScript runtime limitations explicit.
+- Save and inspect the article through existing CMS/media services in an isolated local environment. Record exact content, claim, media, draft/privacy and rendering evidence; hosted publication remains a separate owner decision.
+- Fix actual rich-article mobile overflow: scope horizontal scrolling to CMS table wrappers. Add an authenticated regression for wide semantic tables and long code without changing the readable article width.
+- Acceptance: `docs/reviews/first-blog-2026-11-05/VERIFICATION.md`.
+
 ### 2026-11-05 — Shared blog layout and owner-authorized maintenance-off release
 
 - Align the archive, search, category, tag, article and protected-article shells with the existing `.container` and responsive section spacing. Preserve 900px article readability and centered media; remove conflicting fixed shells and narrow-screen grid/form overflow.

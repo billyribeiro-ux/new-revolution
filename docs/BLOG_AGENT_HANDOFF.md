@@ -37,6 +37,8 @@ Implementation and acceptance evidence: [575 unit/component tests, 40 authentica
 
 The owner’s subsequent November 5 instruction has been completed: PR #27 is squash-merged and the normal public website is deployed with maintenance off. Current deployment state is recorded in [layout/release acceptance](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Restore maintenance only on the owner’s later instruction. The original 0DTE article and its specified illustrations remain the next discussion; a normal website deployment does not import or approve that draft.
 
+The owner subsequently selected `blogs/first-blog.md` for article preparation. Its original bytes are preserved; the corrected body, metadata, source ledger, real graphics and portable reader copy are in [the first-article package](../content/articles/0dte-spx-options-strategy-guide/README.md). Check [its acceptance record](reviews/first-blog-2026-11-05/VERIFICATION.md) for the exact saved revision and environment; package files do not publish themselves. Do not revert to the older brief or treat unverified desk statistics as approved facts.
+
 The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: true }`. The November 5 hosted check found that default build-only prerender functions can pass Vite preview while throwing in the generated Vercel handler. Preserve `tests/deployment/vercel-runtime.e2e.ts` and verify deployed HTTP/browser behavior after changing rendering mode.
 
 Blog shells now use the same responsive `.container` as the rest of the website (1536px maximum on large screens); article prose retains a 900px reading limit. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.

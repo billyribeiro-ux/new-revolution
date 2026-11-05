@@ -1,0 +1,22 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T20:21:25.054Z",
+		"duration": 30440.923000000003,
+		"expected": 15,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"screenshots": [
+		"webkit-cms-card-home-320.png",
+		"webkit-cms-card-home-1440.png",
+		"webkit-cms-card-blog-320.png",
+		"webkit-cms-card-blog-1440.png",
+		"webkit-layout-index-2420.png",
+		"webkit-layout-category-320.png",
+		"webkit-layout-tag-320.png",
+		"webkit-layout-article-2420.png",
+		"webkit-navbar-desktop.png",
+		"webkit-navbar-mobile.png"
+	]
+}

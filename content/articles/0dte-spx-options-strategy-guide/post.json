@@ -1,0 +1,71 @@
+{
+	"title": "0DTE SPX Options Strategy Guide",
+	"slug": "0dte-spx-options-strategy-guide",
+	"metaTitle": "0DTE SPX Options Strategy Guide",
+	"metaDescription": "Explore a 0DTE SPX options strategy with defined-risk spread examples, settlement mechanics, gamma assumptions, execution costs, and position limits.",
+	"excerpt": "Compare SPX, XSP and SPY, work through three defined-risk spreads, and separate gamma estimates from evidence of a trading edge.",
+	"author": {
+		"name": "Billy Ribeiro",
+		"slug": "billy-ribeiro",
+		"jobTitle": "Head Trader & Founder",
+		"company": "Revolution Trading Pros",
+		"bio": "Billy Ribeiro is the founder of Revolution Trading Pros. This guide explains options mechanics using cited sources and hypothetical calculations.",
+		"website": "https://www.revolutiontradingpros.com/about",
+		"credentials": null,
+		"yearsExperience": null
+	},
+	"category": {
+		"name": "SPX Options",
+		"slug": "spx-options"
+	},
+	"tags": [
+		{
+			"name": "0DTE Options",
+			"slug": "0dte-options"
+		},
+		{
+			"name": "Risk Management",
+			"slug": "risk-management"
+		}
+	],
+	"focusKeyword": "0DTE SPX options strategy",
+	"secondaryKeywords": ["SPX settlement", "gamma exposure", "defined-risk spreads", "Section 1256"],
+	"schemaType": "BlogPosting",
+	"isPillar": false,
+	"status": "draft",
+	"visibility": "public",
+	"robotsNoindex": false,
+	"isFixture": false,
+	"coverAsset": "execution-map",
+	"ogAsset": "execution-map-social",
+	"faqItems": [
+		{
+			"question": "What does a gamma-flip level actually tell me?",
+			"answer": "It identifies a zero crossing in a particular gamma model under its positioning and volatility assumptions. It is not an observed inventory balance or a guaranteed support or resistance level."
+		},
+		{
+			"question": "Does a 70% win rate prove an iron condor is profitable?",
+			"answer": "No. Payoff sizes, partial outcomes, exits and costs matter. In a binary model with a $300 win and $700 loss, 70% merely breaks even before costs. That model does not measure the real trade probability."
+		},
+		{
+			"question": "Are SPX and SPY options settled the same way?",
+			"answer": "No. SPX index options are European-style and cash-settled. Standard SPY ETF options normally deliver shares and have American-style exercise. Check the exact expiration, settlement and broker deadlines."
+		},
+		{
+			"question": "Has the pattern-day-trader framework changed in 2026?",
+			"answer": "FINRA Notice 26-10 adopts replacement intraday margin standards effective June 4, 2026, with a firm phase-in ending October 20, 2027. Ask your broker which framework and house requirements apply to your account."
+		},
+		{
+			"question": "Does the ThinkScript study calculate dealer gamma exposure?",
+			"answer": "No. It plots the observed opening-range high, low and midpoint. It has no option-chain or signed-inventory inputs and has not been compiled or replayed in thinkorswim as part of this review."
+		}
+	],
+	"source": {
+		"file": "blogs/first-blog.md",
+		"sha256": "f5bf237796c146283b58b948d18d7bc3452c16eb7bbc10d750320769ee4c3f47",
+		"reviewDate": "2026-11-05"
+	},
+	"publishedAt": null,
+	"editorialStatus": "Corrected candidate; owner review pending",
+	"featured": true
+}

@@ -1,0 +1,525 @@
+<p>
+	A 0DTE SPX options strategy starts with the contract, the payoff and the amount you can lose. A
+	gamma chart can help organize a hypothesis, but it cannot establish dealer inventory, predict a
+	closing price or turn a spread into a profitable system. This guide separates exchange facts from
+	model assumptions and works through three defined-risk structures.
+</p>
+<p>
+	All index levels, premiums, fills and chart paths below are hypothetical teaching examples. SPX
+	7,700 is a convenient arithmetic baseline, not a verified November 5 market quote. Figures show
+	original illustrations, not exchange screenshots, backtests or trading results.
+</p>
+<h2>1. What 0DTE changes about the trade</h2>
+<p>
+	<strong>Direct answer:</strong> A 0DTE option expires on the trading day you enter it.
+	Near-the-money contracts can change value sharply as expiration approaches. Defined-risk spreads
+	cap the theoretical terminal loss of an intact position, but short holding periods leave little
+	time to recover from an entry error, a spread widening or an unexpected announcement.
+</p>
+<p>
+	Cboe reported a record 3.6 million average daily SPX 0DTE contracts for October 2026 in its
+	<a
+		href="https://ir.cboe.com/news/news-details/2026/Cboe-Global-Markets-Reports-Trading-Volume-for-October-2026/default.aspx"
+		>November 4 volume release</a
+	>. That is trading activity, not a count of unique positions or net directional exposure. The
+	rounded release does not establish an exact monthly percentage share; dividing rounded totals
+	would create false precision.
+</p>
+<p>
+	The <a href="https://www.cboe.com/tradable-products/0dte/">Cboe 0DTE resource page</a> separately
+	displays 59% for SPX volume, 48% for XSP volume and 54% annual growth since 2016. Those page-level
+	statistics are not labeled as October 2026 readings. Keep their scope separate from the dated
+	monthly release. Neither source demonstrates that a particular entry window or strategy has
+	positive expectancy.
+</p>
+<p>
+	Three sensitivities matter. Delta describes an option's local price response to the underlying.
+	The Options Industry Council explains
+	<a href="https://www.optionseducation.org/advancedconcepts/gamma"
+		>gamma as delta's response to an underlying move</a
+	>. Theta describes sensitivity to time passing, holding other inputs fixed. Near expiration, an
+	option close to its strike can become especially sensitive to a small underlying move; an option
+	far from its strike behaves differently. There is no universal curve in which every option's gamma
+	rises through the afternoon.
+</p>
+<p>
+	Before looking for a setup, identify today's expiration, the settlement convention, the scheduled
+	announcements and the latest time your broker permits an exit. A decision to skip the session is a
+	complete trading decision. High turnover on an exchange does not create an obligation to
+	participate.
+</p>
+<h2>2. SPX, XSP and SPY: settlement and tax differences</h2>
+<p>
+	<strong>Direct answer:</strong> SPX and XSP are European-style, cash-settled index options. SPY
+	options deliver ETF shares and can be exercised before expiration. At a hypothetical SPX level of
+	7,700, one SPX contract represents $770,000 of underlying notional; XSP is one-tenth the index
+	scale. Notional exposure is different from premium paid and maximum spread loss.
+</p>
+<div class="table-scroll">
+	<table>
+		<caption>
+			Contract mechanics to verify before selecting an expiration
+		</caption>
+		<thead>
+			<tr>
+				<th scope="col">Feature</th>
+				<th scope="col">SPX / SPXW</th>
+				<th scope="col">XSP</th>
+				<th scope="col">SPY options</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Underlying</th>
+				<td>S&amp;P 500 Index</td>
+				<td>One-tenth SPX index scale</td>
+				<td>SPDR S&amp;P 500 ETF shares</td>
+			</tr>
+			<tr>
+				<th scope="row">Exercise and delivery</th>
+				<td>European; cash</td>
+				<td>European; cash</td>
+				<td>American; normally 100 shares per standard contract</td>
+			</tr>
+			<tr>
+				<th scope="row">Multiplier</th>
+				<td>$100 per index point</td>
+				<td>$100 per XSP point</td>
+				<td>Normally 100 shares; verify adjustments</td>
+			</tr>
+			<tr>
+				<th scope="row">Expiration selection</th>
+				<td>Distinguish traditional AM settlement from PM-settled SPXW</td>
+				<td>Verify PM settlement and series</td>
+				<td>Check exercise instructions and broker cutoff</td>
+			</tr>
+			<tr>
+				<th scope="row">Potential tax category</th>
+				<td>Qualifying non-equity option under Section 1256</td>
+				<td>Qualifying non-equity option under Section 1256</td>
+				<td>Generally equity-option treatment</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>
+	Cboe's
+	<a href="https://cdn.cboe.com/resources/spx/spx-fact-sheet.pdf">SPX fact sheet</a> describes the
+	settlement calculation. Its
+	<a href="https://www.cboe.com/tradable-products/sp-500/spx-options/spx-specifications"
+		>contract specifications</a
+	>
+	distinguish SPXW expiration trading, normally ending at 4:00 p.m. Eastern, from traditional SPX.
+	Half-day expiration trading normally ends at 1:00 p.m. Eastern. A broker may impose an earlier
+	operational cutoff. The
+	<a href="https://www.cboe.com/tradable-products/sp-500/xsp-options">XSP product page</a> documents
+	the smaller index scale.
+</p>
+<p>
+	Cash settlement removes share-delivery exposure, not loss risk. A settlement near your short
+	strike can still determine whether a spread pays or loses. With SPY, the two legs of a spread do
+	not guarantee matching exercise outcomes. After-hours movement and exercise instructions can leave
+	an unexpected stock position. Schwab's
+	<a href="https://www.schwab.com/learn/story/options-expiration-definitions-checklist-more"
+		>expiration checklist</a
+	>
+	explains exercise and broker deadlines. Do not assume every protective leg becomes unavailable at
+	exactly 4:00 p.m.
+</p>
+<figure class="blog-image-figure">
+	<img
+		src="asset:tax-comparison"
+		width="1200"
+		height="675"
+		loading="lazy"
+		decoding="async"
+		alt="Illustrative base-rate calculation on $100,000 of gains: $26,800 using a 60/40 split and assumed 20% and 37% rates, versus $37,000 at an assumed 37% rate."
+		title="Section 1256: an illustrative base-rate comparison"
+	/>
+	<figcaption>
+		Figure 2. Arithmetic illustration using assumed top base rates. Excludes net investment income
+		tax, state taxes and individual circumstances; not a guaranteed tax saving.
+	</figcaption>
+</figure>
+<p>
+	<a href="https://www.irs.gov/pub/irs-pdf/f6781.pdf">IRS Form 6781 and its instructions</a>
+	describe 60% long-term and 40% short-term treatment for qualifying Section 1256 capital gains,
+	regardless of holding period. They also describe mark-to-market treatment, the wash-sale exception
+	and a limited three-year net-loss carryback election. Eligibility, hedging and straddle rules
+	require individual review. The retrieved form is the 2025 revision, not a finalized 2026 filing
+	form.
+</p>
+<p>
+	Using assumed rates of 20% and 37%, the arithmetic is 0.60 × 20% + 0.40 × 37% = 26.8%. On
+	$100,000, that is $26,800, versus $37,000 at an assumed 37% rate: a $10,200 difference before
+	other taxes. This is not a maximum all-in federal tax rate. The IRS describes a potential
+	additional <a href="https://www.irs.gov/taxtopics/tc559">3.8% net investment income tax</a>. Rates
+	depend on the taxpayer; this U.S. example does not establish Canadian tax treatment. Ask a
+	qualified tax professional to evaluate your actual contracts and account.
+</p>
+<h2>3. Gamma exposure: useful model, incomplete inventory</h2>
+<p>
+	<strong>Direct answer:</strong> Dealer gamma exposure depends on signed positions, option
+	sensitivities and the model used. Open interest counts outstanding contracts; volume counts
+	trading. Neither identifies which side dealers hold. A call wall, put wall or gamma-flip level
+	should therefore be treated as a timestamped model estimate, with explicit inventory assumptions
+	and an invalidation condition.
+</p>
+<figure class="blog-image-figure">
+	<img
+		src="asset:dealer-hedging"
+		width="1200"
+		height="675"
+		loading="lazy"
+		decoding="async"
+		alt="Conditional hedging diagram: a long-gamma dealer sells underlying after a rise and buys after a fall; a short-gamma dealer does the opposite."
+		title="Conditional dealer delta hedging"
+	/>
+	<figcaption>
+		Figure 3. Simplified delta-hedging directions, assuming the stated dealer position and other
+		inputs unchanged. No claimed average range or forecast.
+	</figcaption>
+</figure>
+<p>
+	A delta-hedged dealer who is long gamma generally needs to sell underlying after a rise and buy
+	after a fall, all else equal. A short-gamma dealer generally needs the opposite adjustment. Actual
+	books include multiple expirations, other products and changing volatility. A market-wide
+	directional forecast does not follow automatically from this single-position mechanism.
+</p>
+<p>
+	For a local dollar-exposure estimate per 1% underlying move, one common convention is gamma ×
+	signed contracts × multiplier × spot² × 0.01. The sign must represent the modeled dealer holding,
+	not simply whether the contract is a call or a put. With unsigned open interest, the same
+	expression is a gross sensitivity measure, not observed net dealer exposure.
+</p>
+<p>
+	For an arithmetic-only example, gamma 0.014, 45,000 contracts, multiplier 100 and spot 7,700
+	produce $37,352,700,000 per 1% move. That large number assumes every contract belongs on the same
+	signed side. It is a local approximation with gamma held fixed across the shock, not a forecast
+	that dealers must execute that dollar amount in futures. Near expiry, gamma can change materially
+	during the move.
+</p>
+<p>
+	Cboe's
+	<a href="https://www.cboe.com/insights/posts/0-dt-es-decoded-positioning-trends-and-market-impact"
+		>May 2, 2025 market-impact research</a
+	>
+	found balanced customer activity and limited net market-maker hedging in its sample. That
+	historical finding does not guarantee future stability, but it directly cautions against equating
+	gross volume with forced net hedging. A high-volume contract may change hands several times or
+	close an earlier position.
+</p>
+<p>
+	Before using a gamma map, record the provider, observation time, expirations included, volatility
+	inputs and positioning assumption. Ask what changes the estimate after a new trade. Compare the
+	level with price acceptance, executable option quotes and event risk. Without a reproducible
+	dataset and out-of-sample results, do not attach a containment probability, range forecast or
+	profit-factor claim to that map.
+</p>
+<h2>4. Three spread structures and what their math proves</h2>
+<p>
+	<strong>Direct answer:</strong> A spread's premium and strikes determine its terminal payoff, not
+	its expected return. A 10-point iron condor sold for 3.00 risks 7.00 points before costs. A
+	10-point debit spread bought for 3.20 risks its debit. A 15-point-wing butterfly bought for 1.40
+	has a narrow profit tent. Each still needs an entry thesis and executable exit.
+</p>
+<div class="table-scroll">
+	<table>
+		<caption>
+			Hypothetical one-lot expiration outcomes at a $100 multiplier, before costs
+		</caption>
+		<thead>
+			<tr>
+				<th scope="col">Structure</th>
+				<th scope="col">Example legs</th>
+				<th scope="col">Premium</th>
+				<th scope="col">Maximum loss</th>
+				<th scope="col">Maximum profit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Short iron condor</th>
+				<td>Buy 7645 put, sell 7655 put; sell 7745 call, buy 7755 call</td>
+				<td>3.00 credit</td>
+				<td>$700</td>
+				<td>$300</td>
+			</tr>
+			<tr>
+				<th scope="row">Bear put debit spread</th>
+				<td>Buy 7710 put, sell 7700 put</td>
+				<td>3.20 debit</td>
+				<td>$320</td>
+				<td>$680</td>
+			</tr>
+			<tr>
+				<th scope="row">Long call butterfly</th>
+				<td>Buy 7720 call, sell two 7735 calls, buy 7750 call</td>
+				<td>1.40 debit</td>
+				<td>$140</td>
+				<td>$1,360</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<figure class="blog-image-figure">
+	<img
+		src="asset:spread-payoffs"
+		width="1200"
+		height="675"
+		loading="lazy"
+		decoding="async"
+		alt="Three hypothetical expiration payoff charts for a $300-credit iron condor, a $320-debit bear put spread and a $140-debit equal-wing call butterfly."
+		title="Terminal payoff is different from expected return"
+	/>
+	<figcaption>
+		Figure 4. Exact piecewise expiration payoffs for the examples in the table. Fees and slippage
+		excluded; curves are not return distributions or pre-expiry marks.
+	</figcaption>
+</figure>
+<h3>The iron condor: a high win rate can still lose</h3>
+<p>
+	For the specified equal-width condor, the best outcome is retaining $300 when settlement is
+	between the short strikes. The worst terminal outcome is losing $700 beyond either long strike.
+	The lower breakeven is 7,652 and the upper breakeven is 7,748. Between a short and long strike,
+	outcomes are partial profits or losses; they are not all-or-nothing.
+</p>
+<p>
+	In a deliberately simplified model with only a $300 win or $700 loss, breakeven probability is 700
+	/ (700 + 300) = 70%. Add a flat $15 round-trip cost and the same binary model requires (700 + 15)
+	/ 1,000 = 71.5%. At a hypothetical 68% win probability, expected P&amp;L is 0.68 × 300 − 0.32 ×
+	700 = −$20 before costs. None of these calculations measures the actual probability of this
+	condor.
+</p>
+<p>
+	Real expected value is the probability-weighted average of all possible outcomes, net of costs. A
+	one-standard-deviation price band is not an observed strategy win rate. Early exits change the
+	outcome distribution, and short strikes are different from breakevens. The correct question is
+	whether a repeatable entry-and-exit process has evidence after realistic fills, not whether a
+	payoff diagram looks attractive.
+</p>
+<h3>The bear put spread: check moneyness and price</h3>
+<p>
+	At hypothetical SPX 7,700, the long 7,710 put is in the money and the short 7,700 put is at the
+	money. A 3.20 debit gives a 7,706.80 terminal breakeven, $320 maximum debit loss and $680 maximum
+	terminal profit at or below 7,700. The reward-to-risk ratio is 680 / 320 = 2.125. The quoted debit
+	is an illustration, not a claim that this fill is available.
+</p>
+<p>
+	Delta cannot be assigned from strike labels alone; time, implied volatility and the option model
+	matter. Selling the lower strike changes delta, gamma, theta and volatility exposure while capping
+	the payoff. A fixed reduction in theta cost or automatic superiority to a single option cannot be
+	inferred from the strike labels.
+</p>
+<h3>The butterfly: attractive peak, narrow target</h3>
+<p>
+	The 7,720 / 7,735 / 7,750 call butterfly has equal 15-point wings. At a 1.40 debit, terminal
+	breakevens are 7,721.40 and 7,748.60. Its $1,360 maximum profit occurs precisely at the center
+	strike; the full $140 debit can be lost on either side of the tent. The 9.714 reward-to-risk ratio
+	says nothing about the likelihood of reaching that peak.
+</p>
+<p>
+	Before expiration, the structure's value also depends on remaining time and implied volatility. Do
+	not draw an invented “two hours later” profit curve without specifying and calculating those
+	inputs. Paper-trade the actual multi-leg order, including commissions per leg, exchange fees and
+	bid-ask friction. Four contracts within a butterfly can make costs significant relative to a small
+	debit.
+</p>
+<h2>5. Build a session plan instead of a universal time signal</h2>
+<p>
+	<strong>Direct answer:</strong> Session windows can organize observation and risk checks, but the
+	clock does not establish a profitable entry. The timeline below is an illustrative full-day
+	planning framework. A 2:30 p.m. Eastern review is a chosen risk checkpoint, not an exchange rule
+	or an evidenced optimal exit. Short sessions require a different plan.
+</p>
+<figure class="blog-image-figure">
+	<img
+		src="asset:session-plan"
+		width="1200"
+		height="675"
+		loading="lazy"
+		decoding="async"
+		alt="Illustrative full-session workflow: observe the open, evaluate conditions, manage risk and review exit exposure; 2:30 p.m. is marked as an optional planning checkpoint."
+		title="A session checklist, not a timed trading signal"
+	/>
+	<figcaption>
+		Figure 5. Illustrative Eastern-time workflow for a normal full trading day. No measured
+		probability, gamma curve or mandatory 2:30 p.m. exit is asserted.
+	</figcaption>
+</figure>
+<p>
+	From 9:30 to 10:00 a.m., an opening-range framework observes the first 30 minutes rather than
+	assuming the first move will continue. From 10:00 a.m. to noon, it checks whether price
+	acceptance, market breadth and option execution quality support a testable idea. Midday is an
+	opportunity to reassess positions and events. The late session requires a fresh decision about
+	expiration and remaining loss capacity. These are planning categories, not recommended trades.
+</p>
+<p>
+	Scheduled releases, policy announcements, auctions and early closes can overwhelm a routine
+	schedule. Check their actual dates and times from the responsible issuer. Equity-market breadth
+	and futures volume can add context, but an index itself does not have a stock-like traded volume.
+	A dark-pool print does not establish which participant initiated a directional position or whether
+	the print represents new risk.
+</p>
+<p>
+	Define exits in dollars and order terms. If a spread is sold for 3.00 and a planned buyback is
+	6.00, the planned loss is $300 before costs. “Stop at twice the credit” can otherwise mean either
+	a $600 loss or a 6.00 closing debit. Write which one you mean. A stop trigger does not guarantee a
+	fill at its price; a stop-limit order may not fill at all. A planned stop is therefore separate
+	from the intact spread's maximum terminal loss.
+</p>
+<blockquote>
+	<p>A risk limit is useful only when the next order fits inside the loss capacity that remains.</p>
+</blockquote>
+<p>
+	To study a proposed exit time, compare it with alternatives using the same entries, expirations,
+	data quality and cost assumptions. Retain losing days, rejected orders and sessions with no valid
+	setup. Separate the period used to design the rule from the period used to assess it. Until that
+	work exists, a precise time is a policy choice rather than a demonstrated edge.
+</p>
+<h2>6. A chart study that does not pretend to measure GEX</h2>
+<p>
+	<strong>Direct answer:</strong> An opening-range study can plot prices already observed on the
+	chart. It cannot identify dealer gamma without option-chain and signed-position inputs. The
+	accompanying ThinkScript example records the 9:30–10:00 a.m. range and its midpoint. It provides
+	no gamma-flip estimate, probability, volatility valuation or buy/sell recommendation.
+</p>
+<p>
+	An opening-range midpoint is a price statistic, not a “synthetic gamma flip.” That name implies
+	information the calculation does not contain. The corrected study uses descriptive labels:
+	opening-range high, opening-range low and opening-range midpoint. A midpoint crossing means the
+	chart crossed that price; it does not establish a change in dealer positioning.
+</p>
+<p>
+	Use a one-minute or five-minute intraday equity/index chart with the complete opening window
+	loaded. Schwab documents
+	<a
+		href="https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/GetYYYYMMDD"
+		>GetYYYYMMDD</a
+	>
+	and
+	<a
+		href="https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/SecondsFromTime"
+		>SecondsFromTime</a
+	>; the latter is not suitable for daily-or-longer aggregations. The example is source-reviewed
+	against these references, but has not been compiled or replayed in thinkorswim here. Verify
+	session handling, daylight-saving behavior, missing bars and a second trading day in paperMoney
+	before relying on the display.
+</p>
+<pre><code class="language-thinkscript"># RTP Opening Range: educational price levels, NOT dealer GEX.
+# Use a complete 1-minute or 5-minute equity/index session.
+# Source reviewed; thinkorswim compilation/replay is not verified.
+declare upper;
+input showMidpoint = yes;
+def intraday = GetAggregationPeriod() &lt; AggregationPeriod.DAY;
+def regular = intraday and SecondsFromTime(0930) &gt;= 0 and SecondsTillTime(1600) &gt; 0;
+def opening = regular and SecondsTillTime(1000) &gt; 0;
+def newSession = GetYYYYMMDD() != GetYYYYMMDD()[1] or !regular[1];
+def rangeHigh = CompoundValue(1,
+    if regular and newSession then (if opening then high else Double.NaN)
+    else if opening then Max(high, rangeHigh[1])
+    else rangeHigh[1],
+    if opening then high else Double.NaN);
+def rangeLow = CompoundValue(1,
+    if regular and newSession then (if opening then low else Double.NaN)
+    else if opening then Min(low, rangeLow[1])
+    else rangeLow[1],
+    if opening then low else Double.NaN);
+plot OpeningHigh = if regular and !opening then rangeHigh else Double.NaN;
+plot OpeningLow = if regular and !opening then rangeLow else Double.NaN;
+plot OpeningMidpoint = if regular and !opening and showMidpoint
+    then (rangeHigh + rangeLow) / 2 else Double.NaN;
+OpeningHigh.SetDefaultColor(Color.CYAN);
+OpeningLow.SetDefaultColor(Color.MAGENTA);
+OpeningMidpoint.SetDefaultColor(Color.YELLOW);
+AddLabel(!intraday, &quot;Use a complete 1-minute or 5-minute session&quot;, Color.RED);
+</code></pre>
+<p>
+	It deliberately omits an arbitrary expected-move adjustment and VIX1D/VIX trade labels.
+	<a
+		href="https://www.cboe.com/insights/posts/what-the-vix-and-vix-1-d-indices-attempt-to-measure-and-how-they-differ/"
+		>Cboe explains</a
+	>
+	that the indices use different horizons and time conventions. A ratio alone does not establish
+	that today's particular strike is cheap, rich or profitable. If you add volatility bands later,
+	document the price anchor, time basis and model, and distinguish an estimate from a confidence
+	guarantee.
+</p>
+<h2>7. Margin eligibility and a consistent loss budget</h2>
+<p>
+	<strong>Direct answer:</strong> FINRA adopted replacement intraday margin standards effective June
+	4, 2026, with a firm phase-in ending October 20, 2027. A reader on November 5, 2026 must check the
+	broker's implemented framework and house requirements. A regulatory change does not automatically
+	approve a particular account, options strategy or position size.
+</p>
+<p>
+	<a href="https://www.finra.org/rules-guidance/notices/26-10">FINRA Regulatory Notice 26-10</a>
+	replaces the old pattern-day-trader counting and $25,000 requirement under the new framework,
+	while allowing firms time to implement. It permits, rather than mandates, real-time monitoring.
+	The notice's 90-day restrictions depend on repeated unsatisfied deficits and specified timing;
+	they are not an automatic freeze whenever a trade loses more than $1,000. The smaller of 5% of
+	equity or $1,000 is an exception within that rule, not a recommended risk allowance.
+</p>
+<p>
+	Ask your broker which rules apply now, what approval the spread requires and when it may liquidate
+	positions. Do not assume a $2,000 balance is enough for any SPX trade or that a cash account
+	allows unlimited multi-leg trading. Account permissions, collateral and settled funds are separate
+	constraints.
+</p>
+<p>
+	For a hypothetical $25,000 account, a chosen 1% per-trade ceiling is $250 and a separate 3% daily
+	ceiling is $750. These are example policy settings, not suitable limits for every reader. If one
+	intact spread can lose $320 before fees, zero contracts fit the $250 ceiling. A smaller product,
+	different structure or no trade is required; rounding up would defeat the limit.
+</p>
+<p>
+	A second calculation protects the daily budget. Subtract realized losses and the reserved maximum
+	loss of all open positions from the daily ceiling before evaluating another order. If $500 is
+	already lost and $150 remains reserved for an open trade, only $100 of the $750 budget remains
+	before costs. A new $250-risk trade does not fit. Two full losses at a 2% trade limit would
+	already exceed a 3% daily budget.
+</p>
+<p>
+	Enter multi-leg orders as a combination and review the actual fill. Closing only the protective
+	leg changes the risk profile. Do not describe an uncovered short put as having mathematically
+	unlimited loss; its theoretical loss is large but bounded by the underlying falling to zero.
+	Uncovered short calls can have unlimited loss. Neither belongs in this guide's defined-risk
+	examples.
+</p>
+<p>
+	Keep a journal of the contract, observed quote, fill, costs, thesis, maximum loss, exit rule and
+	realized result. Distinguish a missed fill from a completed trade. Evaluate enough observations to
+	expose drawdowns and uncertainty before considering real-money use. A simulation or favorable
+	reward-to-risk ratio is insufficient evidence of a repeatable advantage.
+</p>
+<h2>8. Next steps and risk disclosure</h2>
+<p>
+	<strong>Direct answer:</strong> Start by verifying contract specifications, account permissions
+	and the entire payoff. Then test one explicit hypothesis with realistic costs and complete
+	records. Use gamma estimates as conditional context. Treat this article's numbers as worked
+	examples, not today's market levels, a verified desk track record or a promise that a strategy
+	will earn money.
+</p>
+<p>
+	Explore the <a href="/live-trading-rooms/day-trading-room">day-trading room</a>, the
+	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse service page</a> and the
+	<a href="/watchlist">Sunday Alpha watchlist</a> for the site's current educational offerings. For
+	smaller-product education, see the
+	<a href="/live-trading-rooms/small-accounts-room">small-accounts room</a>. These links do not
+	substantiate a particular trading result or a promise of real-time dealer inventory. Read the
+	service descriptions and
+	<a href="/terms-of-service#options-leverage-risk-disclosure">risk disclosure</a> before deciding
+	whether an offering fits your needs.
+</p>
+<p>
+	<strong>Risk disclosure:</strong> This material is general financial education, not an
+	individualized recommendation, tax opinion or offer to transact. Options can lose the entire
+	premium or the maximum loss of an intact spread quickly. Fees, slippage, liquidity, exercise
+	instructions and changes to the legs affect outcomes. Hypothetical calculations are not actual
+	performance. Read the OCC's
+	<a
+		href="https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document"
+		>Characteristics and Risks of Standardized Options</a
+	>, obtain your broker's current requirements and consult qualified financial and tax professionals
+	about your circumstances.
+</p>

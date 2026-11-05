@@ -22,7 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-None.
+| Branch                        | Owner session       | Area / files claimed                                                                                                                                                                                                      | Started    | Status                                                                                                    |
+| ----------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| `content/first-blog-20261105` | Codex first article | `blogs/first-blog.md`, first-article package/assets/evidence, scoped publishing preparation and workflow documentation; article template overflow repair and rich-content layout regression (Svelte file editor subagent) | 2026-11-05 | Verify primary sources, correct article and diagrams, prepare and test exact CMS draft before publication |
 
 ## Recently finished
 

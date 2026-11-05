@@ -11,7 +11,12 @@ Public Production uses `MAINTENANCE_MODE=true`. Authenticated Vercel Preview use
 `MAINTENANCE_MODE=false` and its own database. Local development uses `pnpm dev`. Keep the
 Production database and email credentials scoped to Production; do not reuse Preview data or
 remove Preview authentication. A Production `.vercel.app` alias is also a maintenance deployment;
-use the normal Preview URL for development.
+use the [protected development Preview](https://new-revolution-development-will-ribeiros-projects.vercel.app) for development.
+This alias requires Vercel sign-in and points to the verified normal Preview from PR #25. It is a
+snapshot, not an automatically advancing branch: after testing a newer normal Preview, repoint it
+with `vercel alias set <verified-preview-url> new-revolution-development-will-ribeiros-projects.vercel.app --scope will-ribeiros-projects`.
+Verify unauthenticated requests still redirect to Vercel SSO and the authenticated maintenance marker
+remains `false` after each change. Never point this alias at a Production maintenance build.
 
 ## 2. Connect the services
 
@@ -69,14 +74,37 @@ The worker is already scheduled in `vercel.json` at `/api/cron/waitlist-email` e
 current Pro team. It requires the configured Bearer `CRON_SECRET`; without it the endpoint refuses
 requests. Verify the account still supports this frequency before activating on another plan.
 
-Use an isolated staged deployment and a mailbox you control to verify: durable signup, immediate
-thank-you/confirmation delivery, the confirmation POST, the targeted welcome receipt, one-use links,
-unsubscribe, signed callbacks and retry scheduling. Outside Production, set `WAITLIST_TEST_RECIPIENTS`
-to only the controlled test inboxes. Do not test by emailing an unrelated address.
+Keep the live Production capture flag `false` while completing these stages:
 
-After those checks, set `WAITLIST_SIGNUPS_ENABLED=true`, create a new complete `pnpm build` deployment,
-and follow the [Production verification/promotion checklist](MAINTENANCE.md). This flag controls both
-the native fieldset and runtime acceptance. Environment changes alone do not update the live page.
+1. **Isolated native-flow test:** create a separate protected test deployment and test database; do
+   not repurpose the normal development Preview or Production data. For this test deployment only,
+   use `MAINTENANCE_MODE=true`, `WAITLIST_SIGNUPS_ENABLED=true` at build and runtime, and
+   `WAITLIST_ORIGIN` equal to the exact HTTPS test hostname used in the browser (no path/trailing
+   slash). A known, protected `.vercel.app` test alias can supply a stable origin before building.
+   Outside `VERCEL_ENV=production`, set `WAITLIST_TEST_RECIPIENTS` to only inboxes you control.
+   Apply the forward migrations to the test database. Verify durable signup, immediate thank-you/
+   confirmation delivery, native confirmation POST, targeted welcome receipt, one-use links and
+   unsubscribe. A false flag rejects signup; a canonical Production origin on a test-host form
+   causes 403. Do not relax the origin check or remove Vercel authentication to make a test pass.
+2. **Final staged Production build:** after the isolated checks pass, use the dedicated Production
+   database/credentials, canonical `WAITLIST_ORIGIN=https://www.revolutiontradingpros.com`,
+   `MAINTENANCE_MODE=true` and `WAITLIST_SIGNUPS_ENABLED=true` in a new complete `pnpm build`
+   deployment. Keep automatic custom-domain assignment disabled. Verify the exact build's methods,
+   cache rules, active fieldset, configuration and database readiness before promotion. Its native
+   form on the generated staged hostname is expected to reject that hostname; emailed canonical
+   links point to the currently public deployment until cutover. An authorized operator API smoke
+   test may target the exact protected deployment with the configured canonical `Origin` header,
+   using only a controlled inbox, but that is not proof of the canonical browser flow.
+3. **Canonical delivery proof:** follow the [Production promotion checklist](MAINTENANCE.md), then
+   immediately repeat the complete controlled-mailbox native flow on www. Verify actual signed
+   provider callbacks and scheduled retries, too. Vercel SSO can block external callbacks and cron
+   execution on a protected test host; do not remove protection to work around this. Only the final
+   public Production check proves those integrations. If any required check fails, restore the last
+   verified maintenance deployment with capture off and reconcile queued jobs before retrying.
+
+Never email an unrelated address during testing, record raw token URLs or claim delivery from a
+202 response alone. The flag controls both emitted native markup and runtime acceptance;
+environment changes alone do not update the live page.
 
 ## 5. Keep confirmed people posted
 

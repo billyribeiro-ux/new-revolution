@@ -32,7 +32,15 @@ following. The form initializes independently of chart/GSAP loading.
    confirm the plan still supports that frequency before activation or moving accounts.
    Do not rely on the unrelated publisher cron or background promises. Daily-only scheduling
    does not provide prompt retries. Configure sufficient function duration for the batch.
-5. Set `WAITLIST_SIGNUPS_ENABLED=true` only after the controlled mailbox test, scheduler, and staged Vercel route/cache verification pass.
+5. Follow the [three-stage activation sequence](../../WAITLIST_SETUP.md#4-verify-configuration-and-delivery-before-capture):
+   enable capture only on a dedicated protected test deployment with its exact test-host
+   `WAITLIST_ORIGIN` to prove the native flow while live capture stays off. Then build staged
+   Production with the canonical www origin and enabled capture. Verify its configuration/API
+   before promotion; native staged-host POSTs intentionally fail origin checks. Immediately after
+   promotion, verify the complete canonical controlled-mailbox flow, actual signed callbacks and
+   scheduler retries. Restore the previous verified capture-off deployment if a required check fails.
+   External callbacks and cron execution may be blocked by SSO in a protected test environment;
+   preserve that protection and prove those integrations on final public Production.
    This value controls emitted signup markup during `pnpm build` as well as runtime acceptance.
    Without the exact value `true`, the page keeps the email section visible with native disabled
    controls and an explicit availability note. Changes require a new build. Verify and promote the exact Production deployment;

@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-04 — Published maintenance and development handoff
+
+- Promote the exact verified `6c35cf2` Production build, then independently verify both public domains and the maintenance experience across Chromium, Firefox and WebKit at 320px and 1440px. Keep future Production builds staged until verified.
+- Provide a stable Vercel-sign-in-protected normal development Preview. Document its snapshot behavior, how to repoint it after verification and the owner's deferred email/database hookup; capture stays visibly disabled.
+- Clarify the future hookup sequence: isolated native-flow test with its own matching origin, final staged Production configuration/API checks, then canonical delivery/callback/cron proof after promotion with rollback on failure.
+- Record the complete final integrated gate results and actual deployment evidence in `docs/reviews/maintenance-ready/VERIFICATION.md`. Format the changelog blank line introduced when merging the completed CLS work. No application source or dependencies changed in this handoff.
+
 ### 2026-11-04 — Market playback and ready-to-connect waitlist
 
 - Use green/red candles, wicks and volume with bounded intrabar price reversals and historical crosshair readouts. Preserve the explicit simulated-data label, accessible candle table and reduced-motion controls.
@@ -23,6 +30,7 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 - The home page and shared footer `ch` widths are converted to the exact `em` equivalent of each rule's declared web font. The global `h2`/`h3`/`p` rules keep `ch`.
 - Result on `/`: mean 0.0078, max 0.0596, 0/30 widths > 0.1. Settled layout across all 47 prerendered pages × 3 widths matches the previous build to within 0.1 px (sub-pixel `ch` rounding); the only larger differences were a pulsing animation and an italic face that had not loaded yet.
 - Known gaps: Android (no Arial) keeps the old system fallback. Inner pages still have `ch` widths in `inner-page.css` and a breadcrumb that wraps differently before the swap (baseline swap CLS up to 0.42).
+
 ### 2026-11-04 — Maintenance release and capture readiness
 
 - Keep the keyboard skip link's text on the SSOT ink color: the template's unlayered anchor styling otherwise overrides the shared layered rule and produces low-contrast white text on chartreuse. Verify the focused link in the browser.

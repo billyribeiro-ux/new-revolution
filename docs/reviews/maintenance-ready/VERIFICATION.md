@@ -45,17 +45,47 @@ owned port 4173, so ignored copies of the same tests changed only localhost orig
 No assertions or thresholds were weakened. Existing build chunk/optional dependency tracing
 notices remain; no toolchain packages were changed.
 
-## Production versus development
+## Published Production and protected development
 
-Read-only Vercel checks confirmed normal authenticated Preview `/` and `/about` return200, the
-marker is `{ "maintenance": false }`, and its database health is200. Unauthenticated Preview
-requests redirect to Vercel SSO. Public Production `/` and `/about` return maintenance503/no-store.
-A Production `.vercel.app` alias is also a maintenance build and is not a development URL.
+Published on 2026-11-04 (America/New_York), with public checks completed on 2026-11-05 UTC.
 
-Before publication, verify the exact merged Production SHA and the built green/red chart/disabled
-form; promote only that build, then repeat public HTTP and three-engine checks. Give the owner a
-normal protected Preview alias for website work. Keep public automatic promotion disabled and the
-active CLS worktree intact.
+- Application/source squash merge: [PR #25](https://github.com/billyribeiro-ux/new-revolution/pull/25),
+  `6c35cf2b7fb15aee7492aa1bef142f3fee28c5fa`. Its tree exactly equals reviewed head `8560523`.
+  Vercel build, Agent Review and Preview Comments all succeeded, with zero review suggestions,
+  annotations or unresolved feedback. The completed CLS fix from PR #24 is included.
+- Exact Production deployment: `dpl_4r3cshbeVdWiba3ZhWzBPLiRFYJo`,
+  `new-revolution-244o1ejg5-will-ribeiros-projects.vercel.app`. Confirmed `READY`/Production and
+  exact SHA before acceptance, then explicitly promoted. The project target was checked again
+  after promotion; automatic custom-domain assignment remains disabled.
+- Both the staged URL and public `https://www.revolutiontradingpros.com` passed eight HTTP checks:
+  root, nested page and admin page 503/no-store; blocked admin API 503; signup GET 405; disabled
+  signup POST 503 without any real address; privacy page 200; health 503 with `db.ok=false` and
+  version `6c35cf2`. Production database readiness is deliberately deferred, not reported as healthy.
+- Both stages passed six browser cases: Chromium, Firefox and WebKit at 320px and 1440px.
+  Verified visible disabled form, green/red chart tokens and rendering, historical crosshair data,
+  pause/restart/resume, reduced motion, keyboard skip-link focus/contrast, unique identified controls,
+  dimensioned emblem, no unsized lazy images, zero horizontal overflow, same-origin loaded fonts,
+  immutable assets 200, zero page errors and zero failed requests. Desktop/mobile screenshots were
+  visually reviewed. The bare domain independently returned 308 to www, then the current 503 body.
+- [Protected development Preview](https://new-revolution-development-will-ribeiros-projects.vercel.app):
+  pins `dpl_2ZHf4QWgjxv2DpiZSQFFzA88vHtx`, head `8560523` (same application tree as merged `main`).
+  Ten checks passed: unauthenticated paths 302 to Vercel SSO; authenticated `/` and `/about` 200
+  with normal website titles; maintenance marker 200/false/no-store; health 200/database healthy;
+  Chromium root/about loads without page errors. SSO remains `all_except_custom_domains`.
+  The alias is a verified snapshot; [repoint it after later Preview verification](../../WAITLIST_SETUP.md).
+
+The final integrated source was independently rechecked after the CLS merge: the complete Vite+
+checks, all 559 unit/component tests, 47 page contracts, 3 SEO tests, 39 authenticated browser tests,
+27 three-engine maintenance cases and 4 generated-output tests passed without skips. A missing
+changelog blank line from the merge was formatted in this documentation follow-up; no application
+source changed. The throwaway local PGlite admin was revoked.
+
+Local artifacts: `/private/tmp/revolution-publish-results.json`,
+`/private/tmp/revolution-ready-staged-proof.json`, `/private/tmp/revolution-ready-public-proof.json`,
+`/private/tmp/revolution-development-alias-proof.json` and
+`/private/tmp/revolution-ready-{staged,public}-{320,1440}.png`. These paths are local review evidence,
+not hosted visitor links; private configuration files are excluded from the repository.
 
 Real provider/domain verification, mailbox delivery and Production database configuration remain
-owner-deferred. Enabling capture requires those checks and a new build as documented.
+owner-deferred. No live email or Production migration was performed. Enabling capture requires the
+checks and a new complete build described in [the setup guide](../../WAITLIST_SETUP.md).

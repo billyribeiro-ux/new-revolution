@@ -20,11 +20,14 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                             | Owner session | Area / files claimed                                                                                                                                                                                     | Started    | Status                                                                                      |
-| ---------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
-| `feat/maintenance-waitlist-launch` | Codex         | Maintenance chart/template, waitlist email/consent/campaign helpers, `src/lib/server/db/waitlist-schema.ts`, forward migration `drizzle/0003_waitlist_updates.sql`, privacy copy, release tests and docs | 2026-11-04 | Green/red market playback, visible ready-to-connect waitlist, protected development Preview |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Published maintenance and development handoff (Codex, 2026-11-04; PR #26):** promote exact verified application `6c35cf2` as `dpl_4r3cshbeVdWiba3ZhWzBPLiRFYJo`; staged and public acceptance each pass eight HTTP checks and six three-engine mobile/desktop cases. Provide a stable authenticated normal Preview, record final integrated gates and clarify isolated/staged/canonical email activation tests. Owner-deferred Production services remain disconnected, with visible disabled capture. No live email or Production migration performed. Evidence: `docs/reviews/maintenance-ready/VERIFICATION.md`.
+
+- **Green/red market playback and prepared waitlist (Codex, 2026-11-04; PR #25):** integrated in `6c35cf2` after the completed CLS fix (PR #24). Visible disabled form, realistic simulated candle behavior, immediate confirmation/receipt and consented update queue are implemented. Provider/database hookup and real delivery remain owner-deferred. Source evidence: `docs/reviews/maintenance-ready/VERIFICATION.md`.
 
 - **Maintenance keyboard contrast (Codex, 2026-11-04; PR #23):** a final deployed-browser check found the shared layered skip-link color overridden by unlayered maintenance anchor styling. Exclude the skip link from the generic anchor override so its shared `var(--ink)` color wins, and assert its computed focused color. Preserve the separate active CLS worktree.
 

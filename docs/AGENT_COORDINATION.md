@@ -22,11 +22,12 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                        | Owner session        | Area / files claimed                                                             | Started    | Status                   |
-| ----------------------------- | -------------------- | -------------------------------------------------------------------------------- | ---------- | ------------------------ |
-| `design/article-toc-20261105` | Codex article design | Article template, TOC behavior and responsive layout, related tests and evidence | 2026-11-05 | Audit and implementation |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Article layout and desktop TOC (Codex, November 5; [PR #33](https://github.com/billyribeiro-ux/new-revolution/pull/33)):** align the article reading column and add a responsive, keyboard-operable sticky TOC with semantic heading hierarchy. Local real-article rendering, 576 unit tests, 48 Chromium, 24 Firefox, 23 WebKit and separate WebKit HTTPS unlock checks pass. Plugin parity limitations and full evidence: `docs/reviews/article-toc-2026-11-05/VERIFICATION.md`.
 
 - **Blog design release evidence (Codex, November 5):** PR #31 squash `7e31730` is live as `dpl_9LaYzMKyN2JVb3eZrawor6Ntcfue`; 27 public browser cases pass across homepage, archive and article, three widths and three engines. Maintenance remains off. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.
 

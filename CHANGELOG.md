@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-04 — Market playback and ready-to-connect waitlist
+
+- Use green/red candles, wicks and volume with bounded intrabar price reversals and historical crosshair readouts. Preserve the explicit simulated-data label, accessible candle table and reduced-motion controls.
+- Keep the completed email section visible, with native disabled controls and an honest availability note until capture is configured. Prepare an immediate thank-you/confirmation email and a targeted welcome receipt after confirmation.
+- Add separately consented progress-update campaigns with encrypted outbox delivery, dry-run-first queueing, legacy-consent protection and forward migration `0003_waitlist_updates.sql`. Supply configuration/migration helpers and the authenticated minute worker schedule.
+- Verify normal authenticated Preview development separately from public Production maintenance. The owner will connect the database/email services later; no service provisioning, Production migration or live email send is part of this change.
+
 ### 2026-11-04 — Maintenance release and capture readiness
 
 - Keep the keyboard skip link's text on the SSOT ink color: the template's unlayered anchor styling otherwise overrides the shared layered rule and produces low-contrast white text on chartreuse. Verify the focused link in the browser.

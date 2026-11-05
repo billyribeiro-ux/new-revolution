@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { CONSENT_VERSION, CONSENT_TEXT } from '../../src/lib/shared/waitlist-consent.ts';
 
 const script = resolve('scripts/maintenance-build.mjs');
 const canonicalCss = await readFile('src/app.css', 'utf8');
@@ -85,7 +86,7 @@ void test('normal deployment leaves pages available and exposes an uncached stat
 	});
 });
 
-void test('emitted maintenance documents offer signup only when explicitly enabled', async () => {
+void test('emitted waitlist stays visible while capture activates only when explicitly enabled', async () => {
 	for (const signupSetting of [undefined, 'false', '1', 'true']) {
 		await build(
 			true,
@@ -101,26 +102,28 @@ void test('emitted maintenance documents offer signup only when explicitly enabl
 					assert.match(html, /id="market-chart"/);
 					assert.match(html, /<img\b[^>]*width="40"[^>]*height="40"/);
 					const inputs = [...html.matchAll(/<input\b[^>]*>/g)].map((match) => match[0]);
+					assert.match(html, /id="waitlist-form"/);
+					assert.match(html, /action="\/api\/waitlist\/signup"/);
+					assert.equal(inputs.length, 4);
+					assert.ok(html.includes(`value="${CONSENT_VERSION}"`));
+					assert.ok(html.includes(CONSENT_TEXT));
+					const ids = inputs.map((input) => {
+						assert.match(input, /\bname="[^"]+"/);
+						const id = input.match(/\bid="([^"]+)"/)?.[1];
+						assert.ok(id, `Missing input id: ${input}`);
+						return id;
+					});
+					assert.equal(new Set(ids).size, ids.length);
 					if (signupSetting === 'true') {
-						assert.match(html, /id="waitlist-form"/);
-						assert.match(html, /action="\/api\/waitlist\/signup"/);
 						assert.match(html, /Leave your email/);
 						assert.match(html, /The signup works without JavaScript/);
-						assert.equal(inputs.length, 4);
-						const ids = inputs.map((input) => {
-							assert.match(input, /\bname="[^"]+"/);
-							const id = input.match(/\bid="([^"]+)"/)?.[1];
-							assert.ok(id, `Missing input id: ${input}`);
-							return id;
-						});
-						assert.equal(new Set(ids).size, ids.length);
+						assert.match(html, /data-waitlist-enabled="true"/);
+						assert.doesNotMatch(html, /<fieldset\b[^>]*\bdisabled\b/);
 					} else {
-						assert.equal(inputs.length, 0);
-						assert.doesNotMatch(
-							html,
-							/<form\b|Leave your email|Notify me when we reopen|The signup works without JavaScript|Confirm your email to join/
-						);
-						assert.match(html, /Our support desk is here if you need assistance/);
+						assert.match(html, /data-waitlist-enabled="false"/);
+						assert.match(html, /<fieldset\b[^>]*\bdisabled\b/);
+						assert.match(html, /Email signup is not available yet/);
+						assert.doesNotMatch(html, /Leave your email|The signup works without JavaScript/);
 					}
 				}
 			},

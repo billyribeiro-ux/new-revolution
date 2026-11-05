@@ -9,6 +9,8 @@
 		<!-- maintenance:theme -->
 		<style>
 			body.maintenance-page {
+				--chart-up: #22c55e;
+				--chart-down: #ef4444;
 				min-block-size: 100svh;
 				display: flex;
 				flex-direction: column;
@@ -154,6 +156,20 @@
 			.maintenance-primary:hover {
 				background: var(--acid2);
 				color: var(--ink);
+			}
+			.waitlist-fields {
+				min-inline-size: 0;
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.waitlist-fields legend {
+				margin-block-end: 12px;
+				font: 700 17px/1.4 var(--font-display);
+				color: var(--text);
+			}
+			.waitlist-fields:disabled .maintenance-primary {
+				cursor: not-allowed;
 			}
 			.maintenance-action:disabled {
 				opacity: 0.65;
@@ -354,47 +370,59 @@
 					<form
 						class="waitlist-form"
 						id="waitlist-form"
+						data-waitlist-enabled="<!-- maintenance:signup-state -->"
 						action="/api/waitlist/signup"
 						method="post"
 					>
-						<label for="waitlist-email">Your email address</label>
-						<input
-							class="waitlist-input"
-							id="waitlist-email"
-							name="email"
-							type="email"
-							autocomplete="email"
-							maxlength="254"
-							placeholder="you@example.com"
-							required
-						/>
-						<label class="waitlist-consent" for="waitlist-consent"
-							><input id="waitlist-consent" name="consent" type="checkbox" required /><span
-								>Email me when Revolution Trading Pros reopens. Unsubscribe anytime.</span
-							></label
+						<fieldset
+							class="waitlist-fields"
+							aria-describedby="waitlist-availability"
+							disabled="maintenance-signups-disabled"
 						>
-						<input
-							id="waitlist-consent-version"
-							type="hidden"
-							name="consentVersion"
-							value="reopening-2026-11-04"
-						/>
-						<div class="waitlist-trap" aria-hidden="true">
-							<label for="waitlist-website"
-								>Website<input
-									id="waitlist-website"
-									name="website"
-									tabindex="-1"
-									autocomplete="off"
-							/></label>
-						</div>
-						<button class="maintenance-action maintenance-primary" type="submit">
-							Notify me when we reopen <span aria-hidden="true">&nbsp;↗</span>
-						</button>
-						<p class="waitlist-status" id="waitlist-status" role="status" aria-live="polite"></p>
-						<p class="maintenance-helper">
-							Confirm your email to join. No paid membership is created.
-							<a href="/privacy-policy">Privacy policy</a>
+							<legend>Be first to hear what’s next</legend>
+							<label for="waitlist-email">Your email address</label>
+							<input
+								class="waitlist-input"
+								id="waitlist-email"
+								name="email"
+								type="email"
+								autocomplete="email"
+								maxlength="254"
+								placeholder="you@example.com"
+								required
+							/>
+							<label class="waitlist-consent" for="waitlist-consent"
+								><input id="waitlist-consent" name="consent" type="checkbox" required /><span
+									><!-- maintenance:consent-text --></span
+								></label
+							>
+							<input
+								id="waitlist-consent-version"
+								type="hidden"
+								name="consentVersion"
+								value="<!-- maintenance:consent-version -->"
+							/>
+							<div class="waitlist-trap" aria-hidden="true">
+								<label for="waitlist-website"
+									>Website<input
+										id="waitlist-website"
+										name="website"
+										tabindex="-1"
+										autocomplete="off"
+								/></label>
+							</div>
+							<button class="maintenance-action maintenance-primary" type="submit">
+								Join the waitlist <span aria-hidden="true">&nbsp;↗</span>
+							</button>
+							<p class="waitlist-status" id="waitlist-status" role="status" aria-live="polite"></p>
+							<p class="maintenance-helper">
+								A thank-you and confirmation email comes first. Updates follow after you confirm. No
+								paid membership is created.
+								<a href="/privacy-policy">Privacy policy</a>
+							</p>
+						</fieldset>
+						<p id="waitlist-availability" class="maintenance-helper">
+							<!-- maintenance:signup-message -->
 						</p>
 					</form>
 					<!-- maintenance:signup:end -->

@@ -20,7 +20,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-No active work is currently claimed.
+| Branch                             | Owner session | Area / files claimed                                                                                                                                                                                     | Started    | Status                                                                                      |
+| ---------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------- |
+| `feat/maintenance-waitlist-launch` | Codex         | Maintenance chart/template, waitlist email/consent/campaign helpers, `src/lib/server/db/waitlist-schema.ts`, forward migration `drizzle/0003_waitlist_updates.sql`, privacy copy, release tests and docs | 2026-11-04 | Green/red market playback, visible ready-to-connect waitlist, protected development Preview |
 
 ## Recently finished
 

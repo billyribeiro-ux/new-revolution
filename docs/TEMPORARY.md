@@ -26,3 +26,11 @@ The maintenance market study (`src/lib/maintenance/data.ts`) uses explicitly lab
 simulated candles for the owner's continuous-playback request. It does not represent any instrument,
 exchange data or financial result. Replace it with a licensed historical dataset before claiming
 historical market replay; provenance/display rights remain an explicit release requirement for that change.
+
+## T13 — Waitlist services awaiting owner connection
+
+- **Where:** Production environment variables; disabled waitlist fieldset in the maintenance template; `docs/WAITLIST_SETUP.md`.
+- **Why:** the owner requested the complete UI/mail workflow now and will connect database and Resend services later.
+- **Current behavior:** prepared email section is visible, controls are disabled, capture API refuses requests, and no email is represented as sent.
+- **Removal criterion:** dedicated Production database and all four migrations, verified sender/API/webhook, worker secret/schedule, controlled-mailbox confirmation/receipt test and staged activation pass. Then enable capture and remove this temporary entry.
+- **Status:** active; owner-deferred configuration.

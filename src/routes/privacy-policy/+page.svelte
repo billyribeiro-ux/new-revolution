@@ -31,7 +31,7 @@
 			</p>
 			<p class="meta-byline">
 				Reviewed by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
-				<time datetime="2026-10-31">October 31, 2026</time>
+				<time datetime="2026-11-04">November 4, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -53,15 +53,19 @@
 			<article class="info-card">
 				<h3>Reopening Waitlist</h3>
 				<p>
-					When you request a reopening notification, we store your email address, consent version,
-					request date and confirmation status. Resend processes confirmation and reopening emails
-					on our behalf. Joining does not create a paid membership or enroll you in a sales
+					When you request waitlist emails, we store your email address, consent version, request
+					date and confirmation status. We first send a thank-you email with a confirmation link.
+					After confirmation, the current signup permission covers occasional launch progress
+					updates and a reopening notification. Earlier reopening-only permission stays limited to
+					the reopening notification. Resend processes these emails on our behalf when email capture
+					is enabled. Joining does not create a paid membership or enroll you in an unrelated sales
 					sequence.
 				</p>
 				<p>
 					Unconfirmed requests are removed after 30 days. Processed email payloads are removed after
 					seven days and delivery metadata after 90 days. We retain confirmed subscriptions until
-					the reopening notification or your opt-out, and minimal suppression records to respect
+					the reopening notification or your opt-out. Launch updates use the same subscription and
+					do not extend retention beyond reopening. We keep minimal suppression records to respect
 					opt-outs, bounces and complaints. Short-lived hashed abuse controls do not retain your raw
 					IP address. Every waitlist email includes an unsubscribe link.
 				</p>

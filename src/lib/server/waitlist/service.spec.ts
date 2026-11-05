@@ -4,9 +4,18 @@ import { createTestDatabase, setActiveDbForTest, setSimulatedDbFailure } from '.
 import {
 	waitlistSubscriptions as subs,
 	waitlistOutbox as jobs,
-	waitlistTokens as tokens
+	waitlistTokens as tokens,
+	emailSuppressions
 } from '../db/schema.ts';
-import { signup, applyToken, processOutbox, recordEvent, queueLaunch } from './service.ts';
+import {
+	CONSENT_VERSION,
+	signup,
+	applyToken,
+	processOutbox,
+	recordEvent,
+	queueLaunch,
+	queueUpdate
+} from './service.ts';
 import { unseal, seal } from './crypto.ts';
 import type { WaitlistEmail } from './email.ts';
 import { signupHandler, tokenDocument } from './http.ts';
@@ -53,6 +62,9 @@ describe('durable waitlist', () => {
 		expect(job.ciphertext).not.toContain('person@example.com');
 		expect(payload.html).toContain('Confirm my email address');
 		expect(payload.text).toContain('24 hours');
+		expect(payload.text).toContain('Thank you for requesting a spot');
+		expect(payload.text).toContain('You are not subscribed until you confirm.');
+		expect(payload.text).toContain('occasional launch updates');
 		expect(() => unseal(job.ciphertext!, 'another-row')).toThrow();
 	});
 	it('rolls back the entire signup if encryption fails', async () => {
@@ -70,12 +82,17 @@ describe('durable waitlist', () => {
 				.status
 		).toBe(200);
 		expect(await env.db.select().from(tokens)).toEqual(before);
-		await applyToken(c.token, 'confirm', now);
+		const receiptId = await applyToken(c.token, 'confirm', now);
 		await expect(applyToken(c.token, 'confirm', now)).rejects.toThrow('already been used');
 		expect((await env.db.select().from(subs))[0].status).toBe('confirmed');
 		expect((await env.db.select().from(jobs)).filter((j) => j.purpose === 'receipt')).toHaveLength(
 			1
 		);
+		const [receipt] = await env.db.select().from(jobs).where(eq(jobs.purpose, 'receipt'));
+		expect(receiptId).toBe(receipt.id);
+		const payload: WaitlistEmail = JSON.parse(unseal(receipt.ciphertext!, receipt.id));
+		expect(payload.text).toContain('Thank you for joining');
+		expect(payload.text).toContain('Your email address is confirmed.');
 	});
 	it('rejects malformed, expired, and wrong-purpose tokens', async () => {
 		const c = await challenge();
@@ -151,6 +168,131 @@ describe('durable waitlist', () => {
 			1
 		);
 	});
+	it('preserves legacy reopening-only consent on resubmission and in its confirmation receipt', async () => {
+		const c = await challenge();
+		await env.db.update(subs).set({ consentVersion: 'reopening-2026-11-04' });
+		await signup('person@example.com', 'another-ip', now);
+		expect((await env.db.select().from(subs))[0].consentVersion).toBe('reopening-2026-11-04');
+		await applyToken(c.token, 'confirm', now);
+		const [receipt] = await env.db.select().from(jobs).where(eq(jobs.purpose, 'receipt'));
+		const payload: WaitlistEmail = JSON.parse(unseal(receipt.ciphertext!, receipt.id));
+		expect(payload.text).toContain('our reopening notification');
+		expect(payload.text).not.toContain('launch updates');
+		expect(await queueUpdate('progress', { subject: 'Progress', body: 'An update.' })).toEqual({
+			eligible: 0,
+			committed: false
+		});
+		expect(await queueLaunch('reopening')).toEqual({ eligible: 1, committed: false });
+	});
+	it('queues updates only for confirmed update consent, defaults to dry-run, and freezes escaped content', async () => {
+		await env.db.insert(subs).values([
+			{
+				id: 'eligible',
+				email: 'new@example.com',
+				status: 'confirmed',
+				consentVersion: CONSENT_VERSION
+			},
+			{
+				id: 'legacy',
+				email: 'old@example.com',
+				status: 'confirmed',
+				consentVersion: 'reopening-2026-11-04'
+			},
+			{ id: 'pending', email: 'pending@example.com', consentVersion: CONSENT_VERSION },
+			{
+				id: 'unsubscribed',
+				email: 'out@example.com',
+				status: 'unsubscribed',
+				consentVersion: CONSENT_VERSION
+			},
+			{
+				id: 'suppressed',
+				email: 'bad@example.com',
+				status: 'confirmed',
+				consentVersion: CONSENT_VERSION
+			}
+		]);
+		await env.db
+			.insert(emailSuppressions)
+			.values({ email: 'bad@example.com', reason: 'test-bounce' });
+		const content = {
+			subject: 'Launch <progress>',
+			body: 'Thanks for waiting.\n\n<script>alert("x")</script> & more'
+		};
+		expect(await queueUpdate('progress-1', content)).toEqual({ eligible: 1, committed: false });
+		expect(await env.db.select().from(jobs)).toHaveLength(0);
+		expect(await env.db.select().from(tokens)).toHaveLength(0);
+		await Promise.all([
+			queueUpdate('progress-1', content, true),
+			queueUpdate('progress-1', content, true)
+		]);
+		const [job] = await env.db.select().from(jobs);
+		expect(await env.db.select().from(jobs)).toHaveLength(1);
+		expect(job).toMatchObject({
+			purpose: 'update',
+			subscriptionId: 'eligible',
+			deliveryKey: 'update:progress-1:eligible'
+		});
+		const payload: WaitlistEmail = JSON.parse(unseal(job.ciphertext!, job.id));
+		expect(payload.subject).toBe(content.subject);
+		expect(payload.text).toContain(content.body);
+		expect(payload.html).toContain('Launch &lt;progress&gt;');
+		expect(payload.html).toContain('&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt; &amp; more');
+		expect(payload.html).not.toContain('<script>');
+		expect(payload.headers['List-Unsubscribe-Post']).toBe('List-Unsubscribe=One-Click');
+		await queueUpdate('progress-1', { subject: 'Changed', body: 'Changed' }, true);
+		expect((await env.db.select().from(jobs))[0].ciphertext).toBe(job.ciphertext);
+	});
+	it('rechecks update consent and global suppression immediately before delivery', async () => {
+		await env.db.insert(subs).values([
+			{
+				id: 'consent',
+				email: 'consent@example.com',
+				status: 'confirmed',
+				consentVersion: CONSENT_VERSION
+			},
+			{
+				id: 'suppression',
+				email: 'suppression@example.com',
+				status: 'confirmed',
+				consentVersion: CONSENT_VERSION
+			}
+		]);
+		await queueUpdate('progress', { subject: 'Progress', body: 'An update.' }, true);
+		await env.db
+			.update(subs)
+			.set({ consentVersion: 'reopening-2026-11-04' })
+			.where(eq(subs.id, 'consent'));
+		await env.db
+			.insert(emailSuppressions)
+			.values({ email: 'suppression@example.com', reason: 'test-bounce' });
+		const send = vi.fn(async () => 'must-not-send');
+		expect((await processOutbox(send)).cancelled).toBe(2);
+		expect(send).not.toHaveBeenCalled();
+	});
+	it('honors an update email unsubscribe link and blocks future update campaigns', async () => {
+		await env.db.insert(subs).values({
+			id: 'member',
+			email: 'member@example.com',
+			status: 'confirmed',
+			consentVersion: CONSENT_VERSION
+		});
+		await queueUpdate('progress', { subject: 'Progress', body: 'An update.' }, true);
+		const [job] = await env.db.select().from(jobs);
+		const payload: WaitlistEmail = JSON.parse(unseal(job.ciphertext!, job.id));
+		const optOut = new URL(payload.text.match(/Unsubscribe: (\S+)/)![1]);
+		await applyToken(optOut.searchParams.get('token')!, 'unsubscribe');
+		expect((await env.db.select().from(jobs))[0]).toMatchObject({
+			state: 'cancelled',
+			ciphertext: null
+		});
+		expect(
+			await queueUpdate('progress-2', { subject: 'Progress', body: 'An update.' }, true)
+		).toEqual({ eligible: 0, committed: true });
+		const send = vi.fn(async () => 'must-not-send');
+		await processOutbox(send);
+		expect(send).not.toHaveBeenCalled();
+	});
 	it('enforces durable IP limits', async () => {
 		for (let i = 0; i < 5; i++) await signup(`p${i}@example.com`, 'same-ip', now);
 		await expect(signup('p6@example.com', 'same-ip', now)).rejects.toMatchObject({
@@ -172,7 +314,7 @@ describe('durable waitlist', () => {
 				body: JSON.stringify({
 					email: 'p@example.com',
 					consent: true,
-					consentVersion: 'reopening-2026-11-04'
+					consentVersion: CONSENT_VERSION
 				})
 			});
 			const response = await signupHandler({
@@ -213,7 +355,7 @@ describe('durable waitlist', () => {
 			body: new URLSearchParams({
 				email: 'native@example.test',
 				consent: 'on',
-				consentVersion: 'reopening-2026-11-04'
+				consentVersion: CONSENT_VERSION
 			})
 		});
 		const response = await signupHandler({

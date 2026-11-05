@@ -29,7 +29,7 @@ export const waitlistOutbox = pgTable(
 		subscriptionId: text('subscription_id')
 			.notNull()
 			.references(() => waitlistSubscriptions.id, { onDelete: 'cascade' }),
-		purpose: text('purpose').$type<'confirm' | 'receipt' | 'launch'>().notNull(),
+		purpose: text('purpose').$type<'confirm' | 'receipt' | 'launch' | 'update'>().notNull(),
 		deliveryKey: text('delivery_key').notNull().unique(),
 		ciphertext: text('ciphertext'),
 		state: text('state').notNull().default('pending'),

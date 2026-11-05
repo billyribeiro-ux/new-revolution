@@ -16,7 +16,7 @@ following. The form initializes independently of chart/GSAP loading.
 
 1. Select a separate Production Postgres database. Never reuse the protected Preview database.
    Review the existing migration process in `src/lib/server/db/index.ts`; apply the existing
-   numbered migrations and `drizzle/0002_waitlist.sql` on the intended database. The migration
+   numbered migrations including `drizzle/0002_waitlist.sql` and `drizzle/0003_waitlist_updates.sql` on the intended database. The migration
    is idempotent and forward-only. Do not use `db:push` or modify shipped migrations.
 2. Configure `WAITLIST_ORIGIN`, `WAITLIST_FROM_EMAIL`, `WAITLIST_REPLY_TO`, `RESEND_API_KEY`,
    `RESEND_WEBHOOK_SECRET`, `CRON_SECRET`, `WAITLIST_ENCRYPTION_KEY`, and `WAITLIST_RATE_LIMIT_KEY`.
@@ -28,14 +28,14 @@ following. The form initializes independently of chart/GSAP loading.
    confirmation and receipt, correlating provider IDs with delivery events. Mock tests cannot
    prove inbox delivery. Never record credentials or token URLs in logs/screenshots.
 4. Configure a supported scheduler to GET `/api/cron/waitlist-email` with the cron Bearer
-   secret. The worker is bounded to 20 jobs/run. No schedule has been added to the currently
-   claimed `vercel.json`; the team's plan and scheduler frequency must be verified first.
+   secret. The worker is bounded to 20 jobs/run. The authenticated worker is scheduled every minute in `vercel.json` on the current Pro team;
+   confirm the plan still supports that frequency before activation or moving accounts.
    Do not rely on the unrelated publisher cron or background promises. Daily-only scheduling
    does not provide prompt retries. Configure sufficient function duration for the batch.
 5. Set `WAITLIST_SIGNUPS_ENABLED=true` only after the controlled mailbox test, scheduler, and staged Vercel route/cache verification pass.
    This value controls emitted signup markup during `pnpm build` as well as runtime acceptance.
-   Without the exact value `true`, the page offers support and omits the form and reopening-email
-   invitation. Changes require a new build. Verify and promote the exact Production deployment;
+   Without the exact value `true`, the page keeps the email section visible with native disabled
+   controls and an explicit availability note. Changes require a new build. Verify and promote the exact Production deployment;
    merging to `main` alone does not update the public domains.
 
 The POST signup response is 202 only after durable storage; it does not claim delivery or
@@ -90,3 +90,21 @@ tables when maintenance is disabled; issued links must keep working.
 - Supported scheduler and Production-only configuration.
 - Staged Vercel exact-method routing, browser/CDN no-store and maintenance-off restoration.
 - Licensed historical data if replacing the clearly labeled simulated market study.
+
+## Progress updates and current hookup status
+
+The owner chose to connect services later. [WAITLIST_SETUP.md](../../WAITLIST_SETUP.md) contains
+the complete environment checklist, dry-run migration helper, configuration preflight and activation
+steps. No Production credentials, migration or live mail delivery are supplied by this preparation.
+
+A new signup receives a thank-you/confirmation email through the existing bounded immediate send.
+After confirmation, the handler targets that subscriber's welcome receipt job directly rather than
+allowing an unrelated pending job to occupy the one-job immediate batch. Failures remain durable
+for the worker; neither provider acceptance nor a mock test proves inbox placement.
+
+`reopening-updates-2026-11-04` permits occasional launch progress updates plus reopening mail.
+Older consent remains reopening-only. `scripts/waitlist-update.ts CAMPAIGN MESSAGE_FILE [--commit]`
+accepts reviewed plain-text subject/body JSON and defaults to dry-run. Queueing and sending both
+recheck consent, confirmation and suppression. A campaign ID deduplicates and freezes each payload.
+Unsubscribe cancels all pending waitlist mail. Progress updates do not extend subscription retention
+beyond reopening.

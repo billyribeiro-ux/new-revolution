@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Refine blog archive and disclosure layout
+
+- Redesign the archive around a concise editorial introduction, accessible search, topic navigation, a prominent uncropped featured article and a clear remaining-articles grid. Preserve CMS-driven discovery and metadata.
+- Align the complete risk disclosure to the shared responsive footer container and increase body-copy legibility; preserve its existing wording. Add responsive geometry, search and featured-media regressions.
+- Verification: 575 unit/component tests, 44 Chromium E2E, 15 Firefox and 15 WebKit, 3 SEO checks, production build, 46 prerender contracts, CSS/Svelte checks, and Svelte MCP. Full formatting flags only two unchanged pre-existing article drafts. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.
+
 ### 2026-11-05 — Publish the verified first article
 
 - Under the owner’s explicit “Publish after verification” instruction, publish `/blog/0dte-spx-options-strategy-guide` through the existing CMS lifecycle as the featured article on both homepage and archive. Save the real publication time and automatic JSON-LD from the verified 3,199-word revision.

@@ -340,6 +340,18 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 				await expect(card.locator('h3 a')).toHaveAttribute('href', new RegExp(`/blog/${slug}$`));
 				const image = card.locator('img');
 				await expect(image).toHaveAttribute('alt', COVER_ALT);
+				if (
+					path === '/blog' &&
+					width === 1440 &&
+					(await card.evaluate((el) => el.classList.contains('is-lead')))
+				) {
+					const media = await image.evaluate((img) => {
+						const rect = img.getBoundingClientRect();
+						return { ratio: rect.width / rect.height, fit: getComputedStyle(img).objectFit };
+					});
+					expect(media.ratio).toBeCloseTo(16 / 9, 1);
+					expect(media.fit).toBe('contain');
+				}
 				await expect
 					.poll(() =>
 						image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)

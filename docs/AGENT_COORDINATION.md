@@ -22,7 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-None.
+| Branch                        | Owner session     | Area / files claimed                                                                                  | Started    | Status                                                  |
+| ----------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------- |
+| `design/blog-layout-20261105` | Codex blog design | Blog archive/article presentation, shared footer disclosure layout, related tests and design evidence | 2026-11-05 | Live visual audit, responsive redesign and verification |
 
 ## Recently finished
 

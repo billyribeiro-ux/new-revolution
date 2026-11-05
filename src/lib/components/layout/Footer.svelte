@@ -251,26 +251,21 @@
 
 	.risk-box {
 		margin-block-start: 65px;
-		padding-block: 25px 20px;
+		padding-block: 28px;
 		border-block-start: 1px solid #2c333a;
 		border-block-end: 1px solid #2c333a;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
 	}
 
 	.risk-box p {
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-size: 0.75rem;
-		line-height: 1.85;
+		font-size: 0.875rem;
+		line-height: 1.7;
 		letter-spacing: 0.01em;
-		max-inline-size: min(63.8em, 1200px); /* 110ch of Sofia Sans 400 */
-		color: #949b9e;
+		max-inline-size: none;
+		color: #aab2b6;
 		margin-block: 0;
-		margin-inline: auto;
-		text-align: center;
+		text-align: start;
 	}
 
 	.risk-box .risk-box-title {
@@ -281,11 +276,7 @@
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		color: #d8dfd1;
-		inline-size: 100%;
-		max-inline-size: min(65.3283em, 1200px); /* 110ch of Sofia Sans 700 */
 		margin-block: 0 10px;
-		margin-inline: auto;
-		text-align: center;
 	}
 
 	.footer-bottom {

@@ -322,5 +322,34 @@
 		.is-lead .card-body {
 			padding: 2rem;
 		}
+
+		/* The archive lead preserves the complete editorial artwork. Homepage cards keep their existing treatment. */
+		.blog-post-card.is-lead.has-cover:not(.is-light) {
+			grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		}
+
+		.is-lead:not(.is-light) .card-media-link {
+			aspect-ratio: 16 / 9;
+			min-block-size: 0;
+		}
+
+		.is-lead:not(.is-light) .card-cover-img {
+			position: static;
+			object-fit: contain;
+		}
+
+		.is-lead:not(.is-light) .card-body {
+			justify-content: center;
+			padding: clamp(2rem, 4vw, 4rem);
+		}
+
+		.is-lead:not(.is-light) .card-title {
+			font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+		}
+
+		.is-lead:not(.is-light) .card-read-link::after {
+			content: '↗';
+			margin-inline-start: 0.5rem;
+		}
 	}
 </style>

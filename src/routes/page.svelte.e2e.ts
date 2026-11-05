@@ -273,19 +273,32 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(inputFocusOutline.outlineColor).toBe('rgb(220, 255, 101)');
 		expect(inputFocusOutline.outlineOffset).toBe('4px');
 
-		// Verify Footer .risk-box and its paragraphs are centered
+		// The disclosure copy must align to the same responsive container as the footer.
 		const riskBoxAlign = await page.locator('.risk-box').evaluate((el) => {
+			const container = el.closest('.container');
 			const title = el.querySelector('.risk-box-title');
 			const body = el.querySelector('p:not(.risk-box-title)');
+			if (!container || !title || !body) throw new Error('Missing footer disclosure elements');
+			const box = el.getBoundingClientRect();
+			const outer = container.getBoundingClientRect();
+			const text = body.getBoundingClientRect();
 			return {
-				boxTextAlign: getComputedStyle(el).textAlign,
-				titleTextAlign: title ? getComputedStyle(title).textAlign : null,
-				bodyTextAlign: body ? getComputedStyle(body).textAlign : null
+				boxLeft: box.left,
+				outerLeft: outer.left,
+				boxWidth: box.width,
+				outerWidth: outer.width,
+				textLeft: text.left,
+				textWidth: text.width,
+				textAlign: getComputedStyle(body).textAlign,
+				fontSize: parseFloat(getComputedStyle(body).fontSize)
 			};
 		});
-		expect(riskBoxAlign.boxTextAlign).toBe('center');
-		expect(riskBoxAlign.titleTextAlign).toBe('center');
-		expect(riskBoxAlign.bodyTextAlign).toBe('center');
+		expect(Math.abs(riskBoxAlign.boxLeft - riskBoxAlign.outerLeft)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.boxWidth - riskBoxAlign.outerWidth)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.textLeft - riskBoxAlign.outerLeft)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.textWidth - riskBoxAlign.outerWidth)).toBeLessThan(1);
+		expect(['start', 'left']).toContain(riskBoxAlign.textAlign);
+		expect(riskBoxAlign.fontSize).toBeGreaterThanOrEqual(14);
 	});
 
 	test('handles desktop dropdown keyboard focus traversal and outside-click dismissal', async ({
@@ -726,12 +739,43 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(blogsGraphTypes).toContain('Blog');
 		expect(blogsGraphTypes).toContain('BreadcrumbList');
 
-		// Verify zero horizontal overflow across 320px and all 6 enterprise breakpoints on /blog
-		for (const width of [320, 480, 640, 768, 1024, 1280, 1536]) {
+		// Check overflow and disclosure alignment from small phones through ultrawide screens.
+		for (const width of [320, 480, 640, 768, 1024, 1280, 1536, 2420]) {
 			await page.setViewportSize({ width, height: 900 });
-			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-			expect(scrollWidth).toBeLessThanOrEqual(width);
+			const geometry = await page.evaluate(() => {
+				const disclosure = document.querySelector('footer .risk-box p:not(.risk-box-title)');
+				const container = disclosure?.closest('.container');
+				if (!disclosure || !container) throw new Error('Missing disclosure or container');
+				const text = disclosure.getBoundingClientRect();
+				const outer = container.getBoundingClientRect();
+				return {
+					scrollWidth: document.documentElement.scrollWidth,
+					textLeft: text.left,
+					textWidth: text.width,
+					outerLeft: outer.left,
+					outerWidth: outer.width
+				};
+			});
+			expect(geometry.scrollWidth).toBeLessThanOrEqual(width);
+			expect(Math.abs(geometry.textLeft - geometry.outerLeft)).toBeLessThan(1);
+			expect(Math.abs(geometry.textWidth - geometry.outerWidth)).toBeLessThan(1);
 		}
+		await page
+			.getByRole('searchbox', { name: 'Search the journal' })
+			.fill('unlikelymissingsearchterm');
+		await page.getByRole('button', { name: 'Search', exact: true }).click();
+		await expect(
+			page.getByRole('heading', { name: 'Search Results for "unlikelymissingsearchterm"' })
+		).toBeVisible();
+		await page.getByRole('link', { name: 'Clear search filter' }).click();
+		await expect(page).toHaveURL(/\/blog$/);
+		await page.setViewportSize({ width: 320, height: 900 });
+		await page.getByRole('searchbox', { name: 'Search the journal' }).fill('x'.repeat(120));
+		await page.getByRole('button', { name: 'Search', exact: true }).click();
+		await expect(page).toHaveURL(/search=x{120}/);
+		expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+			320
+		);
 
 		// Verify /store/indicators route metadata, JSON-LD, and DOM parity
 		await page.goto('/store/indicators');

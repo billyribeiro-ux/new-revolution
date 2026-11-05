@@ -11,6 +11,8 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-05 — Refine blog archive and disclosure layout
 
+- Squash-merge PR #31 as `7e31730` and promote verified Production deployment `dpl_9LaYzMKyN2JVb3eZrawor6Ntcfue`; 27 public browser cases pass across three engines and three widths. Maintenance remains off.
+
 - Redesign the archive around a concise editorial introduction, accessible search, topic navigation, a prominent uncropped featured article and a clear remaining-articles grid. Preserve CMS-driven discovery and metadata.
 - Align the complete risk disclosure to the shared responsive footer container and increase body-copy legibility; preserve its existing wording. Add responsive geometry, search and featured-media regressions.
 - Verification: 575 unit/component tests, 44 Chromium E2E, 15 Firefox and 15 WebKit, 3 SEO checks, production build, 46 prerender contracts, CSS/Svelte checks, and Svelte MCP. Full formatting flags only two unchanged pre-existing article drafts. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.

@@ -119,11 +119,14 @@ export async function signupHandler(event: RequestEvent) {
 			!['on', 'true', true, '1'].includes(form.consent as string) ||
 			form.consentVersion !== CONSENT_VERSION
 		)
-			throw new WaitlistError(400, 'Enter your email and agree to the reopening notification.');
+			throw new WaitlistError(
+				400,
+				'Enter your email and agree to launch updates and the reopening notification.'
+			);
 		const jobId = await signup(form.email, event.getClientAddress());
 		if (jobId) await processOutbox(deliver, { jobId, limit: 1 }).catch(() => undefined);
 		const message =
-			'Your request is saved. If your address is eligible, check your inbox for a confirmation link. Confirming your address joins the waitlist; it creates no paid membership.';
+			'Your request is saved. If your address is eligible, check your inbox for a thank-you and confirmation link. Confirm your address to join the waitlist; no paid membership is created.';
 		return enhanced
 			? Response.json({ accepted: true, message }, { status: 202, headers: PRIVATE_HEADERS })
 			: documentResponse('Request saved', message, 202);
@@ -138,15 +141,16 @@ export async function tokenHandler(event: RequestEvent, purpose: 'confirm' | 'un
 		if (!oneClick) originCheck(event.request);
 		const token = oneClick ? event.url.searchParams.get('token') : form.token;
 		if (typeof token !== 'string') throw new WaitlistError(400, 'Invalid link.');
-		await applyToken(token, purpose);
-		if (purpose === 'confirm') await processOutbox(deliver, { limit: 1 }).catch(() => undefined);
+		const receiptJobId = await applyToken(token, purpose);
+		if (purpose === 'confirm' && receiptJobId)
+			await processOutbox(deliver, { jobId: receiptJobId, limit: 1 }).catch(() => undefined);
 		return oneClick
 			? new Response(null, { headers: PRIVATE_HEADERS })
 			: documentResponse(
 					purpose === 'confirm' ? 'Your address is confirmed' : 'You’re unsubscribed',
 					purpose === 'confirm'
-						? 'You’re on the Revolution Trading Pros waitlist. We will email you when we reopen.'
-						: 'You will not receive the reopening notification.'
+						? 'Thank you for joining the Revolution Trading Pros waitlist. Check your inbox for your welcome message and subscription details.'
+						: 'You will not receive further waitlist emails.'
 				);
 	} catch (error) {
 		return failure(error, false);
@@ -160,7 +164,7 @@ export function tokenDocument(url: URL, purpose: 'confirm' | 'unsubscribe') {
 		purpose === 'confirm' ? 'Confirm your email address' : 'Unsubscribe from the waitlist',
 		purpose === 'confirm'
 			? 'Choose confirm below to join the reopening waitlist. Opening this page does not change your subscription.'
-			: 'Choose unsubscribe below to stop reopening notifications.',
+			: 'Choose unsubscribe below to stop waitlist emails.',
 		200,
 		purpose,
 		token

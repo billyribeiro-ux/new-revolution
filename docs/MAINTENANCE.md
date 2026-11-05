@@ -29,8 +29,8 @@ configuration, privacy, encryption, scheduling and the outstanding cloud/mailbox
 Preview locally after `pnpm build` using `pnpm preview` and `/maintenance/index.html`. The local
 preview is not Vercel's routing engine. Capture defaults off until explicitly configured.
 `WAITLIST_SIGNUPS_ENABLED=true` controls both generated signup markup at build time and API
-acceptance at runtime. Unset, `false` and other values omit the form and reopening-email promise;
-the support notice, chart and retry remain available. Enabling capture requires the documented
+acceptance at runtime. Unset, `false` and other values keep the prepared email section visible inside a disabled native
+fieldset, with a clear availability note. The support notice, chart and retry remain available. Enabling capture requires the documented
 database/provider/scheduler/mailbox evidence and a new build. An unavailable backend returns an
 honest error and never a saved-success message.
 
@@ -42,7 +42,7 @@ Before production use, verify a Vercel preview with direct and nested URLs, an a
 - Production: `MAINTENANCE_MODE=true`. Preview: `MAINTENANCE_MODE=false`. These are build-time values; changing either requires a new build.
 - Only `main` is retained after branch consolidation. The former `develop` Preview URL records the earlier rollout; a deleted branch is not a current development workflow. `new-revolution-topaz.vercel.app` is a Production alias, not a development Preview.
 - Project build override: `pnpm build`. Auto-assignment of custom Production domains is disabled; merges can create staged Production builds, but serving them publicly requires deliberate promotion.
-- Production waitlist database, email/provider, encryption, rate-limit and capture-enable variables were absent at the release investigation. Capture stays off, with support-only page copy, until the waitlist release prerequisites are satisfied.
+- Production waitlist database, email/provider, encryption, rate-limit and capture-enable variables were absent at the release investigation. Capture stays off, with the prepared form visibly disabled, until the waitlist release prerequisites are satisfied.
 - Preview has its own Neon database, `revolution-preview`, provisioned on `free_v3` in `iad1`. The existing two SQL migrations initialized 50 tables on the verified empty database. It is connected only to Preview; no Production database or admin account was provisioned by this operation. Configure Production services before eventually disabling maintenance. Preview media storage still needs its own Blob configuration before uploads can be used.
 - Preserve `ssr.noExternal` for `sanitize-html` and `htmlparser2` in `vite.config.ts`: the Vercel Node 24 loader rejected their external CommonJS-to-ESM require even though local Node 26 checks passed. After changing these dependencies or SSR bundling, verify deployed dynamic pages and unauthenticated admin API 401 responses, not just prerendered pages.
 
@@ -77,3 +77,16 @@ For an owner-authorized production update:
 Vercel documents this as [promoting a staged production build](https://vercel.com/docs/deployments/promoting-a-deployment)
 and provides the [promotion CLI](https://vercel.com/docs/cli/promote). Promotion reassigns the
 Production domains to the selected build; it is a separate release step.
+
+## Current maintenance / development handoff
+
+The maintenance chart uses conventional green/red candles and volume, bounded intrabar movement
+and crosshair inspection. It remains explicitly simulated; it is not represented as live market data.
+The complete waitlist section remains visible while services are disconnected. See
+[the connection checklist](WAITLIST_SETUP.md) for enabling the form, immediate thank-you/confirmation
+mail, welcome receipt and separately consented progress updates. The owner will connect services later.
+
+Use the protected normal Preview for ongoing website work, with `MAINTENANCE_MODE=false`;
+`pnpm dev` also runs the normal local website. Public Production remains in maintenance. Do not
+use a Production deployment alias as the development URL or expose the unfinished website on a
+custom development domain.

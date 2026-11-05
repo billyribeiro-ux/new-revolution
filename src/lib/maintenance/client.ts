@@ -2,7 +2,7 @@
 const form = document.querySelector<HTMLFormElement>('#waitlist-form');
 const status = document.querySelector<HTMLElement>('#waitlist-status');
 const submit = form?.querySelector<HTMLButtonElement>('button[type=submit]');
-if (form && status && submit)
+if (form?.dataset.waitlistEnabled === 'true' && status && submit)
 	form.addEventListener('submit', async (event) => {
 		event.preventDefault();
 		if (!form.reportValidity()) return;

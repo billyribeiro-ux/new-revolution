@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-04 — Market playback and ready-to-connect waitlist
+
+- Use green/red candles, wicks and volume with bounded intrabar price reversals and historical crosshair readouts. Preserve the explicit simulated-data label, accessible candle table and reduced-motion controls.
+- Keep the completed email section visible, with native disabled controls and an honest availability note until capture is configured. Prepare an immediate thank-you/confirmation email and a targeted welcome receipt after confirmation.
+- Add separately consented progress-update campaigns with encrypted outbox delivery, dry-run-first queueing, legacy-consent protection and forward migration `0003_waitlist_updates.sql`. Supply configuration/migration helpers and the authenticated minute worker schedule.
+- Verify normal authenticated Preview development separately from public Production maintenance. The owner will connect the database/email services later; no service provisioning, Production migration or live email send is part of this change.
+
 ### Fixed — home page font-swap layout shift (CLS)
 
 - Root cause (measured on a production build with fonts held back and then released, which isolates the swap; identical with JS blocked): when the web fonts arrived after first paint, text reflowed from the unadjusted `system-ui` fallback, and `ch`-based `max-inline-size` boxes changed width because `ch` follows the first available font. Swap CLS on `/` across 30 widths (320–1920 px): mean 0.0619, max 0.150, 9/30 widths > 0.1.

@@ -99,6 +99,12 @@ test('waitlist and chart reflow from 320px to desktop and preserve keyboard acce
 }) => {
 	await openEnabledWaitlist(page);
 	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
+	expect(
+		await page.locator('body').evaluate((element) => ({
+			up: getComputedStyle(element).getPropertyValue('--chart-up').trim(),
+			down: getComputedStyle(element).getPropertyValue('--chart-down').trim()
+		}))
+	).toEqual({ up: '#22c55e', down: '#ef4444' });
 	for (const width of [320, 375, 768, 1024, 1440]) {
 		await page.setViewportSize({ width, height: 844 });
 		expect(
@@ -108,7 +114,7 @@ test('waitlist and chart reflow from 320px to desktop and preserve keyboard acce
 			`${width}px`
 		).toBe(0);
 		await expect(page.locator('.maintenance-visual')).toBeVisible();
-		await expect(page.getByRole('button', { name: /notify me/i })).toBeVisible();
+		await expect(page.getByRole('button', { name: /join the waitlist/i })).toBeVisible();
 	}
 	await page.goto('http://localhost:4173/maintenance/index.html');
 	await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
@@ -138,7 +144,7 @@ test('playback can pause and restart; form shows provider-independent saved/erro
 	);
 	await page.getByLabel('Your email address').fill('fixture@example.com');
 	await page.getByRole('checkbox').check();
-	await page.getByRole('button', { name: /notify me/i }).click();
+	await page.getByRole('button', { name: /join the waitlist/i }).click();
 	await expect(page.getByRole('status')).toContainText('Unable to save');
 	await page.route('**/api/waitlist/signup', (route) =>
 		route.fulfill({
@@ -147,7 +153,7 @@ test('playback can pause and restart; form shows provider-independent saved/erro
 			body: JSON.stringify({ message: 'Request saved. Check your email to confirm.' })
 		})
 	);
-	await page.getByRole('button', { name: /notify me/i }).click();
+	await page.getByRole('button', { name: /join the waitlist/i }).click();
 	await expect(page.getByRole('status')).toContainText('Request saved');
 });
 
@@ -203,7 +209,8 @@ test('the core notice remains usable with JavaScript and web fonts unavailable',
 		'mailto:support@revolutiontradingpros.com'
 	);
 	await expect(page.getByRole('button', { name: 'Try this page again' })).toBeHidden();
-	await expect(page.locator('#waitlist-form')).toHaveCount(0);
+	await expect(page.locator('#waitlist-form')).toBeVisible();
+	await expect(page.getByLabel('Your email address')).toBeDisabled();
 	await expect(page.getByText(/The signup works without JavaScript/)).toHaveCount(0);
 	expect(
 		await page.evaluate(
@@ -213,15 +220,15 @@ test('the core notice remains usable with JavaScript and web fonts unavailable',
 	await context.close();
 });
 
-test('disabled capture offers support without a failing form or reopening-email promise', async ({
+test('unconfigured capture shows a prepared disabled waitlist with honest availability', async ({
 	page
 }) => {
 	await page.goto('http://localhost:4173/maintenance/index.html');
-	await expect(page.locator('#waitlist-form')).toHaveCount(0);
+	await expect(page.locator('#waitlist-form')).toBeVisible();
+	await expect(page.getByLabel('Your email address')).toBeDisabled();
 	await expect(page.getByRole('link', { name: 'Email support', exact: true })).toBeVisible();
-	await expect(page.getByText(/Leave your email|Notify me when|Confirm your email/i)).toHaveCount(
-		0
-	);
+	await expect(page.getByRole('button', { name: /join the waitlist/i })).toBeDisabled();
+	await expect(page.getByText(/Email signup is not available yet/)).toBeVisible();
 	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
 });
 
@@ -252,4 +259,21 @@ test('enabled capture has identified controls and dimensioned images without Jav
 	} finally {
 		await context.close();
 	}
+});
+
+test('chart crosshair inspects historical candles and returns to playback on leave', async ({
+	page
+}) => {
+	await page.goto('http://localhost:4173/maintenance/index.html');
+	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
+	const chart = page.locator('#market-chart');
+	await chart.scrollIntoViewIfNeeded();
+	const box = await chart.boundingBox();
+	expect(box).not.toBeNull();
+	if (!box) throw new Error('Chart geometry unavailable');
+	await page.mouse.move(box.x + box.width * 0.45, box.y + box.height * 0.35);
+	await expect(page.locator('#chart-readout')).toHaveAttribute('data-source', 'crosshair');
+	await expect(page.locator('#chart-readout')).toContainText(/O .* H .* L .* C .* V /);
+	await page.mouse.move(0, 0);
+	await expect(page.locator('#chart-readout')).toHaveAttribute('data-source', 'playback');
 });

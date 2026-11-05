@@ -10,9 +10,15 @@ import {
 	waitlistEvents as events
 } from '../db/schema.ts';
 import { newToken, privateBucket, seal, tokenHash, unseal } from './crypto.ts';
-import { prepareEmail, type WaitlistEmail } from './email.ts';
-export const CONSENT_VERSION = 'reopening-2026-11-04';
-export const CONSENT_TEXT = 'Email me when Revolution Trading Pros reopens. Unsubscribe anytime.';
+import {
+	parseWaitlistUpdate,
+	prepareEmail,
+	type WaitlistEmail,
+	type WaitlistEmailPurpose,
+	type WaitlistUpdate
+} from './email.ts';
+import { CONSENT_VERSION } from '../../shared/waitlist-consent.ts';
+export { CONSENT_VERSION, CONSENT_TEXT } from '../../shared/waitlist-consent.ts';
 type Tx = Parameters<Parameters<AppDatabase['transaction']>[0]>[0];
 export class WaitlistError extends Error {
 	status: number;
@@ -68,14 +74,18 @@ async function token(
 async function enqueue(
 	tx: Tx,
 	sub: typeof subs.$inferSelect,
-	purpose: 'confirm' | 'receipt' | 'launch',
+	purpose: WaitlistEmailPurpose,
 	key: string,
 	now: Date,
-	challenge = ''
+	challenge = '',
+	update?: WaitlistUpdate
 ) {
 	const unsubscribe = await token(tx, sub.id, 'unsubscribe', now),
 		id = randomUUID();
-	const payload = prepareEmail(sub.email, purpose, challenge, unsubscribe);
+	const payload = prepareEmail(sub.email, purpose, challenge, unsubscribe, {
+		updatesAllowed: sub.consentVersion === CONSENT_VERSION,
+		update
+	});
 	await tx
 		.insert(jobs)
 		.values({
@@ -133,11 +143,11 @@ export async function applyToken(
 	raw: string,
 	purpose: 'confirm' | 'unsubscribe',
 	now = new Date()
-): Promise<void> {
+): Promise<string | null> {
 	if (!/^[A-Za-z0-9_-]{43}$/.test(raw))
 		throw new WaitlistError(400, 'This link is invalid or has expired.');
 	const db = await ensureDbReady();
-	await db.transaction(async (tx) => {
+	return db.transaction(async (tx) => {
 		const [found] = await tx
 			.select()
 			.from(tokens)
@@ -157,7 +167,7 @@ export async function applyToken(
 			.where(and(eq(tokens.hash, found.hash), isNull(tokens.consumedAt)))
 			.returning();
 		if (!used) {
-			if (purpose === 'unsubscribe') return;
+			if (purpose === 'unsubscribe') return null;
 			throw new WaitlistError(400, 'This confirmation link has already been used.');
 		}
 		if (purpose === 'unsubscribe') {
@@ -169,12 +179,12 @@ export async function applyToken(
 				.update(jobs)
 				.set({ state: 'cancelled', ciphertext: null })
 				.where(and(eq(jobs.subscriptionId, sub.id), eq(jobs.state, 'pending')));
-			return;
+			return null;
 		}
 		if (sub.status !== 'pending' || (await suppressed(tx, sub.email)))
 			throw new WaitlistError(400, 'This request can no longer be confirmed.');
 		await tx.update(subs).set({ status: 'confirmed', confirmedAt: now }).where(eq(subs.id, sub.id));
-		await enqueue(tx, sub, 'receipt', `receipt:${sub.id}`, now);
+		return enqueue(tx, sub, 'receipt', `receipt:${sub.id}`, now);
 	});
 }
 export type Sender = (payload: WaitlistEmail, key: string) => Promise<string>;
@@ -239,6 +249,7 @@ export async function processOutbox(
 				.limit(1);
 			if (
 				suppression.length ||
+				(job.purpose === 'update' && sub.consentVersion !== CONSENT_VERSION) ||
 				(job.purpose === 'confirm' ? sub.status !== 'pending' : sub.status !== 'confirmed')
 			) {
 				await db
@@ -336,26 +347,47 @@ async function reconcileEvents(providerId: string) {
 		}
 	});
 }
-export async function queueLaunch(campaign: string, commit = false) {
+async function queueCampaign(
+	purpose: 'launch' | 'update',
+	campaign: string,
+	commit: boolean,
+	update?: WaitlistUpdate
+) {
 	if (!/^[a-z0-9-]{1,60}$/.test(campaign)) throw new Error('Invalid campaign ID');
 	const db = await ensureDbReady();
-	const eligible = await db.select().from(subs).where(eq(subs.status, 'confirmed'));
+	const eligible = await db
+		.select()
+		.from(subs)
+		.where(
+			and(
+				eq(subs.status, 'confirmed'),
+				purpose === 'update' ? eq(subs.consentVersion, CONSENT_VERSION) : undefined
+			)
+		);
 	let count = 0;
 	for (const sub of eligible) {
 		await db.transaction(async (tx) => {
 			const [current] = await tx.select().from(subs).where(eq(subs.id, sub.id)).for('update');
-			if (current.status !== 'confirmed' || (await suppressed(tx, current.email))) return;
-			const exists = await tx
-				.select()
-				.from(jobs)
-				.where(eq(jobs.deliveryKey, `launch:${campaign}:${sub.id}`))
-				.limit(1);
+			if (
+				current.status !== 'confirmed' ||
+				(purpose === 'update' && current.consentVersion !== CONSENT_VERSION) ||
+				(await suppressed(tx, current.email))
+			)
+				return;
+			const key = `${purpose}:${campaign}:${sub.id}`;
+			const exists = await tx.select().from(jobs).where(eq(jobs.deliveryKey, key)).limit(1);
 			if (exists.length) return;
 			count++;
-			if (commit) await enqueue(tx, current, 'launch', `launch:${campaign}:${sub.id}`, new Date());
+			if (commit) await enqueue(tx, current, purpose, key, new Date(), '', update);
 		});
 	}
 	return { eligible: count, committed: commit };
+}
+export async function queueLaunch(campaign: string, commit = false) {
+	return queueCampaign('launch', campaign, commit);
+}
+export async function queueUpdate(campaign: string, message: unknown, commit = false) {
+	return queueCampaign('update', campaign, commit, parseWaitlistUpdate(message));
 }
 export async function retainWaitlist(now = new Date()) {
 	const db = await ensureDbReady();

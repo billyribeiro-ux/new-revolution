@@ -3,6 +3,7 @@ import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
 import { demonstrationBars } from '../src/lib/maintenance/data.ts';
+import { CONSENT_VERSION, CONSENT_TEXT } from '../src/lib/shared/waitlist-consent.ts';
 
 const sourceRoot = fileURLToPath(new URL('../', import.meta.url));
 const entry = await build({
@@ -68,8 +69,9 @@ async function renderMaintenancePage() {
 		await Promise.all(assets.map((path) => access(join(clientDir, path))));
 	}
 	const template = await readFile(new URL('./templates/maintenance.html', import.meta.url), 'utf8');
+	const localTokens = new Set([...template.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
 	for (const match of template.matchAll(/var\((--[\w-]+)/g)) {
-		if (!theme.includes(`${match[1]}:`))
+		if (!theme.includes(`${match[1]}:`) && !localTokens.has(match[1]))
 			throw new Error(`Undeclared maintenance token: ${match[1]}`);
 	}
 	if (/<\/style/i.test(theme)) throw new Error('Unexpected closing style tag in root stylesheet');
@@ -78,17 +80,28 @@ async function renderMaintenancePage() {
 	const data = (await readFile(new URL('../static/icon-192.png', import.meta.url))).toString(
 		'base64'
 	);
-	// The public page must not invite submissions while the API deliberately rejects them.
+	// Show the prepared email section; native controls stay disabled until capture is configured.
 	const signupsEnabled = process.env.WAITLIST_SIGNUPS_ENABLED === 'true';
 	const html = template
 		.replace('<!-- maintenance:introduction -->', () =>
 			signupsEnabled
-				? 'We’re working on the next chapter of Revolution Trading Pros. Leave your email and we’ll let you know when the platform reopens.'
-				: 'We’re working on the next chapter of Revolution Trading Pros. Please check back soon. Our support desk is here if you need assistance.'
+				? 'We’re working on the next chapter of Revolution Trading Pros. Leave your email for occasional launch updates and a note when we reopen.'
+				: 'We’re working on the next chapter of Revolution Trading Pros. Our email waitlist is coming soon. In the meantime, our support desk is here to help.'
 		)
 		.replace(
 			/<!-- maintenance:signup:start -->([\s\S]*?)<!-- maintenance:signup:end -->/,
-			(_, form) => (signupsEnabled ? form : '')
+			(_, form) => form
+		)
+		.replace('<!-- maintenance:signup-state -->', () => String(signupsEnabled))
+		.replace('<!-- maintenance:consent-version -->', () => CONSENT_VERSION)
+		.replace('<!-- maintenance:consent-text -->', () =>
+			CONSENT_TEXT.replace(/[&<>]/g, (value) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[value])
+		)
+		.replace('disabled="maintenance-signups-disabled"', () => (signupsEnabled ? '' : 'disabled'))
+		.replace('<!-- maintenance:signup-message -->', () =>
+			signupsEnabled
+				? 'Ready to join? Enter your email and choose the updates you agree to receive.'
+				: 'Email signup is not available yet. Please check back soon or contact support.'
 		)
 		.replace('<!-- maintenance:noscript -->', () =>
 			signupsEnabled
@@ -114,7 +127,8 @@ async function renderMaintenancePage() {
 			() =>
 				`<img class="maintenance-emblem" src="data:image/png;base64,${data}" alt="" width="40" height="40" />`
 		);
-	if (/<!-- maintenance:/.test(html)) throw new Error('Unresolved maintenance template marker');
+	if (/<!-- maintenance:|maintenance-signups-disabled/.test(html))
+		throw new Error('Unresolved maintenance template marker');
 	for (const output of [
 		`${clientDir}/maintenance/index.html`,
 		'.vercel/output/static/maintenance/index.html'

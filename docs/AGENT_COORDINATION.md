@@ -22,11 +22,12 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                        | Owner session     | Area / files claimed                                                                                  | Started    | Status                                                  |
-| ----------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------- |
-| `design/blog-layout-20261105` | Codex blog design | Blog archive/article presentation, shared footer disclosure layout, related tests and design evidence | 2026-11-05 | Live visual audit, responsive redesign and verification |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Blog archive and footer refinement (Codex, November 5; [PR #31](https://github.com/billyribeiro-ux/new-revolution/pull/31)):** redesign the archive hierarchy and lead media and align the full risk disclosure with the shared container; preserve CMS discovery and disclosure wording. Local visual audit, 575 unit tests, 44 Chromium E2E, 15 Firefox and 15 WebKit, 3 SEO checks, build and page contracts pass. Two unchanged source drafts fail repository-wide formatting. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.
 
 - **First article published (Codex, November 5; [PR #30](https://github.com/billyribeiro-ux/new-revolution/pull/30), implementation [PR #29](https://github.com/billyribeiro-ux/new-revolution/pull/29)):** owner explicitly chose publish after verification. Production post 1 is live and featured on homepage/archive at `/blog/0dte-spx-options-strategy-guide`; 3,199 words, six real Blob media originals and actual generated variants/crops. Exact merged source `e94fc23` is served by `dpl_EbGSBSiqZEEQnmTdKQ21TQpTnhEg`. Hosted draft acceptance: 15 rendered/seven HTTP checks; public acceptance: 27 rendered/seven HTTP checks plus eight taxonomy/CTA links, without bypass credentials. Maintenance stays off; indexing stays gated. No admin account or schema migration was added. Changelog and current publishing/admin/media handoffs updated. Evidence: `docs/reviews/first-blog-2026-11-05/production.json` and `VERIFICATION.md`.
 

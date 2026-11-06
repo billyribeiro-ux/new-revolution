@@ -13,7 +13,7 @@ export type NavIconKey =
 	| 'swing-trading'
 	| 'small-accounts'
 	| 'spx'
-	| 'explosive-swings'
+	| 'sunday-alpha-alerts'
 	| 'courses'
 	| 'indicators'
 	| 'scanners'
@@ -83,7 +83,7 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 				label: 'Sunday Alpha Alerts',
 				href: '/sunday-alpha-alerts',
 				previewTarget: 'memberships',
-				icon: 'explosive-swings',
+				icon: 'sunday-alpha-alerts',
 				description: 'Multi-day watchlists with defined entries and stops.'
 			}
 		]

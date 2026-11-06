@@ -20,7 +20,7 @@
 </script>
 
 <nav class="breadcrumb-bar" aria-label="Breadcrumb">
-	<div class={['breadcrumb-bar__inner', className]}>
+	<div class={['container', 'breadcrumb-bar__inner', className]}>
 		<ol class="breadcrumb-list">
 			{#each items as item (item.label)}
 				<li aria-current={item.href ? undefined : 'page'}>
@@ -41,19 +41,16 @@
 
 <style>
 	.breadcrumb-bar {
-		background-color: var(--panel);
-		border-bottom: 1.5px solid var(--line-strong);
-		padding: 0.625rem 0;
+		background-color: var(--bg-soft);
+		border-block-end: 1px solid #2b3239;
+		padding-block: 12px;
 	}
 
 	.breadcrumb-bar__inner {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
+		gap: 6px;
 		justify-content: space-between;
-		max-width: 1440px;
-		margin: 0 auto;
-		padding: 0 1rem;
 	}
 
 	.breadcrumb-list {
@@ -63,12 +60,13 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 8px;
 		font-family: var(--font-sans);
 		font-weight: 700;
 		font-size: 0.75rem;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.06em;
+		color: var(--muted);
 	}
 
 	/* Decorative separator drawn in CSS so it is not a fake list item; the empty alt text hides it from AT. */
@@ -76,16 +74,29 @@
 		content: '/';
 		content: '/' / '';
 		margin-inline-end: 0.5rem;
+		color: var(--muted);
 	}
 
 	.breadcrumb-list a,
 	.breadcrumb-bar__telemetry :global(a) {
 		display: inline-flex;
 		align-items: center;
-		min-height: 24px;
-		min-width: 24px;
+		min-block-size: 24px;
+		min-inline-size: 24px;
 		color: var(--text);
 		text-decoration: underline;
+		text-decoration-color: #4a525a;
+		text-underline-offset: 4px;
+		transition: color 0.2s var(--ease-out);
+	}
+
+	.breadcrumb-list a:hover,
+	.breadcrumb-bar__telemetry :global(a:hover) {
+		color: var(--acid);
+	}
+
+	.breadcrumb-list [aria-current='page'] {
+		color: var(--acid);
 	}
 
 	.breadcrumb-bar__telemetry {
@@ -94,38 +105,18 @@
 		font-weight: 700;
 		font-size: 0.75rem;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: #c4c8c7;
+		letter-spacing: 0.06em;
+		color: var(--muted);
 	}
 
-	@media (min-width: 480px) {
-		.breadcrumb-bar__inner {
-			padding: 0 1.25rem;
-		}
-	}
-
-	@media (min-width: 640px) {
-		.breadcrumb-bar__inner {
-			padding: 0 1.5rem;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.breadcrumb-bar__inner {
-			flex-direction: row;
-			align-items: center;
-		}
+	.breadcrumb-bar__telemetry :global(span:first-child) {
+		color: var(--acid);
 	}
 
 	@media (min-width: 1024px) {
 		.breadcrumb-bar__inner {
-			padding: 0 2rem;
-		}
-	}
-
-	@media (min-width: 1536px) {
-		.breadcrumb-bar__inner {
-			max-width: 1536px;
+			flex-direction: row;
+			align-items: center;
 		}
 	}
 </style>

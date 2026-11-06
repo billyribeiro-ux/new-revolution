@@ -15,14 +15,21 @@
 <Navbar />
 
 <main id="contact-page" class="inner-page contact-page">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Contact</li>
+			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Member Support Desk</span> • <span>Monday–Friday 8:30 AM – 5:00 PM EST</span>
+			</p>
+		</div>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="contact-h1">
 		<div class="hero-inner">
-			<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-current="page">Contact</li>
-				</ol>
-			</nav>
 			<span class="section-kicker">Member Support &amp; Desk Inquiries</span>
 			<h1 id="contact-h1" class="hero-h1">Contact Our Trading Desk</h1>
 			<p class="lead-copy">

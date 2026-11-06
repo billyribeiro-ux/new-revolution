@@ -136,7 +136,7 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 		path: '/alert-services/spx-profit-pulse'
 	},
 	{
-		id: 'explosive-swings',
+		id: 'sunday-alpha-alerts',
 		schemaType: 'Service',
 		name: 'Sunday Alpha Alerts',
 		serviceType: 'Multi-Day Swing Trading Video Watchlist and Alert Service',
@@ -746,7 +746,7 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 			'We cover all three: liquid US stocks, sector and index ETFs (See our ETF Stocks List (/resources/etf-stocks-list) and Stock Indexes List (/resources/stock-indexes-list)), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
 	},
 	{
-		id: 'swing-room-vs-explosive-swings',
+		id: 'swing-room-vs-sunday-alpha-alerts',
 		question:
 			'How is the Swing Trading Room different from your Sunday Alpha Alerts alert service?',
 		answer:
@@ -1011,7 +1011,7 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Indicators from Revolution Trading Pros',
+						name: 'Trading Indicators',
 						item: pageUrl
 					}
 				]
@@ -1094,7 +1094,7 @@ export function buildCoursesStoreJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Courses from Revolution Trading Pros',
+						name: 'Trading Courses',
 						item: pageUrl
 					}
 				]
@@ -1268,7 +1268,7 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Store: Indicators',
+						name: 'Trading Indicators',
 						item: `${origin}/store/indicators`
 					},
 					{
@@ -1318,7 +1318,7 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 			'Yes. While a single full-sized SPX option contract can be expensive, every SPX Profit Pulse alert can be executed in a smaller account using three methods we teach in the Learning Center: (1) Defined-risk 5-wide SPX vertical spreads, (2) XSP (Mini-SPX index options at 1/10th the notional size with the same cash settlement and Section 1256 tax perks), or (3) SPY ETF options.'
 	},
 	{
-		id: 'difference-from-day-room-explosive-swings',
+		id: 'difference-from-day-room-sunday-alpha-alerts',
 		question:
 			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Alerts?',
 		answer:
@@ -1574,7 +1574,7 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Store: Scanners',
+						name: 'Trading Scanners',
 						item: `${origin}/store/scanners`
 					},
 					{
@@ -1769,7 +1769,7 @@ export function buildStockIndexesListJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 3,
-						name: 'Major US & Global Stock Market Indexes',
+						name: 'Stock Indexes List',
 						item: pageUrl
 					}
 				]

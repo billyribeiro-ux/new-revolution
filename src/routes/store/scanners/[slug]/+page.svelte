@@ -421,7 +421,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -451,7 +451,7 @@
 				<ol class="breadcrumb-list">
 					<li><a href={resolve('/')}>Home</a></li>
 					<li class="breadcrumb-sep" aria-hidden="true"><CaretRightIcon size={12} /></li>
-					<li><a href={resolve('/store/scanners')}>Store: Scanners</a></li>
+					<li><a href={resolve('/store/scanners')}>Trading Scanners</a></li>
 					<li class="breadcrumb-sep" aria-hidden="true"><CaretRightIcon size={12} /></li>
 					<li aria-current="page">{scannerConfig.name}</li>
 				</ol>

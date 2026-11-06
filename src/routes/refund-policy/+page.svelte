@@ -15,14 +15,21 @@
 <Navbar />
 
 <main id="refund-policy-page" class="inner-page refund-policy-page">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Refund Policy</li>
+			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Transparent Billing</span> • <span>One-Click Self-Service Cancellation</span>
+			</p>
+		</div>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="refund-h1">
 		<div class="hero-inner">
-			<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-current="page">Refund Policy</li>
-				</ol>
-			</nav>
 			<span class="section-kicker">Transparent Billing &amp; Self-Service Cancellation</span>
 			<h1 id="refund-h1" class="hero-h1">Cancellation &amp; Refund Policy</h1>
 			<p class="lead-copy">

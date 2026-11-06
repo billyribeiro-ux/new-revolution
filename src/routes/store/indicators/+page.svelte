@@ -105,7 +105,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -148,7 +148,7 @@
 					<li aria-hidden="true">
 						<CaretRightIcon size={12} weight="bold" />
 					</li>
-					<li aria-current="page">Indicators from Revolution Trading Pros</li>
+					<li aria-current="page">Trading Indicators</li>
 				</ol>
 				<p class="breadcrumb-bar__telemetry">
 					<span>100% Non-Repainting Code</span> • <span>ThinkorSwim &amp; TradingView</span> •

@@ -15,14 +15,21 @@
 <Navbar />
 
 <main id="privacy-policy-page" class="inner-page privacy-policy-page">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Privacy Policy</li>
+			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Data Protection</span> • <span>Zero Third-Party Data Sales</span>
+			</p>
+		</div>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="privacy-h1">
 		<div class="hero-inner">
-			<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-current="page">Privacy Policy</li>
-				</ol>
-			</nav>
 			<span class="section-kicker">Data Protection &amp; Member Privacy</span>
 			<h1 id="privacy-h1" class="hero-h1">Privacy Policy &amp; Data Security</h1>
 			<p class="lead-copy">

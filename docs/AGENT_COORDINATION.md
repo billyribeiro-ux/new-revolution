@@ -22,11 +22,14 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                        | Owner session       | Area / files claimed                                                                        | Started    | Status      |
-| ----------------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ---------- | ----------- |
-| `docs/url-inventory-20261105` | Codex URL inventory | Canonical origin, blog indexing, URL inventory, Sunday Alpha references, SEO tests and docs | 2026-11-05 | In progress |
+Release verification claim: `docs/blog-index-release-20261105` — Codex — staged/public indexing verification, URL inventory, publishing handoff and changelog (2026-11-05).
+
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Blog indexing release (Codex, November 5; PR #35):** application `33a1346` is promoted as `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj`. Both requested blog URLs are index-eligible; all 19 sitemap URLs and 24 public browser cases pass. The follow-up release evidence branch owns the current documentation refresh. See `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
 
 - **Article TOC release evidence (Codex, November 5):** PR #33 squash `63ca12c` is live as `dpl_HLkaHmeEwoQsh3iL5zEBjn2wvN2f`; the public 0DTE article passed 24 viewport, no-JavaScript and reduced-motion cases across three browser engines. Maintenance remains off. Evidence: `docs/reviews/article-toc-2026-11-05/VERIFICATION.md`.
 

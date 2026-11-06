@@ -1,27 +1,24 @@
 # Website URL inventory
 
-Verified against the public site on November 5, 2026. This is a human-readable snapshot of public HTML pages, not a sitemap file for Google. URLs can change when content is published or removed.
+Verified against the public website on November 5, 2026, after promotion of Production deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj` (application commit `33a1346`). This is a human-readable snapshot of 52 public HTML pages, not the file to submit to Google.
 
-## Sitemap and crawler files
+## Submit this sitemap
 
-- XML sitemap to submit in Google Search Console: https://www.revolutiontradingpros.com/sitemap.xml
+- XML sitemap: https://www.revolutiontradingpros.com/sitemap.xml
 - Robots file: https://www.revolutiontradingpros.com/robots.txt
 - RSS feed: https://www.revolutiontradingpros.com/rss.xml
-- `/sitemap` and `/sitemap.html` currently return 404. Google does not require an HTML sitemap; the XML sitemap already exists.
 
-Google accepts a hosted XML sitemap or a plain-text sitemap with one fully qualified URL per line. Submit the XML sitemap in Search Console rather than this Markdown document. Submission is a discovery hint, not a guarantee of indexing. See [Google: Build and submit a sitemap](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
+Submit the XML sitemap in Google Search Console. It automatically discovers eligible routes and published CMS posts; do not maintain a manual per-article list in robots.txt or JSON-LD. This Markdown snapshot does not update itself. Google does not require an HTML sitemap. [Google sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap).
 
-## Important: canonical-domain mismatch
+## Public pages eligible for indexing (19)
 
-The public site redirects the non-www domain to the www domain. However, all 17 indexable pages currently declare non-www canonical URLs, and the XML sitemap lists those non-www URLs. On November 5, all 17 sitemap URLs returned HTTP 308 redirects to their www counterparts. The direct www links below returned HTTP 200. Resolve the canonical-domain mismatch before treating this as a clean Google submission; the URLs below identify live destinations, not confirmed final canonical choices.
+Every URL below returned HTTP 200, appeared in the live sitemap, allowed Googlebot, declared a matching www canonical, and had no noindex directive. All non-www counterparts returned one-hop 308 redirects to www. These checks establish eligibility, not confirmed Google indexing or rankings.
 
-## Public pages currently allowing indexing (17)
-
-These pages returned HTTP 200 without a `noindex` directive during this check. That does not guarantee Google will index them. The sitemap includes their non-www equivalents; see the canonical-domain issue above.
-
-- https://www.revolutiontradingpros.com/
+- https://www.revolutiontradingpros.com
 - https://www.revolutiontradingpros.com/about
 - https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse
+- https://www.revolutiontradingpros.com/blog
+- https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide
 - https://www.revolutiontradingpros.com/contact
 - https://www.revolutiontradingpros.com/editorial-policy
 - https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room
@@ -37,14 +34,12 @@ These pages returned HTTP 200 without a `noindex` directive during this check. T
 - https://www.revolutiontradingpros.com/terms-of-service
 - https://www.revolutiontradingpros.com/watchlist
 
-## Public pages currently marked noindex (35)
+## Public pages marked noindex (33)
 
-These pages returned HTTP 200, but their `noindex` directives tell Google not to include them in search results. The existing sitemap intentionally excludes them. Do not submit them as indexable until the site owner launches the relevant section and its indexing policy is updated. See [Google: Block Search indexing with noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
+These pages are intentionally excluded from the sitemap. Store launch and thin taxonomy eligibility are separate from publishing a blog article. Do not submit these URLs as ready for indexing.
 
-### Blog
+### Thin blog archives
 
-- https://www.revolutiontradingpros.com/blog
-- https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide
 - https://www.revolutiontradingpros.com/blog/category/spx-options
 - https://www.revolutiontradingpros.com/blog/tag/0dte-options
 - https://www.revolutiontradingpros.com/blog/tag/risk-management
@@ -88,8 +83,6 @@ These pages returned HTTP 200, but their `noindex` directives tell Google not to
 - https://www.revolutiontradingpros.com/store/scanners/spx-dealer-gamma-iv-skew-scanner
 - https://www.revolutiontradingpros.com/store/scanners/working-pro-eod-swing-scanner
 
-## Inventory boundaries
+## Evidence and scope
 
-- Includes live public HTML pages discovered from the website’s links and the repository route inventory, plus the currently published blog article and its category/tag pages.
-- Excludes admin, API and other private or operational routes; search/filter query variations; assets and external sites; and 13 inventory paths that returned 404. These are not a list of URLs to submit to Google.
-- The XML sitemap is generated by the application. It automatically discovers eligible static routes and, once the blog indexing gate is lifted, eligible CMS-backed blog entries and taxonomy pages. It should remain the source of truth for future submissions.
+See [release verification](docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md) and its HTTP, crawl, redirect and browser records. Admin, API, private routes, query variants, assets and external links are outside this public HTML inventory. Thirteen stale local test-inventory candidates returned 404 and are not Google submission URLs.

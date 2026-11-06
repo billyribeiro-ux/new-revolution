@@ -47,11 +47,11 @@ node tests/seo/lab.ts --outdir docs/seo/audit/06-lab
 
 ## 2. Production Deployment & Post-Deploy Checklist (`IDX-12`, `PERF-01`, `MON-01`, `MON-04`)
 
-Because the site is currently running in pre-production local preview (`http://localhost:5173/` / `pnpm preview`), the following items are gated on production DNS + HTTPS cutover to `https://www.revolutiontradingpros.com`:
+The public website is live on `https://www.revolutiontradingpros.com`. The November 5 indexing release was staged, promoted and publicly verified; see [release evidence](../reviews/blog-indexing-release-2026-11-05/VERIFICATION.md). Use the following checks for future releases.
 
 ### 2.1 HTTPS, HSTS & Single-Hop Host Canonicalization (`IDX-12`)
 
-Once DNS for `revolutiontradingpros.com` and `www.revolutiontradingpros.com` is pointed at the production edge (Vercel):
+The production domains point at Vercel. Automatic custom-domain assignment is disabled: a successful merged build is staged until its exact Production deployment is verified and explicitly promoted. Preserve that control and Preview protection.
 
 1. Verify HTTP → HTTPS redirect is a single-hop `301` or `308`:
    ```bash
@@ -59,7 +59,7 @@ Once DNS for `revolutiontradingpros.com` and `www.revolutiontradingpros.com` is 
    ```
 2. Verify `revolutiontradingpros.com` → `https://www.revolutiontradingpros.com` is a single-hop `308` redirect:
    ```bash
-   curl -sI https://www.revolutiontradingpros.com/
+   curl -sI https://revolutiontradingpros.com/
    ```
 3. Verify `Strict-Transport-Security` header is present on `https://www.revolutiontradingpros.com/` (also set in `src/hooks.server.ts` when `event.url.protocol === 'https:'` or `x-forwarded-proto === 'https'`).
 

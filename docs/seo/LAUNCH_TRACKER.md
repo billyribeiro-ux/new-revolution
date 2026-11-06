@@ -53,7 +53,7 @@ Status: ✅ done and verified · 🟡 done in code, needs a check after deploy �
 
 ## D. Launching a gated section
 
-The owner authorized blog indexing on November 5, 2026. This branch opens the blog and its eligible CMS posts and archives; verify production after release. `/store` remains gated. To launch the store, complete the product, checkout, legal and operational review in `todo.md`, remove only the approved prefix from `UNLAUNCHED_ROUTE_PREFIXES`, update inventory and tests, then run the required project gates and verify actual production responses. Blog sitemap discovery and archive thresholds are exercised in `src/routes/blog/blog-routes.spec.ts` and `src/routes/blog/blog-pagination.spec.ts`.
+The owner authorized blog indexing on November 5, 2026. Application `33a1346` is publicly deployed and verified with eligible blog posts and archives in the sitemap. See [release evidence](../reviews/blog-indexing-release-2026-11-05/VERIFICATION.md). `/store` remains gated. To launch the store, complete the product, checkout, legal and operational review in `todo.md`, remove only the approved prefix from `UNLAUNCHED_ROUTE_PREFIXES`, update inventory and tests, then run the required project gates and verify actual production responses. Blog sitemap discovery and archive thresholds are exercised in `src/routes/blog/blog-routes.spec.ts` and `src/routes/blog/blog-pagination.spec.ts`.
 
 ## E. Proposals from the 2026-11-02 brief that were checked and declined
 

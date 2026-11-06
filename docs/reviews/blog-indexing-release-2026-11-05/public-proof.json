@@ -1,0 +1,120 @@
+{
+	"mode": "public",
+	"deployment": "new-revolution-hazrqww4u-will-ribeiros-projects.vercel.app",
+	"canonicalOrigin": "https://www.revolutiontradingpros.com",
+	"responses": {
+		"/robots.txt": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/plain; charset=utf-8"
+		},
+		"/sitemap.xml": {
+			"status": 200,
+			"xRobotsTag": "noindex",
+			"contentType": "application/xml; charset=utf-8"
+		},
+		"/rss.xml": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "application/xml; charset=utf-8"
+		},
+		"/": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/html",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"canonical": ["https://www.revolutiontradingpros.com"],
+			"jsonLdBlocks": 1
+		},
+		"/blog": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/html",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"canonical": ["https://www.revolutiontradingpros.com/blog"],
+			"jsonLdBlocks": 1
+		},
+		"/blog/0dte-spx-options-strategy-guide": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/html",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"canonical": ["https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"],
+			"jsonLdBlocks": 1,
+			"articleSchemaId": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide#article"
+		},
+		"/watchlist": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/html; charset=utf-8",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"canonical": ["https://www.revolutiontradingpros.com/watchlist"],
+			"jsonLdBlocks": 1
+		},
+		"/store/courses": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "text/html; charset=utf-8",
+			"robots": ["noindex, nofollow"],
+			"canonical": [],
+			"jsonLdBlocks": 1
+		},
+		"/api/health": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "application/json"
+		},
+		"/maintenance-state.json": {
+			"status": 200,
+			"xRobotsTag": null,
+			"contentType": "application/json; charset=utf-8"
+		},
+		"/api/admin/posts": {
+			"status": 401,
+			"xRobotsTag": null,
+			"contentType": "application/json; charset=utf-8"
+		},
+		"/blog/nonexistent-index-verification-20261105": {
+			"status": 404,
+			"xRobotsTag": null,
+			"contentType": "text/html"
+		}
+	},
+	"sitemapUrls": [
+		"https://www.revolutiontradingpros.com",
+		"https://www.revolutiontradingpros.com/about",
+		"https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+		"https://www.revolutiontradingpros.com/blog",
+		"https://www.revolutiontradingpros.com/contact",
+		"https://www.revolutiontradingpros.com/editorial-policy",
+		"https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+		"https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+		"https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+		"https://www.revolutiontradingpros.com/mentorship",
+		"https://www.revolutiontradingpros.com/our-mission",
+		"https://www.revolutiontradingpros.com/privacy-policy",
+		"https://www.revolutiontradingpros.com/refund-policy",
+		"https://www.revolutiontradingpros.com/resources",
+		"https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+		"https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+		"https://www.revolutiontradingpros.com/terms-of-service",
+		"https://www.revolutiontradingpros.com/watchlist",
+		"https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"
+	],
+	"maintenance": {
+		"maintenance": false
+	},
+	"health": {
+		"status": "ok",
+		"db": {
+			"ok": true,
+			"latencyMs": 3
+		},
+		"analytics": {
+			"ok": true
+		},
+		"uptimeMs": 1,
+		"version": "33a1346",
+		"requestId": "94b17936-a581-4a09-b0b3-934f05eb96ce"
+	}
+}

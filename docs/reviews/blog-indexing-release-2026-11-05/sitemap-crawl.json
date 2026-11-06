@@ -1,0 +1,194 @@
+{
+	"publicHtmlPages": 52,
+	"indexablePages": 19,
+	"noindexPages": 33,
+	"sitemapChecks": [
+		{
+			"url": "https://www.revolutiontradingpros.com",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/about",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/about",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/blog",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/blog",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/contact",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/contact",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/editorial-policy",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/editorial-policy",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/mentorship",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/mentorship",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/our-mission",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/our-mission",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/privacy-policy",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/privacy-policy",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/refund-policy",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/refund-policy",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/resources",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/resources",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/terms-of-service",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/terms-of-service",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/watchlist",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/watchlist",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		},
+		{
+			"url": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+			"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+			"googlebotAllowed": true
+		}
+	],
+	"non200Candidates": [
+		{
+			"path": "/blog/category/market-structure",
+			"status": 404
+		},
+		{
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 404
+		},
+		{
+			"path": "/blog/private-desk-quarterly-gamma-levels-briefing",
+			"status": 404
+		},
+		{
+			"path": "/blog/tag/spx-options",
+			"status": 404
+		},
+		{
+			"path": "/blog/zero-dte-risk-management-and-position-sizing-rules",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/abandoned-bar-exhaustion",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/compression-squeeze-matrix",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/hot-zone-time-structure",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/liquidity-sweep-radar",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/mp-early-in-n-out",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/smart-money-volume-delta",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/spx-gamma-zones",
+			"status": 404
+		},
+		{
+			"path": "/store/indicators/true-thrust-trend-ribbon",
+			"status": 404
+		}
+	]
+}

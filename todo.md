@@ -2,10 +2,11 @@
 
 Updated November 5, 2026. Check the deployed site before marking an item done; local changes do not prove a production release or Google indexing.
 
-- [ ] Finish and verify the blog indexing and www canonical-domain release, including the production sitemap, robots.txt, article metadata and structured data.
+- [x] Promote and verify the blog indexing and www canonical-domain release. Public deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj` serves application `33a1346`; all 19 sitemap URLs passed live HTTP, canonical and crawl checks. See `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
 - [ ] Submit `https://www.revolutiontradingpros.com/sitemap.xml` in the verified Google Search Console property and monitor the Page Indexing report. Google controls crawl and indexing timing and does not guarantee rankings.
 - [ ] Complete the store's product content, pricing, checkout, legal and operational launch review. The `/store` section remains noindex and excluded from the sitemap until the owner authorizes launch; follow `docs/seo/LAUNCH_TRACKER.md` and the SEO standard when ready.
 - [ ] Review thin blog category and tag archives as content grows. Their existing eligibility thresholds remain in force; publishing eligible content feeds the sitemap automatically.
 - [ ] Complete the remaining CMS publication, scheduled-publication and cache-invalidation work described in `docs/blog/AUTOMATION_PLAN.md` and `docs/blog/FRESHNESS.md`; sitemap discovery does not eliminate editorial review or guarantee immediate cache refresh.
-- [ ] Verify the Sunday Alpha Protocol wording and links in the deployed store and room pages after release.
-- [ ] Verify the Sunday Alpha Protocol `/watchlist` page and its internal links, canonical, sitemap entry and Search Console indexing after release.
+- [x] Verify the Sunday Alpha Protocol wording in 16 live navigation, marketing, room, resource and store pages.
+- [x] Verify the live Sunday Alpha Protocol `/watchlist` page, internal navigation, canonical and sitemap entry in three browser engines.
+- [ ] Confirm Google indexing for `/watchlist`, `/blog` and the published article in Search Console after sitemap submission; public HTTP checks do not establish Google index status.

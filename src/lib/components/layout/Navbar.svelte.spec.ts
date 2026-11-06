@@ -121,4 +121,61 @@ describe('content-aware shared navigation', () => {
 		expect(document.body.classList.contains('menu-open')).toBe(false);
 		expect(document.activeElement).toBe(firstDesktop);
 	});
+
+	it.each([1024, 1280, 1440, 1536, 1920, 2560])(
+		'renders full desktop navigation centered between brand and actions at %ipx (100%% text)',
+		async (width) => {
+			await page.viewport(width, 900);
+			await render(Navbar);
+			await document.fonts.ready;
+			await settle();
+			const shell = document.querySelector<HTMLElement>('.nav-shell')!;
+			const brand = document.querySelector<HTMLElement>('.brand')!;
+			const primary = document.querySelector<HTMLElement>('.nav-links')!;
+			const actions = document.querySelector<HTMLElement>('.nav-actions')!;
+			const toggle = document.querySelector<HTMLElement>('.mobile-toggle')!;
+
+			expect(shell.classList.contains('is-compact')).toBe(false);
+			expect(getComputedStyle(primary).display).toBe('flex');
+			expect(getComputedStyle(toggle).display).toBe('none');
+
+			const bRect = brand.getBoundingClientRect();
+			const pRect = primary.getBoundingClientRect();
+			const aRect = actions.getBoundingClientRect();
+			const leftGap = pRect.left - bRect.right;
+			const rightGap = aRect.left - pRect.right;
+			expect(leftGap).toBeGreaterThan(8);
+			expect(Math.abs(leftGap - rightGap)).toBeLessThanOrEqual(1);
+		}
+	);
+
+	it('opens the mobile drawer with all submenus collapsed and resets open submenus on close', async () => {
+		await page.viewport(390, 844);
+		await render(Navbar);
+		await document.fonts.ready;
+		await settle();
+
+		const toggle = page.getByRole('button', { name: 'Open navigation', exact: true });
+		await toggle.click();
+		await settle();
+
+		const triggers = [...document.querySelectorAll<HTMLButtonElement>('.mobile-nav-trigger')];
+		expect(triggers.length).toBeGreaterThan(0);
+		for (const trigger of triggers) {
+			expect(trigger.getAttribute('aria-expanded')).toBe('false');
+		}
+		expect(document.querySelectorAll('.mobile-submenu').length).toBe(0);
+
+		triggers[0].click();
+		await settle();
+		expect(triggers[0].getAttribute('aria-expanded')).toBe('true');
+		expect(document.querySelectorAll('.mobile-submenu').length).toBe(1);
+
+		await page.getByRole('button', { name: 'Close navigation', exact: true }).click();
+		await settle();
+		await toggle.click();
+		await settle();
+		expect(triggers[0].getAttribute('aria-expanded')).toBe('false');
+		await expect.poll(() => document.querySelectorAll('.mobile-submenu').length).toBe(0);
+	});
 });

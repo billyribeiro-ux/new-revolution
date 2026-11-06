@@ -9,6 +9,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-06 — Standardize 96rem (1536px) outer layout, desktop navbar, blog article grid and 200% text reflow
+
+- **Changed:** Restore `--max: 96rem` (`1536px` at `16px` root) in `src/app.css` as the shared border-box container cap across all routes and update `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md`, `docs/CSS_STANDARDS.md`, `AGENTS.md`, `GEMINI.md`, `docs/BLOG_AGENT_HANDOFF.md`, and active runbooks to match.
+- **Fixed:** Repair desktop navigation in `src/lib/components/layout/Navbar.svelte` so `.nav-links` centers symmetrically (`margin-inline: auto`) between `.brand` and `.nav-actions`, fits inside the `1424px` usable content width at `1536px+` (`145.92px` headroom, preventing false `.is-compact` fallback), and initializes/resets `openMobileSubmenuId = null` so the mobile drawer opens with all submenus collapsed.
+- **Fixed:** Standardize `src/routes/blog/[slug]/+page.svelte` with a symmetric 5-track desktop grid (`minmax(0, 1fr) clamp(260px, 20vw, 300px) 2.5rem minmax(0, 900px) minmax(0, 1fr)`), aligning `.related-articles-section` and `.back-to-blog-row` `1:1` with the shared outer container content edge while keeping the `TOC + 900px` reading column centered.
+- **Fixed:** Add shared `.inner-page` container/card primitives in `src/lib/styles/inner-page.css` and `minmax(0, ...fr)` / `flex-wrap: wrap` / `:focus-visible` refinements in `src/lib/styles/sunday-alpha-protocol.css` so all audited routes pass `320px` and `200%` root font scaling (`32px`) with `0px` horizontal overflow.
+- **Fixed:** Pre-bundle `sanitize-html` in `vite.config.ts` (`ssr.optimizeDeps.include: ['sanitize-html']`) and ignore `.vercel/` / `.svelte-kit/output/` / `build/` in `server.watch.ignored` to resolve the `pnpm dev` CJS `require is not defined` runtime error and build-output reload loop.
+
 ### 2026-11-05 — Promote and verify the final archive correction
 
 - Squash-merge PR #40 as `09d310a` and promote exact verified deployment `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. The real one-post blog now shows its featured article without an empty remainder; future remaining counts subtract the displayed lead.

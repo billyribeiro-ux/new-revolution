@@ -1,6 +1,6 @@
 # Font loading and article fragment policy
 
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before changing blog code or content. This policy follows the [font and investigation audit](reviews/font-fragment-audit-2026-11-05/AUDIT.md); recheck current code and network behavior before applying it to later releases.
 

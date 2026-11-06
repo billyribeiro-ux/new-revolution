@@ -1,6 +1,6 @@
 # SEO & Launch Tracker (`docs/seo/LAUNCH_TRACKER.md`)
 
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](../blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](../blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 > **2026-11-05 owner update:** the homepage now uses saved CMS blog cards independently of the section launch gate. Homepage/blog listings share a featured-first, paginated server service; homepage SSR is the documented SSG exception. This does not launch blog indexing, alter public maintenance or publish repository drafts. See [decisions §7](DECISIONS.md#7-automatic-cms-discovery-and-featured-placement-2026-11-05).
 

@@ -602,8 +602,10 @@
 	}
 
 	.article-header {
+		min-inline-size: 0;
 		max-width: 900px;
 		margin: 0 auto 2rem;
+		overflow-wrap: anywhere;
 	}
 
 	.article-meta-badges {
@@ -617,6 +619,9 @@
 	}
 
 	.article-category-badge {
+		display: inline-flex;
+		align-items: center;
+		min-height: 28px;
 		padding: 0.22rem 0.65rem;
 		border-radius: 999px;
 		background: rgba(220, 255, 101, 0.14);
@@ -668,17 +673,25 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
-		gap: 0.75rem;
+		gap: 0.5rem 0.75rem;
 		padding: 0.85rem 0;
 		border-top: 1px solid var(--line);
 		border-bottom: 1px solid var(--line);
 		font-size: 0.88rem;
 	}
 
+	.byline-author {
+		display: inline-flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		column-gap: 0.5rem;
+		row-gap: 0.15rem;
+		min-inline-size: 0;
+	}
+
 	.byline-role,
 	.byline-date {
 		color: var(--muted);
-		margin-left: 0.5rem;
 	}
 
 	.article-tag-list {
@@ -689,6 +702,9 @@
 	}
 
 	.article-tag-chip {
+		display: inline-flex;
+		align-items: center;
+		min-height: 28px;
 		padding: 0.2rem 0.55rem;
 		border-radius: 6px;
 		background: var(--panel);
@@ -700,6 +716,7 @@
 	}
 
 	.article-cover-figure {
+		min-inline-size: 0;
 		max-width: 900px;
 		margin: 0 auto 2.5rem;
 	}
@@ -728,6 +745,7 @@
 		justify-content: center;
 		gap: 2.5rem;
 		align-items: start;
+		min-inline-size: 0;
 	}
 
 	.article-toc-aside {
@@ -737,14 +755,18 @@
 	@media (min-width: 73.75rem) {
 		.article-container.has-toc {
 			display: grid;
-			grid-template-columns: clamp(260px, 20vw, 300px) minmax(0, 900px);
-			column-gap: 2.5rem;
-			justify-content: center;
+			grid-template-columns:
+				minmax(0, 1fr)
+				clamp(260px, 20vw, 300px)
+				2.5rem
+				minmax(0, 900px)
+				minmax(0, 1fr);
+			column-gap: 0;
 		}
 
 		.article-container.has-toc > .article-header,
 		.article-container.has-toc > .article-cover-figure {
-			grid-column: 2;
+			grid-column: 4;
 			width: 100%;
 			max-width: 900px;
 			margin-inline: 0;
@@ -757,7 +779,7 @@
 			grid-row: 2;
 		}
 		.article-container.has-toc > .article-body-layout {
-			grid-column: 2;
+			grid-column: 4;
 			grid-row: 3;
 		}
 		.article-container.has-toc > .related-articles-section {
@@ -771,7 +793,7 @@
 
 		.article-toc-aside {
 			display: block;
-			grid-column: 1;
+			grid-column: 2;
 			grid-row: 1 / 4;
 			align-self: stretch;
 			min-width: 0;
@@ -895,6 +917,7 @@
 		min-width: 0;
 		max-width: 900px;
 		width: 100%;
+		overflow-wrap: anywhere;
 	}
 
 	/* CMS HTML has no Svelte scope class; keep wide semantic tables locally scrollable. */
@@ -926,6 +949,9 @@
 
 	.btn-cta-primary,
 	.btn-cta-secondary {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
 		padding: 0.6rem 1.15rem;
 		border-radius: 8px;
 		font-weight: 700;
@@ -987,13 +1013,21 @@
 		border: 1px solid var(--line);
 		border-radius: 12px;
 		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
 		align-items: flex-start;
+	}
+
+	.author-bio-content {
+		flex: 1 1 14rem;
+		min-inline-size: 0;
+		overflow-wrap: anywhere;
 	}
 
 	.author-avatar {
 		border-radius: 50%;
 		object-fit: cover;
+		flex-shrink: 0;
 	}
 
 	.author-name {
@@ -1055,6 +1089,9 @@
 	}
 
 	.share-btn {
+		display: inline-flex;
+		align-items: center;
+		min-height: 36px;
 		padding: 0.38rem 0.8rem;
 		border-radius: 6px;
 		background: var(--panel);
@@ -1074,12 +1111,13 @@
 
 	.prev-next-nav {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
 		gap: 1rem;
 		margin: 2rem 0;
 	}
 
 	.prev-next-card {
+		min-inline-size: 0;
 		padding: 1rem;
 		background: var(--panel);
 		border: 1px solid var(--line);
@@ -1088,6 +1126,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.3rem;
+		overflow-wrap: anywhere;
 	}
 
 	.pn-label {
@@ -1103,16 +1142,24 @@
 	}
 
 	.related-articles-section {
+		min-inline-size: 0;
 		margin-top: 3.5rem;
 		padding-top: 2rem;
 		border-top: 1px solid var(--line);
 	}
 
 	.related-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-		gap: 1.35rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		align-items: stretch;
 		margin-top: 1.25rem;
+	}
+
+	.related-grid :global(.blog-post-card) {
+		flex: 1 1 20rem;
+		min-inline-size: min(100%, 20rem);
+		max-inline-size: 25rem;
 	}
 
 	.back-to-blog-row {
@@ -1121,6 +1168,9 @@
 	}
 
 	.back-to-blog-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
 		color: var(--acid);
 		font-weight: 700;
 		text-decoration: none;

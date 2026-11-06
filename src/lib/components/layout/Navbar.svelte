@@ -39,7 +39,7 @@
 	let mobileMenuOpen = $state(false);
 	let compactNavigation = $state(false);
 	let openDropdownId = $state<string | null>(null);
-	let openMobileSubmenuId = $state<string | null>('live-trading-rooms');
+	let openMobileSubmenuId = $state<string | null>(null);
 
 	function updateMenuSpace(shell: HTMLElement) {
 		shell.style.setProperty(
@@ -59,12 +59,16 @@
 			updateMenuSpace(shell);
 		}
 		mobileMenuOpen = !mobileMenuOpen;
+		if (!mobileMenuOpen) {
+			openMobileSubmenuId = null;
+		}
 		document.body.classList.toggle('menu-open', mobileMenuOpen);
 	}
 
 	function closeAllMenus() {
 		mobileMenuOpen = false;
 		openDropdownId = null;
+		openMobileSubmenuId = null;
 		if (typeof document !== 'undefined') {
 			document.body.classList.remove('menu-open');
 		}
@@ -149,13 +153,8 @@
 				Number.parseFloat(style.paddingLeft) -
 				Number.parseFloat(style.paddingRight);
 			const gap = Number.parseFloat(style.columnGap) || 0;
-			const actionMargin = Number.parseFloat(getComputedStyle(actions).marginInlineStart) || 0;
 			const required =
-				naturalWidth(brand) +
-				naturalWidth(primary) +
-				naturalWidth(actions) +
-				gap * 2 +
-				actionMargin;
+				naturalWidth(brand) + naturalWidth(primary) + naturalWidth(actions) + gap * 2;
 			const compact = !desktop.matches || required > available;
 			if (compact === previousCompact) return;
 			previousCompact = compact;
@@ -642,7 +641,7 @@
 		display: none;
 		align-items: center;
 		gap: 1.125rem;
-		margin-inline-start: auto;
+		margin-inline: auto;
 	}
 
 	.nav-item {
@@ -881,7 +880,7 @@
 		display: none;
 		align-items: center;
 		gap: 0.5rem;
-		margin-inline-start: 0.5rem;
+		margin-inline-start: 0;
 		flex-shrink: 0;
 	}
 
@@ -1196,7 +1195,7 @@
 		.nav-actions {
 			display: flex;
 			gap: 0.25rem;
-			margin-inline-start: 0.15rem;
+			margin-inline-start: 0;
 		}
 
 		.nav-actions .btn {
@@ -1257,7 +1256,7 @@
 
 		.nav-actions {
 			gap: 0.35rem;
-			margin-inline-start: 0.25rem;
+			margin-inline-start: 0;
 		}
 
 		.nav-actions .btn {
@@ -1271,44 +1270,44 @@
 
 	@media (min-width: 1536px) {
 		.nav {
-			gap: 1.125rem;
+			gap: 0.875rem;
 		}
 
 		.brand {
-			gap: 0.75rem;
+			gap: 0.6875rem;
 		}
 
 		.brand-name {
-			font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+			font-size: 1.15rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.65rem;
-			letter-spacing: 0.16em;
-			margin-block-start: 5px;
+			font-size: 0.58rem;
+			letter-spacing: 0.12em;
+			margin-block-start: 4px;
 		}
 
 		.nav-links {
-			gap: 0.9rem;
+			gap: 0.65rem;
 		}
 
 		.nav-link,
 		.nav-dropdown-trigger {
-			font-size: 0.875rem;
-			padding: 0.5rem 0.25rem;
-			gap: 0.3rem;
+			font-size: 0.84375rem;
+			padding: 0.5rem 0.2rem;
+			gap: 0.25rem;
 		}
 
 		.nav-actions {
 			gap: 0.5rem;
-			margin-inline-start: 0.5rem;
+			margin-inline-start: 0;
 		}
 
 		.nav-actions .btn {
-			padding: 10px 14px;
+			padding: 9px 12px;
 			font-size: 0.75rem;
-			letter-spacing: 0.04em;
-			gap: 0.45rem;
+			letter-spacing: 0.03em;
+			gap: 0.375rem;
 		}
 	}
 	.mobile-nav-label > span:not(.mobile-nav-icon) {

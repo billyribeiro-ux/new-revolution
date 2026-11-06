@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-for (const width of [320, 1440, 2440, 2800]) {
+for (const width of [320, 1440, 1536, 2440, 2800]) {
 	test(`stock index sections use one shared gutter at ${width}px`, async ({ page }) => {
 		await page.setViewportSize({ width, height: 1000 });
 		await page.goto('/resources/stock-indexes-list');

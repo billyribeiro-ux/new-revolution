@@ -12,6 +12,9 @@
 	}
 	let { listing, basePath }: Props = $props();
 	const uid = $props.id();
+	let remainderTotal = $derived(
+		Math.max(0, listing.pagination.total - listing.featuredPosts.length)
+	);
 </script>
 
 <div class="archive-results">
@@ -27,56 +30,58 @@
 			</div>
 		</section>
 	{/if}
-	<section class="articles-section" aria-labelledby={`${uid}-articles`}>
-		<div class="results-heading">
-			<h2 id={`${uid}-articles`}>
-				{listing.search
-					? `Results for “${listing.search}”`
-					: listing.featuredPosts.length
-						? 'More articles'
-						: 'Articles'}
-			</h2>
-			<p role="status">
-				{listing.pagination.total}
-				{listing.pagination.total === 1 ? 'article' : 'articles'}{listing.search ? ' found' : ''}
-			</p>
-		</div>
-		{#if listing.posts.length}
-			<div class={['articles-grid', { 'is-single': listing.posts.length === 1 }]}>
-				{#each listing.posts as post, i (post.id)}<PostCard
-						{post}
-						lead={listing.posts.length === 1}
-						eager={!listing.featuredPosts.length && i === 0}
-					/>{/each}
-			</div>
-		{:else}
-			<div class="archive-empty">
-				<p>
+	{#if !listing.featuredPosts.length || remainderTotal > 0}
+		<section class="articles-section" aria-labelledby={`${uid}-articles`}>
+			<div class="results-heading">
+				<h2 id={`${uid}-articles`}>
 					{listing.search
-						? 'No published articles match this search.'
+						? `Results for “${listing.search}”`
 						: listing.featuredPosts.length
-							? 'More articles will appear here once published.'
-							: 'Articles will appear here once published.'}
+							? 'More articles'
+							: 'Articles'}
+				</h2>
+				<p role="status">
+					{remainderTotal}
+					{remainderTotal === 1 ? 'article' : 'articles'}{listing.search ? ' found' : ''}
 				</p>
-				{#if listing.search}<a href={resolve(archiveHref(basePath))}
-						>Clear search and browse this archive</a
-					>{/if}
 			</div>
-		{/if}
-		{#if listing.pagination.totalPages > 1}
-			<nav class="pagination-nav" aria-label="Blog pagination">
-				{#if listing.pagination.page > 1}<a
-						href={resolve(archiveHref(basePath, listing.pagination.page - 1, listing.search))}
-						>Previous page</a
-					>{/if}
-				<span>Page {listing.pagination.page} of {listing.pagination.totalPages}</span>
-				{#if listing.pagination.page < listing.pagination.totalPages}<a
-						href={resolve(archiveHref(basePath, listing.pagination.page + 1, listing.search))}
-						>Next page</a
-					>{/if}
-			</nav>
-		{/if}
-	</section>
+			{#if listing.posts.length}
+				<div class={['articles-grid', { 'is-single': listing.posts.length === 1 }]}>
+					{#each listing.posts as post, i (post.id)}<PostCard
+							{post}
+							lead={listing.posts.length === 1}
+							eager={!listing.featuredPosts.length && i === 0}
+						/>{/each}
+				</div>
+			{:else}
+				<div class="archive-empty">
+					<p>
+						{listing.search
+							? 'No published articles match this search.'
+							: listing.featuredPosts.length
+								? 'More articles will appear here once published.'
+								: 'Articles will appear here once published.'}
+					</p>
+					{#if listing.search}<a href={resolve(archiveHref(basePath))}
+							>Clear search and browse this archive</a
+						>{/if}
+				</div>
+			{/if}
+			{#if listing.pagination.totalPages > 1}
+				<nav class="pagination-nav" aria-label="Blog pagination">
+					{#if listing.pagination.page > 1}<a
+							href={resolve(archiveHref(basePath, listing.pagination.page - 1, listing.search))}
+							>Previous page</a
+						>{/if}
+					<span>Page {listing.pagination.page} of {listing.pagination.totalPages}</span>
+					{#if listing.pagination.page < listing.pagination.totalPages}<a
+							href={resolve(archiveHref(basePath, listing.pagination.page + 1, listing.search))}
+							>Next page</a
+						>{/if}
+				</nav>
+			{/if}
+		</section>
+	{/if}
 </div>
 
 <style>

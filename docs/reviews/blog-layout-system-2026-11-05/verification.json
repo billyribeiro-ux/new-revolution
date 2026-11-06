@@ -71,8 +71,43 @@
 		"pending": 0
 	},
 	"accounts": {
-		"disposableLocalAdminsRevoked": 3,
+		"disposableLocalAdminsRevoked": 4,
 		"productionAccountsCreated": 0
 	},
-	"deployment": "pending separate release proof"
+	"deployment": {
+		"applicationCommit": "37a23f29491f872dbc736cb67ad701cb89112941",
+		"id": "dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG",
+		"stagedHttp": 63,
+		"stagedBrowser": 57,
+		"stagedFontSurfaces": 57,
+		"publicHttp": 63,
+		"publicBrowser": 57,
+		"publicFontSurfaces": 57,
+		"additionalPublicRuntime": 30,
+		"maintenance": false
+	},
+	"followup": {
+		"reason": "Visually observed sole-featured remainder repeated the overall total in an empty section",
+		"unitComponent": {
+			"passed": 678,
+			"files": 88
+		},
+		"authenticatedChromium": {
+			"passed": 71,
+			"skipped": 0
+		},
+		"focusedArchiveComponent": {
+			"passed": 8,
+			"newCases": 4
+		},
+		"svelteDiagnostics": {
+			"errors": 0,
+			"warnings": 0
+		},
+		"cssFontPolicy": "passed",
+		"codeAndSvelteLint": "passed",
+		"staticPages": 46,
+		"mcp": "ArchiveResults final analysis clean; see release/archive-remainder-mcp.json",
+		"deployment": "pending staged/public follow-up acceptance"
+	}
 }

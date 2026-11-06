@@ -1,0 +1,257 @@
+{
+	"origin": "https://www.revolutiontradingpros.com",
+	"generatedAt": "2026-11-06T03:48:09.508Z",
+	"simulatedUserAgentIsNotGoogleIndexingEvidence": true,
+	"checks": [
+		{
+			"name": "body-only keyword /blog?search=GetYYYYMMDD",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"visibleCards": 1,
+				"expectedArticle": "0dte-spx-options-strategy-guide",
+				"term": "GetYYYYMMDD"
+			}
+		},
+		{
+			"name": "body-only keyword /blog/category/spx-options?search=GetYYYYMMDD",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"visibleCards": 1,
+				"expectedArticle": "0dte-spx-options-strategy-guide",
+				"term": "GetYYYYMMDD"
+			}
+		},
+		{
+			"name": "body-only keyword /blog/tag/risk-management?search=GetYYYYMMDD",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"visibleCards": 1,
+				"expectedArticle": "0dte-spx-options-strategy-guide",
+				"term": "GetYYYYMMDD"
+			}
+		},
+		{
+			"name": "body-only keyword /blog?q=GetYYYYMMDD",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"visibleCards": 1,
+				"expectedArticle": "0dte-spx-options-strategy-guide",
+				"term": "GetYYYYMMDD"
+			}
+		},
+		{
+			"name": "nonmatching keyword",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"visibleCards": 0
+			}
+		},
+		{
+			"name": "RSS public article",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"containsPublishedArticle": true
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/about",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/about"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/blog",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/blog"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/contact",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/contact"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/editorial-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/editorial-policy"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/mentorship",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/mentorship"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/our-mission",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/our-mission"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/privacy-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/privacy-policy"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/refund-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/refund-policy"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/resources",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/resources"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/resources/etf-stocks-list"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/resources/stock-indexes-list"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/sunday-alpha-alerts",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/sunday-alpha-alerts"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/terms-of-service",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/terms-of-service"
+			}
+		},
+		{
+			"name": "Googlebot user-agent https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"
+			}
+		},
+		{
+			"name": "non-www redirect /blog",
+			"status": "passed",
+			"evidence": {
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/blog"
+			}
+		},
+		{
+			"name": "non-www redirect /blog/0dte-spx-options-strategy-guide",
+			"status": "passed",
+			"evidence": {
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"
+			}
+		},
+		{
+			"name": "non-www redirect /sunday-alpha-alerts",
+			"status": "passed",
+			"evidence": {
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/sunday-alpha-alerts"
+			}
+		},
+		{
+			"name": "legacy query and fragment",
+			"status": "passed",
+			"evidence": {
+				"finalUrl": "https://www.revolutiontradingpros.com/sunday-alpha-alerts?ref=public-proof#pricing",
+				"status": 200
+			}
+		},
+		{
+			"name": "private deployment remains protected",
+			"status": "passed",
+			"evidence": {
+				"status": 302,
+				"locationOrigin": "https://vercel.com"
+			}
+		}
+	],
+	"passed": 30,
+	"failed": 0
+}

@@ -26,11 +26,13 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                     | Owner session                         | Area / files claimed                                                                                           | Started    | Status                                                                                        |
-| -------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
-| `fix/blog-system-20261105` | Codex lead + search/layout/TOC agents | Shared CSS/fonts, blog UI/search and additive DB projection, TOC/FAQ, Sunday Alpha Alerts, copy, evidence/docs | 2026-11-05 | Local verification complete in `/private/tmp/wt-blog-system-20261105`; PR #39 release pending |
+| Branch                                       | Owner session                        | Area / files claimed                                                                            | Started    | Status                                                                 |
+| -------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| `fix/archive-remainder-and-release-20261105` | Codex lead + scoped archive reviewer | Featured-only archive state, regression, staged/public release evidence and maintained guidance | 2026-11-05 | PR #39 verified live; final archive follow-up gates passed, PR pending |
 
 ## Recently finished
+
+- **Shared layout/blog system (Codex, November 5; PR #39):** squash `37a23f2` is live as `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`; 63 HTTP, 57 browser and 57 font-surface checks pass staged and public, plus 30 public runtime checks. Maintenance stays off. The final visual review identified a narrow featured-only remainder issue, tracked separately in active work. See `docs/reviews/blog-layout-system-2026-11-05/RELEASE.md`.
 
 - **Font and supplied-document audit (Codex, November 5; PR #37):** squash `e62c340` is live as `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8`. Fix the unregistered chart font names and canonical-fragment gap; add source/network/TOC guards and corrected policy references across 40 existing agent documents. Baseline: 55 live surfaces with zero external fonts/stylesheets. Gates: 588 unit/component, 58 authenticated Chromium, 14 Firefox, 14 WebKit and 3 SEO tests; nine post-release live cases. Original references remain intact and local test administrators are revoked. See `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`.
 

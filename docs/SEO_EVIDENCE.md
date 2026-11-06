@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 > **Purpose:** every SEO rule in this repo must trace to an official source or be labelled a _house convention_.
 > **Audited:** 2026-10-30, extended on 2026-11-01 (rows 22-33), by fetching the Google Search Central pages below. "Page updated" is the date **shown on the page itself** at fetch time.
 > **Re-verify** a row before relying on it if the page may have changed since (check `https://developers.google.com/search/updates`).

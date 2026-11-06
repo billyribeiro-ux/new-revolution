@@ -2,6 +2,12 @@ import { expect, test, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { buildEnabledMaintenancePage } from './enabled-page.ts';
 
+function previewUrl(path: string): string {
+	const baseURL = test.info().project.use.baseURL;
+	if (!baseURL) throw new Error('Maintenance tests require the configured preview baseURL.');
+	return new URL(path, baseURL).href;
+}
+
 let enabledWaitlistPage: string;
 test.beforeAll(async () => {
 	enabledWaitlistPage = await buildEnabledMaintenancePage();
@@ -11,7 +17,7 @@ async function openEnabledWaitlist(page: Page) {
 	await page.route('**/maintenance/index.html', (route) =>
 		route.fulfill({ contentType: 'text/html', body: enabledWaitlistPage })
 	);
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 }
 
 test('an open app navigates to maintenance and recovers after deactivation', async ({
@@ -39,14 +45,14 @@ test('an open app navigates to maintenance and recovers after deactivation', asy
 	});
 	const errors: string[] = [];
 	page.on('pageerror', (error) => errors.push(error.message));
-	const normal = await page.goto('http://localhost:4173/');
+	const normal = await page.goto(previewUrl('/'));
 	expect(normal?.status()).toBe(200);
 	await page.waitForLoadState('networkidle');
 	maintenance = true;
 	await page.locator('a[href="/about"]').first().click();
 	await expect(page.getByRole('heading', { name: /a stronger trading experience/i })).toBeVisible();
 	maintenance = false;
-	await page.goto('http://localhost:4173/');
+	await page.goto(previewUrl('/'));
 	await page.waitForLoadState('networkidle');
 	await page.evaluate(() => {
 		const link = document.createElement('a');
@@ -57,7 +63,7 @@ test('an open app navigates to maintenance and recovers after deactivation', asy
 	maintenance = true;
 	await page.getByRole('link', { name: 'Test admin navigation' }).click();
 	await expect(page.getByRole('heading', { name: /a stronger trading experience/i })).toBeVisible();
-	const blocked = await page.goto('http://localhost:4173/resources/stock-indexes-list');
+	const blocked = await page.goto(previewUrl('/resources/stock-indexes-list'));
 	expect(blocked?.status()).toBe(503);
 	await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
 	await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
@@ -66,7 +72,7 @@ test('an open app navigates to maintenance and recovers after deactivation', asy
 		'rgb(17, 21, 26)'
 	);
 	maintenance = false;
-	const restored = await page.goto('http://localhost:4173/about');
+	const restored = await page.goto(previewUrl('/about'));
 	expect(restored?.status()).toBe(200);
 	expect(errors).toEqual([]);
 });
@@ -82,7 +88,7 @@ test('maintenance page fits a mobile viewport and honours reduced motion', async
 	});
 	await page.setViewportSize({ width: 375, height: 812 });
 	await page.emulateMedia({ reducedMotion: 'reduce' });
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 	await expect(page.getByRole('link', { name: 'Email support' })).toBeVisible();
 	expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375);
 	expect(
@@ -116,7 +122,7 @@ test('waitlist and chart reflow from 320px to desktop and preserve keyboard acce
 		await expect(page.locator('.maintenance-visual')).toBeVisible();
 		await expect(page.getByRole('button', { name: /join the waitlist/i })).toBeVisible();
 	}
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 	await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab');
 	await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
 	await page.keyboard.press('Enter');
@@ -174,7 +180,7 @@ test('retry performs a document navigation and preserves the requested path and 
 		}
 		return route.continue();
 	});
-	const url = 'http://localhost:4173/about?origin=maintenance';
+	const url = previewUrl('/about?origin=maintenance');
 	await page.goto(url);
 	const blocked = page.waitForResponse(
 		(response) => response.request().isNavigationRequest() && response.url() === url
@@ -200,7 +206,7 @@ test('the core notice remains usable with JavaScript and web fonts unavailable',
 	});
 	const page = await context.newPage();
 	await page.route('**/*.woff2', (route) => route.abort());
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 	await expect(
 		page.getByRole('heading', { level: 1, name: /a stronger trading experience/i })
 	).toBeVisible();
@@ -223,7 +229,7 @@ test('the core notice remains usable with JavaScript and web fonts unavailable',
 test('unconfigured capture shows a prepared disabled waitlist with honest availability', async ({
 	page
 }) => {
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 	await expect(page.locator('#waitlist-form')).toBeVisible();
 	await expect(page.getByLabel('Your email address')).toBeDisabled();
 	await expect(page.getByRole('link', { name: 'Email support', exact: true })).toBeVisible();
@@ -264,7 +270,7 @@ test('enabled capture has identified controls and dimensioned images without Jav
 test('chart crosshair inspects historical candles and returns to playback on leave', async ({
 	page
 }) => {
-	await page.goto('http://localhost:4173/maintenance/index.html');
+	await page.goto(previewUrl('/maintenance/index.html'));
 	await expect(page.locator('#market-chart canvas').first()).toBeVisible();
 	const chart = page.locator('#market-chart');
 	await chart.scrollIntoViewIfNeeded();

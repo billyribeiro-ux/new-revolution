@@ -128,6 +128,21 @@ describe('buildBlogPostJsonLd retired schema types', () => {
 });
 
 describe('buildBlogPageMetaTags', () => {
+	it('removes a section fragment from a legacy canonical override and og:url', () => {
+		const result = buildBlogPageMetaTags({
+			title: 'Article',
+			description: 'Educational article.',
+			pathname: '/blog/article',
+			canonicalOverride: 'https://www.revolutiontradingpros.com/blog/article#1-risk'
+		});
+		expect(result.pageMetaTags.canonical).toBe(
+			'https://www.revolutiontradingpros.com/blog/article'
+		);
+		expect(result.pageMetaTags.openGraph?.url).toBe(
+			'https://www.revolutiontradingpros.com/blog/article'
+		);
+	});
+
 	it('allows an eligible published blog post to be indexed', () => {
 		const gated = buildBlogPageMetaTags({
 			title: 'SPX 0DTE Guide',

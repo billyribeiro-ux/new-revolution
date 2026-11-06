@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 You are implementing a complete blog authoring and publishing system in THIS repository. It is a port of a system that already runs in production in another repo ("tx-360", a SvelteKit marketing site with an admin CMS). Everything below was audited from that source code with file and line evidence. Your job is to reproduce the strengths, and fix the listed defects instead of copying them.
 
 ## 0. Operating rules (read first, obey throughout)

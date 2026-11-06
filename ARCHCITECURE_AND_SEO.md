@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 > **SYSTEM MANDATE FOR ARGON:** You are building and maintaining **Revolution Trading Pros** (`https://revolutiontradingpros.com`) using **Svelte 5 (Runes: `$state`, `$derived`, `$props`, `$effect`)**, **SvelteKit (`^3.1.0`)**, and **`pnpm` (`pnpm@12.16.1` strictly enforced — never use `npm`, `npx`, `yarn`, or `bun`)**. You must strictly obey every architectural, SEO, routing, sitemap, landing page, copywriting, and native CSS rule in this document without deviation.
 
 ---
@@ -192,32 +194,7 @@ Every landing page falls into one of two strict buckets under Google’s October
 
 ### 4.2 Typography Specification (`Montserrat` + `Sofia Sans`)
 
-<!--Load both fonts in `src/app.html`:
-```html
-<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)" />
-<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin="anonymous" />
-<link
-  href="[https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Sofia+Sans:ital,wdth,wght@0,75..125,400..800;1,75..125,400..700&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Sofia+Sans:ital,wdth,wght@0,75..125,400..800;1,75..125,400..700&display=swap)"
-  rel="stylesheet"
-/>
-```-->
-
-Apply these exact typographic assignments, weights (`wght`), widths (`wdth`), and line-width character measures (`max-width` in `ch`):
-
-| Element                                       | Font Family  | Weight (`wght`)    | Width (`wdth` / `font-stretch`) | Size (`clamp` / `rem`)             | Letter Spacing               | Max Line Width (`ch`) |
-| :-------------------------------------------- | :----------- | :----------------- | :------------------------------ | :--------------------------------- | :--------------------------- | :-------------------- |
-| **Primary Hero `<h1>` Display**               | `Montserrat` | `900`              | `100%`                          | `clamp(2rem, 4.2vw, 3.35rem)`      | `-0.03em`                    | `22ch`                |
-| **Section Headings `<h2>`**                   | `Montserrat` | `800`              | `100%`                          | `clamp(1.65rem, 3vw, 2.5rem)`      | `-0.025em`                   | `26ch`                |
-| **Card / Tier Headings `<h3>`**               | `Montserrat` | `800`              | `100%`                          | `clamp(1.15rem, 1.8vw, 1.5rem)`    | `-0.015em`                   | `32ch`                |
-| **Section Eyebrows & `<h1>` SEO Kicker**      | `Montserrat` | `800`              | `100%`                          | `0.75rem – 0.8125rem`              | `0.10em` (Uppercase)         | `65ch`                |
-| **Navbar Links & Buttons / CTAs**             | `Montserrat` | `700` / `800`      | `100%`                          | `0.8125rem – 0.875rem`             | `0.04em` (Uppercase on CTAs) | `fit-content`         |
-| **Verified Proof Metrics (`+600%`, `$500+`)** | `Montserrat` | `900`              | `100%`                          | `clamp(1.25rem, 2vw, 1.75rem)`     | `-0.02em` (`tabular-nums`)   | `fit-content`         |
-| **Hero Lead Paragraph**                       | `Sofia Sans` | `500`              | `100%` (`"wdth" 100`)           | `clamp(1.0625rem, 1.25vw, 1.2rem)` | `0em`                        | `66ch`                |
-| **Standard Body Copy (`<p>`)**                | `Sofia Sans` | `400` (`700` bold) | `100%` (`"wdth" 100`)           | `1rem` (16px)                      | `0.005em`                    | `66ch`                |
-| **Bullet Lists (`<li>`)**                     | `Sofia Sans` | `400` (`700` lead) | `100%` (`"wdth" 100`)           | `0.9375rem` (15px)                 | `0.005em`                    | `58ch`                |
-| **Badges, Timestamps & Dossier Meta**         | `Sofia Sans` | `700`              | `87.5%` (`"wdth" 87.5`)         | `0.75rem` (12px)                   | `0.06em` (Uppercase)         | `fit-content`         |
-| **Form Inputs & Dropdowns**                   | `Sofia Sans` | `500`              | `100%` (`"wdth" 100`)           | `0.9375rem` (15px)                 | `0em`                        | `100%`                |
-| **Footer YMYL Legal Disclosures**             | `Sofia Sans` | `400`              | `92.5%` (`"wdth" 92.5`)         | `0.75rem` (12px)                   | `0.01em`                     | `115ch`               |
+This is a historical design brief; current typography belongs to `src/app.css` and [the CSS standard](docs/CSS_STANDARDS.md). Import the installed Fontsource packages only at the top of that stylesheet. Use `var(--font-display)` for display text, `var(--font-sans)` for body text and `var(--font-mono)` for code/chart labels. The bundled families expose `wght`, not `wdth`; do not copy the retired external Google Fonts example or apply synthetic width-axis settings. Same-origin font preload hrefs are expected framework output and are compatible with self-hosting. See [the verified policy](docs/FONT_AND_FRAGMENT_POLICY.md).
 
 ### 4.3 Mandatory Enterprise Responsive Breakpoints
 

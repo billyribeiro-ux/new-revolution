@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Audit self-hosted fonts and article fragments
+
+- Verify 55 live surfaces and 153 font responses: fonts/stylesheets are same-origin, including the article's valid font preload hrefs. Preserve native TOC fragments, the published slug and numeric heading IDs after clean-load, scroll, click, reload and no-JavaScript checks.
+- Replace six unregistered watchlist chart font names with the shared monospace token. Add source/runtime font guards and sanitizer coverage. Reject fragment-bearing CMS canonical overrides and remove fragments from legacy overrides at render time; two pre-fix regressions reproduced the gap.
+- Correct stale font/CDN/width-axis/preload instructions and add the shared font/fragment policy across 40 existing agent documents, with the policy in the handoff's 41-file coverage list. Preserve original reference material and byte-identical SEO-standard copies. Evidence and supplied-document verdicts: `docs/reviews/font-fragment-audit-2026-11-05/AUDIT.md`.
+- Add an optional E2E preview port and update maintenance tests to follow it; correct authenticated blog graph assertions for the www namespace. Full authenticated Chromium E2E: 58 passed without skips. Final local gates: 588 unit/component tests, 58 authenticated Chromium E2E, 14 targeted Firefox, 14 targeted WebKit, 3 SEO checks, 46 static page contracts, and clean Svelte MCP. Source-draft formatting exceptions remain unchanged; code/Svelte lint pass. Application promotion is recorded separately in the audit report.
+
 ### 2026-11-05 — Promote and verify the public blog indexing release
 
 - Record release evidence in PR #36 and promote exact Production application `33a1346` from PR #35 as deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj`. Automatic custom-domain assignment was disabled, so the successful merged build had remained staged until this explicit promotion.

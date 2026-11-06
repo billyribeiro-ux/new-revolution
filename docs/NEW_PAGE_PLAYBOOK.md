@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 > **Audience:** every AI agent and engineer adding or changing a route, component, or stylesheet in this repo.
 > **Status:** mandatory. Follow it top to bottom; do not skip a step because it "looks obvious".
 > **Precedence when documents disagree:** `AGENTS.md` > this playbook > `docs/CSS_STANDARDS.md` > `GEMINI.md`.
@@ -341,6 +343,8 @@ Source of truth: Svelte MCP docs and `svelte-core-bestpractices`. Violations tha
 Rules live in `docs/CSS_STANDARDS.md`; these are the traps that actually happened here.
 
 **Fonts / tokens**
+
+- Inspect resolved request origins: a font `href` pointing into this site's `/_app/immutable/assets/` is self-hosted. Keep Fontsource imports in `src/app.css`; use shared font tokens in D3/SVG as well as CSS. `pnpm check:css` enforces the source-level loading policy and browser regressions verify real network responses. See [the font/fragment policy](FONT_AND_FRAGMENT_POLICY.md).
 
 - Fonts only through `var(--font-display)`, `var(--font-sans)`, `var(--font-mono)`. A literal `'Montserrat'` / `'Sofia Sans'` matches no
   loaded face (Fontsource registers only `* Variable`) and silently falls back to system fonts. `pnpm check:css` fails on it.

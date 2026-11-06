@@ -1,0 +1,29 @@
+# Font loading and article fragment policy
+
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before changing blog code or content. This policy follows the [font and investigation audit](reviews/font-fragment-audit-2026-11-05/AUDIT.md); recheck current code and network behavior before applying it to later releases.
+
+## Self-hosted fonts and href
+
+A font preload or stylesheet can use `href` and still be self-hosted. Resolve the URL against the actual page origin and inspect the resulting requests. This website imports its Fontsource variable families only in `src/app.css`; Vite bundles their WOFF2 files under the site's own `/_app/immutable/assets/` path. Do not add a Google Fonts, Fontsource CDN, Typekit or other external font service. Installing a Fontsource package does not create a runtime dependency on its download service. [Fontsource installation](https://fontsource.org/docs/getting-started/install).
+
+Use `var(--font-display)`, `var(--font-sans)` and `var(--font-mono)` for website typography and D3/SVG labels. System font fallback stacks use installed fonts and do not imply network requests. Editor-generated inline family stacks and system-only press/email fallbacks are audited separately from the custom Fontsource families; preserve their existing visual role rather than inventing a new external font import.
+
+`src/hooks.server.ts` currently selects the two upright Latin faces for framework font preloading. Other subsets and italics can load when text requires them. A same-origin `<link rel="preload" as="font" href="/_app/immutable/assets/...woff2">` is valid; its presence is not evidence of a CDN. `crossorigin="anonymous"` is the font-fetch credential mode and does not imply an external host. Keep preload changes tied to a current production-build measurement. The older no-preload benchmark describes an earlier configuration and does not establish the current policy. [Fontsource preload guidance](https://fontsource.org/docs/getting-started/preload).
+
+`pnpm check:css` now checks runtime source/templates for external font providers/files/stylesheets, misplaced Fontsource imports and chart font strings that bypass the shared tokens. It complements browser network tests; source scanning alone cannot prove what compiled CSS or saved CMS content loads. The permanent browser tests cover the homepage, blog, article, watchlist, store, login, maintenance and error surfaces and require loaded Fontsource faces plus same-origin stylesheet/font responses. No dependency or toolchain upgrade is required.
+
+## Section links, page URLs and metadata
+
+- Native TOC `href="#heading-id"` links are valid. They make sections bookmarkable and work without JavaScript. The current article scroll-spy updates active-heading state without changing the address. Never remove native navigation just to hide a legitimate fragment.
+- Initial post cards, breadcrumbs and share links point to the clean article URL. Canonical, Open Graph page URLs and sitemap entries identify the page without a section fragment. The CMS rejects new fragment-bearing canonical overrides; the metadata builder removes fragments from legacy overrides.
+- Leading digits are valid in HTML IDs. The current TOC uses `document.getElementById(id)`. If CSS selectors are needed, use `CSS.escape(id)` rather than interpolating arbitrary IDs into `querySelector`. Do not rename published heading IDs to solve a selector bug that is absent. Heading edits can change generated IDs, so preserve/alias old published deep links deliberately when changing headings. [MDN DOM selection](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Selection_and_traversal_on_the_DOM_tree).
+- JSON-LD node identifiers such as `#article`, `#webpage` and `#organization` identify graph entities; they are distinct from the page canonical URL. Do not strip these identifiers from the unified graph.
+- Keep the existing descriptive article slug. Google recommends readable, descriptive URLs; the supplied document's 3–5-word or 35-character limit is not a Google requirement. Any deliberate published-slug change requires the existing CMS redirect lifecycle and verification, not a source-file rename. [Google URL guidance](https://developers.google.com/search/docs/crawling-indexing/url-structure), [Google canonical guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls).
+
+## Verification workflow
+
+Follow `docs/VITE_PLUS_WORKFLOW.md` and the existing `pnpm check:css`, `pnpm check`, `pnpm lint`, `pnpm test:unit --run`, `pnpm build`, `pnpm check:pages`, `pnpm test:seo` and `pnpm test:e2e` scripts. The E2E command already builds the production application. Use a disposable local database/admin for complete authenticated coverage. If 4173 is occupied, `PLAYWRIGHT_PORT=4573 pnpm test:e2e` selects another port; the configured preview origin, media origin and maintenance tests follow it. Keep any explicit `ORIGIN` used for local seeding aligned with that port.
+
+On the real article, record request origins, font response status, loaded FontFace families and computed typography. Test clean entry, passive scrolling, intentional TOC clicks, reload/deep links and no-JavaScript behavior. Compare rendered metadata and the sitemap against the canonical page address. Preserve user-provided investigation documents and dated evidence; document which claims were verified, stale or unsupported.
+
+Archived source briefs such as `blog-sample.md`, `blog-sample-fixed.md`, `blogs/first-blog.md` and the preserved supplied investigation are evidence inputs, not executable recipes. They can contain old font names, obsolete width-axis examples or unsupported claims. Do not copy those settings into a CMS post or Svelte component; use the current shared font configuration and publishing workflow.

@@ -441,7 +441,7 @@
 				.attr('x', x(lastSap.t) + 6)
 				.attr('y', y(lastSap.r) + 3)
 				.attr('fill', '#34d399')
-				.attr('font-family', 'JetBrains Mono, monospace')
+				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '10px')
 				.attr('font-weight', '700')
 				.text(`${lastSap.r >= 0 ? '+' : ''}${lastSap.r.toFixed(1)}R`);
@@ -450,7 +450,7 @@
 				.attr('x', x(lastRet.t) + 6)
 				.attr('y', y(lastRet.r) + 3)
 				.attr('fill', '#8b95a8')
-				.attr('font-family', 'JetBrains Mono, monospace')
+				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '9px')
 				.text(`1:1 (${lastRet.r >= 0 ? '+' : ''}${lastRet.r.toFixed(0)}R)`);
 		}
@@ -463,7 +463,7 @@
 					.attr('y', y(val) + 3)
 					.attr('text-anchor', 'end')
 					.attr('fill', '#525b6d')
-					.attr('font-family', 'JetBrains Mono, monospace')
+					.attr('font-family', 'var(--font-mono)')
 					.attr('font-size', '9px')
 					.text(`${val > 0 ? '+' : ''}${val}R`);
 			}
@@ -540,7 +540,7 @@
 				.attr('y', y(tickVal) + 3)
 				.attr('text-anchor', 'end')
 				.attr('fill', '#525b6d')
-				.attr('font-family', 'JetBrains Mono, monospace')
+				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '10px')
 				.text(`$${tickVal}`);
 		});
@@ -598,7 +598,7 @@
 				.attr('x', 6)
 				.attr('y', 12)
 				.attr('fill', lvl.color)
-				.attr('font-family', 'JetBrains Mono, monospace')
+				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '9.5px')
 				.attr('font-weight', '700')
 				.text(`${lvl.key} $${lvl.val.toFixed(1)}`);
@@ -643,7 +643,7 @@
 				.attr('y', y(trigPt.p) - 12)
 				.attr('text-anchor', 'middle')
 				.attr('fill', '#fbbf24')
-				.attr('font-family', 'JetBrains Mono, monospace')
+				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '9.5px')
 				.attr('font-weight', '700')
 				.text('15M GAMMA FLIP');

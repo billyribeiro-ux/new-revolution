@@ -63,8 +63,11 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 	const noarchive = input.noarchive ?? false;
 	const nosnippet = input.nosnippet ?? false;
 	const cleanPath = input.pathname === '/' ? '' : input.pathname.replace(/\/+$/, '');
+	// A legacy/imported override may predate the CMS fragment validation. Section
+	// anchors belong in visible links, never in canonical or Open Graph page URLs.
 	const canonicalUrl =
-		input.canonicalOverride?.trim() || `${SITE_ORIGIN}${pageHref(cleanPath, input.page ?? 1)}`;
+		input.canonicalOverride?.trim().split('#', 1)[0] ||
+		`${SITE_ORIGIN}${pageHref(cleanPath, input.page ?? 1)}`;
 
 	const renderedBudget = computeRenderedTitle(input.title, BRAND_NAME);
 	const titleTemplate = renderedBudget.brandAppended ? `%s | ${BRAND_NAME}` : '%s';

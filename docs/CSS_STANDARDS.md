@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 > **Single Source of Truth (SSOT):** [`src/app.css`](../src/app.css)  
 > **Shared Inner-Page Stylesheet:** [`src/lib/styles/inner-page.css`](../src/lib/styles/inner-page.css)  
 > **Token Governance Script:** [`scripts/check-css-tokens.mjs`](../scripts/check-css-tokens.mjs) (`pnpm check:css`)
@@ -99,23 +101,18 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
 
 ### 3.1 Font Pairing & Tokens
 
-| Token            | Family Stack                                                                      | Axes Shipped                       | Primary Usage                                                                                   |
-| :--------------- | :-------------------------------------------------------------------------------- | :--------------------------------- | :---------------------------------------------------------------------------------------------- |
-| `--font-display` | `'Montserrat Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (100–900), normal + italic  | `.display-xl`, `.h2`, `.h3`, `.eyebrow`, `.kicker`, navigation, buttons, metrics, table headers |
-| `--font-sans`    | `'Sofia Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (100–1000), normal + italic | `body`, `.lead`, long-form editorial copy, FAQ answers, form controls                           |
-| `--font-mono`    | `ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace`              | System                             | Ticker symbols, execution timestamps, code/rule blocks                                          |
+| Token            | Family Stack                                                                                                      | Axes Shipped                      | Primary Usage                                                                                   |
+| :--------------- | :---------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------- |
+| `--font-display` | `'Montserrat Variable', 'Montserrat Variable Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (100–900), normal + italic | `.display-xl`, `.h2`, `.h3`, `.eyebrow`, `.kicker`, navigation, buttons, metrics, table headers |
+| `--font-sans`    | `'Sofia Sans Variable', 'Sofia Sans Variable Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (1–1000), normal + italic  | `body`, `.lead`, long-form editorial copy, FAQ answers, form controls                           |
+| `--font-mono`    | `ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace`                                              | System                            | Ticker symbols, execution timestamps, code/rule blocks                                          |
 
 ### 3.2 Mandatory Font Rules
 
 1. **Zero External Font Requests:** Never add `<link href="https://fonts.googleapis.com/...">`, `<link href="https://cdn.jsdelivr.net/...">`, or external `@import url(...)` rules. Vite bundles the Fontsource WOFF2 subsets into `/_app/immutable/assets/*.woff2` served from the website's own origin.
 2. **Import Location:** Import `@fontsource-variable/*` **only** in `src/app.css`. Never import Fontsource CSS inside `+layout.svelte` or individual page/component `<script>` blocks (doing so duplicates `@font-face` rules across chunks).
 3. **Supported Variable Axes:** Both `@fontsource-variable/montserrat` (v5.3.0) and `@fontsource-variable/sofia-sans` (v5.3.0) ship only the `wght` axis (no `wdth` axis). Do not add `font-stretch` or `font-variation-settings: 'wdth' ...` expecting condensed glyphs.
-4. **Why `<link rel="preload" as="font">` Is Intentionally Omitted:**
-   - Fontsource uses `font-display: swap` and splits each variable font into `unicode-range` subsets (`latin`, `latin-ext`, `cyrillic`, `vietnamese`, etc.), so the browser automatically downloads only the 2 Latin WOFF2 files (`montserrat-latin-wght-normal.woff2` ~39 KB and `sofia-sans-latin-wght-normal.woff2` ~32 KB) when text is laid out.
-   - An empirical 5-run median A/B benchmark in headless Chromium against the production build (`pnpm preview`) demonstrated that preloading the two Latin WOFF2 files in `<head>` **degraded** FCP and LCP because the preloaded fonts competed for early bandwidth with the render-blocking CSS asset:
-     - **Fast 3G (1.6 Mbps, 150 ms RTT):** `/` FCP/LCP regressed from **400 ms → 744 ms** (+344 ms); `/about` regressed from **512 ms → 940 ms** (+428 ms), with **0.0000 CLS** in both configurations.
-     - **4G (9 Mbps, 40 ms RTT):** `/` FCP/LCP regressed from **152 ms → 240 ms** (+88 ms); `/about` regressed from **168 ms → 256 ms** (+88 ms), with **0.0000 CLS** in both configurations.
-   - Do not add font preloads unless a future benchmark proves a net FCP/LCP improvement.
+4. **Current selective preload contract:** `src/hooks.server.ts` preloads only the two upright Latin Fontsource faces. The browser loads other unicode subsets and italic faces when required by the page. Same-origin `href` values for bundled CSS and WOFF2 assets are valid self-hosting. Do not add external font links or duplicate these preloads in a component. Preserve current priority unless a new production-build benchmark supports changing it. The earlier no-preload A/B figures documented here belonged to a previous font/fallback configuration; they are historical, not evidence that the current hooks omit preloads. See [current source and live evidence](reviews/font-fragment-audit-2026-11-05/AUDIT.md).
 5. **Never Hardcode Family Names:** Fontsource registers only `'Montserrat Variable'` and `'Sofia Sans Variable'`. A literal `'Montserrat'` or `'Sofia Sans'` matches no loaded face and silently falls back to a system font. Always use `var(--font-display)` / `var(--font-sans)`; `pnpm check:css` fails on the bare names.
 6. **Licensing:** Full OFL-1.1 license attributions for Montserrat and Sofia Sans are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
 

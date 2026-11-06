@@ -324,7 +324,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 					expect.objectContaining({
 						'@type': 'BlogPosting',
 						headline: TITLE,
-						url: `https://revolutiontradingpros.com/blog/${slug}`
+						url: `https://www.revolutiontradingpros.com/blog/${slug}`
 					})
 				);
 			} else if (isUnlaunchedRoute('/blog')) {
@@ -524,7 +524,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 			| undefined;
 		expect(posting, 'BlogPosting node').toBeTruthy();
 		expect(posting!.headline).toBe(TITLE);
-		expect(posting!['@id']).toBe(`https://revolutiontradingpros.com/blog/${slug}#article`);
+		expect(posting!['@id']).toBe(`https://www.revolutiontradingpros.com/blog/${slug}#article`);
 		const images = posting!.image;
 		expect(Array.isArray(images)).toBe(true);
 		expect(images).toHaveLength(3);

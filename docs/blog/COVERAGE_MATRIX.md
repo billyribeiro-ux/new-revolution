@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](../FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 **Phase 0 baseline, re-generated after Phase 1a** · **Generated:** 2026-11-02 from branch `feat/blog-phase1-cache-pagination` · **Tool:** `node scripts/blog-coverage-probe.mjs <baseUrl>`
 
 Verdicts: **pass**, **fail** (against the decisions in report Part C or the requirements in Part A), **n/a**, **not verified** (no evidence gathered yet; not a pass).

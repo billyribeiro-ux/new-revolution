@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 The maintenance page and mail workflow are implemented; maintenance is currently off. When that page is active, its unconfigured email section stays visible with disabled native controls and a clear unavailable note. The owner deferred email/provider setup. No request
 is accepted and no message is claimed as sent. Use the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md)
 for all project checks/builds.

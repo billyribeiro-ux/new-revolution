@@ -16,6 +16,8 @@
 
 ## Rules supported by the audit
 
+- **Font hrefs and TOC fragments require evidence, not blanket removal.** Follow [the font/fragment policy](FONT_AND_FRAGMENT_POLICY.md) and its 55-page network and supplied-document review before changing font loading, published slugs, heading IDs or section navigation.
+
 - **Articles are CMS database records rendered by the existing `/blog/[slug]` route.** Saving a Markdown file under `blogs/` or `content/` does not publish it. Do not create a Svelte route for each article or use a legacy static card list as the publication source. See [the loader](../src/routes/blog/[slug]/+page.server.ts) and [post services](../src/lib/server/services/posts.ts).
 - **JSON-LD already uses post data automatically.** Save title, author, dates, taxonomy and media through the CMS. Do not maintain a manual title list or paste an article's raw schema script into the body. Change shared builders only to change schema behavior, with the appropriate tests. See [blog SEO](../src/lib/seo/blog-seo.ts).
 - **Use the existing authenticated CMS/API and service lifecycle.** The old archive importer directly upserts records and bypasses lifecycle protections; do not use its writing mode as the normal new-post workflow. The proposed replacement needs explicit one-package selection, read-only validation, conflict checks, durable retry handling and a saved-draft preview.
@@ -49,7 +51,7 @@ Blog shells now use the same responsive `.container` as the rest of the website 
 
 ## Agent-document coverage
 
-The following **40 existing Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.
+The following **41 Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. The existing 40 entry points also point to the shared font/fragment policy; that policy carries its own handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.
 
 - [AGENTS.md](../AGENTS.md)
 - [ARCHCITECURE_AND_SEO.md](../ARCHCITECURE_AND_SEO.md)
@@ -67,6 +69,7 @@ The following **40 existing Markdown entry points, prompts, standards and runboo
 - [docs/AGENT_COORDINATION.md](AGENT_COORDINATION.md)
 - [docs/BLOG_ADAPTATION_MAP.md](BLOG_ADAPTATION_MAP.md)
 - [docs/CSS_STANDARDS.md](CSS_STANDARDS.md)
+- [docs/FONT_AND_FRAGMENT_POLICY.md](FONT_AND_FRAGMENT_POLICY.md)
 - [docs/MAINTENANCE.md](MAINTENANCE.md)
 - [docs/MAINTENANCE_EXPERIENCE_PLAN.md](MAINTENANCE_EXPERIENCE_PLAN.md)
 - [docs/MEDIA_STORAGE.md](MEDIA_STORAGE.md)

@@ -1,5 +1,7 @@
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 Act as an exceptional design director, product strategist, UX researcher, interaction designer, accessibility specialist, and frontend design engineer.
 
 Your assignment is to inspect the application, website, or digital product available in this session and deliver a rigorous design audit, a compelling redesign direction, and a concrete visual proposal.

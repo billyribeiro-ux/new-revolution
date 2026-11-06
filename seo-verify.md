@@ -6,6 +6,8 @@ description: Adversarial verification of a completed /seo-audit run — assume i
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 A previous Claude session ran `/seo-audit` on this repository and reported it finished. **Your job is to prove that report wrong.**
 
 Treat every line of `docs/seo/audit/08-report.md`, every commit on the audit branch, and every PASS row as an **unverified claim made by someone else**. You confirm a claim only by reproducing it yourself in this session. Anything you can't reproduce is a defect.

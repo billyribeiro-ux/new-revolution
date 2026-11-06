@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vite-plus/test';
-import { buildTocTree, type TocEntry } from './toc';
+import { buildTocTree, normalizePostHeadings, type TocEntry } from './toc';
 
 describe('buildTocTree', () => {
 	it('preserves heading order and nests under the nearest shallower heading', () => {
@@ -16,5 +16,18 @@ describe('buildTocTree', () => {
 		expect(tree[0].children[1].children.map((node) => node.id)).toEqual(['d']);
 		expect(entries[0]).not.toHaveProperty('children');
 		expect(buildTocTree([])).toEqual([]);
+	});
+});
+
+describe('published heading identifiers', () => {
+	it('preserves numeric heading identifiers and keeps duplicate TOC targets unique', () => {
+		const { html, toc } = normalizePostHeadings(
+			'<h2>1. What 0DTE Changes About the Trade</h2><h3>1. What 0DTE Changes About the Trade</h3>'
+		);
+		expect(toc.map((item) => item.id)).toEqual([
+			'1-what-0dte-changes-about-the-trade',
+			'1-what-0dte-changes-about-the-trade-2'
+		]);
+		for (const item of toc) expect(html).toContain(`id="${item.id}"`);
 	});
 });

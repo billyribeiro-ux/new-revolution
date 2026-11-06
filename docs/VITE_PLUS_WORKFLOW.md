@@ -2,6 +2,8 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+
 This is the agent-facing reference for running, checking and changing this project's toolchain. Read it before choosing development, build, test, formatting or upgrade commands. `AGENTS.md`, the relevant task playbook and explicit user instructions still apply. Recheck `package.json`, `pnpm-workspace.yaml`, `pnpm-lock.yaml` and `vite.config.ts` rather than assuming the snapshot below remains current.
 
 ## Current setup
@@ -21,6 +23,10 @@ Apply this workflow to every new or updated README, agent prompt, playbook, chec
 Document normal development, build, preview, lint and test workflows using the existing `pnpm` scripts below. For a direct Vite+ operation, use `pnpm exec vp`; use its `fmt`, `lint` and `test` commands rather than standalone Vite, Vitest or Prettier commands. Retain `pnpm check` and the complete `pnpm lint` script for the separate Svelte diagnostics and ESLint requirements. Playwright, database scripts and other tools keep their existing purpose-specific commands.
 
 If an authorized tooling change alters a command or its behavior, update this reference and affected examples in the same change. Preserve commands and results in dated changelog, audit and review evidence; when citing an older command as an example, identify it as historical and point readers here for the current workflow.
+
+## Portable E2E preview port
+
+`PLAYWRIGHT_PORT` optionally changes the configured E2E preview port; the default remains 4173. When another process owns it, run `PLAYWRIGHT_PORT=4573 pnpm test:e2e` or `PLAYWRIGHT_PORT=4573 pnpm test:seo`. The configuration aligns baseURL, the preview command and media ORIGIN; maintenance tests resolve their URLs against that configured origin. For authenticated runs, align the `ORIGIN` passed to the local seed script too. This adds no toolchain dependency or upgrade. `pnpm check:css` also runs the runtime font-source policy check; the browser font/TOC regressions are collected by the existing E2E script.
 
 ## Commands: project scripts and Vite+ built-ins
 

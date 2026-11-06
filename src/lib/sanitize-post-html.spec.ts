@@ -2,6 +2,13 @@ import { describe, expect, it } from 'vite-plus/test';
 import { isGoogleDocsHtml, isWordHtml, sanitizePostHtml } from './sanitize-post-html';
 
 describe('sanitizePostHtml (Section 7.1)', () => {
+	it('removes external font stylesheet links and embedded font CSS from CMS content', () => {
+		const html =
+			'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Example"><style>@font-face{font-family:Example;src:url(https://assets.example.net/font.woff2)}</style><p>Safe article copy.</p>';
+		const clean = sanitizePostHtml(html);
+		expect(clean).toBe('<p>Safe article copy.</p>');
+	});
+
 	it('preserves heading levels h1 through h6 and strips all id attributes', () => {
 		const input = [
 			'<h1 id="h1-id">Heading 1</h1>',

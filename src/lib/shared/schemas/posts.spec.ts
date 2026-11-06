@@ -14,6 +14,23 @@ import {
 } from './index';
 
 describe('Shared Zod Schemas (Section 7.2)', () => {
+	it('rejects canonical fragments on new and updated posts while preserving section links in content', () => {
+		const post = {
+			title: 'Canonical Fragment Test',
+			slug: 'canonical-fragment-test',
+			content: '<a href="#1-risk">Risk section</a>',
+			canonicalUrl: 'https://www.revolutiontradingpros.com/blog/canonical-fragment-test#1-risk'
+		};
+		expect(postCreateSchema.safeParse(post).success).toBe(false);
+		expect(postUpdateSchema.safeParse({ id: 1, ...post }).success).toBe(false);
+		expect(
+			postCreateSchema.safeParse({
+				...post,
+				canonicalUrl: 'https://www.revolutiontradingpros.com/blog/canonical-fragment-test'
+			}).success
+		).toBe(true);
+	});
+
 	it('validates a complete postCreateSchema payload and allows soft excerpt length > 160', () => {
 		const longExcerpt = 'A'.repeat(240);
 		const parsed = postCreateSchema.safeParse({

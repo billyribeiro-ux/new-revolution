@@ -8,13 +8,16 @@
  * the defect this guard exists to prevent. It also fails on a literal 'Montserrat' / 'Sofia Sans'
  * family name: Fontsource registers only the '* Variable' families, so the bare names never match a
  * loaded face and silently fall back to system fonts. Use var(--font-display) / var(--font-sans).
- * See docs/CSS_STANDARDS.md.
+ * Runtime source/static templates are also checked for external font loading, misplaced imports
+ * and D3 font-token bypasses. See docs/CSS_STANDARDS.md and docs/FONT_AND_FRAGMENT_POLICY.md.
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { existsSync } from 'node:fs';
+import { findFontPolicyViolations } from './font-policy.mjs';
 
 const ROOT = new URL('../src', import.meta.url).pathname;
-const EXTENSIONS = ['.css', '.svelte', '.ts'];
+const EXTENSIONS = ['.css', '.svelte', '.ts', '.js', '.mjs', '.html', '.svg'];
 
 function walk(dir, out = []) {
 	for (const entry of readdirSync(dir)) {
@@ -26,6 +29,25 @@ function walk(dir, out = []) {
 }
 
 const files = walk(ROOT);
+const projectRoot = new URL('../', import.meta.url).pathname;
+const fontFiles = [...files];
+for (const directory of ['static', 'scripts/templates']) {
+	const path = join(projectRoot, directory);
+	if (existsSync(path)) fontFiles.push(...walk(path));
+}
+const fontViolations = fontFiles.flatMap((file) =>
+	findFontPolicyViolations(relative(projectRoot, file), readFileSync(file, 'utf8')).map(
+		(message) => `${relative(projectRoot, file)}: ${message}`
+	)
+);
+if (fontViolations.length > 0) {
+	console.error('Font hosting policy violations:\n' + fontViolations.join('\n'));
+	process.exit(1);
+}
+
+console.log(
+	'Font source policy OK: runtime source and static/templates use self-hosted font loading.'
+);
 const declared = new Set();
 const uses = new Map();
 const bareFonts = [];

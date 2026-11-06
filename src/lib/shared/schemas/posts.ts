@@ -189,7 +189,10 @@ const postBaseObjectSchema = z.object({
 		.max(OG_DESCRIPTION_MAX, `OG description cannot exceed ${OG_DESCRIPTION_MAX} characters.`)
 		.nullish(),
 	ogImage: optionalUrlSchema,
-	canonicalUrl: optionalUrlSchema,
+	canonicalUrl: optionalUrlSchema.refine(
+		(value) => !value.includes('#'),
+		'Canonical URLs must identify a page without a fragment.'
+	),
 	focusKeyword: z.string().max(120).nullish(),
 	secondaryKeywords: z
 		.string()

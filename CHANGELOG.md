@@ -11,9 +11,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-05 — Audit self-hosted fonts and article fragments
 
+- Squash-merge PR #37 as `e62c340` and promote exact Production deployment `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8` after staged acceptance. Public health identifies the new application; nine live browser cases across Chromium, Firefox and WebKit verify the real article/watchlist fonts, chart token, numeric/native TOC behavior and no-JavaScript deep links. Maintenance remains off and the private deployment hostname remains protected. Evidence: `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`.
+
 - Verify 55 live surfaces and 153 font responses: fonts/stylesheets are same-origin, including the article's valid font preload hrefs. Preserve native TOC fragments, the published slug and numeric heading IDs after clean-load, scroll, click, reload and no-JavaScript checks.
 - Replace six unregistered watchlist chart font names with the shared monospace token. Add source/runtime font guards and sanitizer coverage. Reject fragment-bearing CMS canonical overrides and remove fragments from legacy overrides at render time; two pre-fix regressions reproduced the gap.
 - Correct stale font/CDN/width-axis/preload instructions and add the shared font/fragment policy across 40 existing agent documents, with the policy in the handoff's 41-file coverage list. Preserve original reference material and byte-identical SEO-standard copies. Evidence and supplied-document verdicts: `docs/reviews/font-fragment-audit-2026-11-05/AUDIT.md`.
+- The release-evidence follow-up compares absolute font/stylesheet URL origins with the canonical-origin SSOT, allowing valid same-origin hrefs while rejecting external lookalike hosts; this changes only the developer guard. Its repeated full unit/component suite passed 589 tests, with clean Svelte and font/CSS checks.
 - Add an optional E2E preview port and update maintenance tests to follow it; correct authenticated blog graph assertions for the www namespace. Full authenticated Chromium E2E: 58 passed without skips. Final local gates: 588 unit/component tests, 58 authenticated Chromium E2E, 14 targeted Firefox, 14 targeted WebKit, 3 SEO checks, 46 static page contracts, and clean Svelte MCP. Source-draft formatting exceptions remain unchanged; code/Svelte lint pass. Application promotion is recorded separately in the audit report.
 
 ### 2026-11-05 — Promote and verify the public blog indexing release

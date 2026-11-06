@@ -1,3 +1,5 @@
+> **Font and fragment safeguards live, November 5, 2026:** PR #37 application `e62c340` is promoted and publicly verified. Font hrefs are self-hosted; native section links and numeric IDs remain supported. The CMS now rejects canonical fragments and the renderer removes legacy canonical fragments. See [release acceptance](reviews/font-fragment-audit-2026-11-05/RELEASE.md).
+
 > **Blog indexing is live, November 5, 2026:** Production application `33a1346` was promoted and publicly verified. `/blog` and the published 0DTE article are index-eligible with www canonicals and sitemap entries. Store and individual-content eligibility rules remain in force. See [release evidence](reviews/blog-indexing-release-2026-11-05/VERIFICATION.md).
 
 # Blog handoff for every agent

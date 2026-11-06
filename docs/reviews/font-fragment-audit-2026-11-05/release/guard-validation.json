@@ -1,0 +1,16 @@
+{
+	"scope": "developer source guard only; no application runtime change",
+	"canonicalOriginSource": "src/lib/shared/site-origin.ts",
+	"allowed": [
+		"root-relative bundled font preloads",
+		"absolute canonical-origin font files and stylesheets",
+		"protocol-relative canonical-origin CSS imports"
+	],
+	"rejected": "external and external lookalike font/stylesheet origins",
+	"unitAndComponentTestsPassed": 589,
+	"svelteDiagnostics": {
+		"errors": 0,
+		"warnings": 0
+	},
+	"fontAndCssPolicy": "passed"
+}

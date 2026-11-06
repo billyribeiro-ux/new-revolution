@@ -40,6 +40,33 @@ describe('self-hosted font source policy', () => {
 		).toEqual([]);
 	});
 
+	it('accepts absolute canonical-origin assets while rejecting an external lookalike host', () => {
+		expect(
+			findFontPolicyViolations(
+				'src/app.css',
+				'@font-face{src:url(https://www.revolutiontradingpros.com/_app/immutable/assets/font.woff2)}'
+			)
+		).toEqual([]);
+		expect(
+			findFontPolicyViolations(
+				'src/app.css',
+				'@import url("//www.revolutiontradingpros.com/typography.css");'
+			)
+		).toEqual([]);
+		expect(
+			findFontPolicyViolations(
+				'src/app.html',
+				'<link rel="stylesheet" href="https://www.revolutiontradingpros.com/typography.css">'
+			)
+		).toEqual([]);
+		expect(
+			findFontPolicyViolations(
+				'src/app.css',
+				'@font-face{src:url(https://www.revolutiontradingpros.com.example.net/font.woff2)}'
+			)
+		).toContain('external font file URL');
+	});
+
 	it('does not treat deliberately unsafe test fixtures as executable font imports', () => {
 		expect(
 			findFontPolicyViolations('src/example.spec.ts', 'https://fonts.googleapis.com/css2')

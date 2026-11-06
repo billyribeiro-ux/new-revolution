@@ -24,11 +24,12 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                             | Owner session | Area / files claimed                                                                       | Started    | Status      |
-| ---------------------------------- | ------------- | ------------------------------------------------------------------------------------------ | ---------- | ----------- |
-| `fix/font-fragment-audit-20261105` | Codex         | Repository font audit, article/TOC evidence, font guards, affected standards and changelog | 2026-11-05 | In progress |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Font and supplied-document audit (Codex, November 5; PR #37):** squash `e62c340` is live as `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8`. Fix the unregistered chart font names and canonical-fragment gap; add source/network/TOC guards and corrected policy references across 40 existing agent documents. Baseline: 55 live surfaces with zero external fonts/stylesheets. Gates: 588 unit/component, 58 authenticated Chromium, 14 Firefox, 14 WebKit and 3 SEO tests; nine post-release live cases. Original references remain intact and local test administrators are revoked. See `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`.
 
 - **Blog indexing release (Codex, November 5; PR #35):** application `33a1346` is promoted as `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj`. Both requested blog URLs are index-eligible; all 19 sitemap URLs and 24 public browser cases pass. Follow-up PR #36 records the public proof and refreshes the URL inventory and agent instructions. See `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
 

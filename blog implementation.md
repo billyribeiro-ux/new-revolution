@@ -29,7 +29,7 @@ Publishing an eligible public CMS record now populates **both** the homepage blo
 
 Verify a draft is absent from both listings, publish through the normal service gate, then fetch both pages and inspect the actual card, cover and article link. Verify the chosen feature appears once above the regular grid. Test new publications, switching the feature and unpublishing. The image-flow E2E now checks actual initial HTML and 320/1440px browser rendering of both surfaces after publication.
 
-**Shared layout contract:** follow [the current contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md):2440px maximum border-box outer frame including gutters,900px article measure,shared taxonomy/search and native bounded desktop TOC. New CMS posts inherit it automatically.
+**Shared layout contract:** follow [the current contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md):1536px (96rem) maximum border-box outer frame including gutters,900px article measure,shared taxonomy/search and native bounded desktop TOC. New CMS posts inherit it automatically.
 
 ## 2. Establish the actual environment
 

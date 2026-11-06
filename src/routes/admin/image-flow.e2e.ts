@@ -444,7 +444,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		];
 		for (const route of routes) {
 			expect((await request.get(route.href)).status()).toBe(200);
-			for (const width of [320, 375, 768, 1179, 1180, 1181, 1440, 2440, 2800, 3000]) {
+			for (const width of [320, 375, 768, 1179, 1180, 1181, 1440, 1536, 2440, 2800, 3000]) {
 				await page.setViewportSize({ width, height: 1000 });
 				await page.goto(route.href);
 				await expect(page.locator('main h1')).toHaveCount(1);
@@ -461,9 +461,9 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 					expect(Math.abs(shell.x - reference!.x)).toBeLessThan(1);
 					expect(Math.abs(shell.width - reference!.width)).toBeLessThan(1);
 				}
-				if (width >= 2440) {
-					expect(reference!.width).toBe(2440);
-					expect(reference!.x).toBe((width - 2440) / 2);
+				if (width >= 1536) {
+					expect(reference!.width).toBe(1536);
+					expect(reference!.x).toBe((width - 1536) / 2);
 				}
 				if (route.name !== 'article') {
 					const innerEdge = await page

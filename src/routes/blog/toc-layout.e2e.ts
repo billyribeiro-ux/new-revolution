@@ -7,7 +7,7 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 }) => {
 	await page.goto(articlePath);
 	const toc = page.locator('.article-toc-aside');
-	for (const width of [320, 375, 768, 1024, 1179, 1180, 1181, 1280, 1440, 1920, 2440, 2880]) {
+	for (const width of [320, 375, 768, 1024, 1179, 1180, 1181, 1280, 1440, 1536, 1920, 2440, 2880]) {
 		await page.setViewportSize({ width, height: 900 });
 		await expect(toc).toBeVisible({ visible: width >= 1180 });
 		const geometry = await page.evaluate(() => {
@@ -16,20 +16,72 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 				if (!element) throw new Error(`Missing ${selector}`);
 				return element.getBoundingClientRect().toJSON();
 			};
+			const navContainer = document.querySelector<HTMLElement>(
+				'header.nav-shell > .container.nav'
+			)!;
+			const navRect = navContainer.getBoundingClientRect();
+			const navInnerLeft =
+				navRect.x + Number.parseFloat(getComputedStyle(navContainer).paddingInlineStart);
+			const navInnerWidth =
+				navRect.width -
+				Number.parseFloat(getComputedStyle(navContainer).paddingInlineStart) -
+				Number.parseFloat(getComputedStyle(navContainer).paddingInlineEnd);
+			const related = document.querySelector<HTMLElement>('.related-articles-section');
+			const backRow = document.querySelector<HTMLElement>('.back-to-blog-row');
 			return {
 				scrollWidth: document.documentElement.scrollWidth,
+				navShell: navRect.toJSON(),
+				navInnerLeft,
+				navInnerWidth,
+				breadcrumbShell: rect('.breadcrumb-bar__inner'),
+				articleShell: rect('.article-container'),
 				header: rect('.article-header'),
 				cover: rect('.article-cover-figure'),
 				body: rect('.article-main-column'),
-				faq: rect('.article-faq-section')
+				faq: rect('.article-faq-section'),
+				related: related ? related.getBoundingClientRect().toJSON() : null,
+				backRow: backRow ? backRow.getBoundingClientRect().toJSON() : null
 			};
 		});
 		expect(geometry.scrollWidth).toBeLessThanOrEqual(width);
+		expect(Math.abs(geometry.breadcrumbShell.x - geometry.navShell.x)).toBeLessThan(1);
+		expect(Math.abs(geometry.breadcrumbShell.width - geometry.navShell.width)).toBeLessThan(1);
+		expect(Math.abs(geometry.articleShell.x - geometry.navShell.x)).toBeLessThan(1);
+		expect(Math.abs(geometry.articleShell.width - geometry.navShell.width)).toBeLessThan(1);
+		if (width >= 1536) {
+			expect(geometry.navShell.width).toBe(1536);
+			expect(geometry.navShell.x).toBe((width - 1536) / 2);
+		}
+		if (geometry.related) {
+			expect(Math.abs(geometry.related.x - geometry.navInnerLeft)).toBeLessThan(1);
+			expect(Math.abs(geometry.related.width - geometry.navInnerWidth)).toBeLessThan(1);
+		}
+		if (geometry.backRow) {
+			expect(Math.abs(geometry.backRow.x - geometry.navInnerLeft)).toBeLessThan(1);
+			expect(Math.abs(geometry.backRow.width - geometry.navInnerWidth)).toBeLessThan(1);
+		}
 		expect(geometry.body.width).toBeLessThanOrEqual(901);
 		expect(Math.abs(geometry.header.x - geometry.body.x)).toBeLessThan(2);
 		expect(Math.abs(geometry.cover.x - geometry.body.x)).toBeLessThan(2);
 		expect(Math.abs(geometry.faq.x - geometry.body.x)).toBeLessThan(2);
 		expect(Math.abs(geometry.cover.width - geometry.body.width)).toBeLessThan(2);
+	}
+
+	for (const width of [320, 1440, 1536]) {
+		await page.setViewportSize({ width, height: 900 });
+		const overflowAt200Percent = await page.evaluate(async () => {
+			document.documentElement.style.fontSize = '32px';
+			await new Promise<void>((resolve) =>
+				requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+			);
+			const overflow = document.documentElement.scrollWidth - window.innerWidth;
+			document.documentElement.style.fontSize = '';
+			await new Promise<void>((resolve) =>
+				requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+			);
+			return overflow;
+		});
+		expect(overflowAt200Percent).toBeLessThanOrEqual(0);
 	}
 });
 

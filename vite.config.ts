@@ -7,9 +7,17 @@ import adapter from '@sveltejs/adapter-vercel';
 import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
+	server: {
+		watch: {
+			ignored: ['**/.vercel/**', '**/.svelte-kit/output/**', '**/build/**']
+		}
+	},
 	ssr: {
-		// Bundle the CJS sanitizer and its ESM parser for serverless loaders.
-		noExternal: ['sanitize-html', 'htmlparser2']
+		// Bundle the CJS sanitizer and its ESM parser for serverless loaders, and pre-bundle CJS in dev SSR.
+		noExternal: ['sanitize-html', 'htmlparser2'],
+		optimizeDeps: {
+			include: ['sanitize-html']
+		}
 	},
 	lint: {
 		plugins: ['oxc', 'typescript', 'unicorn'],

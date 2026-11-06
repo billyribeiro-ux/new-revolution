@@ -292,7 +292,7 @@
 		--shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.4);
 
 		/* Layout & Rhythm (Mobile-First Base: 320px+) */
-		--max: 152.5rem;
+		--max: 96rem;
 		--gutter: 24px;
 		--nav-height: 73px;
 		--ease-out: cubic-bezier(0.22, 1, 0.36, 1);

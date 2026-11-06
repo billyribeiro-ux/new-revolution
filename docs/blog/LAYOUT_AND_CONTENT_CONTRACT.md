@@ -4,9 +4,9 @@
 
 ## Shared outer and reading anchors
 
-`src/app.css` owns the only outer maximum: `--max:152.5rem` (2440 CSS px at a 16px root). `.container` is 100% available inline size, border-box, centered, with `max-inline-size:var(--max)` and `padding-inline:calc(var(--gutter)/2)`. Never redefine its outer cap or nest it just to add gutters. Section backgrounds remain full width. The border-box edge and inner content edge are different measurement anchors.
+`src/app.css` owns the only outer maximum: `--max:96rem` (1536 CSS px at a 16px root). `.container` is 100% available inline size, border-box, centered, with `max-inline-size:var(--max)` and `padding-inline:calc(var(--gutter)/2)`. Never redefine its outer cap or nest it just to add gutters. Section backgrounds remain full width. The border-box edge and inner content edge are different measurement anchors.
 
-Total gutters remain 24/36/44/56/40/64/112px at base/480/640/768/1024/1280/1536 widths. At 1440px the inner edge is 32px; at 2440px it is 56px; at 2800px the centered frame starts 180px and content 236px. These are product decisions, not search-engine requirements. Preserve user root-font scaling.
+Total gutters remain 24/36/44/56/40/64/112px at base/480/640/768/1024/1280/1536 widths. At 1440px the inner edge is 32px; at 1536px it is 56px; at wider viewports the centered 1536px frame starts at `(viewport - 1536) / 2` and content 56px inside that frame. These are product decisions, not search-engine requirements. Preserve user root-font scaling.
 
 Article title, cover, prose and FAQ share a 900px maximum reading column. The left TOC rail joins that reading grid only from 73.75rem. Related/footer/archive content follows the shared outer content edge. No negative-margin corrections, doubled gutters, fixed article heights, whole-page scaling or overflow clipping to conceal bad sizing.
 

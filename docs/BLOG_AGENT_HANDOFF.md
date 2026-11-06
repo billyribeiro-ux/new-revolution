@@ -49,7 +49,7 @@ The owner subsequently selected `blogs/first-blog.md` for article preparation. I
 
 The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: true }`. The November 5 hosted check found that default build-only prerender functions can pass Vite preview while throwing in the generated Vercel handler. Preserve `tests/deployment/vercel-runtime.e2e.ts` and verify deployed HTTP/browser behavior after changing rendering mode.
 
-Blog shells use the shared border-box `.container` (152.5rem maximum, 2440px at a 16px root, including inline padding); article prose retains a 900px reading limit. Follow [the current layout/content contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md) for archive/search, TOC/FAQ, media, font and punctuation operations. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
+Blog shells use the shared border-box `.container` (96rem maximum, 1536px at a 16px root, including inline padding); article prose retains a 900px reading limit. Follow [the current layout/content contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md) for archive/search, TOC/FAQ, media, font and punctuation operations. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
 
 The November 5 shared-layout/font/search application and featured-only archive correction are verified live as `09d310a`; use the [actual staged/public release record](reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance), rather than inferring deployment from a plan or build. Maintenance remains off.
 

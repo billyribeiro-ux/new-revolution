@@ -1286,7 +1286,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(metrics1024.scrollWidth).toBeLessThanOrEqual(1024);
 		expect(metrics1024.navActionsRight).toBeLessThanOrEqual(1024);
 
-		// 1280px (Wide Desktop): shared 152.5rem border-box cap, 0px overflow
+		// 1280px (Wide Desktop): shared 96rem (1536px) border-box cap, 0px overflow
 		await page.setViewportSize({ width: 1280, height: 900 });
 		const metrics1280 = await page.evaluate(() => ({
 			scrollWidth: document.documentElement.scrollWidth,
@@ -1296,10 +1296,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			)
 		}));
 		expect(metrics1280.scrollWidth).toBeLessThanOrEqual(1280);
-		expect(metrics1280.maxToken).toBe('152.5rem');
+		expect(metrics1280.maxToken).toBe('96rem');
 		expect(metrics1280.navActionsRight).toBeLessThanOrEqual(1280);
 
-		// 1536px (Ultra-Wide Trading Desk): same 152.5rem border-box cap, 0px overflow
+		// 1536px (Ultra-Wide Trading Desk): same 96rem (1536px) border-box cap, 0px overflow
 		await page.setViewportSize({ width: 1536, height: 960 });
 		const metrics1536 = await page.evaluate(() => ({
 			scrollWidth: document.documentElement.scrollWidth,
@@ -1309,7 +1309,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			)
 		}));
 		expect(metrics1536.scrollWidth).toBeLessThanOrEqual(1536);
-		expect(metrics1536.maxToken).toBe('152.5rem');
+		expect(metrics1536.maxToken).toBe('96rem');
 		expect(metrics1536.navActionsRight).toBeLessThanOrEqual(1536);
 	});
 

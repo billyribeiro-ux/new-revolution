@@ -159,6 +159,137 @@
 	margin-block: 14px 18px;
 }
 
+/* ---------- Shared Trust / Legal / Contact `.inner-page` Primitives ---------- */
+.inner-page .page-hero:not(.archive-hero):not(.sap-hero-stage) {
+	position: relative;
+	overflow: hidden;
+	padding-block: 54px 64px;
+	border-block-end: 1px solid var(--line);
+	background:
+		radial-gradient(ellipse at 83% 15%, rgba(195, 231, 83, 0.1), transparent 30%), var(--bg);
+}
+
+.inner-page .hero-inner,
+.inner-page .content-section:not(.error-box):not(.locked-article-section),
+.inner-page .disclaimer-strip {
+	inline-size: 100%;
+	max-inline-size: var(--max);
+	margin-inline: auto;
+	padding-inline: calc(var(--gutter) / 2);
+	box-sizing: border-box;
+}
+
+.inner-page .content-section:not(.error-box):not(.locked-article-section) {
+	padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.inner-page .disclaimer-strip {
+	padding-block: 0 clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.inner-page .disclaimer-strip > p {
+	margin: 0;
+	padding: 1.25rem 1.5rem;
+	border: 1px solid var(--line);
+	border-inline-start: 3px solid var(--acid);
+	background: var(--bg-soft);
+	color: var(--text-secondary);
+	font-size: 0.875rem;
+	line-height: 1.65;
+	max-inline-size: none;
+	overflow-wrap: anywhere;
+}
+
+.inner-page .disclaimer-strip strong {
+	color: var(--text);
+}
+
+.inner-page .hero-inner .breadcrumb-nav {
+	margin-block-end: 1.25rem;
+}
+
+.inner-page .hero-inner .breadcrumb-nav ol {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 0.75rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+.inner-page .hero-inner .breadcrumb-nav li + li::before {
+	content: '/';
+	margin-inline-end: 0.5rem;
+	color: var(--muted);
+}
+
+.inner-page .hero-inner .breadcrumb-nav a {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 24px;
+	min-inline-size: 24px;
+	color: var(--text);
+	text-decoration: underline;
+	text-decoration-color: #4a525a;
+	text-underline-offset: 4px;
+	transition: color 0.2s var(--ease-out);
+}
+
+.inner-page .hero-inner .breadcrumb-nav a:hover {
+	color: var(--acid);
+}
+
+.inner-page .hero-inner .breadcrumb-nav [aria-current='page'] {
+	color: var(--acid);
+}
+
+.inner-page .card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+	gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.inner-page .info-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	min-inline-size: 0;
+	padding: clamp(1.25rem, 2.5vw, 1.75rem);
+	background: var(--surface-case-card);
+	border: 1px solid #333b43;
+	overflow-wrap: anywhere;
+}
+
+.inner-page .info-card h3 {
+	margin: 0;
+	font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
+	line-height: 1.3;
+	color: var(--text);
+}
+
+.inner-page .info-card p {
+	margin: 0;
+	font-size: 0.9375rem;
+	line-height: 1.7;
+	color: var(--text-secondary);
+	max-inline-size: 68ch;
+	overflow-wrap: anywhere;
+}
+
+.inner-page .info-card a {
+	color: var(--acid);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	overflow-wrap: anywhere;
+}
+
 /* ---------- Light sections (home "manifesto" / "memberships" rhythm) ---------- */
 .inner-page .is-light {
 	background: var(--off);

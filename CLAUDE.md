@@ -1,4 +1,4 @@
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 @AGENTS.md
 @docs/VITE_PLUS_WORKFLOW.md

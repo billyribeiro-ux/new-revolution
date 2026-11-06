@@ -1,6 +1,6 @@
 # Enterprise CSS Architecture & Typography Standards
 
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
@@ -76,7 +76,7 @@ All shared design tokens are declared **once** inside `@layer tokens` (`:root`) 
 | `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)`          | Standard elevated card shadow                  |
 | `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)`          | Medium interactive hover shadow                |
 | `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`           | Deep modal / featured panel shadow             |
-| `--max`         | `152.5rem` (2440px at 16px root)           | Shared border-box cap including inline padding |
+| `--max`         | `96rem` (1536px at 16px root)              | Shared border-box cap including inline padding |
 | `--gutter`      | `24px`–`112px` (responsive, not monotonic) | Total gutter, split between inline sides       |
 | `--nav-height`  | `73px`                                     | Sticky navigation bar height offset            |
 | `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`           | Standard institutional motion easing           |
@@ -164,7 +164,7 @@ Base styles target `320px+` viewports first, scaling upward via `min-width` medi
 
 | Breakpoint | Media Query     | `--max` Container | `--gutter`  |
 | :--------- | :-------------- | :---------------- | :---------- |
-| **Base**   | Default320px+   | 152.5rem cap      | 24px total  |
+| **Base**   | Default320px+   | 96rem cap         | 24px total  |
 | **xs**     | min-width480px  | same cap          | 36px total  |
 | **sm**     | min-width640px  | same cap          | 44px total  |
 | **md**     | min-width768px  | same cap          | 56px total  |

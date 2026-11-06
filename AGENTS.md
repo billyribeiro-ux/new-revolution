@@ -1,6 +1,6 @@
 # Mandatory Engineering & Agent Standards (`AGENTS.md`)
 
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
@@ -77,7 +77,7 @@ Verify that all fonts load correctly in production and that no external font req
 
 Full specification: [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).
 
-**Shared outer frame:** `.container` uses the single 152.5rem cap (2440px at 16px root), border-box including shared inline padding; responsive total gutters are split between its two sides. No competing outer caps or nested gutters. Keep 900px article prose and the documented article/outer alignment anchors. Follow the shared layout/content contract for TOC,FAQ,images and search.
+**Shared outer frame:** `.container` uses the single 96rem cap (1536px at 16px root), border-box including shared inline padding; responsive total gutters are split between its two sides. No competing outer caps or nested gutters. Keep 900px article prose and the documented article/outer alignment anchors. Follow the shared layout/content contract for TOC,FAQ,images and search.
 
 1. **SSOT Location:** [`src/app.css`](src/app.css) owns `@layer reset, tokens, base, typography, layout, components, utilities, responsive;` and all `:root` design tokens.
 2. **Inner-Page System:** [`src/lib/styles/inner-page.css`](src/lib/styles/inner-page.css) owns shared `.inner-page` patterns (`.page-hero`, `.content-section`, `.section-header`, `.section-kicker`, `.section-h2`, `.card-grid`, `.info-card`, `.pricing-card`, `.faq-list`, `.cta-banner`, `.disclaimer-strip`).

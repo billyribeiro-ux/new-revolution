@@ -1,6 +1,6 @@
 # REVOLUTION TRADING PROS — MASTER ARCHITECTURE, COPYWRITING & OCT 2026 SEO DIRECTIVE (FOR ARGON AI)
 
-> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
@@ -206,8 +206,8 @@ Every component must be built **mobile-first** (`320px` base, minimum `48px` tap
 2. `@media (min-width: 640px)` — Small Tablet / Phablet (2-column micro-grids & button rows)
 3. `@media (min-width: 768px)` — Tablet Portrait (2-column cards, visible header quick-actions)
 4. `@media (min-width: 1024px)` — Enterprise Desktop (12-column asymmetric grids, full horizontal navbar)
-5. `@media (min-width: 1280px)` — Wide Desktop (shared 152.5rem container cap, expanded grid gaps)
-6. `@media (min-width: 1536px)` — Ultra-Wide / Multi-Monitor Trading Desk (shared 152.5rem container cap)
+5. `@media (min-width: 1280px)` — Wide Desktop (shared 96rem container cap, expanded grid gaps)
+6. `@media (min-width: 1536px)` — Ultra-Wide / Multi-Monitor Trading Desk (shared 96rem container cap)
 
 ---
 

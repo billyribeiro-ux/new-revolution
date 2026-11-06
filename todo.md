@@ -10,3 +10,5 @@ Updated November 5, 2026. Check the deployed site before marking an item done; l
 - [x] Verify the Sunday Alpha Protocol wording in 16 live navigation, marketing, room, resource and store pages.
 - [x] Verify the live Sunday Alpha Protocol `/watchlist` page, internal navigation, canonical and sitemap entry in three browser engines.
 - [ ] Confirm Google indexing for `/watchlist`, `/blog` and the published article in Search Console after sitemap submission; public HTTP checks do not establish Google index status.
+
+- [x] Complete the repository font/supplied-fragment investigation, publish verified fixes and update the shared agent policy. PR #37 application `e62c340` is live; see `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`. Source-draft formatting exceptions and the unrelated remaining launch tasks above are not represented as resolved.

@@ -11,6 +11,8 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ### 2026-11-05 — Audit self-hosted fonts and article fragments
 
+- Squash-merge PR #37 as `e62c340` and promote exact Production deployment `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8` after staged acceptance. Public health identifies the new application; nine live browser cases across Chromium, Firefox and WebKit verify the real article/watchlist fonts, chart token, numeric/native TOC behavior and no-JavaScript deep links. Maintenance remains off and the private deployment hostname remains protected. Evidence: `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`.
+
 - Verify 55 live surfaces and 153 font responses: fonts/stylesheets are same-origin, including the article's valid font preload hrefs. Preserve native TOC fragments, the published slug and numeric heading IDs after clean-load, scroll, click, reload and no-JavaScript checks.
 - Replace six unregistered watchlist chart font names with the shared monospace token. Add source/runtime font guards and sanitizer coverage. Reject fragment-bearing CMS canonical overrides and remove fragments from legacy overrides at render time; two pre-fix regressions reproduced the gap.
 - Correct stale font/CDN/width-axis/preload instructions and add the shared font/fragment policy across 40 existing agent documents, with the policy in the handoff's 41-file coverage list. Preserve original reference material and byte-identical SEO-standard copies. Evidence and supplied-document verdicts: `docs/reviews/font-fragment-audit-2026-11-05/AUDIT.md`.

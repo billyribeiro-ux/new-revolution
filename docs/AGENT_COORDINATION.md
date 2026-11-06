@@ -26,11 +26,12 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                                       | Owner session                        | Area / files claimed                                                                            | Started    | Status                                                                 |
-| -------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------- |
-| `fix/archive-remainder-and-release-20261105` | Codex lead + scoped archive reviewer | Featured-only archive state, regression, staged/public release evidence and maintained guidance | 2026-11-05 | PR #39 verified live; final archive follow-up gates passed, PR pending |
+| Branch | Owner session | Area / files claimed | Started | Status |
+| ------ | ------------- | -------------------- | ------- | ------ |
 
 ## Recently finished
+
+- **Final archive correction and release evidence (Codex, November 5; PR #40):** squash `09d310a` is live as `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. The sole featured publication omits an empty remainder, with four new component regressions. Final gates: 678 unit/component, 71 authenticated Chromium, 26 Firefox, 26 WebKit; staged/public 63 HTTP, 57 browser and 57 font surfaces, plus 30 public runtime checks. All four disposable local administrators are revoked. Maintenance remains off; full evidence is in `docs/reviews/blog-layout-system-2026-11-05/RELEASE.md`.
 
 - **Shared layout/blog system (Codex, November 5; PR #39):** squash `37a23f2` is live as `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`; 63 HTTP, 57 browser and 57 font-surface checks pass staged and public, plus 30 public runtime checks. Maintenance stays off. The final visual review identified a narrow featured-only remainder issue, tracked separately in active work. See `docs/reviews/blog-layout-system-2026-11-05/RELEASE.md`.
 

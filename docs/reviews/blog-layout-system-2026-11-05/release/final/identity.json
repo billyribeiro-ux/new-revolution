@@ -1,0 +1,48 @@
+{
+	"applicationCommit": "09d310a15d450a46d7b76d659917de25fd958907",
+	"pr": "https://github.com/billyribeiro-ux/new-revolution/pull/40",
+	"deploymentId": "dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm",
+	"deploymentUrl": "https://new-revolution-oleemotzo-will-ribeiros-projects.vercel.app",
+	"publicOrigin": "https://www.revolutiontradingpros.com",
+	"publicHealth": {
+		"status": "ok",
+		"db": {
+			"ok": true,
+			"latencyMs": 3
+		},
+		"analytics": {
+			"ok": true
+		},
+		"uptimeMs": 1,
+		"version": "09d310a",
+		"requestId": "97a4e11d-ee8a-49c7-a7f8-e56cedb2a646"
+	},
+	"maintenance": {
+		"maintenance": false
+	},
+	"identityMethod": "Vercel inspect public www hostname resolves to this exact deployment ID; public health matches merged SHA",
+	"tocFaq": [
+		{
+			"engine": "chromium",
+			"numberPresent": true,
+			"maxUnintendedFaqMovementPx": 0,
+			"observerCounts": [1, 0, 1]
+		},
+		{
+			"engine": "firefox",
+			"numberPresent": true,
+			"maxUnintendedFaqMovementPx": 0,
+			"observerCounts": [1, 0, 1]
+		},
+		{
+			"engine": "webkit",
+			"numberPresent": true,
+			"maxUnintendedFaqMovementPx": 0,
+			"observerCounts": [1, 0, 1]
+		}
+	],
+	"fontResponses": 154,
+	"stylesheetResponses": 259,
+	"promotionCommand": "vercel promote dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm --yes",
+	"laterEvidenceBuilds": "Not promoted automatically"
+}

@@ -12,7 +12,7 @@ Read [AGENTS.md](AGENTS.md), [the Vite+ workflow](docs/VITE_PLUS_WORKFLOW.md), [
 
 Putting Markdown in `blogs/`, `content/blog-posts/`, or the repository root does **not** make it appear on the website. `mdsvex` configuration does not connect those directories to the database.
 
-**Published and publicly indexable are separate states.** The owner authorized blog indexing on November 5, 2026; this branch removes `/blog` from `UNLAUNCHED_ROUTE_PREFIXES`. Eligible published posts and qualifying archives enter the generated sitemap automatically. Draft, protected and excluded content remain ineligible, and the store stays gated. Confirm deployed responses before treating this change as live.
+**Published and publicly indexable are separate states.** The owner authorized blog indexing on November 5, 2026; the promoted application removes `/blog` from `UNLAUNCHED_ROUTE_PREFIXES`. Eligible published posts and qualifying archives enter the generated sitemap automatically. Draft, protected and excluded content remain ineligible, and the store stays gated. Public responses and the exact deployment were verified in [indexing release evidence](docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md).
 
 ### 1.1 Automatic homepage and blog placement
 
@@ -215,7 +215,7 @@ Against `pnpm preview --port 4173`, verify:
 - Real author and visible dates agree with the schema. Use the existing `SEO.svelte` wrapper; do not paste the brief's raw `<script>` or add another metadata system. Note the current founder-ID discrepancy in the audit before changing author builders.
 - Every cover/body/variant URL decodes to the intended graphic, has matching alt/caption/dimensions, and uses self-hosted fonts where relevant. Inspect image bytes rather than just HTTP 200.
 - All internal/outbound citations and CTAs resolve and support the associated claims. Test TOC anchors and disclosure, search, category/tag pages, sharing and responsive layouts at 320/375/768/1179/1180/1440 widths.
-- RSS contains the correct live public content and no private content. While `/blog` is gated, its content can still appear in RSS; the gate is not access control. Sitemap must exclude blog URLs while gated. After launch, confirm actual sitemap entries and update `docs/seo/audit/02-inventory.json` for tested concrete URLs.
+- RSS contains the correct live public content and no private content. The blog indexing launch is live; eligible published posts appear in the generated sitemap, while protected, excluded and thin archive content remains restricted. Verify actual sitemap entries and public canonical/indexing directives. `docs/seo/audit/02-inventory.json` contains deterministic local test fixtures; `urls.md` and the release crawl record describe production URLs.
 - Errors have the expected status. Slug redirects resolve directly to the live target; malformed/out-of-range pagination returns 404.
 
 Cache invalidation currently records tags but has **no registered CDN purger**. Article/list/sitemap headers use 300 seconds plus 60 seconds stale revalidation; RSS uses 3600 plus 60. Outage behavior can retain stale responses longer. These are configured headers, not measured hosted freshness guarantees. Read [FRESHNESS.md](docs/blog/FRESHNESS.md) before promising immediate unpublish or update visibility.

@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Promote and verify the public blog indexing release
+
+- Record release evidence in PR #36 and promote exact Production application `33a1346` from PR #35 as deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj`. Automatic custom-domain assignment was disabled, so the successful merged build had remained staged until this explicit promotion.
+- Verify both requested blog URLs are live, index-eligible, canonically www and listed in the generated sitemap. All 19 sitemap URLs passed public HTTP/canonical/Googlebot checks and one-hop non-www redirects. The 33 intentionally noindex store/thin-archive pages remain excluded.
+- Pass 24 live browser cases across three engines at 320px and 1440px and verify Sunday Alpha Protocol wording on 16 public pages. Maintenance stays off; the private deployment hostname remains authentication-protected. Record evidence in `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
+- Refresh `urls.md`, `todo.md` and current agent/publishing/SEO instructions to describe the verified live state. Search Console submission and actual Google indexing remain unverified account-side tasks; no rankings are promised.
+
 ### 2026-11-05 — Blog indexing, URL inventory and Sunday Alpha Protocol
 
 - Switched the shared production canonical origin, sitemap, RSS, robots sitemap reference and blog indexing notifications to the owner-selected `www` host. Eligible public CMS posts and qualifying archives are included in the generated sitemap automatically; store pages remain gated.

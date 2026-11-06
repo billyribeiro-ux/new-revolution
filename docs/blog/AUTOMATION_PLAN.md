@@ -27,7 +27,7 @@ Existing behavior is documented in [the publishing guide](../../blog%20implement
 | Media encoding, variants and crops                                                                    | [Media services](../../src/lib/server/services/media.ts), [storage](../../src/lib/server/media-storage.ts)                                                     |
 | Conditional public lists, feeds and sitemap entries                                                   | [Public post services](../../src/lib/server/services/posts.ts), [RSS](../../src/routes/rss.xml/+server.ts), [sitemap](../../src/routes/sitemap.xml/+server.ts) |
 
-These mechanisms have limits. A valid SEO score can still accept placeholder images; existing live edits do not all re-run the publish gate. `/blog` remains launch-gated. Automatic sitemap discovery does not override that gate. Framework query refreshes do not purge a hosted CDN.
+These mechanisms have limits. A valid SEO score can still accept placeholder images; existing live edits do not all re-run the publish gate. The owner-authorized blog indexing release is live; automatic sitemap discovery still obeys per-post and archive eligibility. Framework query refreshes do not purge a hosted CDN.
 
 ## Official framework basis
 
@@ -96,7 +96,7 @@ The first delivery should stop at a verified draft. The normal admin Publish/Sch
 1. Re-read the exact saved content and media hashes, current post version and review evidence; reject approval that belongs to an older revision or different environment.
 2. Run the final gate on every resulting published or scheduled save, including edits that were already live. Apply the same rule to REST, remote, quick-edit and restore paths so the CLI cannot become a bypass.
 3. Require offset-bearing schedule timestamps and show the intended New York time and actual instant. Resolve the scheduled-read/publication-date race before claiming reliable unattended schedules.
-4. Preserve the `/blog` launch gate. Publishing a record does not authorize section launch, production deployment or a bulk import.
+4. Preserve the current launch policy: the blog is open for eligible published posts, and the store remains gated. Publishing a record does not authorize another section launch, production deployment or a bulk import.
 5. Report the committed save separately from hosted verification. Add a durable purge/retry mechanism and prove update/unpublish freshness on the actual host before promising immediate delivery. SvelteKit query refresh alone cannot supply that guarantee.
 
 Human editorial review remains necessary for financial claims, credentials, strategy promises, image truth and source interpretation. It should be attached to the exact candidate content hash; the automation must not mark its own generated claims as approved merely because a score is green.

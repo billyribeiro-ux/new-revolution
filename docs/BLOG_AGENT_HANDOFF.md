@@ -1,3 +1,5 @@
+> **Indexing change in progress, 2026-11-05:** The owner authorized blog indexing and the www canonical origin. Check `todo.md` and the deployed response before assuming this branch has launched. Individual post and archive eligibility still applies.
+
 # Blog handoff for every agent
 
 **Reference date: November 5, 2026.** Read this before adding or updating a blog article, editor workflow, blog metadata or intake automation. Re-check the linked source and current environment before acting; a dated plan is not proof of implementation.
@@ -31,7 +33,7 @@ Older prompts, adaptation notes and dated progress tables can describe prior sta
 
 The owner-requested discovery structure is implemented in `src/lib/server/services/blog-discovery.ts` and the homepage/blog route loaders. Every eligible published CMS post feeds both surfaces. One marked featured article leads; when none is marked, the newest publication leads. Regular posts exclude that lead before pagination (6 per homepage section page, 12 per blog page). Search includes matching featured posts as normal results.
 
-The homepage is now a documented SSR exception so new saved publications appear without a rebuild. Its blog section renders independently of the older homepage launch-hide condition; Blog is visible in desktop/mobile menus, footer and navigation JSON-LD from the shared navigation data. Indexing, sitemap and homepage article-ItemList exclusions remain in force. See `isNavigationHrefVisible()` versus `isLaunchedHref()`; menu visibility does not launch indexing. Homepage and blog-index reads are no-store. Other cache/publishing hardening and the intake CLI remain proposed work. Do not report the entire automation plan complete.
+The homepage is now a documented SSR exception so new saved publications appear without a rebuild. Its blog section renders independently of the older homepage launch-hide condition; Blog is visible in desktop/mobile menus, footer and navigation JSON-LD from the shared navigation data. The owner has authorized blog indexing; this branch removes the blog launch gate and restores sitemap and homepage article-ItemList eligibility. Verify the deployed release before assuming it is live. See `isNavigationHrefVisible()` versus `isLaunchedHref()`; menu visibility does not launch indexing. Homepage and blog-index reads are no-store. Other cache/publishing hardening and the intake CLI remain proposed work. Do not report the entire automation plan complete.
 
 A new repository draft still needs an approved CMS save/publication. This change does not import the archived Markdown packages, invent authors/media or publish the 0DTE article. See [publishing placement instructions](../blog%20implementation.md#11-automatic-homepage-and-blog-placement) and [the owner decision](seo/DECISIONS.md#7-automatic-cms-discovery-and-featured-placement-2026-11-05).
 

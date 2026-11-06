@@ -12,7 +12,7 @@ import {
 
 function getPageData() {
 	return load({
-		url: new URL('https://revolutiontradingpros.com/store/scanners')
+		url: new URL('https://www.revolutiontradingpros.com/store/scanners')
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
@@ -38,7 +38,9 @@ describe('/store/scanners/+page.svelte', () => {
 			'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.'
 		);
 		expect(data.pageMetaTags.description.length).toBe(148);
-		expect(data.pageMetaTags.canonical).toBe('https://revolutiontradingpros.com/store/scanners');
+		expect(data.pageMetaTags.canonical).toBe(
+			'https://www.revolutiontradingpros.com/store/scanners'
+		);
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy (zero H4s), and 4 semantic H3 FAQ summaries', async () => {

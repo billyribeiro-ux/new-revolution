@@ -1,4 +1,6 @@
-export const DEFAULT_FEED_ORIGIN = 'https://revolutiontradingpros.com';
+import { SITE_ORIGIN } from '#lib/shared/site-origin';
+
+export const DEFAULT_FEED_ORIGIN = SITE_ORIGIN;
 
 export function escapeXml(raw: string | null | undefined): string {
 	if (!raw) return '';

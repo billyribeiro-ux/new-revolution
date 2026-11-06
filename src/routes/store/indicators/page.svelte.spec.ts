@@ -13,7 +13,7 @@ import { indicatorsCatalog } from '#lib/data/indicators.ts';
 describe('/store/indicators page', () => {
 	it('returns character-locked SEO metadata (51-char title, 151-char description) and JSON-LD from load()', () => {
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/store/indicators')
+			url: new URL('https://www.revolutiontradingpros.com/store/indicators')
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
 		const pageMetaTags = result.pageMetaTags as {
@@ -32,7 +32,9 @@ describe('/store/indicators page', () => {
 			'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.'
 		);
 		expect(pageMetaTags.description.length).toBe(151);
-		expect(pageMetaTags.openGraph.url).toBe('https://revolutiontradingpros.com/store/indicators');
+		expect(pageMetaTags.openGraph.url).toBe(
+			'https://www.revolutiontradingpros.com/store/indicators'
+		);
 	});
 
 	it('renders the H1, 8 indicator cards, interactive category filter tabs, expandable technical specs, 5 comparison rows, 3 proof cards, and 4 FAQs', async () => {

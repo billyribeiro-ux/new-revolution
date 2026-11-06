@@ -105,7 +105,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Explosive Swings Alerts',
+			title: 'Sunday Alpha Protocol Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -494,7 +494,7 @@
 										>Swing Trading Room</a
 									>
 									and
-									<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>
+									<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>
 									alert tier.
 								</p>
 							{:else}

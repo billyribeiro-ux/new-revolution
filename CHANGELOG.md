@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Blog indexing, URL inventory and Sunday Alpha Protocol
+
+- Switched the shared production canonical origin, sitemap, RSS, robots sitemap reference and blog indexing notifications to the owner-selected `www` host. Eligible public CMS posts and qualifying archives are included in the generated sitemap automatically; store pages remain gated.
+- Updated navigation, marketing copy, internal references and structured data to name the existing `/watchlist` Sunday Alpha Protocol.
+- Added `urls.md`, a November 5 live-site URL snapshot, and `todo.md`, covering remaining store launch, production verification, Search Console and CMS freshness work. The snapshot records the pre-release live state and is not a claim that Google has indexed a URL.
+- Local verification: Svelte diagnostics, CSS and prerendered-page checks, production build, 576 unit/component tests, and the three-test SEO browser gate passed. The broader alternate-port browser run passed 23 tests and skipped 16; maintenance tests hard-code occupied port 4173 and were not verified in that run. The full lint command stopped on pre-existing formatting in `blogs/first-blog.md` and `blogs/head-to-head-blog.md`; the code lint and Svelte ESLint checks passed separately. Production verification remains outstanding.
+
 ### 2026-11-05 — Article layout and desktop TOC
 
 - Squash-merge PR #33 as `63ca12c` and promote verified Production deployment `dpl_HLkaHmeEwoQsh3iL5zEBjn2wvN2f`. The real public article passed 24 viewport, no-JavaScript and reduced-motion browser cases; maintenance remains off.

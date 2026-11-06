@@ -6,7 +6,7 @@
  *   - the sitemap (and its database queries), offer catalog and homepage article ItemList
  *   - indexing: they emit `noindex` and no canonical (see `isNoIndexRoute`)
  * The owner requested CMS-backed homepage cards and visible Blog navigation on 2026-11-05.
- * Blog navigation, footer links and navigation JSON-LD are visible independently of indexing.
+ * The published blog is open for indexing; post and taxonomy eligibility still applies.
  * Store navigation/promotion and the unwritten eBook remain hidden.
  *
  * Why `noindex` and not a robots.txt `Disallow`: Google documents that robots.txt "is not a mechanism
@@ -18,7 +18,7 @@
  * To launch a section: remove its prefix here, then follow docs/seo/LAUNCH_TRACKER.md.
  * Temporary item T10 in docs/TEMPORARY.md.
  */
-export const UNLAUNCHED_ROUTE_PREFIXES = ['/store', '/blog'] as const;
+export const UNLAUNCHED_ROUTE_PREFIXES = ['/store'] as const;
 
 /**
  * The free eBook ("The Institutional Execution Playbook") has not been written and no email delivery is

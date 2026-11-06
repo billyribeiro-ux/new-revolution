@@ -421,7 +421,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Explosive Swings Alerts',
+			title: 'Sunday Alpha Protocol Alerts',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',

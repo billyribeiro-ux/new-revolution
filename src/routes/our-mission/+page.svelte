@@ -87,7 +87,7 @@
 			routes: [
 				{ label: 'Live Day Trading Room', href: '/live-trading-rooms/day-trading-room' },
 				{ label: 'Swing Trading Room', href: '/live-trading-rooms/swing-trading-room' },
-				{ label: 'Explosive Swings Video Watchlist', href: '/watchlist' }
+				{ label: 'Sunday Alpha Protocol Video Watchlist', href: '/watchlist' }
 			]
 		}
 	];
@@ -100,7 +100,7 @@
 			problemSolved:
 				'Fake gurus charge $3,000 to $10,000 for basic courses, stripping new traders of the very capital they need to trade.',
 			ourPledge:
-				'We price our Live Trading Rooms, Alert Services (SPX Profit Pulse & Explosive Swings), Courses, Indicators, and Scanners for maximum accessibility—because we make our living from the market, not from gouging students.'
+				'We price our Live Trading Rooms, Alert Services (SPX Profit Pulse & Sunday Alpha Protocol), Courses, Indicators, and Scanners for maximum accessibility—because we make our living from the market, not from gouging students.'
 		},
 		{
 			number: '02',
@@ -127,7 +127,7 @@
 			problemSolved:
 				'Most trading rooms force a single reckless style that blows up $500 accounts and excludes people with full-time 9-to-5 jobs.',
 			ourPledge:
-				'We maintain dedicated environments for every reality: the Small Accounts Room for $500+ capital, the Swing Trading Room and Explosive Swings alerts for working professionals, and the Day Trading Room and SPX Profit Pulse for intraday traders.'
+				'We maintain dedicated environments for every reality: the Small Accounts Room for $500+ capital, the Swing Trading Room and Sunday Alpha Protocol alerts for working professionals, and the Day Trading Room and SPX Profit Pulse for intraday traders.'
 		},
 		{
 			number: '05',
@@ -156,10 +156,10 @@
 			painPoint:
 				'You work hard at your career and cannot sit glued to 1-minute charts for six hours a day—yet you refuse to settle for 7% index returns while inflation erodes your future.',
 			solution:
-				'Our Swing Trading Room and Explosive Swings video watchlists hand you institutional multi-day stock and options setups with pre-planned entries, exits, and stops you can execute in 15 minutes.',
+				'Our Swing Trading Room and Sunday Alpha Protocol video watchlists hand you institutional multi-day stock and options setups with pre-planned entries, exits, and stops you can execute in 15 minutes.',
 			primaryLinkLabel: 'Explore Swing Trading Room',
 			primaryLinkHref: '/live-trading-rooms/swing-trading-room',
-			secondaryLinkLabel: 'View Explosive Swings Alerts',
+			secondaryLinkLabel: 'View Sunday Alpha Protocol Alerts',
 			secondaryLinkHref: '/watchlist'
 		},
 		{
@@ -421,7 +421,7 @@
 					</p>
 					<div class="crisis-card__resolution">
 						<strong>Our Solution:</strong> In our live rooms and our affordable alert-only tiers (<a
-							href={resolve('/watchlist' as '/')}>Explosive Swings</a
+							href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a
 						>
 						&amp;
 						<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>), we

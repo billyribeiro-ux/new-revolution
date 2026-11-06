@@ -443,7 +443,7 @@
 		"app": "root",
 		"route": "/blog",
 		"url": "/blog",
-		"indexable": false,
+		"indexable": true,
 		"template": "listing",
 		"paramSource": "SSR (src/routes/blog/+page.server.ts:8 prerender=false)"
 	},
@@ -451,7 +451,7 @@
 		"app": "root",
 		"route": "/blog/[slug]",
 		"url": "/blog/institutional-order-flow-and-gamma-flip-playbook",
-		"indexable": false,
+		"indexable": true,
 		"template": "article",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:169-197 + content/blog-posts/blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md"
 	},
@@ -459,7 +459,7 @@
 		"app": "root",
 		"route": "/blog/[slug]",
 		"url": "/blog/zero-dte-risk-management-and-position-sizing-rules",
-		"indexable": false,
+		"indexable": true,
 		"template": "article",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:199-227 + content/blog-posts/blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md"
 	},
@@ -475,7 +475,7 @@
 		"app": "root",
 		"route": "/blog/category/[slug]",
 		"url": "/blog/category/market-structure",
-		"indexable": false,
+		"indexable": true,
 		"template": "listing",
 		"paramSource": "DB seed in src/lib/server/db/index.ts:126-137 (postCount >= 2)"
 	},

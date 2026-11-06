@@ -12,7 +12,7 @@ Read [AGENTS.md](AGENTS.md), [the Vite+ workflow](docs/VITE_PLUS_WORKFLOW.md), [
 
 Putting Markdown in `blogs/`, `content/blog-posts/`, or the repository root does **not** make it appear on the website. `mdsvex` configuration does not connect those directories to the database.
 
-**Published and publicly indexable are separate states.** At this audit, `UNLAUNCHED_ROUTE_PREFIXES` in [launch-gate.ts](src/lib/data/launch-gate.ts) contains `/blog`. It suppresses blog canonicals, emits noindex and excludes the section from the sitemap. Blog remains visible in desktop/mobile navigation, the footer and navigation JSON-LD by the owner’s November 5 request. Saving or publishing one article does not launch the section. Keep that gate until a separate launch decision and the launch checklist are complete.
+**Published and publicly indexable are separate states.** The owner authorized blog indexing on November 5, 2026; this branch removes `/blog` from `UNLAUNCHED_ROUTE_PREFIXES`. Eligible published posts and qualifying archives enter the generated sitemap automatically. Draft, protected and excluded content remain ineligible, and the store stays gated. Confirm deployed responses before treating this change as live.
 
 ### 1.1 Automatic homepage and blog placement
 

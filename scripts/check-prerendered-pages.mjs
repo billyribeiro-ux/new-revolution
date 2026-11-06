@@ -5,7 +5,7 @@
  * Reads `.svelte-kit/output/prerendered/pages/**.html` (no server needed) and fails when a page:
  *   - does not have exactly one <h1>
  *   - has no `<a class="skip" href="#id">` whose target id exists on the page
- *   - has no canonical URL on https://revolutiontradingpros.com, or leaks localhost / the prerender host
+ *   - has no canonical URL on https://www.revolutiontradingpros.com, or leaks localhost / the prerender host
  *   - has a JSON-LD FAQPage whose questions or answers are not visible in the page text (1:1 parity,
  *     AGENTS.md section 3.3)
  *   - has JSON-LD that does not parse
@@ -16,7 +16,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = new URL('../.svelte-kit/output/prerendered/pages', import.meta.url).pathname;
-const ORIGIN = 'https://revolutiontradingpros.com';
+const ORIGIN = 'https://www.revolutiontradingpros.com';
 
 if (!existsSync(ROOT)) {
 	console.error('No prerendered output. Run `pnpm build` first.');

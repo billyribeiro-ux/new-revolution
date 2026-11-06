@@ -12,7 +12,7 @@ import Page from './+page.svelte';
 describe('/resources/stock-indexes-list page', () => {
 	it('returns character-locked SEO metadata (51-char title, 154-char description) and JSON-LD from load()', () => {
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/resources/stock-indexes-list')
+			url: new URL('https://www.revolutiontradingpros.com/resources/stock-indexes-list')
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
 		const pageMetaTags = result.pageMetaTags as {
@@ -32,7 +32,7 @@ describe('/resources/stock-indexes-list page', () => {
 		);
 		expect(pageMetaTags.description.length).toBe(154);
 		expect(pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/resources/stock-indexes-list'
+			'https://www.revolutiontradingpros.com/resources/stock-indexes-list'
 		);
 	});
 

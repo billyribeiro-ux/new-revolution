@@ -12,7 +12,7 @@ import {
 
 function getPageData() {
 	return load({
-		url: new URL('https://revolutiontradingpros.com/alert-services/spx-profit-pulse')
+		url: new URL('https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse')
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
@@ -39,7 +39,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 		);
 		expect(data.pageMetaTags.description.length).toBe(149);
 		expect(data.pageMetaTags.canonical).toBe(
-			'https://revolutiontradingpros.com/alert-services/spx-profit-pulse'
+			'https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse'
 		);
 	});
 

@@ -13,7 +13,7 @@ interface InventoryEntry {
 
 const INVENTORY_PATH = resolve(process.cwd(), 'docs/seo/audit/02-inventory.json');
 const INVENTORY: InventoryEntry[] = JSON.parse(readFileSync(INVENTORY_PATH, 'utf8'));
-const ORIGIN = 'https://revolutiontradingpros.com';
+const ORIGIN = 'https://www.revolutiontradingpros.com';
 
 const FORBIDDEN_SCHEMA_TYPES = new Set([
 	'FAQPage',
@@ -254,15 +254,13 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 	}) => {
 		for (const nonIndexUrl of [
 			'/demo/playwright',
-			// Gated by launch-gate.ts: every store and blog URL is noindex until launch, flagship products included.
+			// Gated by launch-gate.ts: store URLs remain noindex until launch, flagship products included.
 			'/store/courses',
 			'/store/indicators',
 			'/store/scanners',
 			'/store/courses/move-prior-to-the-move-ultra',
 			'/store/indicators/move-prior-to-the-move-system',
 			'/store/scanners/high-octane-scanner',
-			'/blog',
-			'/blog/institutional-order-flow-and-gamma-flip-playbook',
 			'/blog/private-desk-quarterly-gamma-levels-briefing',
 			'/blog/tag/spx-options',
 			'/store/courses/move-prior-to-the-move-masterclass',

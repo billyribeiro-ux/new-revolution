@@ -5,7 +5,7 @@ import Page from './+page.svelte';
 import { load } from './+page';
 
 function runLoad() {
-	const url = new URL('https://revolutiontradingpros.com/resources');
+	const url = new URL('https://www.revolutiontradingpros.com/resources');
 	return load({ url } as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
@@ -30,7 +30,7 @@ describe('/resources/+page.ts load()', () => {
 			'Free stock, ETF, and options trading resources. Access beginner guides, position size and options calculators, video tutorials, and market analysis.'
 		);
 		expect(pageMetaTags.description.length).toBe(148);
-		expect(pageMetaTags.openGraph.url).toBe('https://revolutiontradingpros.com/resources');
+		expect(pageMetaTags.openGraph.url).toBe('https://www.revolutiontradingpros.com/resources');
 		expect(result.jsonLdSchema).toBeDefined();
 	});
 });

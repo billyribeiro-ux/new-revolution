@@ -22,8 +22,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                        | Owner session       | Area / files claimed                                                                        | Started    | Status      |
+| ----------------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ---------- | ----------- |
+| `docs/url-inventory-20261105` | Codex URL inventory | Canonical origin, blog indexing, URL inventory, Sunday Alpha references, SEO tests and docs | 2026-11-05 | In progress |
 
 ## Recently finished
 

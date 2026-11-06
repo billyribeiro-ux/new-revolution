@@ -14,7 +14,7 @@ describe('/live-trading-rooms/swing-trading-room (+page.ts & +page.svelte)', () 
 		expect(prerender).toBe(true);
 
 		const result = (await load({
-			url: new URL('https://revolutiontradingpros.com/live-trading-rooms/swing-trading-room')
+			url: new URL('https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room')
 		} as never)) as {
 			pageMetaTags: {
 				title: string;
@@ -30,7 +30,7 @@ describe('/live-trading-rooms/swing-trading-room (+page.ts & +page.svelte)', () 
 		);
 		expect(result.pageMetaTags.description.length).toBe(144);
 		expect(result.pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/live-trading-rooms/swing-trading-room'
+			'https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room'
 		);
 	});
 

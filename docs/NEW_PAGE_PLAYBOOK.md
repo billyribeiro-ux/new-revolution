@@ -69,7 +69,7 @@ Read, in this order. Do not rely on memory.
 ## 3. Files to create, in order
 
 Use the route `<route>` (e.g. `resources/options-calculator`), the slug `<slug>` (e.g. `options-calculator`),
-and the URL `https://revolutiontradingpros.com/<route>`. In code samples `YOUR_PAGE_*` / `buildYourPageJsonLd` stand for
+and the URL `https://www.revolutiontradingpros.com/<route>`. In code samples `YOUR_PAGE_*` / `buildYourPageJsonLd` stand for
 your page's real names (e.g. `OPTIONS_CALCULATOR_FAQ_ITEMS`, `buildOptionsCalculatorJsonLd`).
 
 ### 3.1 Static content: `src/lib/data/<slug>.ts` (only if the page has more than a few strings)
@@ -376,7 +376,7 @@ Rules live in `docs/CSS_STANDARDS.md`; these are the traps that actually happene
 
 **SEO**
 
-- `pnpm check:pages` after `pnpm build` verifies: one h1, a valid skip link, canonical on `https://revolutiontradingpros.com`, no
+- `pnpm check:pages` after `pnpm build` verifies: one h1, a valid skip link, canonical on `https://www.revolutiontradingpros.com`, no
   `localhost`/`sveltekit-prerender`, parseable JSON-LD, and no `FAQPage`/`HowTo` node in the JSON-LD (SD-10).
 - Description/title lengths are asserted in the page spec (§3.5); they are house conventions, not Google rules.
 - Before making **any** SEO claim or adding markup "for Google", read `docs/SEO_EVIDENCE.md` (official sources, quoted, dated). Key facts: FAQ rich results are gone (May 2026); structured data must match visible text; no special markup is needed for AI Overviews; no confirmed ranking update exists for Oct 30, 2026. Anything not in that log must be fetched from the official page and added there first.

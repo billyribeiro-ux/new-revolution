@@ -1,3 +1,4 @@
+import { SITE_ORIGIN } from '#lib/shared/site-origin';
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
 import { and, desc, eq, inArray, isNotNull, isNull, lte, sql } from 'drizzle-orm';
 import { writeAuditLog } from '../audit';
@@ -155,7 +156,7 @@ export async function runScheduledPublishSweep(): Promise<ScheduledSweepResult> 
 			...allSlugsToNotify.map((s) => `/blog/${s}`)
 		]);
 
-		const urls = allSlugsToNotify.map((s) => `https://revolutiontradingpros.com/blog/${s}`);
+		const urls = allSlugsToNotify.map((s) => `${SITE_ORIGIN}/blog/${s}`);
 		await Promise.allSettled([
 			new Promise<void>((resolve) => {
 				notifySearchEnginesAsync(urls, {

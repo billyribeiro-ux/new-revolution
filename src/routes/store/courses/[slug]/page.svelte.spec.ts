@@ -15,7 +15,9 @@ describe('/store/courses/[slug] page', () => {
 		expect(slugList).toContainEqual({ slug: 'move-prior-to-the-move-ultra' });
 
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra'),
+			url: new URL(
+				'https://www.revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra'
+			),
 			params: { slug: 'move-prior-to-the-move-ultra' }
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
@@ -36,7 +38,7 @@ describe('/store/courses/[slug] page', () => {
 		);
 		expect(pageMetaTags.description.length).toBe(156);
 		expect(pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra'
+			'https://www.revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra'
 		);
 	});
 

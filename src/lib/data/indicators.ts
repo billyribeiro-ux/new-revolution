@@ -148,7 +148,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 		hook: 'Combine price structure, institutional thrust, and regime momentum to stay on the right side of major trends.',
 		whatItExposes:
 			'Eliminates counter-trend guessing by locking in institutional trend direction, pullback entry shelves, and trailing stop levels.',
-		bestFor: 'Swing Trading Room & Explosive Swings Members',
+		bestFor: 'Swing Trading Room & Sunday Alpha Protocol Members',
 		chartPattern: 'squeeze'
 	}
 ];

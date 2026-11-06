@@ -16,7 +16,7 @@ describe('/store/scanners/[slug] page', () => {
 		expect(slugList).toContainEqual({ slug: 'move-prior-to-the-move-radar' });
 
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/store/scanners/high-octane-scanner'),
+			url: new URL('https://www.revolutiontradingpros.com/store/scanners/high-octane-scanner'),
 			params: { slug: 'high-octane-scanner' }
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
@@ -37,7 +37,7 @@ describe('/store/scanners/[slug] page', () => {
 		);
 		expect(pageMetaTags.description.length).toBe(149);
 		expect(pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/store/scanners/high-octane-scanner'
+			'https://www.revolutiontradingpros.com/store/scanners/high-octane-scanner'
 		);
 	});
 

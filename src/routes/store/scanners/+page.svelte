@@ -420,7 +420,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',

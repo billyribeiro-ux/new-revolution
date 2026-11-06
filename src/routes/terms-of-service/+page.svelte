@@ -15,14 +15,21 @@
 <Navbar />
 
 <main id="terms-of-service-page" class="inner-page terms-of-service-page">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Terms of Service</li>
+			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Legal Terms</span> • <span>U.S. &amp; Canadian Regulatory Disclosures</span>
+			</p>
+		</div>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="terms-h1">
 		<div class="hero-inner">
-			<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-current="page">Terms of Service</li>
-				</ol>
-			</nav>
 			<span class="section-kicker">Legal Terms &amp; Regulatory Disclosures</span>
 			<h1 id="terms-h1" class="hero-h1">Terms of Service &amp; Disclosures</h1>
 			<p class="lead-copy">

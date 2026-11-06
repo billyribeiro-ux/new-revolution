@@ -217,6 +217,37 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 					crumbLis.nth(breadcrumbJsonItems.length - 1),
 					`${entry.url} final breadcrumb item must have aria-current="page"`
 				).toHaveAttribute('aria-current', 'page');
+
+				// Breadcrumb bar must be styled as a horizontal flex row aligned with the navbar container inner edge
+				const breadcrumbLayout = await page.evaluate(() => {
+					const nav = document.querySelector('nav[aria-label="Breadcrumb"]');
+					const ol = nav?.querySelector('ol');
+					const navInner = document.querySelector('.nav-shell .container.nav');
+					if (!nav || !ol || !navInner) return null;
+					const navStyle = getComputedStyle(nav);
+					const olStyle = getComputedStyle(ol);
+					const olRect = ol.getBoundingClientRect();
+					const navInnerRect = navInner.getBoundingClientRect();
+					const navInnerPadLeft = parseFloat(getComputedStyle(navInner).paddingLeft);
+					return {
+						navBg: navStyle.backgroundColor,
+						olDisplay: olStyle.display,
+						olListStyleType: olStyle.listStyleType,
+						deltaX: Math.round(Math.abs(olRect.left - (navInnerRect.left + navInnerPadLeft)))
+					};
+				});
+				expect(breadcrumbLayout, `${entry.url} breadcrumb DOM layout`).not.toBeNull();
+				expect(breadcrumbLayout!.navBg, `${entry.url} breadcrumb bar background`).not.toBe(
+					'rgba(0, 0, 0, 0)'
+				);
+				expect(breadcrumbLayout!.olDisplay, `${entry.url} breadcrumb ol display`).toBe('flex');
+				expect(breadcrumbLayout!.olListStyleType, `${entry.url} breadcrumb ol list-style`).toBe(
+					'none'
+				);
+				expect(
+					breadcrumbLayout!.deltaX,
+					`${entry.url} breadcrumb horizontal alignment with navbar container`
+				).toBeLessThanOrEqual(1);
 			}
 
 			// Images must have alt and dimensions (MEDIA-01, MEDIA-02)

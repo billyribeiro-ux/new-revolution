@@ -9,6 +9,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-06 — Unify breadcrumb layout, Google BreadcrumbList hierarchy & remove `/watchlist` route folder
+
+- **Fixed:** Standardize `src/lib/components/layout/Breadcrumb.svelte` to use the shared `.container` (`max-inline-size: var(--max)` = `96rem` / `1536px` with `calc(var(--gutter) / 2)` inline padding), eliminating the `-24px` horizontal misalignment on `/resources` and `/resources/etf-stocks-list`.
+- **Fixed:** Replace the unstyled `<nav class="breadcrumb-nav">` on `/resources/stock-indexes-list` (`src/routes/resources/stock-indexes-list/+page.svelte`) with `<Breadcrumb>` (fixing the `138px`-tall vertical numbered `<ol>`) and upgrade `/sunday-alpha-alerts` (`src/routes/sunday-alpha-alerts/+page.svelte`) plus the 5 trust/legal routes (`/contact`, `/privacy-policy`, `/terms-of-service`, `/refund-policy`, `/editorial-policy`) to the top `.breadcrumb-bar` strip directly beneath `<Navbar />`.
+- **Fixed:** Align parent-to-child breadcrumb hierarchy names `1:1` across visible DOM and JSON-LD `BreadcrumbList` in `src/lib/seo/structured-data.ts` (`Trading Courses` on `/store/courses*`, `Trading Indicators` on `/store/indicators*`, `Trading Scanners` on `/store/scanners*`, and `Stock Indexes List` on `/resources/stock-indexes-list`), and add computed DOM/CSS layout assertions in `tests/seo/seo-standard.spec.ts`.
+- **Removed:** Delete the legacy `src/routes/watchlist/` directory (`src/routes/watchlist/+server.ts`) and centralize `308 Permanent Redirect` handling for `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, and `/alert-services/sunday-alpha-alerts` to `/sunday-alpha-alerts` in `src/hooks.server.ts` (`resolveBlogRedirect`), preserving query strings and URL fragments.
+- **Changed:** Rename `src/lib/data/sunday-alpha-protocol.ts` → `src/lib/data/sunday-alpha-alerts.ts`, `src/lib/styles/sunday-alpha-protocol.css` → `src/lib/styles/sunday-alpha-alerts.css`, and `explosive-swings` service/FAQ/nav-icon IDs to `sunday-alpha-alerts`, and remove duplicate `'Sunday Alpha Alerts Alerts'` labels across 10 route/data files.
+
 ### 2026-11-06 — Standardize 96rem (1536px) outer layout, desktop navbar, blog article grid and 200% text reflow
 
 - **Changed:** Restore `--max: 96rem` (`1536px` at `16px` root) in `src/app.css` as the shared border-box container cap across all routes and update `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md`, `docs/CSS_STANDARDS.md`, `AGENTS.md`, `GEMINI.md`, `docs/BLOG_AGENT_HANDOFF.md`, and active runbooks to match.

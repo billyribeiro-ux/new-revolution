@@ -33,7 +33,7 @@ export const NAV_ICONS: Record<NavIconKey, typeof BellRingingIcon> = {
 	'swing-trading': ChartLineUpIcon,
 	'small-accounts': WalletIcon,
 	spx: PulseIcon,
-	'explosive-swings': RocketLaunchIcon,
+	'sunday-alpha-alerts': RocketLaunchIcon,
 	courses: GraduationCapIcon,
 	indicators: ChartLineIcon,
 	scanners: ScanIcon,

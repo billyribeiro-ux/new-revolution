@@ -249,7 +249,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable alert-only video watchlists with exact targeted entries, exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -278,7 +278,7 @@
 					<li aria-hidden="true">
 						<CaretRightIcon size={12} weight="bold" />
 					</li>
-					<li><a href={resolve('/store/indicators' as '/')}>Store: Indicators</a></li>
+					<li><a href={resolve('/store/indicators' as '/')}>Trading Indicators</a></li>
 					<li aria-hidden="true">
 						<CaretRightIcon size={12} weight="bold" />
 					</li>

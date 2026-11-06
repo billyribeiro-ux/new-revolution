@@ -339,7 +339,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',

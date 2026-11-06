@@ -62,8 +62,24 @@ export function normaliseRedirectLookupPath(pathname: string): string {
 	return lowered || '/';
 }
 
+const LEGACY_SUNDAY_ALPHA_PATHS = new Set([
+	'/watchlist',
+	'/explosive-swings',
+	'/alert-services/explosive-swings',
+	'/alert-services/sunday-alpha-alerts'
+]);
+
 export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 	const normalizedPath = normaliseRedirectLookupPath(url.pathname);
+	if (LEGACY_SUNDAY_ALPHA_PATHS.has(normalizedPath)) {
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/sunday-alpha-alerts${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
 	if (normalizedPath === '/blogs') {
 		return new Response(null, {
 			status: 308,

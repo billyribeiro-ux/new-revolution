@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
-	import '#lib/styles/sunday-alpha-protocol.css';
+	import '#lib/styles/sunday-alpha-alerts.css';
 	import { resolve } from '$app/paths';
 	import * as d3 from 'd3';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -15,7 +15,7 @@
 		SUNDAY_ALPHA_TERMINAL_BLUEPRINTS,
 		type SundayAlphaBlueprint,
 		type SundayAlphaSeriesPoint
-	} from '#lib/data/sunday-alpha-protocol.ts';
+	} from '#lib/data/sunday-alpha-alerts.ts';
 	import { SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import type { PageProps } from './$types';
 
@@ -696,13 +696,17 @@
 	<!-- Top Scroll Progress Laser Line -->
 	<div class="scroll-laser" style={`width: ${scrollProgress}%`} aria-hidden="true"></div>
 
-	<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-		<div class="container">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
 			<ol class="breadcrumb-list">
 				<li><a href={resolve('/')}>Home</a></li>
 				<li aria-hidden="true">/</li>
 				<li aria-current="page">Sunday Alpha Alerts</li>
 			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Sunday 5:00 PM EST Dispatch</span> • <span>5–7 Swing Blueprints</span> •
+				<span>Exact Entries, Targets &amp; Stops</span>
+			</p>
 		</div>
 	</nav>
 

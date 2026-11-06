@@ -159,7 +159,7 @@
 				'Our Swing Trading Room and Sunday Alpha Alerts video watchlists hand you institutional multi-day stock and options setups with pre-planned entries, exits, and stops you can execute in 15 minutes.',
 			primaryLinkLabel: 'Explore Swing Trading Room',
 			primaryLinkHref: '/live-trading-rooms/swing-trading-room',
-			secondaryLinkLabel: 'View Sunday Alpha Alerts Alerts',
+			secondaryLinkLabel: 'View Sunday Alpha Alerts',
 			secondaryLinkHref: '/sunday-alpha-alerts'
 		},
 		{

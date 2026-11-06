@@ -11,6 +11,7 @@
 	import { cubicOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 	import { JsonLd } from 'svelte-meta-tags';
+	import Breadcrumb from '#lib/components/layout/Breadcrumb.svelte';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { STOCK_INDEXES_LIST_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
@@ -161,17 +162,16 @@
 	<Navbar />
 
 	<main id="main-content" class="indexes-page">
-		<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-			<div class="container">
-				<ol class="breadcrumb-list">
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-hidden="true">/</li>
-					<li><a href={resolve('/resources')}>Free Trading Resources</a></li>
-					<li aria-hidden="true">/</li>
-					<li aria-current="page">Major US &amp; Global Stock Market Indexes</li>
-				</ol>
-			</div>
-		</nav>
+		<Breadcrumb
+			items={[
+				{ label: 'Home', href: '/' },
+				{ label: 'Free Trading Resources', href: '/resources' },
+				{ label: 'Stock Indexes List' }
+			]}
+		>
+			<span>10 Global Benchmarks</span> • <span>S&amp;P 500, Nasdaq, Dow &amp; VIX</span> •
+			<span>ETF &amp; Futures Proxies</span>
+		</Breadcrumb>
 
 		<!-- Hero Section -->
 		<section class="hero">

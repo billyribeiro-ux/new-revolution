@@ -566,7 +566,7 @@
 						</p>
 					</div>
 					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark btn--full">
-						Explore Sunday Alpha Alerts Alerts
+						Explore Sunday Alpha Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
 				</article>
@@ -643,7 +643,7 @@
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
 				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
-					Explore Sunday Alpha Alerts Alerts
+					Explore Sunday Alpha Alerts
 				</a>
 				<a
 					href={resolve('/live-trading-rooms/small-accounts-room' as '/')}

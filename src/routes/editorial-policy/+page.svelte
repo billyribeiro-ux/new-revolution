@@ -15,14 +15,21 @@
 <Navbar />
 
 <main id="editorial-policy-page" class="inner-page editorial-policy-page">
+	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
+		<div class="container breadcrumb-bar__inner">
+			<ol class="breadcrumb-list">
+				<li><a href={resolve('/')}>Home</a></li>
+				<li aria-hidden="true">/</li>
+				<li aria-current="page">Editorial Policy</li>
+			</ol>
+			<p class="breadcrumb-bar__telemetry">
+				<span>Research Integrity</span> • <span>YMYL Verification &amp; Risk Disclosure</span>
+			</p>
+		</div>
+	</nav>
+
 	<section class="page-hero" aria-labelledby="editorial-h1">
 		<div class="hero-inner">
-			<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-				<ol>
-					<li><a href={resolve('/')}>Home</a></li>
-					<li aria-current="page">Editorial Policy</li>
-				</ol>
-			</nav>
 			<span class="section-kicker">Research Integrity &amp; YMYL Governance</span>
 			<h1 id="editorial-h1" class="hero-h1">Editorial Policy &amp; Standards</h1>
 			<p class="lead-copy">

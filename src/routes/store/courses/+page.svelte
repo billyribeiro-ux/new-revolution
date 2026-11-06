@@ -152,7 +152,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts Alerts',
+			title: 'Sunday Alpha Alerts',
 			description:
 				'Affordable alert-only video watchlists with exact entries, profit exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -195,7 +195,7 @@
 					<li aria-hidden="true">
 						<CaretRightIcon size={12} weight="bold" />
 					</li>
-					<li aria-current="page">Courses from Revolution Trading Pros</li>
+					<li aria-current="page">Trading Courses</li>
 				</ol>
 				<p class="breadcrumb-bar__telemetry">
 					<span>Goldman Sachs Prop Lineage</span> • <span>Self-Paced On-Demand HD</span> •

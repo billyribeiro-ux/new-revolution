@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Verify the shared-layout release and correct the featured-only archive
+
+- Squash-merge PR #39 as `37a23f2` and promote exact verified Production deployment `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`. Staged and anonymous public checks each pass 63 HTTP, 57 three-engine browser and 57 font-surface cases; 30 additional public checks verify actual body-only searches, RSS, domain/fragment redirects and crawler-header behavior. Maintenance remains off. Evidence: [release report](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md).
+- Final visual inspection found the sole featured post repeated as “1 article” under an empty “More articles” section. Omit that empty remainder and count only the remaining articles when a lead is displayed, preserving the service's total/count/privacy contract and zero-result/search/page controls. Add four focused browser component regressions; all 8 focused cases and the repeated complete 678-test unit/component and 71-case authenticated E2E suites pass. Svelte/CSS/code checks and official MCP reanalysis are clean; the same three original reference-formatting exceptions remain.
+- Record raw staged/public HTTP, browser, font and identity evidence plus representative screenshots. The font probe verifies the two exact local-only metric fallback aliases against their CSS rules and SSOT positions, and waits for hydration-discovered stylesheets. Keep real font/resource/CSP failures strict. The archive presentation follow-up requires its own staged/public acceptance before promotion.
+
 ### 2026-11-05 — Repair shared layout, blog discovery and brand typography
 
 - Adopt the owner-selected 2440px outer layout as a 152.5rem border-box container including shared gutters. Align archive headings/results, navigation and footer; preserve 900px article reading measure and remove competing ETF/index/product caps.

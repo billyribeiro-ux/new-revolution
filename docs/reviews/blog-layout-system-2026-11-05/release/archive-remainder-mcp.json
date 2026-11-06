@@ -1,0 +1,43 @@
+{
+	"component": "src/lib/components/blog/ArchiveResults.svelte",
+	"sourceSha256": "98f9621bc0556f979f77e8a7529a400ee5c24cabc8e2e6a850a9c18dfd48bbca",
+	"officialMcp": {
+		"tool": "mcp__svelte__svelte_autofixer",
+		"desiredSvelteVersion": "5",
+		"filename": "ArchiveResults.svelte",
+		"phase": "final unchanged source revalidation for persisted release evidence",
+		"rawResponse": {
+			"content": [
+				{
+					"type": "text",
+					"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+				}
+			],
+			"structuredContent": {
+				"issues": [],
+				"suggestions": [],
+				"require_another_tool_call_after_fixing": false
+			}
+		}
+	},
+	"focusedTests": {
+		"command": "pnpm exec vp test run src/lib/components/blog/archive.svelte.spec.ts --project client",
+		"result": "passed",
+		"project": "client",
+		"browser": "Chromium",
+		"filesPassed": 1,
+		"testsPassed": 8,
+		"newCases": 4,
+		"completedRunOutput": "Test Files  1 passed (1)\n     Tests  8 passed (8)\n  Start at  22:54:40\n  Duration  679ms (worker 91%, tests 6%, import 3%)",
+		"coverage": [
+			"Sole featured post renders one card and omits the empty More articles section",
+			"Featured lead plus one regular post displays 1 article beneath the lead",
+			"Featured lead plus two regular posts displays 2 articles beneath the lead",
+			"Zero-post archive retains the honest empty state",
+			"Existing intermediate card geometry",
+			"Native GET and topic query preservation",
+			"Search/page-two counts and scoped pagination",
+			"Zero-result search and scope-preserving reset"
+		]
+	}
+}

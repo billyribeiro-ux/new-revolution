@@ -5,6 +5,18 @@ import { parseArgs } from 'node:util';
 import { chromium } from '@playwright/test';
 
 const allowedFamilies = ['Montserrat Variable', 'Sofia Sans Variable'];
+const fallbackPolicy = [
+	{
+		family: 'Montserrat Variable Fallback',
+		primary: 'Montserrat Variable',
+		token: '--font-display'
+	},
+	{
+		family: 'Sofia Sans Variable Fallback',
+		primary: 'Sofia Sans Variable',
+		token: '--font-sans'
+	}
+];
 const viewport = { width: 1440, height: 1000 };
 let secrets = [];
 let reportPath;
@@ -169,6 +181,9 @@ async function inspectSurface(browser, origin, cookies, surface) {
 		const final = new URL(page.url());
 		if (final.origin !== origin || final.pathname !== surface.path)
 			fail('Navigation redirected away from the requested origin/path');
+		// Hydration can discover an error-route stylesheet after the document load event.
+		// Wait for a bounded quiet period before checking completed font/stylesheet responses.
+		await page.waitForLoadState('networkidle', { timeout: 10000 });
 		await page.evaluate(async () => {
 			let timer;
 			try {
@@ -183,7 +198,7 @@ async function inspectSurface(browser, origin, cookies, surface) {
 			}
 			await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
 		});
-		record.rendering = await page.evaluate(() => {
+		record.rendering = await page.evaluate((fallbackPolicy) => {
 			const content = document.querySelector('main') ?? document.body;
 			const box = content?.getBoundingClientRect();
 			const style = content ? getComputedStyle(content) : null;
@@ -191,6 +206,55 @@ async function inspectSurface(browser, origin, cookies, surface) {
 				document.documentElement.scrollWidth,
 				document.body?.scrollWidth ?? 0
 			);
+			const normalizeFamily = (family) => family.replaceAll(/['"]/g, '').trim();
+			const rootStyle = getComputedStyle(document.documentElement);
+			const fallbackTokens = fallbackPolicy.map((policy) => {
+				const stack = rootStyle.getPropertyValue(policy.token).split(',').map(normalizeFamily);
+				return {
+					...policy,
+					stack,
+					secondaryTokenFallback: stack[0] === policy.primary && stack[1] === policy.family
+				};
+			});
+			const registeredLocalFallbackRules = [];
+			const unreadableStylesheets = [];
+			const visitedSheets = new Set();
+			function inspectRules(rules, sheetUrl) {
+				for (const rule of rules) {
+					if (rule.type === CSSRule.FONT_FACE_RULE) {
+						const family = normalizeFamily(rule.style.getPropertyValue('font-family'));
+						if (!fallbackPolicy.some((policy) => policy.family === family)) continue;
+						const source = rule.style.getPropertyValue('src').trim();
+						const remainder = source
+							.replaceAll(/local\(\s*(?:"[^"]*"|'[^']*'|[^()]*)\s*\)/gi, '')
+							.replaceAll(/[\s,]/g, '');
+						registeredLocalFallbackRules.push({
+							family,
+							source,
+							stylesheet: sheetUrl,
+							localOnly: /local\(/i.test(source) && !/url\(/i.test(source) && !remainder,
+							style: rule.style.getPropertyValue('font-style') || 'normal',
+							weight: rule.style.getPropertyValue('font-weight') || 'normal',
+							stretch: rule.style.getPropertyValue('font-stretch') || 'normal',
+							unicodeRange: rule.style.getPropertyValue('unicode-range') || 'U+0-10FFFF'
+						});
+					} else if (rule.styleSheet) {
+						inspectSheet(rule.styleSheet);
+					} else if (rule.cssRules) {
+						inspectRules(rule.cssRules, sheetUrl);
+					}
+				}
+			}
+			function inspectSheet(sheet) {
+				if (visitedSheets.has(sheet)) return;
+				visitedSheets.add(sheet);
+				try {
+					inspectRules(sheet.cssRules, sheet.href ?? 'inline');
+				} catch {
+					unreadableStylesheets.push(sheet.href ?? 'inline');
+				}
+			}
+			for (const sheet of document.styleSheets) inspectSheet(sheet);
 			return {
 				contentElement: content?.tagName.toLowerCase() ?? null,
 				visibleContent: Boolean(
@@ -207,6 +271,9 @@ async function inspectSurface(browser, origin, cookies, surface) {
 				headingFamily: document.querySelector('h1')
 					? getComputedStyle(document.querySelector('h1')).fontFamily
 					: null,
+				fallbackTokens,
+				registeredLocalFallbackRules,
+				unreadableStylesheets,
 				loadedFaces: [...document.fonts]
 					.filter((face) => face.status === 'loaded')
 					.map((face) => ({
@@ -218,15 +285,35 @@ async function inspectSurface(browser, origin, cookies, surface) {
 						unicodeRange: face.unicodeRange
 					}))
 			};
-		});
+		}, fallbackPolicy);
 		if (!record.rendering.visibleContent) fail('Main/body content is not visibly rendered');
 		if (record.rendering.horizontalOverflow) fail('Document overflows the viewport horizontally');
 		const loaded = new Set(
 			record.rendering.loadedFaces.map((face) => face.family.replaceAll(/['"]/g, '').trim())
 		);
 		if (!loaded.size) fail('No custom font face loaded');
-		for (const family of loaded)
-			if (!allowedFamilies.includes(family)) fail(`Unsupported loaded font family: ${family}`);
+		for (const face of record.rendering.loadedFaces) {
+			const family = face.family.replaceAll(/['"]/g, '').trim();
+			if (allowedFamilies.includes(family)) continue;
+			const policy = record.rendering.fallbackTokens.find((policy) => policy.family === family);
+			const rules = record.rendering.registeredLocalFallbackRules.filter(
+				(rule) => rule.family === family
+			);
+			const matchingLocalRule = rules.some(
+				(rule) =>
+					rule.localOnly &&
+					rule.style === face.style &&
+					rule.weight === face.weight &&
+					rule.stretch === face.stretch &&
+					rule.unicodeRange === face.unicodeRange
+			);
+			if (
+				!policy?.secondaryTokenFallback ||
+				!matchingLocalRule ||
+				rules.some((rule) => !rule.localOnly)
+			)
+				fail(`Unsupported or unverified loaded font family: ${family}`);
+		}
 		if (surface.publicInventory)
 			for (const family of allowedFamilies)
 				if (!loaded.has(family)) fail(`Public page did not load ${family}`);
@@ -305,6 +392,7 @@ async function main() {
 		passiveAnalyticsOperationExercised: false,
 		queryValuesRedacted: true,
 		allowedFamilies,
+		fallbackPolicy,
 		fatalErrors: [],
 		surfaces: []
 	};

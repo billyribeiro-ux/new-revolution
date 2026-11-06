@@ -1,6 +1,6 @@
 # Website URL inventory
 
-Current source inventory for the November 5, 2026 implementation. The earlier public crawl of application `33a1346` is historical. The new canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. Final public acceptance will be recorded in `docs/reviews/blog-layout-system-2026-11-05/RELEASE.md`. This is a human-readable snapshot of 52 public HTML pages, not the file to submit to Google.
+Verified public inventory for November 5, 2026, application `37a23f2`, deployment `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`. All 52 public HTML pages passed anonymous HTTP and font checks; the 19 eligible URLs exactly match the generated sitemap. The canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. See [release evidence](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md), including any later presentation follow-up. This human-readable snapshot is not the file to submit to Google.
 
 ## Submit this sitemap
 
@@ -12,7 +12,7 @@ Submit the XML sitemap in Google Search Console. It automatically discovers elig
 
 ## Public pages eligible for indexing (19)
 
-These 19 URLs are eligible in the generated sitemap and built-route contracts. Final release acceptance checks public HTTP 200, matching www canonicals, crawler access and absence of noindex. Eligibility does not establish Google indexing or rankings.
+These 19 URLs passed public HTTP 200, matching www canonicals, crawler-header access and absence of noindex, and exactly match the generated sitemap. Eligibility does not establish Google indexing or rankings.
 
 - https://www.revolutiontradingpros.com
 - https://www.revolutiontradingpros.com/about
@@ -85,4 +85,4 @@ These pages are intentionally excluded from the sitemap. Store launch and thin t
 
 ## Evidence and scope
 
-See [release verification](docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md) and its HTTP, crawl, redirect and browser records. Admin, API, private routes, query variants, assets and external links are outside this public HTML inventory. Thirteen stale local test-inventory candidates returned 404 and are not Google submission URLs.
+See [current release verification](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md) and its HTTP, redirect and browser records. The earlier indexing-release evidence remains historical. Admin, API, private routes, query variants, assets and external links are outside this public HTML inventory. Thirteen stale local test-inventory candidates returned 404 and are not Google submission URLs.

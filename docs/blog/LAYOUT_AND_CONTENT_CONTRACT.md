@@ -1,6 +1,6 @@
 # Website layout and blog interaction contract
 
-> **Blog work: November 5, 2026.** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) and [font/fragment policy](../FONT_AND_FRAGMENT_POLICY.md). This contract supersedes earlier container, font-choice and punctuation recipes. Implementation evidence is maintained in [the current audit](../reviews/blog-layout-system-2026-11-05/PLAN.md); a plan does not establish deployment.
+> **Blog work: November 5, 2026.** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) and [font/fragment policy](../FONT_AND_FRAGMENT_POLICY.md). This contract supersedes earlier container, font-choice and punctuation recipes. Implementation evidence is maintained in [the current audit](../reviews/blog-layout-system-2026-11-05/PLAN.md); a plan does not establish deployment. See the [verified release evidence](../reviews/blog-layout-system-2026-11-05/RELEASE.md) for actual deployed status.
 
 ## Shared outer and reading anchors
 
@@ -12,11 +12,11 @@ Article title, cover, prose and FAQ share a 900px maximum reading column. The le
 
 ## Archive, search and media
 
-Index/category/tag share BlogArchive, ArchiveControls and ArchiveResults. No decorative tag hash or empty sidebar column. Results follow the heading/controls by 2–3rem. Regular cards cap 25rem; one-result cards cap 75rem and split equally from 48rem. Preserve GET query/topic state, explicit empty results and page controls.
+Index/category/tag share BlogArchive, ArchiveControls and ArchiveResults. No decorative tag hash or empty sidebar column. Results follow the heading/controls by 2–3rem. Regular cards cap 25rem; one-result cards cap 75rem and split equally from 48rem. Preserve GET query/topic state, explicit empty results and page controls. The service total includes the lead; the “More articles” display subtracts the displayed lead and omits the remainder section when none remain. Do not duplicate the lead or show an empty remainder as a positive result count.
 
 Use `search`, accept legacy `q`, preserve search when changing category/tag, reset page on filter changes. Clear search stays in the archive; clear all returns /blog. Matching covers title, summary, subtitle/series, prepared visible body, captions and FAQ. Only unfiltered /blog has a separate lead; filtered results include the featured article normally. Search is no-store/noindex/no canonical. Existing post/taxonomy eligibility remains authoritative.
 
-Approved original image roles: hero 1600x 900 or 1200x 675 under 90KB; regular 800x 450 under 35KB; inline 1200x 675 under 75KB; social 1200x 630 under 80KB. Recovered from the preserved first-blog source and verified asset manifest. Informational diagrams stay uncropped 16:9. Reserve dimensions and reset media-link padding/min-height. Real media variants determine srcset; sizes describes actual slots. Prioritize the likely LCP image. Record insufficient high-density source resolution; never invent detail by upscaling. [Google images](https://developers.google.com/search/docs/appearance/google-images), [responsive sources](https://web.dev/learn/images/descriptive), [LCP](https://web.dev/articles/optimize-lcp).
+Approved original image roles: hero 1600×900 or 1200×675 under 90KB; regular 800×450 under 35KB; inline 1200×675 under 75KB; social 1200×630 under 80KB. Recovered from the preserved first-blog source and verified asset manifest. Informational diagrams stay uncropped 16:9. Reserve dimensions and reset media-link padding/min-height. Real media variants determine srcset; sizes describes actual slots. Prioritize the likely LCP image. Record insufficient high-density source resolution; never invent detail by upscaling. [Google images](https://developers.google.com/search/docs/appearance/google-images), [responsive sources](https://web.dev/learn/images/descriptive), [LCP](https://web.dev/articles/optimize-lcp).
 
 ## TOC and FAQ
 
@@ -24,7 +24,7 @@ The reference source is owner-provided Easy Table of Contents 2.0.89. No WordPre
 
 The native TOC hides below 73.75rem with its grid space and focusable controls removed. Header measurement drives sticky inset+0.5rem and anchor/spy inset+1.5rem. Keep native anchors and collapse, stable hover/focus/active geometry, direct fragments/reload/back/forward/noJS, no passive URL changes, wheel chaining and cleanup. A bounded attachment reduces only navigation height near the reading boundary; natural sticky exit is expected when less than a usable row remains.
 
-FAQs use native details, initially open first answer and independent toggles. Expanding an answer changes expected article height; it must not reposition an otherwise viable sticky TOC or unexpectedly scroll the reader. Measure geometry and scrollY, not CLS alone. Acceptance is<=1px unintended shift where space remains. Test short viewports,1179/1180/1181 boundaries,2440+,200%text, keyboard and reduced motion.
+FAQs use native details, initially open first answer and independent toggles. Expanding an answer changes expected article height; it must not reposition an otherwise viable sticky TOC or unexpectedly scroll the reader. Measure geometry and scrollY, not CLS alone. Acceptance is ≤1px unintended shift where space remains. Test short viewports, 1179/1180/1181 boundaries, 2440+, 200% text, keyboard and reduced motion.
 
 ## Fonts and editorial punctuation
 
@@ -40,6 +40,6 @@ Apply the new forward-only 0004 migration before the compatible deployment. `DAT
 
 ## Validation and delivery
 
-Use the existing pnpm scripts from [Vite+ workflow](../VITE_PLUS_WORKFLOW.md): check:css, check, lint, test:unit --run, build, check:pages, test:seo, test:e 2e. Official Svelte MCP analyzes each changed component/module again after corrections. Production preview and the generated Vercel handler are separate gates; verify deployed requests/browser behavior too. Use disposable local administrators; revoke them afterward. No transport emails are needed for this task.
+Use the existing pnpm scripts from [Vite+ workflow](../VITE_PLUS_WORKFLOW.md): check:css, check, lint, test:unit --run, build, check:pages, test:seo, test:e2e. Official Svelte MCP analyzes each changed component/module again after corrections. Production preview and the generated Vercel handler are separate gates; verify deployed requests/browser behavior too. Use disposable local administrators; revoke them afterward. No transport emails are needed for this task.
 
 The product route is /sunday-alpha-alerts; /watchlist is a server 308 preserving query parameters, with native browser fragment inheritance. Update navigation, breadcrumbs, metadata, unified JSON-LD and inventories through their existing owners. Membership links are enquiries; no checkout or weekly Recon enrollment is established. Demonstrations remain visibly hypothetical. Maintenance stays off until the owner's later instruction. Store launch and Google indexing confirmation remain separate tasks.

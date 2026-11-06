@@ -34,6 +34,16 @@ pnpm exec node docs/reviews/blog-layout-system-2026-11-05/release/verify-font-in
 
 It records loaded faces, resources, errors and overflow, accepts the same optional cookie file, and expects tokenless 400/unknown-route 404 responses. It fulfills the exact same-origin passive analytics POST locally with 204 and marks that endpoint untested; all other non-GET requests are blocked and fail the probe. It does not submit account forms.
 
+Both primary brand faces must load on every public inventory page. The only additional permitted loaded families are the existing `Montserrat Variable Fallback` and `Sofia Sans Variable Fallback` aliases in `src/app.css`. The probe accepts each alias only when its matching registered CSS font-face rule uses local sources exclusively, every registered rule for that alias has no URL source, and its known SSOT token lists it second after the correct primary family. The report preserves those rules, token stacks and actual loaded faces. A bounded network-idle wait covers stylesheets discovered during hydration; missing, failed or external font/stylesheet requests still fail.
+
 For a bounded browser diagnostic, `--engine chromium --only-interactions` runs just the three interaction/fallback scenarios. Its JSON scope explicitly records the reduced coverage; it is not a substitute for the default full three-engine run. Progress is saved after every scenario. Native no-JavaScript fragment checks enter a fresh document after extracting the real SSR anchor; events from the probe's intentional extraction-document navigation are excluded from that target-document check.
 
 The browser probe also blocks service workers and every hosted non-GET/HEAD request. Only the exact same-origin passive analytics POST receives a local 204; its hosted behavior remains untested. Unexpected attempted writes are recorded and fail the scenario.
+
+Additional public-only checks use the actually published body phrase and current sitemap:
+
+```bash
+pnpm exec node docs/reviews/blog-layout-system-2026-11-05/release/verify-public-runtime.mjs --out /private/tmp/blog-public-runtime.json
+```
+
+This fixed release probe checks body-only and legacy-query search, RSS, simulated Googlebot user-agent responses, non-www redirects, the old product fragment and continued private-deployment protection. Its fixed published slug/deployment identify this dated release; do not treat its results as Google index-status evidence.

@@ -21,6 +21,71 @@ const listing: BlogListing = {
 };
 
 describe('Shared blog archive controls and results', () => {
+	it('shows a sole featured article without an empty More articles section', async () => {
+		await render(ArchiveResults, {
+			listing: {
+				...listing,
+				featuredPosts: listing.posts,
+				posts: [],
+				search: '',
+				pagination: { page: 1, perPage: 12, total: 1, totalPages: 1 }
+			},
+			basePath: '/blog'
+		});
+		await expect.element(page.getByRole('heading', { name: 'Featured article' })).toBeVisible();
+		expect(document.querySelectorAll('.blog-post-card')).toHaveLength(1);
+		expect(document.querySelector('.articles-section, .archive-empty, .pagination-nav')).toBeNull();
+		expect(document.body.textContent).not.toContain('More articles');
+	});
+
+	it.each([1, 2])(
+		'counts only the %i regular articles beneath the featured lead',
+		async (regularCount) => {
+			await render(ArchiveResults, {
+				listing: {
+					...listing,
+					featuredPosts: listing.posts,
+					posts: Array.from({ length: regularCount }, (_, i) => ({
+						id: i + 2,
+						title: `Article ${i + 2}`,
+						slug: `article-${i + 2}`
+					})),
+					search: '',
+					pagination: { page: 1, perPage: 12, total: regularCount + 1, totalPages: 1 }
+				},
+				basePath: '/blog'
+			});
+			await expect.element(page.getByRole('heading', { name: 'More articles' })).toBeVisible();
+			await expect
+				.element(page.getByRole('status'))
+				.toHaveTextContent(`${regularCount} ${regularCount === 1 ? 'article' : 'articles'}`);
+			expect(document.querySelectorAll('.featured-section .blog-post-card')).toHaveLength(1);
+			expect(document.querySelectorAll('.articles-section .blog-post-card')).toHaveLength(
+				regularCount
+			);
+		}
+	);
+
+	it('retains the honest empty archive when there are no published articles', async () => {
+		await render(ArchiveResults, {
+			listing: {
+				...listing,
+				posts: [],
+				search: '',
+				pagination: { page: 1, perPage: 12, total: 0, totalPages: 1 }
+			},
+			basePath: '/blog'
+		});
+		await expect
+			.element(page.getByRole('heading', { name: 'Articles', exact: true }))
+			.toBeVisible();
+		await expect.element(page.getByRole('status')).toHaveTextContent('0 articles');
+		await expect.element(page.getByText('Articles will appear here once published.')).toBeVisible();
+		expect(
+			document.querySelector('.featured-section, .blog-post-card, .pagination-nav')
+		).toBeNull();
+	});
+
 	it('fits two readable capped cards into a 712px intermediate collection', async () => {
 		await render(ArchiveResults, {
 			listing: {
@@ -72,6 +137,7 @@ describe('Shared blog archive controls and results', () => {
 
 	it('keeps query and archive scope in both pagination directions and caps a single wide result', async () => {
 		await render(ArchiveResults, { listing, basePath: '/blog/category/options' });
+		await expect.element(page.getByRole('status')).toHaveTextContent('13 articles found');
 		await expect
 			.element(page.getByRole('link', { name: 'Previous page' }))
 			.toHaveAttribute('href', '/blog/category/options?search=gamma+%26+risk');
@@ -94,6 +160,7 @@ describe('Shared blog archive controls and results', () => {
 			basePath: '/blog/tag/risk-management'
 		});
 		await expect.element(page.getByText('No published articles match this search.')).toBeVisible();
+		await expect.element(page.getByRole('status')).toHaveTextContent('0 articles found');
 		await expect
 			.element(page.getByRole('link', { name: 'Clear search and browse this archive' }))
 			.toHaveAttribute('href', '/blog/tag/risk-management');

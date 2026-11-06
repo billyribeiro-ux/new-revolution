@@ -1,8 +1,8 @@
 # Indexing and launch follow-up
 
-Updated November 5, 2026. Check the deployed site before marking an item done; local changes do not prove a production release or Google indexing.
+Updated November 5, 2026. Current verified application: `09d310a`; the earlier release identities below are historical milestones. Check the deployed site before marking an item done; local changes do not prove a production release or Google indexing.
 
-- [x] Promote and verify the blog indexing and www canonical-domain release. Public deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj` serves application `33a1346`; all 19 sitemap URLs passed live HTTP, canonical and crawl checks. See `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
+- [x] Promote and verify the blog indexing and www canonical-domain release. The initial release used deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj` for application `33a1346`; all 19 sitemap URLs passed live HTTP, canonical and crawl checks. See `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
 - [ ] Submit `https://www.revolutiontradingpros.com/sitemap.xml` in the verified Google Search Console property and monitor the Page Indexing report. Google controls crawl and indexing timing and does not guarantee rankings.
 - [ ] Complete the store's product content, pricing, checkout, legal and operational launch review. The `/store` section remains noindex and excluded from the sitemap until the owner authorizes launch; follow `docs/seo/LAUNCH_TRACKER.md` and the SEO standard when ready.
 - [ ] Review thin blog category and tag archives as content grows. Their existing eligibility thresholds remain in force; publishing eligible content feeds the sitemap automatically.
@@ -11,7 +11,7 @@ Updated November 5, 2026. Check the deployed site before marking an item done; l
 - [x] Verify `/sunday-alpha-alerts`, navigation, canonical, sitemap and the query/fragment-preserving `/watchlist` redirect in the released build and three browser engines.
 - [ ] Confirm Google indexing for `/sunday-alpha-alerts`, `/blog` and the published article in Search Console after sitemap submission; public HTTP checks do not establish Google index status.
 
-- [x] Complete the repository font/supplied-fragment investigation, publish verified fixes and update the shared agent policy. PR #37 application `e62c340` is live; see `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`. Source-draft formatting exceptions and the unrelated remaining launch tasks above are not represented as resolved.
+- [x] Complete the repository font/supplied-fragment investigation, publish verified fixes and update the shared agent policy. PR #37 application `e62c340` was promoted before the current layout release; see `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`. Source-draft formatting exceptions and the unrelated remaining launch tasks above are not represented as resolved.
 
 - [x] Verify the shared layout/search/two-font implementation and final featured-only correction in build and deployed browsers. Application `09d310a` is live; see [final acceptance](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance).
 - [ ] Connect a dedicated Sunday Recon purpose, consent and delivery workflow before offering enrollment. The product currently provides membership enquiries; generic checklist delivery does not establish weekly enrollment.

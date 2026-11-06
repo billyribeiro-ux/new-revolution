@@ -10,6 +10,9 @@ import { indicatorsCatalog } from '#lib/data/indicators.ts';
 import { FOUNDER, SOCIAL_LINKS, SUPPORT_CONTACT } from '#lib/data/site.ts';
 import { isLaunchedHref, isUnlaunchedRoute } from '#lib/data/launch-gate.ts';
 import type { BlogCardPost } from '#lib/shared/blog/discovery';
+import { SITE_ORIGIN } from '#lib/shared/site-origin';
+
+export { SITE_ORIGIN };
 
 export const BRAND_NAME = 'Revolution Trading Pros';
 export const BRAND_SLOGAN = 'Educate. Innovate. Prosper.';
@@ -41,7 +44,6 @@ const NOINDEX_ROUTE_PREFIXES = [
  *   to the browser origin after hydration);
  * - preview/staging deployments must never present themselves as canonical.
  */
-export const SITE_ORIGIN = 'https://revolutiontradingpros.com';
 
 export function getCanonicalUrl(url: Pick<URL, 'pathname'>): string {
 	const cleanPath = url.pathname === '/' ? '' : url.pathname.replace(/\/+$/, '');
@@ -196,7 +198,7 @@ export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'Why do you offer a Small Accounts Room for $500+ accounts and affordable alert services?',
 		answer:
-			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Explosive Swings or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
+			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -278,7 +280,7 @@ export function buildOrganizationEntity(origin: string) {
 			'Swing Trading Alerts for Working Professionals',
 			'Small Account ($500+) Risk Management',
 			'Custom Non-Repainting Trading Indicators and Scanners',
-			'SPX Profit Pulse and Explosive Swings Video Watchlists',
+			'SPX Profit Pulse and Sunday Alpha Protocol Video Watchlists',
 			'Institutional Order Flow and Market Structure Education'
 		],
 		contactPoint: {
@@ -500,7 +502,7 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'alert-only-memberships',
 		question: "How do your alert-only memberships work if I can't join a live trading room?",
 		answer:
-			'Through our accessible alert services—Explosive Swings and SPX Profit Pulse—we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
+			'Through our accessible alert services—Sunday Alpha Protocol and SPX Profit Pulse—we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -582,7 +584,7 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'What if I want to join a Live Trading Room or Alert Service while my 1-on-1 application is reviewed?',
 		answer:
-			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Explosive Swings).'
+			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Protocol).'
 	}
 ] as const;
 
@@ -666,7 +668,7 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'spx-alerts-video-watchlists',
 		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
 		answer:
-			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Explosive Swings (/alert-services/explosive-swings), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Protocol (/alert-services/explosive-swings), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
 	},
 	{
 		id: 'custom-non-repainting-indicators-scanners',
@@ -745,9 +747,10 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 	},
 	{
 		id: 'swing-room-vs-explosive-swings',
-		question: 'How is the Swing Trading Room different from your Explosive Swings alert service?',
+		question:
+			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
 		answer:
-			'The Swing Trading Room gives you full interactive room access—including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Explosive Swings (/alert-services/explosive-swings) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+			'The Swing Trading Room gives you full interactive room access—including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol (/alert-services/explosive-swings) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
 	},
 	{
 		id: 'methodology-2020-2022-oxy',
@@ -842,7 +845,7 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'full-time-job-small-account',
 		question: 'What if I work a full-time job and also have a small $500+ account?',
 		answer:
-			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops—and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Explosive Swings (/alert-services/explosive-swings) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
+			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops—and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol (/alert-services/explosive-swings) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
 	},
 	{
 		id: 'graduating-past-10k-25k',
@@ -967,7 +970,7 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'small-accounts-working-pros',
 		question: 'Are these indicators suitable for $500+ small accounts or working professionals?',
 		answer:
-			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Explosive Swings alert tier.'
+			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Protocol alert tier.'
 	},
 	{
 		id: 'pair-with-scanners-courses',
@@ -1317,9 +1320,9 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 	{
 		id: 'difference-from-day-room-explosive-swings',
 		question:
-			'How is SPX Profit Pulse different from the Live Day Trading Room or Explosive Swings?',
+			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
 		answer:
-			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Explosive Swings (/alert-services/explosive-swings) is our multi-day stock and options swing alert service.'
+			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol (/alert-services/explosive-swings) is our multi-day stock and options swing alert service.'
 	}
 ];
 
@@ -1404,7 +1407,7 @@ export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'watch-scanners-live-market-hours',
 		question: 'Can I watch your team use these scanners live during market hours?',
 		answer:
-			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Explosive Swings.'
+			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Protocol.'
 	}
 ];
 

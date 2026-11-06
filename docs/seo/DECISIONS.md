@@ -9,8 +9,8 @@
 
 ## 1. Canonical Origin, Host & Locale (`URL-01`, `URL-02`, `I18N-01`..`I18N-04`, `MAP-05`)
 
-- **Canonical Production Origin:** `https://revolutiontradingpros.com` (`SITE_ORIGIN` in [`src/lib/seo/structured-data.ts`](../../src/lib/seo/structured-data.ts) `[CODE src/lib/seo/structured-data.ts:6]`).
-- **Preferred Host:** Apex (`revolutiontradingpros.com`), `trailingSlash = 'never'` (`[CODE src/routes/+layout.ts:13]`).
+- **Canonical Production Origin:** `https://www.revolutiontradingpros.com` (`SITE_ORIGIN` in [`src/lib/seo/structured-data.ts`](../../src/lib/seo/structured-data.ts) `[CODE src/lib/seo/structured-data.ts:6]`).
+- **Preferred Host:** www (`www.revolutiontradingpros.com`), `trailingSlash = 'never'` (`[CODE src/routes/+layout.ts:13]`).
 - **Local / Preview Origin:** `http://localhost:5173/` (or `pnpm preview` on port `4173`). Non-production hosts automatically emit `X-Robots-Tag: noindex, nofollow` via [`src/hooks.server.ts`](../../src/hooks.server.ts) `[CODE src/hooks.server.ts:340-343]`.
 - **Locale Strategy:** Single-locale English (`<html lang="en">` `[CODE src/app.html:2]`, `og:locale="en_US"` `[CODE src/routes/+layout.ts:43]`). Duplicate `hreflang="en-us"`, `hreflang="en-ca"`, and `hreflang="x-default"` tags pointing to the identical URL are omitted from `<head>` and `sitemap.xml` per Google's localized-versions specification (`[DOC https://developers.google.com/search/docs/specialty/international/localized-versions §guidelines]`).
 

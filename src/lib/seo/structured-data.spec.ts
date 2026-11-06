@@ -263,23 +263,26 @@ describe('founder and organization entities (YMYL entity signals)', () => {
 });
 
 describe('isNoIndexRoute launch gate', () => {
+	it.each(['/store', '/store/courses', '/store/indicators/move-prior-to-the-move-system'])(
+		'treats %s as noindex while it is gated',
+		(path) => {
+			expect(isNoIndexRoute(path)).toBe(true);
+		}
+	);
+
 	it.each([
-		'/store',
-		'/store/courses',
-		'/store/indicators/move-prior-to-the-move-system',
+		'/',
+		'/about',
+		'/mentorship',
+		'/resources/etf-stocks-list',
+		'/blogger',
+		'/storefront',
 		'/blog',
 		'/blog/any-post',
 		'/blog/tag/spx-options'
-	])('treats %s as noindex while it is gated', (path) => {
-		expect(isNoIndexRoute(path)).toBe(true);
+	])('leaves %s indexable', (path) => {
+		expect(isNoIndexRoute(path)).toBe(false);
 	});
-
-	it.each(['/', '/about', '/mentorship', '/resources/etf-stocks-list', '/blogger', '/storefront'])(
-		'leaves %s indexable',
-		(path) => {
-			expect(isNoIndexRoute(path)).toBe(false);
-		}
-	);
 
 	it('still blocks the always-private prefixes', () => {
 		for (const path of ['/admin', '/admin/login', '/login', '/checkout', '/demo/playwright']) {

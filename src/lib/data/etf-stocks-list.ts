@@ -560,7 +560,7 @@ export const bottomRoomCards: RoomCta[] = [
 	},
 	{
 		badge: 'Video Watchlist Tier',
-		title: 'Explosive Swings Alerts',
+		title: 'Sunday Alpha Protocol Alerts',
 		description:
 			'Affordable alert-only video watchlists with exact ETF & stock entries, exits, and stops.',
 		ctaLabel: 'Explore Alerts →',

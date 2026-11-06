@@ -18,19 +18,7 @@ import { load as loadBlogPost } from './[slug]/+page.server';
 import { load as loadCategoryPage } from './category/[slug]/+page.server';
 import { load as loadTagPage } from './tag/[slug]/+page.server';
 
-// This spec exercises the blog as it behaves once launched: /blog is opened, /store stays gated.
-// While /blog is gated every blog page is noindex with no canonical; that is covered in blog-seo.spec.ts.
-vi.mock('#lib/data/launch-gate', async (importOriginal) => {
-	const original = await importOriginal<typeof import('#lib/data/launch-gate')>();
-	const isGated = (path: string) => path === '/store' || path.startsWith('/store/');
-	return {
-		...original,
-		isUnlaunchedRoute: isGated,
-		isLaunchedHref: (href: string) => !isGated(href.split(/[?#]/, 1)[0] ?? href)
-	};
-});
-
-const ORIGIN = 'https://revolutiontradingpros.com';
+const ORIGIN = 'https://www.revolutiontradingpros.com';
 /** One lead plus a full regular page and one overflow article. */
 const POST_COUNT = BLOG_PAGE_SIZE + 2;
 

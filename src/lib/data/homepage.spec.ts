@@ -42,7 +42,7 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 		expect(alertServices.children?.map((c) => c.label)).toEqual([
 			'SPX Profit Pulse',
-			'Explosive Swings'
+			'Sunday Alpha Protocol'
 		]);
 		expect(mentorship.children).toBeUndefined();
 		expect(mentorship.href).toBe('/mentorship');
@@ -51,7 +51,7 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(about.children).toBeUndefined();
 		expect(about.href).toBe('/about');
 		expect(blog.href).toBe('/blog');
-		expect(isLaunchedHref('/blog')).toBe(false);
+		expect(isLaunchedHref('/blog')).toBe(true);
 		expect(isNavigationHrefVisible('/blog?search=options#posts')).toBe(true);
 
 		expect(resources.children?.map((c) => c.label)).toEqual([

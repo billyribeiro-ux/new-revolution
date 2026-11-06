@@ -45,19 +45,15 @@ Status: ✅ done and verified · 🟡 done in code, needs a check after deploy �
 | ✔   | Check                                                                | Command                                                                                                       |
 | --- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | [ ] | 🟡 Temp URL is noindex (the `suf` host match is untested off Vercel) | `curl -sSI https://new-revolution-topaz.vercel.app/ \| grep -i x-robots-tag`                                  |
-| [ ] | 🟡 Production host is NOT noindex                                    | `curl -sSI https://revolutiontradingpros.com/ \| grep -i x-robots-tag` (expect no output)                     |
-| [ ] | 🟡 Security headers present                                          | `curl -sSI https://revolutiontradingpros.com/ \| grep -i -E 'x-content-type\|x-frame\|referrer-policy'`       |
-| [ ] | 🟡 `/sitemap.xml` and `/rss.xml` return 200                          | `curl -sS -o /dev/null -w '%{http_code}\n' https://revolutiontradingpros.com/sitemap.xml`                     |
+| [ ] | 🟡 Production host is NOT noindex                                    | `curl -sSI https://www.revolutiontradingpros.com/ \| grep -i x-robots-tag` (expect no output)                 |
+| [ ] | 🟡 Security headers present                                          | `curl -sSI https://www.revolutiontradingpros.com/ \| grep -i -E 'x-content-type\|x-frame\|referrer-policy'`   |
+| [ ] | 🟡 `/sitemap.xml` and `/rss.xml` return 200                          | `curl -sS -o /dev/null -w '%{http_code}\n' https://www.revolutiontradingpros.com/sitemap.xml`                 |
 | [ ] | 🟡 Submit the sitemap in Search Console; inspect `/`                 | Search Console (needs the owner's account)                                                                    |
 | [ ] | 🟡 Field Core Web Vitals                                             | Search Console CWV report after ~28 days of traffic. Lab numbers are in the PR description, not a substitute. |
 
-## D. Launching a gated section (store or blog)
+## D. Launching a gated section
 
-1. Remove its prefix from `UNLAUNCHED_ROUTE_PREFIXES` in `src/lib/data/launch-gate.ts`.
-2. Restore the sitemap assertions in `src/routes/blog/blog-routes.spec.ts` (post URL and `<image:image>` listed) and flip the matching rows in `docs/seo/audit/02-inventory.json` to `indexable: true`.
-3. Remove the launch-gate mock in `src/routes/blog/blog-pagination.spec.ts` (it opens `/blog` for that spec only), then restore the nav/footer expectations in `src/lib/data/homepage.spec.ts` and `src/routes/page.svelte.e2e.ts`; update the `noindex` URL list in `tests/seo/seo-standard.spec.ts`.
-4. Replace authoring text that appears the moment a section returns: `BlogSection.svelte` ("proposed editorial content … must be authored before launch"), and any "Preview only" strings.
-5. `pnpm build`, `pnpm check:pages`, `pnpm test:seo`.
+The owner authorized blog indexing on November 5, 2026. This branch opens the blog and its eligible CMS posts and archives; verify production after release. `/store` remains gated. To launch the store, complete the product, checkout, legal and operational review in `todo.md`, remove only the approved prefix from `UNLAUNCHED_ROUTE_PREFIXES`, update inventory and tests, then run the required project gates and verify actual production responses. Blog sitemap discovery and archive thresholds are exercised in `src/routes/blog/blog-routes.spec.ts` and `src/routes/blog/blog-pagination.spec.ts`.
 
 ## E. Proposals from the 2026-11-02 brief that were checked and declined
 

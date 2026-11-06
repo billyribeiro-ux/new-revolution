@@ -98,7 +98,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.allTextContents();
 		expect((await alertServicesSubmenu).map((t) => t.trim())).toEqual([
 			'SPX Profit Pulse',
-			'Explosive Swings'
+			'Sunday Alpha Protocol'
 		]);
 
 		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);
@@ -126,14 +126,15 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 					(script) => JSON.parse(script.textContent || '{}')['@graph'] || []
 				);
 				return graphs.find(
-					(node) => node['@id'] === 'https://revolutiontradingpros.com/#navigation'
+					(node) => node['@id'] === 'https://www.revolutiontradingpros.com/#navigation'
 				);
 			});
 		const visibleLinks = await page.locator('nav.nav-links a').evaluateAll((links) =>
 			links.map((link) => ({
 				name: link.textContent?.trim(),
 				url:
-					'https://revolutiontradingpros.com' + new URL((link as HTMLAnchorElement).href).pathname
+					'https://www.revolutiontradingpros.com' +
+					new URL((link as HTMLAnchorElement).href).pathname
 			}))
 		);
 		expect(
@@ -156,8 +157,11 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'page'
 		);
 		await expect(page.locator('main h1')).toHaveCount(1);
-		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
-		await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /^index/);
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			'https://www.revolutiontradingpros.com/blog'
+		);
 
 		for (const width of [320, 768, 1024, 1280]) {
 			await page.setViewportSize({ width, height: 900 });
@@ -343,7 +347,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 	}) => {
 		await page.goto('/');
 		// Prerendered (SSG) pages bake the production origin into canonical, hreflang, Open Graph and JSON-LD
-		const origin = 'https://revolutiontradingpros.com';
+		const origin = 'https://www.revolutiontradingpros.com';
 
 		// Zero duplicate head tags
 		await expect(page.locator('head title')).toHaveCount(1);
@@ -430,7 +434,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(robotsTxt).toContain('Disallow: /api/');
 		expect(robotsTxt).not.toContain('Disallow: /login');
 		expect(robotsTxt).toContain('User-agent: Google-Extended');
-		expect(robotsTxt).toContain('Sitemap: https://revolutiontradingpros.com/sitemap.xml');
+		expect(robotsTxt).toContain('Sitemap: https://www.revolutiontradingpros.com/sitemap.xml');
 
 		// Verify sitemap.xml
 		const sitemapRes = await request.get('/sitemap.xml');
@@ -438,27 +442,31 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(sitemapRes.headers()['x-robots-tag']).toBe('noindex');
 		const sitemapXml = await sitemapRes.text();
 		expect(sitemapXml).not.toContain('hreflang=');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/about</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/contact</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/editorial-policy</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/privacy-policy</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/terms-of-service</loc>');
-		expect(sitemapXml).toContain('<loc>https://revolutiontradingpros.com/refund-policy</loc>');
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com</loc>');
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/about</loc>');
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/contact</loc>');
 		expect(sitemapXml).toContain(
-			'<loc>https://revolutiontradingpros.com/alert-services/spx-profit-pulse</loc>'
+			'<loc>https://www.revolutiontradingpros.com/editorial-policy</loc>'
 		);
-		// /blog and /store are gated (launch-gate.ts): noindex pages are not listed in the sitemap.
-		expect(sitemapXml).not.toContain('/blog');
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/privacy-policy</loc>');
+		expect(sitemapXml).toContain(
+			'<loc>https://www.revolutiontradingpros.com/terms-of-service</loc>'
+		);
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/refund-policy</loc>');
+		expect(sitemapXml).toContain(
+			'<loc>https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse</loc>'
+		);
+		// Eligible blog pages are included; the store remains gated.
+		expect(sitemapXml).toContain('/blog');
 		expect(sitemapXml).not.toContain('/store');
 		expect(sitemapXml).toContain(
-			'<loc>https://revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
+			'<loc>https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room</loc>'
 		);
 		expect(sitemapXml).toContain(
-			'<loc>https://revolutiontradingpros.com/live-trading-rooms/small-accounts-room</loc>'
+			'<loc>https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room</loc>'
 		);
 		expect(sitemapXml).toContain(
-			'<loc>https://revolutiontradingpros.com/live-trading-rooms/swing-trading-room</loc>'
+			'<loc>https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room</loc>'
 		);
 		expect(sitemapXml).not.toContain('/demo/');
 
@@ -505,7 +513,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 	}) => {
 		await page.goto('/about');
 		// Prerendered (SSG) pages bake the production origin into canonical, hreflang, Open Graph and JSON-LD
-		const origin = 'https://revolutiontradingpros.com';
+		const origin = 'https://www.revolutiontradingpros.com';
 		const expectedAboutUrl = `${origin}/about`;
 
 		// Zero duplicate head tags on /about
@@ -724,9 +732,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(blogsTitle).toContain('Revolution Trading Pros');
 
 		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
-		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
+		// The launched blog index emits a canonical and is eligible for indexing.
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			'https://www.revolutiontradingpros.com/blog'
+		);
+		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^index/);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 
@@ -794,7 +805,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(indicatorsDesc?.length).toBe(151);
 
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
+		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
@@ -842,7 +853,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(coursesDesc?.length).toBe(148);
 
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
+		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
@@ -892,7 +903,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(singleCourseDesc?.length).toBe(156);
 
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
+		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
@@ -943,7 +954,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(singleIndicatorDesc?.length).toBe(150);
 
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
+		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
@@ -1047,7 +1058,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		);
 		expect(scannersDesc?.length).toBe(148);
 
-		// Behind the launch gate (launch-gate.ts): noindex and no canonical until this section launches.
+		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);

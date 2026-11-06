@@ -1,3 +1,4 @@
+import { SITE_ORIGIN } from '#lib/shared/site-origin';
 import {
 	and,
 	asc,
@@ -400,7 +401,7 @@ export async function createPost(
 			'/rss.xml',
 			'/sitemap.xml'
 		]);
-		notifySearchEnginesAsync([`https://revolutiontradingpros.com/blog/${saveResult.post.slug}`], {
+		notifySearchEnginesAsync([`${SITE_ORIGIN}/blog/${saveResult.post.slug}`], {
 			waitUntil
 		});
 	}
@@ -596,14 +597,14 @@ export async function updatePost(
 	];
 	if (saveResult.renamedFromSlug) {
 		cachePaths.push(`/blog/${saveResult.renamedFromSlug}`);
-		notifyUrls.push(`https://revolutiontradingpros.com/blog/${saveResult.renamedFromSlug}`);
+		notifyUrls.push(`${SITE_ORIGIN}/blog/${saveResult.renamedFromSlug}`);
 	}
 	if (
 		saveResult.post.status === 'published' ||
 		saveResult.newlyPublished ||
 		saveResult.unpublishedFromLive
 	) {
-		notifyUrls.push(`https://revolutiontradingpros.com/blog/${saveResult.post.slug}`);
+		notifyUrls.push(`${SITE_ORIGIN}/blog/${saveResult.post.slug}`);
 		invalidatePublicBlogCache(cachePaths);
 		notifySearchEnginesAsync(notifyUrls, { waitUntil });
 	}
@@ -848,10 +849,10 @@ export async function quickUpdatePost(
 		saveResult.renamedFromSlug
 	) {
 		const paths = ['/blog', `/blog/${saveResult.post.slug}`, '/rss.xml', '/sitemap.xml'];
-		const urls = [`https://revolutiontradingpros.com/blog/${saveResult.post.slug}`];
+		const urls = [`${SITE_ORIGIN}/blog/${saveResult.post.slug}`];
 		if (saveResult.renamedFromSlug) {
 			paths.push(`/blog/${saveResult.renamedFromSlug}`);
-			urls.push(`https://revolutiontradingpros.com/blog/${saveResult.renamedFromSlug}`);
+			urls.push(`${SITE_ORIGIN}/blog/${saveResult.renamedFromSlug}`);
 		}
 		invalidatePublicBlogCache(paths);
 		notifySearchEnginesAsync(urls, { waitUntil });
@@ -1166,7 +1167,7 @@ export async function trashPost(
 
 	if (result.published) {
 		invalidatePublicBlogCache(['/blog', `/blog/${result.slug}`, '/rss.xml', '/sitemap.xml']);
-		notifySearchEnginesAsync([`https://revolutiontradingpros.com/blog/${result.slug}`], {
+		notifySearchEnginesAsync([`${SITE_ORIGIN}/blog/${result.slug}`], {
 			waitUntil
 		});
 	}
@@ -1237,7 +1238,7 @@ export async function restoreTrashedPost(
 
 	if (result.published) {
 		invalidatePublicBlogCache(['/blog', `/blog/${result.slug}`, '/rss.xml', '/sitemap.xml']);
-		notifySearchEnginesAsync([`https://revolutiontradingpros.com/blog/${result.slug}`], {
+		notifySearchEnginesAsync([`${SITE_ORIGIN}/blog/${result.slug}`], {
 			waitUntil
 		});
 	}

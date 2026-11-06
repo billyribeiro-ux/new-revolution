@@ -14,7 +14,7 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 		expect(prerender).toBe(true);
 
 		const result = (await load({
-			url: new URL('https://revolutiontradingpros.com/live-trading-rooms/small-accounts-room')
+			url: new URL('https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room')
 		} as never)) as {
 			pageMetaTags: {
 				title: string;
@@ -30,7 +30,7 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 		);
 		expect(result.pageMetaTags.description.length).toBe(152);
 		expect(result.pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/live-trading-rooms/small-accounts-room'
+			'https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room'
 		);
 	});
 

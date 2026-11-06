@@ -201,7 +201,7 @@ export interface BaselineAuditReport {
 	urls: UrlAuditRecord[];
 }
 
-const PRODUCTION_ORIGIN = 'https://revolutiontradingpros.com';
+const PRODUCTION_ORIGIN = 'https://www.revolutiontradingpros.com';
 const BRAND_NAME = 'Revolution Trading Pros';
 
 function stripTags(html: string): string {

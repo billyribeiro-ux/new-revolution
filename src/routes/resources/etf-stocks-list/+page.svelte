@@ -148,7 +148,7 @@
 								or earnings blowup risk—making them ideal for our
 								<a href={resolve('/live-trading-rooms/swing-trading-room')}>Swing Trading Room</a>
 								and
-								<a href={resolve('/watchlist' as '/')}>Explosive Swings</a>.
+								<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>.
 							</dd>
 						</div>
 						<div class="quick-ref-list__row">

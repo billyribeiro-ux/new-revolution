@@ -13,7 +13,7 @@ import { coursesCatalog } from '#lib/data/courses.ts';
 describe('/store/courses page', () => {
 	it('returns character-locked SEO metadata (57-char title, 148-char description) and JSON-LD from load()', () => {
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/store/courses')
+			url: new URL('https://www.revolutiontradingpros.com/store/courses')
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
 		const pageMetaTags = result.pageMetaTags as {
@@ -32,7 +32,7 @@ describe('/store/courses page', () => {
 			'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.'
 		);
 		expect(pageMetaTags.description.length).toBe(148);
-		expect(pageMetaTags.openGraph.url).toBe('https://revolutiontradingpros.com/store/courses');
+		expect(pageMetaTags.openGraph.url).toBe('https://www.revolutiontradingpros.com/store/courses');
 	});
 
 	it('renders the H1, diagnostic router, 8 course cards, interactive track filter tabs, 6 deliverables, 5 comparison rows, and 4 FAQs', async () => {

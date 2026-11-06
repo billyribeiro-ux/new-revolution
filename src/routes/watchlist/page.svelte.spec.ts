@@ -12,7 +12,7 @@ import {
 
 function getPageData() {
 	return load({
-		url: new URL('https://revolutiontradingpros.com/watchlist')
+		url: new URL('https://www.revolutiontradingpros.com/watchlist')
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
@@ -34,7 +34,7 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 			'Institutional stock & options swing blueprints by Billy Ribeiro. Every Sunday at 5 PM EST, get 5-7 setups with 15m triggers, cent stops & 1:2.50+ R:R.'
 		);
 		expect(data.pageMetaTags.description.length).toBe(150);
-		expect(data.pageMetaTags.canonical).toBe('https://revolutiontradingpros.com/watchlist');
+		expect(data.pageMetaTags.canonical).toBe('https://www.revolutiontradingpros.com/watchlist');
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy, and 1-to-1 FAQ parity with schema', async () => {

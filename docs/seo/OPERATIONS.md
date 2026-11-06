@@ -47,7 +47,7 @@ node tests/seo/lab.ts --outdir docs/seo/audit/06-lab
 
 ## 2. Production Deployment & Post-Deploy Checklist (`IDX-12`, `PERF-01`, `MON-01`, `MON-04`)
 
-Because the site is currently running in pre-production local preview (`http://localhost:5173/` / `pnpm preview`), the following items are gated on production DNS + HTTPS cutover to `https://revolutiontradingpros.com`:
+Because the site is currently running in pre-production local preview (`http://localhost:5173/` / `pnpm preview`), the following items are gated on production DNS + HTTPS cutover to `https://www.revolutiontradingpros.com`:
 
 ### 2.1 HTTPS, HSTS & Single-Hop Host Canonicalization (`IDX-12`)
 
@@ -57,11 +57,11 @@ Once DNS for `revolutiontradingpros.com` and `www.revolutiontradingpros.com` is 
    ```bash
    curl -sI http://revolutiontradingpros.com/
    ```
-2. Verify `www.revolutiontradingpros.com` → `https://revolutiontradingpros.com` is a single-hop `308` redirect:
+2. Verify `revolutiontradingpros.com` → `https://www.revolutiontradingpros.com` is a single-hop `308` redirect:
    ```bash
    curl -sI https://www.revolutiontradingpros.com/
    ```
-3. Verify `Strict-Transport-Security` header is present on `https://revolutiontradingpros.com/` (also set in `src/hooks.server.ts` when `event.url.protocol === 'https:'` or `x-forwarded-proto === 'https'`).
+3. Verify `Strict-Transport-Security` header is present on `https://www.revolutiontradingpros.com/` (also set in `src/hooks.server.ts` when `event.url.protocol === 'https:'` or `x-forwarded-proto === 'https'`).
 
 ### 2.1a Pre-launch data and decisions (re-checked 2026-11-01)
 
@@ -72,21 +72,21 @@ Once DNS for `revolutiontradingpros.com` and `www.revolutiontradingpros.com` is 
 ### 2.2 Google Search Console & Rich Results Verification (`MON-01`, `MAP-06`, `SD-12`)
 
 1. Verify the `revolutiontradingpros.com` Domain property in [Google Search Console](https://search.google.com/search-console).
-2. Submit `https://revolutiontradingpros.com/sitemap.xml` under **Indexing → Sitemaps** (do not use deprecated sitemap ping URLs).
+2. Submit `https://www.revolutiontradingpros.com/sitemap.xml` under **Indexing → Sitemaps** (do not use deprecated sitemap ping URLs).
 3. Run the **URL Inspection Live Test** and [Google Rich Results Test](https://search.google.com/test/rich-results) on one representative URL per template:
-   - Homepage: `https://revolutiontradingpros.com/`
-   - ProfilePage: `https://revolutiontradingpros.com/about`
-   - Service / Room: `https://revolutiontradingpros.com/live-trading-rooms/day-trading-room`
-   - Product / Watchlist: `https://revolutiontradingpros.com/watchlist`
-   - Blog Index: `https://revolutiontradingpros.com/blog`
-   - Blog Post (`BlogPosting`): `https://revolutiontradingpros.com/blog/institutional-order-flow-and-gamma-flip-playbook`
-   - Trust Page: `https://revolutiontradingpros.com/contact`
+   - Homepage: `https://www.revolutiontradingpros.com/`
+   - ProfilePage: `https://www.revolutiontradingpros.com/about`
+   - Service / Room: `https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room`
+   - Product / Watchlist: `https://www.revolutiontradingpros.com/watchlist`
+   - Blog Index: `https://www.revolutiontradingpros.com/blog`
+   - Blog Post (`BlogPosting`): `https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide`
+   - Trust Page: `https://www.revolutiontradingpros.com/contact`
 4. Review **Security & Manual Actions** reports in Search Console to confirm zero issues (`SPAM-10`).
 
 ### 2.3 Bing Webmaster Tools (`MON-04`)
 
-1. Verify `https://revolutiontradingpros.com` in [Bing Webmaster Tools](https://www.bing.com/webmasters) (can import directly from Google Search Console).
-2. Submit `https://revolutiontradingpros.com/sitemap.xml`.
+1. Verify `https://www.revolutiontradingpros.com` in [Bing Webmaster Tools](https://www.bing.com/webmasters) (can import directly from Google Search Console).
+2. Submit `https://www.revolutiontradingpros.com/sitemap.xml`.
 
 ### 2.4 Field Core Web Vitals Monitoring (`PERF-01`)
 

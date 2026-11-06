@@ -8,7 +8,7 @@ import Page from './+page.svelte';
 describe('/resources/etf-stocks-list page', () => {
 	it('returns character-locked SEO metadata (56-char title, 149-char description) and JSON-LD from load()', () => {
 		const result = load({
-			url: new URL('https://revolutiontradingpros.com/resources/etf-stocks-list')
+			url: new URL('https://www.revolutiontradingpros.com/resources/etf-stocks-list')
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
 
 		const pageMetaTags = result.pageMetaTags as {
@@ -28,7 +28,7 @@ describe('/resources/etf-stocks-list page', () => {
 		);
 		expect(pageMetaTags.description.length).toBe(149);
 		expect(pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/resources/etf-stocks-list'
+			'https://www.revolutiontradingpros.com/resources/etf-stocks-list'
 		);
 	});
 

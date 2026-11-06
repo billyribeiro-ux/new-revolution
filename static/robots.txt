@@ -1,6 +1,6 @@
 # ============================================================================
 # Revolution Trading Pros — Production robots.txt (RFC 9309 & Google Compliant)
-# Domain: https://revolutiontradingpros.com
+# Domain: https://www.revolutiontradingpros.com
 # ============================================================================
 
 # 1. Google Search, Discover, Images, Video & Shopping Crawlers (Explicit)
@@ -61,4 +61,4 @@ Disallow: /*?token=
 # (X-Robots-Tag and meta robots). See docs/seo/DECISIONS.md section 5.
 
 # 6. Canonical XML Sitemap
-Sitemap: https://revolutiontradingpros.com/sitemap.xml
+Sitemap: https://www.revolutiontradingpros.com/sitemap.xml

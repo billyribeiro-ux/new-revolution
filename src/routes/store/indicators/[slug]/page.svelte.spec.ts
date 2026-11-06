@@ -16,7 +16,7 @@ describe('/store/indicators/[slug] page', () => {
 
 		const result = load({
 			url: new URL(
-				'https://revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system'
+				'https://www.revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system'
 			),
 			params: { slug: 'move-prior-to-the-move-system' }
 		} as Parameters<typeof load>[0]) as Record<string, unknown>;
@@ -38,7 +38,7 @@ describe('/store/indicators/[slug] page', () => {
 		);
 		expect(pageMetaTags.description.length).toBe(150);
 		expect(pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system'
+			'https://www.revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system'
 		);
 	});
 

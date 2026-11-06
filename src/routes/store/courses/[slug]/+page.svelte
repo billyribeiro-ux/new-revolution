@@ -272,7 +272,7 @@
 				'I work a demanding 50-hour-a-week job and used to think I couldn’t trade options consistently. The On-Chart Stats Engine and Daily/4H compression setups let me plan my conditional orders in 20 minutes at night with zero stress during work.',
 			author: 'David R.',
 			profileTag: 'Working Professional (9-to-5 Engineer)',
-			verifiedFocus: 'Multi-Day Swing Setups + Explosive Swings Member'
+			verifiedFocus: 'Multi-Day Swing Setups + Sunday Alpha Protocol Member'
 		},
 		{
 			quote:
@@ -339,7 +339,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Explosive Swings Alerts',
+			title: 'Sunday Alpha Protocol Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',

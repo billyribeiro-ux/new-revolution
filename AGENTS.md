@@ -136,7 +136,7 @@ Every public route under `src/routes/<route-path>/` requires two files:
 
 - **`title`:** _House convention (Google sets no title length limit; see [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md))._ Keep the page-specific `title` to **≤ 33 characters** so that when [`src/routes/+layout.svelte`](src/routes/+layout.svelte) appends `titleTemplate="%s | Revolution Trading Pros"` (+26 chars), the rendered `<title>` stays within **30–60 characters**. The `<h1>` should agree with the title.
 - **`description`:** _House convention (Google sets no meta-description length limit)._ Must be unique per route and between **140 and 158 characters** (enforced by unit and e2e tests).
-- **`canonical` & Origin:** Always construct canonical and OpenGraph URLs via `getCanonicalUrl(url)` and `SITE_ORIGIN` (`https://revolutiontradingpros.com`) from [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) so prerendered HTML never leaks `http://sveltekit-prerender` or `localhost`.
+- **`canonical` & Origin:** Always construct canonical and OpenGraph URLs via `getCanonicalUrl(url)` and `SITE_ORIGIN` (`https://www.revolutiontradingpros.com`) from [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts) so prerendered HTML never leaks `http://sveltekit-prerender` or `localhost`.
 - **Non-Indexable & Duplicate/Template `[slug]` Routes (`IDX-08`):** Never combine `noindex` with a `canonical` tag. Non-flagship dynamic `[slug]` routes that render shared fallback template content must emit `robots: 'noindex, nofollow'` and `canonical: undefined`, and must not be listed in [`src/routes/sitemap.xml/+server.ts`](src/routes/sitemap.xml/+server.ts).
 
 ### 3.3 Structured Data (`@graph` JSON-LD) Rules

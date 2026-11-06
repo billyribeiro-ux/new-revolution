@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vite-plus/test';
 import { buildBlogPageMetaTags, buildBlogPostJsonLd, dropRestrictedJsonLdNodes } from './blog-seo';
 
-const ORIGIN = 'https://revolutiontradingpros.com';
+const ORIGIN = 'https://www.revolutiontradingpros.com';
 const base = {
 	slug: 'post',
 	title: 'A post',
@@ -128,7 +128,7 @@ describe('buildBlogPostJsonLd retired schema types', () => {
 });
 
 describe('buildBlogPageMetaTags', () => {
-	it('forces noindex and no canonical on every /blog path while the blog is gated (launch-gate.ts)', () => {
+	it('allows an eligible published blog post to be indexed', () => {
 		const gated = buildBlogPageMetaTags({
 			title: 'SPX 0DTE Guide',
 			description: 'Educational breakdown of SPX 0DTE gamma exposure and execution risk.',
@@ -136,8 +136,10 @@ describe('buildBlogPageMetaTags', () => {
 			canonicalOverride: 'https://revolutiontradingpros.com/blog/flagship-spx-guide',
 			indexable: true
 		});
-		expect(gated.pageMetaTags.robots).toBe('noindex, follow');
-		expect(gated.pageMetaTags.canonical).toBeUndefined();
+		expect(gated.pageMetaTags.robots).toBe('index, follow');
+		expect(gated.pageMetaTags.canonical).toBe(
+			'https://revolutiontradingpros.com/blog/flagship-spx-guide'
+		);
 	});
 
 	// Non-gated pathnames isolate the pagination logic that applies once the archives launch.

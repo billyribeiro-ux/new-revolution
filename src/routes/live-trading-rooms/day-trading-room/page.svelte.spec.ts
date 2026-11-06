@@ -13,7 +13,7 @@ import { load } from './+page.ts';
 describe('/live-trading-rooms/day-trading-room/+page.svelte (Vitest Browser Mode)', () => {
 	it('locks exact 47-char title and 147-char description in +page.ts load()', () => {
 		const loaded = load({
-			url: new URL('https://revolutiontradingpros.com/live-trading-rooms/day-trading-room')
+			url: new URL('https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room')
 		} as Parameters<typeof load>[0]) as {
 			pageMetaTags: {
 				title: string;
@@ -30,7 +30,7 @@ describe('/live-trading-rooms/day-trading-room/+page.svelte (Vitest Browser Mode
 		);
 		expect(loaded.pageMetaTags.description).toHaveLength(147);
 		expect(loaded.pageMetaTags.openGraph.url).toBe(
-			'https://revolutiontradingpros.com/live-trading-rooms/day-trading-room'
+			'https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room'
 		);
 	});
 

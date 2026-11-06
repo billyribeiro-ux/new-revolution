@@ -1,7 +1,18 @@
+import { SITE_ORIGIN } from '../src/lib/shared/site-origin.ts';
+
 /**
  * Source-level font loading guard. Runtime browser checks remain necessary because
  * CMS content and compiled CSS are not fully described by source-text scanning.
  */
+
+/** @param {string} value */
+function isExternalUrl(value) {
+	try {
+		return new URL(value, SITE_ORIGIN).origin !== SITE_ORIGIN;
+	} catch {
+		return true;
+	}
+}
 
 /**
  * @param {string} filename Repository-relative POSIX path.
@@ -18,17 +29,19 @@ export function findFontPolicyViolations(filename, source) {
 	) {
 		violations.push('external font provider reference');
 	}
-	if (/(?:https?:)?\/\/[^\s'"<>)]*\.(?:woff2?|ttf|otf|eot)(?:[?#][^\s'"<>)]*)?/i.test(source)) {
-		violations.push('external font file URL');
+	for (const match of source.matchAll(
+		/(?:https?:)?\/\/[^\s'"<>)]*\.(?:woff2?|ttf|otf|eot)(?:[?#][^\s'"<>)]*)?/gi
+	)) {
+		if (isExternalUrl(match[0])) violations.push('external font file URL');
 	}
-	if (/@import\s+(?:url\(\s*)?['"]?(?:https?:)?\/\//i.test(source)) {
-		violations.push('external CSS import');
+	for (const match of source.matchAll(
+		/@import\s+(?:url\(\s*)?['"]?((?:https?:)?\/\/[^\s'";)]+)/gi
+	)) {
+		if (isExternalUrl(match[1])) violations.push('external CSS import');
 	}
 	for (const link of source.matchAll(/<link\b[^>]*>/gi)) {
-		if (
-			/\brel\s*=\s*['"]stylesheet['"]/i.test(link[0]) &&
-			/\bhref\s*=\s*['"](?:https?:)?\/\//i.test(link[0])
-		) {
+		const href = /\bhref\s*=\s*['"]((?:https?:)?\/\/[^'"]+)['"]/i.exec(link[0]);
+		if (/\brel\s*=\s*['"]stylesheet['"]/i.test(link[0]) && href && isExternalUrl(href[1])) {
 			violations.push('externally hosted stylesheet link');
 		}
 	}

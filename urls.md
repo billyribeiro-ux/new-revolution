@@ -1,6 +1,6 @@
 # Website URL inventory
 
-Verified public inventory for November 5, 2026, application `37a23f2`, deployment `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`. All 52 public HTML pages passed anonymous HTTP and font checks; the 19 eligible URLs exactly match the generated sitemap. The canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. See [release evidence](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md), including any later presentation follow-up. This human-readable snapshot is not the file to submit to Google.
+Verified public inventory for November 5, 2026, application `09d310a`, deployment `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. All 52 public HTML pages passed anonymous HTTP and font checks; the 19 eligible URLs exactly match the generated sitemap. The canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. See [release evidence](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md), including any later presentation follow-up. This human-readable snapshot is not the file to submit to Google.
 
 ## Submit this sitemap
 

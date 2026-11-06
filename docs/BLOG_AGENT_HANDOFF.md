@@ -51,6 +51,8 @@ The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: tr
 
 Blog shells use the shared border-box `.container` (152.5rem maximum, 2440px at a 16px root, including inline padding); article prose retains a 900px reading limit. Follow [the current layout/content contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md) for archive/search, TOC/FAQ, media, font and punctuation operations. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
 
+The November 5 shared-layout/font/search application and featured-only archive correction are verified live as `09d310a`; use the [actual staged/public release record](reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance), rather than inferring deployment from a plan or build. Maintenance remains off.
+
 ## Agent-document coverage
 
 The following **43 Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. The existing 40 entry points also point to the shared font/fragment policy; that policy carries its own handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.

@@ -9,6 +9,12 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-05 — Promote and verify the final archive correction
+
+- Squash-merge PR #40 as `09d310a` and promote exact verified deployment `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. The real one-post blog now shows its featured article without an empty remainder; future remaining counts subtract the displayed lead.
+- Final staged and anonymous public acceptance each pass 63 HTTP, 57 three-engine browser and 57 font-surface cases, plus explicit sole-featured SSR checks; 30 additional public checks pass. Public health and Vercel inspection identify the expected deployment. Preserve two failed probe attempts and their document/route-readiness investigation; no application failure or threshold was hidden.
+- Record final 678 unit/component, 71 authenticated Chromium, 26 Firefox, 26 WebKit, 46 static page and clean diagnostics/code/MCP checks. All four local administrators are revoked and credentials deleted. Keep the three original reference-formatting exceptions explicit, maintenance off, store gated and Google index confirmation pending. Evidence: [final release](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance).
+
 ### 2026-11-05 — Verify the shared-layout release and correct the featured-only archive
 
 - Squash-merge PR #39 as `37a23f2` and promote exact verified Production deployment `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`. Staged and anonymous public checks each pass 63 HTTP, 57 three-engine browser and 57 font-surface cases; 30 additional public checks verify actual body-only searches, RSS, domain/fragment redirects and crawler-header behavior. Maintenance remains off. Evidence: [release report](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md).

@@ -1,0 +1,28 @@
+{
+	"applicationChanged": false,
+	"retainedAttempts": ["before-load-wait.json", "before-route-wait.json"],
+	"findings": [
+		{
+			"observation": "DOMContentLoaded can precede stylesheet loading and the native fragment jump while document.fonts.status temporarily reports loaded",
+			"measuredEarlyState": {
+				"ready": "interactive",
+				"fonts": "loaded",
+				"targetTop": 2881.78125,
+				"headerBottom": 976,
+				"scrollY": 0
+			},
+			"correction": "Await full document load before font readiness and geometry; keep the same visibility assertion"
+		},
+		{
+			"observation": "Immediate history navigation cancelled an unfinished Blog data request in the probe",
+			"requestPath": "/blog/__data.json?x-sveltekit-invalidated=001",
+			"error": "net::ERR_ABORTED",
+			"correction": "Require the destination archive heading and bounded network idle before going back, then verify the restored article; do not ignore abort errors"
+		}
+	],
+	"finalPublicBrowser": {
+		"passed": 57,
+		"failed": 0
+	},
+	"criteriaRelaxed": false
+}

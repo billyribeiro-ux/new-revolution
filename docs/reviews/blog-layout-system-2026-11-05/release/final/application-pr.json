@@ -1,0 +1,37 @@
+{
+	"headRefOid": "2474eb8e13d44db872168626a704c83df158a3f3",
+	"mergeCommit": { "oid": "09d310a15d450a46d7b76d659917de25fd958907" },
+	"mergedAt": "2026-11-06T04:04:57Z",
+	"number": 40,
+	"state": "MERGED",
+	"statusCheckRollup": [
+		{
+			"__typename": "StatusContext",
+			"context": "Vercel",
+			"startedAt": "2026-11-06T04:03:48Z",
+			"state": "SUCCESS",
+			"targetUrl": "https://vercel.com/will-ribeiros-projects/new-revolution/9CS7tVtaYwXLGqXHKHrYWczFrUkj"
+		},
+		{
+			"__typename": "CheckRun",
+			"completedAt": "2026-11-06T04:04:26Z",
+			"conclusion": "SUCCESS",
+			"detailsUrl": "https://vercel.com/github",
+			"name": "Vercel Agent Review",
+			"startedAt": "2026-11-06T04:03:19Z",
+			"status": "COMPLETED",
+			"workflowName": ""
+		},
+		{
+			"__typename": "CheckRun",
+			"completedAt": "2026-11-06T04:03:49Z",
+			"conclusion": "SUCCESS",
+			"detailsUrl": "https://vercel.com/github",
+			"name": "Vercel Preview Comments",
+			"startedAt": "2026-11-06T04:03:49Z",
+			"status": "COMPLETED",
+			"workflowName": ""
+		}
+	],
+	"url": "https://github.com/billyribeiro-ux/new-revolution/pull/40"
+}

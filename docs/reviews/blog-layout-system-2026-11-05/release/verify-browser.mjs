@@ -191,6 +191,9 @@ function watch(page, blockedFonts = false) {
 async function navigate(page, path) {
 	const response = await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 25000 });
 	assert(response?.status() === 200, `Expected HTTP200 for ${path}, got ${response?.status()}`);
+	// Without site JavaScript, DOMContentLoaded can precede stylesheet loading and the native
+	// fragment jump. FontFaceSet can temporarily report loaded before those styles register faces.
+	await page.waitForLoadState('load', { timeout: 25000 });
 	let fontsLoaded = false;
 	for (let attempt = 0; attempt < 200; attempt += 1) {
 		if (await page.evaluate(() => document.fonts.status === 'loaded')) {
@@ -572,6 +575,11 @@ async function tocInteractions(browser) {
 		);
 		step = 'observer cleanup after Blog';
 		await page.waitForFunction(() => window.__releaseTocObserverCount() === 0);
+		await page.locator('#archive-h1').waitFor({ state: 'visible' });
+		// Complete the destination route before intentionally going back. Otherwise the probe
+		// itself can abort a still-running Blog data request and misreport it as a site failure.
+		await page.waitForLoadState('networkidle', { timeout: 10000 });
+		step = 'history return to article';
 		await page.goBack();
 		await page.waitForURL((url) => url.pathname === article);
 		assert.equal(
@@ -580,6 +588,7 @@ async function tocInteractions(browser) {
 			'Return to article performed a document reload'
 		);
 		await page.waitForFunction(() => window.__releaseTocObserverCount() === 1);
+		await page.waitForLoadState('networkidle', { timeout: 10000 });
 		assertEvents(events);
 		return {
 			hover: { before: beforeHover, after: afterHover },
@@ -677,7 +686,7 @@ for (const [engine, type] of Object.entries({ chromium, firefox, webkit })) {
 				}, hash);
 				assert(
 					geometry.targetTop >= geometry.headerBottom - 1 && geometry.targetTop < 1000,
-					'No-JS fragment is hidden by header or outside viewport'
+					`No-JS fragment is hidden by header or outside viewport: ${JSON.stringify(geometry)}`
 				);
 				assertEvents(events);
 				return { geometry, events };

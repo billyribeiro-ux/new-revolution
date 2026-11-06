@@ -3,9 +3,24 @@ import { writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import { chromium } from '@playwright/test';
 
-const { values } = parseArgs({ options: { out: { type: 'string' } } });
+const { values } = parseArgs({
+	options: { out: { type: 'string' }, 'deployment-origin': { type: 'string' } }
+});
 assert(values.out, 'Require --out');
 const origin = 'https://www.revolutiontradingpros.com';
+const deploymentOrigin = new URL(
+	values['deployment-origin'] ??
+		'https://new-revolution-2dhdbttvh-will-ribeiros-projects.vercel.app'
+);
+assert(
+	deploymentOrigin.protocol === 'https:' &&
+		deploymentOrigin.hostname.endsWith('.vercel.app') &&
+		!deploymentOrigin.username &&
+		!deploymentOrigin.password &&
+		deploymentOrigin.pathname === '/' &&
+		!deploymentOrigin.search &&
+		!deploymentOrigin.hash
+);
 const slug = '0dte-spx-options-strategy-guide';
 const articlePath = `/blog/${slug}`;
 const checks = [];
@@ -101,10 +116,7 @@ await check('legacy query and fragment', async () => {
 	}
 });
 await check('private deployment remains protected', async () => {
-	const response = await fetch(
-		'https://new-revolution-2dhdbttvh-will-ribeiros-projects.vercel.app',
-		{ redirect: 'manual' }
-	);
+	const response = await fetch(deploymentOrigin.origin, { redirect: 'manual' });
 	assert([401, 403, 307, 302].includes(response.status));
 	const locationOrigin = response.headers.get('location')
 		? new URL(response.headers.get('location')).origin
@@ -114,6 +126,7 @@ await check('private deployment remains protected', async () => {
 });
 const report = {
 	origin,
+	checkedPrivateDeployment: deploymentOrigin.origin,
 	generatedAt: new Date().toISOString(),
 	simulatedUserAgentIsNotGoogleIndexingEvidence: true,
 	checks,

@@ -13,7 +13,7 @@ Updated November 5, 2026. Check the deployed site before marking an item done; l
 
 - [x] Complete the repository font/supplied-fragment investigation, publish verified fixes and update the shared agent policy. PR #37 application `e62c340` is live; see `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`. Source-draft formatting exceptions and the unrelated remaining launch tasks above are not represented as resolved.
 
-- [ ] Verify the current shared layout/search/two-font implementation in final build and deployed browsers before marking its release complete; see docs/reviews/blog-layout-system-2026-11-05/.
+- [x] Verify the shared layout/search/two-font implementation and final featured-only correction in build and deployed browsers. Application `09d310a` is live; see [final acceptance](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance).
 - [ ] Connect a dedicated Sunday Recon purpose, consent and delivery workflow before offering enrollment. The product currently provides membership enquiries; generic checklist delivery does not establish weekly enrollment.
 - [ ] Supply independently verifiable evidence for legacy historical trading/credential/performance claims where the existing launch tracker already requires it. The punctuation/layout work does not certify those claims.
 - [ ] Source higher-density blog originals when needed; current 1600px master cannot supply a full 2x rendition of every enlarged-text/wide feature slot. Do not upscale and claim recovered detail.

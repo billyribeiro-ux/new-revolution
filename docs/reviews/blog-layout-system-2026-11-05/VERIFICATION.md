@@ -1,5 +1,7 @@
 # Integrated implementation verification: November 5, 2026
 
+The final application is `09d310a`, verified live. The final rerun is 678 unit/component, 71 authenticated Chromium, 26 Firefox and 26 WebKit cases; the initial 674-test gate below is preserved as PR #39 evidence. See [final release acceptance](RELEASE.md#final-archive-acceptance).
+
 Baseline main `54caa06`; implementation in the isolated `fix/blog-system-20261105` worktree. The approved plan and independent findings are linked in [PLAN.md](PLAN.md), [MEDIA.md](MEDIA.md), [SEARCH_IMPLEMENTATION.md](SEARCH_IMPLEMENTATION.md), [plugin-parity.md](plugin-parity.md) and [copy-evidence.md](copy-evidence.md). The final release is recorded separately; local success does not prove deployment.
 
 ## Completed gates

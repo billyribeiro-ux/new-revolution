@@ -47,3 +47,13 @@ pnpm exec node docs/reviews/blog-layout-system-2026-11-05/release/verify-public-
 ```
 
 This fixed release probe checks body-only and legacy-query search, RSS, simulated Googlebot user-agent responses, non-www redirects, the old product fragment and continued private-deployment protection. Its fixed published slug/deployment identify this dated release; do not treat its results as Google index-status evidence.
+
+The browser probe waits for full document/style loading before native-fragment measurements, and for a completed destination archive before testing history return. It never suppresses aborted requests to obtain a pass. Failed early attempts and their investigation are retained under `final/probe-investigation/`.
+
+For the dated one-publication fixture, verify that the sole lead has no empty remainder:
+
+```bash
+pnpm exec node docs/reviews/blog-layout-system-2026-11-05/release/verify-remainder.mjs --origin https://www.revolutiontradingpros.com --out /private/tmp/remainder.json
+```
+
+It accepts the same optional scoped cookie file for an owned stage. If the publication count changes, its explicit fixture assertion fails; it is not a general future content-count assumption. The public-runtime probe accepts `--deployment-origin` to check the exact final private deployment's continued protection; without that flag its historical PR #39 target remains the default.

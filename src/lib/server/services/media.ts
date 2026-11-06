@@ -22,7 +22,6 @@ import {
 	type CoverCrop,
 	type MediaCropAspect
 } from '../../shared/cover-crops';
-import { replaceEmEnDashesInPlainText } from '../../shared/seo/content-transform';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
 import { getMediaStorageDriver } from '../media-storage';
@@ -547,10 +546,10 @@ export async function uploadMediaAsset(params: UploadMediaParams): Promise<Media
 				sizeBytes: finalBuffer.byteLength,
 				width,
 				height,
-				title: replaceEmEnDashesInPlainText((params.metadata?.title ?? '').trim()),
-				altText: replaceEmEnDashesInPlainText((params.metadata?.alt_text ?? '').trim()),
-				description: replaceEmEnDashesInPlainText((params.metadata?.description ?? '').trim()),
-				caption: replaceEmEnDashesInPlainText((params.metadata?.caption ?? '').trim()),
+				title: (params.metadata?.title ?? '').trim(),
+				altText: (params.metadata?.alt_text ?? '').trim(),
+				description: (params.metadata?.description ?? '').trim(),
+				caption: (params.metadata?.caption ?? '').trim(),
 				folder,
 				blobUrl: originalBlob.url,
 				blobPathname: originalBlob.pathname,
@@ -779,16 +778,16 @@ export async function updateMediaMetadata(
 	};
 
 	if (parsed.title !== undefined) {
-		updateValues.title = replaceEmEnDashesInPlainText(parsed.title);
+		updateValues.title = parsed.title;
 	}
 	if (parsed.alt_text !== undefined) {
-		updateValues.altText = replaceEmEnDashesInPlainText(parsed.alt_text);
+		updateValues.altText = parsed.alt_text;
 	}
 	if (parsed.description !== undefined) {
-		updateValues.description = replaceEmEnDashesInPlainText(parsed.description);
+		updateValues.description = parsed.description;
 	}
 	if (parsed.caption !== undefined) {
-		updateValues.caption = replaceEmEnDashesInPlainText(parsed.caption);
+		updateValues.caption = parsed.caption;
 	}
 	if (parsed.folder !== undefined) {
 		updateValues.folder = normaliseMediaFolder(parsed.folder);
@@ -797,7 +796,7 @@ export async function updateMediaMetadata(
 		}
 	}
 	if (parsed.filename !== undefined) {
-		updateValues.filename = replaceEmEnDashesInPlainText(parsed.filename);
+		updateValues.filename = parsed.filename;
 	}
 
 	const updatedRows = await db

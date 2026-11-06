@@ -63,7 +63,7 @@
 		| '/live-trading-rooms/day-trading-room'
 		| '/live-trading-rooms/swing-trading-room'
 		| '/live-trading-rooms/small-accounts-room'
-		| '/watchlist'
+		| '/sunday-alpha-alerts'
 		| '/store/indicators';
 
 	interface RoomCta {
@@ -86,7 +86,7 @@
 			targetTwo: '+80% to +120%+ into Next Institutional Gamma Magnet',
 			hardStop: 'Hard Structural Invalidation Below Sweep Candle Low',
 			thesisNote:
-				'When market makers are short Gamma above a key SPX call wall, they are forced to buy S&P 500 futures as price rises—fueling rapid directional expansion.'
+				'When market makers are short Gamma above a key SPX call wall, they are forced to buy S&P 500 futures as price rises, fueling rapid directional expansion.'
 		},
 		'gamma-wall-reversal': {
 			id: 'gamma-wall-reversal',
@@ -99,7 +99,7 @@
 			targetTwo: 'Opening Range Low / Put Wall Magnet (3R to 5R Asymmetry)',
 			hardStop: 'Strict Invalidation Just Above the Liquidity Sweep High',
 			thesisNote:
-				'Uses the exact institutional distribution read behind our live +600% overnight OXY Put Options trade—fading retail euphoria when smart money steps in.'
+				'Uses the exact institutional distribution read behind our live +600% overnight OXY Put Options trade, fading retail euphoria when smart money steps in.'
 		},
 		'defined-risk-spread': {
 			id: 'defined-risk-spread',
@@ -131,7 +131,7 @@
 			badge: 'Video Game Plans Included',
 			title: 'Detailed Video Watchlists Mapping Dealer Gamma Levels Ahead of Time',
 			description:
-				'You never have to guess why we are taking a trade. Each week—and before key market sessions—Billy Ribeiro sends out a concise, high-conviction video breakdown mapping institutional call walls, put walls, liquidity sweep zones, and both directional and neutral SPX strategies.',
+				'You never have to guess why we are taking a trade. Each week, and before key market sessions, Billy Ribeiro sends out a concise, high-conviction video breakdown mapping institutional call walls, put walls, liquidity sweep zones, and both directional and neutral SPX strategies.',
 			traderBenefit:
 				'Allows busy working professionals to see the exact battle plan and set conditional orders without staring at 1-minute ticks all day.'
 		},
@@ -167,7 +167,7 @@
 			badge: '100% Transparent Ledger',
 			title: 'Weekly Recap Video Reviewing Every Win, Stop-Out & Next Week’s Map',
 			description:
-				'Fake gurus hide their losing trades. Every weekend, we review our closed SPX trades from the week—both winners and disciplined stops—and lay out the macro volatility regime for the week ahead.',
+				'Fake gurus hide their losing trades. Every weekend, we review our closed SPX trades from the week (both winners and disciplined stops) and lay out the macro volatility regime for the week ahead.',
 			traderBenefit:
 				'Builds real institutional pattern recognition and keeps you aligned with the dominant macro cycle.'
 		}
@@ -179,14 +179,14 @@
 			title: 'Section 1256 Tax Advantage (60/40 Rule in the US)',
 			subtitle: 'Keep More of Your Trading Profits',
 			detail:
-				'Under US IRS Section 1256, SPX index options gains are taxed at a blended 60% long-term / 40% short-term capital gains rate—regardless of whether you held the trade for 10 minutes or 10 days.'
+				'Under US IRS Section 1256, SPX index options gains are taxed at a blended 60% long-term / 40% short-term capital gains rate, regardless of whether you held the trade for 10 minutes or 10 days.'
 		},
 		{
 			num: '02',
 			title: '100% Cash-Settled & European-Style Exercise',
 			subtitle: 'Zero Early Assignment or Share-Delivery Risk',
 			detail:
-				'Unlike equity options or SPY ETF options, SPX settles directly into cash and cannot be exercised early—eliminating overnight pin risk and unexpected margin calls.'
+				'Unlike equity options or SPY ETF options, SPX settles directly into cash and cannot be exercised early, eliminating overnight pin risk and unexpected margin calls.'
 		},
 		{
 			num: '03',
@@ -200,7 +200,7 @@
 			title: 'Scalable From $500+ Accounts (XSP/Spreads) to 7-Figure Desks',
 			subtitle: '10x Notional Efficiency With Mini-SPX Compatibility',
 			detail:
-				'One SPX contract equals 10x SPY—reducing commission drag for pros, while $500+ small accounts can execute the exact same levels using tight SPX vertical spreads or 1/10th-size XSP contracts.'
+				'One SPX contract equals 10x SPY, reducing commission drag for pros, while $500+ small accounts can execute the exact same levels using tight SPX vertical spreads or 1/10th-size XSP contracts.'
 		}
 	];
 
@@ -268,7 +268,7 @@
 		},
 		{
 			quote:
-				'Most 0DTE alert services gamble on out-of-the-money lottery tickets with no stop-loss. Billy treats SPX like the Goldman Sachs prop desk he was mentored by—every alert respects Delta, Theta, and strict invalidation levels.',
+				'Most 0DTE alert services gamble on out-of-the-money lottery tickets with no stop-loss. Billy treats SPX like the Goldman Sachs prop desk he was mentored by; every alert respects Delta, Theta, and strict invalidation levels.',
 			author: 'chris M.',
 			profile: 'Full-Time Index Options Trader',
 			strategyUsed: '0DTE & 1–3 DTE Directional Calls/Puts'
@@ -309,11 +309,11 @@
 		},
 		{
 			badge: 'Multi-Day Video Alerts',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Pair SPX Profit Pulse with our flagship multi-day stock and options video watchlist alerts.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		},
 		{
 			badge: 'Zero-Repaint Tools',
@@ -373,16 +373,16 @@
 							SPX Profit Pulse • Real-Time S&amp;P 500 &amp; 0DTE Index Options Trade Alert Service
 						</span>
 						<span class="hero-h1__display">
-							Get Precise SPX Options Alerts—Catch the Big Index Moves Without Staring at Screens
+							Get Precise SPX Options Alerts: Catch the Big Index Moves Without Staring at Screens
 							All Day.
 						</span>
 					</h1>
 
 					<p class="lead-copy">
 						When you step inside <strong>SPX Profit Pulse</strong>, you immediately know you finally
-						found what you have been searching for—not a chaotic Discord group spamming 30 impulsive
-						0DTE lottery tickets with zero stop-losses, and not fake repainted "holy grail" arrows,
-						but
+						found what you have been searching for: not a chaotic Discord group spamming 30
+						impulsive 0DTE lottery tickets with zero stop-losses, and not fake repainted "holy
+						grail" arrows, but
 						<strong
 							>pre-planned institutional S&amp;P 500 index options execution with exact entries,
 							tiered profit exits, and hard invalidation stops</strong
@@ -401,8 +401,8 @@
 
 					<p class="body-copy">
 						Personally mentored by former Wall Street Goldman Sachs proprietary trading legend
-						<strong>Mark "Goldfinger" McGoldrick</strong>—who explicitly called me
-						<em>"the future of trading"</em>—I learned how institutional dealer Gamma walls,
+						<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called me
+						<em>"the future of trading"</em>, I learned how institutional dealer Gamma walls,
 						liquidity sweeps, and macro order flow drive the S&amp;P 500 every single day. It is the
 						exact methodology that allowed us to call the
 						<strong>2020 COVID Top and Bottom</strong>, call the
@@ -425,7 +425,7 @@
 							<div class="good-for-item">
 								<strong>✓ Busy 9-to-5 Working Professionals</strong>
 								<span
-									>Pre-planned video watchlists &amp; instant mobile alerts—no screen addiction
+									>Pre-planned video watchlists &amp; instant mobile alerts without screen addiction
 									required</span
 								>
 							</div>
@@ -565,7 +565,7 @@
 						When You Sign Up, You Get These 6 Core Deliverables &amp; Exclusive Bonuses
 					</h2>
 					<p class="body-copy section-header__sub">
-						SPX Profit Pulse is more than a text notification—it is a complete S&amp;P 500
+						SPX Profit Pulse is more than a text notification; it is a complete S&amp;P 500
 						institutional intelligence system designed so you understand the exact level, thesis,
 						and risk before entering:
 					</p>
@@ -721,7 +721,7 @@
 								market and experienced firsthand how retail traders are exploited by overpriced
 								courses and fake, repainted "holy grail" indicators. Everything changed when Billy
 								was mentored directly by former Wall Street Goldman Sachs proprietary trading legend
-								<strong>Mark "Goldfinger" McGoldrick</strong>—who explicitly called Billy
+								<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called Billy
 								<strong>"The Future of Trading."</strong>
 							</p>
 

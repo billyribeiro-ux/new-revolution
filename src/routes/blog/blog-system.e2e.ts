@@ -36,7 +36,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 
 		await expect(page.locator('h1')).toHaveCount(1);
 
-		const categoryNav = page.locator('nav[aria-label="Blog categories"]');
+		const categoryNav = page.locator('nav[aria-label="Browse by topic"]');
 		await expect(categoryNav).toBeVisible();
 		await expect(categoryNav.locator('a[aria-current="page"]')).toContainText('All');
 		await expect(categoryNav.locator('a', { hasText: 'Market Structure' })).toBeVisible();

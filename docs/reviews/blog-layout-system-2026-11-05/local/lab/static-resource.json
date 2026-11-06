@@ -1,0 +1,39 @@
+{
+	"template": "static-resource",
+	"url": "/resources/stock-indexes-list",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 36,
+		"lcpMs": 36,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.hero__subtitle"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.DTYmaTHk.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DNivZvuu.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.oocXqaRA.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+		],
+		"totalTransferBytes": 293457
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 0,
+		"undersizedTapTargetExamples": []
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

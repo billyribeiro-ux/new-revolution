@@ -1,3 +1,4 @@
+import { svgBrandFontStyle } from '#lib/server/svg-brand-font';
 import type { RequestHandler } from './$types';
 import { eq, or } from 'drizzle-orm';
 import { ensureDbReady } from '#lib/server/db';
@@ -87,12 +88,12 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	// Title block
 	svgBlocks.push(
-		`<text x="56" y="${y}" fill="#dcff65" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">IMAGE TITLE</text>`
+		`<text x="56" y="${y}" fill="#dcff65" font-size="13" font-weight="700" letter-spacing="1.5">IMAGE TITLE</text>`
 	);
 	y += 26;
 	for (const line of titleLines) {
 		svgBlocks.push(
-			`<text x="56" y="${y}" fill="#f4f6f8" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700">${escapeXml(line)}</text>`
+			`<text x="56" y="${y}" fill="#f4f6f8" font-size="22" font-weight="700">${escapeXml(line)}</text>`
 		);
 		y += 28;
 	}
@@ -100,12 +101,12 @@ export const GET: RequestHandler = async ({ params }) => {
 	y += 14;
 	// Alt Text block
 	svgBlocks.push(
-		`<text x="56" y="${y}" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">ALT TEXT (SEO &amp; ACCESSIBILITY)</text>`
+		`<text x="56" y="${y}" fill="#38bdf8" font-size="13" font-weight="700" letter-spacing="1.5">ALT TEXT (SEO &amp; ACCESSIBILITY)</text>`
 	);
 	y += 22;
 	for (const line of altLines) {
 		svgBlocks.push(
-			`<text x="56" y="${y}" fill="#d0d7de" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500">${escapeXml(line)}</text>`
+			`<text x="56" y="${y}" fill="#d0d7de" font-size="16" font-weight="500">${escapeXml(line)}</text>`
 		);
 		y += 22;
 	}
@@ -113,12 +114,12 @@ export const GET: RequestHandler = async ({ params }) => {
 	if (captionLines.length > 0) {
 		y += 12;
 		svgBlocks.push(
-			`<text x="56" y="${y}" fill="#dec3a1" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">CAPTION</text>`
+			`<text x="56" y="${y}" fill="#dec3a1" font-size="13" font-weight="700" letter-spacing="1.5">CAPTION</text>`
 		);
 		y += 22;
 		for (const line of captionLines) {
 			svgBlocks.push(
-				`<text x="56" y="${y}" fill="#b8c0c8" font-family="system-ui, -apple-system, sans-serif" font-size="15">${escapeXml(line)}</text>`
+				`<text x="56" y="${y}" fill="#b8c0c8" font-size="15">${escapeXml(line)}</text>`
 			);
 			y += 21;
 		}
@@ -127,18 +128,17 @@ export const GET: RequestHandler = async ({ params }) => {
 	y += 14;
 	// Description block
 	svgBlocks.push(
-		`<text x="56" y="${y}" fill="#dcff65" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">VISUAL IMAGE DESCRIPTION (DESIGN / GENERATION SPEC)</text>`
+		`<text x="56" y="${y}" fill="#dcff65" font-size="13" font-weight="700" letter-spacing="1.5">VISUAL IMAGE DESCRIPTION (DESIGN / GENERATION SPEC)</text>`
 	);
 	y += 22;
 	for (const line of descLines) {
-		svgBlocks.push(
-			`<text x="56" y="${y}" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="15">${escapeXml(line)}</text>`
-		);
+		svgBlocks.push(`<text x="56" y="${y}" fill="#9ca3af" font-size="15">${escapeXml(line)}</text>`);
 		y += 21;
 	}
 
 	const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeXml(altText || title)}">
+	${svgBrandFontStyle}
 	<defs>
 		<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
 			<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#18202c" stroke-width="1" />
@@ -148,8 +148,8 @@ export const GET: RequestHandler = async ({ params }) => {
 	<rect width="${width}" height="${height}" fill="url(#grid)" />
 	<rect x="24" y="24" width="${width - 48}" height="${height - 48}" rx="12" fill="#11161d" fill-opacity="0.92" stroke="#2a3441" stroke-width="2" stroke-dasharray="8 6" />
 	<rect x="56" y="48" width="290" height="30" rx="6" fill="#dcff65" />
-	<text x="70" y="68" fill="#0b0e12" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" letter-spacing="1.2">IMAGE PLACEHOLDER · TO BE CREATED</text>
-	<text x="${width - 56}" y="68" text-anchor="end" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">${escapeXml(targetUrl)} (${width}×${height})</text>
+	<text x="70" y="68" fill="#0b0e12" font-size="13" font-weight="800" letter-spacing="1.2">IMAGE PLACEHOLDER · TO BE CREATED</text>
+	<text x="${width - 56}" y="68" text-anchor="end" fill="#8b949e" font-size="13">${escapeXml(targetUrl)} (${width}×${height})</text>
 	<line x1="56" y1="90" x2="${width - 56}" y2="90" stroke="#222b38" stroke-width="1" />
 	${svgBlocks.join('\n\t')}
 </svg>`;

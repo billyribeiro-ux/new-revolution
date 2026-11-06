@@ -273,7 +273,8 @@
 		--font-sans:
 			'Sofia Sans Variable', 'Sofia Sans Variable Fallback', system-ui, -apple-system, 'Segoe UI',
 			Roboto, sans-serif;
-		--font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+		/* Compatibility name: all code/data uses the approved Sofia face. */
+		--font-mono: var(--font-sans);
 		--font-heading: var(--font-display);
 		--font-body: var(--font-sans);
 		--tracking-h3: -0.01em;
@@ -291,7 +292,7 @@
 		--shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.4);
 
 		/* Layout & Rhythm (Mobile-First Base: 320px+) */
-		--max: 100%;
+		--max: 152.5rem;
 		--gutter: 24px;
 		--nav-height: 73px;
 		--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -322,6 +323,7 @@
 		font-weight: 400;
 		font-size: 1rem;
 		line-height: 1.72;
+		font-variant-numeric: tabular-nums;
 		letter-spacing: 0.005em;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -386,6 +388,10 @@
    3. INSTITUTIONAL TYPOGRAPHY MATRIX PRIMITIVES (Montserrat × Sofia Sans)
    ========================================================================== */
 @layer typography {
+	/* Enlarged text must wrap long headings instead of painting outside their boxes. */
+	:where(h1, h2, h3, h4, h5, h6) {
+		overflow-wrap: anywhere;
+	}
 	/* 08 / Primary Hero Display (<h1>) */
 	h1,
 	.hero-h1 {
@@ -588,7 +594,10 @@
 	}
 
 	.container {
-		inline-size: min(calc(100% - var(--gutter)), var(--max));
+		box-sizing: border-box;
+		inline-size: 100%;
+		max-inline-size: var(--max);
+		padding-inline: calc(var(--gutter) / 2);
 		margin-inline: auto;
 	}
 
@@ -797,7 +806,6 @@
 	/* 4. Enterprise Desktop (>= 1024px) */
 	@media (min-width: 1024px) {
 		:root {
-			--max: 1320px;
 			--gutter: 40px;
 		}
 
@@ -810,10 +818,9 @@
 		}
 	}
 
-	/* 5. Wide Desktop (>= 1280px — 1440px max container) */
+	/* 5. Wide Desktop (>= 1280px) */
 	@media (min-width: 1280px) {
 		:root {
-			--max: 1440px;
 			--gutter: 64px;
 		}
 
@@ -826,10 +833,9 @@
 		}
 	}
 
-	/* 6. Ultra-Wide / Multi-Monitor Trading Desk (>= 1536px — 1536px max container) */
+	/* 6. Ultra-Wide / Multi-Monitor Trading Desk (>= 1536px) */
 	@media (min-width: 1536px) {
 		:root {
-			--max: 1536px;
 			--gutter: 112px;
 		}
 	}

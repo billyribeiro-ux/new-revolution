@@ -448,7 +448,7 @@
 		padding: 0.65rem 1rem;
 		background: var(--color-brand-gold, #c5a059);
 		color: #0a0a0f;
-		font-family: var(--font-heading, system-ui, sans-serif);
+		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 0.88rem;
 		border-radius: 0.5rem;

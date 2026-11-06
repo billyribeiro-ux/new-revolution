@@ -282,8 +282,8 @@ describe('Media REST API & Backfill Pipeline', () => {
 		expect(uploadRes.status).toBe(201);
 		const uploaded = await uploadRes.json();
 		expect(uploaded.mime_type).toBe('image/webp');
-		expect(uploaded.alt_text).toBe('SPX setup, daily chart');
-		expect(uploaded.caption).toBe('Key breakout, level');
+		expect(uploaded.alt_text).toBe('SPX setup — daily chart');
+		expect(uploaded.caption).toBe('Key breakout – level');
 		expect(uploaded.urls.original).toContain('.webp');
 		expect(uploaded.urls.thumbnail).toContain('480w.webp');
 		expect(uploaded.urls.medium).toContain('800w.webp');
@@ -369,7 +369,7 @@ describe('Media REST API & Backfill Pipeline', () => {
 		);
 		expect(patchRes.status).toBe(200);
 		const patchedBody = await patchRes.json();
-		expect(patchedBody.alt_text).toBe('Updated alt, text');
+		expect(patchedBody.alt_text).toBe('Updated alt — text');
 
 		// Remove post reference and delete media
 		await permanentlyDeletePost(post.id, 'admin-test-1');

@@ -62,7 +62,7 @@ export const siteConfig = {
 
 	logo: {
 		src: '/logo.png',
-		alt: `${appName} — Institutional Trading Education`,
+		alt: `${appName}: Institutional Trading Education`,
 		width: 50,
 		height: 50
 	}

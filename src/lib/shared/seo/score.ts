@@ -1,4 +1,3 @@
-import { hasEmOrEnDash } from './content-transform';
 import {
 	CONTENT_MIN_WORDS,
 	CONTENT_THIN_WORDS,
@@ -66,7 +65,7 @@ export interface SeoIssue {
 	message: string;
 }
 
-export type SeoRatingBand = 'good' | 'warning' | 'bad';
+export type SeoRatingBand = 'good' | 'warn' | 'bad';
 
 export interface SeoScoreResult {
 	score: number;
@@ -113,7 +112,7 @@ export function getSeoScoreBand(score: number): {
 		return { band: 'good', label: 'Excellent' };
 	}
 	if (score >= 50) {
-		return { band: 'warning', label: 'Needs Work' };
+		return { band: 'warn', label: 'Needs Work' };
 	}
 	return { band: 'bad', label: 'Poor' };
 }
@@ -212,7 +211,7 @@ function parseFaqItemsList(
 	}
 }
 
-function hasAnyEmOrEnDashInPost(input: SeoScoreInput): boolean {
+function hasEditorialEmDashInPost(input: SeoScoreInput): boolean {
 	const stringsToCheck = [
 		input.content,
 		input.title,
@@ -227,7 +226,13 @@ function hasAnyEmOrEnDashInPost(input: SeoScoreInput): boolean {
 		input.twitterDescription,
 		input.faqItems
 	];
-	return stringsToCheck.some((s) => hasEmOrEnDash(s));
+	return stringsToCheck.some(
+		(s) =>
+			typeof s === 'string' &&
+			/\u2014/.test(
+				s.replace(/<(pre|code)\b[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/https?:\/\/[^\s"'<>]+/gi, '')
+			)
+	);
 }
 
 export function getSeoScore(input: SeoScoreInput): SeoScoreResult {
@@ -568,14 +573,14 @@ export function getSeoScore(input: SeoScoreInput): SeoScoreResult {
 		);
 	}
 
-	// 15. Em or en dash check (-25, blocking: true)
-	if (hasAnyEmOrEnDashInPost(input)) {
+	// 15. Contextual copy review: preserve authored punctuation and publication eligibility.
+	if (hasEditorialEmDashInPost(input)) {
 		addIssue(
-			'contains_em_or_en_dash',
-			'error',
-			25,
-			true,
-			'Content or metadata contains an em dash or en dash. Replace with commas, colons, parentheses, or "to".'
+			'editorial_em_dash',
+			'warn',
+			0,
+			false,
+			'Review em dashes in authored copy contextually. Preserve quotations, attribution and notation where appropriate; use natural sentence punctuation elsewhere.'
 		);
 	}
 

@@ -444,7 +444,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 		];
 		for (const route of routes) {
 			expect((await request.get(route.href)).status()).toBe(200);
-			for (const width of [320, 768, 1440, 1920, 2420]) {
+			for (const width of [320, 375, 768, 1179, 1180, 1181, 1440, 2440, 2800, 3000]) {
 				await page.setViewportSize({ width, height: 1000 });
 				await page.goto(route.href);
 				await expect(page.locator('main h1')).toHaveCount(1);
@@ -461,9 +461,28 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 					expect(Math.abs(shell.x - reference!.x)).toBeLessThan(1);
 					expect(Math.abs(shell.width - reference!.width)).toBeLessThan(1);
 				}
-				if (width === 2420) {
-					expect(reference!.width).toBe(1536);
-					expect(reference!.x).toBe(442);
+				if (width >= 2440) {
+					expect(reference!.width).toBe(2440);
+					expect(reference!.x).toBe((width - 2440) / 2);
+				}
+				if (route.name !== 'article') {
+					const innerEdge = await page
+						.locator('header.nav-shell > .container.nav')
+						.evaluate(
+							(el) =>
+								el.getBoundingClientRect().x + parseFloat(getComputedStyle(el).paddingInlineStart)
+						);
+					const heading = await page.locator('main h1').boundingBox();
+					expect(heading!.x).toBeCloseTo(innerEdge, 0);
+					expect(await page.locator('main aside').count()).toBe(0);
+					const cardWidths = await page.locator('main .blog-post-card').evaluateAll((cards) =>
+						cards.map((card) => ({
+							width: card.getBoundingClientRect().width,
+							lead: card.classList.contains('is-lead')
+						}))
+					);
+					for (const card of cardWidths)
+						expect(card.width).toBeLessThanOrEqual(card.lead ? 1200 : 400);
 				}
 				expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
 					true
@@ -474,7 +493,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 					expect(prose!.width).toBeLessThanOrEqual(900);
 				}
 				if (
-					(width === 2420 && ['index', 'article'].includes(route.name)) ||
+					(width === 2440 && ['index', 'article'].includes(route.name)) ||
 					(width === 320 && ['category', 'tag'].includes(route.name))
 				) {
 					await testInfo.attach(`layout-${route.name}-${width}.png`, {
@@ -484,6 +503,137 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 				}
 			}
 		}
+	});
+
+	test('loads uncropped card media with cold DPR1/2 candidates on every discovery surface', async ({
+		browser,
+		baseURL
+	}, testInfo) => {
+		await page.goto(`/blog/${slug}`);
+		const categoryHref = await page.locator('.article-category-badge').getAttribute('href');
+		const tagHref = await page
+			.locator('.article-tag-list a', { hasText: TAG })
+			.getAttribute('href');
+		const routes = [
+			'/',
+			'/blog',
+			new URL(categoryHref!, page.url()).pathname,
+			new URL(tagHref!, page.url()).pathname
+		];
+		const measurements: Array<Record<string, unknown>> = [];
+		const scenarios = routes.flatMap((route) =>
+			[320, 768, 2440].flatMap((width) =>
+				[1, 2].map((dpr) => ({ route, width, dpr, rootSize: 16 }))
+			)
+		);
+		// The first route exercises regular/lazy media; the unique search result exercises wide/eager media.
+		for (const route of ['/blog', `/blog?search=${encodeURIComponent(TITLE)}`])
+			for (const dpr of [1, 2]) scenarios.push({ route, width: 2440, dpr, rootSize: 32 });
+		for (const { route, width, dpr, rootSize } of scenarios) {
+			// Every route/viewport/density starts with an empty cache. A reused context can legally retain a larger image.
+			const cold = await browser.newContext({
+				baseURL,
+				viewport: { width, height: 1000 },
+				deviceScaleFactor: dpr
+			});
+			try {
+				const candidatePage = await cold.newPage();
+				await candidatePage.addInitScript((size) => {
+					const apply = () => {
+						if (!document.documentElement) return false;
+						document.documentElement.style.fontSize = `${size}px`;
+						return true;
+					};
+					if (!apply()) {
+						const observer = new MutationObserver(() => {
+							if (apply()) observer.disconnect();
+						});
+						observer.observe(document, { childList: true, subtree: true });
+					}
+				}, rootSize);
+				await candidatePage.goto(route);
+				const card = candidatePage.locator(`.blog-post-card[data-post-id="${postId}"]`);
+				await card.scrollIntoViewIfNeeded();
+				const image = card.locator('img');
+				await expect.poll(() => image.getAttribute('sizes')).toMatch(/^\d+px$/);
+				await expect
+					.poll(() =>
+						image.evaluate((img: HTMLImageElement, density) => {
+							const entries = img.srcset.split(',').map((part) => part.trim().split(/\s+/));
+							const available = entries.map(([, descriptor]) => Number.parseInt(descriptor));
+							const selected = entries.find(
+								([url]) => new URL(url, document.baseURI).href === img.currentSrc
+							);
+							const selectedWidth = Number.parseInt(selected?.[1] ?? '0');
+							return (
+								selectedWidth >=
+								Math.min(
+									Math.max(...available),
+									Math.floor(img.getBoundingClientRect().width * density)
+								)
+							);
+						}, dpr)
+					)
+					.toBe(true);
+				await expect
+					.poll(() =>
+						image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
+					)
+					.toBe(true);
+				const media = await image.evaluate((img: HTMLImageElement) => {
+					const box = img.getBoundingClientRect();
+					const link = img.parentElement!.getBoundingClientRect();
+					return {
+						src: img.currentSrc,
+						srcset: img.srcset,
+						sizes: img.sizes,
+						width: box.width,
+						height: box.height,
+						linkWidth: link.width,
+						linkHeight: link.height,
+						fit: getComputedStyle(img).objectFit,
+						padding: getComputedStyle(img.parentElement!).paddingBlockStart,
+						lead: img.closest('article')!.classList.contains('is-lead')
+					};
+				});
+				expect(media.fit).toBe('contain');
+				expect(media.padding).toBe('0px');
+				expect(media.width / media.height).toBeCloseTo(16 / 9, 2);
+				expect(media.height).toBeCloseTo(media.linkHeight, 1);
+				expect(media.width).toBeCloseTo(media.linkWidth, 1);
+				expect(Number.parseFloat(media.sizes)).toBe(Math.ceil(media.width));
+				const response = await cold.request.get(media.src);
+				expect(response.status()).toBe(200);
+				const bytes = await response.body();
+				const decoded = await sharp(bytes).metadata();
+				const candidates = media.srcset
+					.split(',')
+					.map((item) => Number(item.trim().match(/\s(\d+)w$/)?.[1]))
+					.filter(Boolean)
+					.sort((a, b) => a - b);
+				const maximum = candidates.at(-1)!;
+				const needed = Math.min(maximum, Math.floor(media.width * dpr));
+				const nextCandidate = candidates.find((candidate) => candidate >= needed) ?? maximum;
+				expect(decoded.width).toBeGreaterThanOrEqual(needed);
+				expect(decoded.width).toBeLessThanOrEqual(nextCandidate);
+				measurements.push({
+					route,
+					viewport: width,
+					dpr,
+					rootSize,
+					...media,
+					decodedWidth: decoded.width,
+					decodedHeight: decoded.height,
+					bytes: bytes.length
+				});
+			} finally {
+				await cold.close();
+			}
+		}
+		await testInfo.attach('cold-card-media.json', {
+			body: Buffer.from(JSON.stringify(measurements, null, 2)),
+			contentType: 'application/json'
+		});
 	});
 
 	test('public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap', async () => {

@@ -24,7 +24,7 @@ async function build(enabled, check, signupSetting) {
 		);
 		await writeFile(
 			join(client, '_app/immutable/assets/theme.css'),
-			`${canonicalCss}\n@font-face{src:url(./font.woff2)}`
+			`${canonicalCss}\n@font-face{src:url(./font.woff2)}\n@font-face{src:url(data:font/woff2;base64,${Buffer.from('wOF2fixture').toString('base64')})}`
 		);
 		await writeFile(join(client, '_app/immutable/assets/font.woff2'), 'fixture');
 		await writeFile(
@@ -83,6 +83,20 @@ void test('normal deployment leaves pages available and exposes an uncached stat
 		assert.match(preview, /url\("\/_app\/immutable\/assets\/font.woff2"\)/);
 		assert.match(preview, /data:image\/png;base64,/);
 		assert.doesNotMatch(preview, /<!-- maintenance:/);
+		const css = await readFile(join(dir, '.svelte-kit/output/client/brand-ui.css'), 'utf8');
+		assert.match(css, /url\("\/_app\/immutable\/assets\/font.woff2"\)/);
+		assert.equal(css, await readFile(join(dir, '.vercel/output/static/brand-ui.css'), 'utf8'));
+		assert.doesNotMatch(css, /data:font\/woff2/);
+		const subset = css.match(/\/_app\/immutable\/assets\/brand-subset-[a-f0-9]+\.woff2/)[0];
+		assert.equal(
+			(await readFile(join(dir, '.svelte-kit/output/client', subset))).toString(),
+			'wOF2fixture'
+		);
+		assert.equal(
+			(await readFile(join(dir, '.vercel/output/static', subset))).toString(),
+			'wOF2fixture'
+		);
+		assert.equal(match(routes, '/brand-ui.css').headers['cache-control'], 'no-cache');
 	});
 });
 
@@ -154,6 +168,9 @@ void test('maintenance deployment blocks pages, API, auth and nested routes befo
 		assert.equal(match(routes, '/api/health/'), undefined);
 		assert.equal(invoke(dir, match(routes, '/api/healthcheck').dest).status, 503);
 		assert.equal(match(routes, '/_app/immutable/chunks/test.js'), undefined);
+		assert.equal(match(routes, '/brand-ui.css').dest, undefined);
+		assert.equal(match(routes, '/brand-ui.css').headers['cache-control'], 'no-cache');
+		assert.equal(invoke(dir, match(routes, '/brand-ui.css/extra').dest).status, 503);
 		assert.equal(invoke(dir, match(routes, '/_app/version.json').dest).status, 503);
 	});
 });

@@ -49,7 +49,7 @@
 			step: 'Pillar 01',
 			verb: 'Educate',
 			tagline: 'Truth Over Textbook Theory',
-			headline: 'Teach Real Institutional Market Mechanics—Never Recycled Retail Hype',
+			headline: 'Teach Real Institutional Market Mechanics Without Recycled Retail Hype',
 			description:
 				'Retail traders lose because they are taught lagging retail patterns that institutional algorithms actively hunt. We educate our members using the exact order flow, liquidity exhaustion, and asymmetric risk principles passed down from former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick.',
 			proofPoint:
@@ -68,7 +68,7 @@
 			description:
 				'The trading industry is flooded with $2,000 "holy grail" indicators engineered to repaint arrows after the candle closes so marketers can film fake promotional videos. We innovate by building 100% non-repainting custom indicators, live institutional scanners, and free public calculators that print objective truth in real time.',
 			proofPoint:
-				'Every signal, liquidity zone, and abandoned price bar prints live and stays on the chart permanently—giving you verifiable clarity.',
+				'Every signal, liquidity zone, and abandoned price bar prints live and stays on the chart permanently, giving you verifiable clarity.',
 			routes: [
 				{ label: 'Custom Non-Repainting Indicators', href: '/store/indicators' },
 				{ label: 'Institutional Market Scanners', href: '/store/scanners' },
@@ -81,13 +81,13 @@
 			tagline: 'People Over Making Money',
 			headline: 'Deliver Affordable Live Execution & Exact Video Watchlists So Members Thrive',
 			description:
-				'Education and tools mean nothing if subscription fees drain your trading capital. We keep our live trading rooms and alert services genuinely affordable—delivering real-time intraday execution and detailed video watchlists with exact targeted entries, profit exits, and hard stop-losses.',
+				'Education and tools mean nothing if subscription fees drain your trading capital. We keep our live trading rooms and alert services genuinely affordable, delivering real-time intraday execution and detailed video watchlists with exact targeted entries, profit exits, and hard stop-losses.',
 			proofPoint:
 				'Whether you trade live with us at the opening bell or execute swings around a 9-to-5 career, our only metric of success is your consistency.',
 			routes: [
 				{ label: 'Live Day Trading Room', href: '/live-trading-rooms/day-trading-room' },
 				{ label: 'Swing Trading Room', href: '/live-trading-rooms/swing-trading-room' },
-				{ label: 'Sunday Alpha Protocol Video Watchlist', href: '/watchlist' }
+				{ label: 'Sunday Alpha Alerts Video Watchlist', href: '/sunday-alpha-alerts' }
 			]
 		}
 	];
@@ -100,12 +100,12 @@
 			problemSolved:
 				'Fake gurus charge $3,000 to $10,000 for basic courses, stripping new traders of the very capital they need to trade.',
 			ourPledge:
-				'We price our Live Trading Rooms, Alert Services (SPX Profit Pulse & Sunday Alpha Protocol), Courses, Indicators, and Scanners for maximum accessibility—because we make our living from the market, not from gouging students.'
+				'We price our Live Trading Rooms, Alert Services (SPX Profit Pulse & Sunday Alpha Alerts), Courses, Indicators, and Scanners for maximum accessibility because we make our living from the market, not from gouging students.'
 		},
 		{
 			number: '02',
 			badge: 'Zero Repainting Law',
-			title: 'No Fake "Holy Grail" Indicators—Ever',
+			title: 'No Fake "Holy Grail" Indicators. Ever.',
 			problemSolved:
 				'Predatory indicator sellers market scripts that erase losing signals in hindsight and leave traders trapped in live market chop.',
 			ourPledge:
@@ -118,7 +118,7 @@
 			problemSolved:
 				'Internet marketers post winning screenshots after the market closes without ever defining risk ahead of time.',
 			ourPledge:
-				'Every setup called in our rooms or delivered in our video watchlists defines the exact entry trigger, tiered profit targets, and hard invalidation stop-loss before execution—the same standard behind our 2020, 2022, and +600% OXY Put Options calls.'
+				'Every setup called in our rooms or delivered in our video watchlists defines the exact entry trigger, tiered profit targets, and hard invalidation stop-loss before execution, the same standard behind our 2020, 2022, and +600% OXY Put Options calls.'
 		},
 		{
 			number: '04',
@@ -127,7 +127,7 @@
 			problemSolved:
 				'Most trading rooms force a single reckless style that blows up $500 accounts and excludes people with full-time 9-to-5 jobs.',
 			ourPledge:
-				'We maintain dedicated environments for every reality: the Small Accounts Room for $500+ capital, the Swing Trading Room and Sunday Alpha Protocol alerts for working professionals, and the Day Trading Room and SPX Profit Pulse for intraday traders.'
+				'We maintain dedicated environments for every reality: the Small Accounts Room for $500+ capital, the Swing Trading Room and Sunday Alpha Alerts alerts for working professionals, and the Day Trading Room and SPX Profit Pulse for intraday traders.'
 		},
 		{
 			number: '05',
@@ -136,7 +136,7 @@
 			problemSolved:
 				'Traditional coaching programs accept anyone whose credit card clears, regardless of whether the student is ready.',
 			ourPledge:
-				'You cannot buy your way into our 1-on-1 Mentorship off the shelf. Every applicant is manually reviewed and approved based on coachability, discipline, and work ethic—proving we care about transformation over revenue.'
+				'You cannot buy your way into our 1-on-1 Mentorship off the shelf. Every applicant is manually reviewed and approved based on coachability, discipline, and work ethic, proving we care about transformation over revenue.'
 		},
 		{
 			number: '06',
@@ -145,7 +145,7 @@
 			problemSolved:
 				'Unqualified educators teach theory they have never executed against institutional order flow.',
 			ourPledge:
-				'Every lesson we teach is anchored in lived market combat—forged by standing on the losing side first, being mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick, and executing live through the 2020 and 2022 macro turns.'
+				'Every lesson we teach is anchored in lived market combat, forged by standing on the losing side first, being mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick, and executing live through the 2020 and 2022 macro turns.'
 		}
 	];
 
@@ -154,13 +154,13 @@
 			tag: '9-to-5 Careers & Busy Schedules',
 			title: 'Working Professionals',
 			painPoint:
-				'You work hard at your career and cannot sit glued to 1-minute charts for six hours a day—yet you refuse to settle for 7% index returns while inflation erodes your future.',
+				'You work hard at your career and cannot sit glued to 1-minute charts for six hours a day, yet you refuse to settle for 7% index returns while inflation erodes your future.',
 			solution:
-				'Our Swing Trading Room and Sunday Alpha Protocol video watchlists hand you institutional multi-day stock and options setups with pre-planned entries, exits, and stops you can execute in 15 minutes.',
+				'Our Swing Trading Room and Sunday Alpha Alerts video watchlists hand you institutional multi-day stock and options setups with pre-planned entries, exits, and stops you can execute in 15 minutes.',
 			primaryLinkLabel: 'Explore Swing Trading Room',
 			primaryLinkHref: '/live-trading-rooms/swing-trading-room',
-			secondaryLinkLabel: 'View Sunday Alpha Protocol Alerts',
-			secondaryLinkHref: '/watchlist'
+			secondaryLinkLabel: 'View Sunday Alpha Alerts Alerts',
+			secondaryLinkHref: '/sunday-alpha-alerts'
 		},
 		{
 			tag: 'Starting Capital as Low as $500',
@@ -168,7 +168,7 @@
 			painPoint:
 				'You have $500 to $2,500 to start, and you are tired of rooms calling $15.00 options contracts where one normal pullback wipes out half your account.',
 			solution:
-				'Our Small Accounts Room is built specifically for $500+ accounts—teaching strict position sizing, cash-account T+1 rotation, and high-probability setups priced for small-account survival and compounding.',
+				'Our Small Accounts Room is built specifically for $500+ accounts, teaching strict position sizing, cash-account T+1 rotation, and high-probability setups priced for small-account survival and compounding.',
 			primaryLinkLabel: 'Explore Small Accounts Room',
 			primaryLinkHref: '/live-trading-rooms/small-accounts-room',
 			secondaryLinkLabel: 'Try Free Options Calculator',
@@ -190,7 +190,7 @@
 			tag: 'Serious Career Transformation',
 			title: '1-on-1 Mentorship Candidates',
 			painPoint:
-				'You want direct, personalized guidance from a trader mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick—not a generic pre-recorded webinar.',
+				'You want direct, personalized guidance from a trader mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick rather than a generic pre-recorded webinar.',
 			solution:
 				'Our application-only 1-on-1 Mentorship pairs approved traders directly with our desk to rebuild your execution, psychology, and risk management from the ground up.',
 			primaryLinkLabel: 'Apply for 1-on-1 Mentorship',
@@ -233,7 +233,7 @@
 			<div class="hero-section__main">
 				<div class="eyebrow-pill">
 					<span class="eyebrow-pill__tag">The Anti-Guru Charter</span>
-					<span class="eyebrow-pill__text">Why We Focus on People—Not Making Money</span>
+					<span class="eyebrow-pill__text">Why We Focus on People Over Making Money</span>
 				</div>
 
 				<h1 id="mission-h1" class="hero-h1">
@@ -281,7 +281,7 @@
 						Explore Our Live Trading Rooms
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
-					<a href={resolve('/watchlist' as '/')} class="btn btn-outline">
+					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline">
 						See Video Watchlist &amp; Alert Tiers
 					</a>
 				</div>
@@ -367,7 +367,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">Exposing the Industry Lie • Hard Evidence</span>
 				<h2 id="crisis-h2" class="section-h2">
-					Why 95% of Trading Education Services Want You to Stay Dependent—And Why We Refuse
+					Why 95% of Trading Education Services Want You to Stay Dependent and Why We Refuse
 				</h2>
 				<p class="body-copy section-intro__desc">
 					To understand our mission, you have to confront the ugly truth about how most online
@@ -403,7 +403,7 @@
 								class="ic-inline-sm"
 								aria-hidden="true"
 							/> Scanners</a
-						>) we engineer is <strong>100% non-repainting</strong>—built to expose real
+						>) we engineer is <strong>100% non-repainting</strong>, built to expose real
 						institutional order flow, abandoned price bars, and liquidity sweeps at a fair price.
 					</div>
 				</article>
@@ -421,7 +421,7 @@
 					</p>
 					<div class="crisis-card__resolution">
 						<strong>Our Solution:</strong> In our live rooms and our affordable alert-only tiers (<a
-							href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a
+							href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a
 						>
 						&amp;
 						<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>), we
@@ -439,7 +439,7 @@
 					<h3 class="crisis-card__title">Pricing Out $500 Accounts &amp; Working Families</h3>
 					<p class="crisis-card__body">
 						Traditional trading rooms cater exclusively to wealthy day traders who can sit at six
-						monitors all day and absorb $2,000 drawdowns—leaving working parents and $500 starter
+						monitors all day and absorb $2,000 drawdowns, leaving working parents and $500 starter
 						accounts to blow up trying to copy oversized trades.
 					</p>
 					<div class="crisis-card__resolution">
@@ -467,9 +467,9 @@
 					Educate. Innovate. Prosper. How Our Three Pillars Transform Traders
 				</h2>
 				<p class="body-copy section-intro__desc">
-					"Educate, Innovate, and Prosper" isn't a marketing catchphrase—it is the exact three-stage
-					engineering blueprint behind every room, alert service, and tool at Revolution Trading
-					Pros.
+					"Educate, Innovate, and Prosper" isn't a marketing catchphrase; it is the exact
+					three-stage engineering blueprint behind every room, alert service, and tool at Revolution
+					Trading Pros.
 				</p>
 			</div>
 
@@ -521,7 +521,7 @@
 					Six Ironclad Promises We Make to Every Trader Who Walks Through Our Doors
 				</h2>
 				<p class="body-copy section-intro__desc">
-					When you join Revolution Trading Pros, you are not buying a subscription—you are entering
+					When you join Revolution Trading Pros, you are not buying a subscription; you are entering
 					an institution governed by six unbreakable commitments to your success.
 				</p>
 			</div>
@@ -564,8 +564,8 @@
 				</h2>
 				<p class="body-copy section-intro__desc">
 					Because we focus on people rather than maximizing fees, we structured our ecosystem so
-					every trader—from a $500 beginner or a busy working parent to a full-time options
-					scalper—has a dedicated home.
+					every trader, from a $500 beginner or a busy working parent to a full-time options
+					scalper, has a dedicated home.
 				</p>
 			</div>
 
@@ -648,7 +648,7 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
 					Get Video Watchlist &amp; Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

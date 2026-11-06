@@ -100,9 +100,9 @@
 					<p class="body-copy">
 						Mentored directly by former Wall Street Goldman Sachs proprietary trading legend <strong
 							>Mark "Goldfinger" McGoldrick</strong
-						>—who called our founder <em>"the future of trading"</em>—we track ETF order flow every
-						single morning before the opening bell. Because institutional balance sheets deploy
-						billions of dollars through index and sector ETFs (<strong
+						>, who called our founder <em>"the future of trading"</em>, we track ETF order flow
+						every single morning before the opening bell. Because institutional balance sheets
+						deploy billions of dollars through index and sector ETFs (<strong
 							>SPY, QQQ, IWM, XLE, XLK, XLF</strong
 						>), reading ETF accumulation and distribution is how we called the
 						<strong>2020 COVID Top and Bottom</strong>, called the
@@ -145,10 +145,10 @@
 							<dt>02 // 9-to-5 Working Professional Swings</dt>
 							<dd>
 								Sector ETFs (<strong>XLK, XLE, XLF, SMH, GLD</strong>) eliminate single-company CEO
-								or earnings blowup risk—making them ideal for our
+								or earnings blowup risk, making them ideal for our
 								<a href={resolve('/live-trading-rooms/swing-trading-room')}>Swing Trading Room</a>
 								and
-								<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>.
+								<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>.
 							</dd>
 						</div>
 						<div class="quick-ref-list__row">
@@ -185,8 +185,8 @@
 					<p class="body-copy section-header__sub">
 						<strong>Exchange-Traded Funds (ETFs)</strong> are SEC- and IIROC-regulated investment vehicles
 						that trade on stock exchanges throughout the market day, just like individual stocks. Each
-						ETF holds an underlying basket of assets—such as an equity index, an economic sector, Treasury
-						bonds, or physical commodities—allowing traders and investors to capture broad market trends
+						ETF holds an underlying basket of assets, such as an equity index, an economic sector, Treasury
+						bonds, or physical commodities, allowing traders and investors to capture broad market trends
 						or hedge risk through a single liquid ticker.
 					</p>
 				</div>
@@ -355,8 +355,8 @@
 						ETFs By Sector: All 11 Official S&amp;P 500 GICS Sectors &amp; Sub-Industries
 					</h2>
 					<p class="body-copy section-header__sub">
-						Institutional capital rarely leaves the market all at once—it rotates from one sector to
-						another. Click any sector ticker pill below to open its live TradingView chart:
+						Institutional capital rarely leaves the market all at once; it rotates from one sector
+						to another. Click any sector ticker pill below to open its live TradingView chart:
 					</p>
 				</div>
 
@@ -383,7 +383,7 @@
 											target="_blank"
 											rel="noopener noreferrer"
 											class="sector-card__etf"
-											aria-label={`${item.ticker} — ${item.label}, chart opens in a new tab`}
+											aria-label={`${item.ticker}: ${item.label}, chart opens in a new tab`}
 										>
 											<strong>{item.ticker}</strong>
 											<span aria-hidden="true">↗</span>
@@ -561,12 +561,6 @@
 		font-family: var(--font-sans);
 		line-height: 1.65;
 		overflow-x: clip;
-	}
-
-	.container {
-		max-width: 1440px;
-		margin: 0 auto;
-		padding: 0 1rem;
 	}
 
 	/* Shared Typography Tokens */
@@ -1516,16 +1510,8 @@
 	/* ===========================================================================
      ENTERPRISE RESPONSIVE BREAKPOINTS (480px, 640px, 768px, 1024px, 1280px, 1536px)
      =========================================================================== */
-	@media (min-width: 480px) {
-		.container {
-			padding: 0 1.25rem;
-		}
-	}
 
 	@media (min-width: 640px) {
-		.container {
-			padding: 0 1.5rem;
-		}
 		.cta-row,
 		.resources-bridge__links {
 			flex-direction: row;
@@ -1553,9 +1539,6 @@
 	}
 
 	@media (min-width: 1024px) {
-		.container {
-			padding: 0 2rem;
-		}
 		.hero-section,
 		.foundation-section,
 		.directory-section,
@@ -1592,12 +1575,6 @@
 		}
 		.room-cta-grid {
 			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-	}
-
-	@media (min-width: 1536px) {
-		.container {
-			max-width: 1536px;
 		}
 	}
 </style>

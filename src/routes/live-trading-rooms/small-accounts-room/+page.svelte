@@ -98,7 +98,7 @@
 			ourInstitutionalFix:
 				'Using the proprietary order-flow methodology passed down by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, we wait for institutional liquidity sweeps on liquid ETFs and stocks where clean, tight-spread options contracts cost a fraction of the price.',
 			riskCap:
-				'Tight structural invalidation levels just beyond the sweep high/low—keeping dollar risk small while targeting 200% to 300% asymmetric expansions.'
+				'Tight structural invalidation levels just beyond the sweep high/low, keeping dollar risk small while targeting 200% to 300% asymmetric expansions.'
 		},
 		{
 			code: 'Playbook 02 // Defined-Risk Vertical Spreads',
@@ -107,16 +107,16 @@
 			whySmallAccountsBlowUp:
 				'Beginners buy cheap, far out-of-the-money weekly lottery-ticket calls or puts that have a 95% probability of expiring worthless due to rapid time decay.',
 			ourInstitutionalFix:
-				'We teach small accounts how to pair a long option with a short option (vertical spreads)—drastically lowering the cost of entry, neutralizing time decay, and profitable execution even on moderate price moves.',
+				'We teach small accounts how to pair a long option with a short option (vertical spreads), drastically lowering the cost of entry, neutralizing time decay, and supporting profitable execution even on moderate price moves.',
 			riskCap:
-				'Maximum possible loss is 100% locked in and known before entry—zero margin surprises and zero Theta bleed traps.'
+				'Maximum possible loss is 100% locked in and known before entry, with zero margin surprises and zero Theta bleed traps.'
 		},
 		{
 			code: 'Playbook 03 // Contrarian Distribution Puts',
 			instrumentTag: 'The +600% OXY Blueprint',
 			title: 'Turning Small Defined Risk Into Explosive Gains When Hype Collapses',
 			whySmallAccountsBlowUp:
-				'Retail traders with $500 accounts buy late into media hype—becoming exit liquidity for billionaires and institutional desks.',
+				'Retail traders with $500 accounts buy late into media hype, becoming exit liquidity for billionaires and institutional desks.',
 			ourInstitutionalFix:
 				'This is the exact blueprint behind our famous Occidental Petroleum (OXY) trade: while Warren Buffett bought millions of dollars on the long side and retail chased the headline, we spotted institutional distribution and bought affordable OXY Put Options live for a 600% overnight gain.',
 			riskCap:
@@ -127,9 +127,9 @@
 			instrumentTag: 'Shares & Multi-Day Options',
 			title: 'Capturing 3-to-5 Day Compression Breakouts Without PDT Restrictions',
 			whySmallAccountsBlowUp:
-				'Traders in margin accounts under $25,000 get locked by the 3-day-trade Pattern Day Trader (PDT) rule—or hold losing day trades overnight hoping to avoid a PDT strike.',
+				'Traders in margin accounts under $25,000 get locked by the 3-day-trade Pattern Day Trader (PDT) rule or hold losing day trades overnight hoping to avoid a PDT strike.',
 			ourInstitutionalFix:
-				'We provide pre-planned 2-to-5 day swing setups with exact entry triggers, profit targets, and hard stops that don’t count as day trades—allowing you to compound smoothly whether you use a cash account or a small margin account.',
+				'We provide pre-planned 2-to-5 day swing setups with exact entry triggers, profit targets, and hard stops that don’t count as day trades, allowing you to compound smoothly whether you use a cash account or a small margin account.',
 			riskCap:
 				'Pre-calculated share or contract sizing using our free Options Calculator so every trade respects your exact account balance.'
 		}
@@ -139,7 +139,7 @@
 		{
 			criterion: 'Cost vs. Your Trading Capital',
 			fakeGuruChallenges:
-				'Charges $2,500 to $5,000 for courses—wiping out your entire $500 trading budget before you place a single trade.',
+				'Charges $2,500 to $5,000 for courses, wiping out your entire $500 trading budget before you place a single trade.',
 			revolutionSmallRoom:
 				'People Over Profits: Kept genuinely affordable so your hard-earned money stays inside your brokerage account.'
 		},
@@ -224,7 +224,7 @@
 
 				<p class="lead-copy">
 					When you log into our <strong>Small Accounts Room</strong>, you immediately know you
-					finally found what you have been searching for—not a reckless internet marketer telling
+					finally found what you have been searching for: not a reckless internet marketer telling
 					you to gamble your last $500 on lottery-ticket options, and not an overpriced course that
 					drains your savings, but
 					<strong
@@ -239,16 +239,16 @@
 						the losing end myself in the past.</strong
 					>
 					Most trading rooms destroy small accounts because they call out $1,000+ options contracts meant
-					for six-figure portfolios—where one normal dip wipes out 50% of a beginner's capital. Even worse,
-					fake gurus charge $3,000 for repainted "holy grail" indicators, stealing the very capital you
-					needed to trade with. That is why I built Revolution Trading Pros on one unbreakable rule:
+					for six-figure portfolios, where one normal dip wipes out 50% of a beginner's capital. Even
+					worse, fake gurus charge $3,000 for repainted "holy grail" indicators, stealing the very capital
+					you needed to trade with. That is why I built Revolution Trading Pros on one unbreakable rule:
 					<strong>we focus on PEOPLE, not making money.</strong>
 				</p>
 
 				<p class="body-copy">
 					Mentored directly by former Wall Street Goldman Sachs proprietary trading legend
-					<strong>Mark "Goldfinger" McGoldrick</strong>—who called me
-					<em>"the future of trading"</em>—I became the only retail trader feared by Wall Street:
+					<strong>Mark "Goldfinger" McGoldrick</strong>, who called me
+					<em>"the future of trading"</em>, I became the only retail trader feared by Wall Street:
 					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
 					<strong>2022 Market Top and Bottom</strong>, and embarrassing
 					<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong> when he went long
@@ -351,7 +351,7 @@
 						</div>
 						<p>
 							Every trade includes the exact entry trigger, profit target, and hard stop-loss level
-							before we enter—eliminating emotional panic selling.
+							before we enter, eliminating emotional panic selling.
 						</p>
 					</div>
 				</div>
@@ -376,7 +376,7 @@
 				<h2 id="roadmap-h2">The 4-Stage Small Account Compounding Blueprint ($500 to $25,000+)</h2>
 				<p class="body-copy section-header__sub">
 					You don’t grow a $500 account by swinging for home runs on every candle. You grow it by
-					graduating through four distinct capital brackets—each with its own position-sizing and
+					graduating through four distinct capital brackets, each with its own position-sizing and
 					risk rules:
 				</p>
 			</div>
@@ -425,7 +425,7 @@
 					Four Institutional Setups Engineered Specifically for $500+ Accounts
 				</h2>
 				<p class="body-copy section-header__sub">
-					We never water down our institutional edge for small accounts—we right-size the vehicle.
+					We never water down our institutional edge for small accounts; we right-size the vehicle.
 					Here are the four core playbooks we execute inside the Small Accounts Room:
 				</p>
 			</div>
@@ -527,7 +527,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">People Over Making Money • Start in the Right Room</span>
 				<h2 id="routing-h2">
-					Enroll in the Small Accounts Room—Or Compare Our Other Trading Rooms &amp; Alerts
+					Enroll in the Small Accounts Room or Compare Our Other Trading Rooms &amp; Alerts
 				</h2>
 				<p class="body-copy section-header__sub">
 					Our mission is to make sure every trader is placed in the exact environment built for
@@ -562,18 +562,18 @@
 						<div class="route-card__top">
 							<span class="meta-label">Working a 9-to-5 Job or Want Alerts Only?</span>
 						</div>
-						<h3 class="route-card__title">Swing Room &amp; Sunday Alpha Protocol</h3>
+						<h3 class="route-card__title">Swing Room &amp; Sunday Alpha Alerts</h3>
 						<p class="route-card__copy">
 							Cannot watch screens during market hours? Join our
 							<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 								>Swing Trading Room</a
 							>
 							or our ultra-affordable
-							<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>
+							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
 							video watchlist alert tier for pre-planned multi-day entries, targets, and stops.
 						</p>
 					</div>
-					<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark btn--full">
+					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark btn--full">
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -650,8 +650,8 @@
 					Join the Small Accounts Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
-					Sunday Alpha Protocol Video Watchlist
+				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+					Sunday Alpha Alerts Video Watchlist
 				</a>
 				<a href={resolve('/resources' as '/')} class="btn btn-outline-dark">
 					Free Options Risk Calculator

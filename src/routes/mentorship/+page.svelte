@@ -45,9 +45,9 @@
 			title: 'Portfolio Managers & Desk Leads',
 			subtitle: 'Macro Regime Timing, Asymmetric Options Overlays & Drawdown Protection',
 			coreProblem:
-				'Conventional buy-and-hold models and lagging street research leave portfolios exposed at major macro inflection points—suffering severe drawdowns during liquidity cascades like 2020 and 2022 while missing asymmetric contrarian opportunities.',
+				'Conventional buy-and-hold models and lagging street research leave portfolios exposed at major macro inflection points, suffering severe drawdowns during liquidity cascades like 2020 and 2022 while missing asymmetric contrarian opportunities.',
 			institutionalSolution:
-				'We install the exact proprietary macro cycle and order-flow framework passed down by former Goldman Sachs legend Mark "Goldfinger" McGoldrick—the same methodology that called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and our 600% overnight OXY Put Options trade against Warren Buffett’s long position.',
+				'We install the exact proprietary macro cycle and order-flow framework passed down by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, the same methodology that called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and our 600% overnight OXY Put Options trade against Warren Buffett’s long position.',
 			deliverables: [
 				'Macro Regime & Liquidity Inflection Framework: Identify institutional distribution tops and capitulation bottoms before consensus research reacts.',
 				'Asymmetric Options Hedging & Alpha Overlays: Structure defined-risk put spreads, collars, and volatility skew trades to monetize downside cascades.',
@@ -63,7 +63,7 @@
 			title: 'Professional Traders',
 			subtitle: 'Breaking PnL Plateaus, Scaling Size & Mastering Institutional Order Flow',
 			coreProblem:
-				'You already know how to read charts and generate winning weeks, but you hit an invisible ceiling when scaling contract or share size—giving back weeks of gains on low-quality chop days or hesitating on A+ institutional setups.',
+				'You already know how to read charts and generate winning weeks, but you hit an invisible ceiling when scaling contract or share size, giving back weeks of gains on low-quality chop days or hesitating on A+ institutional setups.',
 			institutionalSolution:
 				'We perform a forensic audit of your trade ledger, strip out low-expectancy setups, and upgrade your execution with zero-repaint institutional telemetry, options volatility structuring, and Goldman Sachs prop-desk sizing mathematics.',
 			deliverables: [
@@ -136,7 +136,7 @@
 			durationTag: 'Live Mastery & Scale',
 			title: '1-on-1 Live Market Calibration & Independent Execution',
 			summary:
-				'Our goal is never to make you dependent on us forever—it is to make you a self-sufficient, fearless institutional executor. We review your live trades one-on-one until your discipline is automatic.',
+				'Our goal is never to make you dependent on us forever; it is to make you a self-sufficient, fearless institutional executor. We review your live trades one-on-one until your discipline is automatic.',
 			outcomes: [
 				'Private 1-on-1 trade review sessions grading your adherence to your custom playbook',
 				'Structured capital scaling roadmap as your win rate and profit factor stabilize',
@@ -217,7 +217,7 @@
 				<p class="lead-copy">
 					If our goal were making quick money off subscriptions, there would be a "Buy Now" checkout
 					button on this page. <strong
-						>There isn’t one—because at Revolution Trading Pros, we care about people, not
+						>There isn’t one, because at Revolution Trading Pros, we care about people, not
 						collecting fees.</strong
 					>
 				</p>
@@ -226,7 +226,7 @@
 					Whether you are a <strong>Portfolio Manager</strong> seeking macro inflection timing and
 					asymmetric options hedging, a <strong>Full-Time Professional Trader</strong> fighting to
 					break through a six- or seven-figure PnL plateau, or a <strong>Struggling Trader</strong>
-					exhausted from losing money to fake "holy grail" indicators—I know exactly where you stand.
+					exhausted from losing money to fake "holy grail" indicators, I know exactly where you stand.
 					<strong>I have stood on the losing end myself in the past</strong>
 					before being mentored directly by former Wall Street Goldman Sachs proprietary trading legend
 					<strong>Mark "Goldfinger" McGoldrick</strong>, who called me
@@ -407,13 +407,13 @@
 				<div class="pedigree-narrative">
 					<span class="eyebrow">Earned In Live Market Combat</span>
 					<h2 id="pedigree-h2">
-						Why Portfolio Managers Respect Our Edge—And Why Struggling Traders Finally Feel Safe
+						Why Portfolio Managers Respect Our Edge and Why Struggling Traders Finally Feel Safe
 						Here
 					</h2>
 
 					<p class="body-copy">
 						Very few traders in the world have lived on both sides of the market divide. Early on, I
-						experienced the exact retail heartbreak that struggling traders face every day—being
+						experienced the exact retail heartbreak that struggling traders face every day: being
 						lied to by marketers selling repainted "holy grail" indicators and watching hard-earned
 						capital vanish.
 					</p>
@@ -429,7 +429,7 @@
 					<p class="body-copy">
 						When you sit across from us in <strong>1-on-1 Mentorship</strong>, you get a mentor who
 						possesses the <strong>institutional firepower</strong> to advise Portfolio Managers and
-						Professional Traders on macro cycle turns—combined with the
+						Professional Traders on macro cycle turns, combined with the
 						<strong>genuine human empathy</strong> to take a struggling trader by the hand and rebuild
 						their confidence and execution brick by brick.
 					</p>
@@ -474,8 +474,8 @@
 						<p class="proof-box__metric">2022 Top &amp; Bottom</p>
 						<h3 class="proof-box__title">Called the 2022 Bull Top &amp; Bear Bottom</h3>
 						<p class="proof-box__copy">
-							Repeated the feat in the very next cycle—calling the January 2022 distribution top and
-							the October 2022 institutional accumulation bottom.
+							Repeated the feat in the very next cycle, calling the January 2022 distribution top
+							and the October 2022 institutional accumulation bottom.
 						</p>
 					</div>
 				</div>
@@ -968,8 +968,8 @@
 				>
 					Small Accounts Room ($500+)
 				</a>
-				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
-					Sunday Alpha Protocol Video Watchlist
+				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+					Sunday Alpha Alerts Video Watchlist
 				</a>
 				<a href={resolve('/store/indicators' as '/')} class="btn btn-outline-dark">
 					Non-Repainting Indicators

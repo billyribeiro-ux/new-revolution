@@ -5,7 +5,6 @@ import {
 	type AuthorCreateInput,
 	type AuthorUpdateInput
 } from '../../shared/schemas/authors';
-import { replaceEmEnDashesInPlainText } from '../../shared/seo/content-transform';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
 import { authors, posts } from '../db/schema';
@@ -40,21 +39,21 @@ export async function createAuthor(rawInput: AuthorCreateInput, actorUserId?: st
 	const inserted = await db
 		.insert(authors)
 		.values({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
 			email: parsed.email || null,
-			bio: parsed.bio ? replaceEmEnDashesInPlainText(parsed.bio) : null,
-			shortBio: parsed.shortBio ? replaceEmEnDashesInPlainText(parsed.shortBio) : null,
-			jobTitle: parsed.jobTitle ? replaceEmEnDashesInPlainText(parsed.jobTitle) : null,
-			company: parsed.company ? replaceEmEnDashesInPlainText(parsed.company) : null,
-			credentials: parsed.credentials ? replaceEmEnDashesInPlainText(parsed.credentials) : null,
-			expertise: parsed.expertise ? replaceEmEnDashesInPlainText(parsed.expertise) : null,
+			bio: parsed.bio ? parsed.bio : null,
+			shortBio: parsed.shortBio ? parsed.shortBio : null,
+			jobTitle: parsed.jobTitle ? parsed.jobTitle : null,
+			company: parsed.company ? parsed.company : null,
+			credentials: parsed.credentials ? parsed.credentials : null,
+			expertise: parsed.expertise ? parsed.expertise : null,
 			yearsExperience: parsed.yearsExperience ?? null,
 			linkedin: parsed.linkedin || null,
 			twitter: parsed.twitter || null,
 			website: parsed.website || null,
 			avatar: parsed.avatar || null,
-			avatarAlt: parsed.avatarAlt ? replaceEmEnDashesInPlainText(parsed.avatarAlt) : null,
+			avatarAlt: parsed.avatarAlt ? parsed.avatarAlt : null,
 			isActive: parsed.isActive ?? true,
 			createdAt: now,
 			updatedAt: now
@@ -99,43 +98,34 @@ export async function updateAuthor(rawInput: AuthorUpdateInput, actorUserId?: st
 	const updated = await db
 		.update(authors)
 		.set({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
 			email: parsed.email !== undefined ? parsed.email || null : existing.email,
-			bio:
-				parsed.bio !== undefined
-					? parsed.bio
-						? replaceEmEnDashesInPlainText(parsed.bio)
-						: null
-					: existing.bio,
+			bio: parsed.bio !== undefined ? (parsed.bio ? parsed.bio : null) : existing.bio,
 			shortBio:
 				parsed.shortBio !== undefined
 					? parsed.shortBio
-						? replaceEmEnDashesInPlainText(parsed.shortBio)
+						? parsed.shortBio
 						: null
 					: existing.shortBio,
 			jobTitle:
 				parsed.jobTitle !== undefined
 					? parsed.jobTitle
-						? replaceEmEnDashesInPlainText(parsed.jobTitle)
+						? parsed.jobTitle
 						: null
 					: existing.jobTitle,
 			company:
-				parsed.company !== undefined
-					? parsed.company
-						? replaceEmEnDashesInPlainText(parsed.company)
-						: null
-					: existing.company,
+				parsed.company !== undefined ? (parsed.company ? parsed.company : null) : existing.company,
 			credentials:
 				parsed.credentials !== undefined
 					? parsed.credentials
-						? replaceEmEnDashesInPlainText(parsed.credentials)
+						? parsed.credentials
 						: null
 					: existing.credentials,
 			expertise:
 				parsed.expertise !== undefined
 					? parsed.expertise
-						? replaceEmEnDashesInPlainText(parsed.expertise)
+						? parsed.expertise
 						: null
 					: existing.expertise,
 			yearsExperience:
@@ -147,7 +137,7 @@ export async function updateAuthor(rawInput: AuthorUpdateInput, actorUserId?: st
 			avatarAlt:
 				parsed.avatarAlt !== undefined
 					? parsed.avatarAlt
-						? replaceEmEnDashesInPlainText(parsed.avatarAlt)
+						? parsed.avatarAlt
 						: null
 					: existing.avatarAlt,
 			isActive: preservedIsActive,

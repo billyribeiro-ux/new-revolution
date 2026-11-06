@@ -189,6 +189,53 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 	});
 
 	describe('category and tag archives', () => {
+		it.each([
+			['category', 'pagination-category', loadCategoryPage],
+			['tag', 'pagination-tag', loadTagPage]
+		] as const)(
+			'searches article bodies in the %s archive through legacy q with private search metadata',
+			async (kind, slug, load) => {
+				const { evt, headers } = event<CategoryEvent & TagEvent>(
+					`/blog/${kind}/${slug}?q=liquidity%20%20pools&page=2`,
+					{ slug }
+				);
+				const data = (await load(evt)) as unknown as Meta & {
+					search: string;
+					featuredPosts: unknown[];
+					posts: unknown[];
+					pagination: { total: number };
+				};
+				expect(data.search).toBe('liquidity pools');
+				expect(data.featuredPosts).toEqual([]);
+				expect(data.pagination.total).toBe(POST_COUNT);
+				expect(data.posts).toHaveLength(2);
+				expect(data.pageMetaTags.robots).toContain('noindex');
+				expect(data.pageMetaTags.canonical).toBeUndefined();
+				expect(headers['Cache-Control']).toContain('no-store');
+			}
+		);
+
+		it.each([
+			['category', 'pagination-category', loadCategoryPage],
+			['tag', 'pagination-tag', loadTagPage]
+		] as const)(
+			'returns a scoped empty %s search instead of a missing archive',
+			async (kind, slug, load) => {
+				const { evt, headers } = event<CategoryEvent & TagEvent>(
+					`/blog/${kind}/${slug}?search=not-present-anywhere`,
+					{ slug }
+				);
+				const data = (await load(evt)) as unknown as Meta & {
+					posts: unknown[];
+					pagination: { total: number; totalPages: number };
+				};
+				expect(data.posts).toEqual([]);
+				expect(data.pagination).toMatchObject({ total: 0, totalPages: 1 });
+				expect(data.pageMetaTags.canonical).toBeUndefined();
+				expect(headers['Cache-Control']).toContain('no-store');
+			}
+		);
+
 		it('serves category page 2 indexable-by-rule with its own canonical', async () => {
 			const { evt, headers } = event<CategoryEvent>('/blog/category/pagination-category?page=2', {
 				slug: 'pagination-category'

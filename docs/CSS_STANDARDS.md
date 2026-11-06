@@ -1,5 +1,7 @@
 # Enterprise CSS Architecture & Typography Standards
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -69,15 +71,15 @@ All shared design tokens are declared **once** inside `@layer tokens` (`:root`) 
 
 ### 2.3 Elevation & Layout Tokens
 
-| Token           | Value                                      | Role                                                             |
-| :-------------- | :----------------------------------------- | :--------------------------------------------------------------- |
-| `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)`          | Standard elevated card shadow                                    |
-| `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)`          | Medium interactive hover shadow                                  |
-| `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`           | Deep modal / featured panel shadow                               |
-| `--max`         | `100%` → `1320px` → `1440px` → `1536px`    | Responsive container max-width (scales across the 6 breakpoints) |
-| `--gutter`      | `24px`–`112px` (responsive, not monotonic) | Responsive horizontal container padding                          |
-| `--nav-height`  | `73px`                                     | Sticky navigation bar height offset                              |
-| `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`           | Standard institutional motion easing                             |
+| Token           | Value                                      | Role                                           |
+| :-------------- | :----------------------------------------- | :--------------------------------------------- |
+| `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)`          | Standard elevated card shadow                  |
+| `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)`          | Medium interactive hover shadow                |
+| `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`           | Deep modal / featured panel shadow             |
+| `--max`         | `152.5rem` (2440px at 16px root)           | Shared border-box cap including inline padding |
+| `--gutter`      | `24px`–`112px` (responsive, not monotonic) | Total gutter, split between inline sides       |
+| `--nav-height`  | `73px`                                     | Sticky navigation bar height offset            |
+| `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`           | Standard institutional motion easing           |
 
 ### 2.4 Contextual Component Custom Properties
 
@@ -105,7 +107,7 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
 | :--------------- | :---------------------------------------------------------------------------------------------------------------- | :-------------------------------- | :---------------------------------------------------------------------------------------------- |
 | `--font-display` | `'Montserrat Variable', 'Montserrat Variable Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (100–900), normal + italic | `.display-xl`, `.h2`, `.h3`, `.eyebrow`, `.kicker`, navigation, buttons, metrics, table headers |
 | `--font-sans`    | `'Sofia Sans Variable', 'Sofia Sans Variable Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif` | `wght` (1–1000), normal + italic  | `body`, `.lead`, long-form editorial copy, FAQ answers, form controls                           |
-| `--font-mono`    | `ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace`                                              | System                            | Ticker symbols, execution timestamps, code/rule blocks                                          |
+| `--font-mono`    | `var(--font-sans)`                                                                                                | Sofia compatibility alias         | Ticker symbols, execution timestamps, code/rule blocks                                          |
 
 ### 3.2 Mandatory Font Rules
 
@@ -134,7 +136,7 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
 3. **Minimal `:global(...)` Usage:** Use `:global(...)` only when styling child component roots or framework states (such as `body.menu-open` or `.reveal.in-view`), and always scope it to a local parent selector when inside a component.
 4. **Sharp Architectural Geometry:** The Revolution Trading Pros visual system uses crisp `0px` (`border-radius: 0`) corners on primary cards, buttons, and structural panels, paired with `1px solid var(--line)` hairlines. Do not introduce arbitrary pill-rounded buttons or blue SaaS cards on marketing pages.
 5. **Share Repeated Page Chrome as Scoped Components, Not Copied CSS:** `src/lib/components/layout/Breadcrumb.svelte` is the reference: scoped `<style>`, content through a snippet (`children`), and a `class` prop typed `ClassValue` applied to the inner box. Pass custom properties or `class`; never reach into a child with `:global`. It is for pages that do **not** use the `.inner-page` system (`/resources`, `/resources/etf-stocks-list`). Pages wrapped in `.inner-page` keep the inline breadcrumb markup styled by `src/lib/styles/inner-page.css`; using the component there would double-style it.
-6. **Static Page Content Lives in `src/lib/data/*.ts`, Not the Component:** Module-scope data is created once and can be shared with the JSON-LD builders in `src/lib/seo/structured-data.ts` (see `etf-stocks-list.ts`, `resources-hub.ts`). FAQ copy has exactly one owner (an `*_FAQ_ITEMS` export in `structured-data.ts`); the page renders from it so visible text and `FAQPage` JSON-LD cannot drift.
+6. **Static Page Content Lives in `src/lib/data/*.ts`, Not the Component:** Module-scope data is created once and can be shared with the JSON-LD builders in `src/lib/seo/structured-data.ts` (see `etf-stocks-list.ts`, `resources-hub.ts`). FAQ copy has exactly one owner (an `*_FAQ_ITEMS` export in `structured-data.ts`); the page renders from it so visible text and shared page data cannot drift; never emit restricted FAQPage JSON-LD.
 7. **State Belongs in ARIA, Styling Follows It:** Style toggles from `aria-pressed` / `aria-current` (`.filter-tab[aria-pressed='true']`) so the visual and accessible state cannot diverge. Use `role="group"` + `aria-pressed` for filter buttons; only use `role="tablist"` with real `tabpanel`s and arrow-key handling.
 8. **Every Page Ships a Skip Link:** `<a class="skip" href="#<main id>">Skip to content</a>` before the shell (the `.skip` styles are global in `src/app.css`).
 9. **Internal Links Use `resolve()`.** Routes that do not exist yet are linked through the single `as '/'` cast and 404 at prerender only because `PLANNED_ROUTE_PATTERN` in `vite.config.ts` is a section-prefix regex. When you build one of those pages, follow the wiring steps in [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md) §4 (the regex entry can only be removed when its whole section is complete) and drop the cast at its call sites.
@@ -160,15 +162,15 @@ All website fonts are self-hosted via Fontsource variable WOFF2 packages and imp
 
 Base styles target `320px+` viewports first, scaling upward via `min-width` media queries:
 
-| Breakpoint                | Media Query                  | `--max` Container | `--gutter` |
-| :------------------------ | :--------------------------- | :---------------- | :--------- |
-| **Base (Mobile)**         | Default (`320px+`)           | `100%`            | `24px`     |
-| **xs (Large Phone)**      | `@media (min-width: 480px)`  | `100%`            | `28px`     |
-| **sm (Small Tablet)**     | `@media (min-width: 640px)`  | `640px`           | `32px`     |
-| **md (Tablet)**           | `@media (min-width: 768px)`  | `768px`           | `40px`     |
-| **lg (Laptop / Desktop)** | `@media (min-width: 1024px)` | `1280px`          | `48px`     |
-| **xl (Wide Desktop)**     | `@media (min-width: 1280px)` | `1440px`          | `56px`     |
-| **2xl (Ultra-Wide)**      | `@media (min-width: 1536px)` | `1600px`          | `64px`     |
+| Breakpoint | Media Query     | `--max` Container | `--gutter`  |
+| :--------- | :-------------- | :---------------- | :---------- |
+| **Base**   | Default320px+   | 152.5rem cap      | 24px total  |
+| **xs**     | min-width480px  | same cap          | 36px total  |
+| **sm**     | min-width640px  | same cap          | 44px total  |
+| **md**     | min-width768px  | same cap          | 56px total  |
+| **lg**     | min-width1024px | same cap          | 40px total  |
+| **xl**     | min-width1280px | same cap          | 64px total  |
+| **2xl**    | min-width1536px | same cap          | 112px total |
 
 ### 5.2 Accessibility & Contrast Requirements
 

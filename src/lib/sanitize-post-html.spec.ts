@@ -174,7 +174,7 @@ describe('sanitizePostHtml (Section 7.1)', () => {
 		const clean = sanitizePostHtml(safeStyle);
 		expect(clean).toContain('color: #dcff65');
 		expect(clean).toContain('background-color: rgb(17, 21, 26)');
-		expect(clean).toContain("font-family: 'Montserrat Variable', sans-serif");
+		expect(clean).toContain('font-family: var(--font-display)');
 		expect(clean).toContain('text-align: center');
 		expect(clean).not.toContain('position');
 		expect(clean).not.toContain('float');

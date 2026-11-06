@@ -76,7 +76,7 @@
 			'Special Bonus: Precision Options & Equity Entries Masterclass'
 		],
 		coreCapabilities: [
-			'Target big, high-velocity institutional moves—and never chase an extended retail candle again',
+			'Target big, high-velocity institutional moves and never chase an extended retail candle again',
 			'Instantly spot multi-level compression and order-flow absorption on ANY chart or timeframe',
 			'Know the historical "average" profit target and bar duration on ANY ticker at a glance',
 			'Protect your capital with pre-defined structural invalidation stops before risking a dollar'
@@ -93,7 +93,7 @@
 			title: 'The Move Prior to The Move™ Core Indicator (3 Signals in 1)',
 			platformNote: 'Available for ThinkorSwim (Desktop + Mobile App) & TradingView',
 			description:
-				'Our flagship breakthrough combines three distinct institutional compression and absorption thresholds (Low, High, and Ultra) into a single non-repainting indicator. It dynamically adapts to faster, slower, and volatile price action—giving you an earlier "heads up" before an explosive directional move fires long or short.',
+				'Our flagship breakthrough combines three distinct institutional compression and absorption thresholds (Low, High, and Ultra) into a single non-repainting indicator. It dynamically adapts to faster, slower, and volatile price action, giving you an earlier "heads up" before an explosive directional move fires long or short.',
 			keyAdvantage:
 				'Catches high-velocity moves that standard lagging oscillators miss while keeping you out of flat, "go-nowhere" midday chop.'
 		},
@@ -105,7 +105,7 @@
 			description:
 				'Engineered to eliminate hesitation at the moment of execution, these objective entry triggers are specifically calibrated to each of the three compression power levels. Higher-timeframe institutional trend direction and volume structure are automatically factored in.',
 			keyAdvantage:
-				'Plots both the exact directional trigger bar and the structural invalidation stop-loss level—and once the candle closes, the signal never repaints.'
+				'Plots both the exact directional trigger bar and the structural invalidation stop-loss level. Once the candle closes, the signal never repaints.'
 		},
 		{
 			id: 'early-in-out-pro',
@@ -123,7 +123,7 @@
 			title: 'On-Chart Historical Move & Duration Stats Tool',
 			platformNote: 'Available for ThinkorSwim & TradingView',
 			description:
-				'Puts real historical performance data directly at the top of your chart—calculating the average dollar/percentage gain, average bar duration, and historical long vs. short firing outcomes for every compression level on whatever symbol and timeframe you are viewing.',
+				'Puts real historical performance data directly at the top of your chart, calculating the average dollar/percentage gain, average bar duration, and historical long vs. short firing outcomes for every compression level on whatever symbol and timeframe you are viewing.',
 			keyAdvantage:
 				'Options traders love this tool: knowing the average move size and duration tells you the exact strike (Delta) and expiration (DTE) to choose.'
 		},
@@ -133,9 +133,9 @@
 			title: 'Quick-Start Setup Session + 5 Recorded Live-Trading Days',
 			platformNote: 'On-Demand HD Video Archive + Workspace Templates',
 			description:
-				'Get up to speed in minutes with our step-by-step installation and chart configuration session—then watch 5 full recorded live-trading days showing how we execute the indicator suite in real market conditions across opening-bell scalps and multi-day swings.',
+				'Get up to speed in minutes with our step-by-step installation and chart configuration session, then watch 5 full recorded live-trading days showing how we execute the indicator suite in real market conditions across opening-bell scalps and multi-day swings.',
 			keyAdvantage:
-				'Watch real-time trade selection, contract sizing, and stop management in live markets—not cherry-picked hindsight slides.',
+				'Watch real-time trade selection, contract sizing, and stop management in live markets rather than cherry-picked hindsight slides.',
 			isBonus: true
 		},
 		{
@@ -249,11 +249,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable alert-only video watchlists with exact targeted entries, exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 
@@ -324,7 +324,7 @@
 
 					<p class="lead-copy">
 						<strong>{indicatorConfig.systemName}</strong> is the single greatest trade-timing
-						breakthrough we have ever released—because it combines
+						breakthrough we have ever released because it combines
 						<strong
 							>three institutional compression and order-flow signals into one 100% non-repainting
 							indicator</strong
@@ -338,15 +338,15 @@
 						>
 						Once I stopped chasing late retail breakouts and was mentored directly by former Wall Street
 						Goldman Sachs proprietary trading legend
-						<strong>Mark "Goldfinger" McGoldrick</strong>—who called me
-						<em>"the future of trading"</em>—everything changed.
+						<strong>Mark "Goldfinger" McGoldrick</strong>, who called me
+						<em>"the future of trading"</em>, everything changed.
 					</p>
 
 					<p class="body-copy">
 						Instead of waiting for lagging retail oscillators, this system is engineered to give you
-						an <strong>earlier institutional "heads up"</strong> that an explosive move is
-						forming—allowing you to get in on the most powerful moves earlier, lock in gains sooner,
-						and avoid midday chop. It is the exact telemetry behind our live calls on the
+						an <strong>earlier institutional "heads up"</strong> that an explosive move is forming,
+						allowing you to get in on the most powerful moves earlier, lock in gains sooner, and
+						avoid midday chop. It is the exact telemetry behind our live calls on the
 						<strong>2020 COVID Top and Bottom</strong>, the
 						<strong>2022 Market Top and Bottom</strong>, and our
 						<strong>+600% overnight gain on OXY Put Options live</strong> opposite Warren Buffett.
@@ -841,12 +841,13 @@
 								the losing end early in his journey and saw how everyday retail traders are
 								exploited by overpriced courses and fake, repainted "holy grail" indicators. He
 								vowed to build a community that focuses on
-								<strong>people and member success—not making money off subscriptions</strong>.
+								<strong>people and member success rather than making money off subscriptions</strong
+								>.
 							</p>
 							<p class="body-copy">
 								Personally mentored by former Wall Street Goldman Sachs proprietary trading legend
-								<strong>Mark "Goldfinger" McGoldrick</strong>—who called Billy
-								<em>"the future of trading"</em>—Billy engineered
+								<strong>Mark "Goldfinger" McGoldrick</strong>, who called Billy
+								<em>"the future of trading"</em>, Billy engineered
 								<strong>The Move Prior to The Move™</strong> to expose institutional accumulation
 								and distribution before retail traders even react. Using these exact tools, Billy
 								called the

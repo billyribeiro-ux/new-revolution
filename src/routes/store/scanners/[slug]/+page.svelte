@@ -79,14 +79,14 @@
 		seoKicker: 'High Octane Stock, ETF & Options Scanner for ThinkorSwim, TradingView & Mobile',
 		heroTitle: 'Spot High-Probability Institutional Options & Equity Setups in Milliseconds.',
 		heroTagline:
-			'Stop flipping through 500 charts by hand and arriving after the move is already over. The High Octane Scanner™ monitors thousands of liquid stocks, ETFs, and options chains in real time—surfacing multi-timeframe volatility squeezes, institutional liquidity sweeps, and unusual options flow before the crowd reacts.',
+			'Stop flipping through 500 charts by hand and arriving after the move is already over. The High Octane Scanner™ monitors thousands of liquid stocks, ETFs, and options chains in real time, surfacing multi-timeframe volatility squeezes, institutional liquidity sweeps, and unusual options flow before the crowd reacts.',
 		creatorName: 'Billy Ribeiro',
 		creatorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
 		creatorAvatar: FOUNDER_PORTRAIT.src,
 		supportPhone: '+1 (203) 721-0940',
 		supportEmail: 'support@revolutiontradingpros.com',
 		coreBenefits: [
-			'Find high-probability institutional stock, ETF, and options trades in seconds—reducing manual chart prep time by 90%',
+			'Find high-probability institutional stock, ETF, and options trades in seconds, reducing manual chart prep time by 90%',
 			'100% Non-Repainting real-time scan triggers: never chase an extended retail breakout candle again',
 			'Built-in $500+ Small Account Filter: screens strictly for affordable option contracts with tight penny-wide bid-ask spreads',
 			'20-Minute Working Professional Mode: run evening end-of-day scans to set conditional orders before your 9-to-5 workday',
@@ -233,7 +233,7 @@
 			title: 'Advanced Multi-Timeframe & Options Greeks Filtering',
 			platforms: 'Pre-Configured + Fully Customizable Criteria',
 			description:
-				'Pre-loaded with over 50 proprietary technical, volume, and options criteria—including 18-timeframe volatility compression, Relative Volume (RVOL), IV Percentile, Delta/Theta sweet spots, and bid-ask spread tightness.',
+				'Pre-loaded with over 50 proprietary technical, volume, and options criteria, including 18-timeframe volatility compression, Relative Volume (RVOL), IV Percentile, Delta/Theta sweet spots, and bid-ask spread tightness.',
 			traderEdge:
 				'Automatically strips out illiquid penny stocks, wide-spread options traps, and choppy midday noise.',
 			iconType: 'filter'
@@ -257,7 +257,7 @@
 			title: 'On-Chart Historical Expectancy & Move Duration Analytics',
 			platforms: 'Automated Per-Ticker Statistical Readout',
 			description:
-				'Every scan candidate is graded against 10+ years of historical price and volatility behavior—showing you the average move magnitude, average bar duration, and historical long vs. short win rate before you risk a dollar.',
+				'Every scan candidate is graded against 10+ years of historical price and volatility behavior, showing you the average move magnitude, average bar duration, and historical long vs. short win rate before you risk a dollar.',
 			traderEdge:
 				'Tells options traders the exact strike distance (Delta) and expiration window (DTE) supported by real data.',
 			iconType: 'stats'
@@ -281,7 +281,7 @@
 			title: 'BONUS: 5 Recorded Live-Scanning Days + Step-by-Step Setup Guide',
 			platforms: 'On-Demand HD Video Vault + 1-Click Import Links',
 			description:
-				'Import all High Octane Scanner scripts and watchlist columns into ThinkorSwim and TradingView in under 5 minutes—then watch 5 full recorded market sessions showing how Billy Ribeiro trades the scanner live.',
+				'Import all High Octane Scanner scripts and watchlist columns into ThinkorSwim and TradingView in under 5 minutes, then watch 5 full recorded market sessions showing how Billy Ribeiro trades the scanner live.',
 			traderEdge:
 				'Bridges the gap between installing software and executing profitable trades with mechanical discipline.',
 			iconType: 'bonus',
@@ -333,7 +333,7 @@
 		{
 			criterion: 'Options & Greeks Intelligence',
 			genericScanners:
-				'Scans stock price only—ignoring wide bid-ask spreads, Theta traps, and IV crush.',
+				'Scans stock price only, ignoring wide bid-ask spreads, Theta traps, and IV crush.',
 			highOctaneScanner:
 				'Built-in options liquidity, IV Percentile, and historical bar-duration filters for smart contract selection.'
 		},
@@ -347,7 +347,7 @@
 			criterion: 'Wall Street Pedigree',
 			genericScanners: 'Built by software marketers who do not trade live market order flow.',
 			highOctaneScanner:
-				'Engineered by Billy Ribeiro—mentored by Goldman Sachs prop legend Mark "Goldfinger" McGoldrick.'
+				'Engineered by Billy Ribeiro, mentored by Goldman Sachs prop legend Mark "Goldfinger" McGoldrick.'
 		},
 		{
 			criterion: 'Ethical Pricing Philosophy',
@@ -421,11 +421,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 
@@ -883,7 +883,7 @@
 				<div class="section-header">
 					<span class="section-kicker">The Anti-Guru Standard • Hard Evidence</span>
 					<h2 id="comparison-h2" class="section-h2">
-						Why Generic Stock Screeners Lose Money—And How the {scannerConfig.name} Wins
+						Why Generic Stock Screeners Lose Money and How the {scannerConfig.name} Wins
 					</h2>
 				</div>
 
@@ -1073,7 +1073,7 @@
 						<div class="creator-box__right">
 							<span class="section-kicker">Wall Street Mentorship Lineage</span>
 							<h2 id="creator-h2" class="section-h2">
-								Engineered by Billy Ribeiro — Mentored by Goldman Sachs Legend Mark "Goldfinger"
+								Engineered by Billy Ribeiro, Mentored by Goldman Sachs Legend Mark "Goldfinger"
 								McGoldrick
 							</h2>
 							<p class="body-copy">
@@ -1083,8 +1083,8 @@
 							</p>
 							<p class="body-copy">
 								Mentored directly by former Wall Street Goldman Sachs proprietary trading legend
-								<strong>Mark "Goldfinger" McGoldrick</strong>—who explicitly called Billy
-								<em>"the future of trading"</em>—Billy designed the
+								<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called Billy
+								<em>"the future of trading"</em>, Billy designed the
 								<strong>{scannerConfig.name}</strong> to automate his signature institutional
 								methodology. It is the exact radar used to call the
 								<strong>2020 COVID Top and Bottom</strong>, call the

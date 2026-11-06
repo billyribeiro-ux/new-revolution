@@ -33,7 +33,7 @@
 			</h2>
 			<p class="copy">
 				You don’t need to fit a single trader stereotype. Start with the format and education that
-				match your life—while staying realistic about the risks.
+				match your life while staying realistic about the risks.
 			</p>
 		</div>
 

@@ -1,5 +1,7 @@
 # Mandatory Engineering & Agent Standards (`AGENTS.md`)
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -62,9 +64,11 @@ Verify that all fonts load correctly in production and that no external font req
 
 ### Implementation Rules in This Repository
 
-- Fontsource variable packages (`@fontsource-variable/montserrat` and `@fontsource-variable/sofia-sans`) are imported **solely** at the top of [`src/app.css`](src/app.css). Never duplicate font imports inside `+layout.svelte` or individual page/component files.
+- CSS from the Fontsource variable packages (`@fontsource-variable/montserrat` and `@fontsource-variable/sofia-sans`) is imported **solely** at the top of [`src/app.css`](src/app.css). Never duplicate font imports inside `+layout.svelte` or individual page/component files.
 - Always reference fonts via the SSOT custom properties: `var(--font-display)`, `var(--font-sans)`, and `var(--font-mono)`.
 - Both packages ship only the `wght` axis (normal + italic). Do not add `font-stretch` or `font-variation-settings: 'wdth'` expecting condensed glyph widths.
+- The only intentional website/admin/editor families are Montserrat and Sofia Sans. `--font-mono` is a compatibility alias to Sofia. Keep fallback stacks for font/glyph failure; unsupported editor families are removed through the shared normalizer, preserving content and revision originals.
+- Standalone web responses use the build-generated same-origin `/brand-ui.css`. The sole image-context exception is `svg-brand-font.ts`, which embeds the existing licensed Sofia WOFF2 bytes in trusted generated SVGs; it is not a second Fontsource CSS import. See the shared font policy for CSP/cache/referrer requirements.
 - Font licenses (`OFL-1.1`) are documented in [`static/fonts/LICENSES.txt`](static/fonts/LICENSES.txt).
 
 ---
@@ -72,6 +76,8 @@ Verify that all fonts load correctly in production and that no external font req
 ## 2. CSS Single Source of Truth (SSOT) & Styling Rules
 
 Full specification: [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).
+
+**Shared outer frame:** `.container` uses the single 152.5rem cap (2440px at 16px root), border-box including shared inline padding; responsive total gutters are split between its two sides. No competing outer caps or nested gutters. Keep 900px article prose and the documented article/outer alignment anchors. Follow the shared layout/content contract for TOC,FAQ,images and search.
 
 1. **SSOT Location:** [`src/app.css`](src/app.css) owns `@layer reset, tokens, base, typography, layout, components, utilities, responsive;` and all `:root` design tokens.
 2. **Inner-Page System:** [`src/lib/styles/inner-page.css`](src/lib/styles/inner-page.css) owns shared `.inner-page` patterns (`.page-hero`, `.content-section`, `.section-header`, `.section-kicker`, `.section-h2`, `.card-grid`, `.info-card`, `.pricing-card`, `.faq-list`, `.cta-banner`, `.disclaimer-strip`).
@@ -199,3 +205,7 @@ When adding any new marketing route to the repository, complete every step in or
     pnpm test:seo
     pnpm test:e2e
     ```
+
+## Editorial punctuation
+
+Preserve authored punctuation on CMS saves, autosaves and restores. Review unnecessary publisher em dashes contextually; keep quotations, attribution, notation, code, URLs and appropriate en-dash ranges. The zero-point editorial advisory does not block publication. Never reintroduce blanket punctuation replacement or infer AI authorship from punctuation.

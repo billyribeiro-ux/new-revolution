@@ -253,6 +253,8 @@ describe('scripts/backfill-blog-image-variants', () => {
 		expect(updatedPost?.ogImage).toBe(newPrimaryUrl);
 		expect(updatedPost?.content).toContain(`src="${newPrimaryUrl}"`);
 		expect(updatedPost?.content).not.toContain(oldUrl);
+		expect(updatedPost?.searchText).toBe('SPX Setup Guide Chart analysis:');
+		expect(updatedPost?.searchExcluded).toBe(false);
 
 		// Second apply run is a no-op
 		const secondRes = await backfillBlogImageVariants({

@@ -175,8 +175,8 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		};
 	}
 
-	it('enforces publish-gate transitions: positive control passes, missing category blocks, cover alt equal to title blocks, and dashes are stripped before gate', async () => {
-		// 1. Positive control with em-dash in title that transforms strip BEFORE the gate runs
+	it('enforces publish-gate transitions: positive control passes, missing category blocks, cover alt equal to title blocks, and editorial punctuation is preserved', async () => {
+		// 1. Publication accepts an authored em dash without silently rewriting the title.
 		const published = await createPost(
 			buildCompliantPostInput({
 				title: `Options Greeks \u2014 Institutional Risk Guide`,
@@ -186,7 +186,7 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		);
 		expect(published.status).toBe('published');
 		expect(published.published).toBe(true);
-		expect(published.title).toBe('Options Greeks, Institutional Risk Guide');
+		expect(published.title).toBe('Options Greeks \u2014 Institutional Risk Guide');
 		expect(published.publishedAt).toBeInstanceOf(Date);
 
 		// 2. Blocks when no category is provided
@@ -654,7 +654,7 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 		expect(uploaded.mime_type).toBe('image/webp');
 		expect(uploaded.width).toBe(1400);
 		expect(uploaded.height).toBe(800);
-		expect(uploaded.title).toBe('SPX Gamma, Map');
+		expect(uploaded.title).toBe('SPX Gamma \u2014 Map');
 		expect(uploaded.folder).toBe('charts');
 		// Real variant URLs for 480, 800, 1200 (not fake copies of original!)
 		expect(uploaded.urls.thumbnail).toContain('-480w.webp');
@@ -683,7 +683,7 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 			},
 			actorUserId
 		);
-		expect(patched?.title).toBe('Updated Title, Clean');
+		expect(patched?.title).toBe('Updated Title \u2014 Clean');
 		expect(patched?.alt_text).toBe('Updated Alt Text');
 		expect(patched?.usage_count).toBe(1);
 

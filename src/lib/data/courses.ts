@@ -42,7 +42,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 		perk: 'On-Demand HD',
 		hook: 'Discover how Billy Ribeiro anticipates institutional accumulation and distribution before the retail breakout candle even prints.',
 		coreOutcome:
-			'Master the proprietary system praised by former Goldman Sachs legend Mark "Goldfinger" McGoldrick—replacing lagging retail patterns with real-time liquidity and volume structure.',
+			'Master the proprietary system praised by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, replacing lagging retail patterns with real-time liquidity and volume structure.',
 		syllabus: [
 			'Module 1: Why 95% of Retail Chart Patterns Are Engineered Liquidity Traps',
 			'Module 2: Reading Institutional Absorption, Abandoned Bars & Exhaustion Sweeps',
@@ -132,7 +132,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 		perk: 'Live Tape Replays',
 		hook: 'Identify institutional dealer hedging levels, gamma magnet strikes, and A+ intraday reversals on SPX, SPY, and QQQ.',
 		coreOutcome:
-			'Understand how market-maker Delta and Gamma hedging drives intraday index moves—and how to structure defined-risk index options trades during key session windows.',
+			'Understand how market-maker Delta and Gamma hedging drives intraday index moves and how to structure defined-risk index options trades during key session windows.',
 		syllabus: [
 			'Module 1: How Dealer Gamma Exposure (GEX) Pins or Accelerates the S&P 500',
 			'Module 2: Mapping Pre-Market Call Walls, Put Walls & Liquidity Sweep Zones',
@@ -153,14 +153,14 @@ export const coursesCatalog: readonly TradingCourse[] = [
 		perk: 'Full OXY Case Autopsy',
 		hook: 'Deconstruct the exact institutional distribution playbook behind our live +600% overnight OXY Put Options trade vs. Warren Buffett.',
 		coreOutcome:
-			'Learn how to spot when breaking news and retail buying frenzy are actually institutional exit liquidity—and how to strike with defined-risk Put Options.',
+			'Learn how to spot when breaking news and retail buying frenzy are actually institutional exit liquidity and how to strike with defined-risk Put Options.',
 		syllabus: [
 			'Module 1: Anatomy of a Liquidity Trap: Why Retail Chases Headlines at the Top',
 			'Module 2: Tick-by-Tick Autopsy of Our +600% Overnight OXY Put Options Execution',
 			'Module 3: Identifying climax Volume, Abandoned Tops & Failed Breakout Candles',
 			'Module 4: Structuring Put Contracts & Debit Spreads for Asymmetric Downside Velocity'
 		],
-		room: { label: 'Pairs With: Weekly Video Watchlist →', href: '/watchlist' }
+		room: { label: 'Pairs With: Weekly Video Watchlist →', href: '/sunday-alpha-alerts' }
 	},
 	{
 		id: 'macro-cycle-inflection-mastery',
@@ -195,7 +195,7 @@ export const coursesCatalog: readonly TradingCourse[] = [
 		perk: 'Pre-Trade Checklists',
 		hook: 'Eliminate FOMO, revenge trading, hesitation, and early profit-taking by installing a mechanical pre-trade execution protocol.',
 		coreOutcome:
-			'Built by a founder who stood on the losing end in the past—this course replaces emotional guessing with mathematical position sizing and drawdown circuit breakers.',
+			'Built by a founder who stood on the losing end in the past. This course replaces emotional guessing with mathematical position sizing and drawdown circuit breakers.',
 		syllabus: [
 			'Module 1: Why Smart People Self-Sabotage in Live Markets (And How to Stop)',
 			'Module 2: The Pre-Trade Checklist: Never Entering Without Entry, Target & Stop',

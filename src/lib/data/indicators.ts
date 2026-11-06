@@ -42,7 +42,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 		timeframes: 'Intraday, Swing & Macro',
 		hook: 'Anticipate institutional accumulation and distribution before the retail breakout candle even prints.',
 		whatItExposes:
-			'Detects pre-breakout institutional absorption and buyer/seller exhaustion—the core system behind our 2020 and 2022 market top and bottom calls.',
+			'Detects pre-breakout institutional absorption and buyer/seller exhaustion, the core system behind our 2020 and 2022 market top and bottom calls.',
 		bestFor: 'Day Traders, Swing Traders & Portfolio Managers',
 		chartPattern: 'reversal'
 	},
@@ -102,7 +102,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 		timeframes: '5-Min, 15-Min, 4H & Daily',
 		hook: 'Identify trapped buyers at structural tops and trapped sellers at capitulation bottoms in real time.',
 		whatItExposes:
-			'Flags structural abandoned bars and volume divergence—the exact signal we used to short OXY Put Options live for +600% overnight.',
+			'Flags structural abandoned bars and volume divergence, the exact signal we used to short OXY Put Options live for +600% overnight.',
 		bestFor: 'Options Buyers Seeking Explosive 3R–5R Reversals',
 		chartPattern: 'reversal'
 	},
@@ -130,7 +130,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 		categoryLabel: 'Index & Options Levels',
 		platforms: 'ThinkorSwim • TradingView',
 		timeframes: 'Intraday (1-Min to 30-Min)',
-		hook: 'See within seconds the highest-probability institutional execution windows—and avoid midday chop.',
+		hook: 'See within seconds the highest-probability institutional execution windows and avoid midday chop.',
 		whatItExposes:
 			'Plots opening range liquidity imbalances, institutional execution windows, and low-expectancy chop zones to protect your Theta.',
 		bestFor: 'Day Trading Room Members & Options Scalpers',
@@ -148,7 +148,7 @@ export const indicatorsCatalog: readonly IndicatorProduct[] = [
 		hook: 'Combine price structure, institutional thrust, and regime momentum to stay on the right side of major trends.',
 		whatItExposes:
 			'Eliminates counter-trend guessing by locking in institutional trend direction, pullback entry shelves, and trailing stop levels.',
-		bestFor: 'Swing Trading Room & Sunday Alpha Protocol Members',
+		bestFor: 'Swing Trading Room & Sunday Alpha Alerts Members',
 		chartPattern: 'squeeze'
 	}
 ];

@@ -1,10 +1,16 @@
 import { expect, test } from '@playwright/test';
 
+declare global {
+	interface Window {
+		fontCspViolations?: string[];
+	}
+}
+
 for (const path of [
 	'/',
 	'/blog',
 	'/blog/institutional-order-flow-and-gamma-flip-playbook',
-	'/watchlist',
+	'/sunday-alpha-alerts',
 	'/store/courses',
 	'/admin/login',
 	'/maintenance/index.html',
@@ -68,8 +74,8 @@ test('keeps article entry and passive scrolling clean while native TOC deep link
 	expect(errors).toEqual([]);
 });
 
-test('uses the shared monospace token in watchlist SVG charts', async ({ page }) => {
-	await page.goto('/watchlist');
+test('uses the shared Sofia compatibility token in product SVG charts', async ({ page }) => {
+	await page.goto('/sunday-alpha-alerts');
 	const labels = page.locator('svg text[font-family]');
 	await expect.poll(() => labels.count()).toBeGreaterThan(0);
 	const fontTokens = await labels.evaluateAll((elements) =>
@@ -79,6 +85,56 @@ test('uses the shared monospace token in watchlist SVG charts', async ({ page })
 	const resolvedFamily = await labels
 		.first()
 		.evaluate((element) => getComputedStyle(element).fontFamily);
-	expect(resolvedFamily).toContain('monospace');
+	expect(resolvedFamily).toContain('Sofia Sans Variable');
+	expect(
+		await labels.first().evaluate((element) => getComputedStyle(element).fontVariantNumeric)
+	).toContain('tabular-nums');
 	expect(resolvedFamily).not.toContain('JetBrains');
+});
+
+for (const path of ['/api/unsubscribe', '/waitlist/confirm', '/waitlist/unsubscribe']) {
+	test(`standalone brand fonts respect CSP and do not copy tokens to CSS on ${path}`, async ({
+		page
+	}) => {
+		await page.addInitScript(() => {
+			const violations: string[] = [];
+			window.fontCspViolations = violations;
+			window.addEventListener('securitypolicyviolation', (event) => {
+				violations.push(`${event.effectiveDirective}:${event.blockedURI}`);
+			});
+		});
+		const referrers: string[] = [];
+		page.on('request', (request) => {
+			if (request.resourceType() === 'stylesheet') referrers.push(request.headers().referer ?? '');
+		});
+		await page.goto(`${path}?token=local-font-referrer-probe`, { waitUntil: 'networkidle' });
+		await page.evaluate(() => document.fonts.ready);
+		expect(await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
+			'Sofia Sans Variable'
+		);
+		expect(await page.locator('h1').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
+			'Montserrat Variable'
+		);
+		expect(await page.evaluate(() => window.fontCspViolations)).toEqual([]);
+		expect(referrers.every((referrer) => !referrer.includes('local-font-referrer-probe'))).toBe(
+			true
+		);
+	});
+}
+
+test('redirects the old product route with query and fragment and keeps the hidden CTA unfocusable', async ({
+	page,
+	request
+}) => {
+	const response = await request.get('/watchlist?source=legacy', { maxRedirects: 0 });
+	expect(response.status()).toBe(308);
+	const location = new URL(response.headers().location, response.url());
+	expect(location.pathname + location.search).toBe('/sunday-alpha-alerts?source=legacy');
+	await page.goto('/watchlist?source=legacy#pricing');
+	await expect(page).toHaveURL(/\/sunday-alpha-alerts\?source=legacy#pricing$/);
+	await page.goto('/sunday-alpha-alerts');
+	const sticky = page.locator('.sticky-bar');
+	await expect(sticky).toHaveAttribute('inert', '');
+	await expect(page.locator('.cinema-shutter')).toHaveCount(0);
+	await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });

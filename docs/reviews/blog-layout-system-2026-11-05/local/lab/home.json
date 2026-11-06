@@ -1,0 +1,41 @@
+{
+	"template": "home",
+	"url": "/",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 11,
+		"fcpMs": 60,
+		"lcpMs": 60,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.hero-lead"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.DTYmaTHk.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DNivZvuu.css",
+			"http://localhost:4280/_app/immutable/assets/PostCard.QgSfgf7Q.css",
+			"http://localhost:4280/_app/immutable/assets/4.oQxvqNmm.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+		],
+		"totalTransferBytes": 357611
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 0,
+		"undersizedTapTargetExamples": []
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

@@ -30,7 +30,7 @@ export const load: PageLoad = ({ url, data }) => {
 			'1 on 1 stock trading mentorship application',
 			'free institutional trading playbook pdf',
 			'SPX Profit Pulse',
-			'Sunday Alpha Protocol',
+			'Sunday Alpha Alerts',
 			'Revolution Trading Pros'
 		],
 		openGraph: {
@@ -41,7 +41,7 @@ export const load: PageLoad = ({ url, data }) => {
 				'Stock and options trading education, live rooms, mentorship, watchlists, and transparent case studies. People over profits.'
 		},
 		twitter: {
-			title: `${BRAND_NAME} — Live Trading Rooms, Mentorship & Indicators`,
+			title: `${BRAND_NAME}: Live Trading Rooms, Mentorship & Indicators`,
 			description:
 				'Stock and options trading education, live rooms, mentorship, watchlists, and transparent case studies. People over profits.'
 		}

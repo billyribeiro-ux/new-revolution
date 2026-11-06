@@ -45,7 +45,8 @@ export function findFontPolicyViolations(filename, source) {
 			violations.push('externally hosted stylesheet link');
 		}
 	}
-	if (filename !== 'src/app.css') {
+	const svgFontAsset = filename === 'src/lib/server/svg-brand-font.ts';
+	if (filename !== 'src/app.css' && !svgFontAsset) {
 		if (source.includes('@fontsource-variable/'))
 			violations.push('Fontsource import outside src/app.css');
 		if (/@font-face\b/i.test(source)) violations.push('@font-face outside src/app.css');
@@ -53,5 +54,28 @@ export function findFontPolicyViolations(filename, source) {
 	if (/\.(?:attr|style)\(\s*['"]font-family['"]\s*,\s*['"](?!var\(--font-)/.test(source)) {
 		violations.push('chart font bypasses the shared font tokens');
 	}
+	// Transport email HTML has client fallback stacks; website/admin typography does not.
+	if (
+		filename !== 'src/app.css' &&
+		!svgFontAsset &&
+		!/^src\/lib\/server\/(?:email\/|waitlist\/email\.ts$)/.test(filename)
+	) {
+		for (const match of source.matchAll(/font-family\s*:\s*([^;}\n]+)/g)) {
+			const family = match[1].trim();
+			if (
+				!/^(?:var\(--font-(?:display|sans|mono|heading|body)\)|inherit\b|unset\b|revert\b|\$\{)/.test(
+					family
+				)
+			) {
+				violations.push('intentional font family bypasses the two brand roles');
+			}
+		}
+		if (
+			/font\s*:[^;}\n]*(?:system-ui|Arial|Helvetica|Georgia|monospace|sans-serif)/i.test(source)
+		) {
+			violations.push('font shorthand bypasses the two brand roles');
+		}
+	}
+
 	return [...new Set(violations)];
 }

@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { brandStylesheetHref, brandDocumentCsp } from '#lib/server/brand-document';
 import type { RequestHandler } from './$types';
 import { verifyUnsubscribeToken } from '#lib/server/email/unsubscribe-token.js';
 import { unsubscribeByEmail } from '#lib/server/services/email-sequences.js';
@@ -70,10 +70,11 @@ export const GET: RequestHandler = async ({ url }) => {
 
 /** The page's only inline content. Hashed into the CSP below, so keep it static. */
 const PAGE_STYLE = `
-		body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f9f9f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#2c2c2c;}
+		body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f9f9f9;font-family:var(--font-sans);color:#2c2c2c;}
 		.card{max-width:440px;margin:1rem;padding:2.5rem;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);text-align:center;}
-		h1{font-size:1.25rem;margin:0 0 .75rem;}
+		h1{font-family:var(--font-display);font-size:1.25rem;margin:0 0 .75rem;}
 		p{color:#555;font-size:.95rem;line-height:1.6;margin:0;}
+		button,input{font:inherit;}
 		a{color:#1a5f4f;}
 	`;
 
@@ -85,14 +86,7 @@ const PAGE_STYLE = `
  * `img-src 'self'` only admits the browser's own /favicon.ico request,
  * which Firefox otherwise reports as a violation on every view.
  */
-const PAGE_CSP = [
-	"default-src 'none'",
-	`style-src 'sha256-${createHash('sha256').update(PAGE_STYLE).digest('base64')}'`,
-	"img-src 'self'",
-	"form-action 'self'",
-	"frame-ancestors 'none'",
-	"base-uri 'none'"
-].join('; ');
+const PAGE_CSP = brandDocumentCsp(PAGE_STYLE);
 
 function htmlResponse(title: string, message: string, status: number, confirm = false): Response {
 	const safeTitle = title.replace(/[<>&]/g, '');
@@ -104,6 +98,7 @@ function htmlResponse(title: string, message: string, status: number, confirm = 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="robots" content="noindex,nofollow">
 	<title>${safeTitle} | Revolution Trading Pros</title>
+	<link rel="stylesheet" href="${brandStylesheetHref}" referrerpolicy="no-referrer">
 	<style>${PAGE_STYLE}</style>
 </head>
 <body>

@@ -1,0 +1,17 @@
+[
+	{
+		"template": "sunday-alpha-alerts",
+		"url": "/sunday-alpha-alerts",
+		"violations": []
+	},
+	{
+		"template": "tag-archive",
+		"url": "/blog/tag/spx-options",
+		"violations": []
+	},
+	{
+		"template": "category-archive",
+		"url": "/blog/category/market-structure",
+		"violations": []
+	}
+]

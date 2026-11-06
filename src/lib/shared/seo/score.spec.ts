@@ -356,14 +356,17 @@ describe('getSeoScore & enforcePublishSeoGate (Section 7.6 Table)', () => {
 			...base,
 			title: `Options Greeks \u2014 Risk Guide`
 		});
-		expect(withDash.issues.find((i) => i.id === 'contains_em_or_en_dash')).toMatchObject({
-			severity: 'error',
-			points: 25,
-			blocking: true
+		expect(withDash.issues.find((i) => i.id === 'editorial_em_dash')).toMatchObject({
+			severity: 'warn',
+			points: 0,
+			blocking: false
 		});
-		expect(withDash.publishable).toBe(false);
-		expect(() => enforcePublishSeoGate({ ...base, title: `Bad \u2014 Title` })).toThrow(
-			/^SEO_GATE_BLOCKED:/
-		);
+		expect(withDash.publishable).toBe(true);
+		expect(() => enforcePublishSeoGate({ ...base, title: `Authored \u2014 Title` })).not.toThrow();
+		expect(
+			getSeoScore({ ...base, title: 'Range 15\u201320' }).issues.some(
+				(issue) => issue.id === 'editorial_em_dash'
+			)
+		).toBe(false);
 	});
 });

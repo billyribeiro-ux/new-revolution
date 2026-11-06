@@ -5,6 +5,7 @@ import { drizzle as drizzlePglite, type PgliteDatabase } from 'drizzle-orm/pglit
 import { drizzle as drizzlePostgres, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { hashPostPassword } from '../posts/visibility.ts';
+import { backfillPostSearchProjections } from '../posts/search-persistence.ts';
 import * as schema from './schema.ts';
 
 export type BaseAppDatabase = PostgresJsDatabase<typeof schema> | PgliteDatabase<typeof schema>;
@@ -295,6 +296,8 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 		SELECT setval('tags_id_seq', (SELECT COALESCE(MAX(id), 1) FROM tags));
 		SELECT setval('posts_id_seq', (SELECT COALESCE(MAX(id), 1) FROM posts));
 	`);
+	// Only the local preview seeder runs here. Production never initializes or seeds itself.
+	await backfillPostSearchProjections(drizzlePglite(pglite, { schema }), { dryRun: false });
 }
 
 export async function ensureDbReady(): Promise<AppDatabase> {

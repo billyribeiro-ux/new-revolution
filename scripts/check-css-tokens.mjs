@@ -53,8 +53,14 @@ const uses = new Map();
 const bareFonts = [];
 
 for (const file of files) {
+	// Synthetic invalid tokens in tests are input fixtures, not website styles.
+	if (/\.(?:spec|test|e2e)\.[cm]?[jt]s$/.test(file)) continue;
 	const text = readFileSync(file, 'utf8');
-	if (/(['"])(Montserrat|Sofia Sans)\1/.test(text)) bareFonts.push(relative(ROOT, file));
+	if (
+		!/\.(?:spec|test|e2e)\.[cm]?[jt]s$/.test(file) &&
+		/(['"])(Montserrat|Sofia Sans)\1/.test(text)
+	)
+		bareFonts.push(relative(ROOT, file));
 	for (const match of text.matchAll(/(--[\w-]+)\s*:/g)) declared.add(match[1]);
 	for (const match of text.matchAll(/var\(\s*(--[\w-]+)\s*(,[^)]*)?\)/g)) {
 		if (match[2]) continue; // an explicit fallback is a deliberate contract

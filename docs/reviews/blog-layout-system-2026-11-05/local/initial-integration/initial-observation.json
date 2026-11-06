@@ -1,0 +1,478 @@
+[
+	{
+		"path": "/sunday-alpha-alerts",
+		"width": 320,
+		"status": 200,
+		"errors": [],
+		"title": "Sunday Alpha Alerts | Revolution Trading Pros",
+		"h1": "THE SUNDAY ALPHA ALERTS.",
+		"containers": [
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			}
+		],
+		"fonts": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Montserrat Variable Fallback",
+			"Sofia Sans Variable Fallback"
+		],
+		"overflow": []
+	},
+	{
+		"path": "/sunday-alpha-alerts",
+		"width": 1440,
+		"status": 200,
+		"errors": [],
+		"title": "Sunday Alpha Alerts | Revolution Trading Pros",
+		"h1": "THE SUNDAY ALPHA ALERTS.",
+		"containers": [
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			}
+		],
+		"fonts": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Montserrat Variable Fallback"
+		],
+		"overflow": []
+	},
+	{
+		"path": "/sunday-alpha-alerts",
+		"width": 2440,
+		"status": 200,
+		"errors": [],
+		"title": "Sunday Alpha Alerts | Revolution Trading Pros",
+		"h1": "THE SUNDAY ALPHA ALERTS.",
+		"containers": [
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			}
+		],
+		"fonts": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Montserrat Variable Fallback"
+		],
+		"overflow": []
+	},
+	{
+		"path": "/blog",
+		"width": 320,
+		"status": 200,
+		"errors": [],
+		"title": "Market Structure & Options Blog | Revolution Trading Pros",
+		"h1": "Institutional Stock & Options Trading Blog",
+		"containers": [
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog",
+		"width": 1440,
+		"status": 200,
+		"errors": [],
+		"title": "Market Structure & Options Blog | Revolution Trading Pros",
+		"h1": "Institutional Stock & Options Trading Blog",
+		"containers": [
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable", "Sofia Sans Variable Fallback"],
+		"overflow": []
+	},
+	{
+		"path": "/blog",
+		"width": 2440,
+		"status": 200,
+		"errors": [],
+		"title": "Market Structure & Options Blog | Revolution Trading Pros",
+		"h1": "Institutional Stock & Options Trading Blog",
+		"containers": [
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable", "Sofia Sans Variable Fallback"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/tag/spx-options",
+		"width": 320,
+		"status": 200,
+		"errors": [],
+		"title": "SPX Options Trading Articles | Revolution Trading Pros",
+		"h1": "SPX Options",
+		"containers": [
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/tag/spx-options",
+		"width": 1440,
+		"status": 200,
+		"errors": [],
+		"title": "SPX Options Trading Articles | Revolution Trading Pros",
+		"h1": "SPX Options",
+		"containers": [
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/tag/spx-options",
+		"width": 2440,
+		"status": 200,
+		"errors": [],
+		"title": "SPX Options Trading Articles | Revolution Trading Pros",
+		"h1": "SPX Options",
+		"containers": [
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/institutional-options-execution-blueprint",
+		"width": 320,
+		"status": 404,
+		"errors": [],
+		"title": "404 — Page Not Found | Revolution Trading Pros",
+		"h1": "Article not found",
+		"containers": [
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			},
+			{
+				"x": 0,
+				"width": 320,
+				"padding": "12px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/institutional-options-execution-blueprint",
+		"width": 1440,
+		"status": 404,
+		"errors": [],
+		"title": "404 — Page Not Found | Revolution Trading Pros",
+		"h1": "Article not found",
+		"containers": [
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			},
+			{
+				"x": 0,
+				"width": 1440,
+				"padding": "32px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/blog/institutional-options-execution-blueprint",
+		"width": 2440,
+		"status": 404,
+		"errors": [],
+		"title": "404 — Page Not Found | Revolution Trading Pros",
+		"h1": "Article not found",
+		"containers": [
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			},
+			{
+				"x": 0,
+				"width": 2440,
+				"padding": "56px"
+			}
+		],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/waitlist/confirm",
+		"width": 320,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Montserrat Variable Fallback",
+			"Sofia Sans Variable Fallback"
+		],
+		"overflow": []
+	},
+	{
+		"path": "/waitlist/confirm",
+		"width": 1440,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/waitlist/confirm",
+		"width": 2440,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/api/unsubscribe",
+		"width": 320,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Montserrat Variable Fallback",
+			"Sofia Sans Variable Fallback"
+		],
+		"overflow": []
+	},
+	{
+		"path": "/api/unsubscribe",
+		"width": 1440,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	},
+	{
+		"path": "/api/unsubscribe",
+		"width": 2440,
+		"status": 400,
+		"errors": [],
+		"title": "Invalid link | Revolution Trading Pros",
+		"h1": "Invalid link",
+		"containers": [],
+		"fonts": ["Montserrat Variable", "Sofia Sans Variable"],
+		"overflow": []
+	}
+]

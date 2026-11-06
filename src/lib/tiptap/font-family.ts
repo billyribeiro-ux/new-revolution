@@ -6,34 +6,13 @@ export interface EditorFontOption {
 	value: string;
 }
 
-/**
- * Self-hosted Fontsource variable families and system stacks (AGENTS.md Section 1).
- *Zero runtime dependencies on Google Fonts or external font CDNs.
- */
-export const EDITOR_FONT_FAMILIES: readonly EditorFontOption[] = [
-	{
-		label: 'Sofia Sans (Body)',
-		value: "'Sofia Sans Variable', system-ui, -apple-system, sans-serif"
-	},
-	{
-		label: 'Montserrat (Display)',
-		value: "'Montserrat Variable', system-ui, -apple-system, sans-serif"
-	},
-	{
-		label: 'Editorial Serif',
-		value: "Georgia, 'Times New Roman', serif"
-	},
-	{
-		label: 'Monospace Code',
-		value: "ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace"
-	},
-	{
-		label: 'System UI',
-		value: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
-	}
-] as const;
+import { BRAND_FONT_BODY, BRAND_FONT_DISPLAY, normalizeBrandFont } from '../shared/brand-font';
 
-const SAFE_FONT_FAMILY_RE = /^[A-Za-z0-9\s,'"-]+$/;
+/** Both families are bundled once by app.css and served from our origin. */
+export const EDITOR_FONT_FAMILIES: readonly EditorFontOption[] = [
+	{ label: 'Sofia Sans (Body)', value: BRAND_FONT_BODY },
+	{ label: 'Montserrat (Display)', value: BRAND_FONT_DISPLAY }
+] as const;
 
 declare module '@tiptap/core' {
 	interface Commands<ReturnType> {
@@ -62,18 +41,11 @@ export const FontFamily = Extension.create({
 						default: null,
 						parseHTML: (element) => {
 							const raw = element.style.fontFamily?.trim();
-							return raw && SAFE_FONT_FAMILY_RE.test(raw) ? raw : null;
+							return normalizeBrandFont(raw);
 						},
 						renderHTML: (attributes) => {
-							if (
-								!attributes.fontFamily ||
-								!SAFE_FONT_FAMILY_RE.test(String(attributes.fontFamily))
-							) {
-								return {};
-							}
-							return {
-								style: `font-family: ${attributes.fontFamily}`
-							};
+							const family = normalizeBrandFont(attributes.fontFamily);
+							return family ? { style: `font-family: ${family}` } : {};
 						}
 					}
 				}
@@ -86,8 +58,8 @@ export const FontFamily = Extension.create({
 			setFontFamily:
 				(fontFamily: string) =>
 				({ chain }) => {
-					const clean = fontFamily.trim();
-					if (!SAFE_FONT_FAMILY_RE.test(clean)) return false;
+					const clean = normalizeBrandFont(fontFamily);
+					if (!clean) return false;
 					return chain().setMark('textStyle', { fontFamily: clean }).run();
 				},
 			unsetFontFamily:

@@ -237,7 +237,14 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 			// Footer YMYL trust links and risk box (YMYL-02, YMYL-07)
 			const legalHrefs = await page
 				.locator('nav[aria-labelledby="footer-legal"] a')
-				.evaluateAll((els) => els.map((el) => el.getAttribute('href')));
+				.evaluateAll((els) =>
+					els.map((el) => {
+						const href = el.getAttribute('href');
+						if (!href) return null;
+						const url = new URL(href, location.href);
+						return url.origin === location.origin ? url.pathname + url.search + url.hash : url.href;
+					})
+				);
 			expect(legalHrefs, `${entry.url} footer legal links`).toEqual([
 				'/contact',
 				'/editorial-policy',

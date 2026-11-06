@@ -8,6 +8,8 @@ export interface BlogCardPost {
 	coverImageAlt?: string | null;
 	coverImageWidth?: number | null;
 	coverImageHeight?: number | null;
+	/** Only candidates verified against the active media record, never inferred from a filename. */
+	coverImageSrcset?: string;
 	publishedAt?: Date | string | null;
 	contentUpdatedAt?: Date | string | null;
 	readingTime?: number | null;

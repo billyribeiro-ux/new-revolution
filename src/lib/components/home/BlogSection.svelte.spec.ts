@@ -14,6 +14,24 @@ const listing: BlogListing = {
 };
 
 describe('Homepage CMS blog discovery', () => {
+	it('wraps regular cards into two equal columns when the shared inner width is 712px', async () => {
+		await render(BlogSection, {
+			listing: {
+				...listing,
+				posts: [...listing.posts, { id: 3, title: 'More research', slug: 'more-research' }]
+			}
+		});
+		const collection = document.querySelector<HTMLElement>('.blog-articles')!;
+		collection.style.inlineSize = '712px';
+		const boxes = [...collection.querySelectorAll('.blog-post-card')].map((card) =>
+			card.getBoundingClientRect()
+		);
+		expect(boxes[0].width).toBe(344);
+		expect(boxes[1].width).toBe(344);
+		expect(boxes[1].x - boxes[0].right).toBe(24);
+		expect(boxes[0].y).toBe(boxes[1].y);
+	});
+
 	it('renders the featured article above distinct regular articles with real detail links', async () => {
 		await render(BlogSection, { listing });
 		const ids = [...document.querySelectorAll('.blog-post-card')].map((node) =>

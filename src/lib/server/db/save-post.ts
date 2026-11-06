@@ -1,6 +1,7 @@
 import { and, desc, eq, inArray, isNull, ne } from 'drizzle-orm';
 import { ensureDbReady, type AppDatabase } from './index';
 import { findRedirectGraphIssues } from '../posts/redirect-integrity';
+import { persistPostSearchProjection } from '../posts/search-persistence';
 import { postCategories, posts, postTags, redirects, relatedPosts, revisions } from './schema';
 
 export const AUTOSAVE_RETENTION_LIMIT = 20;
@@ -215,6 +216,7 @@ export async function savePostWithRedirect(
 					.returning();
 				savedPost = updated[0];
 			}
+			savedPost = { ...savedPost, ...(await persistPostSearchProjection(tx, savedPost)) };
 
 			// A live post owns its URL: any active redirect FROM this slug would shadow it (the redirect hook runs before
 			// the router), so retire it whether this is a create, a rename-back or a draft reusing an old slug.
@@ -287,7 +289,12 @@ export async function savePostWithRedirect(
 					if (oldLinkPattern.test(other.content)) {
 						const nextContent = other.content.replace(oldLinkPattern, `$1${savedPost.slug}$2`);
 						if (nextContent !== other.content) {
-							await tx.update(posts).set({ content: nextContent }).where(eq(posts.id, other.id));
+							const [rewritten] = await tx
+								.update(posts)
+								.set({ content: nextContent })
+								.where(eq(posts.id, other.id))
+								.returning();
+							await persistPostSearchProjection(tx, rewritten);
 							rewrittenInternalLinksCount += 1;
 						}
 					}

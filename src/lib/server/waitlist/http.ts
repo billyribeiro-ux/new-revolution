@@ -1,3 +1,4 @@
+import { brandStylesheetHref, brandDocumentCsp } from '../brand-document';
 import type { RequestEvent } from '@sveltejs/kit';
 import { signup, applyToken, CONSENT_VERSION, WaitlistError, processOutbox } from './service.ts';
 import { deliver } from './delivery.ts';
@@ -10,6 +11,8 @@ export const PRIVATE_HEADERS = {
 	'referrer-policy': 'no-referrer',
 	'x-content-type-options': 'nosniff'
 };
+const PAGE_STYLE = `body{margin:0;background:#0b0e12;color:#f4f5f0;font:18px/1.6 var(--font-sans);min-height:100svh;display:grid;place-items:center}main{max-width:560px;padding:32px}h1{font-family:var(--font-display);font-size:32px;line-height:1.2}a{color:#dcff65}button{background:#dcff65;color:#11151a;padding:16px;border:0;font:700 17px var(--font-sans);cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ff7969;outline-offset:4px}`;
+
 export function documentResponse(
 	title: string,
 	message: string,
@@ -21,14 +24,13 @@ export function documentResponse(
 		? `<form method="post" action="/api/waitlist/${purpose}"><input type="hidden" name="token" value="${escapeHtml(token)}"><button>${purpose === 'confirm' ? 'Confirm my email address' : 'Unsubscribe'}</button></form>`
 		: '';
 	return new Response(
-		`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${escapeHtml(title)} | Revolution Trading Pros</title><style>body{margin:0;background:#0b0e12;color:#f4f5f0;font:18px/1.6 system-ui;min-height:100svh;display:grid;place-items:center}main{max-width:560px;padding:32px}h1{font-size:32px;line-height:1.2}a{color:#dcff65}button{background:#dcff65;color:#11151a;padding:16px;border:0;font:700 17px system-ui;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #ff7969;outline-offset:4px}</style></head><body><main><p>REVOLUTION TRADING PROS</p><h1>${escapeHtml(title)}</h1><p>${escapeHtml(message)}</p>${form}<p><a href="mailto:support@revolutiontradingpros.com">Contact support</a> · <a href="/privacy-policy">Privacy</a></p></main></body></html>`,
+		`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>${escapeHtml(title)} | Revolution Trading Pros</title><link rel="stylesheet" href="${brandStylesheetHref}" referrerpolicy="no-referrer"><style>${PAGE_STYLE}</style></head><body><main><p>REVOLUTION TRADING PROS</p><h1>${escapeHtml(title)}</h1><p>${escapeHtml(message)}</p>${form}<p><a href="mailto:support@revolutiontradingpros.com">Contact support</a> · <a href="/privacy-policy">Privacy</a></p></main></body></html>`,
 		{
 			status,
 			headers: {
 				...PRIVATE_HEADERS,
 				'content-type': 'text/html; charset=utf-8',
-				'content-security-policy':
-					"default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+				'content-security-policy': brandDocumentCsp(PAGE_STYLE)
 			}
 		}
 	);

@@ -1,5 +1,7 @@
 # Vite+ workflow for this repository
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -94,3 +96,7 @@ Don't perform a migration, install, upgrade, formatting sweep, commit or push ju
 - [Vite+ documentation for agents](https://viteplus.dev/llms-full.txt), [getting started](https://viteplus.dev/guide), [project-local CLI](https://viteplus.dev/guide/local-cli), [built-ins and project scripts](https://viteplus.dev/guide/run).
 - [Migrate](https://viteplus.dev/guide/migrate), [migration rules](https://viteplus.dev/guide/migrate-rules), [update an existing project](https://viteplus.dev/guide/upgrade-project), [Vitest 5 compatibility](https://viteplus.dev/guide/vitest-v5).
 - [Check](https://viteplus.dev/guide/check), [lint](https://viteplus.dev/guide/lint), [format](https://viteplus.dev/guide/fmt), [test](https://viteplus.dev/guide/test), [upstream Vitest migration](https://vitest.dev/guide/migration/), [tsdown 0.23 release notes](https://github.com/rolldown/tsdown/releases/tag/v0.23.0).
+
+## Derived blog search backfill
+
+`pnpm db:backfill-post-search --dry-run` validates and reports pending derived search rows. After applying the forward-only numbered schema migration to the intended database, use `pnpm db:backfill-post-search --apply` to populate them. The command reads the operator-selected `DATABASE_URL`, never exports it, compares all source inputs and preserves editorial dates. Follow the shared layout/content contract and current release evidence; it is not a bulk article importer or permission to change another environment.

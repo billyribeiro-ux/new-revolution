@@ -9,6 +9,8 @@
 	import SEO from '#lib/components/blog/SEO.svelte';
 	import { SITE_ORIGIN } from '#lib/seo/structured-data';
 	import { buildTocTree, type TocNode } from '#lib/shared/seo/toc';
+	import { attachArticleNavigation } from '#lib/attachments/article-toc';
+	import { parsePostCustomFields } from '#lib/shared/blog/search';
 	import type { ActionData, PageData } from './$types';
 
 	interface Props {
@@ -28,29 +30,15 @@
 	let toc = $derived(data.post?.toc ?? []);
 	let tocTree = $derived(buildTocTree(toc));
 	let processedContent = $derived(data.post?.content ?? '');
-	let isTocEnabled = $derived.by(() => {
-		const raw = data.post?.customFields;
-		if (!raw) return true;
-		try {
-			const parsed: unknown = JSON.parse(raw);
-			if (Array.isArray(parsed)) {
-				return !parsed.some(
-					(entry) =>
-						typeof entry === 'object' &&
-						entry !== null &&
-						(entry as Record<string, unknown>).key === '__enableToc' &&
-						(entry as Record<string, unknown>).value === 'false'
-				);
-			}
-		} catch {
-			// ignore malformed customFields
-		}
-		return true;
-	});
+	let customFields = $derived(parsePostCustomFields(data.post?.customFields));
+	let isTocEnabled = $derived(customFields.values.get('__enableToc') !== 'false');
 	let showToc = $derived(isTocEnabled && toc.length >= 3);
 
 	// Real files only: the server derives the srcset from the media row's stored variants.
 	let coverSrcset = $derived(data.post?.coverSrcset ?? undefined);
+	let coverSizes = $derived(
+		`${showToc ? '(min-width: 77.5rem) 900px, (min-width: 73.75rem) calc(100vw - 300px - 2.5rem), ' : ''}(min-width: 59.75rem) 900px, (min-width: 48rem) calc(100vw - 56px), (min-width: 40rem) calc(100vw - 44px), (min-width: 30rem) calc(100vw - 36px), calc(100vw - 24px)`
+	);
 
 	let shareUrl = $derived(
 		data.post
@@ -100,66 +88,13 @@
 		};
 	}
 
-	/**
-	 * Reactive TOC scroll-spy attachment (re-runs whenever `toc` or the `<details>`
-	 * panel node changes across client-side post navigations). Only scroll the TOC
-	 * when its active heading changes and the reader is not interacting with it.
-	 */
-	function setupTocScrollSpy(panel: HTMLElement) {
-		const items = toc;
-		if (typeof window === 'undefined' || items.length < 3) return;
-
-		const headingElements = items.map((item) => ({
-			id: item.id,
-			element: document.getElementById(item.id)
-		}));
-		const nav = panel.querySelector<HTMLElement>('nav');
-		const links = new Map(
-			Array.from(panel.querySelectorAll<HTMLElement>('[data-toc-id]')).map((link) => [
-				link.dataset.tocId,
-				link
-			])
-		);
-
-		if (!nav || headingElements.every(({ element }) => !element)) return;
-
-		const followActiveInPanel = (activeLink: HTMLElement | null, force = false) => {
-			if (!activeLink || !nav.clientHeight || (!force && panel.matches(':focus-within, :hover')))
-				return;
-			const item = activeLink.getBoundingClientRect();
-			const viewport = nav.getBoundingClientRect();
-			if (item.top < viewport.top) nav.scrollTop += item.top - viewport.top;
-			else if (item.bottom > viewport.bottom) nav.scrollTop += item.bottom - viewport.bottom;
-		};
-
-		let lastCurrentId = '';
-		const updateActiveHeading = () => {
-			if (!window.matchMedia('(min-width: 1180px)').matches) return;
-			let currentId = items[0]?.id ?? '';
-			for (const { id, element } of headingElements) {
-				if (element && element.getBoundingClientRect().top <= 150) {
-					currentId = id;
-				}
+	function setupArticleNavigation(article: HTMLElement) {
+		return attachArticleNavigation(article, {
+			items: toc,
+			onActiveHeadingChange: (id) => {
+				activeHeadingId = id;
 			}
-			if (lastCurrentId !== currentId) {
-				lastCurrentId = currentId;
-				activeHeadingId = currentId;
-				followActiveInPanel(links.get(currentId) ?? null);
-			}
-		};
-
-		const onToggle = () => {
-			if (panel.hasAttribute('open')) followActiveInPanel(links.get(lastCurrentId) ?? null, true);
-		};
-		updateActiveHeading();
-		panel.addEventListener('toggle', onToggle);
-		window.addEventListener('scroll', updateActiveHeading, { passive: true });
-		window.addEventListener('resize', updateActiveHeading, { passive: true });
-		return () => {
-			panel.removeEventListener('toggle', onToggle);
-			window.removeEventListener('scroll', updateActiveHeading);
-			window.removeEventListener('resize', updateActiveHeading);
-		};
+		});
 	}
 
 	async function handleCopyShareLink() {
@@ -280,7 +215,10 @@
 			</div>
 		</nav>
 
-		<article class={['container', 'article-container', { 'has-toc': showToc }]}>
+		<article
+			{@attach setupArticleNavigation}
+			class={['container', 'article-container', { 'has-toc': showToc }]}
+		>
 			<header class="article-header">
 				<div class="article-meta-badges">
 					{#if data.post.category}
@@ -347,7 +285,7 @@
 					<div class="article-tag-list" aria-label="Article tags">
 						{#each data.post.tags as tag (tag.id)}
 							<a href={resolve('/blog/tag/[slug]', { slug: tag.slug })} class="article-tag-chip">
-								#{tag.name}
+								{tag.name}
 							</a>
 						{/each}
 					</div>
@@ -359,7 +297,7 @@
 					<img
 						src={data.post.coverImage}
 						srcset={coverSrcset}
-						sizes={coverSrcset ? '(max-width: 960px) 100vw, 900px' : undefined}
+						sizes={coverSrcset ? coverSizes : undefined}
 						alt={data.post.coverImageAlt || data.post.title}
 						width={data.post.coverWidth ?? undefined}
 						height={data.post.coverHeight ?? undefined}
@@ -378,7 +316,7 @@
 
 			{#if showToc}
 				<aside class="article-toc-aside" aria-label="Table of contents">
-					<details {@attach setupTocScrollSpy} class="toc-details" open>
+					<details class="toc-details" open>
 						<summary class="toc-summary">
 							<span>Table of Contents</span>
 							<span class="toc-toggle-icon" aria-hidden="true">
@@ -640,7 +578,13 @@
 	}
 
 	.article-container {
+		--article-header-height: calc(var(--nav-height) + 1px);
+		--article-anchor-offset: calc(var(--article-header-height) + 1.5rem);
 		padding-block: 2.5rem 5rem;
+	}
+
+	.article-container :global([id]) {
+		scroll-margin-block-start: var(--article-anchor-offset);
 	}
 
 	.byline-author-link,
@@ -763,7 +707,10 @@
 	.article-cover-img {
 		width: 100%;
 		height: auto;
-		border-radius: 14px;
+		aspect-ratio: 16 / 9;
+		object-fit: contain;
+		background: var(--bg-soft);
+		border-radius: 0;
 		border: 1px solid var(--line);
 		display: block;
 	}
@@ -787,7 +734,7 @@
 		display: none;
 	}
 
-	@media (min-width: 1180px) {
+	@media (min-width: 73.75rem) {
 		.article-container.has-toc {
 			display: grid;
 			grid-template-columns: clamp(260px, 20vw, 300px) minmax(0, 900px);
@@ -832,11 +779,12 @@
 
 		.toc-details {
 			position: sticky;
-			top: 96px;
+			top: calc(var(--article-header-height) + 0.5rem);
 		}
 	}
 
 	.toc-details {
+		--toc-nav-limit: calc(100dvh - var(--article-header-height) - 5.375rem);
 		background: var(--panel);
 		border: 1px solid var(--line-strong);
 	}
@@ -895,10 +843,9 @@
 	}
 
 	.toc-details > nav {
-		max-height: max(6rem, calc(100vh - 180px));
-		max-height: max(6rem, calc(100dvh - 180px));
+		max-height: max(0px, var(--toc-nav-limit));
 		overflow-y: auto;
-		overscroll-behavior: contain;
+		overscroll-behavior-y: auto;
 		scrollbar-width: thin;
 		border-top: 1px solid var(--line);
 		padding: 0.65rem 0.65rem 0.85rem;
@@ -931,7 +878,8 @@
 
 	.toc-item a[aria-current='location'],
 	.toc-item a.toc-link--active,
-	.toc-item a:hover {
+	.toc-item a:hover,
+	.toc-item a:focus-visible {
 		color: var(--text);
 		border-left-color: var(--acid);
 		background: rgba(220, 255, 101, 0.08);
@@ -944,6 +892,7 @@
 	}
 
 	.article-main-column {
+		min-width: 0;
 		max-width: 900px;
 		width: 100%;
 	}

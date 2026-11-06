@@ -9,6 +9,8 @@ describe('self-hosted font source policy', () => {
 		],
 		['@font-face{src:url(https://assets.example.net/custom.woff2)}', 'external font file URL'],
 		['@import url("//assets.example.net/typography.css");', 'external CSS import'],
+		['p{font-family: Georgia, serif;}', 'intentional font family bypasses the two brand roles'],
+		['body{font:18px system-ui;}', 'font shorthand bypasses the two brand roles'],
 		[
 			'<link href="https://assets.example.net/style.css" rel="stylesheet">',
 			'externally hosted stylesheet link'
@@ -34,7 +36,7 @@ describe('self-hosted font source policy', () => {
 		).toEqual([]);
 		expect(
 			findFontPolicyViolations(
-				'src/routes/watchlist/+page.svelte',
+				'src/routes/sunday-alpha-alerts/+page.svelte',
 				"selection.attr('font-family', 'var(--font-mono)')"
 			)
 		).toEqual([]);
@@ -65,6 +67,15 @@ describe('self-hosted font source policy', () => {
 				'@font-face{src:url(https://www.revolutiontradingpros.com.example.net/font.woff2)}'
 			)
 		).toContain('external font file URL');
+	});
+
+	it('permits the narrowly scoped bundled SVG face asset', () => {
+		expect(
+			findFontPolicyViolations(
+				'src/lib/server/svg-brand-font.ts',
+				"import face from '@fontsource-variable/sofia-sans/files/sofia-sans-latin-wght-normal.woff2?inline'; @font-face{font-family:'Sofia Sans Variable';}"
+			)
+		).toEqual([]);
 	});
 
 	it('does not treat deliberately unsafe test fixtures as executable font imports', () => {

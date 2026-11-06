@@ -274,10 +274,14 @@ export function buildLockedPostPayload(post: {
 	};
 }
 
-export function stripPasswordFromPostRow<T extends { password?: string | null }>(
-	row: T
-): Omit<T, 'password'> & { hasPassword: boolean } {
-	const { password, ...rest } = row;
+export function stripPasswordFromPostRow<
+	T extends {
+		password?: string | null;
+		searchText?: string | null;
+		searchExcluded?: boolean | null;
+	}
+>(row: T): Omit<T, 'password' | 'searchText' | 'searchExcluded'> & { hasPassword: boolean } {
+	const { password, searchText: _searchText, searchExcluded: _searchExcluded, ...rest } = row;
 	return {
 		...rest,
 		hasPassword: Boolean(password && password.length > 0)

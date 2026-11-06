@@ -48,7 +48,7 @@
 					</h1>
 
 					<p class="resources-hero__subtitle">
-						Everything you need to start and scale your trading journey—without paying a single
+						Everything you need to start and scale your trading journey without paying a single
 						dollar. Access our interactive <strong>Options Calculator</strong>, complete
 						<strong>ETF Stocks &amp; 11-Sector List</strong>,
 						<strong>Stock Market Indexes Directory</strong>, and battle-tested guides built for
@@ -58,7 +58,7 @@
 					<p class="resources-hero__body">
 						Why do we give away institutional calculators and playbooks for free? Because our
 						founder stood on the losing end in the past before being mentored by former Goldman
-						Sachs proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>—who
+						Sachs proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>, who
 						called him <em>"the future of trading."</em> After calling the
 						<strong>2020 COVID Top and Bottom</strong>, calling the
 						<strong>2022 Market Top and Bottom</strong>, and banking

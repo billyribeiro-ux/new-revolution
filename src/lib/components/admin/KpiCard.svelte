@@ -373,7 +373,7 @@
 		color: rgba(255, 255, 255, 0.4);
 	}
 	.kpi-card__value {
-		font-family: var(--font-heading, system-ui);
+		font-family: var(--font-display);
 		font-size: 2rem;
 		font-weight: 800;
 		color: #fff;

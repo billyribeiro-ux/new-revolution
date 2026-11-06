@@ -1,0 +1,42 @@
+{
+	"template": "blog-listing",
+	"url": "/blog",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 24,
+		"fcpMs": 60,
+		"lcpMs": 60,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "h1#archive-h1.hero-h1.svelte-1ic8trz"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.DTYmaTHk.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DNivZvuu.css",
+			"http://localhost:4280/_app/immutable/assets/PostCard.QgSfgf7Q.css",
+			"http://localhost:4280/_app/immutable/assets/BlogArchive.BXKP-Dzq.css",
+			"http://localhost:4280/_app/immutable/assets/prose.CSPqEIXB.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.oocXqaRA.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+		],
+		"totalTransferBytes": 371500
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 0,
+		"undersizedTapTargetExamples": []
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

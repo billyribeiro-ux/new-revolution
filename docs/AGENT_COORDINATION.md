@@ -26,9 +26,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch                     | Owner session                         | Area / files claimed                                                                                           | Started    | Status                                                                                 |
-| -------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
-| `fix/blog-system-20261105` | Codex lead + search/layout/TOC agents | Shared CSS/fonts, blog UI/search and additive DB projection, TOC/FAQ, Sunday Alpha Alerts, copy, evidence/docs | 2026-11-05 | Local verification complete in `/private/tmp/wt-blog-system-20261105`; release pending |
+| Branch                     | Owner session                         | Area / files claimed                                                                                           | Started    | Status                                                                                        |
+| -------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| `fix/blog-system-20261105` | Codex lead + search/layout/TOC agents | Shared CSS/fonts, blog UI/search and additive DB projection, TOC/FAQ, Sunday Alpha Alerts, copy, evidence/docs | 2026-11-05 | Local verification complete in `/private/tmp/wt-blog-system-20261105`; PR #39 release pending |
 
 ## Recently finished
 

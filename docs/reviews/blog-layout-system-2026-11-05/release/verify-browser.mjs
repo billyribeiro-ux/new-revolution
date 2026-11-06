@@ -292,7 +292,45 @@ async function mediaEvidence(page, context) {
 		.locator('.blog-post-card img, .article-cover-img, .article-prose img')
 		.all()) {
 		await image.scrollIntoViewIfNeeded();
-		await image.evaluate((element) => element.decode());
+		// Firefox rejects decode() before a newly visible lazy request has started. Wait for the
+		// actual request, then retry decoding only if responsive source identity changes.
+		const deadline = Date.now() + 15000;
+		const state = () =>
+			image.evaluate((element) => ({
+				currentSrc: element.currentSrc,
+				srcset: element.srcset,
+				sizes: element.sizes,
+				complete: element.complete,
+				naturalWidth: element.naturalWidth
+			}));
+		try {
+			let stable = false;
+			while (Date.now() < deadline) {
+				let before = await state();
+				while (!before.currentSrc || !before.complete) {
+					assert(Date.now() < deadline, 'Image request did not become ready within15seconds');
+					await page.waitForTimeout(50);
+					before = await state();
+				}
+				assert(before.naturalWidth > 0, 'Browser reported a broken image');
+				const identity = (value) => `${value.currentSrc}\n${value.srcset}\n${value.sizes}`;
+				try {
+					await image.evaluate((element) => element.decode());
+				} catch (error) {
+					if (identity(await state()) !== identity(before)) continue;
+					throw error;
+				}
+				const after = await state();
+				if (identity(after) !== identity(before)) continue;
+				assert(after.complete && after.naturalWidth > 0, 'Image became unavailable after decoding');
+				stable = true;
+				break;
+			}
+			assert(stable, 'Responsive image source did not stabilize within15seconds');
+		} catch (error) {
+			error.evidence = { mediaState: await state().catch(() => ({ unavailable: true })) };
+			throw error;
+		}
 		await settle(page);
 		const item = await image.evaluate((element) => {
 			const box = element.getBoundingClientRect();
@@ -330,6 +368,7 @@ async function mediaEvidence(page, context) {
 				'Placeholder image detected'
 			);
 			const metadata = await sharp(bytes).metadata();
+			await sharp(bytes).stats();
 			assert(metadata.width > 0 && metadata.height > 0, 'Image bytes did not decode');
 			decoded.set(item.url, {
 				width: metadata.width,
@@ -603,6 +642,9 @@ for (const [engine, type] of Object.entries({ chromium, firefox, webkit })) {
 								fullPage: true
 							});
 						return { layout, media, events };
+					} catch (error) {
+						error.evidence = { ...error.evidence, events };
+						throw error;
 					} finally {
 						await context.close();
 					}

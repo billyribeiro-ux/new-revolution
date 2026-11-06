@@ -13,6 +13,8 @@ Baseline main `54caa06`; implementation in the isolated `fix/blog-system-2026110
 
 The complete `pnpm build` runs through the E2E/SEO server command and includes the maintenance/standalone CSS output stage. The dedicated `node --test tests/maintenance/build-output.test.mjs` command proves both maintenance modes without changing Production's maintenance setting.
 
+The final read-only release probe passed **57/57** local scenarios across three engines. It verifies actual source decoding, shared geometry at 375/1440/2440/2800px, native collapse/history, passive tracking, no-JavaScript fragments, fallback-font readability and same-window observer cleanup (1 → 0 → 1). Last-FAQ coordinates stayed within the existing 1px tolerance in all three engines. See [raw final browser evidence](local/final/browser-verification.json) and the representative archive/article captures beside it. The local fixture has no authored numeric prefixes; the actual published article must supply that release check.
+
 ## Inherited repository formatting limitation
 
 `pnpm lint` runs and stops at three unchanged reference artifacts: `blogs/first-blog.md`, `blogs/head-to-head-blog.md` and `docs/reviews/font-fragment-audit-2026-11-05/release/verify-browser.mjs`. Their tracked diff is empty; original inputs and dated evidence are preserved. Owned-file formatting, Vite+ code lint and Svelte ESLint pass separately. No ignore rule, threshold, warning suppression or screenshot baseline was changed to manufacture a pass.

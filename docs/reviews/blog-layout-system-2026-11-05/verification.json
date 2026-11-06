@@ -43,7 +43,15 @@
 		"cssFontPolicy": "passed",
 		"codeLint": "passed",
 		"svelteEslint": "passed",
-		"ownedFormatting": "passed"
+		"ownedFormatting": "passed",
+		"finalLocalReleaseProbe": {
+			"passed": 57,
+			"failed": 0,
+			"engines": ["chromium", "firefox", "webkit"],
+			"sameWindowObserverCounts": [1, 0, 1],
+			"faqBoundary": "passed all three engines",
+			"numericAuthoredPrefix": "not present in local fixture; verify published article"
+		}
 	},
 	"repositoryLint": {
 		"status": "fails at formatting stage",

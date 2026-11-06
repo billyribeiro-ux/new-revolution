@@ -207,7 +207,7 @@ describe('TipTap 3 Custom Extensions Suite', () => {
 
 		const html = editor.getHTML();
 		expect(html).toContain('font-size: 20px');
-		expect(html).toContain('Montserrat Variable');
+		expect(html).toContain('var(--font-display)');
 		expect(html).toContain('data-bg-color="#151a20"');
 		expect(html).toContain('data-border-color="#dcff65"');
 		expect(html).toContain('data-padding="16px"');

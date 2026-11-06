@@ -98,7 +98,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.allTextContents();
 		expect((await alertServicesSubmenu).map((t) => t.trim())).toEqual([
 			'SPX Profit Pulse',
-			'Sunday Alpha Protocol'
+			'Sunday Alpha Alerts'
 		]);
 
 		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);
@@ -285,22 +285,25 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			if (!container || !title || !body) throw new Error('Missing footer disclosure elements');
 			const box = el.getBoundingClientRect();
 			const outer = container.getBoundingClientRect();
+			const outerStyle = getComputedStyle(container);
+			const paddingLeft = parseFloat(outerStyle.paddingLeft);
+			const paddingRight = parseFloat(outerStyle.paddingRight);
 			const text = body.getBoundingClientRect();
 			return {
 				boxLeft: box.left,
-				outerLeft: outer.left,
+				innerLeft: outer.left + paddingLeft,
 				boxWidth: box.width,
-				outerWidth: outer.width,
+				innerWidth: outer.width - paddingLeft - paddingRight,
 				textLeft: text.left,
 				textWidth: text.width,
 				textAlign: getComputedStyle(body).textAlign,
 				fontSize: parseFloat(getComputedStyle(body).fontSize)
 			};
 		});
-		expect(Math.abs(riskBoxAlign.boxLeft - riskBoxAlign.outerLeft)).toBeLessThan(1);
-		expect(Math.abs(riskBoxAlign.boxWidth - riskBoxAlign.outerWidth)).toBeLessThan(1);
-		expect(Math.abs(riskBoxAlign.textLeft - riskBoxAlign.outerLeft)).toBeLessThan(1);
-		expect(Math.abs(riskBoxAlign.textWidth - riskBoxAlign.outerWidth)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.boxLeft - riskBoxAlign.innerLeft)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.boxWidth - riskBoxAlign.innerWidth)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.textLeft - riskBoxAlign.innerLeft)).toBeLessThan(1);
+		expect(Math.abs(riskBoxAlign.textWidth - riskBoxAlign.innerWidth)).toBeLessThan(1);
 		expect(['start', 'left']).toContain(riskBoxAlign.textAlign);
 		expect(riskBoxAlign.fontSize).toBeGreaterThanOrEqual(14);
 	});
@@ -759,29 +762,32 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 				if (!disclosure || !container) throw new Error('Missing disclosure or container');
 				const text = disclosure.getBoundingClientRect();
 				const outer = container.getBoundingClientRect();
+				const outerStyle = getComputedStyle(container);
+				const paddingLeft = parseFloat(outerStyle.paddingLeft);
+				const paddingRight = parseFloat(outerStyle.paddingRight);
 				return {
 					scrollWidth: document.documentElement.scrollWidth,
 					textLeft: text.left,
 					textWidth: text.width,
-					outerLeft: outer.left,
-					outerWidth: outer.width
+					innerLeft: outer.left + paddingLeft,
+					innerWidth: outer.width - paddingLeft - paddingRight
 				};
 			});
 			expect(geometry.scrollWidth).toBeLessThanOrEqual(width);
-			expect(Math.abs(geometry.textLeft - geometry.outerLeft)).toBeLessThan(1);
-			expect(Math.abs(geometry.textWidth - geometry.outerWidth)).toBeLessThan(1);
+			expect(Math.abs(geometry.textLeft - geometry.innerLeft)).toBeLessThan(1);
+			expect(Math.abs(geometry.textWidth - geometry.innerWidth)).toBeLessThan(1);
 		}
 		await page
-			.getByRole('searchbox', { name: 'Search the journal' })
+			.getByRole('searchbox', { name: 'Search articles' })
 			.fill('unlikelymissingsearchterm');
 		await page.getByRole('button', { name: 'Search', exact: true }).click();
 		await expect(
-			page.getByRole('heading', { name: 'Search Results for "unlikelymissingsearchterm"' })
+			page.getByRole('heading', { name: 'Results for “unlikelymissingsearchterm”' })
 		).toBeVisible();
-		await page.getByRole('link', { name: 'Clear search filter' }).click();
+		await page.getByRole('link', { name: 'Clear search', exact: true }).click();
 		await expect(page).toHaveURL(/\/blog$/);
 		await page.setViewportSize({ width: 320, height: 900 });
-		await page.getByRole('searchbox', { name: 'Search the journal' }).fill('x'.repeat(120));
+		await page.getByRole('searchbox', { name: 'Search articles' }).fill('x'.repeat(120));
 		await page.getByRole('button', { name: 'Search', exact: true }).click();
 		await expect(page).toHaveURL(/search=x{120}/);
 		expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
@@ -1280,7 +1286,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(metrics1024.scrollWidth).toBeLessThanOrEqual(1024);
 		expect(metrics1024.navActionsRight).toBeLessThanOrEqual(1024);
 
-		// 1280px (Wide Desktop): --max token is 1440px, 0px overflow
+		// 1280px (Wide Desktop): shared 152.5rem border-box cap, 0px overflow
 		await page.setViewportSize({ width: 1280, height: 900 });
 		const metrics1280 = await page.evaluate(() => ({
 			scrollWidth: document.documentElement.scrollWidth,
@@ -1290,10 +1296,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			)
 		}));
 		expect(metrics1280.scrollWidth).toBeLessThanOrEqual(1280);
-		expect(metrics1280.maxToken).toBe('1440px');
+		expect(metrics1280.maxToken).toBe('152.5rem');
 		expect(metrics1280.navActionsRight).toBeLessThanOrEqual(1280);
 
-		// 1536px (Ultra-Wide Trading Desk): --max token is 1536px, 0px overflow
+		// 1536px (Ultra-Wide Trading Desk): same 152.5rem border-box cap, 0px overflow
 		await page.setViewportSize({ width: 1536, height: 960 });
 		const metrics1536 = await page.evaluate(() => ({
 			scrollWidth: document.documentElement.scrollWidth,
@@ -1303,7 +1309,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			)
 		}));
 		expect(metrics1536.scrollWidth).toBeLessThanOrEqual(1536);
-		expect(metrics1536.maxToken).toBe('1536px');
+		expect(metrics1536.maxToken).toBe('152.5rem');
 		expect(metrics1536.navActionsRight).toBeLessThanOrEqual(1536);
 	});
 

@@ -45,14 +45,14 @@ export const load: LayoutLoad = ({ url }) => {
 					type: 'image/png',
 					width: BRAND_SOCIAL_IMAGE_WIDTH,
 					height: BRAND_SOCIAL_IMAGE_HEIGHT,
-					alt: `${BRAND_NAME} — ${BRAND_SLOGAN}`
+					alt: `${BRAND_NAME}: ${BRAND_SLOGAN}`
 				}
 			]
 		},
 		twitter: {
 			cardType: 'summary_large_image',
 			image: socialImageUrl,
-			imageAlt: `${BRAND_NAME} — ${BRAND_SLOGAN}`
+			imageAlt: `${BRAND_NAME}: ${BRAND_SLOGAN}`
 		},
 		additionalMetaTags: [
 			{

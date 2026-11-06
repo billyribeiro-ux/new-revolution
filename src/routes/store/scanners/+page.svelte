@@ -231,7 +231,7 @@
 			categoryLabel: 'Order Flow & Liquidity Sweeps',
 			platforms: 'ThinkorSwim • TradingView',
 			scanUniverse: 'High-Beta Large Caps, Index ETFs & SPX/NDX',
-			hook: 'Catch Wall Street stop-hunts in real time—identifying where retail traders are trapped at highs or lows right as institutions reverse the tape.',
+			hook: 'Catch Wall Street stop-hunts in real time, identifying where retail traders are trapped at highs or lows right as institutions reverse the tape.',
 			description:
 				'Built on the proprietary order-flow principles passed down by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, this scanner flags stocks sweeping key pre-market, daily, or multi-day highs/lows with institutional absorption.',
 			features: [
@@ -252,9 +252,9 @@
 			categoryLabel: '$500+ Small Accounts & Swings',
 			platforms: 'ThinkorSwim • TradingView',
 			scanUniverse: 'Liquid Underlyings With Affordable Option Contracts',
-			hook: 'Find A+ institutional stock and options setups priced specifically for $500 to $2,500 accounts—with zero penny-stock garbage.',
+			hook: 'Find A+ institutional stock and options setups priced specifically for $500 to $2,500 accounts, with zero penny-stock garbage.',
 			description:
-				'Most scanners surface $800 stocks whose options cost $1,500 per contract—pricing out small accounts. This dedicated scanner filters strictly for high-liquidity stocks and ETFs whose options premiums and vertical spreads fit safely inside a $500+ risk budget.',
+				'Most scanners surface $800 stocks whose options cost $1,500 per contract, pricing out small accounts. This dedicated scanner filters strictly for high-liquidity stocks and ETFs whose options premiums and vertical spreads fit safely inside a $500+ risk budget.',
 			features: [
 				'Filters by maximum option contract cost and tight penny-wide bid-ask spreads',
 				'Highlights 3R-to-5R setups ideal for T+1 cash-account daily buying-power rotation',
@@ -280,7 +280,7 @@
 				'Scans 4-Hour, Daily, and Weekly charts for institutional pullback shelves and squeezes',
 				'Calculates pre-planned entry trigger zones, profit targets, and hard stop levels',
 				'Filters out tickers with upcoming binary earnings risk within 7 days',
-				'Pairs directly with our Swing Trading Room and Sunday Alpha Protocol video watchlists'
+				'Pairs directly with our Swing Trading Room and Sunday Alpha Alerts video watchlists'
 			],
 			bestFor: '9-to-5 Working Professionals & Multi-Day Swing Traders',
 			radarPattern: 'matrix'
@@ -336,9 +336,9 @@
 			categoryLabel: 'Options & SPX Gamma',
 			platforms: 'ThinkorSwim • TradingView',
 			scanUniverse: 'Pre-Market Liquid Equities & ETFs (8:00 AM – 9:30 AM ET)',
-			hook: 'Know by 9:00 AM ET which pre-market gaps are backed by real institutional continuation—and which are retail traps ready to fade.',
+			hook: 'Know by 9:00 AM ET which pre-market gaps are backed by real institutional continuation and which are retail traps ready to fade.',
 			description:
-				'Every morning before the opening bell, this scanner grades pre-market gappers by institutional volume quality, multi-day resistance clearance, and options liquidity—giving you a laser-focused 3-to-5 ticker morning game plan.',
+				'Every morning before the opening bell, this scanner grades pre-market gappers by institutional volume quality, multi-day resistance clearance, and options liquidity, giving you a laser-focused 3-to-5 ticker morning game plan.',
 			features: [
 				'Distinguishes "Gap-and-Go" institutional breakouts from "Gap-and-Crap" distribution traps',
 				'Plots automatic pre-market high/low trigger levels and opening-range invalidation stops',
@@ -420,11 +420,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 
@@ -512,7 +512,7 @@
 						By the time a ticker trends on social media or trips a basic retail stock screener, the
 						institutional move is already 80% over. Our
 						<strong>100% Non-Repainting Trading Scanners</strong> scan thousands of stocks, ETFs,
-						and options chains in real time—surfacing
+						and options chains in real time, surfacing
 						<strong
 							>multi-timeframe volatility squeezes, institutional liquidity sweeps, and smart-money
 							accumulation before the breakout candle even prints</strong
@@ -531,7 +531,7 @@
 					</p>
 
 					<p class="body-copy">
-						We engineered these exact scanners to power our own trading floor—helping us call the
+						We engineered these exact scanners to power our own trading floor, helping us call the
 						<strong>2020 COVID Top and Bottom</strong>, call the
 						<strong>2022 Bull Market Top and Bear Bottom</strong>, and spot the institutional
 						distribution on <strong>Occidental Petroleum (OXY)</strong> that banked us
@@ -971,7 +971,7 @@
 						<p class="workflow-card__copy">
 							Plug your entry and stop into our free
 							<a href={resolve('/resources' as '/')}>Options Calculator</a> to select the optimal Delta,
-							expiration window, or vertical spread—ensuring your risk is 100% capped before submitting
+							expiration window, or vertical spread, ensuring your risk is 100% capped before submitting
 							the order.
 						</p>
 					</article>
@@ -1036,7 +1036,7 @@
 							Every scanner includes one-click import links and custom thinkScript code for
 							<strong>ThinkorSwim</strong> (working inside both Stock Hacker, Option Hacker, and
 							dynamic MarketWatch watchlist columns) as well as <strong>TradingView</strong> alert and
-							screener templates—plus a step-by-step installation walkthrough video.
+							screener templates, plus a step-by-step installation walkthrough video.
 						</p>
 					</details>
 
@@ -1084,7 +1084,7 @@
 							<a href={resolve('/live-trading-rooms/small-accounts-room')}>Small Accounts Room</a>,
 							and use them to curate the setups in
 							<a href={resolve('/alert-services/spx-profit-pulse')}>SPX Profit Pulse</a> and
-							<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>.
+							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>.
 						</p>
 					</details>
 				</div>

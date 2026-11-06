@@ -129,7 +129,7 @@ export const SUNDAY_ALPHA_MECHANISM_ACTS: readonly SundayAlphaMechanismAct[] = [
 		tag: 'ACT 02 // THE 15M GAMMA FLIP',
 		title: 'Wait For Confirmed 15m Close',
 		description:
-			'Amateurs buy the opening 9:30 AM retail head-fake and get stopped out by 10:00 AM. The Sunday Alpha Protocol forbids opening-bell chasing. You only execute when a 15-minute candle closes cleanly above our exact trigger coordinate—accompanied by >= 1.5x Relative Volume (RVOL).',
+			'Amateurs buy the opening 9:30 AM retail head-fake and get stopped out by 10:00 AM. Sunday Alpha Alerts forbids opening-bell chasing. You only execute when a 15-minute candle closes cleanly above our exact trigger coordinate, accompanied by >= 1.5x Relative Volume (RVOL).',
 		calloutLabel: 'EXECUTION RULE',
 		calloutValue: '15m Candle Close + 1.5x RVOL Confirmation',
 		calloutColor: 'emerald'
@@ -153,7 +153,7 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 	tsla: {
 		key: 'tsla',
 		tabLabel: '$TSLA SWING',
-		name: '$TSLA — Tesla, Inc.',
+		name: '$TSLA: Tesla, Inc.',
 		tag: 'BULLISH GAMMA BREAKOUT',
 		tagColor: '#10b981',
 		tagBg: 'rgba(16,185,129,0.12)',
@@ -251,7 +251,7 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 	nvda: {
 		key: 'nvda',
 		tabLabel: '$NVDA BREAKOUT',
-		name: '$NVDA — NVIDIA Corp.',
+		name: '$NVDA: NVIDIA Corp.',
 		tag: 'RELATIVE STRENGTH LEADER',
 		tagColor: '#10b981',
 		tagBg: 'rgba(16,185,129,0.12)',
@@ -352,7 +352,7 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 	spy: {
 		key: 'spy',
 		tabLabel: '$SPY PIVOT',
-		name: '$SPY — S&P 500 ETF Trust',
+		name: '$SPY: S&P 500 ETF Trust',
 		tag: 'INDEX LIQUIDITY RECLAIM',
 		tagColor: '#38bdf8',
 		tagBg: 'rgba(56,189,248,0.12)',
@@ -537,7 +537,7 @@ export const SUNDAY_ALPHA_AUTHORITY_RECEIPTS: readonly SundayAlphaReceipt[] = [
 		kickerColor: 'cyan',
 		title: 'Zero Hindsight. 100% Pre-Market Coordinates.',
 		description:
-			'Every blueprint in the Sunday Alpha Protocol is published at 5:00 PM EST Sunday—before futures open—with immutable entry triggers, stops, and targets.'
+			'Every blueprint in Sunday Alpha Alerts is published at 5:00 PM EST Sunday, before futures open, with immutable entry triggers, stops, and targets.'
 	}
 ] as const;
 
@@ -550,7 +550,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 		subtitle: 'Lock in our lowest monthly rate for the life of your active membership.',
 		price: '$47',
 		period: '/ month',
-		savingText: 'Regular $197/mo — Save $150/mo (76% OFF) Forever',
+		savingText: 'Regular $197/mo; save $150/mo (76% OFF) Forever',
 		savingHighlight: true,
 		features: [
 			{ strong: 'Sunday 5:00 PM EST Dispatch:', text: '5–7 Institutional Swing Blueprints' },
@@ -563,7 +563,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ strong: 'Mid-Week Wednesday Recon:', text: 'Trigger status & stop-to-BE updates' },
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
-		ctaLabel: 'Claim $47/mo Founding Rate ->',
+		ctaLabel: 'Ask about $47/mo membership →',
 		ctaHref: '/contact'
 	},
 	{
@@ -572,7 +572,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 		subtitle: 'Commit to a full 12-week institutional market cycle and save an extra 10%.',
 		price: '$127',
 		period: '/ quarter',
-		savingText: 'Equivalent to $42.33/mo (Regular $497/qtr — Save 74%)',
+		savingText: 'Equivalent to $42.33/mo (Regular $497/qtr; save 74%)',
 		features: [
 			{ strong: 'Everything in Founding Monthly', text: '(12 Full Weekly Dispatches)' },
 			{ strong: 'Priority Founding Rate Lock:', text: 'Grandfathered at $127/quarter' },
@@ -581,7 +581,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ strong: 'Full Historical Archive:', text: 'Access past Sunday Alpha blueprints' },
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
-		ctaLabel: 'Select Quarterly ($127)',
+		ctaLabel: 'Ask about quarterly ($127)',
 		ctaHref: '/contact'
 	},
 	{
@@ -590,9 +590,9 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 		subtitle: 'Maximum savings for serious swing traders and portfolio allocators.',
 		price: '$447',
 		period: '/ year',
-		savingText: 'Equivalent to $37.25/mo (Regular $1,647/yr — Save $1,200/yr)',
+		savingText: 'Equivalent to $37.25/mo (Regular $1,647/yr; save $1,200/yr)',
 		features: [
-			{ strong: '52 Full Weeks', text: 'of Sunday Alpha Protocol™ Dispatches' },
+			{ strong: '52 Full Weeks', text: 'of Sunday Alpha Alerts Dispatches' },
 			{
 				strong: 'Lowest Effective Rate:',
 				text: 'Save an additional 21% off Founding Monthly',
@@ -603,7 +603,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 			{ strong: 'Lifetime Rate Lock:', text: 'Never pay a price increase' },
 			{ text: '1-Click Self-Service Cancel Anytime via Stripe' }
 		],
-		ctaLabel: 'Select Annual VIP ($447)',
+		ctaLabel: 'Ask about annual VIP ($447)',
 		ctaHref: '/contact'
 	}
 ] as const;

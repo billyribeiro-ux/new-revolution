@@ -100,6 +100,9 @@ export const posts = pgTable(
 		slug: varchar('slug', { length: 255 }).notNull().unique(),
 		excerpt: text('excerpt'),
 		content: text('content').notNull(),
+		// Derived together by the shared save service; NULL means an older writer needs projection.
+		searchText: text('search_text'),
+		searchExcluded: boolean('search_excluded'),
 		authorId: integer('author_id').references(() => authors.id, { onDelete: 'set null' }),
 		coAuthorIds: text('co_author_ids'),
 		categoryId: integer('category_id').references(() => categories.id, { onDelete: 'set null' }),
@@ -166,6 +169,13 @@ export const posts = pgTable(
 	},
 	(table) => [
 		index('posts_deleted_status_idx').on(table.deletedAt, table.status),
+		index('posts_search_pending_idx')
+			.on(table.id)
+			.where(sql`${table.searchText} IS NULL`),
+		check(
+			'posts_search_projection_pair',
+			sql`(${table.searchText} IS NULL) = (${table.searchExcluded} IS NULL)`
+		),
 		index('posts_published_at_idx').on(table.publishedAt),
 		index('posts_scheduled_at_idx').on(table.scheduledAt),
 		index('posts_expires_at_idx').on(table.expiresAt),

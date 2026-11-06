@@ -156,7 +156,7 @@ describe('Modular Homepage Section Components', () => {
 			.element(
 				page.getByRole('heading', {
 					level: 3,
-					name: /Day Trading Room — Live Stock & Options Execution/i
+					name: /Day Trading Room: Live Stock & Options Execution/i
 				})
 			)
 			.toBeInTheDocument();

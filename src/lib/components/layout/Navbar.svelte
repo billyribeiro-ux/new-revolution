@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
+	import { tick } from 'svelte';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { MAIN_NAVIGATION } from '#lib/data/homepage.ts';
 	import { FREE_EBOOK_AVAILABLE } from '#lib/data/launch-gate.ts';
@@ -36,14 +37,29 @@
 	let slideDuration = $derived(prefersReducedMotion.current ? 0 : 220);
 
 	let mobileMenuOpen = $state(false);
+	let compactNavigation = $state(false);
 	let openDropdownId = $state<string | null>(null);
 	let openMobileSubmenuId = $state<string | null>('live-trading-rooms');
 
-	function toggleMobileMenu() {
-		mobileMenuOpen = !mobileMenuOpen;
-		if (typeof document !== 'undefined') {
-			document.body.classList.toggle('menu-open', mobileMenuOpen);
+	function updateMenuSpace(shell: HTMLElement) {
+		shell.style.setProperty(
+			'--navigation-menu-height',
+			`${Math.max(0, window.innerHeight - shell.getBoundingClientRect().bottom)}px`
+		);
+	}
+
+	function toggleMobileMenu(event: MouseEvent) {
+		const shell = (event.currentTarget as HTMLElement).closest<HTMLElement>('.nav-shell');
+		if (!mobileMenuOpen && shell) {
+			const rect = shell.getBoundingClientRect();
+			// A short viewport may show the toggle while the announcement still leaves
+			// no room beneath it. Bring the sticky header into view before locking scroll.
+			if (window.innerHeight - rect.bottom < 96)
+				window.scrollTo({ top: scrollY + rect.top, behavior: 'instant' });
+			updateMenuSpace(shell);
 		}
+		mobileMenuOpen = !mobileMenuOpen;
+		document.body.classList.toggle('menu-open', mobileMenuOpen);
 	}
 
 	function closeAllMenus() {
@@ -78,9 +94,17 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			closeAllMenus();
-		}
+		if (event.key !== 'Escape') return;
+		const active = document.activeElement;
+		const shell = active instanceof Element ? active.closest('.nav-shell') : null;
+		const returnToToggle = mobileMenuOpen && Boolean(shell);
+		const dropdownTrigger =
+			active instanceof Element && active.closest('.dropdown-menu')
+				? active.closest('.nav-item')?.querySelector<HTMLElement>('.nav-dropdown-trigger')
+				: null;
+		closeAllMenus();
+		if (returnToToggle) shell?.querySelector<HTMLElement>('.mobile-toggle')?.focus();
+		else dropdownTrigger?.focus();
 	}
 
 	function handleWindowClick(event: MouseEvent) {
@@ -91,14 +115,90 @@
 		}
 	}
 
-	function handleResize() {
-		if (typeof window !== 'undefined' && window.innerWidth >= 1024 && mobileMenuOpen) {
-			closeAllMenus();
+	/** Preserve all navigation at enlarged text sizes, including a CSS root-font change.
+	 * A viewport breakpoint alone cannot know whether the actual labels still fit. */
+	function fitNavigation(nav: HTMLElement) {
+		const brand = nav.querySelector<HTMLElement>('.brand');
+		const primary = nav.querySelector<HTMLElement>('.nav-links');
+		const actions = nav.querySelector<HTMLElement>('.nav-actions');
+		const desktop = window.matchMedia('(min-width: 1024px)');
+		let frame = 0;
+		let disposed = false;
+		let previousCompact: boolean | undefined;
+
+		function naturalWidth(element: HTMLElement) {
+			// Hidden desktop groups retain their own fonts/gaps. Temporarily take them
+			// out of flow to measure max-content without a visible clone or an oscillating
+			// "hidden width is zero" decision. Restore every inline declaration immediately.
+			const saved = element.style.cssText;
+			element.style.cssText +=
+				';display:flex;position:fixed;visibility:hidden;inline-size:max-content;max-inline-size:none;min-inline-size:0;margin:0;';
+			const width = element.getBoundingClientRect().width;
+			element.style.cssText = saved;
+			return width;
 		}
+
+		function measure() {
+			frame = 0;
+			if (disposed || !brand || !primary || !actions) return;
+			const shell = nav.closest<HTMLElement>('.nav-shell');
+			if (shell) updateMenuSpace(shell);
+			const style = getComputedStyle(nav);
+			const available =
+				nav.clientWidth -
+				Number.parseFloat(style.paddingLeft) -
+				Number.parseFloat(style.paddingRight);
+			const gap = Number.parseFloat(style.columnGap) || 0;
+			const actionMargin = Number.parseFloat(getComputedStyle(actions).marginInlineStart) || 0;
+			const required =
+				naturalWidth(brand) +
+				naturalWidth(primary) +
+				naturalWidth(actions) +
+				gap * 2 +
+				actionMargin;
+			const compact = !desktop.matches || required > available;
+			if (compact === previousCompact) return;
+			previousCompact = compact;
+			const active = document.activeElement;
+			const movingFocus =
+				active instanceof Node &&
+				(compact
+					? primary.contains(active) || actions.contains(active)
+					: nav.closest('.nav-shell')?.querySelector('.mobile-nav')?.contains(active) ||
+						nav.querySelector('.mobile-toggle') === active);
+			closeAllMenus();
+			compactNavigation = compact;
+			if (movingFocus)
+				void tick().then(() => {
+					if (!disposed)
+						nav
+							.querySelector<HTMLElement>(
+								compact ? '.mobile-toggle' : '.nav-links button, .nav-links a'
+							)
+							?.focus();
+				});
+		}
+		function schedule() {
+			if (!disposed && !frame) frame = requestAnimationFrame(measure);
+		}
+		const observer = new ResizeObserver(schedule);
+		observer.observe(nav);
+		if (brand) observer.observe(brand);
+		window.addEventListener('resize', schedule, { passive: true });
+		document.fonts.addEventListener('loadingdone', schedule);
+		measure();
+		return () => {
+			disposed = true;
+			cancelAnimationFrame(frame);
+			observer.disconnect();
+			window.removeEventListener('resize', schedule);
+			document.fonts.removeEventListener('loadingdone', schedule);
+			document.body.classList.remove('menu-open');
+		};
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} onclick={handleWindowClick} onresize={handleResize} />
+<svelte:window onkeydown={handleKeydown} onclick={handleWindowClick} />
 
 <div class="announcement">
 	<div class="container">
@@ -132,8 +232,11 @@
 	</div>
 </div>
 
-<header class={['nav-shell', { 'menu-open': mobileMenuOpen }]} id="top">
-	<div class="container nav">
+<header
+	class={['nav-shell', { 'menu-open': mobileMenuOpen, 'is-compact': compactNavigation }]}
+	id="top"
+>
+	<div class="container nav" {@attach fitNavigation}>
 		<a
 			class="brand"
 			href={resolve('/')}
@@ -221,7 +324,7 @@
 
 		<div class="nav-actions">
 			<a
-				href={resolve('/admin/login' as '/')}
+				href={resolve('/admin/login')}
 				class="btn btn-outline"
 				onclick={(e) => handleLinkClick('/admin/login', undefined, e)}
 			>
@@ -329,7 +432,7 @@
 
 		<div class="mobile-nav-actions">
 			<a
-				href={resolve('/admin/login' as '/')}
+				href={resolve('/admin/login')}
 				class="btn btn-outline"
 				onclick={(e) => handleLinkClick('/admin/login', undefined, e)}
 			>
@@ -353,6 +456,25 @@
 	></div>
 </header>
 
+<noscript>
+	<nav class="no-script-navigation" aria-label="Site navigation without JavaScript">
+		<div class="container">
+			<ul>
+				{#each MAIN_NAVIGATION as item (item.id)}
+					{#if item.children?.length}
+						{#each item.children as child (child.href)}
+							<li><a href={resolve(child.href as '/')}>{child.label}</a></li>
+						{/each}
+					{:else if item.href}
+						<li><a href={resolve(item.href as '/')}>{item.label}</a></li>
+					{/if}
+				{/each}
+				<li><a href={resolve('/admin/login')}>Member Login</a></li>
+			</ul>
+		</div>
+	</nav>
+</noscript>
+
 <style>
 	/* Top Trust Bar (Announcement) */
 	.announcement {
@@ -363,6 +485,7 @@
 
 	.announcement .container {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
 		min-block-size: 52px;
@@ -385,6 +508,7 @@
 	}
 
 	.announcement-tag {
+		max-inline-size: 100%;
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
@@ -398,11 +522,13 @@
 		background: var(--ink);
 		color: var(--acid);
 		padding: 7px 10px;
-		white-space: nowrap;
-		flex-shrink: 0;
+		white-space: normal;
+		flex-shrink: 1;
 	}
 
 	.announcement-links {
+		max-inline-size: 100%;
+		flex-wrap: wrap;
 		display: none;
 		align-items: center;
 		gap: 0.625rem;
@@ -435,6 +561,7 @@
 
 	/* Sticky Navigation & Dropdown Architecture */
 	.nav-shell {
+		--navigation-menu-height: calc(100dvh - var(--nav-height));
 		position: sticky;
 		inset-block-start: 0;
 		z-index: 80;
@@ -454,7 +581,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		flex-shrink: 0;
+		flex: 0 1 auto;
 		min-inline-size: 0;
 	}
 
@@ -477,6 +604,7 @@
 	}
 
 	.brand-text {
+		min-inline-size: 0;
 		display: flex;
 		flex-direction: column;
 	}
@@ -490,6 +618,8 @@
 		letter-spacing: -0.025em;
 		text-transform: uppercase;
 		inline-size: fit-content;
+		max-inline-size: 100%;
+		overflow-wrap: anywhere;
 		color: var(--text);
 	}
 
@@ -502,6 +632,8 @@
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		inline-size: fit-content;
+		max-inline-size: 100%;
+		overflow-wrap: anywhere;
 		color: var(--acid);
 		margin-block-start: 3px;
 	}
@@ -787,11 +919,11 @@
 	.mobile-nav {
 		display: none;
 		position: absolute;
-		inset-block-start: var(--nav-height);
+		inset-block-start: 100%;
 		inset-inline: 0;
 		background: linear-gradient(180deg, #11161a, #0d1115);
 		border-block-end: 1px solid #343b41;
-		max-block-size: calc(100dvh - var(--nav-height));
+		max-block-size: var(--navigation-menu-height);
 		overflow: auto;
 		overscroll-behavior: contain;
 		padding: 12px 18px 27px;
@@ -832,6 +964,7 @@
 	}
 
 	.mobile-nav-label {
+		min-inline-size: 0;
 		display: inline-flex;
 		align-items: center;
 		gap: 14px;
@@ -850,6 +983,7 @@
 	}
 
 	.mobile-caret {
+		flex: none;
 		display: inline-grid;
 		place-items: center;
 		inline-size: 32px;
@@ -900,6 +1034,7 @@
 	}
 
 	.mobile-sub-label {
+		overflow-wrap: anywhere;
 		grid-column: 2;
 		align-self: end;
 		font-family: var(--font-display);
@@ -1086,7 +1221,7 @@
 
 	@media (min-width: 1280px) {
 		.announcement-message {
-			white-space: nowrap;
+			white-space: normal;
 			font-size: 0.9375rem;
 		}
 
@@ -1174,6 +1309,64 @@
 			font-size: 0.75rem;
 			letter-spacing: 0.04em;
 			gap: 0.45rem;
+		}
+	}
+	.mobile-nav-label > span:not(.mobile-nav-icon) {
+		min-inline-size: 0;
+		overflow-wrap: anywhere;
+	}
+	.mobile-nav-actions .btn {
+		font-size: 0.8125rem;
+		line-height: 1.35;
+		letter-spacing: 0.02em;
+		max-inline-size: 100%;
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+	.nav-shell.is-compact .nav-links,
+	.nav-shell.is-compact .nav-actions {
+		display: none;
+	}
+	.nav-shell.is-compact .mobile-toggle {
+		display: flex;
+	}
+	.nav-shell.is-compact .mobile-nav.open {
+		display: block;
+	}
+	.no-script-navigation {
+		border-block-end: 1px solid var(--line);
+		background: var(--bg-soft);
+	}
+	.no-script-navigation ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.25rem;
+		list-style: none;
+		margin: 0;
+		padding-block: 1rem;
+		padding-inline: 0;
+	}
+	.no-script-navigation li {
+		min-inline-size: 0;
+		max-inline-size: 100%;
+	}
+	.no-script-navigation a {
+		display: block;
+		min-block-size: 44px;
+		padding-block: 0.5rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		color: var(--text);
+		overflow-wrap: anywhere;
+	}
+	@media (scripting: none) {
+		.nav-links,
+		.nav-actions,
+		.mobile-toggle {
+			display: none;
+		}
+		.nav-shell {
+			position: relative;
 		}
 	}
 </style>

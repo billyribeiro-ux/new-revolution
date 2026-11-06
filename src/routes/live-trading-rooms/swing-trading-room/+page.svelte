@@ -43,7 +43,7 @@
 			timeCommitment: '20 Mins Evening Review',
 			title: 'Top-Down Macro Regime, Sector Rotation & Institutional Watchlist',
 			description:
-				'Before the trading week begins—and each evening after the market closes—we map where institutional capital is rotating across indexes, sector ETFs, and leading stocks so you never have to scramble at the 9:30 AM opening bell.',
+				'Before the trading week begins, and each evening after the market closes, we map where institutional capital is rotating across indexes, sector ETFs, and leading stocks so you never have to scramble at the 9:30 AM opening bell.',
 			deliverables: [
 				'Macro breadth, volatility regime, and institutional accumulation/distribution read',
 				'Focused multi-day watchlist of high-liquidity stocks, ETFs, and options structures',
@@ -57,7 +57,7 @@
 			description:
 				'Because you have a career or business to run, every swing setup is delivered well ahead of the trigger with exact price coordinates. You can input conditional orders on your phone or desktop in minutes and go back to your day.',
 			deliverables: [
-				'Exact entry trigger zone—never vague "watch this ticker" commentary',
+				'Exact entry trigger zone instead of vague "watch this ticker" commentary',
 				'Specific options contract structure (strike, expiration, delta, and debit/credit spread selection)',
 				'Pre-calculated hard invalidation stop-loss and tiered profit-taking targets (Target 1, Target 2, Runner)'
 			]
@@ -83,7 +83,7 @@
 			deliverables: [
 				'Interactive chart reviews breaking down every open and closed swing trade',
 				'Full archive of recorded sessions so working professionals in any time zone never miss a setup',
-				'Direct education on why a setup worked—building your lifelong independence as a trader'
+				'Direct education on why a setup worked, building your lifelong independence as a trader'
 			]
 		}
 	];
@@ -118,7 +118,7 @@
 			retailTrap:
 				'Most swing services use static bull-market rules that get obliterated when the macro regime flips from accumulation to bear distribution.',
 			institutionalEdge:
-				'Anchored in the exact macro timing framework that called the 2020 COVID top and bottom and the 2022 bull market top and bear market bottom, we rotate capital into leading sectors—or pivot to index/sector puts when macro breadth breaks.',
+				'Anchored in the exact macro timing framework that called the 2020 COVID top and bottom and the 2022 bull market top and bear market bottom, we rotate capital into leading sectors or pivot to index/sector puts when macro breadth breaks.',
 			riskStructure:
 				'Top-down sector relative strength filtering combined with trailing structural stops behind daily and weekly higher lows.'
 		},
@@ -129,9 +129,9 @@
 			retailTrap:
 				'Amateurs buy short-dated, far out-of-the-money weekly options for swing trades and lose money to Theta decay even when the stock moves in their direction.',
 			institutionalEdge:
-				'We structure swing options positions with institutional precision—selecting the right expiration window, delta profile, or vertical/diagonal spread so time decay and implied volatility work in your favor.',
+				'We structure swing options positions with institutional precision, selecting the right expiration window, delta profile, or vertical/diagonal spread so time decay and implied volatility work in your favor.',
 			riskStructure:
-				'100% defined capital at risk per trade—knowing your maximum dollar risk before you ever submit the order.'
+				'100% defined capital at risk per trade, with your maximum dollar risk known before you ever submit the order.'
 		}
 	];
 
@@ -224,7 +224,7 @@
 
 				<p class="lead-copy">
 					When you step into the <strong>Revolution Trading Pros Swing Trading Room</strong>, you
-					immediately know you finally found what you have been searching for—not hype, not fake
+					immediately know you finally found what you have been searching for: not hype, not fake
 					"holy grail" repainted indicators, and not impulsive alerts you miss while at work, but
 					<strong>pre-planned institutional swing execution built around your real life</strong>.
 				</p>
@@ -243,8 +243,8 @@
 
 				<p class="body-copy">
 					Directly mentored by former Wall Street Goldman Sachs proprietary trading giant
-					<strong>Mark "Goldfinger" McGoldrick</strong>—who explicitly called me
-					<em>"the future of trading"</em>—I became the only retail trader feared by Wall Street:
+					<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called me
+					<em>"the future of trading"</em>, I became the only retail trader feared by Wall Street:
 					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
 					<strong>2022 Bull Market Top and Bear Bottom</strong>, and embarrassing
 					<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong> when he went long
@@ -324,7 +324,7 @@
 							<span class="blueprint-item__pill">Conditional Order Ready</span>
 						</div>
 						<p>
-							The exact price level and volume confirmation required to trigger the swing—allowing
+							The exact price level and volume confirmation required to trigger the swing, allowing
 							you to place limit or stop-limit orders before work.
 						</p>
 					</div>
@@ -357,7 +357,7 @@
 				<div class="swing-blueprint__footer">
 					<p class="swing-blueprint__note">
 						Only want the video watchlist &amp; alerts without the full room? See
-						<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol →</a>
+						<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts →</a>
 					</p>
 				</div>
 			</aside>
@@ -373,7 +373,7 @@
 				<span class="eyebrow">Engineered for Busy Careers • Zero Screen Addiction</span>
 				<h2 id="workflow-h2">The 20-Minute Working Professional Swing Trading Workflow</h2>
 				<p class="body-copy section-header__sub">
-					You don’t lose to Wall Street because you have a full-time job—you lose when you try to
+					You don’t lose to Wall Street because you have a full-time job. You lose when you try to
 					day trade on a 5-minute break without a plan. Here is how our members trade institutional
 					swings alongside demanding careers:
 				</p>
@@ -463,7 +463,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">The Anti-Guru Standard • Hard Evidence</span>
 				<h2 id="comparison-h2">
-					Why Most Swing Trading Alert Services Fail Working Professionals—And How We Protect You
+					Why Most Swing Trading Alert Services Fail Working Professionals and How We Protect You
 				</h2>
 				<p class="body-copy section-header__sub">
 					Compare the typical retail stock-picking newsletter against the institutional discipline
@@ -522,7 +522,7 @@
 			<div class="routing-header section-heading">
 				<span class="eyebrow">People Over Making Money • Choose Your Exact Fit</span>
 				<h2 id="routing-h2">
-					Enroll in the Swing Trading Room—Or Select the Tier Built for Your Capital &amp; Schedule
+					Enroll in the Swing Trading Room or Select the Tier Built for Your Capital &amp; Schedule
 				</h2>
 				<p class="body-copy section-header__sub">
 					We never push you into the wrong tier just to collect a fee. Compare our three multi-day
@@ -551,22 +551,22 @@
 					</a>
 				</article>
 
-				<!-- Option 2: Sunday Alpha Protocol (Alert-Only Video Watchlist) -->
+				<!-- Option 2: Sunday Alpha Alerts (Alert-Only Video Watchlist) -->
 				<article class="route-card">
 					<div>
 						<div class="route-card__top">
 							<span class="meta-label">Want Alert-Only Video Watchlists?</span>
 						</div>
-						<h3 class="route-card__title">Sunday Alpha Protocol (Alert Service)</h3>
+						<h3 class="route-card__title">Sunday Alpha Alerts (Alert Service)</h3>
 						<p class="route-card__copy">
 							Prefer an ultra-affordable alert-only membership without full room sessions?
-							<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>
+							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
 							sends you our detailed video watchlists and trade alerts complete with exact targeted entries,
 							profit exits, and stop-loss levels.
 						</p>
 					</div>
-					<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark btn--full">
-						Explore Sunday Alpha Protocol Alerts
+					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark btn--full">
+						Explore Sunday Alpha Alerts Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
 				</article>
@@ -642,8 +642,8 @@
 					Join the Swing Trading Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
-					Explore Sunday Alpha Protocol Alerts
+				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+					Explore Sunday Alpha Alerts Alerts
 				</a>
 				<a
 					href={resolve('/live-trading-rooms/small-accounts-room' as '/')}

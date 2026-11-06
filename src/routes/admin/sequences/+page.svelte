@@ -422,7 +422,7 @@
 	}
 	.muted {
 		color: rgba(255, 255, 255, 0.5);
-		font-family: var(--font-mono, monospace);
+		font-family: var(--font-sans);
 		font-size: 0.8rem;
 	}
 	.badge {
@@ -541,7 +541,7 @@
 	}
 	.step__body {
 		resize: vertical;
-		font-family: var(--font-mono, monospace);
+		font-family: var(--font-sans);
 		font-size: 0.82rem;
 		line-height: 1.5;
 	}

@@ -4,6 +4,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { eq } from 'drizzle-orm';
+import { persistPostSearchProjection } from '../src/lib/server/posts/search-persistence.ts';
 import { sanitizePostHtml } from '../src/lib/sanitize-post-html.ts';
 import { ensureDbReady } from '../src/lib/server/db/index.ts';
 import {
@@ -438,16 +439,15 @@ export async function importMarkdownPosts(options?: {
 			contentUpdatedAt: now
 		};
 
-		let postId: number;
-		if (existing) {
-			await db.update(posts).set(values).where(eq(posts.id, existing.id));
-			postId = existing.id;
-			updated += 1;
-		} else {
-			const [created] = await db.insert(posts).values(values).returning();
-			postId = created.id;
-			imported += 1;
-		}
+		const postId = await db.transaction(async (tx) => {
+			const [saved] = existing
+				? await tx.update(posts).set(values).where(eq(posts.id, existing.id)).returning()
+				: await tx.insert(posts).values(values).returning();
+			await persistPostSearchProjection(tx, saved);
+			return saved.id;
+		});
+		if (existing) updated += 1;
+		else imported += 1;
 
 		await db.delete(postCategories).where(eq(postCategories.postId, postId));
 		await db.insert(postCategories).values({ postId, categoryId: cat.id });

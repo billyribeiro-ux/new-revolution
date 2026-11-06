@@ -42,7 +42,7 @@
 			badge: 'Self-Paced HD Curriculum',
 			title: 'Bite-Sized, Actionable Video Modules (Zero Fluff)',
 			description:
-				'Every course is broken down into focused, high-definition training modules you can study on your desktop, tablet, or phone—at your own pace, 24/7.'
+				'Every course is broken down into focused, high-definition training modules you can study on your desktop, tablet, or phone at your own pace, 24/7.'
 		},
 		{
 			num: '02',
@@ -87,12 +87,12 @@
 			fakeGuruCourses:
 				'10+ disjointed marketers teaching conflicting retail indicators with zero Wall Street pedigree.',
 			revolutionCourses:
-				'One unified institutional system taught by Billy Ribeiro—mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick.'
+				'One unified institutional system taught by Billy Ribeiro, mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick.'
 		},
 		{
 			criterion: 'Course Pricing Philosophy',
 			fakeGuruCourses:
-				'Charges $2,500 to $5,000+ for basic theory—wiping out a beginner’s trading capital.',
+				'Charges $2,500 to $5,000+ for basic theory, wiping out a beginner’s trading capital.',
 			revolutionCourses:
 				'People Over Profits: Kept genuinely accessible so your capital stays inside your brokerage account.'
 		},
@@ -152,11 +152,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable alert-only video watchlists with exact entries, profit exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 
@@ -229,7 +229,7 @@
 
 					<p class="lead-copy">
 						When you step inside our <strong>Stock &amp; Options Trading Courses</strong>, you
-						immediately know you finally found what you have been searching for—not a marketer
+						immediately know you finally found what you have been searching for: not a marketer
 						reading basic candlestick slides off a screen, and not a sales pitch for a fake "holy
 						grail" indicator, but
 						<strong
@@ -251,8 +251,8 @@
 
 					<p class="body-copy">
 						Personally mentored by former Wall Street Goldman Sachs proprietary trading legend
-						<strong>Mark "Goldfinger" McGoldrick</strong>—who described me as
-						<em>"the future of trading"</em>—I codified our entire methodology (<strong
+						<strong>Mark "Goldfinger" McGoldrick</strong>, who described me as
+						<em>"the future of trading"</em>, I codified our entire methodology (<strong
 							>"The Move Prior to The Move™"</strong
 						>) into structured, accessible courses. You learn the exact institutional order flow,
 						Options Greeks mathematics, and macro cycle rules behind our live calls on the
@@ -423,9 +423,9 @@
 							Guru Courses
 						</h2>
 						<p class="body-copy">
-							On most trading websites, you are told to "browse courses by 11 different
-							traders"—where one moderator tells you to buy breakout candles, another tells you to
-							fade breakouts, and a third sells you a lagging oscillator. That contradiction is why
+							On most trading websites, you are told to "browse courses by 11 different traders",
+							where one moderator tells you to buy breakout candles, another tells you to fade
+							breakouts, and a third sells you a lagging oscillator. That contradiction is why
 							retail traders freeze when the opening bell rings.
 						</p>
 						<p class="body-copy">
@@ -583,9 +583,9 @@
 								</p>
 							{:else if faq.id === 'indicators-scanners-optional'}
 								<p class="faq-item__answer">
-									<strong>No—raw price, volume, and Options Greeks come first.</strong> Every course
-									teaches you how to read institutional market structure on any standard charting
-									platform. Our 100% non-repainting
+									<strong>No. Raw price, volume, and Options Greeks come first.</strong> Every
+									course teaches you how to read institutional market structure on any standard
+									charting platform. Our 100% non-repainting
 									<a href={resolve('/store/indicators' as '/')}>Custom Indicators</a> and
 									<a href={resolve('/store/scanners' as '/')}>Institutional Scanners</a> are optional
 									accelerators designed to spot those exact setups faster across multiple timeframes.
@@ -598,7 +598,7 @@
 										>Live Trading Rooms</a
 									>
 									and
-									<a href={resolve('/watchlist' as '/')}>Alert Services</a>
+									<a href={resolve('/sunday-alpha-alerts' as '/')}>Alert Services</a>
 									let you execute those playbooks alongside our desk in real time. Our
 									<a href={resolve('/mentorship' as '/')}>1-on-1 Mentorship</a> is an application-and-approval-only
 									private coaching partnership for Portfolio Managers, Pro Traders, and Struggling Traders
@@ -607,7 +607,7 @@
 							{:else}
 								<p class="faq-item__answer">
 									Yes. Our curriculum covers US-listed stocks, ETFs, and options contracts traded by
-									members across both the United States and Canada—including US Pattern Day Trader
+									members across both the United States and Canada, including US Pattern Day Trader
 									(PDT) and T+1 cash settlement rules as well as Canadian margin and registered
 									account considerations.
 								</p>

@@ -1,0 +1,41 @@
+{
+	"template": "sunday-alpha-alerts",
+	"url": "/sunday-alpha-alerts",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 56,
+		"lcpMs": 56,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.hero-lead.sap-gsap-hero"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.DTYmaTHk.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DNivZvuu.css",
+			"http://localhost:4280/_app/immutable/assets/47.DnbNgvAm.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.oocXqaRA.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/sofia-sans-greek-wght-normal.BVXOQ11m.woff2"
+		],
+		"totalTransferBytes": 342128
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 2,
+		"undersizedTapTargetExamples": ["a[67x21]: Billy Ribeiro", "input[129x16]: input"]
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

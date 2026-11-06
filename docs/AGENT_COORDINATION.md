@@ -1,5 +1,7 @@
 # Agent Coordination (multiple sessions, one repository)
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -24,8 +26,9 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed | Started | Status |
-| ------ | ------------- | -------------------- | ------- | ------ |
+| Branch                     | Owner session                         | Area / files claimed                                                                                           | Started    | Status                                                                                 |
+| -------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------- |
+| `fix/blog-system-20261105` | Codex lead + search/layout/TOC agents | Shared CSS/fonts, blog UI/search and additive DB projection, TOC/FAQ, Sunday Alpha Alerts, copy, evidence/docs | 2026-11-05 | Local verification complete in `/private/tmp/wt-blog-system-20261105`; release pending |
 
 ## Recently finished
 

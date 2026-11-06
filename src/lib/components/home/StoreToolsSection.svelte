@@ -21,8 +21,8 @@
 				Better tools. <span class="highlight">Deeper understanding.</span>
 			</h2>
 			<p class="copy">
-				Technology should help you see market conditions clearly—not sell false certainty. Combine
-				transparent indicator behavior with structured learning.
+				Technology should help you see market conditions clearly without selling false certainty.
+				Combine transparent indicator behavior with structured learning.
 			</p>
 		</div>
 

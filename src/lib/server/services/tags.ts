@@ -5,7 +5,6 @@ import {
 	type TagCreateInput,
 	type TagUpdateInput
 } from '../../shared/schemas/taxonomy';
-import { replaceEmEnDashesInPlainText } from '../../shared/seo/content-transform';
 import { isTagIndexable } from '../../shared/seo/taxonomy';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
@@ -38,9 +37,9 @@ export async function createTag(rawInput: TagCreateInput, actorUserId?: string |
 	const inserted = await db
 		.insert(tags)
 		.values({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
-			description: parsed.description ? replaceEmEnDashesInPlainText(parsed.description) : null,
+			description: parsed.description ? parsed.description : null,
 			createdAt: now,
 			updatedAt: now
 		})
@@ -81,12 +80,12 @@ export async function updateTag(rawInput: TagUpdateInput, actorUserId?: string |
 	const updated = await db
 		.update(tags)
 		.set({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
 			description:
 				parsed.description !== undefined
 					? parsed.description
-						? replaceEmEnDashesInPlainText(parsed.description)
+						? parsed.description
 						: null
 					: existing.description,
 			updatedAt: new Date()

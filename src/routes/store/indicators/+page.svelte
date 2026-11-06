@@ -58,7 +58,7 @@
 		{
 			criterion: 'Live Market Verification',
 			fakeGuruScripts:
-				'Only shown on cherry-picked historical screenshots—never traded live on screen.',
+				'Only shown on cherry-picked historical screenshots, never traded live on screen.',
 			revolutionIndicators:
 				'Used live on screen every market morning in our Day Trading, Swing, and Small Accounts rooms.'
 		},
@@ -105,11 +105,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 
@@ -187,7 +187,7 @@
 						<strong
 							>where institutional balance sheets are accumulating, where retail breakout chasers
 							are trapped, and where volatility is about to explode</strong
-						>—with zero repainting and zero hindsight lies.
+						>, with zero repainting and zero hindsight lies.
 					</p>
 
 					<p class="body-copy">
@@ -203,8 +203,8 @@
 
 					<p class="body-copy">
 						Mentored directly by former Wall Street Goldman Sachs proprietary trading legend
-						<strong>Mark "Goldfinger" McGoldrick</strong>—who called me
-						<em>"the future of trading"</em>—I engineered our proprietary indicator suite (led by
+						<strong>Mark "Goldfinger" McGoldrick</strong>, who called me
+						<em>"the future of trading"</em>, I engineered our proprietary indicator suite (led by
 						<strong>"The Move Prior to The Move™"</strong>) to expose real institutional footprints.
 						These are the exact tools on our screens when we called the
 						<strong>2020 COVID Top and Bottom</strong>, called the
@@ -350,7 +350,7 @@
 				<div class="section-header">
 					<span class="section-kicker">The Anti-Guru Standard • Hard Evidence</span>
 					<h2 id="comparison-h2" class="section-h2">
-						Why 99% of Online "Buy/Sell Arrow" Indicators Destroy Accounts—And Why Ours Never
+						Why 99% of Online "Buy/Sell Arrow" Indicators Destroy Accounts and Why Ours Never
 						Repaint
 					</h2>
 					<p class="body-copy section-header__sub">
@@ -410,7 +410,7 @@
 							When retail traders blindly chased headlines of Warren Buffett buying Occidental
 							Petroleum (OXY), our <strong>Abandoned Price Bar</strong> and
 							<strong>Liquidity Sweep</strong> telemetry exposed heavy institutional distribution
-							into the rally—allowing us to enter
+							into the rally, allowing us to enter
 							<strong>OXY Put Options live for a 600% overnight gain</strong>.
 						</p>
 					</article>
@@ -424,7 +424,7 @@
 						<p class="proof-card__copy">
 							Using <strong>The Move Prior to The Move™ (MP_EarlyInNOut)</strong> and our multi-timeframe
 							volatility telemetry, we warned traders of institutional exhaustion before the February
-							2020 crash cascaded—and identified the exact March 2020 capitulation bottom.
+							2020 crash cascaded and identified the exact March 2020 capitulation bottom.
 						</p>
 					</article>
 
@@ -494,7 +494,7 @@
 										>Swing Trading Room</a
 									>
 									and
-									<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>
+									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
 									alert tier.
 								</p>
 							{:else}

@@ -69,7 +69,7 @@
 			description:
 				'Most retail day traders give back their morning profits between 11:30 AM and 2:00 PM ET by overtrading chop. We show you how to protect morning gains, spot institutional midday accumulation, and wait for A+ setups.',
 			deliverables: [
-				'Live discipline enforcement—knowing when to press size and when to sit flat on your hands',
+				'Live discipline enforcement: knowing when to press size and when to sit flat on your hands',
 				'Tracking sector rotation, market breadth, and institutional block flow into the afternoon session',
 				'Live member Q&A and chart diagnostics while price consolidates'
 			]
@@ -107,7 +107,7 @@
 			marketCondition:
 				'High-volume expansion on liquid large-cap equities and index ETFs (SPY, QQQ, IWM, NVDA, TSLA, AAPL, META) breaking out of multi-day compression.',
 			executionLogic:
-				'We select high-liquidity options contracts with tight bid-ask spreads and optimal delta/gamma profiles—capturing rapid intraday premium expansion without holding overnight decay.',
+				'We select high-liquidity options contracts with tight bid-ask spreads and optimal delta/gamma profiles, capturing rapid intraday premium expansion without holding overnight decay.',
 			riskProtocol:
 				'Pre-calculated position sizing and tiered profit scaling (locking in partial gains at Target 1 and moving stops to breakeven).'
 		},
@@ -120,7 +120,7 @@
 			executionLogic:
 				'The exact playbook we used when Warren Buffett bought millions in Occidental Petroleum (OXY) long and we shorted live with OXY Put Options for +600% overnight. We spot heavy institutional selling hiding behind bullish headlines.',
 			riskProtocol:
-				'Defined-risk put options or strict equity stop-losses above the distribution high—never averaging down on a losing short.'
+				'Defined-risk put options or strict equity stop-losses above the distribution high, never averaging down on a losing short.'
 		},
 		{
 			code: 'Setup 04 // Macro & Sector Inflection Drives',
@@ -224,7 +224,7 @@
 
 				<p class="lead-copy">
 					When you log into our <strong>Live Day Trading Room</strong>, you immediately know you
-					finally found what you have been searching for—not a chaotic text chat shouting out
+					finally found what you have been searching for: not a chaotic text chat shouting out
 					hindsight tickers, and not a fake guru peddling repainted "holy grail" indicators, but
 					<strong
 						>real-time institutional execution with live voice, live screen sharing, and 100%
@@ -245,8 +245,8 @@
 
 				<p class="body-copy">
 					Directly mentored by former Wall Street Goldman Sachs proprietary trading giant
-					<strong>Mark "Goldfinger" McGoldrick</strong>—who explicitly called me
-					<em>"the future of trading"</em>—I became the only retail trader feared by Wall Street:
+					<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called me
+					<em>"the future of trading"</em>, I became the only retail trader feared by Wall Street:
 					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
 					<strong>2022 Market Top and Bottom</strong>, and embarrassing
 					<strong>Warren Buffett live on OXY</strong> by shorting with Put Options for a
@@ -326,7 +326,7 @@
 						</div>
 						<p>
 							The exact key level, liquidity sweep, or volume confirmation required to trigger
-							entry—plus the exact options strike and expiration we are selecting.
+							entry, plus the exact options strike and expiration we are selecting.
 						</p>
 					</div>
 
@@ -463,7 +463,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">The Anti-Guru Standard • Hard Evidence</span>
 				<h2 id="comparison-h2">
-					Why 95% of Day Trading Chatrooms Cause Retail Traders to Blow Up—And Why We Built the
+					Why 95% of Day Trading Chatrooms Cause Retail Traders to Blow Up and Why We Built the
 					Opposite
 				</h2>
 				<p class="body-copy section-header__sub">
@@ -526,7 +526,7 @@
 					<div class="section-heading">
 						<span class="eyebrow">People Over Making Money • Honest Fit Check</span>
 						<h2 id="routing-h2">
-							Step Into the Live Day Trading Room—Or Choose the Exact Room Built for Your Life
+							Step Into the Live Day Trading Room or Choose the Exact Room Built for Your Life
 						</h2>
 						<p class="body-copy section-header__sub">
 							Because our mission is helping you prosper rather than forcing everyone into a single
@@ -562,14 +562,14 @@
 								<div class="route-card__top">
 									<span class="meta-label">Working a Full-Time 9-to-5 Job?</span>
 								</div>
-								<h3 class="route-card__title">Swing Trading Room &amp; Sunday Alpha Protocol</h3>
+								<h3 class="route-card__title">Swing Trading Room &amp; Sunday Alpha Alerts</h3>
 								<p class="route-card__copy">
 									Can’t watch live screens during market hours? Join our
 									<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 										>Swing Trading Room</a
 									>
 									or our affordable
-									<a href={resolve('/watchlist' as '/')}>Sunday Alpha Protocol</a>
+									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
 									video watchlist tier for multi-day setups with pre-planned entries, targets, and stops.
 								</p>
 							</div>

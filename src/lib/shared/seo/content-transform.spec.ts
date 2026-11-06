@@ -4,7 +4,7 @@ import { applyContentSeoTransforms } from './content-transform';
 import { normalizePostHeadings } from './toc';
 
 describe('applyContentSeoTransforms, applyPostAutofill & normalizePostHeadings', () => {
-	it('runs all 6 transform steps and skips <pre>, <code>, attributes, and URLs when replacing em/en dashes', async () => {
+	it('preserves authored punctuation while preparing headings and real media', async () => {
 		const mediaMap = new Map([
 			[
 				'https://revolutiontradingpros.com/media/spx-gamma.webp',
@@ -38,37 +38,25 @@ describe('applyContentSeoTransforms, applyPostAutofill & normalizePostHeadings',
 
 		const { data, changes } = await applyContentSeoTransforms(input, () => mediaMap);
 
-		expect(data.title).toBe('Options Greeks, Institutional Playbook');
+		expect(data.title).toBe(input.title);
 		// Step 1: duplicate lead h1 stripped
 		expect(data.content).not.toContain('<h1>');
 		// Step 3 & 4: width, height, and empty alt backfilled from media lookup
 		expect(data.content).toContain('width="1200"');
 		expect(data.content).toContain('height="675"');
 		expect(data.content).toContain('alt="SPX Gamma Exposure Profile"');
-		// Step 5: body dashes replaced accurately, while <pre>/<code>, attributes, and URLs are untouched
-		expect(data.content).toContain(
-			'<p>Leading dash dropped; sell 15 to 20 Delta in the $500 to $1,000 range, not lottery tickets.</p>'
-		);
+		// Save preparation must not mechanically rewrite prose, code, URLs or metadata.
+		expect(data.content).toContain(input.content.match(/<p>[\s\S]*?<\/p>/)![0]);
 		expect(data.content).toContain(`const range = "15\u201320 \u2014 untouched inside code";`);
 		expect(data.content).toContain(`href="https://example.com/path\u2014with\u2013dashes"`);
-		expect(data.content).toContain(`title="Title\u2014attr"`);
-		expect(data.content).toContain(`https://example.com/url\u2014in\u2013text`);
-		// Step 6: metadata and FAQ dashes replaced
-		expect(data.metaTitle).toBe('Options Greeks, Guide');
-		expect(data.metaDescription).toBe('Trade 30 to 45 DTE structures, with strict risk.');
-		expect(data.faqItems).toContain('Target 15 to 20 Delta contracts, never gamble.');
-		expect(changes).toEqual(
-			expect.arrayContaining([
-				'stripped_dashes:title',
-				'stripped_duplicate_lead_heading',
-				'injected_img_dimensions',
-				'backfilled_img_alt',
-				'stripped_dashes:content',
-				'stripped_dashes:metaTitle',
-				'stripped_dashes:metaDescription',
-				'stripped_dashes:faqItems'
-			])
-		);
+		expect(data.metaTitle).toBe(input.metaTitle);
+		expect(data.metaDescription).toBe(input.metaDescription);
+		expect(data.faqItems).toBe(input.faqItems);
+		expect(changes).toEqual([
+			'stripped_duplicate_lead_heading',
+			'injected_img_dimensions',
+			'backfilled_img_alt'
+		]);
 	});
 
 	it('autofills blank fields without overwriting existing values and never defaults coverImageAlt to title', () => {

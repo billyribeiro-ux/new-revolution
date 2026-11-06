@@ -75,7 +75,7 @@
 	}
 
 	.press__item--forbes {
-		font-family: Georgia, 'Times New Roman', serif;
+		font-family: var(--font-display);
 		font-weight: 700;
 		letter-spacing: 0;
 	}

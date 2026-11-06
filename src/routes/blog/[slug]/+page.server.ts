@@ -29,6 +29,7 @@ import { getPublicPostViewBySlug } from '#lib/server/services/posts';
 import { extractCoverCrops } from '#lib/shared/cover-crops';
 import { coverSrcsetFromMedia, coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
 import { extractImageSrcsFromHtml } from '#lib/shared/seo/content-transform';
+import { parsePostCustomFields } from '#lib/shared/blog/search';
 import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
@@ -259,32 +260,12 @@ export const load: PageServerLoad = async ({
 		}
 	}
 
-	let subtitle = '';
-	let seriesName = '';
-	let noarchive = false;
-	let nosnippet = false;
-	let customJsonLdRaw = '';
-	if (post.customFields) {
-		try {
-			const parsedCustom: unknown = JSON.parse(post.customFields);
-			if (Array.isArray(parsedCustom)) {
-				for (const item of parsedCustom) {
-					if (!item || typeof item !== 'object') continue;
-					const { key, value } = item as Record<string, unknown>;
-					if (typeof key !== 'string' || typeof value !== 'string') continue;
-					const k = key;
-					const v = value;
-					if (k === '__subtitle') subtitle = v.trim();
-					else if (k === '__seriesName') seriesName = v.trim();
-					else if (k === '__noarchive') noarchive = v === 'true';
-					else if (k === '__nosnippet') nosnippet = v === 'true';
-					else if (k === '__customJsonLd') customJsonLdRaw = v.trim();
-				}
-			}
-		} catch {
-			// ignore malformed customFields
-		}
-	}
+	const { values: customFields } = parsePostCustomFields(post.customFields);
+	const subtitle = customFields.get('__subtitle')?.trim() ?? '';
+	const seriesName = customFields.get('__seriesName')?.trim() ?? '';
+	const noarchive = customFields.get('__noarchive') === 'true';
+	const nosnippet = customFields.get('__nosnippet') === 'true';
+	const customJsonLdRaw = customFields.get('__customJsonLd')?.trim() ?? '';
 
 	const effectiveTitle = (post.metaTitle || post.title).trim();
 	const effectiveDescription = (post.metaDescription || post.excerpt || post.title).trim();

@@ -63,7 +63,7 @@ export const flagshipUtilities: FlagshipUtility[] = [
 		badge: 'SPX • NDX • DJI • RUT • VIX',
 		name: 'Stock Indexes List & Section 1256 Guide',
 		description:
-			'Master SPX, NDX, RUT, DJI, and VIX mechanics—including European cash settlement, zero early assignment risk, and US Section 1256 60/40 tax treatment.',
+			'Master SPX, NDX, RUT, DJI, and VIX mechanics, including European cash settlement, zero early assignment risk, and US Section 1256 60/40 tax treatment.',
 		ctaLabel: 'Open Stock Indexes List →',
 		href: '/resources/stock-indexes-list'
 	}
@@ -159,7 +159,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Live Trade Walkthrough',
-				href: '/watchlist',
+				href: '/sunday-alpha-alerts',
 				tag: '+600% OXY'
 			}
 		]

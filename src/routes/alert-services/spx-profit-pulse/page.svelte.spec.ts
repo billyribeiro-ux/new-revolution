@@ -58,7 +58,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 			'SPX Profit Pulse • Real-Time S&P 500 & 0DTE Index Options Trade Alert Service'
 		);
 		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain(
-			'Get Precise SPX Options Alerts—Catch the Big Index Moves Without Staring at Screens All Day.'
+			'Get Precise SPX Options Alerts: Catch the Big Index Moves Without Staring at Screens All Day.'
 		);
 
 		expect(document.querySelectorAll('h4').length).toBe(0);

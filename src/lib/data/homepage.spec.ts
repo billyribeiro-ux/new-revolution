@@ -42,7 +42,7 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 		expect(alertServices.children?.map((c) => c.label)).toEqual([
 			'SPX Profit Pulse',
-			'Sunday Alpha Protocol'
+			'Sunday Alpha Alerts'
 		]);
 		expect(mentorship.children).toBeUndefined();
 		expect(mentorship.href).toBe('/mentorship');

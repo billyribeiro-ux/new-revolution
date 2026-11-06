@@ -91,7 +91,7 @@ export const featuredETFs: FeaturedETF[] = [
 		description:
 			'Tracks the performance of the Nasdaq-100 Index, comprising 100 of the largest domestic and international non-financial companies listed on the Nasdaq Stock Market.',
 		institutionalNote:
-			'Higher intraday volatility (ATR) and implied volatility (Vega) than SPY—ideal for opening-bell momentum scalps and multi-day tech swings.',
+			'Higher intraday volatility (ATR) and implied volatility (Vega) than SPY, ideal for opening-bell momentum scalps and multi-day tech swings.',
 		features: ['Technology & AI Leaders', 'High Intraday ATR', '0DTE & Weekly Options']
 	},
 	{
@@ -103,7 +103,7 @@ export const featuredETFs: FeaturedETF[] = [
 		optionsTier: 'Monthly & Quarterly Options • Core Portfolio Anchor',
 		smallAccountFit: false,
 		description:
-			'Tracks the CRSP US Total Market Index, providing comprehensive exposure to the entire U.S. equity market—including micro-, small-, mid-, and large-cap stocks.',
+			'Tracks the CRSP US Total Market Index, providing comprehensive exposure to the entire U.S. equity market, including micro-, small-, mid-, and large-cap stocks.',
 		institutionalNote:
 			'Used by long-term capital allocators and portfolio managers as a low-cost core benchmark alongside active tactical options overlays.',
 		features: ['Complete US Coverage', 'Ultra-Low Expense Ratio', 'Institutional Benchmark']
@@ -119,7 +119,7 @@ export const featuredETFs: FeaturedETF[] = [
 		description:
 			'Tracks the Russell 2000 Index, measuring the performance of 2,000 small-capitalization U.S. companies sensitive to domestic growth and interest-rate cycles.',
 		institutionalNote:
-			'Lower share price and cheaper option contract premiums than SPY/QQQ—making IWM a favorite vehicle inside our $500+ Small Accounts Room.',
+			'Lower share price and cheaper option contract premiums than SPY/QQQ, making IWM a favorite vehicle inside our $500+ Small Accounts Room.',
 		features: ['Small-Cap Rotation Gauge', '$500+ Account Friendly', 'Tight Options Spreads']
 	},
 	{
@@ -203,7 +203,7 @@ export const featuredETFs: FeaturedETF[] = [
 		description:
 			'An actively managed thematic ETF focused on disruptive innovation across genomics, autonomous technology, robotics, fintech, and next-generation internet.',
 		institutionalNote:
-			'Because ARKK holds high-beta speculative growth stocks, it serves as an institutional barometer for retail risk appetite—and a prime short/put candidate during bear distribution.',
+			'Because ARKK holds high-beta speculative growth stocks, it serves as an institutional barometer for retail risk appetite and a prime short/put candidate during bear distribution.',
 		features: ['High Beta Momentum', 'Affordable Share Price', 'Both Long & Short Setups']
 	},
 	{
@@ -231,7 +231,7 @@ export const featuredETFs: FeaturedETF[] = [
 		description:
 			'Tracks the Dow Jones U.S. Broad Stock Market Index, providing exposure to the 2,500 largest publicly traded U.S. companies at an accessible share price.',
 		institutionalNote:
-			'Offers total-market U.S. equity exposure at a fraction of SPY’s per-share cost—ideal for cash-account share accumulation and covered calls.',
+			'Offers total-market U.S. equity exposure at a fraction of SPY’s per-share cost, ideal for cash-account share accumulation and covered calls.',
 		features: ['2,500+ US Companies', 'Low Per-Share Cost', 'Ultra-Low Expense Ratio']
 	}
 ];
@@ -298,7 +298,7 @@ export const sectorETFs: SectorETFGroup[] = [
 		symbol: 'XLE',
 		weightNote: 'The Sector Behind Our +600% OXY Trade',
 		rotationRole:
-			'Moves independently of tech—producing massive contrarian distribution and inflation-hedge swings.',
+			'Moves independently of tech, producing massive contrarian distribution and inflation-hedge swings.',
 		etfs: [
 			{ ticker: 'XLE', exchange: 'AMEX', label: 'SPDR Energy' },
 			{ ticker: 'VDE', exchange: 'AMEX', label: 'Vanguard Energy' },
@@ -328,7 +328,7 @@ export const sectorETFs: SectorETFGroup[] = [
 		symbol: 'XLC',
 		weightNote: 'Mega-Cap Search, Social & Streaming',
 		rotationRole:
-			'Added in GICS modernization—houses high-velocity mega-cap advertising and interactive media leaders.',
+			'Added in GICS modernization; houses high-velocity mega-cap advertising and interactive media leaders.',
 		etfs: [
 			{ ticker: 'XLC', exchange: 'AMEX', label: 'SPDR Comm Services' },
 			{ ticker: 'VOX', exchange: 'AMEX', label: 'Vanguard Comm Services' },
@@ -431,7 +431,7 @@ export const etfBenefits: EtfBenefit[] = [
 		num: '04',
 		title: 'Daily Holdings & Institutional Flow Transparency',
 		description:
-			'ETFs publish their exact constituent holdings and weightings daily—allowing our scanners and indicators to track exactly which top-weighted stocks are driving sector rotation.'
+			'ETFs publish their exact constituent holdings and weightings daily, allowing our scanners and indicators to track exactly which top-weighted stocks are driving sector rotation.'
 	},
 	{
 		num: '05',
@@ -461,7 +461,7 @@ export const etfTypes: EtfTypeItem[] = [
 		type: 'Bond & Fixed-Income ETFs',
 		examples: 'AGG, TLT, IEF, HYG, LQD',
 		description:
-			'Provide liquid stock-exchange access to U.S. Treasuries, investment-grade corporate debt, and high-yield credit—critical for tracking macro interest-rate regimes.'
+			'Provide liquid stock-exchange access to U.S. Treasuries, investment-grade corporate debt, and high-yield credit, critical for tracking macro interest-rate regimes.'
 	},
 	{
 		code: 'Type 04',
@@ -489,12 +489,12 @@ export const comparisonData: ComparisonRow[] = [
 	{
 		feature: 'Options Trading Compatibility',
 		etf: 'Full options chains (Calls, Puts, Verticals, 0DTE & Weeklies on major ETFs)',
-		mutualFund: 'Zero options chains—impossible to trade calls, puts, or credit spreads',
+		mutualFund: 'No options chains, so it is impossible to trade calls, puts, or credit spreads',
 		etfBetter: true
 	},
 	{
 		feature: 'Minimum Capital Requirement',
-		etf: 'Zero fund minimum—buy 1 share or 1 affordable option contract in a $500+ account',
+		etf: 'No fund minimum: buy 1 share or 1 affordable option contract in a $500+ account',
 		mutualFund: 'Often enforces $500 to $3,000+ minimum initial investment lockups',
 		etfBetter: true
 	},
@@ -560,10 +560,10 @@ export const bottomRoomCards: RoomCta[] = [
 	},
 	{
 		badge: 'Video Watchlist Tier',
-		title: 'Sunday Alpha Protocol Alerts',
+		title: 'Sunday Alpha Alerts Alerts',
 		description:
 			'Affordable alert-only video watchlists with exact ETF & stock entries, exits, and stops.',
 		ctaLabel: 'Explore Alerts →',
-		href: '/watchlist'
+		href: '/sunday-alpha-alerts'
 	}
 ];

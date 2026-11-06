@@ -153,7 +153,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 		expect(onClose).toHaveBeenCalledOnce();
 	});
 
-	it('renders PostCard with responsive srcset derived from variant URL', async () => {
+	it('renders PostCard using verified responsive media candidates', async () => {
 		await render(PostCard, {
 			post: {
 				id: 1,
@@ -161,6 +161,8 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 				slug: 'institutional-order-flow-playbook',
 				excerpt: 'How to read dark pool prints and gamma walls.',
 				coverImage: 'https://cdn.example.com/media/flow-chart-1200w.webp',
+				coverImageSrcset:
+					'https://cdn.example.com/media/flow-chart-480w.webp 480w, https://cdn.example.com/media/flow-chart-800w.webp 800w, https://cdn.example.com/media/flow-chart-1200w.webp 1200w',
 				coverImageAlt: 'Dark pool liquidity chart',
 				readingTime: 5,
 				category: {

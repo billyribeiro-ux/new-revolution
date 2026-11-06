@@ -1,6 +1,6 @@
 # Website URL inventory
 
-Verified against the public website on November 5, 2026, after promotion of Production deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj` (application commit `33a1346`). This is a human-readable snapshot of 52 public HTML pages, not the file to submit to Google.
+Current source inventory for the November 5, 2026 implementation. The earlier public crawl of application `33a1346` is historical. The new canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. Final public acceptance will be recorded in `docs/reviews/blog-layout-system-2026-11-05/RELEASE.md`. This is a human-readable snapshot of 52 public HTML pages, not the file to submit to Google.
 
 ## Submit this sitemap
 
@@ -12,7 +12,7 @@ Submit the XML sitemap in Google Search Console. It automatically discovers elig
 
 ## Public pages eligible for indexing (19)
 
-Every URL below returned HTTP 200, appeared in the live sitemap, allowed Googlebot, declared a matching www canonical, and had no noindex directive. All non-www counterparts returned one-hop 308 redirects to www. These checks establish eligibility, not confirmed Google indexing or rankings.
+These 19 URLs are eligible in the generated sitemap and built-route contracts. Final release acceptance checks public HTTP 200, matching www canonicals, crawler access and absence of noindex. Eligibility does not establish Google indexing or rankings.
 
 - https://www.revolutiontradingpros.com
 - https://www.revolutiontradingpros.com/about
@@ -32,7 +32,7 @@ Every URL below returned HTTP 200, appeared in the live sitemap, allowed Googleb
 - https://www.revolutiontradingpros.com/resources/etf-stocks-list
 - https://www.revolutiontradingpros.com/resources/stock-indexes-list
 - https://www.revolutiontradingpros.com/terms-of-service
-- https://www.revolutiontradingpros.com/watchlist
+- https://www.revolutiontradingpros.com/sunday-alpha-alerts
 
 ## Public pages marked noindex (33)
 

@@ -7,7 +7,7 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 }) => {
 	await page.goto(articlePath);
 	const toc = page.locator('.article-toc-aside');
-	for (const width of [320, 375, 768, 1024, 1179, 1180, 1280, 1440, 1920, 2420]) {
+	for (const width of [320, 375, 768, 1024, 1179, 1180, 1181, 1280, 1440, 1920, 2440, 2880]) {
 		await page.setViewportSize({ width, height: 900 });
 		await expect(toc).toBeVisible({ visible: width >= 1180 });
 		const geometry = await page.evaluate(() => {
@@ -20,14 +20,117 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 				scrollWidth: document.documentElement.scrollWidth,
 				header: rect('.article-header'),
 				cover: rect('.article-cover-figure'),
-				body: rect('.article-main-column')
+				body: rect('.article-main-column'),
+				faq: rect('.article-faq-section')
 			};
 		});
 		expect(geometry.scrollWidth).toBeLessThanOrEqual(width);
 		expect(geometry.body.width).toBeLessThanOrEqual(901);
 		expect(Math.abs(geometry.header.x - geometry.body.x)).toBeLessThan(2);
 		expect(Math.abs(geometry.cover.x - geometry.body.x)).toBeLessThan(2);
+		expect(Math.abs(geometry.faq.x - geometry.body.x)).toBeLessThan(2);
+		expect(Math.abs(geometry.cover.width - geometry.body.width)).toBeLessThan(2);
 	}
+});
+
+test('keeps link and icon geometry stable on hover and focus', async ({ page }) => {
+	await page.setViewportSize({ width: 1440, height: 1000 });
+	await page.goto(articlePath);
+	const link = page.locator('.toc-list a').first();
+	const icon = page.locator('.toc-toggle-icon');
+	const before = { link: await link.boundingBox(), icon: await icon.boundingBox() };
+	await link.hover();
+	expect(await link.boundingBox()).toEqual(before.link);
+	await link.focus();
+	expect(await link.boundingBox()).toEqual(before.link);
+	await page.locator('.toc-summary').hover();
+	expect(await icon.boundingBox()).toEqual(before.icon);
+});
+
+/** The seeded article has four links. Extend only its local DOM to exercise a
+ * production-length TOC against the real template and native FAQ controls. */
+async function extendLocalToc(page: import('@playwright/test').Page) {
+	// Wait for the real enhancement before extending the browser-only fixture;
+	// hydration legitimately owns and reconciles the server-rendered list.
+	await expect
+		.poll(() =>
+			page
+				.locator('.toc-details')
+				.evaluate((panel) => (panel as HTMLElement).style.getPropertyValue('--toc-nav-limit'))
+		)
+		.not.toBe('');
+	await page.locator('.toc-list').evaluate((list) => {
+		const item = list.children[0];
+		for (let i = 0; i < 25; i++) list.append(item.cloneNode(true));
+	});
+}
+
+test('adapts the navigation height without moving the panel when the last FAQ opens', async ({
+	page
+}) => {
+	await page.setViewportSize({ width: 1440, height: 1000 });
+	await page.goto(articlePath);
+	await extendLocalToc(page);
+	const lastSummary = page.locator('.faq-details').last().locator('summary');
+	await lastSummary.evaluate((element) =>
+		window.scrollTo({
+			top: element.getBoundingClientRect().top + scrollY - 150,
+			behavior: 'instant'
+		})
+	);
+	const measure = () =>
+		page.evaluate(() => {
+			const panel = document.querySelector('.toc-details')!.getBoundingClientRect();
+			const boundary = document.querySelector('.article-main-column')!.getBoundingClientRect();
+			const nav = document.querySelector('.toc-details nav')!;
+			const summary = [...document.querySelectorAll('.faq-summary')]
+				.at(-1)!
+				.getBoundingClientRect();
+			return {
+				top: panel.top,
+				x: panel.x,
+				bottom: panel.bottom,
+				boundary: boundary.bottom,
+				height: nav.clientHeight,
+				scrollHeight: nav.scrollHeight,
+				summary: summary.top,
+				scrollY
+			};
+		});
+	const stickyTop = await page.evaluate(
+		() =>
+			document.querySelector('.nav-shell')!.getBoundingClientRect().height +
+			Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.5
+	);
+	await expect.poll(async () => (await measure()).top).toBeCloseTo(stickyTop, 0);
+	const before = await measure();
+	expect(before.scrollHeight).toBeGreaterThan(before.height);
+	await lastSummary.click();
+	await expect.poll(async () => (await measure()).height).toBeGreaterThan(before.height);
+	const after = await measure();
+	expect(Math.abs(after.top - before.top)).toBeLessThanOrEqual(1);
+	expect(after.x).toBe(before.x);
+	expect(Math.abs(after.summary - before.summary)).toBeLessThanOrEqual(1);
+	expect(after.scrollY).toBe(before.scrollY);
+	expect(after.bottom).toBeLessThanOrEqual(after.boundary);
+	await lastSummary.click();
+	await expect.poll(async () => (await measure()).height).toBe(before.height);
+	expect(Math.abs((await measure()).top - before.top)).toBeLessThanOrEqual(1);
+});
+
+test('chains wheel scrolling to the page at the TOC edge', async ({ page }) => {
+	await page.setViewportSize({ width: 1440, height: 640 });
+	await page.goto(articlePath);
+	await extendLocalToc(page);
+	await page.evaluate(() => window.scrollTo({ top: 600, behavior: 'instant' }));
+	const nav = page.locator('.toc-details nav');
+	await nav.evaluate((element) => {
+		element.scrollTop = element.scrollHeight;
+	});
+	await nav.hover();
+	const before = await page.evaluate(() => scrollY);
+	await page.mouse.wheel(0, 300);
+	await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(before);
 });
 
 test('supports native collapse, keyboard control, heading navigation and active tracking', async ({
@@ -88,8 +191,11 @@ test('keeps its control and scrollable links reachable in a short desktop viewpo
 	await page.evaluate((id) => {
 		const target = document.getElementById(id);
 		if (!target) throw new Error('Missing heading');
+		const anchorOffset =
+			document.querySelector('.nav-shell')!.getBoundingClientRect().height +
+			Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.5;
 		window.scrollTo({
-			top: target.getBoundingClientRect().top + scrollY - 120,
+			top: target.getBoundingClientRect().top + scrollY - anchorOffset,
 			behavior: 'instant'
 		});
 	}, targetId);

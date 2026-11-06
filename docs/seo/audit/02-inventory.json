@@ -73,11 +73,11 @@
 	},
 	{
 		"app": "root",
-		"route": "/watchlist",
-		"url": "/watchlist",
+		"route": "/sunday-alpha-alerts",
+		"url": "/sunday-alpha-alerts",
 		"indexable": true,
 		"template": "membership-product",
-		"paramSource": "static (src/routes/watchlist/+page.ts:6 prerender=true)"
+		"paramSource": "static (src/routes/sunday-alpha-alerts/+page.ts:6 prerender=true)"
 	},
 	{
 		"app": "root",

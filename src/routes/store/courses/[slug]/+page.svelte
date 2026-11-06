@@ -64,7 +64,7 @@
 			'Complete Strategy Accelerator Class + 4 Proprietary ThinkorSwim & TradingView Tools',
 		heroTitle: 'Get the NEW Automated Move Prior to The Move™ Ultra System',
 		heroSubtitle:
-			'Discover how Billy Ribeiro targets institutional accumulation, multi-timeframe volatility squeezes, and liquidity sweeps in any timeframe—before the retail breakout candle even prints.',
+			'Discover how Billy Ribeiro targets institutional accumulation, multi-timeframe volatility squeezes, and liquidity sweeps in any timeframe, before the retail breakout candle even prints.',
 		instructorName: 'Billy Ribeiro',
 		instructorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
 		instructorAvatar: FOUNDER_PORTRAIT.src,
@@ -85,7 +85,7 @@
 			deepDiveHeadline:
 				'Discover Exactly How Billy Ribeiro Targets Institutional Inflections & Squeezes in Any Timeframe',
 			deepDiveBody:
-				'Most traders enter after the move is already 70% over—becoming exit liquidity for Wall Street desks. In this comprehensive Accelerator Class, Billy Ribeiro breaks down the exact institutional framework passed down by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick. You learn how to read pre-breakout absorption, structure asymmetric options contracts, and set mechanical entry triggers, profit targets, and hard stop-losses.',
+				'Most traders enter after the move is already 70% over, becoming exit liquidity for Wall Street desks. In this comprehensive Accelerator Class, Billy Ribeiro breaks down the exact institutional framework passed down by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick. You learn how to read pre-breakout absorption, structure asymmetric options contracts, and set mechanical entry triggers, profit targets, and hard stop-losses.',
 			optionsTraderNote:
 				'Includes full bar-by-bar case autopsies of our 2020 COVID top and bottom calls, our 2022 bull top and bear bottom calls, and our live +600% overnight OXY Put Options trade.',
 			bulletSpecs: [
@@ -105,12 +105,12 @@
 			deepDiveHeadline:
 				'Three Dynamic Volatility & Liquidity Filters That Adapt Automatically to Any Market Regime',
 			deepDiveBody:
-				'Standard retail indicators use static formulas that fail the moment market volatility shifts. The NEW Move Prior to The Move™ Ultra Indicator automatically calibrates to real-time institutional volume, liquidity sweeps, and volatility compression across three distinct intensity tiers (Low, High, and Ultra Compression). Once a candle closes, the signal never repaints—giving you objective clarity on when smart money is accumulating and when momentum is exhausting.',
+				'Standard retail indicators use static formulas that fail the moment market volatility shifts. The NEW Move Prior to The Move™ Ultra Indicator automatically calibrates to real-time institutional volume, liquidity sweeps, and volatility compression across three distinct intensity tiers (Low, High, and Ultra Compression). Once a candle closes, the signal never repaints, giving you objective clarity on when smart money is accumulating and when momentum is exhausting.',
 			optionsTraderNote:
 				'Built-in audio and visual alerts notify you the exact second an institutional compression or liquidity sweep triggers.',
 			bulletSpecs: [
 				'Three dynamic compression and institutional absorption filters calibrated for stocks, ETFs, and indexes',
-				'100% non-repainting code—zero lookahead bias and zero erased losing signals',
+				'100% non-repainting code with zero lookahead bias and zero erased losing signals',
 				'Plots automatic structural invalidation levels so you always know where your hard stop-loss belongs'
 			],
 			svgType: 'core-indicator'
@@ -127,7 +127,7 @@
 			deepDiveBody:
 				'A 5-minute setup fighting a bearish daily chart is a low-probability gamble. When a 5-minute, 15-minute, 1-hour, and Daily chart align in simultaneous institutional compression, the resulting move is explosive. Our Multi-Timeframe Matrix condenses up to 18 timeframes into a clean, simplified on-chart telemetry ribbon so you never trade against higher-timeframe institutional flow again.',
 			optionsTraderNote:
-				'Eliminates flipping between 10 different chart tabs—ideal for both 9-to-5 working professionals and opening-bell scalpers.',
+				'Eliminates flipping between 10 different chart tabs, ideal for both 9-to-5 working professionals and opening-bell scalpers.',
 			bulletSpecs: [
 				'Tracks simultaneous compression and trend alignment from 1-minute scalping charts up to Weekly macro charts',
 				'Simplified, high-contrast status labels showing exact multi-timeframe confluence in seconds',
@@ -161,11 +161,11 @@
 			name: 'BONUS: MP_EarlyInNOut™ Pro Leading Telemetry',
 			platforms: 'Available for ThinkorSwim & TradingView + Dedicated Install Session',
 			shortSummary:
-				'Engineered to give you an early institutional "heads up" before compression fires—and flag buyer/seller exhaustion at the top of the move.',
+				'Engineered to give you an early institutional "heads up" before compression fires and flag buyer/seller exhaustion at the top of the move.',
 			deepDiveHeadline:
-				'Get Into Institutional Moves Earlier—And Lock In Profits Before the Reversal Wipes Out Your Gains',
+				'Get Into Institutional Moves Earlier and Lock In Profits Before the Reversal Wipes Out Your Gains',
 			deepDiveBody:
-				'Included as a dedicated bonus in both packages, MP_EarlyInNOut™ Pro is calibrated directly to our three compression tiers. First, it detects quiet institutional block accumulation during the final bars of compression so you can position early with tight risk. Second, it flags momentum deceleration and abandoned price bars at the extreme of the move—helping you scale out at peak premium before the pullback begins.',
+				'Included as a dedicated bonus in both packages, MP_EarlyInNOut™ Pro is calibrated directly to our three compression tiers. First, it detects quiet institutional block accumulation during the final bars of compression so you can position early with tight risk. Second, it flags momentum deceleration and abandoned price bars at the extreme of the move, helping you scale out at peak premium before the pullback begins.',
 			optionsTraderNote:
 				'Includes our Step-by-Step Indicator Installation Session & Workspace Templates so your charts are configured in minutes.',
 			bulletSpecs: [
@@ -211,7 +211,7 @@
 			duration: 'Quantitative Trade Planning',
 			title: 'Data-Driven Options Selection Using the On-Chart Historical Stats Engine',
 			summary:
-				'Turn historical chart statistics into mathematical options structures—matching average setup duration and magnitude to the exact right contract.',
+				'Turn historical chart statistics into mathematical options structures, matching average setup duration and magnitude to the exact right contract.',
 			keyTakeaways: [
 				'Matching average bar duration to optimal Days to Expiration (DTE)',
 				'Selecting 50–70 Delta directional contracts vs. 15–20 Delta credit spreads',
@@ -237,7 +237,7 @@
 			summary:
 				'Walk through the exact historical charts where this methodology called generational market turns and beat Wall Street billionaires live.',
 			keyTakeaways: [
-				'How we spotted institutional distribution on Occidental Petroleum (OXY) while Warren Buffett bought millions long—banking +600% overnight on Put Options',
+				'How we spotted institutional distribution on Occidental Petroleum (OXY) while Warren Buffett bought millions long, banking +600% overnight on Put Options',
 				'Telemetry reads at the February 2020 COVID top and March 2020 generational bottom',
 				'Telemetry reads at the January 2022 bull market top and October 2022 bear bottom'
 			]
@@ -272,7 +272,7 @@
 				'I work a demanding 50-hour-a-week job and used to think I couldn’t trade options consistently. The On-Chart Stats Engine and Daily/4H compression setups let me plan my conditional orders in 20 minutes at night with zero stress during work.',
 			author: 'David R.',
 			profileTag: 'Working Professional (9-to-5 Engineer)',
-			verifiedFocus: 'Multi-Day Swing Setups + Sunday Alpha Protocol Member'
+			verifiedFocus: 'Multi-Day Swing Setups + Sunday Alpha Alerts Member'
 		},
 		{
 			quote:
@@ -339,11 +339,11 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Protocol Alerts',
+			title: 'Sunday Alpha Alerts Alerts',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/watchlist'
+			href: '/sunday-alpha-alerts'
 		}
 	];
 </script>
@@ -1089,17 +1089,17 @@
 						<div class="instructor-box__bio">
 							<span class="section-kicker">About Your Instructor • Verified Pedigree</span>
 							<h2 id="instructor-h2" class="section-h2">
-								Billy Ribeiro — Founder of Revolution Trading Pros
+								Billy Ribeiro, Founder of Revolution Trading Pros
 							</h2>
 							<p class="instructor-box__subtitle">
 								Personally Mentored by Former Goldman Sachs Legend Mark "Goldfinger" McGoldrick
 							</p>
 
 							<p class="body-copy">
-								Unlike internet marketers who have never sat near an institutional desk—and unlike
-								educators who exist only to sell $3,000 courses—<strong>Billy Ribeiro</strong> built Revolution
-								Trading Pros after standing on the losing end himself early in his career and vowing to
-								protect everyday retail traders from fake "holy grail" scams.
+								Unlike internet marketers who have never sat near an institutional desk, and unlike
+								educators who exist only to sell $3,000 courses, <strong>Billy Ribeiro</strong> built
+								Revolution Trading Pros after standing on the losing end himself early in his career and
+								vowing to protect everyday retail traders from fake "holy grail" scams.
 							</p>
 
 							<p class="body-copy">
@@ -1200,7 +1200,7 @@
 				<div class="final-banner-box">
 					<span class="section-kicker">Educate • Innovate • Prosper</span>
 					<h2 id="final-cta-h2" class="final-banner-box__h2">
-						Don’t Miss This Opportunity—Start Trading With Institutional Clarity Today
+						Don’t Miss This Opportunity: Start Trading With Institutional Clarity Today
 					</h2>
 					<p class="body-copy final-banner-box__copy">
 						Stop guessing when a squeeze will fire or whether a breakout is a Wall Street trap.

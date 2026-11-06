@@ -78,7 +78,7 @@ describe('/store/courses/[slug] page', () => {
 			.element(
 				page.getByRole('heading', {
 					level: 2,
-					name: 'Billy Ribeiro — Founder of Revolution Trading Pros'
+					name: 'Billy Ribeiro, Founder of Revolution Trading Pros'
 				})
 			)
 			.toBeInTheDocument();

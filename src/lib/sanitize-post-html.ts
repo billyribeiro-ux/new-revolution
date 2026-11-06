@@ -1,3 +1,4 @@
+import { normalizeBrandFont } from './shared/brand-font.ts';
 import sanitizeHtml from 'sanitize-html';
 
 const ALLOWED_TAGS = [
@@ -307,7 +308,12 @@ function sanitizeStyleAttribute(tagName: string, rawStyle: string | undefined): 
 		const prop = decl.slice(0, colonIdx).trim().toLowerCase();
 		const value = decl.slice(colonIdx + 1).trim();
 		if (!prop || !value || prop.startsWith('mso-')) continue;
-		if (/[\\{}<>()]/.test(value) && !/^(?:rgb|rgba|hsl|hsla|oklch)\(/i.test(value)) continue;
+		if (
+			/[\\{}<>()]/.test(value) &&
+			!/^(?:rgb|rgba|hsl|hsla|oklch)\(/i.test(value) &&
+			!(prop === 'font-family' && normalizeBrandFont(value))
+		)
+			continue;
 
 		switch (prop) {
 			case 'color':
@@ -318,13 +324,8 @@ function sanitizeStyleAttribute(tagName: string, rawStyle: string | undefined): 
 				break;
 			}
 			case 'font-family': {
-				if (
-					/^[\w\s'",-]+$/.test(value) &&
-					value.length <= 120 &&
-					!/expression|javascript|url/i.test(value)
-				) {
-					cleanDecls.push(`${prop}: ${value}`);
-				}
+				const family = normalizeBrandFont(value);
+				if (family) cleanDecls.push(`${prop}: ${family}`);
 				break;
 			}
 			case 'font-size': {

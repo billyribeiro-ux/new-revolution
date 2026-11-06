@@ -1,5 +1,7 @@
 # Local admin login (temporary seed account)
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -110,21 +112,22 @@ panel, so a fix is visible in the "SEO n/100" pill before you click Publish.
 
 A post can be published when the score is **80 or more** and **none** of these blocking items is present:
 
-| Needed                      | Blocks when missing or wrong                                                                    |
-| --------------------------- | ----------------------------------------------------------------------------------------------- |
-| Meta title                  | empty, or starts with a lowercase letter                                                        |
-| Meta description            | empty                                                                                           |
-| Cover image, or an OG image | neither is set                                                                                  |
-| Cover alt text              | cover set but alt blank, or alt equal to the post title                                         |
-| Author                      | none selected (sidebar "Author" panel)                                                          |
-| Category                    | none selected (sidebar "Categories" panel)                                                      |
-| Tags                        | none (one tag is a warning only)                                                                |
-| Body length                 | fewer than 300 words (300 to 599 is a warning)                                                  |
-| External links              | fewer than 2 distinct external domains (1 is an error that lowers the score)                    |
-| No placeholder              | the text `IMAGE PLACEHOLDER` is still in the body                                               |
-| No dashes                   | any em dash or en dash in title, body, meta, excerpt, cover alt or caption, OG, Twitter, or FAQ |
+| Needed                      | Blocks when missing or wrong                                                 |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| Meta title                  | empty, or starts with a lowercase letter                                     |
+| Meta description            | empty                                                                        |
+| Cover image, or an OG image | neither is set                                                               |
+| Cover alt text              | cover set but alt blank, or alt equal to the post title                      |
+| Author                      | none selected (sidebar "Author" panel)                                       |
+| Category                    | none selected (sidebar "Categories" panel)                                   |
+| Tags                        | none (one tag is a warning only)                                             |
+| Body length                 | fewer than 300 words (300 to 599 is a warning)                               |
+| External links              | fewer than 2 distinct external domains (1 is an error that lowers the score) |
+| No placeholder              | the text `IMAGE PLACEHOLDER` is still in the body                            |
 
-Warnings lower the score without blocking: meta title under 30 or over 60 characters; meta description under 70 or over
+Em-dash review is a zero-point nonblocking editorial advisory; en dashes are allowed. Authored punctuation is preserved.
+
+Other warnings lower the score without blocking: meta title under 30 or over 60 characters; meta description under 70 or over
 155; no excerpt; focus keyword missing from the meta title, meta description, slug or body; no focus keyword (an error,
 -8); no FAQ, or 1 or 2 FAQ items, or answers under 40 characters; a body heading equal to the title; slug over 70
 characters or with 3 or more stop words; body images without width and height.

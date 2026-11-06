@@ -3,7 +3,6 @@
 	import '#lib/styles/sunday-alpha-protocol.css';
 	import { resolve } from '$app/paths';
 	import * as d3 from 'd3';
-	import { gsap } from 'gsap';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
@@ -80,46 +79,7 @@
 		hudOverride = null;
 	}
 
-	// Lead magnet form state
-	let reconEmail = $state('');
-	let reconSubmitted = $state(false);
-	let reconSubmitting = $state(false);
-	let reconMessage = $state('');
-
-	async function handleReconSubmit(event: SubmitEvent) {
-		event.preventDefault();
-		const trimmed = reconEmail.trim();
-		if (!trimmed) return;
-		reconSubmitting = true;
-		reconMessage = '';
-		try {
-			const response = await fetch('/api/lead', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					email: trimmed,
-					source: 'sunday-alpha-protocol-recon'
-				})
-			});
-			if (response.ok) {
-				reconSubmitted = true;
-				reconMessage = `Confirmed! ${trimmed} is registered for the Sunday 6:30 PM EST Market Recon.`;
-				reconEmail = '';
-			} else {
-				reconSubmitted = true;
-				reconMessage = `You're on the list! Watch your inbox Sunday at 6:30 PM EST.`;
-				reconEmail = '';
-			}
-		} catch {
-			reconSubmitted = true;
-			reconMessage = `You're on the list! Watch your inbox Sunday at 6:30 PM EST.`;
-			reconEmail = '';
-		} finally {
-			reconSubmitting = false;
-		}
-	}
-
-	function setupPageTelemetry(node: HTMLElement) {
+	function setupPageTelemetry() {
 		if (typeof window === 'undefined') return;
 
 		const computeCountdown = () => {
@@ -164,29 +124,6 @@
 
 		onScroll();
 		window.addEventListener('scroll', onScroll, { passive: true });
-
-		// Subtle GSAP entrance for hero elements when motion is permitted
-		const prefersReduced =
-			typeof window.matchMedia === 'function' &&
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (!prefersReduced) {
-			const targets = node.querySelectorAll('.sap-gsap-hero');
-			if (targets.length > 0) {
-				gsap.fromTo(
-					targets,
-					{ y: 18, opacity: 0.01 },
-					{
-						y: 0,
-						opacity: 1,
-						duration: 0.75,
-						stagger: 0.08,
-						ease: 'power3.out',
-						delay: 0.15,
-						clearProps: 'all'
-					}
-				);
-			}
-		}
 
 		return () => {
 			window.clearInterval(timerId);
@@ -250,8 +187,12 @@
 
 		const resize = () => {
 			const parent = canvas.parentElement;
-			width = canvas.width = parent ? parent.clientWidth : window.innerWidth;
-			height = canvas.height = parent ? parent.clientHeight : window.innerHeight;
+			width = parent ? parent.clientWidth : window.innerWidth;
+			height = parent ? parent.clientHeight : window.innerHeight;
+			const density = Math.min(window.devicePixelRatio || 1, 2);
+			canvas.width = Math.round(width * density);
+			canvas.height = Math.round(height * density);
+			ctx.setTransform(density, 0, 0, density, 0, 0);
 		};
 
 		resize();
@@ -744,30 +685,23 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
-<a class="skip" href="#watchlist-page">Skip to main content</a>
+<a class="skip" href="#sunday-alpha-alerts-page">Skip to main content</a>
 <Navbar />
 
-<main id="watchlist-page" class="inner-page watchlist-page" {@attach setupPageTelemetry}>
-	<!-- Opening Cinema Shutter (Pure CSS Failsafe) -->
-	<div class="cinema-shutter" aria-hidden="true">
-		<div class="shutter-blade shutter-top">
-			<div class="shutter-telemetry">
-				<span class="pulse-dot"></span>
-				<span>INITIALIZING SUNDAY ALPHA PROTOCOL™ // QUANTITATIVE TELEMETRY v2026.4</span>
-			</div>
-		</div>
-		<div class="shutter-blade shutter-bottom"></div>
-	</div>
-
+<main
+	id="sunday-alpha-alerts-page"
+	class="inner-page sunday-alpha-alerts-page"
+	{@attach setupPageTelemetry}
+>
 	<!-- Top Scroll Progress Laser Line -->
 	<div class="scroll-laser" style={`width: ${scrollProgress}%`} aria-hidden="true"></div>
 
 	<nav class="breadcrumb-nav" aria-label="Breadcrumb">
-		<div class="sap-container">
+		<div class="container">
 			<ol class="breadcrumb-list">
 				<li><a href={resolve('/')}>Home</a></li>
 				<li aria-hidden="true">/</li>
-				<li aria-current="page">Weekly Stock &amp; Options Video Watchlist</li>
+				<li aria-current="page">Sunday Alpha Alerts</li>
 			</ol>
 		</div>
 	</nav>
@@ -781,13 +715,13 @@
 	>
 		<!-- Top Live Telemetry Ribbon -->
 		<div class="telemetry-ribbon">
-			<div class="sap-container ribbon-inner">
+			<div class="container ribbon-inner">
 				<div class="ribbon-badge">
 					<span class="live-dot" aria-hidden="true"></span>
 					<span>
 						Founding Release:
 						<strong>First 100 Subscribers Lock In $47/Month For Life</strong>
-						(Regular $197/mo — Save 76%)
+						(Regular $197/mo; save 76%)
 					</span>
 				</div>
 				<div class="countdown-pill" aria-live="polite">{countdownText}</div>
@@ -795,23 +729,17 @@
 		</div>
 
 		<!-- Protocol Section Sub-Navigation -->
-		<nav class="sap-subnav" aria-label="Sunday Alpha Protocol sections">
-			<div class="sap-container sap-subnav-inner">
-				<div class="brand-lockup">
-					<div class="brand-emblem" aria-hidden="true">RTP</div>
-					<div class="brand-text">
-						<span class="brand-name">Revolution Trading Pros</span>
-						<span class="brand-sub">Sunday Alpha Protocol™</span>
-					</div>
-				</div>
+		<nav class="sap-subnav" aria-label="Sunday Alpha Alerts sections">
+			<div class="container sap-subnav-inner">
+				<span class="sap-product-name">Sunday Alpha Alerts</span>
 				<div class="nav-links">
 					<a class="sap-subnav-link" href="#keynote-mechanism">The Mechanism</a>
-					<a class="sap-subnav-link" href="#d3-terminal-section">Live D3 Terminal</a>
+					<a class="sap-subnav-link" href="#d3-terminal-section">Interactive example</a>
 					<a class="sap-subnav-link" href="#suitability">Suitability</a>
-					<a class="sap-subnav-link" href="#authority">Track Record</a>
+					<a class="sap-subnav-link" href="#authority">Research approach</a>
 					<a class="sap-subnav-link" href="#pricing">Pricing</a>
 				</div>
-				<a href="#pricing" class="nav-cta">Claim $47 Access</a>
+				<a href="#pricing" class="nav-cta">Explore $47 membership</a>
 			</div>
 		</nav>
 
@@ -819,7 +747,7 @@
 		<canvas class="wavefield-canvas" aria-hidden="true" {@attach setupWavefieldCanvas}></canvas>
 		<div class="hero-spotlight" aria-hidden="true"></div>
 
-		<div class="sap-container hero-main">
+		<div class="container hero-main">
 			<div class="hero-grid">
 				<!-- Left Column: Institutional Manifesto & CTAs -->
 				<div class="hero-copy-col">
@@ -834,12 +762,12 @@
 					<h1 id="sap-hero-h1" class="hero-title sap-gsap-hero">
 						<span class="title-line">THE SUNDAY</span>
 						<span class="title-line title-gold">ALPHA</span>
-						<span class="title-line">PROTOCOL.</span>
+						<span class="title-line">ALERTS.</span>
 					</h1>
 
 					<p class="hero-lead sap-gsap-hero">
 						Stop guessing at Monday’s opening bell. Every Sunday at
-						<strong>5:00 PM EST</strong>—one full hour before futures open—receive
+						<strong>5:00 PM EST</strong> (one full hour before futures open), receive
 						<strong
 							>5 to 7 institutional-grade U.S. large-cap stock &amp; options swing blueprints</strong
 						>
@@ -849,7 +777,7 @@
 
 					<div class="hero-cta-row sap-gsap-hero">
 						<a href="#pricing" class="btn-primary-gold">
-							<span>Lock In $47/mo Founding Access</span>
+							<span>Explore $47/mo membership</span>
 							<svg
 								width="18"
 								height="18"
@@ -922,10 +850,14 @@
 								<span></span>
 								<span></span>
 							</div>
-							<div class="deck-title">PROTOCOL TELEMETRY DECK // LIVE R-ENGINE</div>
+							<div class="deck-title">HYPOTHETICAL R-MULTIPLE EXAMPLE</div>
+							<p class="example-notice">
+								Interactive hypothetical example. Not live market data or actual performance. This
+								simplified model uses fixed wins and losses before fees and slippage.
+							</p>
 							<div class="deck-status">
 								<span class="live-dot" aria-hidden="true"></span>
-								<span>Audited 1:2.50 R:R</span>
+								<span>Example 1:2.50 R:R</span>
 							</div>
 						</div>
 
@@ -979,7 +911,7 @@
 										viewBox="0 0 460 155"
 										preserveAspectRatio="xMidYMid meet"
 										role="img"
-										aria-label="D3 15-trade cumulative R-multiple simulation comparing Sunday Alpha Protocol 1:2.50 risk-to-reward against 1:1 retail risk-to-reward"
+										aria-label="D3 15-trade cumulative R-multiple simulation comparing Sunday Alpha Alerts 1:2.50 risk-to-reward against 1:1 retail risk-to-reward"
 										{@attach renderHeroSimChart}
 									></svg>
 								</div>
@@ -1004,7 +936,7 @@
 
 		<!-- Bottom Hero Kinetic Telemetry Bar -->
 		<div class="hero-telemetry-bar">
-			<div class="sap-container telemetry-grid">
+			<div class="container telemetry-grid">
 				{#each SUNDAY_ALPHA_HERO_METRICS as metric (metric.label)}
 					<div class="t-metric">
 						<div class="t-metric-val">
@@ -1019,7 +951,7 @@
 
 	<!-- ACT II: APPLE KEYNOTE 3-ACT INSTITUTIONAL MECHANISM -->
 	<section id="keynote-mechanism" class="keynote-section" aria-labelledby="mechanism-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="sap-section-header">
 				<div class="section-kicker">
 					<span>THE INSTITUTIONAL EDGE</span>
@@ -1030,7 +962,7 @@
 				<p class="sap-section-subtitle">
 					Retail traders wake up Monday morning, chase extended pre-market gaps with 1-to-1 risk,
 					and become exit liquidity for institutional algorithms. The
-					<strong>Sunday Alpha Protocol™</strong> replaces emotional guesswork with a 3-stage quantitative
+					<strong>Sunday Alpha Alerts</strong> replaces emotional guesswork with a 3-stage quantitative
 					execution sequence.
 				</p>
 			</div>
@@ -1063,16 +995,18 @@
 
 	<!-- ACT III: INTERACTIVE D3.JS QUANTITATIVE TERMINAL -->
 	<section id="d3-terminal-section" class="terminal-section" aria-labelledby="terminal-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="sap-section-header">
 				<div class="section-kicker">
 					<span>INTERACTIVE BLUEPRINT INSPECTION</span>
 				</div>
 				<h2 id="terminal-h2" class="sap-section-title">
-					Inspect an Authentic Sunday Alpha Protocol™ Blueprint.
+					Explore an Illustrative Sunday Alpha Alerts Blueprint.
 				</h2>
 				<p class="sap-section-subtitle">
-					Switch between live sample blueprints below and move your cursor across the
+					These examples use fixed illustrative prices and simplified options estimates, not live
+					market data or actual performance. Switch between sample blueprints below and move your
+					cursor across the
 					<strong>D3.js Institutional Liquidity &amp; R-Multiple Terminal</strong> to inspect Volume-by-Price
 					shelves, exact 15m triggers, and options contract specifications.
 				</p>
@@ -1088,7 +1022,9 @@
 							<span></span>
 						</div>
 						<span class="terminal-badge">D3.JS QUANT ENGINE v4.2</span>
-						<span class="terminal-sub">Hover or drag across chart to inspect live R-Multiple</span>
+						<span class="terminal-sub"
+							>Hover or drag across chart to inspect an illustrative R-multiple</span
+						>
 					</div>
 					<div class="ticker-tabs" role="tablist" aria-label="Sample Sunday Alpha Blueprints">
 						{#each Object.values(SUNDAY_ALPHA_TERMINAL_BLUEPRINTS) as bp (bp.key)}
@@ -1215,7 +1151,7 @@
 
 	<!-- ACT IV: MULTI-TIER SUITABILITY MATRIX -->
 	<section id="suitability" class="suitability-section" aria-labelledby="suitability-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="sap-section-header">
 				<div class="section-kicker">
 					<span>ENGINEERED FOR EVERY CAPITAL TIER</span>
@@ -1274,7 +1210,7 @@
 
 	<!-- ACT V: BILLY RIBEIRO AUTHORITY & HISTORICAL CALLS -->
 	<section id="authority" class="authority-section" aria-labelledby="authority-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="authority-shell">
 				<div class="authority-grid">
 					<div>
@@ -1287,8 +1223,8 @@
 						</div>
 						<p class="authority-bio">
 							Mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark
-							“Goldfinger” McGoldrick—who called him <strong>“the future of trading”</strong>—Billy
-							Ribeiro built Revolution Trading Pros on a single uncompromising mandate:
+							“Goldfinger” McGoldrick, who called him <strong>“the future of trading”</strong>,
+							Billy Ribeiro built Revolution Trading Pros on a single uncompromising mandate:
 							<strong>People Over Profits</strong>.
 						</p>
 						<p class="authority-bio">
@@ -1326,7 +1262,7 @@
 
 	<!-- ACT VI: FOUNDING MEMBER PRICING MATRIX ($47/MO vs $197/MO) -->
 	<section id="pricing" class="pricing-section" aria-labelledby="pricing-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="sap-section-header">
 				<div class="section-kicker">
 					<span>GRANDFATHERED FOUNDING MEMBER RELEASE</span>
@@ -1335,9 +1271,9 @@
 					Lock In $47/Month For Life. Save $150/Month (76% OFF).
 				</h2>
 				<p class="sap-section-subtitle">
-					Public retail pricing for the <strong>Sunday Alpha Protocol™</strong> is
+					Public retail pricing for the <strong>Sunday Alpha Alerts</strong> is
 					<strong>$197/month</strong>. The first 100 Founding Members lock in
-					<strong>$47/month grandfathered for life</strong>—backed by 1-click self-service
+					<strong>$47/month grandfathered for life</strong>, backed by 1-click self-service
 					cancellation at any time.
 				</p>
 			</div>
@@ -1408,49 +1344,25 @@
 		</div>
 	</section>
 
-	<!-- FREE LEAD MAGNET VAULT -->
 	<section class="vault-section" aria-labelledby="vault-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="vault-box">
 				<div>
-					<div class="section-kicker">
-						<span>FREE WEEKLY MARKET RECON • SUNDAY 6:30 PM EST</span>
-					</div>
-					<h2 id="vault-h2" class="vault-title">
-						Not Ready for the Full Protocol? Join the Free Sunday Recon Brief.
-					</h2>
+					<div class="section-kicker"><span>MEMBERSHIP QUESTIONS</span></div>
+					<h2 id="vault-h2" class="vault-title">Find the right research membership.</h2>
 					<p class="vault-copy">
-						Receive Billy Ribeiro’s macro S&amp;P 500 ($SPY) &amp; Nasdaq ($QQQ) weekly dealer gamma
-						overview plus <strong>1 complimentary institutional chart setup</strong> every Sunday evening.
+						Contact our team for current availability, delivery details, and membership terms before
+						joining.
 					</p>
 				</div>
-				<div>
-					<form class="vault-form" onsubmit={handleReconSubmit}>
-						<label class="sr-only" for="sap-recon-email">Email address for Sunday Recon</label>
-						<input
-							id="sap-recon-email"
-							type="email"
-							class="vault-input"
-							placeholder="Enter your best trading email..."
-							required
-							bind:value={reconEmail}
-							disabled={reconSubmitting}
-						/>
-						<button type="submit" class="btn-primary-gold" disabled={reconSubmitting}>
-							{reconSubmitting ? 'Sending...' : 'Send Free Recon'}
-						</button>
-					</form>
-					{#if reconSubmitted && reconMessage}
-						<p class="vault-confirm" role="status">{reconMessage}</p>
-					{/if}
-				</div>
+				<a class="btn-primary-gold" href={resolve('/contact')}>Ask about Sunday Alpha Alerts</a>
 			</div>
 		</div>
 	</section>
 
-	<!-- FAQ ACCORDION (1-to-1 Parity with FAQPage Schema) -->
+	<!-- Visible native FAQ; shared data also informs the page graph. -->
 	<section id="faq" class="faq-section" aria-labelledby="faq-h2">
-		<div class="sap-container">
+		<div class="container">
 			<div class="sap-section-header">
 				<div class="section-kicker">
 					<span>FREQUENTLY ASKED QUESTIONS</span>
@@ -1471,28 +1383,32 @@
 
 	<!-- INSTITUTIONAL RISK DISCLAIMER -->
 	<section class="sap-disclaimer-section" aria-label="Institutional risk disclosure">
-		<div class="sap-container">
+		<div class="container">
 			<p class="disclaimer-legal">
 				<strong>IMPORTANT RISK DISCLOSURE &amp; EDUCATIONAL DISCLAIMER:</strong> Revolution Trading Pros
 				LLC and Billy Ribeiro are financial publishers and educational providers, not registered investment
-				advisors or broker-dealers. The Sunday Alpha Protocol™ provides market research, technical chart
-				analysis, and hypothetical trade scenarios strictly for educational and informational purposes.
-				Nothing contained herein constitutes individualized financial, investment, legal, or tax advice.
-				Trading equities, ETFs, and options involves substantial risk of loss and is not suitable for
-				every investor. Past performance, including historical macro calls or simulated R-multiple projections,
-				is not indicative of future results. Always consult with a licensed financial professional before
-				making any investment decisions.
+				advisors or broker-dealers. Sunday Alpha Alerts provides market research, technical chart analysis,
+				and hypothetical trade scenarios strictly for educational and informational purposes. Nothing
+				contained herein constitutes individualized financial, investment, legal, or tax advice. Trading
+				equities, ETFs, and options involves substantial risk of loss and is not suitable for every investor.
+				Past performance, including historical macro calls or simulated R-multiple projections, is not
+				indicative of future results. Always consult with a licensed financial professional before making
+				any investment decisions.
 			</p>
 		</div>
 	</section>
 
 	<!-- Sticky Bottom Conversion Bar -->
-	<div class={['sticky-bar', { visible: showStickyBar }]} aria-hidden={!showStickyBar}>
+	<div
+		class={['sticky-bar', { visible: showStickyBar }]}
+		aria-hidden={!showStickyBar}
+		inert={!showStickyBar}
+	>
 		<div class="sticky-text">
-			<strong>Sunday Alpha Protocol™ Founding Rate:</strong>
-			<span>$47/mo (Regular $197/mo — Save 76% For Life)</span>
+			<strong>Sunday Alpha Alerts Founding Rate:</strong>
+			<span>$47/mo (Regular $197/mo; save 76% For Life)</span>
 		</div>
-		<a href="#pricing" class="btn-primary-gold sticky-cta">Claim Pass -></a>
+		<a href="#pricing" class="btn-primary-gold sticky-cta">Ask about membership →</a>
 	</div>
 </main>
 

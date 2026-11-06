@@ -29,7 +29,7 @@ Publishing an eligible public CMS record now populates **both** the homepage blo
 
 Verify a draft is absent from both listings, publish through the normal service gate, then fetch both pages and inspect the actual card, cover and article link. Verify the chosen feature appears once above the regular grid. Test new publications, switching the feature and unpublishing. The image-flow E2E now checks actual initial HTML and 320/1440px browser rendering of both surfaces after publication.
 
-**Shared layout contract (November 5 follow-up):** archive, search, category and tag pages use the existing `.container` and `.section` primitives; article/protected shells use the same outer container. `src/app.css` sets a maximum of 1320px from 1024px, 1440px from 1280px and 1536px from 1536px. Prose stays at most 900px wide. New CMS articles inherit this automatically; never add per-post widths or stretch article text to the viewport. See [layout/release acceptance](docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md).
+**Shared layout contract:** follow [the current contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md):2440px maximum border-box outer frame including gutters,900px article measure,shared taxonomy/search and native bounded desktop TOC. New CMS posts inherit it automatically.
 
 ## 2. Establish the actual environment
 
@@ -66,7 +66,7 @@ The CMS stores **HTML**, not Markdown, MDX or Svelte. The [TipTap extension regi
 - Use real `<a href>` links, paragraphs, lists, blockquotes, figures and semantic tables. For wide tables, use an allowed `<div class="table-scroll">` wrapper and test it on mobile. Do not paste `<head>`, scripts, styles, Svelte components or metadata into the body.
 - There is no registered math renderer. Replace LaTeX such as `$$\\frac{700}{1000}$$` with readable text, e.g. `700 / (700 + 300) = 70%`, or a verified accessible graphic with equivalent text.
 - Store FAQs in the editor's FAQ fields as plain question/answer strings. The article template renders native `<details>`. Pasted body `<details>/<summary>` wrappers are stripped; FAQPage JSON-LD is prohibited by project policy.
-- Server transforms remove a duplicate leading title heading, inject known media dimensions/alt text, replace em/en dashes, sanitize content and autofill blank metadata. Review that output; do not rely on automatic copy changes to preserve financial meaning.
+- Server transforms remove a duplicate leading title heading, inject known media dimensions/alt text, preserve authored punctuation, sanitize content and autofill blank metadata. Review that output and financial meaning. Em-dash review is advisory; saves preserve punctuation.
 
 The public template adds a service CTA, FAQs, author box, sharing, previous/next and related posts, then the shared footer. Account for those when writing body CTAs; avoid repeated boilerplate. The template's indicator CTA still points into the gated store, a recorded launch concern.
 
@@ -173,7 +173,7 @@ For a new format such as `blogs/0DTE-spx-options-strategy.md`, convert approved 
 
 The server evaluates the final transformed/autofilled payload. A post must score **at least 80/100 and have zero blocking issues**. See [score.ts](src/lib/shared/seo/score.ts) and [meta-budget.ts](src/lib/shared/seo/meta-budget.ts).
 
-Blocking checks include missing meta title/description, a lowercase initial meta-title letter, no cover or OG image, cover alt missing/equal to the title, no author/category/tag, fewer than 300 body words, no external authority domain, the exact unresolved-placeholder sentinel, and em/en dashes left in checked fields. One authority domain is a nonblocking penalty; two distinct domains avoid it. FAQs are a scoring recommendation, not permission to emit FAQ schema.
+Blocking checks include missing meta title/description, a lowercase initial meta-title letter, no cover or OG image, cover alt missing/equal to the title, no author/category/tag, fewer than 300 body words, no external authority domain, the exact unresolved-placeholder sentinel. One authority domain is a nonblocking penalty; two distinct domains avoid it. FAQs are a scoring recommendation, not permission to emit FAQ schema.
 
 The gate runs on published/scheduled creation, transitions into published, and scheduled saves. **It does not re-gate edits to already-published posts.** Continue the full editorial/media checks on every live edit.
 

@@ -1,5 +1,7 @@
 # IMPLEMENTATION PROMPT: Production blog editor + blog system (port from tx-360)
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -16,7 +18,7 @@ You are implementing a complete blog authoring and publishing system in THIS rep
 4. **Phase it.** Ship in the phases in section 14, each as its own commit set, each ending green. Do not start phase N+1 until phase N passes its checks. Test what changed, not the whole suite each time; run the full gate once before the final push.
 5. **Honest data.** No fabricated posts, authors, metrics or screenshots. Seed only clearly labelled fixtures flagged `is_fixture = true` and excluded from every public query.
 6. **No silent failures.** No empty `catch {}`, no swallowed promise rejections. Every failure either shows a visible message or is logged with context. (The source system violated this in several places; they are listed as defects in section 13.)
-7. **No em dashes or en dashes** in any user-visible string, UI text, seed copy or generated content. Use commas, colons, parentheses, or the word "to" for ranges. Enforce with a lint rule and a server-side transform (section 7.4).
+7. **Contextual punctuation review.** Preserve authored punctuation on save. Review unnecessary publisher em dashes editorially; preserve quotations, attribution, notation, code, URLs and appropriate en-dash ranges. No blanket replace or publication block.
 8. **Svelte 5 runes only.** `$props`, `$state`, `$derived`, `$effect`, snippets. No `export let`, no `$:`, no slots, no `createEventDispatcher`. Use `$state.raw` for large objects that are only ever replaced wholesale.
 9. **Accessibility is a requirement, not polish.** Every control has an accessible name, toggles use `aria-pressed`, disclosures use `aria-expanded` plus `aria-controls`, dialogs use `aria-modal` plus a focus trap plus Escape, status changes are announced through a live region.
 10. **If something in this prompt is ambiguous or conflicts with the repo, stop and ask one targeted question.** Do not guess.
@@ -342,10 +344,9 @@ Order in `applyContentSeoTransforms`:
 2. One media lookup: `SELECT ... FROM media WHERE blob_url IN (<img srcs>) AND deleted_at IS NULL` (the `deleted_at IS NULL` filter is NEW; the source also matched soft-deleted rows).
 3. Inject `width` and `height` on `<img>` when either is missing and the media row has both (never invent).
 4. Backfill EMPTY alt from `media.alt_text` (never overwrite an explicit alt).
-5. Replace em and en dashes in the body with HTML-aware logic: **skip `<pre>`, `<code>`, attribute values and URLs** (source rewrote those). Rules: digit-dash-optional `$`-digit becomes "<a> to <b>"; leading dash at line start or after `>` is dropped; everything else becomes ", "; then collapse `,\s*,`.
-6. Replace dashes in title, metaTitle, metaDescription, excerpt, coverImageAlt, coverImageCaption, ogTitle, ogDescription, twitterTitle, twitterDescription, faqItems (exactly the source's field list). ADDITIONS in this port, not source behaviour: also focusKeyword, secondaryKeywords, and category and tag text.
+5. Preserve authored punctuation in HTML and metadata. Editorial review is advisory, never a destructive transform.
 
-**Transforms must also run on**: quick update titles, autosave snapshots, and restore (strip the stored text, not only the posts row). Then run the sanitiser. **Then** run autofill. **Then** run the gate on the FINAL values (source gated pre-sanitise, pre-autofill input, so the gate could pass content that sanitising later changed, and a title-equal autofilled cover alt passed storage but would fail the next gate).
+**Transforms must also run on**: quick update titles, autosave snapshots, and restore (preserve the stored text and punctuation). Then run the sanitiser. **Then** run autofill. **Then** run the gate on the FINAL values (source gated pre-sanitise, pre-autofill input, so the gate could pass content that sanitising later changed, and a title-equal autofilled cover alt passed storage but would fail the next gate).
 
 ### 7.5 Autofill (blank fields only, never overwrite)
 
@@ -393,7 +394,7 @@ Deductions (BLOCK means `blocking: true`):
 | 3+ FAQ items, some answer < 40 chars                                                                                                                                                                                                                           | warn     | -2                |
 | Freshness: `publishedAt` and the row's `updatedAt` (NOT `content_updated_at`) within 24h of each other AND age > 180 days; only evaluated when both dates are supplied                                                                                         | warn     | -4                |
 | Unresolved placeholder sentinel in content                                                                                                                                                                                                                     | error    | -100              |
-| Any em or en dash in content, titles, meta, excerpt, cover alt/caption, OG/Twitter, FAQ                                                                                                                                                                        | error    | -25               |
+| Editorial em-dash review                                                                                                                                                                                                                                       | warn     | 0, nonblocking    |
 
 Mark the placeholder and dash errors as `blocking: true` explicitly (source relied on the score arithmetic). External authority counting: distinct hostnames from absolute http(s) `<a href>`, `www.` stripped; exclude the site's own domain, localhost, `*.local`, and social/shorteners (facebook, instagram, linkedin, pinterest, reddit, threads.net, tiktok, twitter, x.com, youtube, youtu.be, t.co, bit.ly, goo.gl, tinyurl). Words: tags to spaces, collapse whitespace, split.
 
@@ -404,7 +405,7 @@ Gate placement: runs on create when status is published or scheduled; on update 
 - Snapshot title, content, excerpt, word count and `word_count_delta` = new count minus the POST's stored `word_count` before the save (source: not the previous revision's count; 0 on create); `user_id` set to the acting user.
 - Writers and `change_type`: create `manual`; update `publish` when it newly published, else `manual`; quick update only when the title changed (snapshot of the CURRENT content, new title); autosave `autosave`; restore `restore`.
 - **Autosave must dedupe**: skip insert when the snapshot hash equals the latest revision. **Retention**: keep all `manual`, `publish`, `restore`; keep only the latest N autosaves (e.g. 20) per post and prune older ones in the same transaction. List query returns the latest 50 **without** full content (id, type, date, word count, delta), and fetches content only for the diff or restore request.
-- Restore: verify the revision belongs to the post; strip dashes; re-gate only if currently scheduled; recompute metrics; set `content_updated_at` and `updated_at`; write a `restore` revision containing the STRIPPED text. Restores title, content, excerpt only (not slug, SEO, taxonomy, FAQ); say so in the UI.
+- Restore: verify the revision belongs to the post; preserve punctuation; re-gate only if currently scheduled; recompute metrics; set `content_updated_at` and `updated_at`; write a `restore` revision containing the sanitized text. Restores title, content, excerpt only (not slug, SEO, taxonomy, FAQ); say so in the UI.
 
 ### 7.8 Metrics
 
@@ -655,5 +656,5 @@ At the end of each phase print: files created or changed, tests added and their 
 - Every row of the gate table in 7.6 has a test; every sanitiser rule in 7.1 has a test.
 - A real browser screenshot of the built editor and of a published post at 1280 and 1440 widths exists, and the editor canvas and public render match structurally.
 - Accessibility: keyboard-only walkthrough of create, edit, insert image, publish, trash and restore works; every control has an accessible name; no focus traps without an exit.
-- No `console.log`, no swallowed errors, no em or en dashes in user-visible strings, no `window.confirm/alert/prompt`.
+- No `console.log`, no swallowed errors, contextually reviewed punctuation in user-visible strings, no `window.confirm/alert/prompt`.
 - `svelte-autofixer` (or the repo's equivalent) reports no issues on every Svelte file touched.

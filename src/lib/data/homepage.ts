@@ -80,8 +80,8 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 				description: 'Index options video watchlists and alerts.'
 			},
 			{
-				label: 'Sunday Alpha Protocol',
-				href: '/watchlist',
+				label: 'Sunday Alpha Alerts',
+				href: '/sunday-alpha-alerts',
 				previewTarget: 'memberships',
 				icon: 'explosive-swings',
 				description: 'Multi-day watchlists with defined entries and stops.'
@@ -384,7 +384,7 @@ export interface TraderPersona {
 export const TRADER_PERSONAS: readonly TraderPersona[] = [
 	{
 		icon: 'briefcase',
-		graphic: '09—05',
+		graphic: '09–05',
 		tag: 'BUSY CAREERS',
 		title: 'Working Professionals & Swing Traders',
 		description:
@@ -406,7 +406,7 @@ export const TRADER_PERSONAS: readonly TraderPersona[] = [
 	},
 	{
 		icon: 'lightning',
-		graphic: '9:30—4:00',
+		graphic: '9:30–4:00',
 		tag: 'LIVE INTRADAY EXECUTION',
 		title: 'Active Day Traders & Scalpers',
 		description:
@@ -449,7 +449,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	{
 		index: 'MEMBERSHIP / 01',
 		tag: 'DAY TRADERS · SCALPERS · PROS',
-		title: 'Day Trading Room — Live Stock & Options Execution',
+		title: 'Day Trading Room: Live Stock & Options Execution',
 		description:
 			'Step into our virtual trading floor. Follow real-time market reads, voice commentary, screen sharing, and execution discipline across stocks and options.',
 		featured: true,
@@ -478,7 +478,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	{
 		index: 'MEMBERSHIP / 02',
 		tag: 'WORKING PROFESSIONALS',
-		title: 'Swing Trading Room — Multi-Day Stock & Options Setups',
+		title: 'Swing Trading Room: Multi-Day Stock & Options Setups',
 		description:
 			'Built for people who cannot watch charts all day. Plan multi-day and multi-week stock and options ideas around a career and personal life.',
 		featured: false,
@@ -507,7 +507,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	{
 		index: 'MEMBERSHIP / 03',
 		tag: 'STARTING ACCOUNTS FROM $500+',
-		title: 'Small Accounts Room — Risk-First Mentorship ($500+)',
+		title: 'Small Accounts Room: Risk-First Mentorship ($500+)',
 		description:
 			'A dedicated educational track for traders working with limited capital. The priority is understanding risk, not promising fast or guaranteed account growth.',
 		featured: false,
@@ -535,8 +535,8 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	},
 	{
 		index: 'MEMBERSHIP / 04',
-		tag: 'SPX PROFIT PULSE · SUNDAY ALPHA PROTOCOL',
-		title: 'Alert Services — SPX Profit Pulse & Sunday Alpha Protocol',
+		tag: 'SPX PROFIT PULSE · SUNDAY ALPHA ALERTS',
+		title: 'Alert Services: SPX Profit Pulse & Sunday Alpha Alerts',
 		description:
 			'Want planned stock and options setups without a live room? Review the video thesis, intended trigger areas, targets, and invalidation in your own time.',
 		featured: false,
@@ -551,7 +551,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 			},
 			{
 				lead: 'Timely setup alerts:',
-				body: 'updates across SPX Profit Pulse and Sunday Alpha Protocol when monitored levels trigger.'
+				body: 'updates across SPX Profit Pulse and Sunday Alpha Alerts when monitored levels trigger.'
 			},
 			{
 				lead: 'Lower-commitment access:',
@@ -591,7 +591,7 @@ export const STORE_TOOLS: readonly StoreToolCard[] = [
 		bullets: [
 			'Transparent signal timing and historical-state behavior.',
 			'Market-structure context instead of unexplained arrows.',
-			'Accessible tools intended to support—not replace—risk management.'
+			'Accessible tools intended to support risk management without replacing it.'
 		],
 		ctaLabel: 'Explore Custom Indicators',
 		href: '/store/indicators',
@@ -698,13 +698,13 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'full-time-9-to-5',
 		question: 'Which option works with a full-time 9-to-5 job?',
 		answer:
-			'Start with the Swing Trading Room or our Alert Services (SPX Profit Pulse and Sunday Alpha Protocol). Both are designed around prepared market scenarios, entries, targets, and invalidation levels so you can review ideas outside a live trading room.'
+			'Start with the Swing Trading Room or our Alert Services (SPX Profit Pulse and Sunday Alpha Alerts). Both are designed around prepared market scenarios, entries, targets, and invalidation levels so you can review ideas outside a live trading room.'
 	},
 	{
 		id: 'video-watchlist-deliverables',
 		question: 'What comes with the video watchlist & alert memberships?',
 		answer:
-			'Planned deliverables include detailed video setup explanations, relevant charts and catalysts, proposed entry zones, profit targets, risk levels, and alerts as scenarios develop across SPX Profit Pulse and Sunday Alpha Protocol. Delivery terms and timing should be confirmed on the live membership page.'
+			'Planned deliverables include detailed video setup explanations, relevant charts and catalysts, proposed entry zones, profit targets, risk levels, and alerts as scenarios develop across SPX Profit Pulse and Sunday Alpha Alerts. Delivery terms and timing should be confirmed on the live membership page.'
 	},
 	{
 		id: 'apply-1-on-1-mentorship',
@@ -736,7 +736,7 @@ export const CLOSING_CONTENT: ClosingContent = {
 	headlineLead: 'We Are the Present. We Are the Future.',
 	headlineUnderline: 'We Are the Revolution.',
 	description:
-		'Leave the hype behind. Choose education, transparency, and realistic risk management. Explore a trading community designed to help you improve your process—not to sell you a promise of easy profits.',
+		'Leave the hype behind. Choose education, transparency, and realistic risk management. Explore a trading community designed to help you improve your process, with no promise of easy profits.',
 	primaryCta: {
 		label: 'Explore Memberships Now',
 		href: '/live-trading-rooms/day-trading-room',
@@ -799,8 +799,8 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 				previewTarget: 'memberships'
 			},
 			{
-				label: 'Sunday Alpha Protocol',
-				href: '/watchlist',
+				label: 'Sunday Alpha Alerts',
+				href: '/sunday-alpha-alerts',
 				previewTarget: 'memberships'
 			},
 			{

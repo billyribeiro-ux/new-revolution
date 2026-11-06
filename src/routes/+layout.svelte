@@ -39,7 +39,7 @@
 		if (page.error || page.status >= 400) {
 			return {
 				...merged,
-				title: `${page.status} — Page Not Found`,
+				title: `${page.status}: Page Not Found`,
 				description:
 					'The requested page could not be found on Revolution Trading Pros. Return to our live trading rooms, educational courses, indicators, or blog.',
 				robots: 'noindex, nofollow',

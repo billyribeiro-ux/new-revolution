@@ -138,11 +138,11 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 	{
 		id: 'explosive-swings',
 		schemaType: 'Service',
-		name: 'Sunday Alpha Protocol Watchlist',
+		name: 'Sunday Alpha Alerts',
 		serviceType: 'Multi-Day Swing Trading Video Watchlist and Alert Service',
 		description:
 			'Multi-day stock and options video watchlists with pre-planned entry zones, profit targets, and stop-loss invalidation levels for working professionals.',
-		path: '/watchlist'
+		path: '/sunday-alpha-alerts'
 	},
 	{
 		id: 'private-mentorship',
@@ -191,14 +191,14 @@ export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'oxy-put-options-600',
 		question: 'How did you make 600% overnight on OXY Put Options when Warren Buffett went long?',
 		answer:
-			'When news broke that Warren Buffett had purchased millions of dollars of Occidental Petroleum (OXY) shares, retail traders chased the headline at the top of an exhausted move. Using our institutional volume and liquidity exhaustion rules, we identified distribution into that retail buying wave, entered defined-risk OXY Put Options live, and locked in a 600% overnight gain—demonstrating why price and liquidity structure come before media headlines.'
+			'When news broke that Warren Buffett had purchased millions of dollars of Occidental Petroleum (OXY) shares, retail traders chased the headline at the top of an exhausted move. Using our institutional volume and liquidity exhaustion rules, we identified distribution into that retail buying wave, entered defined-risk OXY Put Options live, and locked in a 600% overnight gain, demonstrating why price and liquidity structure come before media headlines.'
 	},
 	{
 		id: 'small-accounts-500-mission',
 		question:
 			'Why do you offer a Small Accounts Room for $500+ accounts and affordable alert services?',
 		answer:
-			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
+			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Alerts or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -256,7 +256,7 @@ export function buildOrganizationEntity(origin: string) {
 			contentUrl: logoUrl,
 			width: BRAND_LOGO_WIDTH,
 			height: BRAND_LOGO_HEIGHT,
-			caption: `${BRAND_NAME} — ${BRAND_SLOGAN}`
+			caption: `${BRAND_NAME}: ${BRAND_SLOGAN}`
 		},
 		image: {
 			'@id': `${origin}/#logo`
@@ -280,7 +280,7 @@ export function buildOrganizationEntity(origin: string) {
 			'Swing Trading Alerts for Working Professionals',
 			'Small Account ($500+) Risk Management',
 			'Custom Non-Repainting Trading Indicators and Scanners',
-			'SPX Profit Pulse and Sunday Alpha Protocol Video Watchlists',
+			'SPX Profit Pulse and Sunday Alpha Alerts Video Watchlists',
 			'Institutional Order Flow and Market Structure Education'
 		],
 		contactPoint: {
@@ -357,7 +357,7 @@ export function buildWebSiteEntity(origin: string) {
 		'@id': `${origin}/#website`,
 		url: origin,
 		name: BRAND_NAME,
-		alternateName: `${BRAND_NAME} — ${BRAND_SLOGAN}`,
+		alternateName: `${BRAND_NAME}: ${BRAND_SLOGAN}`,
 		description:
 			'Stock and options trading education, live trading rooms, swing trading alerts, small-account mentorship ($500+), custom indicators, and scanners.',
 		inLanguage: 'en-US',
@@ -490,11 +490,11 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'people-over-making-money',
 		question: 'Why do you emphasize "People Over Making Money" so strongly?',
 		answer:
-			'Because our founder has stood on the losing end in the past and knows firsthand how destructive fake gurus are to hardworking families. After being mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick—and proving our edge live on the 2020 COVID top and bottom, the 2022 top and bottom, and our 600% overnight OXY Put Options trade—we didn\'t need to exploit retail traders for high-ticket course fees. We keep our services affordable so our members can actually prosper.'
+			'Because our founder has stood on the losing end in the past and knows firsthand how destructive fake gurus are to hardworking families. After being mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick and proving our edge live on the 2020 COVID top and bottom, the 2022 top and bottom, and our 600% overnight OXY Put Options trade, we didn\'t need to exploit retail traders for high-ticket course fees. We keep our services affordable so our members can actually prosper.'
 	},
 	{
 		id: 'small-account-coverage',
-		question: 'What if I only have $500 to start trading—am I really covered?',
+		question: 'What if I only have $500 to start trading? Am I really covered?',
 		answer:
 			'Yes. Our Small Accounts Room was created specifically so traders starting with as little as $500 never have to gamble or copy trades meant for six-figure portfolios. We teach strict risk-per-trade limits, affordable contract selection, and cash-account settlement discipline so you can grow safely.'
 	},
@@ -502,7 +502,7 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'alert-only-memberships',
 		question: "How do your alert-only memberships work if I can't join a live trading room?",
 		answer:
-			'Through our accessible alert services—Sunday Alpha Protocol and SPX Profit Pulse—we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
+			'Through our accessible alert services (Sunday Alpha Alerts and SPX Profit Pulse), we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -568,9 +568,9 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'struggling-trader-rejected',
 		question:
-			'I am a struggling trader who has lost money to fake gurus—will my application be rejected?',
+			'I am a struggling trader who has lost money to fake gurus. Will my application be rejected?',
 		answer:
-			'Never for past losses—only for a bad attitude. Our founder stood on the losing end in the past too, which is why we created Track 03 (Struggling Trader Turnaround). We do not judge you by your past drawdowns or account size; we judge you strictly by your honesty, work ethic, and willingness to unlearn bad retail habits and follow mechanical entry, exit, and stop-loss rules.'
+			'Past losses do not disqualify an applicant; a bad attitude does. Our founder stood on the losing end in the past too, which is why we created Track 03 (Struggling Trader Turnaround). We do not judge you by your past drawdowns or account size; we judge you strictly by your honesty, work ethic, and willingness to unlearn bad retail habits and follow mechanical entry, exit, and stop-loss rules.'
 	},
 	{
 		id: 'portfolio-managers',
@@ -584,7 +584,7 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'What if I want to join a Live Trading Room or Alert Service while my 1-on-1 application is reviewed?',
 		answer:
-			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Protocol).'
+			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Alerts).'
 	}
 ] as const;
 
@@ -662,13 +662,13 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'goldman-sachs-mentorship-lineage',
 		question: 'How does your Goldman Sachs mentorship lineage change how you day trade?',
 		answer:
-			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." Instead of chasing retail breakout candles, we track institutional order flow, liquidity sweeps, and buyer/seller exhaustion—the exact methodology behind our 2020 COVID top and bottom calls, our 2022 bull top and bear bottom calls, and our live 600% overnight gain on OXY Put Options opposite Warren Buffett.'
+			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." Instead of chasing retail breakout candles, we track institutional order flow, liquidity sweeps, and buyer/seller exhaustion, the exact methodology behind our 2020 COVID top and bottom calls, our 2022 bull top and bear bottom calls, and our live 600% overnight gain on OXY Put Options opposite Warren Buffett.'
 	},
 	{
 		id: 'spx-alerts-video-watchlists',
 		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
 		answer:
-			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Protocol (/alert-services/explosive-swings), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Alerts (/sunday-alpha-alerts), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
 	},
 	{
 		id: 'custom-non-repainting-indicators-scanners',
@@ -748,9 +748,9 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'swing-room-vs-explosive-swings',
 		question:
-			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
+			'How is the Swing Trading Room different from your Sunday Alpha Alerts alert service?',
 		answer:
-			'The Swing Trading Room gives you full interactive room access—including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol (/alert-services/explosive-swings) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Alerts (/sunday-alpha-alerts) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
 	},
 	{
 		id: 'methodology-2020-2022-oxy',
@@ -832,20 +832,20 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'cash-vs-margin-account-under-25k',
 		question: 'Should I use a Cash Account or a Margin Account if I have less than $25,000?',
 		answer:
-			'We teach you how to navigate both. In the United States, a Cash Account is exempt from the Pattern Day Trader (PDT) 3-day-trade limit—and because options and equities settle overnight on a T+1 schedule, your settled cash refreshes every single market morning. If you prefer a small margin account (or trade from Canada where PDT rules differ), we also execute multi-day swing setups and defined-risk spreads.'
+			'We teach you how to navigate both. In the United States, a Cash Account is exempt from the Pattern Day Trader (PDT) 3-day-trade limit. Because options and equities settle overnight on a T+1 schedule, your settled cash refreshes every single market morning. If you prefer a small margin account (or trade from Canada where PDT rules differ), we also execute multi-day swing setups and defined-risk spreads.'
 	},
 	{
 		id: 'goldman-sachs-pedigree-small-accounts',
 		question:
 			'Why do you care about $500 small accounts when you have Goldman Sachs mentorship pedigree?',
 		answer:
-			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and banking 600% overnight on OXY Put Options live opposite Warren Buffett, our founder built Revolution Trading Pros to put people over making money—protecting everyday traders from the fake gurus who prey on small accounts.'
+			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and banking 600% overnight on OXY Put Options live opposite Warren Buffett, our founder built Revolution Trading Pros to put people over making money, protecting everyday traders from the fake gurus who prey on small accounts.'
 	},
 	{
 		id: 'full-time-job-small-account',
 		question: 'What if I work a full-time job and also have a small $500+ account?',
 		answer:
-			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops—and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol (/alert-services/explosive-swings) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
+			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Alerts (/sunday-alpha-alerts) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
 	},
 	{
 		id: 'graduating-past-10k-25k',
@@ -893,7 +893,7 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 					audienceType: 'Traders Starting With Small Accounts ($500 to $5,000+)'
 				},
 				description:
-					'Dedicated live trading room and compounding framework engineered specifically for accounts starting as low as $500—covering affordable options contracts, T+1 cash account rotation, PDT navigation, and strict stop-loss discipline.'
+					'Dedicated live trading room and compounding framework engineered specifically for accounts starting as low as $500, covering affordable options contracts, T+1 cash account rotation, PDT navigation, and strict stop-loss discipline.'
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -970,7 +970,7 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'small-accounts-working-pros',
 		question: 'Are these indicators suitable for $500+ small accounts or working professionals?',
 		answer:
-			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Protocol alert tier.'
+			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Alerts alert tier.'
 	},
 	{
 		id: 'pair-with-scanners-courses',
@@ -1037,7 +1037,7 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 	{
 		id: 'beginner-500-account',
 		question:
-			'I am a complete beginner or starting with a $500 account—which course should I take first?',
+			'I am a complete beginner or starting with a $500 account. Which course should I take first?',
 		answer:
 			'Start with Course 02 (The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint) paired with Course 08 (Ironclad Risk Architecture). They give you the exact mathematical position-sizing rules, cash-account settlement rotation, and pre-trade checklists we execute daily inside our Small Accounts Room.'
 	},
@@ -1046,7 +1046,7 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'Do I need to buy your custom indicators or scanners to use what is taught in the courses?',
 		answer:
-			'No—raw price, volume, and Options Greeks come first. Every course teaches you how to read institutional market structure on any standard charting platform. Our 100% non-repainting Custom Indicators and Institutional Scanners are optional accelerators designed to spot those exact setups faster across multiple timeframes.'
+			'No. Raw price, volume, and Options Greeks come first. Every course teaches you how to read institutional market structure on any standard charting platform. Our 100% non-repainting Custom Indicators and Institutional Scanners are optional accelerators designed to spot those exact setups faster across multiple timeframes.'
 	},
 	{
 		id: 'courses-vs-mentorship-rooms',
@@ -1059,7 +1059,7 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'us-canadian-brokerages',
 		question: 'Do your courses cover both US and Canadian brokerage accounts?',
 		answer:
-			'Yes. Our curriculum covers US-listed stocks, ETFs, and options contracts traded by members across both the United States and Canada—including US Pattern Day Trader (PDT) and T+1 cash settlement rules as well as Canadian margin and registered account considerations.'
+			'Yes. Our curriculum covers US-listed stocks, ETFs, and options contracts traded by members across both the United States and Canada, including US Pattern Day Trader (PDT) and T+1 cash settlement rules as well as Canadian margin and registered account considerations.'
 	}
 ];
 
@@ -1134,7 +1134,7 @@ export const SINGLE_COURSE_FAQ_ITEMS: FaqItem[] = [
 		id: 'platforms-tickers-timeframes',
 		question: 'Which platforms, tickers, and timeframes do these tools and strategies work on?',
 		answer:
-			'All indicators and workspace templates are built for ThinkorSwim and TradingView. They work on any liquid instrument—including US stocks, ETFs, SPX/NDX indexes, and futures—across all timeframes from 1-minute scalping charts to Daily and Weekly swing charts.'
+			'All indicators and workspace templates are built for ThinkorSwim and TradingView. They work on any liquid instrument, including US stocks, ETFs, SPX/NDX indexes, and futures, across all timeframes from 1-minute scalping charts to Daily and Weekly swing charts.'
 	},
 	{
 		id: 'working-pro-and-500-account',
@@ -1215,13 +1215,13 @@ export const SINGLE_INDICATOR_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'Are there step-by-step instructions for installing the indicators on desktop and mobile?',
 		answer:
-			'Yes. You get instant access to our Quick-Start Indicator Installation Video and written setup guide the moment you enroll—covering ThinkorSwim Desktop, the ThinkorSwim Mobile App, and TradingView. If you ever want a hand, our support desk is available by phone or email.'
+			'Yes. You get instant access to our Quick-Start Indicator Installation Video and written setup guide the moment you enroll, covering ThinkorSwim Desktop, the ThinkorSwim Mobile App, and TradingView. If you ever want a hand, our support desk is available by phone or email.'
 	},
 	{
 		id: 'platforms-and-devices',
 		question: 'What charting platforms and devices work with these indicators?',
 		answer:
-			'The complete indicator suite is available for ThinkorSwim and TradingView on Windows, Mac, and Web—and the core Move Prior to The Move™ indicator is also fully compatible with the ThinkorSwim Mobile App (iOS and Android) so working professionals can monitor setups from anywhere.'
+			'The complete indicator suite is available for ThinkorSwim and TradingView on Windows, Mac, and Web, and the core Move Prior to The Move™ indicator is also fully compatible with the ThinkorSwim Mobile App (iOS and Android) so working professionals can monitor setups from anywhere.'
 	},
 	{
 		id: 'signals-non-repainting',
@@ -1302,7 +1302,7 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 		id: 'watch-market-all-day',
 		question: 'Do I have to watch the market all day to follow SPX Profit Pulse alerts?',
 		answer:
-			'No. SPX Profit Pulse is specifically designed for traders who want institutional S&P 500 options execution without sitting in a 6-hour chatroom. Because we publish detailed video watchlists mapping our exact trigger levels ahead of time—and dispatch real-time API alerts the moment a trade opens, scales out, or adjusts its stop—both full-time traders and 9-to-5 working professionals can follow seamlessly.'
+			'No. SPX Profit Pulse is specifically designed for traders who want institutional S&P 500 options execution without sitting in a 6-hour chatroom. Because we publish detailed video watchlists mapping our exact trigger levels ahead of time and dispatch real-time API alerts the moment a trade opens, scales out, or adjusts its stop, both full-time traders and 9-to-5 working professionals can follow seamlessly.'
 	},
 	{
 		id: 'zero-dte-or-multi-day',
@@ -1320,9 +1320,9 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 	{
 		id: 'difference-from-day-room-explosive-swings',
 		question:
-			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
+			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Alerts?',
 		answer:
-			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol (/alert-services/explosive-swings) is our multi-day stock and options swing alert service.'
+			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Alerts (/sunday-alpha-alerts) is our multi-day stock and options swing alert service.'
 	}
 ];
 
@@ -1364,7 +1364,7 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 			{
 				'@type': 'Service',
 				'@id': `${pageUrl}#service`,
-				name: 'SPX Profit Pulse — Real-Time S&P 500 & 0DTE Index Options Alert Service',
+				name: 'SPX Profit Pulse: Real-Time S&P 500 & 0DTE Index Options Alert Service',
 				provider: { '@id': `${origin}/#organization` },
 				serviceType: 'SPX and 0DTE Index Options Trade Alert and Video Watchlist Service',
 				areaServed: [
@@ -1388,7 +1388,7 @@ export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'install-thinkorswim-tradingview',
 		question: 'How do these scanners install on ThinkorSwim and TradingView?',
 		answer:
-			'Every scanner includes one-click import links and custom thinkScript code for ThinkorSwim (working inside both Stock Hacker, Option Hacker, and dynamic MarketWatch watchlist columns) as well as TradingView alert and screener templates—plus a step-by-step installation walkthrough video.'
+			'Every scanner includes one-click import links and custom thinkScript code for ThinkorSwim (working inside both Stock Hacker, Option Hacker, and dynamic MarketWatch watchlist columns) as well as TradingView alert and screener templates, plus a step-by-step installation walkthrough video.'
 	},
 	{
 		id: 'scanners-non-repainting-real-time',
@@ -1407,7 +1407,7 @@ export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'watch-scanners-live-market-hours',
 		question: 'Can I watch your team use these scanners live during market hours?',
 		answer:
-			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Protocol.'
+			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Alerts.'
 	}
 ];
 
@@ -1608,7 +1608,7 @@ export const ETF_STOCKS_LIST_FAQ_ITEMS: FaqItem[] = [
 		id: 'small-account-etf-options',
 		question: 'Which ETFs are best for trading options in a $500+ small account?',
 		answer:
-			'For accounts starting between $500 and $2,500, we focus on ETFs that combine penny-wide bid-ask spreads with affordable contract prices: IWM (Russell 2000), XLF (Financials), XLE (Energy), GLD (Gold), and EEM (Emerging Markets)—as well as defined-risk vertical spreads on SPY and QQQ.'
+			'For accounts starting between $500 and $2,500, we focus on ETFs that combine penny-wide bid-ask spreads with affordable contract prices: IWM (Russell 2000), XLF (Financials), XLE (Energy), GLD (Gold), and EEM (Emerging Markets), as well as defined-risk vertical spreads on SPY and QQQ.'
 	},
 	{
 		id: 'sector-etfs-vs-single-stocks',
@@ -1680,7 +1680,7 @@ export function buildEtfStocksListJsonLd(origin: string) {
 				itemListElement: featuredETFs.map((etf, index) => ({
 					'@type': 'ListItem',
 					position: index + 1,
-					name: `${etf.symbol} — ${etf.name}`
+					name: `${etf.symbol}: ${etf.name}`
 				}))
 			}
 		]
@@ -1782,7 +1782,7 @@ export function buildStockIndexesListJsonLd(origin: string) {
 				itemListElement: STOCK_INDEXES_LIST_ITEMS.map((idx, index) => ({
 					'@type': 'ListItem',
 					position: index + 1,
-					name: `${idx.symbol} — ${idx.name}`
+					name: `${idx.symbol}: ${idx.name}`
 				}))
 			}
 		]
@@ -1863,9 +1863,9 @@ export function buildResourcesHubJsonLd(origin: string) {
 export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'sunday-dispatch-time',
-		question: 'When exactly do I receive the Sunday Alpha Protocol every week?',
+		question: 'When exactly do I receive the Sunday Alpha Alerts every week?',
 		answer:
-			'The Sunday Alpha Protocol is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard—one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
+			'Sunday Alpha Alerts is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard, one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
 	},
 	{
 		id: 'markets-and-asset-classes',
@@ -1894,7 +1894,7 @@ export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 ] as const;
 
 export function buildSundayAlphaProtocolJsonLd(origin: string) {
-	const pageUrl = `${origin}/watchlist`;
+	const pageUrl = `${origin}/sunday-alpha-alerts`;
 
 	return {
 		'@graph': [
@@ -1921,9 +1921,9 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				'@type': 'WebPage',
 				'@id': `${pageUrl}#webpage`,
 				url: pageUrl,
-				name: 'Sunday Alpha Protocol™ Watchlist | Revolution Trading Pros',
+				name: 'Sunday Alpha Alerts | Revolution Trading Pros',
 				description:
-					'Institutional stock & options swing blueprints by Billy Ribeiro. Every Sunday at 5 PM EST, get 5-7 setups with 15m triggers, cent stops & 1:2.50+ R:R.',
+					'Explore Sunday Alpha Alerts stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#protocol` },
@@ -1933,7 +1933,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 			{
 				'@type': 'Service',
 				'@id': `${pageUrl}#service`,
-				name: 'Sunday Alpha Protocol™ — Institutional Stock & Options Swing Trading Blueprint',
+				name: 'Sunday Alpha Alerts: Institutional Stock & Options Swing Trading Blueprint',
 				url: pageUrl,
 				provider: { '@id': `${origin}/#organization` },
 				serviceType: 'Institutional Stock and Options Swing Trading Watchlist Blueprint',
@@ -1951,7 +1951,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 			{
 				'@type': 'Product',
 				'@id': `${pageUrl}#protocol`,
-				name: 'Sunday Alpha Protocol™',
+				name: 'Sunday Alpha Alerts',
 				description:
 					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.',
 				image: `${origin}${BRAND_SOCIAL_IMAGE_PATH}`,
@@ -1996,7 +1996,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Weekly Stock & Options Video Watchlist',
+						name: 'Sunday Alpha Alerts',
 						item: pageUrl
 					}
 				]

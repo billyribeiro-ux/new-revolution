@@ -334,7 +334,7 @@
 		border-block-end: none;
 	}
 	.tbl__email {
-		font-family: var(--font-mono, monospace);
+		font-family: var(--font-sans);
 		color: rgba(255, 255, 255, 0.65);
 	}
 	.badge {

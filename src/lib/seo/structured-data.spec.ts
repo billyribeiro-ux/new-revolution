@@ -501,7 +501,7 @@ describe('buildSpxProfitPulseJsonLd', () => {
 		) as Node;
 		expect(service['@type']).toBe('Service');
 		expect(service.name).toBe(
-			'SPX Profit Pulse — Real-Time S&P 500 & 0DTE Index Options Alert Service'
+			'SPX Profit Pulse: Real-Time S&P 500 & 0DTE Index Options Alert Service'
 		);
 		expect(service.provider).toEqual({ '@id': `${ORIGIN}/#organization` });
 	});
@@ -606,15 +606,17 @@ describe('buildResourcesHubJsonLd', () => {
 describe('buildSundayAlphaProtocolJsonLd', () => {
 	const graph = buildSundayAlphaProtocolJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Protocol Product with image and 3 Offers ($47, $127, $447)', () => {
+	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Alerts Product with image and 3 Offers ($47, $127, $447)', () => {
 		assertGraphIntegrity(graph);
 		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
 		expect(person['@type']).toBe('Person');
 		expect(person.name).toBe('Billy Ribeiro');
 
-		const product = graph.find((n) => n['@id'] === `${ORIGIN}/watchlist#protocol`) as Node;
+		const product = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/sunday-alpha-alerts#protocol`
+		) as Node;
 		expect(product['@type']).toBe('Product');
-		expect(product.name).toBe('Sunday Alpha Protocol™');
+		expect(product.name).toBe('Sunday Alpha Alerts');
 		expect(product.image).toBe(`${ORIGIN}/og-image.png`);
 		const offers = product.offers as { name: string; price: string }[];
 		expect(offers).toHaveLength(3);

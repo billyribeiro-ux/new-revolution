@@ -270,7 +270,7 @@
 		color: rgba(255, 255, 255, 0.8);
 	}
 	.tbl__email {
-		font-family: var(--font-mono, monospace);
+		font-family: var(--font-sans);
 		color: rgba(255, 255, 255, 0.65);
 	}
 	.badge {

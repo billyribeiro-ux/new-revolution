@@ -1,0 +1,70 @@
+{
+	"date": "2026-11-05",
+	"baseline": "54caa06",
+	"stack": {
+		"svelte": "5.57.3",
+		"kit": "3.1.1",
+		"adapter": "7.0.2",
+		"packageManager": "pnpm12.16.1"
+	},
+	"results": {
+		"unitComponent": {
+			"passed": 674,
+			"files": 88
+		},
+		"authenticatedChromium": {
+			"passed": 71,
+			"skipped": 0
+		},
+		"firefoxFocused": {
+			"passed": 26
+		},
+		"webkitFocused": {
+			"passed": 26
+		},
+		"standaloneSeo": {
+			"passed": 3
+		},
+		"staticPages": {
+			"passed": 46
+		},
+		"maintenanceOutput": {
+			"passed": 4
+		},
+		"svelteMcp": {
+			"files": 41,
+			"issues": 0,
+			"suggestions": 0
+		},
+		"svelteDiagnostics": {
+			"errors": 0,
+			"warnings": 0
+		},
+		"cssFontPolicy": "passed",
+		"codeLint": "passed",
+		"svelteEslint": "passed",
+		"ownedFormatting": "passed"
+	},
+	"repositoryLint": {
+		"status": "fails at formatting stage",
+		"unchangedReferences": [
+			"blogs/first-blog.md",
+			"blogs/head-to-head-blog.md",
+			"docs/reviews/font-fragment-audit-2026-11-05/release/verify-browser.mjs"
+		],
+		"codeLintRunSeparately": true,
+		"criteriaRelaxed": false
+	},
+	"database": {
+		"migration": "0004_post_search_projection.sql",
+		"productionExistingRows": 1,
+		"previewExistingRows": 0,
+		"sourceRowsIdentical": true,
+		"pending": 0
+	},
+	"accounts": {
+		"disposableLocalAdminsRevoked": 3,
+		"productionAccountsCreated": 0
+	},
+	"deployment": "pending separate release proof"
+}

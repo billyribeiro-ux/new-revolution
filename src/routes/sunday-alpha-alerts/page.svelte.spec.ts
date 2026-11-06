@@ -12,12 +12,12 @@ import {
 
 function getPageData() {
 	return load({
-		url: new URL('https://www.revolutiontradingpros.com/watchlist')
+		url: new URL('https://www.revolutiontradingpros.com/sunday-alpha-alerts')
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
-describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
-	it('locks title tag to 32 chars before suffix (58 total) and meta description to 150 chars', () => {
+describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Alerts)', () => {
+	it('uses the current product name, canonical route and house metadata budgets', () => {
 		const data = getPageData() as {
 			pageMetaTags: {
 				title: string;
@@ -27,14 +27,17 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 			};
 		};
 
-		expect(data.pageMetaTags.title).toBe('Sunday Alpha Protocol™ Watchlist');
-		expect(data.pageMetaTags.title.length).toBe(32);
+		expect(data.pageMetaTags.title).toBe('Sunday Alpha Alerts');
+		expect(data.pageMetaTags.title.length).toBeLessThanOrEqual(33);
 		expect(data.pageMetaTags.openGraph.type).toBe('website');
 		expect(data.pageMetaTags.description).toBe(
-			'Institutional stock & options swing blueprints by Billy Ribeiro. Every Sunday at 5 PM EST, get 5-7 setups with 15m triggers, cent stops & 1:2.50+ R:R.'
+			'Explore Sunday Alpha Alerts stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.'
 		);
-		expect(data.pageMetaTags.description.length).toBe(150);
-		expect(data.pageMetaTags.canonical).toBe('https://www.revolutiontradingpros.com/watchlist');
+		expect(data.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(data.pageMetaTags.description.length).toBeLessThanOrEqual(158);
+		expect(data.pageMetaTags.canonical).toBe(
+			'https://www.revolutiontradingpros.com/sunday-alpha-alerts'
+		);
 	});
 
 	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy, and 1-to-1 FAQ parity with schema', async () => {
@@ -48,7 +51,7 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 
 		const h1s = document.querySelectorAll('h1');
 		expect(h1s.length).toBe(1);
-		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain('THE SUNDAY ALPHA PROTOCOL.');
+		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain('THE SUNDAY ALPHA ALERTS.');
 
 		expect(document.querySelectorAll('h4').length).toBe(0);
 
@@ -67,16 +70,16 @@ describe('/watchlist/+page.svelte (Sunday Alpha Protocol™)', () => {
 			} as never
 		});
 
-		await expect.element(page.getByText('$TSLA — Tesla, Inc.')).toBeVisible();
+		await expect.element(page.getByText('$TSLA: Tesla, Inc.')).toBeVisible();
 
 		const nvdaTab = page.getByRole('tab', { name: '$NVDA BREAKOUT' });
 		await nvdaTab.click();
-		await expect.element(page.getByText('$NVDA — NVIDIA Corp.')).toBeVisible();
+		await expect.element(page.getByText('$NVDA: NVIDIA Corp.')).toBeVisible();
 		await expect.element(page.getByText('RELATIVE STRENGTH LEADER')).toBeVisible();
 
 		const spyTab = page.getByRole('tab', { name: '$SPY PIVOT' });
 		await spyTab.click();
-		await expect.element(page.getByText('$SPY — S&P 500 ETF Trust')).toBeVisible();
+		await expect.element(page.getByText('$SPY: S&P 500 ETF Trust')).toBeVisible();
 		await expect.element(page.getByText('INDEX LIQUIDITY RECLAIM')).toBeVisible();
 	});
 

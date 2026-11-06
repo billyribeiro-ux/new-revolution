@@ -1,20 +1,5 @@
 import { SITE_ORIGIN } from '#lib/shared/site-origin';
-import {
-	and,
-	asc,
-	count,
-	desc,
-	eq,
-	gt,
-	ilike,
-	inArray,
-	isNotNull,
-	isNull,
-	lt,
-	ne,
-	notIlike,
-	or
-} from 'drizzle-orm';
+import { and, asc, count, desc, eq, gt, inArray, isNotNull, isNull, lt, ne } from 'drizzle-orm';
 import { sanitizePostHtml } from '../../sanitize-post-html';
 import {
 	postAutosaveSchema,
@@ -31,8 +16,6 @@ import {
 import { applyPostAutofill } from '../../shared/seo/autofill';
 import {
 	applyContentSeoTransforms,
-	replaceEmEnDashesInHtml,
-	replaceEmEnDashesInPlainText,
 	type MediaDimensionLookupItem
 } from '../../shared/seo/content-transform';
 import { enforcePublishSeoGate } from '../../shared/seo/score';
@@ -44,6 +27,11 @@ import {
 } from '../../shared/seo/toc';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
+import { preparePublicPostContent } from '../posts/prepared-content';
+export { stripDuplicateLeadImage } from '../posts/prepared-content';
+import { persistPostSearchProjection } from '../posts/search-persistence';
+import { buildPublicPostFilter, type PublicPostFilters } from '../posts/search-query';
+import { normalizeBlogSearch } from '../../shared/blog/search';
 import {
 	AUTOSAVE_RETENTION_LIMIT,
 	pruneAutosaveRevisions,
@@ -742,8 +730,7 @@ export async function quickUpdatePost(
 		throw new Error('POST_NOT_FOUND: Post does not exist or is in Trash.');
 	}
 
-	const nextTitle =
-		parsed.title !== undefined ? replaceEmEnDashesInPlainText(parsed.title) : existing.title;
+	const nextTitle = parsed.title !== undefined ? parsed.title : existing.title;
 	const nextSlug = parsed.slug ?? existing.slug;
 	const nextStatus =
 		parsed.status ?? (existing.status as PostQuickUpdateInput['status']) ?? 'draft';
@@ -901,13 +888,11 @@ export async function autosavePost(
 			}
 		}
 
-		// Strip dashes and sanitize content before storing snapshot (Section 7.4 & 8.2)
-		const cleanTitle = replaceEmEnDashesInPlainText(parsed.title ?? '');
+		// Sanitize the snapshot while preserving authored punctuation.
+		const cleanTitle = parsed.title ?? '';
 		const cleanExcerpt =
-			parsed.excerpt !== null && parsed.excerpt !== undefined
-				? replaceEmEnDashesInPlainText(parsed.excerpt)
-				: null;
-		const cleanContent = sanitizePostHtml(replaceEmEnDashesInHtml(parsed.content ?? ''));
+			parsed.excerpt !== null && parsed.excerpt !== undefined ? parsed.excerpt : null;
+		const cleanContent = sanitizePostHtml(parsed.content ?? '');
 
 		// Dedupe: skip insert when snapshot matches the latest revision (Section 7.7)
 		const latestRevs = await tx
@@ -1022,11 +1007,10 @@ export async function restorePostRevision(
 			throw new Error('REVISION_NOT_FOUND: Revision does not belong to this post.');
 		}
 
-		// Strip dashes and sanitize restored snapshot (Section 7.4 & 7.7)
-		const restoredTitle = replaceEmEnDashesInPlainText(rev.titleSnapshot);
-		const restoredExcerpt =
-			rev.excerptSnapshot !== null ? replaceEmEnDashesInPlainText(rev.excerptSnapshot) : null;
-		const restoredContent = sanitizePostHtml(replaceEmEnDashesInHtml(rev.contentSnapshot));
+		// Sanitize the restored snapshot without rewriting editorial punctuation.
+		const restoredTitle = rev.titleSnapshot;
+		const restoredExcerpt = rev.excerptSnapshot !== null ? rev.excerptSnapshot : null;
+		const restoredContent = sanitizePostHtml(rev.contentSnapshot);
 
 		const newWordCount = countContentWords(restoredContent);
 		const newReadingTime = computeReadingTime(newWordCount);
@@ -1110,6 +1094,7 @@ export async function restorePostRevision(
 			tx
 		);
 
+		await persistPostSearchProjection(tx, updatedRows[0]);
 		return stripPasswordFromPostRow(updatedRows[0]);
 	});
 }
@@ -1195,11 +1180,10 @@ export async function restoreTrashedPost(
 			throw new Error('POST_NOT_FOUND: Post is not in Trash.');
 		}
 
-		// Strip dashes on restore and recompute derived metrics (Section 7.4)
-		const cleanTitle = replaceEmEnDashesInPlainText(existing.title);
-		const cleanContent = sanitizePostHtml(replaceEmEnDashesInHtml(existing.content));
-		const cleanExcerpt =
-			existing.excerpt !== null ? replaceEmEnDashesInPlainText(existing.excerpt) : null;
+		// Preserve source punctuation on restore and recompute derived metrics.
+		const cleanTitle = existing.title;
+		const cleanContent = sanitizePostHtml(existing.content);
+		const cleanExcerpt = existing.excerpt !== null ? existing.excerpt : null;
 		const { toc } = normalizePostHeadings(cleanContent, cleanTitle);
 		const wordCount = countContentWords(cleanContent);
 		const readingTime = Math.max(1, Math.ceil(wordCount / 200));
@@ -1233,6 +1217,7 @@ export async function restoreTrashedPost(
 			tx
 		);
 
+		await persistPostSearchProjection(tx, updated[0]);
 		return updated[0];
 	});
 
@@ -1344,92 +1329,64 @@ export async function listFeaturedPosts(limit: number = 3) {
 	}));
 }
 
-export async function listPublicPosts(options?: {
-	page?: number;
-	perPage?: number;
-	categoryId?: number;
-	tagId?: number;
-	search?: string;
-}) {
+export async function listPublicPosts(
+	options: PublicPostFilters & { page?: number; perPage?: number } = {}
+) {
 	const db = await ensureDbReady();
-	const now = new Date();
-	const page = Math.max(1, options?.page ?? 1);
-	const perPage = Math.max(1, Math.min(50, options?.perPage ?? 12));
+	const page = Math.max(1, Math.floor(options.page ?? 1));
+	const perPage = Math.max(1, Math.min(50, Math.floor(options.perPage ?? 12)));
 	const offset = (page - 1) * perPage;
+	return db.transaction(
+		async (tx) => {
+			const whereClause = await buildPublicPostFilter(
+				tx,
+				{ ...options, search: normalizeBlogSearch(options.search ?? '') },
+				new Date()
+			);
 
-	const filters = [publicIndexablePostPredicate(now)];
+			const [totalRows, items] = await Promise.all([
+				tx.select({ total: count() }).from(posts).where(whereClause),
+				tx
+					.select({
+						post: posts,
+						authorName: authors.name,
+						authorSlug: authors.slug,
+						authorAvatar: authors.avatar,
+						authorJobTitle: authors.jobTitle,
+						categoryName: categories.name,
+						categorySlug: categories.slug,
+						categoryColor: categories.color
+					})
+					.from(posts)
+					.leftJoin(authors, eq(posts.authorId, authors.id))
+					.leftJoin(categories, eq(posts.categoryId, categories.id))
+					.where(whereClause)
+					.orderBy(desc(posts.isSticky), desc(posts.publishedAt), desc(posts.id))
+					.limit(perPage)
+					.offset(offset)
+			]);
 
-	if (options?.categoryId) {
-		const catId = options.categoryId;
-		const pivotPostIds = db
-			.select({ postId: postCategories.postId })
-			.from(postCategories)
-			.where(eq(postCategories.categoryId, catId));
-		filters.push(or(eq(posts.categoryId, catId), inArray(posts.id, pivotPostIds))!);
-	}
+			const total = Number(totalRows[0]?.total ?? 0);
 
-	if (options?.tagId) {
-		const pivotPostIds = db
-			.select({ postId: postTags.postId })
-			.from(postTags)
-			.where(eq(postTags.tagId, options.tagId));
-		filters.push(inArray(posts.id, pivotPostIds));
-	}
-
-	if (options?.search && options.search.trim()) {
-		const escaped = options.search.trim().replace(/[%_\\]/g, '\\$&');
-		const pattern = `%${escaped}%`;
-		filters.push(or(ilike(posts.title, pattern), ilike(posts.excerpt, pattern))!);
-		filters.push(
-			or(
-				isNull(posts.customFields),
-				notIlike(posts.customFields, '%"__excludeFromSearch","value":"true"%')
-			)!
-		);
-	}
-
-	const whereClause = and(...filters)!;
-
-	const [totalRows, items] = await Promise.all([
-		db.select({ total: count() }).from(posts).where(whereClause),
-		db
-			.select({
-				post: posts,
-				authorName: authors.name,
-				authorSlug: authors.slug,
-				authorAvatar: authors.avatar,
-				authorJobTitle: authors.jobTitle,
-				categoryName: categories.name,
-				categorySlug: categories.slug,
-				categoryColor: categories.color
-			})
-			.from(posts)
-			.leftJoin(authors, eq(posts.authorId, authors.id))
-			.leftJoin(categories, eq(posts.categoryId, categories.id))
-			.where(whereClause)
-			.orderBy(desc(posts.isSticky), desc(posts.publishedAt), desc(posts.id))
-			.limit(perPage)
-			.offset(offset)
-	]);
-
-	const total = Number(totalRows[0]?.total ?? 0);
-
-	return {
-		items: items.map((r) => ({
-			...stripPasswordFromPostRow(r.post),
-			authorName: r.authorName,
-			authorSlug: r.authorSlug,
-			authorAvatar: r.authorAvatar,
-			authorJobTitle: r.authorJobTitle,
-			categoryName: r.categoryName,
-			categorySlug: r.categorySlug,
-			categoryColor: r.categoryColor
-		})),
-		total,
-		page,
-		perPage,
-		totalPages: Math.max(1, Math.ceil(total / perPage))
-	};
+			return {
+				items: items.map((r) => ({
+					...stripPasswordFromPostRow(r.post),
+					authorName: r.authorName,
+					authorSlug: r.authorSlug,
+					authorAvatar: r.authorAvatar,
+					authorJobTitle: r.authorJobTitle,
+					categoryName: r.categoryName,
+					categorySlug: r.categorySlug,
+					categoryColor: r.categoryColor
+				})),
+				total,
+				page,
+				perPage,
+				totalPages: Math.max(1, Math.ceil(total / perPage))
+			};
+		},
+		{ isolationLevel: 'repeatable read', accessMode: 'read only' }
+	);
 }
 
 export async function listSitemapBlogEntries() {
@@ -1509,32 +1466,6 @@ export function rankRelatedPosts<T extends RelatedCandidate>(
 	});
 
 	return scored.slice(0, 3).map((s) => s.candidate);
-}
-
-export function stripDuplicateLeadImage(
-	html: string,
-	coverImageUrl: string | null | undefined
-): string {
-	if (!html || !coverImageUrl) return html;
-	const getFileStem = (url: string) => {
-		const filename = url.split('/').pop()?.split('?')[0] ?? '';
-		return filename
-			.replace(/-(?:480|800|1200)w\.(?:webp|png|jpe?g|avif)$/i, '')
-			.replace(/\.[a-z0-9]+$/i, '')
-			.toLowerCase();
-	};
-	const coverStem = getFileStem(coverImageUrl);
-	if (!coverStem) return html;
-
-	return html.replace(
-		/^\s*(?:<p>\s*)?<img\b[^>]*?\bsrc=["']([^"']+)["'][^>]*>\s*(?:<\/p>)?/i,
-		(full, imgSrc: string) => {
-			if (getFileStem(imgSrc) === coverStem) {
-				return '';
-			}
-			return full;
-		}
-	);
 }
 
 export async function getPublicPostViewBySlug(
@@ -1743,11 +1674,11 @@ export async function getPublicPostViewBySlug(
 		}
 	}
 
-	const sanitizedBody = stripDuplicateLeadImage(
-		sanitizePostHtml(effectiveContent),
+	const { html: normalizedHtml, toc } = preparePublicPostContent(
+		effectiveContent,
+		effectiveTitle,
 		post.coverImage
 	);
-	const { html: normalizedHtml, toc } = normalizePostHeadings(sanitizedBody, effectiveTitle);
 
 	return {
 		status: 200 as const,

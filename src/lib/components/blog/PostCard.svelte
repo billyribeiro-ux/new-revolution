@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { coverSrcsetFromUrl } from '#lib/shared/cover-srcset';
 	import type { BlogCardPost } from '#lib/shared/blog/discovery';
+	import { sizeCardImage } from './size-card-image';
 
 	export type PostCardItem = BlogCardPost;
 
@@ -15,7 +15,14 @@
 
 	let { post, eager = false, headingLevel = 'h3', tone = 'dark', lead = false }: Props = $props();
 
-	let srcset = $derived(coverSrcsetFromUrl(post.coverImage));
+	let srcset = $derived(post.coverImageSrcset);
+	let sourceSizes = $derived(
+		srcset
+			? lead
+				? '(min-width: 48rem) min(37.5rem, 50vw), min(75rem, 100vw)'
+				: 'min(25rem, 100vw)'
+			: undefined
+	);
 	let displayDate = $derived(post.publishedAt ?? post.contentUpdatedAt ?? null);
 	let formattedDate = $derived(
 		displayDate
@@ -51,11 +58,7 @@
 			<img
 				src={post.coverImage}
 				{srcset}
-				sizes={srcset
-					? lead
-						? '(max-width: 767px) 100vw, 50vw'
-						: '(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 400px'
-					: undefined}
+				sizes={sourceSizes}
 				alt={post.coverImageAlt || post.title}
 				width={post.coverImageWidth || 800}
 				height={post.coverImageHeight || 450}
@@ -63,6 +66,7 @@
 				fetchpriority={eager ? 'high' : 'auto'}
 				decoding="async"
 				class="card-cover-img"
+				{@attach (image) => sizeCardImage(image, sourceSizes)}
 			/>
 		</a>
 	{/if}
@@ -134,6 +138,8 @@
 		display: flex;
 		flex-direction: column;
 		min-inline-size: 0;
+		inline-size: 100%;
+		max-inline-size: 25rem;
 		background: var(--post-card-bg);
 		color: var(--post-card-text);
 		border: 1px solid var(--post-card-line);
@@ -150,6 +156,10 @@
 
 	.blog-post-card.is-featured {
 		border-color: color-mix(in srgb, var(--post-card-accent) 45%, var(--post-card-line));
+	}
+
+	.blog-post-card.is-lead {
+		max-inline-size: 75rem;
 	}
 
 	.blog-post-card.is-light {
@@ -169,6 +179,11 @@
 
 	.card-media-link {
 		display: block;
+		inline-size: 100%;
+		padding: 0;
+		min-block-size: 0;
+		min-inline-size: 0;
+		flex-shrink: 0;
 		aspect-ratio: 16 / 9;
 		background: var(--post-card-inset);
 		overflow: hidden;
@@ -177,7 +192,7 @@
 	.card-cover-img {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
 		display: block;
 	}
 
@@ -302,52 +317,19 @@
 		}
 
 		.is-lead .card-media-link {
-			aspect-ratio: auto;
-			min-block-size: 280px;
-		}
-
-		.is-lead .card-cover-img {
-			position: absolute;
-			inset: 0;
-		}
-
-		.is-lead .card-media-link {
-			position: relative;
+			align-self: center;
 		}
 
 		.is-lead .card-title {
-			font-size: clamp(1.3rem, 2.2vw, 2rem);
+			font-size: clamp(1.3rem, 2.2vw, 1.75rem);
 		}
 
 		.is-lead .card-body {
-			padding: 2rem;
-		}
-
-		/* The archive lead preserves the complete editorial artwork. Homepage cards keep their existing treatment. */
-		.blog-post-card.is-lead.has-cover:not(.is-light) {
-			grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-		}
-
-		.is-lead:not(.is-light) .card-media-link {
-			aspect-ratio: 16 / 9;
-			min-block-size: 0;
-		}
-
-		.is-lead:not(.is-light) .card-cover-img {
-			position: static;
-			object-fit: contain;
-		}
-
-		.is-lead:not(.is-light) .card-body {
 			justify-content: center;
-			padding: clamp(2rem, 4vw, 4rem);
+			padding: clamp(1.25rem, 2.5vw, 2rem);
 		}
 
-		.is-lead:not(.is-light) .card-title {
-			font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-		}
-
-		.is-lead:not(.is-light) .card-read-link::after {
+		.is-lead .card-read-link::after {
 			content: '↗';
 			margin-inline-start: 0.5rem;
 		}

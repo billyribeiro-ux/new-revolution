@@ -1,5 +1,7 @@
 # Admin Access, Better Auth and Blog Backend: Audit and Implementation Plan
 
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 2440px, two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
@@ -9,6 +11,8 @@
 > **2026-11-05 blog audit:** use [the current publishing guide](../blog%20implementation.md) and [audit evidence](reviews/blog-audit-2026-11-05/AUDIT.md) for current blog operations. The dated progress records below are historical. This audit changes documentation and adds read-only probes; it does not change admin/auth/database behavior. In particular, Trash restore currently returns a draft, author identity and timestamp policy still have recorded discrepancies, and hosted CDN purging is not connected.
 
 > **2026-11-05 discovery follow-up:** homepage/blog cards now share a CMS query with a single featured/newest lead and paginated remaining publications. The homepage is SSR so publication requires no rebuild; no-store reads apply to those two listings. This is separate from the historical admin plan below and the still-proposed intake importer. See [the handoff](BLOG_AGENT_HANDOFF.md).
+
+**Current blog system follow-up, November 5:** the additive 0004 search projection migration and safe backfill have been applied to Production (one existing post) and Preview (no posts). All original row hashes/fields/dates remain unchanged and both have zero pending projections. No hosted admin account, source article, or email was created or changed. Three disposable local test administrators were revoked after the authenticated gate; see [migration evidence](reviews/blog-layout-system-2026-11-05/release/migration.json) and [current plan/evidence](reviews/blog-layout-system-2026-11-05/PLAN.md). Application promotion remains a separate release gate.
 
 Status: **plan, nothing implemented yet** (branch `docs/admin-auth-plan`, base `origin/main` 5517043, 2026-10-31).
 Companion files: [`CHANGELOG.md`](../CHANGELOG.md), [`TEMPORARY.md`](TEMPORARY.md),

@@ -95,6 +95,32 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		await testDbCtx.cleanup();
 	});
 
+	it('renders flat-map custom subtitle and series fields accepted by the CMS', async () => {
+		const created = await createPost({
+			title: 'Custom Field Compatibility',
+			slug: 'custom-field-compatibility',
+			content: makeValidSeoBody('custom fields'),
+			authorId,
+			categoryId,
+			status: 'draft',
+			customFields: JSON.stringify({
+				__subtitle: '  A verified article subtitle  ',
+				__seriesName: '  Options Education  ',
+				__enableToc: 'false'
+			})
+		});
+		const loaded = (await loadBlogPost({
+			params: { slug: created.slug },
+			url: new URL(`https://www.revolutiontradingpros.com/blog/${created.slug}`),
+			request: new Request(`https://www.revolutiontradingpros.com/blog/${created.slug}`),
+			locals: { user: { role: 'admin' } },
+			cookies: { get: () => undefined },
+			setHeaders: () => {}
+		} as never)) as { post: { subtitle: string; seriesName: string } };
+		expect(loaded.post.subtitle).toBe('A verified article subtitle');
+		expect(loaded.post.seriesName).toBe('Options Education');
+	});
+
 	it('serves published posts on /blog and /blog/[slug] with Shiki highlighting, TOC, and caching headers', async () => {
 		const keyword = 'options gamma';
 		const created = await createPost({
@@ -622,8 +648,8 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		expect(previewHeaders['X-Robots-Tag']).toBe('noindex, nofollow, noarchive, nosnippet');
 		expect(previewLoaded.pageMetaTags.robots).toBe('noindex, nofollow, noarchive, nosnippet');
 		expect(previewLoaded.post.title).toContain('Live Autosave');
-		expect(previewLoaded.post.subtitle).toBe('Inside Dealer Gamma, Vanna Flows');
-		expect(previewLoaded.post.seriesName).toBe('Institutional Order Flow, Series');
+		expect(previewLoaded.post.subtitle).toBe('Inside Dealer Gamma — Vanna Flows');
+		expect(previewLoaded.post.seriesName).toBe('Institutional Order Flow — Series');
 		expect(previewLoaded.post.wordCount).toBeGreaterThan(250);
 		expect(previewLoaded.post.readingTime).toBeGreaterThanOrEqual(2);
 		// Duplicate headings receive unique -2 anchor IDs

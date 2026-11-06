@@ -5,7 +5,6 @@ import {
 	type CategoryCreateInput,
 	type CategoryUpdateInput
 } from '../../shared/schemas/taxonomy';
-import { replaceEmEnDashesInPlainText } from '../../shared/seo/content-transform';
 import { isCategoryIndexable } from '../../shared/seo/taxonomy';
 import { writeAuditLog } from '../audit';
 import { ensureDbReady } from '../db';
@@ -71,18 +70,16 @@ export async function createCategory(rawInput: CategoryCreateInput, actorUserId?
 	const inserted = await db
 		.insert(categories)
 		.values({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
-			description: parsed.description ? replaceEmEnDashesInPlainText(parsed.description) : null,
-			metaTitle: parsed.metaTitle ? replaceEmEnDashesInPlainText(parsed.metaTitle) : null,
-			metaDescription: parsed.metaDescription
-				? replaceEmEnDashesInPlainText(parsed.metaDescription)
-				: null,
+			description: parsed.description ? parsed.description : null,
+			metaTitle: parsed.metaTitle ? parsed.metaTitle : null,
+			metaDescription: parsed.metaDescription ? parsed.metaDescription : null,
 			pillarContent: parsed.pillarContent ?? null,
 			icon: parsed.icon ?? null,
 			color: parsed.color ?? '#4b5f1d',
 			image: parsed.image || null,
-			imageAlt: parsed.imageAlt ? replaceEmEnDashesInPlainText(parsed.imageAlt) : null,
+			imageAlt: parsed.imageAlt ? parsed.imageAlt : null,
 			parentId: parsed.parentId ?? null,
 			sortOrder: parsed.sortOrder ?? 0,
 			isActive: parsed.isActive ?? true,
@@ -131,24 +128,24 @@ export async function updateCategory(rawInput: CategoryUpdateInput, actorUserId?
 	const updated = await db
 		.update(categories)
 		.set({
-			name: replaceEmEnDashesInPlainText(parsed.name),
+			name: parsed.name,
 			slug: targetSlug,
 			description:
 				parsed.description !== undefined
 					? parsed.description
-						? replaceEmEnDashesInPlainText(parsed.description)
+						? parsed.description
 						: null
 					: existing.description,
 			metaTitle:
 				parsed.metaTitle !== undefined
 					? parsed.metaTitle
-						? replaceEmEnDashesInPlainText(parsed.metaTitle)
+						? parsed.metaTitle
 						: null
 					: existing.metaTitle,
 			metaDescription:
 				parsed.metaDescription !== undefined
 					? parsed.metaDescription
-						? replaceEmEnDashesInPlainText(parsed.metaDescription)
+						? parsed.metaDescription
 						: null
 					: existing.metaDescription,
 			pillarContent:
@@ -159,7 +156,7 @@ export async function updateCategory(rawInput: CategoryUpdateInput, actorUserId?
 			imageAlt:
 				parsed.imageAlt !== undefined
 					? parsed.imageAlt
-						? replaceEmEnDashesInPlainText(parsed.imageAlt)
+						? parsed.imageAlt
 						: null
 					: existing.imageAlt,
 			parentId: parsed.parentId !== undefined ? parsed.parentId : existing.parentId,

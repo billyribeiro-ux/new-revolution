@@ -2,7 +2,6 @@
 	import { resolve } from '$app/paths';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import PostCard from '#lib/components/blog/PostCard.svelte';
-	import CatalogGrid from '#lib/components/ui/CatalogGrid.svelte';
 	import { homeBlogPageHref, type BlogListing } from '#lib/shared/blog/discovery';
 
 	interface Props {
@@ -50,18 +49,9 @@
 			{/each}
 
 			{#if listing.posts.length > 0}
+				<p class="blog-count">Showing {listing.posts.length} of {regularTotal} more articles</p>
 				<div class="blog-articles" aria-label="More articles">
-					<CatalogGrid
-						items={listing.posts}
-						key={(post) => String(post.id)}
-						total={regularTotal}
-						noun="articles"
-						tone="light"
-					>
-						{#snippet children(post)}
-							<PostCard {post} tone="light" />
-						{/snippet}
-					</CatalogGrid>
+					{#each listing.posts as post (post.id)}<PostCard {post} tone="light" />{/each}
 				</div>
 			{/if}
 
@@ -114,6 +104,23 @@
 
 	.blog-featured {
 		margin-block-end: 32px;
+		max-inline-size: 75rem;
+	}
+
+	.blog-count {
+		color: var(--lightmuted);
+		font-size: 0.875rem;
+		margin-block: 0 1rem;
+	}
+	.blog-articles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+	}
+	.blog-articles :global(.blog-post-card) {
+		flex: 1 1 20rem;
+		min-inline-size: min(100%, 20rem);
+		max-inline-size: 25rem;
 	}
 
 	.blog-featured-label {

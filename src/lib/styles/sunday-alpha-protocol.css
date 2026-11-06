@@ -1,17 +1,17 @@
 /* ==========================================================================
-   Sunday Alpha Protocol (/watchlist) — Scoped Landing Page Styles
+   Sunday Alpha Alerts (/sunday-alpha-alerts) — Scoped Landing Page Styles
    ========================================================================== */
 
 @layer components {
-	.watchlist-page {
+	.sunday-alpha-alerts-page {
 		--sap-bg-void: #030407;
 		--sap-bg-obsidian: #070a12;
 		--sap-bg-panel: #0b101d;
 		--sap-bg-glass: rgba(11, 16, 29, 0.72);
 		--sap-bg-glass-heavy: rgba(7, 10, 18, 0.88);
-		--sap-gold-raw: #d4af37;
-		--sap-gold-bright: #f3e5ab;
-		--sap-gold-amber: #f59e0b;
+		--sap-gold-raw: var(--acid);
+		--sap-gold-bright: var(--acid2);
+		--sap-gold-amber: var(--acid);
 		--sap-emerald: #10b981;
 		--sap-emerald-bright: #34d399;
 		--sap-crimson: #f43f5e;
@@ -30,10 +30,9 @@
 		background-color: var(--sap-bg-void);
 		color: var(--sap-text-main);
 		font-family: var(--font-sans);
-		overflow-x: clip;
 	}
 
-	.watchlist-page .sr-only {
+	.sunday-alpha-alerts-page .sr-only {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -45,115 +44,24 @@
 		border: 0;
 	}
 
-	.watchlist-page .sap-container {
-		width: 100%;
-		max-width: 1380px;
-		margin: 0 auto;
-		padding: 0 clamp(1.25rem, 4vw, 3.5rem);
-	}
-
-	.watchlist-page .val-gold {
+	.sunday-alpha-alerts-page .val-gold {
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .val-crimson {
+	.sunday-alpha-alerts-page .val-crimson {
 		color: var(--sap-crimson-bright);
 	}
 
-	.watchlist-page .val-emerald {
+	.sunday-alpha-alerts-page .val-emerald {
 		color: var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .val-cyan {
+	.sunday-alpha-alerts-page .val-cyan {
 		color: var(--sap-cyan);
 	}
 
-	/* Opening Cinema Shutter */
-	.watchlist-page .cinema-shutter {
-		position: fixed;
-		inset: 0;
-		z-index: 99999;
-		pointer-events: none;
-		display: flex;
-		flex-direction: column;
-		animation: shutterVisibilityFailsafe 1.3s forwards;
-	}
-
-	.watchlist-page .shutter-blade {
-		flex: 1;
-		background: #020306;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.watchlist-page .shutter-top {
-		border-bottom: 1px solid rgba(212, 175, 55, 0.45);
-		animation: shutterOpenTop 0.85s cubic-bezier(0.77, 0, 0.175, 1) 0.25s forwards;
-	}
-
-	.watchlist-page .shutter-bottom {
-		border-top: 1px solid rgba(16, 185, 129, 0.45);
-		animation: shutterOpenBottom 0.85s cubic-bezier(0.77, 0, 0.175, 1) 0.25s forwards;
-	}
-
-	.watchlist-page .shutter-telemetry {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		letter-spacing: 0.28em;
-		text-transform: uppercase;
-		color: var(--sap-gold-bright);
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		animation: shutterTextFade 0.25s ease 0.2s forwards;
-	}
-
-	.watchlist-page .pulse-dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: var(--sap-emerald);
-		box-shadow: 0 0 12px var(--sap-emerald);
-	}
-
-	@keyframes shutterOpenTop {
-		to {
-			transform: translateY(-102%);
-		}
-	}
-
-	@keyframes shutterOpenBottom {
-		to {
-			transform: translateY(102%);
-		}
-	}
-
-	@keyframes shutterTextFade {
-		to {
-			opacity: 0;
-		}
-	}
-
-	@keyframes shutterVisibilityFailsafe {
-		0%,
-		90% {
-			visibility: visible;
-		}
-		100% {
-			visibility: hidden;
-			display: none;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.watchlist-page .cinema-shutter {
-			display: none;
-		}
-	}
-
 	/* Scroll Laser */
-	.watchlist-page .scroll-laser {
+	.sunday-alpha-alerts-page .scroll-laser {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -171,7 +79,7 @@
 	}
 
 	/* Top Telemetry Ribbon */
-	.watchlist-page .telemetry-ribbon {
+	.sunday-alpha-alerts-page .telemetry-ribbon {
 		position: relative;
 		z-index: 50;
 		background: rgba(3, 4, 7, 0.92);
@@ -182,7 +90,7 @@
 		padding: 0.55rem 0;
 	}
 
-	.watchlist-page .ribbon-inner {
+	.sunday-alpha-alerts-page .ribbon-inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -190,7 +98,7 @@
 		flex-wrap: wrap;
 	}
 
-	.watchlist-page .ribbon-badge {
+	.sunday-alpha-alerts-page .ribbon-badge {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -198,7 +106,7 @@
 		font-weight: 600;
 	}
 
-	.watchlist-page .live-dot {
+	.sunday-alpha-alerts-page .live-dot {
 		width: 7px;
 		height: 7px;
 		border-radius: 50%;
@@ -219,7 +127,7 @@
 		}
 	}
 
-	.watchlist-page .countdown-pill {
+	.sunday-alpha-alerts-page .countdown-pill {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -232,7 +140,7 @@
 	}
 
 	/* Sub-navigation */
-	.watchlist-page .sap-subnav {
+	.sunday-alpha-alerts-page .sap-subnav {
 		position: sticky;
 		top: var(--nav-height);
 		z-index: 45;
@@ -242,20 +150,20 @@
 		padding: 0.85rem 0;
 	}
 
-	.watchlist-page .sap-subnav-inner {
+	.sunday-alpha-alerts-page .sap-subnav-inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1.5rem;
 	}
 
-	.watchlist-page .brand-lockup {
+	.sunday-alpha-alerts-page .brand-lockup {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
 	}
 
-	.watchlist-page .brand-emblem {
+	.sunday-alpha-alerts-page .brand-emblem {
 		width: 36px;
 		height: 36px;
 		border-radius: 9px;
@@ -269,12 +177,12 @@
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .brand-text {
+	.sunday-alpha-alerts-page .brand-text {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.watchlist-page .brand-name {
+	.sunday-alpha-alerts-page .brand-name {
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 0.92rem;
@@ -283,7 +191,7 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .brand-sub {
+	.sunday-alpha-alerts-page .brand-sub {
 		font-family: var(--font-mono);
 		font-size: 0.65rem;
 		color: var(--sap-text-muted);
@@ -291,7 +199,7 @@
 		text-transform: uppercase;
 	}
 
-	.watchlist-page .nav-links {
+	.sunday-alpha-alerts-page .nav-links {
 		display: flex;
 		align-items: center;
 		gap: 1.75rem;
@@ -300,17 +208,17 @@
 		color: var(--sap-text-sec);
 	}
 
-	.watchlist-page .sap-subnav-link {
+	.sunday-alpha-alerts-page .sap-subnav-link {
 		color: inherit;
 		text-decoration: none;
 		transition: color 0.2s;
 	}
 
-	.watchlist-page .sap-subnav-link:hover {
+	.sunday-alpha-alerts-page .sap-subnav-link:hover {
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .nav-cta {
+	.sunday-alpha-alerts-page .nav-cta {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -330,21 +238,20 @@
 			box-shadow 0.2s;
 	}
 
-	.watchlist-page .nav-cta:hover {
+	.sunday-alpha-alerts-page .nav-cta:hover {
 		transform: translateY(-1px);
 		box-shadow: 0 0 32px rgba(212, 175, 55, 0.55);
 	}
 
 	@media (max-width: 900px) {
-		.watchlist-page .nav-links {
+		.sunday-alpha-alerts-page .nav-links {
 			display: none;
 		}
 	}
 
 	/* Act I: Hero Stage */
-	.watchlist-page .sap-hero-stage {
+	.sunday-alpha-alerts-page .sap-hero-stage {
 		position: relative;
-		min-height: 92vh;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -354,7 +261,7 @@
 		background: var(--sap-bg-void);
 	}
 
-	.watchlist-page .wavefield-canvas {
+	.sunday-alpha-alerts-page .wavefield-canvas {
 		position: absolute;
 		inset: 0;
 		width: 100%;
@@ -364,7 +271,7 @@
 		opacity: 0.85;
 	}
 
-	.watchlist-page .hero-spotlight {
+	.sunday-alpha-alerts-page .hero-spotlight {
 		position: absolute;
 		inset: 0;
 		z-index: 1;
@@ -378,30 +285,30 @@
 			radial-gradient(650px circle at 25% 25%, rgba(16, 185, 129, 0.08), transparent 65%);
 	}
 
-	.watchlist-page .hero-main {
+	.sunday-alpha-alerts-page .hero-main {
 		position: relative;
 		z-index: 5;
-		padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(2rem, 4vw, 3.5rem);
+		padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
 		flex: 1;
 		display: flex;
 		align-items: center;
 	}
 
-	.watchlist-page .hero-grid {
+	.sunday-alpha-alerts-page .hero-grid {
 		display: grid;
-		grid-template-columns: 1.08fr 0.92fr;
+		grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
 		gap: clamp(2rem, 4vw, 4rem);
 		align-items: center;
 		width: 100%;
 	}
 
 	@media (max-width: 1080px) {
-		.watchlist-page .hero-grid {
+		.sunday-alpha-alerts-page .hero-grid {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .eyebrow-pill {
+	.sunday-alpha-alerts-page .eyebrow-pill {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.65rem;
@@ -412,7 +319,7 @@
 		margin-bottom: 1.35rem;
 	}
 
-	.watchlist-page .eyebrow-tag {
+	.sunday-alpha-alerts-page .eyebrow-tag {
 		padding: 0.18rem 0.55rem;
 		border-radius: 999px;
 		background: linear-gradient(135deg, var(--sap-gold-bright), var(--sap-gold-raw));
@@ -424,14 +331,14 @@
 		text-transform: uppercase;
 	}
 
-	.watchlist-page .eyebrow-text {
+	.sunday-alpha-alerts-page .eyebrow-text {
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		color: var(--sap-gold-bright);
 		letter-spacing: 0.06em;
 	}
 
-	.watchlist-page .hero-title {
+	.sunday-alpha-alerts-page .hero-title {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(2.65rem, 5.4vw, 4.85rem);
@@ -441,18 +348,18 @@
 		text-transform: uppercase;
 	}
 
-	.watchlist-page .hero-title .title-line {
+	.sunday-alpha-alerts-page .hero-title .title-line {
 		display: block;
 	}
 
-	.watchlist-page .hero-title .title-gold {
+	.sunday-alpha-alerts-page .hero-title .title-gold {
 		background: linear-gradient(135deg, #ffffff 0%, #f3e5ab 35%, #d4af37 75%, #aa8010 100%);
 		-webkit-background-clip: text;
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
 
-	.watchlist-page .hero-lead {
+	.sunday-alpha-alerts-page .hero-lead {
 		font-size: clamp(1.02rem, 1.3vw, 1.18rem);
 		color: var(--sap-text-sec);
 		max-width: 630px;
@@ -460,12 +367,12 @@
 		line-height: 1.68;
 	}
 
-	.watchlist-page .hero-lead strong {
+	.sunday-alpha-alerts-page .hero-lead strong {
 		color: var(--sap-text-main);
 		font-weight: 600;
 	}
 
-	.watchlist-page .hero-cta-row {
+	.sunday-alpha-alerts-page .hero-cta-row {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
@@ -473,7 +380,7 @@
 		margin-bottom: 1.75rem;
 	}
 
-	.watchlist-page .btn-primary-gold {
+	.sunday-alpha-alerts-page .btn-primary-gold {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
@@ -499,14 +406,14 @@
 			box-shadow 0.25s var(--sap-ease-out-expo);
 	}
 
-	.watchlist-page .btn-primary-gold:hover {
+	.sunday-alpha-alerts-page .btn-primary-gold:hover {
 		transform: translateY(-2px) scale(1.01);
 		box-shadow:
 			0 18px 45px -6px rgba(212, 175, 55, 0.75),
 			inset 0 1px 0 rgba(255, 255, 255, 0.85);
 	}
 
-	.watchlist-page .btn-secondary-glass {
+	.sunday-alpha-alerts-page .btn-secondary-glass {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -525,16 +432,16 @@
 			background 0.2s;
 	}
 
-	.watchlist-page .btn-secondary-glass:hover {
+	.sunday-alpha-alerts-page .btn-secondary-glass:hover {
 		border-color: var(--sap-gold-raw);
 		background: rgba(212, 175, 55, 0.08);
 	}
 
-	.watchlist-page .btn-full {
+	.sunday-alpha-alerts-page .btn-full {
 		width: 100%;
 	}
 
-	.watchlist-page .hero-trust-strip {
+	.sunday-alpha-alerts-page .hero-trust-strip {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
@@ -545,23 +452,23 @@
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .trust-item {
+	.sunday-alpha-alerts-page .trust-item {
 		display: flex;
 		align-items: center;
 		gap: 0.45rem;
 	}
 
-	.watchlist-page .trust-item svg {
+	.sunday-alpha-alerts-page .trust-item svg {
 		color: var(--sap-emerald-bright);
 		flex-shrink: 0;
 	}
 
 	/* 3D VisionOS Glass Command Deck */
-	.watchlist-page .vision-deck-wrap {
+	.sunday-alpha-alerts-page .vision-deck-wrap {
 		perspective: 1400px;
 	}
 
-	.watchlist-page .vision-deck {
+	.sunday-alpha-alerts-page .vision-deck {
 		position: relative;
 		background: linear-gradient(160deg, rgba(15, 22, 40, 0.88) 0%, rgba(7, 10, 18, 0.94) 100%);
 		border: 1px solid rgba(212, 175, 55, 0.32);
@@ -576,7 +483,7 @@
 		transition: transform 0.15s ease-out;
 	}
 
-	.watchlist-page .deck-header {
+	.sunday-alpha-alerts-page .deck-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -585,30 +492,30 @@
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .deck-dots {
+	.sunday-alpha-alerts-page .deck-dots {
 		display: flex;
 		gap: 6px;
 	}
 
-	.watchlist-page .deck-dots span {
+	.sunday-alpha-alerts-page .deck-dots span {
 		width: 9px;
 		height: 9px;
 		border-radius: 50%;
 	}
 
-	.watchlist-page .deck-dots span:nth-child(1) {
+	.sunday-alpha-alerts-page .deck-dots span:nth-child(1) {
 		background: #f43f5e;
 	}
 
-	.watchlist-page .deck-dots span:nth-child(2) {
+	.sunday-alpha-alerts-page .deck-dots span:nth-child(2) {
 		background: #f59e0b;
 	}
 
-	.watchlist-page .deck-dots span:nth-child(3) {
+	.sunday-alpha-alerts-page .deck-dots span:nth-child(3) {
 		background: #10b981;
 	}
 
-	.watchlist-page .deck-title {
+	.sunday-alpha-alerts-page .deck-title {
 		font-family: var(--font-mono);
 		font-size: 0.7rem;
 		letter-spacing: 0.12em;
@@ -616,7 +523,7 @@
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .deck-status {
+	.sunday-alpha-alerts-page .deck-status {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.4rem;
@@ -629,7 +536,7 @@
 		border-radius: 999px;
 	}
 
-	.watchlist-page .deck-ticker-row {
+	.sunday-alpha-alerts-page .deck-ticker-row {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -641,7 +548,7 @@
 		border: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .ticker-symbol {
+	.sunday-alpha-alerts-page .ticker-symbol {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.35rem;
@@ -649,31 +556,31 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .ticker-setup {
+	.sunday-alpha-alerts-page .ticker-setup {
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .deck-rr-badge {
+	.sunday-alpha-alerts-page .deck-rr-badge {
 		text-align: right;
 	}
 
-	.watchlist-page .deck-rr-badge .rr-label {
+	.sunday-alpha-alerts-page .deck-rr-badge .rr-label {
 		font-family: var(--font-mono);
 		font-size: 0.64rem;
 		color: var(--sap-text-muted);
 		display: block;
 	}
 
-	.watchlist-page .deck-rr-badge .rr-val {
+	.sunday-alpha-alerts-page .deck-rr-badge .rr-val {
 		font-family: var(--font-mono);
 		font-weight: 800;
 		font-size: 1.15rem;
 		color: var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .deck-coords-grid {
+	.sunday-alpha-alerts-page .deck-coords-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		gap: 0.6rem;
@@ -681,19 +588,19 @@
 	}
 
 	@media (max-width: 560px) {
-		.watchlist-page .deck-coords-grid {
+		.sunday-alpha-alerts-page .deck-coords-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
-	.watchlist-page .coord-box {
+	.sunday-alpha-alerts-page .coord-box {
 		padding: 0.65rem 0.75rem;
 		border-radius: 10px;
 		background: rgba(3, 4, 7, 0.55);
 		border: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .coord-label {
+	.sunday-alpha-alerts-page .coord-label {
 		font-family: var(--font-mono);
 		font-size: 0.62rem;
 		text-transform: uppercase;
@@ -702,27 +609,27 @@
 		margin-bottom: 0.2rem;
 	}
 
-	.watchlist-page .coord-val {
+	.sunday-alpha-alerts-page .coord-val {
 		font-family: var(--font-mono);
 		font-weight: 700;
 		font-size: 0.95rem;
 	}
 
-	.watchlist-page .coord-sub {
+	.sunday-alpha-alerts-page .coord-sub {
 		font-family: var(--font-mono);
 		font-size: 0.6rem;
 		color: var(--sap-text-dim);
 	}
 
 	/* Embedded D3 Mini Simulator */
-	.watchlist-page .d3-mini-box {
+	.sunday-alpha-alerts-page .d3-mini-box {
 		background: rgba(3, 4, 7, 0.72);
 		border: 1px solid var(--sap-border-subtle);
 		border-radius: 12px;
 		padding: 0.85rem;
 	}
 
-	.watchlist-page .d3-mini-header {
+	.sunday-alpha-alerts-page .d3-mini-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -730,7 +637,7 @@
 		gap: 0.5rem;
 	}
 
-	.watchlist-page .d3-mini-title {
+	.sunday-alpha-alerts-page .d3-mini-title {
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
 		text-transform: uppercase;
@@ -738,26 +645,26 @@
 		color: var(--sap-text-sec);
 	}
 
-	.watchlist-page .d3-mini-readout {
+	.sunday-alpha-alerts-page .d3-mini-readout {
 		font-family: var(--font-mono);
 		font-size: 0.75rem;
 		font-weight: 700;
 		color: var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .d3-mini-svg-wrap {
+	.sunday-alpha-alerts-page .d3-mini-svg-wrap {
 		width: 100%;
 		height: 155px;
 		position: relative;
 	}
 
-	.watchlist-page .d3-mini-svg-wrap svg {
+	.sunday-alpha-alerts-page .d3-mini-svg-wrap svg {
 		width: 100%;
 		height: 100%;
 		overflow: visible;
 	}
 
-	.watchlist-page .sim-controls {
+	.sunday-alpha-alerts-page .sim-controls {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -769,17 +676,17 @@
 		font-size: 0.7rem;
 	}
 
-	.watchlist-page .sim-controls label {
+	.sunday-alpha-alerts-page .sim-controls label {
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .sim-controls input[type='range'] {
+	.sunday-alpha-alerts-page .sim-controls input[type='range'] {
 		flex: 1;
 		accent-color: var(--sap-gold-raw);
 		cursor: pointer;
 	}
 
-	.watchlist-page .sim-val-pill {
+	.sunday-alpha-alerts-page .sim-val-pill {
 		padding: 0.15rem 0.5rem;
 		border-radius: 6px;
 		background: rgba(212, 175, 55, 0.14);
@@ -788,7 +695,7 @@
 	}
 
 	/* Bottom Hero Telemetry Bar */
-	.watchlist-page .hero-telemetry-bar {
+	.sunday-alpha-alerts-page .hero-telemetry-bar {
 		position: relative;
 		z-index: 5;
 		background: rgba(7, 10, 18, 0.88);
@@ -797,26 +704,26 @@
 		backdrop-filter: blur(16px);
 	}
 
-	.watchlist-page .telemetry-grid {
+	.sunday-alpha-alerts-page .telemetry-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		gap: 1.5rem;
 	}
 
 	@media (max-width: 820px) {
-		.watchlist-page .telemetry-grid {
+		.sunday-alpha-alerts-page .telemetry-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
-	.watchlist-page .t-metric {
+	.sunday-alpha-alerts-page .t-metric {
 		display: flex;
 		flex-direction: column;
 		border-left: 2px solid var(--sap-border-gold);
 		padding-left: 1rem;
 	}
 
-	.watchlist-page .t-metric-val {
+	.sunday-alpha-alerts-page .t-metric-val {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(1.4rem, 2.2vw, 1.95rem);
@@ -824,13 +731,13 @@
 		line-height: 1.1;
 	}
 
-	.watchlist-page .t-metric-val span {
+	.sunday-alpha-alerts-page .t-metric-val span {
 		color: var(--sap-gold-bright);
 		font-size: 0.85em;
 		margin-left: 0.15rem;
 	}
 
-	.watchlist-page .t-metric-label {
+	.sunday-alpha-alerts-page .t-metric-label {
 		font-family: var(--font-mono);
 		font-size: 0.7rem;
 		text-transform: uppercase;
@@ -840,13 +747,13 @@
 	}
 
 	/* Shared Section Headers */
-	.watchlist-page .sap-section-header {
+	.sunday-alpha-alerts-page .sap-section-header {
 		text-align: center;
 		max-width: 820px;
 		margin: 0 auto clamp(3rem, 5vw, 4.5rem);
 	}
 
-	.watchlist-page .section-kicker {
+	.sunday-alpha-alerts-page .section-kicker {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -863,7 +770,7 @@
 		border: 1px solid var(--sap-border-gold);
 	}
 
-	.watchlist-page .sap-section-title {
+	.sunday-alpha-alerts-page .sap-section-title {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(2rem, 3.8vw, 3.25rem);
@@ -873,7 +780,7 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .sap-section-subtitle {
+	.sunday-alpha-alerts-page .sap-section-subtitle {
 		font-size: clamp(1rem, 1.2vw, 1.12rem);
 		color: var(--sap-text-sec);
 		line-height: 1.65;
@@ -881,26 +788,26 @@
 	}
 
 	/* Act II: Mechanism */
-	.watchlist-page .keynote-section {
+	.sunday-alpha-alerts-page .keynote-section {
 		position: relative;
 		padding: clamp(5rem, 9vw, 8rem) 0;
 		background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.06), transparent 70%);
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .mechanism-grid {
+	.sunday-alpha-alerts-page .mechanism-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 1.75rem;
 	}
 
 	@media (max-width: 980px) {
-		.watchlist-page .mechanism-grid {
+		.sunday-alpha-alerts-page .mechanism-grid {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .mech-card {
+	.sunday-alpha-alerts-page .mech-card {
 		position: relative;
 		background: linear-gradient(165deg, rgba(15, 22, 40, 0.78), rgba(7, 10, 18, 0.92));
 		border: 1px solid var(--sap-border-subtle);
@@ -912,12 +819,12 @@
 			transform 0.3s;
 	}
 
-	.watchlist-page .mech-card:hover {
+	.sunday-alpha-alerts-page .mech-card:hover {
 		border-color: var(--sap-border-gold);
 		transform: translateY(-4px);
 	}
 
-	.watchlist-page .mech-step-num {
+	.sunday-alpha-alerts-page .mech-step-num {
 		font-family: var(--font-mono);
 		font-size: 3.2rem;
 		font-weight: 800;
@@ -928,7 +835,7 @@
 		right: 1.5rem;
 	}
 
-	.watchlist-page .mech-tag {
+	.sunday-alpha-alerts-page .mech-tag {
 		display: inline-block;
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
@@ -938,7 +845,7 @@
 		margin-bottom: 0.75rem;
 	}
 
-	.watchlist-page .mech-card h3 {
+	.sunday-alpha-alerts-page .mech-card h3 {
 		font-family: var(--font-display);
 		font-size: 1.35rem;
 		font-weight: 800;
@@ -946,14 +853,14 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .mech-card p {
+	.sunday-alpha-alerts-page .mech-card p {
 		font-size: 0.94rem;
 		color: var(--sap-text-sec);
 		margin: 0 0 1.35rem;
 		line-height: 1.65;
 	}
 
-	.watchlist-page .mech-callout {
+	.sunday-alpha-alerts-page .mech-callout {
 		padding: 0.75rem 1rem;
 		border-radius: 10px;
 		background: rgba(3, 4, 7, 0.65);
@@ -962,34 +869,34 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .mech-callout span {
+	.sunday-alpha-alerts-page .mech-callout span {
 		display: block;
 		color: var(--sap-text-muted);
 		font-size: 0.65rem;
 		margin-bottom: 0.15rem;
 	}
 
-	.watchlist-page .mech-callout--gold {
+	.sunday-alpha-alerts-page .mech-callout--gold {
 		border-left: 3px solid var(--sap-gold-raw);
 	}
 
-	.watchlist-page .mech-callout--emerald {
+	.sunday-alpha-alerts-page .mech-callout--emerald {
 		border-left: 3px solid var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .mech-callout--cyan {
+	.sunday-alpha-alerts-page .mech-callout--cyan {
 		border-left: 3px solid var(--sap-cyan);
 	}
 
 	/* Act III: Interactive D3 Terminal */
-	.watchlist-page .terminal-section {
+	.sunday-alpha-alerts-page .terminal-section {
 		position: relative;
 		padding: clamp(5rem, 9vw, 8rem) 0;
 		background: var(--sap-bg-obsidian);
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .terminal-shell {
+	.sunday-alpha-alerts-page .terminal-shell {
 		background: linear-gradient(180deg, #0b101d 0%, #050811 100%);
 		border: 1px solid rgba(212, 175, 55, 0.35);
 		border-radius: 20px;
@@ -997,7 +904,7 @@
 		box-shadow: 0 35px 90px -20px rgba(0, 0, 0, 0.95);
 	}
 
-	.watchlist-page .terminal-topbar {
+	.sunday-alpha-alerts-page .terminal-topbar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -1008,14 +915,14 @@
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .terminal-title-group {
+	.sunday-alpha-alerts-page .terminal-title-group {
 		display: flex;
 		align-items: center;
 		gap: 0.85rem;
 		flex-wrap: wrap;
 	}
 
-	.watchlist-page .terminal-badge {
+	.sunday-alpha-alerts-page .terminal-badge {
 		padding: 0.25rem 0.65rem;
 		border-radius: 6px;
 		background: rgba(16, 185, 129, 0.14);
@@ -1026,19 +933,19 @@
 		color: var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .terminal-sub {
+	.sunday-alpha-alerts-page .terminal-sub {
 		font-family: var(--font-mono);
 		font-size: 0.76rem;
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .ticker-tabs {
+	.sunday-alpha-alerts-page .ticker-tabs {
 		display: flex;
 		gap: 0.5rem;
 		flex-wrap: wrap;
 	}
 
-	.watchlist-page .ticker-tab {
+	.sunday-alpha-alerts-page .ticker-tab {
 		padding: 0.5rem 1.1rem;
 		border-radius: 8px;
 		background: rgba(255, 255, 255, 0.04);
@@ -1051,42 +958,42 @@
 		transition: all 0.2s;
 	}
 
-	.watchlist-page .ticker-tab:hover {
+	.sunday-alpha-alerts-page .ticker-tab:hover {
 		border-color: var(--sap-gold-raw);
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .ticker-tab.active {
+	.sunday-alpha-alerts-page .ticker-tab.active {
 		background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0.08));
 		border-color: var(--sap-gold-raw);
 		color: var(--sap-gold-bright);
 		box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
 	}
 
-	.watchlist-page .terminal-body {
+	.sunday-alpha-alerts-page .terminal-body {
 		display: grid;
 		grid-template-columns: 1.45fr 0.85fr;
 	}
 
 	@media (max-width: 1080px) {
-		.watchlist-page .terminal-body {
+		.sunday-alpha-alerts-page .terminal-body {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .terminal-chart-col {
+	.sunday-alpha-alerts-page .terminal-chart-col {
 		padding: 1.5rem;
 		border-right: 1px solid var(--sap-border-subtle);
 	}
 
 	@media (max-width: 1080px) {
-		.watchlist-page .terminal-chart-col {
+		.sunday-alpha-alerts-page .terminal-chart-col {
 			border-right: none;
 			border-bottom: 1px solid var(--sap-border-subtle);
 		}
 	}
 
-	.watchlist-page .chart-hud {
+	.sunday-alpha-alerts-page .chart-hud {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -1099,21 +1006,21 @@
 		border: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .hud-left {
+	.sunday-alpha-alerts-page .hud-left {
 		display: flex;
 		align-items: center;
 		gap: 0.85rem;
 		flex-wrap: wrap;
 	}
 
-	.watchlist-page .hud-ticker-name {
+	.sunday-alpha-alerts-page .hud-ticker-name {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 1.25rem;
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .hud-strategy-tag {
+	.sunday-alpha-alerts-page .hud-strategy-tag {
 		font-family: var(--font-mono);
 		font-size: 0.7rem;
 		padding: 0.2rem 0.55rem;
@@ -1121,7 +1028,7 @@
 		border: 1px solid transparent;
 	}
 
-	.watchlist-page .hud-metrics {
+	.sunday-alpha-alerts-page .hud-metrics {
 		display: flex;
 		gap: 1.25rem;
 		flex-wrap: wrap;
@@ -1129,29 +1036,29 @@
 		font-size: 0.75rem;
 	}
 
-	.watchlist-page .hud-metric span {
+	.sunday-alpha-alerts-page .hud-metric span {
 		color: var(--sap-text-muted);
 		margin-right: 0.35rem;
 	}
 
-	.watchlist-page .hud-metric strong {
+	.sunday-alpha-alerts-page .hud-metric strong {
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .d3-master-canvas {
+	.sunday-alpha-alerts-page .d3-master-canvas {
 		width: 100%;
 		height: 340px;
 		position: relative;
 		user-select: none;
 	}
 
-	.watchlist-page .d3-master-canvas svg {
+	.sunday-alpha-alerts-page .d3-master-canvas svg {
 		width: 100%;
 		height: 100%;
 		overflow: visible;
 	}
 
-	.watchlist-page .chart-legend {
+	.sunday-alpha-alerts-page .chart-legend {
 		display: flex;
 		align-items: center;
 		gap: 1.25rem;
@@ -1164,35 +1071,35 @@
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .legend-item {
+	.sunday-alpha-alerts-page .legend-item {
 		display: flex;
 		align-items: center;
 		gap: 0.4rem;
 	}
 
-	.watchlist-page .legend-swatch {
+	.sunday-alpha-alerts-page .legend-swatch {
 		width: 10px;
 		height: 10px;
 		border-radius: 2px;
 	}
 
-	.watchlist-page .swatch-cyan {
+	.sunday-alpha-alerts-page .swatch-cyan {
 		background: #38bdf8;
 	}
 
-	.watchlist-page .swatch-gold {
+	.sunday-alpha-alerts-page .swatch-gold {
 		background: rgba(212, 175, 55, 0.55);
 	}
 
-	.watchlist-page .swatch-emerald {
+	.sunday-alpha-alerts-page .swatch-emerald {
 		background: rgba(16, 185, 129, 0.45);
 	}
 
-	.watchlist-page .swatch-crimson {
+	.sunday-alpha-alerts-page .swatch-crimson {
 		background: rgba(244, 63, 94, 0.45);
 	}
 
-	.watchlist-page .terminal-specs-col {
+	.sunday-alpha-alerts-page .terminal-specs-col {
 		padding: 1.5rem;
 		display: flex;
 		flex-direction: column;
@@ -1200,7 +1107,7 @@
 		background: rgba(3, 4, 7, 0.4);
 	}
 
-	.watchlist-page .spec-group-title {
+	.sunday-alpha-alerts-page .spec-group-title {
 		font-family: var(--font-mono);
 		font-size: 0.7rem;
 		letter-spacing: 0.14em;
@@ -1212,7 +1119,7 @@
 		justify-content: space-between;
 	}
 
-	.watchlist-page .spec-table {
+	.sunday-alpha-alerts-page .spec-table {
 		width: 100%;
 		border-collapse: collapse;
 		margin-bottom: 1.25rem;
@@ -1220,25 +1127,25 @@
 		font-size: 0.78rem;
 	}
 
-	.watchlist-page .spec-table tr {
+	.sunday-alpha-alerts-page .spec-table tr {
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .spec-table td {
+	.sunday-alpha-alerts-page .spec-table td {
 		padding: 0.55rem 0;
 	}
 
-	.watchlist-page .spec-table td:first-child {
+	.sunday-alpha-alerts-page .spec-table td:first-child {
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .spec-table td:last-child {
+	.sunday-alpha-alerts-page .spec-table td:last-child {
 		text-align: right;
 		font-weight: 700;
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .spec-context-box {
+	.sunday-alpha-alerts-page .spec-context-box {
 		padding: 0.9rem 1rem;
 		border-radius: 10px;
 		background: rgba(212, 175, 55, 0.07);
@@ -1248,7 +1155,7 @@
 		line-height: 1.55;
 	}
 
-	.watchlist-page .spec-context-box strong {
+	.sunday-alpha-alerts-page .spec-context-box strong {
 		color: var(--sap-gold-bright);
 		display: block;
 		font-family: var(--font-mono);
@@ -1259,24 +1166,24 @@
 	}
 
 	/* Act IV: Suitability Matrix */
-	.watchlist-page .suitability-section {
+	.sunday-alpha-alerts-page .suitability-section {
 		padding: clamp(5rem, 9vw, 8rem) 0;
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .suitability-grid {
+	.sunday-alpha-alerts-page .suitability-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 1.75rem;
 	}
 
 	@media (max-width: 980px) {
-		.watchlist-page .suitability-grid {
+		.sunday-alpha-alerts-page .suitability-grid {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .persona-card {
+	.sunday-alpha-alerts-page .persona-card {
 		background: linear-gradient(165deg, rgba(15, 22, 40, 0.75), rgba(7, 10, 18, 0.92));
 		border: 1px solid var(--sap-border-subtle);
 		border-radius: 18px;
@@ -1288,12 +1195,12 @@
 			transform 0.3s;
 	}
 
-	.watchlist-page .persona-card:hover {
+	.sunday-alpha-alerts-page .persona-card:hover {
 		border-color: var(--sap-border-gold);
 		transform: translateY(-4px);
 	}
 
-	.watchlist-page .persona-tier {
+	.sunday-alpha-alerts-page .persona-tier {
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
 		letter-spacing: 0.14em;
@@ -1304,25 +1211,25 @@
 		margin-bottom: 1rem;
 	}
 
-	.watchlist-page .persona-tier--gold {
+	.sunday-alpha-alerts-page .persona-tier--gold {
 		color: var(--sap-gold-bright);
 		background: rgba(212, 175, 55, 0.1);
 		border: 1px solid var(--sap-border-gold);
 	}
 
-	.watchlist-page .persona-tier--emerald {
+	.sunday-alpha-alerts-page .persona-tier--emerald {
 		color: var(--sap-emerald-bright);
 		background: rgba(16, 185, 129, 0.12);
 		border: 1px solid var(--sap-border-emerald);
 	}
 
-	.watchlist-page .persona-tier--cyan {
+	.sunday-alpha-alerts-page .persona-tier--cyan {
 		color: var(--sap-cyan);
 		background: rgba(56, 189, 248, 0.12);
 		border: 1px solid rgba(56, 189, 248, 0.35);
 	}
 
-	.watchlist-page .persona-card h3 {
+	.sunday-alpha-alerts-page .persona-card h3 {
 		font-family: var(--font-display);
 		font-size: 1.45rem;
 		font-weight: 800;
@@ -1330,7 +1237,7 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .persona-headline {
+	.sunday-alpha-alerts-page .persona-headline {
 		font-family: var(--font-mono);
 		font-size: 0.8rem;
 		font-weight: 700;
@@ -1338,14 +1245,14 @@
 		margin-bottom: 0.6rem;
 	}
 
-	.watchlist-page .persona-card p {
+	.sunday-alpha-alerts-page .persona-card p {
 		font-size: 0.92rem;
 		color: var(--sap-text-sec);
 		margin: 0 0 1.35rem;
 		line-height: 1.65;
 	}
 
-	.watchlist-page .persona-list {
+	.sunday-alpha-alerts-page .persona-list {
 		list-style: none;
 		padding: 0;
 		margin: auto 0 0;
@@ -1358,33 +1265,33 @@
 		color: var(--sap-text-sec);
 	}
 
-	.watchlist-page .persona-list li {
+	.sunday-alpha-alerts-page .persona-list li {
 		display: flex;
 		align-items: flex-start;
 		gap: 0.55rem;
 	}
 
-	.watchlist-page .persona-list li svg {
+	.sunday-alpha-alerts-page .persona-list li svg {
 		color: var(--sap-emerald-bright);
 		flex-shrink: 0;
 		margin-top: 3px;
 	}
 
 	/* Act V: Authority */
-	.watchlist-page .authority-section {
+	.sunday-alpha-alerts-page .authority-section {
 		padding: clamp(5rem, 9vw, 8rem) 0;
 		background: var(--sap-bg-obsidian);
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .authority-shell {
+	.sunday-alpha-alerts-page .authority-shell {
 		background: linear-gradient(145deg, rgba(15, 22, 40, 0.85), rgba(5, 8, 16, 0.95));
 		border: 1px solid var(--sap-border-gold);
 		border-radius: 22px;
 		padding: clamp(2rem, 4.5vw, 3.75rem);
 	}
 
-	.watchlist-page .authority-grid {
+	.sunday-alpha-alerts-page .authority-grid {
 		display: grid;
 		grid-template-columns: 1.1fr 0.9fr;
 		gap: clamp(2rem, 4vw, 3.5rem);
@@ -1392,12 +1299,12 @@
 	}
 
 	@media (max-width: 980px) {
-		.watchlist-page .authority-grid {
+		.sunday-alpha-alerts-page .authority-grid {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .authority-name {
+	.sunday-alpha-alerts-page .authority-name {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: clamp(1.85rem, 3.2vw, 2.75rem);
@@ -1405,7 +1312,7 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .authority-role {
+	.sunday-alpha-alerts-page .authority-role {
 		font-family: var(--font-mono);
 		font-size: 0.78rem;
 		color: var(--sap-gold-bright);
@@ -1414,20 +1321,20 @@
 		margin-bottom: 1.25rem;
 	}
 
-	.watchlist-page .authority-bio {
+	.sunday-alpha-alerts-page .authority-bio {
 		font-size: 0.98rem;
 		color: var(--sap-text-sec);
 		margin: 0 0 1.25rem;
 		line-height: 1.7;
 	}
 
-	.watchlist-page .receipts-timeline {
+	.sunday-alpha-alerts-page .receipts-timeline {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 	}
 
-	.watchlist-page .receipt-box {
+	.sunday-alpha-alerts-page .receipt-box {
 		padding: 1.15rem 1.35rem;
 		border-radius: 14px;
 		background: rgba(3, 4, 7, 0.72);
@@ -1435,7 +1342,7 @@
 		border-left: 3px solid var(--sap-gold-raw);
 	}
 
-	.watchlist-page .receipt-kicker {
+	.sunday-alpha-alerts-page .receipt-kicker {
 		font-family: var(--font-mono);
 		font-size: 0.66rem;
 		letter-spacing: 0.1em;
@@ -1443,19 +1350,19 @@
 		margin-bottom: 0.2rem;
 	}
 
-	.watchlist-page .receipt-kicker--gold {
+	.sunday-alpha-alerts-page .receipt-kicker--gold {
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .receipt-kicker--emerald {
+	.sunday-alpha-alerts-page .receipt-kicker--emerald {
 		color: var(--sap-emerald-bright);
 	}
 
-	.watchlist-page .receipt-kicker--cyan {
+	.sunday-alpha-alerts-page .receipt-kicker--cyan {
 		color: var(--sap-cyan);
 	}
 
-	.watchlist-page .receipt-box h3 {
+	.sunday-alpha-alerts-page .receipt-box h3 {
 		font-family: var(--font-display);
 		font-size: 1.05rem;
 		font-weight: 800;
@@ -1463,7 +1370,7 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .receipt-box p {
+	.sunday-alpha-alerts-page .receipt-box p {
 		font-size: 0.84rem;
 		color: var(--sap-text-muted);
 		margin: 0;
@@ -1471,13 +1378,13 @@
 	}
 
 	/* Act VI: Pricing */
-	.watchlist-page .pricing-section {
+	.sunday-alpha-alerts-page .pricing-section {
 		padding: clamp(5rem, 9vw, 8rem) 0;
 		border-bottom: 1px solid var(--sap-border-subtle);
 		background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.09), transparent 65%);
 	}
 
-	.watchlist-page .pricing-grid {
+	.sunday-alpha-alerts-page .pricing-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 1.75rem;
@@ -1485,14 +1392,14 @@
 	}
 
 	@media (max-width: 1024px) {
-		.watchlist-page .pricing-grid {
+		.sunday-alpha-alerts-page .pricing-grid {
 			grid-template-columns: 1fr;
 			max-width: 540px;
 			margin: 0 auto;
 		}
 	}
 
-	.watchlist-page .price-card {
+	.sunday-alpha-alerts-page .price-card {
 		position: relative;
 		background: linear-gradient(165deg, rgba(15, 22, 40, 0.82), rgba(7, 10, 18, 0.95));
 		border: 1px solid var(--sap-border-subtle);
@@ -1502,13 +1409,13 @@
 		flex-direction: column;
 	}
 
-	.watchlist-page .price-card.featured {
+	.sunday-alpha-alerts-page .price-card.featured {
 		border: 2px solid var(--sap-gold-raw);
 		box-shadow: 0 25px 70px -15px rgba(212, 175, 55, 0.28);
 		transform: translateY(-6px);
 	}
 
-	.watchlist-page .popular-ribbon {
+	.sunday-alpha-alerts-page .popular-ribbon {
 		position: absolute;
 		top: -13px;
 		left: 50%;
@@ -1525,7 +1432,7 @@
 		white-space: nowrap;
 	}
 
-	.watchlist-page .plan-name {
+	.sunday-alpha-alerts-page .plan-name {
 		font-family: var(--font-display);
 		font-size: 1.35rem;
 		font-weight: 800;
@@ -1533,36 +1440,36 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .plan-sub {
+	.sunday-alpha-alerts-page .plan-sub {
 		font-size: 0.84rem;
 		color: var(--sap-text-muted);
 		margin: 0 0 1.35rem;
 	}
 
-	.watchlist-page .price-block {
+	.sunday-alpha-alerts-page .price-block {
 		margin-bottom: 1.5rem;
 		padding-bottom: 1.35rem;
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .price-strike {
+	.sunday-alpha-alerts-page .price-strike {
 		font-family: var(--font-mono);
 		font-size: 0.82rem;
 		color: var(--sap-text-muted);
 		margin-bottom: 0.25rem;
 	}
 
-	.watchlist-page .price-strike s {
+	.sunday-alpha-alerts-page .price-strike s {
 		color: var(--sap-crimson-bright);
 	}
 
-	.watchlist-page .price-main {
+	.sunday-alpha-alerts-page .price-main {
 		display: flex;
 		align-items: baseline;
 		gap: 0.35rem;
 	}
 
-	.watchlist-page .price-amount {
+	.sunday-alpha-alerts-page .price-amount {
 		font-family: var(--font-display);
 		font-weight: 900;
 		font-size: 3.25rem;
@@ -1570,13 +1477,13 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .price-period {
+	.sunday-alpha-alerts-page .price-period {
 		font-family: var(--font-mono);
 		font-size: 0.85rem;
 		color: var(--sap-text-muted);
 	}
 
-	.watchlist-page .price-saving-pill {
+	.sunday-alpha-alerts-page .price-saving-pill {
 		display: inline-block;
 		margin-top: 0.6rem;
 		padding: 0.22rem 0.65rem;
@@ -1589,13 +1496,13 @@
 		font-weight: 700;
 	}
 
-	.watchlist-page .price-saving-pill.is-muted {
+	.sunday-alpha-alerts-page .price-saving-pill.is-muted {
 		background: rgba(255, 255, 255, 0.06);
 		border-color: var(--sap-border-subtle);
 		color: var(--sap-text-sec);
 	}
 
-	.watchlist-page .plan-features {
+	.sunday-alpha-alerts-page .plan-features {
 		list-style: none;
 		padding: 0;
 		margin: 0 0 2rem;
@@ -1607,26 +1514,26 @@
 		flex: 1;
 	}
 
-	.watchlist-page .plan-features li {
+	.sunday-alpha-alerts-page .plan-features li {
 		display: flex;
 		align-items: flex-start;
 		gap: 0.55rem;
 	}
 
-	.watchlist-page .plan-features li svg {
+	.sunday-alpha-alerts-page .plan-features li svg {
 		color: var(--sap-emerald-bright);
 		flex-shrink: 0;
 		margin-top: 3px;
 	}
 
 	/* Free Lead Magnet Vault */
-	.watchlist-page .vault-section {
+	.sunday-alpha-alerts-page .vault-section {
 		padding: clamp(4rem, 7vw, 6rem) 0;
 		background: var(--sap-bg-obsidian);
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .vault-box {
+	.sunday-alpha-alerts-page .vault-box {
 		background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(11, 16, 29, 0.92));
 		border: 1px solid var(--sap-border-gold);
 		border-radius: 18px;
@@ -1638,12 +1545,12 @@
 	}
 
 	@media (max-width: 900px) {
-		.watchlist-page .vault-box {
+		.sunday-alpha-alerts-page .vault-box {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	.watchlist-page .vault-title {
+	.sunday-alpha-alerts-page .vault-title {
 		font-family: var(--font-display);
 		font-size: 1.65rem;
 		font-weight: 900;
@@ -1651,20 +1558,20 @@
 		color: var(--sap-text-main);
 	}
 
-	.watchlist-page .vault-copy {
+	.sunday-alpha-alerts-page .vault-copy {
 		color: var(--sap-text-sec);
 		margin: 0;
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
 
-	.watchlist-page .vault-form {
+	.sunday-alpha-alerts-page .vault-form {
 		display: flex;
 		gap: 0.65rem;
 		flex-wrap: wrap;
 	}
 
-	.watchlist-page .vault-input {
+	.sunday-alpha-alerts-page .vault-input {
 		flex: 1;
 		min-width: 220px;
 		padding: 0.95rem 1.15rem;
@@ -1676,12 +1583,12 @@
 		font-size: 0.92rem;
 	}
 
-	.watchlist-page .vault-input:focus {
+	.sunday-alpha-alerts-page .vault-input:focus {
 		outline: none;
 		border-color: var(--sap-gold-raw);
 	}
 
-	.watchlist-page .vault-confirm {
+	.sunday-alpha-alerts-page .vault-confirm {
 		margin: 0.75rem 0 0;
 		font-family: var(--font-mono);
 		font-size: 0.78rem;
@@ -1689,12 +1596,12 @@
 	}
 
 	/* FAQ Section */
-	.watchlist-page .faq-section {
+	.sunday-alpha-alerts-page .faq-section {
 		padding: clamp(5rem, 8vw, 7rem) 0;
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .sap-faq-list {
+	.sunday-alpha-alerts-page .sap-faq-list {
 		max-width: 860px;
 		margin: 0 auto;
 		display: flex;
@@ -1702,7 +1609,7 @@
 		gap: 0.85rem;
 	}
 
-	.watchlist-page .sap-faq-item {
+	.sunday-alpha-alerts-page .sap-faq-item {
 		background: rgba(11, 16, 29, 0.72);
 		border: 1px solid var(--sap-border-subtle);
 		border-radius: 12px;
@@ -1710,7 +1617,7 @@
 		padding: 0;
 	}
 
-	.watchlist-page .sap-faq-item summary {
+	.sunday-alpha-alerts-page .sap-faq-item summary {
 		padding: 1.25rem 1.5rem;
 		color: var(--sap-text-main);
 		font-family: var(--font-display);
@@ -1724,11 +1631,11 @@
 		gap: 1rem;
 	}
 
-	.watchlist-page .sap-faq-item summary::-webkit-details-marker {
+	.sunday-alpha-alerts-page .sap-faq-item summary::-webkit-details-marker {
 		display: none;
 	}
 
-	.watchlist-page .sap-faq-item summary::after {
+	.sunday-alpha-alerts-page .sap-faq-item summary::after {
 		content: '+';
 		font-family: var(--font-mono);
 		font-size: 1.2rem;
@@ -1736,11 +1643,11 @@
 		transition: transform 0.2s;
 	}
 
-	.watchlist-page .sap-faq-item[open] summary::after {
+	.sunday-alpha-alerts-page .sap-faq-item[open] summary::after {
 		transform: rotate(45deg);
 	}
 
-	.watchlist-page .sap-faq-item p {
+	.sunday-alpha-alerts-page .sap-faq-item p {
 		padding: 0 1.5rem 1.35rem;
 		margin: 0;
 		color: var(--sap-text-sec);
@@ -1749,13 +1656,13 @@
 	}
 
 	/* Disclaimer Section */
-	.watchlist-page .sap-disclaimer-section {
+	.sunday-alpha-alerts-page .sap-disclaimer-section {
 		padding: 2.5rem 0;
 		background: #020306;
 		border-bottom: 1px solid var(--sap-border-subtle);
 	}
 
-	.watchlist-page .disclaimer-legal {
+	.sunday-alpha-alerts-page .disclaimer-legal {
 		font-size: 0.74rem;
 		color: var(--sap-text-dim);
 		line-height: 1.7;
@@ -1763,7 +1670,7 @@
 	}
 
 	/* Sticky Bottom Conversion Bar */
-	.watchlist-page .sticky-bar {
+	.sunday-alpha-alerts-page .sticky-bar {
 		position: fixed;
 		bottom: 1.25rem;
 		left: 50%;
@@ -1783,28 +1690,52 @@
 		transition: transform 0.4s var(--sap-ease-out-expo);
 	}
 
-	.watchlist-page .sticky-bar.visible {
+	.sunday-alpha-alerts-page .sticky-bar.visible {
 		transform: translateX(-50%) translateY(0);
 	}
 
-	.watchlist-page .sticky-text {
+	.sunday-alpha-alerts-page .sticky-text {
 		font-size: 0.84rem;
 		color: var(--sap-text-sec);
 	}
 
-	.watchlist-page .sticky-text strong {
+	.sunday-alpha-alerts-page .sticky-text strong {
 		color: var(--sap-gold-bright);
 	}
 
-	.watchlist-page .sticky-cta {
+	.sunday-alpha-alerts-page .sticky-cta {
 		padding: 0.6rem 1.25rem;
 		font-size: 0.78rem;
 		border-radius: 999px;
 	}
 
 	@media (max-width: 640px) {
-		.watchlist-page .sticky-text span {
+		.sunday-alpha-alerts-page .sticky-text span {
 			display: none;
 		}
 	}
+}
+
+/* Shared outer shell; intrinsic children must shrink without hiding overflow. */
+.sunday-alpha-alerts-page .hero-grid > *,
+.sunday-alpha-alerts-page .sap-subnav-inner > *,
+.sunday-alpha-alerts-page .terminal-grid > * {
+	min-inline-size: 0;
+}
+.sunday-alpha-alerts-page .sap-product-name {
+	font-family: var(--font-display);
+	font-weight: 800;
+	color: var(--text);
+}
+.sunday-alpha-alerts-page .example-notice {
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: var(--muted);
+	max-inline-size: 70ch;
+}
+.sunday-alpha-alerts-page .nav-links {
+	flex-wrap: wrap;
+}
+.sunday-alpha-alerts-page .hero-title {
+	overflow-wrap: anywhere;
 }

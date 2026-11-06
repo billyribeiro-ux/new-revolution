@@ -6931,12 +6931,6 @@
 	overflow-x: hidden;
 }
 
-.indexes-page .container {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 0 1.5rem;
-}
-
 .indexes-page .hero {
 	position: relative;
 	padding: 5rem 1rem 3rem;
@@ -7009,9 +7003,7 @@
 }
 
 .indexes-page .section {
-	padding: 2.5rem 1rem;
-	padding-left: calc(1rem + env(safe-area-inset-left, 0px));
-	padding-right: calc(1rem + env(safe-area-inset-right, 0px));
+	padding-block: 2.5rem;
 }
 
 .indexes-page .section--dark {
@@ -7083,7 +7075,7 @@
 }
 
 .indexes-page .ticker {
-	font-family: 'Monaco', 'Menlo', monospace;
+	font-family: var(--font-sans);
 	background: rgba(220, 255, 101, 0.1);
 	padding: 0.125rem 0.5rem;
 	color: var(--acid);
@@ -7258,7 +7250,7 @@
 }
 
 .indexes-page .index-card__ticker span {
-	font-family: 'Monaco', 'Menlo', monospace;
+	font-family: var(--font-sans);
 	color: var(--acid);
 }
 
@@ -7386,7 +7378,7 @@
 }
 
 .indexes-page .cta-section {
-	padding: 3rem 1rem;
+	padding-block: 3rem;
 	padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
 	background: linear-gradient(135deg, rgba(220, 255, 101, 0.1) 0%, transparent 100%);
 }
@@ -7463,7 +7455,7 @@
 	}
 
 	.indexes-page .section {
-		padding: 3.5rem 1.5rem;
+		padding-block: 3.5rem;
 	}
 
 	.indexes-page .filter-bar {
@@ -7501,7 +7493,7 @@
 	}
 
 	.indexes-page .section {
-		padding: 4rem 2rem;
+		padding-block: 4rem;
 	}
 
 	.indexes-page .sp500-feature__text {
@@ -7530,7 +7522,7 @@
 	}
 
 	.indexes-page .cta-section {
-		padding: 4rem 2rem;
+		padding-block: 4rem;
 	}
 }
 
@@ -7540,7 +7532,7 @@
 	}
 
 	.indexes-page .section {
-		padding: 5rem 2rem;
+		padding-block: 5rem;
 	}
 
 	.indexes-page .sp500-feature {
@@ -7558,7 +7550,7 @@
 	}
 
 	.indexes-page .cta-section {
-		padding: 5rem 2rem;
+		padding-block: 5rem;
 	}
 }
 

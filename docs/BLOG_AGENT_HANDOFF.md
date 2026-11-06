@@ -49,11 +49,11 @@ The owner subsequently selected `blogs/first-blog.md` for article preparation. I
 
 The SSR homepage’s `getDeskStatus` remote prerender must retain `{ dynamic: true }`. The November 5 hosted check found that default build-only prerender functions can pass Vite preview while throwing in the generated Vercel handler. Preserve `tests/deployment/vercel-runtime.e2e.ts` and verify deployed HTTP/browser behavior after changing rendering mode.
 
-Blog shells now use the same responsive `.container` as the rest of the website (1536px maximum on large screens); article prose retains a 900px reading limit. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
+Blog shells use the shared border-box `.container` (152.5rem maximum, 2440px at a 16px root, including inline padding); article prose retains a 900px reading limit. Follow [the current layout/content contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md) for archive/search, TOC/FAQ, media, font and punctuation operations. Treat `src/app.css` as the width/gutter evidence, rather than inventing a viewport-specific width for a post.
 
 ## Agent-document coverage
 
-The following **41 Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. The existing 40 entry points also point to the shared font/fragment policy; that policy carries its own handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.
+The following **43 Markdown entry points, prompts, standards and runbooks** now carry a dated blog-handoff reference. The existing 40 entry points also point to the shared font/fragment policy; that policy carries its own handoff reference. `CLAUDE.md` also imports this file explicitly. The identical SEO-standard copies use the same repository-root path text to preserve their byte-for-byte parity.
 
 - [AGENTS.md](../AGENTS.md)
 - [ARCHCITECURE_AND_SEO.md](../ARCHCITECURE_AND_SEO.md)
@@ -72,11 +72,13 @@ The following **41 Markdown entry points, prompts, standards and runbooks** now 
 - [docs/BLOG_ADAPTATION_MAP.md](BLOG_ADAPTATION_MAP.md)
 - [docs/CSS_STANDARDS.md](CSS_STANDARDS.md)
 - [docs/FONT_AND_FRAGMENT_POLICY.md](FONT_AND_FRAGMENT_POLICY.md)
+- [docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md](blog/LAYOUT_AND_CONTENT_CONTRACT.md)
 - [docs/MAINTENANCE.md](MAINTENANCE.md)
 - [docs/MAINTENANCE_EXPERIENCE_PLAN.md](MAINTENANCE_EXPERIENCE_PLAN.md)
 - [docs/MEDIA_STORAGE.md](MEDIA_STORAGE.md)
 - [docs/MEDIA_UI_CONTRACT.md](MEDIA_UI_CONTRACT.md)
 - [docs/NEW_PAGE_PLAYBOOK.md](NEW_PAGE_PLAYBOOK.md)
+- [docs/reviews/blog-layout-system-2026-11-05/release/README.md](reviews/blog-layout-system-2026-11-05/release/README.md)
 - [docs/SEO_EVIDENCE.md](SEO_EVIDENCE.md)
 - [docs/TEMPORARY.md](TEMPORARY.md)
 - [docs/VITE_PLUS_WORKFLOW.md](VITE_PLUS_WORKFLOW.md)

@@ -45,7 +45,7 @@
 			thesis:
 				'Retail trading education fails because it is taught by marketers who have never sat near an institutional desk or managed real order flow.',
 			outcome:
-				'Trained directly under Mark "Goldfinger" McGoldrick—one of the highest-earning proprietary traders in Goldman Sachs history—who explicitly called our founder "the future of trading."',
+				'Trained directly under Mark "Goldfinger" McGoldrick, one of the highest-earning proprietary traders in Goldman Sachs history, who explicitly called our founder "the future of trading."',
 			mechanics:
 				'Institutional Order Flow • Smart-Money Liquidity Traps • Asymmetric Risk Structuring'
 		},
@@ -67,7 +67,7 @@
 			metric: '2020 Top & Bottom Called Live',
 			title: 'Called the Exact 2020 COVID Crash Top and Generational Market Bottom',
 			thesis:
-				'Before the February–March 2020 liquidation cascaded across global indexes, retail gurus told traders to buy every dip on the way down—and then panicked into cash at the March bottom.',
+				'Before the February–March 2020 liquidation cascaded across global indexes, retail gurus told traders to buy every dip on the way down and then panicked into cash at the March bottom.',
 			outcome:
 				'We warned traders of the structural breakdown at the 2020 top before the crash accelerated, and then pivoted at the exact March 2020 capitulation low to capture the generational recovery.',
 			mechanics:
@@ -127,8 +127,8 @@
 						'High-precision S&P 500 index options alerts delivering institutional inflection levels, exact entries, profit targets, and hard stops.'
 				},
 				{
-					name: 'Sunday Alpha Protocol',
-					href: '/watchlist',
+					name: 'Sunday Alpha Alerts',
+					href: '/sunday-alpha-alerts',
 					audience: 'Self-Directed & Busy Traders',
 					summary:
 						'Accessible alert-only membership delivering detailed video watchlists with exact targeted entries, exits, and stop-loss levels.'
@@ -144,7 +144,7 @@
 					href: '/mentorship',
 					audience: 'By Application & Approval Only',
 					summary:
-						'Private one-on-one executive trading mentorship. You cannot buy your way in—every applicant is vetted for coachability and work ethic.'
+						'Private one-on-one executive trading mentorship. You cannot buy your way in; every applicant is vetted for coachability and work ethic.'
 				},
 				{
 					name: 'Courses, Non-Repainting Indicators & Scanners',
@@ -213,14 +213,15 @@
 						About Revolution Trading Pros • Institutional Stock &amp; Options Trading Lineage
 					</span>
 					<span class="hero-h1__display">
-						I Stood on the Losing Side First. Now I’m the Only Trader Feared by Wall Street—Fighting
-						for You.
+						I Stood on the Losing Side First. Now I’m the Only Trader Feared by Wall Street,
+						Fighting for You.
 					</span>
 				</h1>
 
 				<p class="lead-paragraph">
 					When you log into our website, my #1 goal is that you immediately know you finally found
-					what you have been searching for—not based on hype, rented lifestyles, or lies, but on
+					what you have been searching for, based on neither hype, rented lifestyles nor lies, but
+					on
 					<strong>undeniable truth and hard market evidence</strong>.
 				</p>
 
@@ -238,7 +239,7 @@
 
 				<p class="body-paragraph">
 					Everything changed when I was mentored directly by former Wall Street Goldman Sachs
-					proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>—who called me
+					proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>, who called me
 					<em>"the future of trading."</em> Armed with real institutional execution, I went on to
 					call the <strong>2020 COVID Top and Bottom</strong>, call the
 					<strong>2022 Market Top and Bottom</strong>, and embarrass
@@ -361,7 +362,7 @@
 						exact pain that millions of retail traders in the US and Canada go through every single
 						day. I saw how the retail trading industry operates behind the curtain: flashy marketers
 						selling overpriced courses filled with basic textbook theory and peddling repainted
-						"magic arrow" indicators that look perfect in hindsight screenshots—but bleed your
+						"magic arrow" indicators that look perfect in hindsight screenshots but bleed your
 						account dry in live market chop.
 					</p>
 					<p class="body-paragraph">
@@ -377,11 +378,12 @@
 						2. The Goldman Sachs Mentorship: Learning From Mark "Goldfinger" McGoldrick
 					</h3>
 					<p class="body-paragraph">
-						The breakthrough that changed my life forever didn't come from a retail chatroom—it came
-						from the highest level of institutional proprietary trading. I was mentored directly by
-						former Wall Street Goldman Sachs legend <strong>Mark "Goldfinger" McGoldrick</strong>,
-						widely known on Wall Street as one of the most profitable proprietary traders in Goldman
-						Sachs history before founding Mount Kellett Capital.
+						The breakthrough that changed my life forever didn't come from a retail chatroom; it
+						came from the highest level of institutional proprietary trading. I was mentored
+						directly by former Wall Street Goldman Sachs legend <strong
+							>Mark "Goldfinger" McGoldrick</strong
+						>, widely known on Wall Street as one of the most profitable proprietary traders in
+						Goldman Sachs history before founding Mount Kellett Capital.
 					</p>
 					<p class="body-paragraph">
 						Mark didn't teach lagging retail oscillators or meme-stock gambling. He taught me how
@@ -397,8 +399,8 @@
 					</h3>
 					<p class="body-paragraph">
 						Wall Street hates when everyday traders learn how the game is actually rigged. Instead
-						of locking that institutional edge behind a hedge fund door—or charging extortionate
-						fees like fake internet gurus—I founded <strong>Revolution Trading Pros</strong> to put
+						of locking that institutional edge behind a hedge fund door, or charging extortionate
+						fees like fake internet gurus, I founded <strong>Revolution Trading Pros</strong> to put
 						that exact weapon into the hands of working professionals, full-time day traders, and
 						small-account traders starting with as little as <strong>$500</strong>.
 					</p>
@@ -467,8 +469,8 @@
 										class="ic-mark ic-mark--yes"
 										aria-hidden="true"
 									/> Goldman Sachs Mentored Edge:</strong
-								> Direct lineage from Mark "Goldfinger" McGoldrick—built on real institutional order flow
-								and liquidity mechanics.
+								> Direct lineage from Mark "Goldfinger" McGoldrick, built on real institutional order
+								flow and liquidity mechanics.
 							</li>
 							<li>
 								<strong
@@ -569,7 +571,7 @@
 				<p class="body-paragraph section-header__sub">
 					Because our mission is helping people achieve their dreams rather than chasing high-ticket
 					fees, we engineered our rooms and alert services so every trader has a clear, realistic
-					path forward—regardless of schedule or starting capital.
+					path forward, regardless of schedule or starting capital.
 				</p>
 			</div>
 
@@ -580,9 +582,9 @@
 					<p class="avatar-card__copy">
 						You don’t need to quit your job or stare at 1-minute charts for six hours a day to trade
 						like an institution. Through our <strong>Swing Trading Room</strong> and our
-						<strong>Sunday Alpha Protocol</strong> video watchlists, you receive complete trade plans
-						with exact targeted entries, profit exits, and hard stop-losses you can set and manage around
-						your workday.
+						<strong>Sunday Alpha Alerts</strong> video watchlists, you receive complete trade plans with
+						exact targeted entries, profit exits, and hard stop-losses you can set and manage around your
+						workday.
 					</p>
 					<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')} class="text-link">
 						Explore the Swing Trading Room
@@ -611,7 +613,7 @@
 					<h3 class="avatar-card__title">Day Traders, Scalpers &amp; Pros</h3>
 					<p class="avatar-card__copy">
 						Trade the opening bell, intraday momentum shifts, and institutional options flow live
-						with us every morning in the <strong>Day Trading Room</strong>—or capture rapid index
+						with us every morning in the <strong>Day Trading Room</strong>, or capture rapid index
 						moves with <strong>SPX Profit Pulse</strong>. Watch and hear our exact execution on
 						entries, scaling out, and trailing stops in real time.
 					</p>
@@ -626,12 +628,12 @@
 					<h3 class="avatar-card__title">Video Watchlist &amp; Alert Members</h3>
 					<p class="avatar-card__copy">
 						Want our institutional chart preparation without sitting in a live room? Our affordable
-						alert-only tiers (<strong>Sunday Alpha Protocol</strong> and
+						alert-only tiers (<strong>Sunday Alpha Alerts</strong> and
 						<strong>SPX Profit Pulse</strong>) send you detailed video watchlists breaking down the
 						exact thesis, entry triggers, profit targets, and invalidation stops before the move
 						happens.
 					</p>
-					<a href={resolve('/watchlist' as '/')} class="text-link">
+					<a href={resolve('/sunday-alpha-alerts' as '/')} class="text-link">
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -652,7 +654,7 @@
 				</h2>
 				<p class="body-paragraph section-header__sub">
 					Every room, alert service, custom indicator, course, scanner, and free resource under one
-					roof—built to take you from uncertain retail trader to disciplined institutional
+					roof, built to take you from uncertain retail trader to disciplined institutional
 					execution.
 				</p>
 			</div>
@@ -731,7 +733,7 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/watchlist' as '/')} class="btn btn-outline-dark">
+				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
 					Explore Video Watchlist Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

@@ -1,5 +1,6 @@
-import { access, mkdir, readFile, writeFile, cp } from 'node:fs/promises';
-import { dirname, join, posix, resolve } from 'node:path';
+import { collectRootTheme, writeBrandUiCss } from './brand-ui-build.mjs';
+import { mkdir, readFile, writeFile, cp } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'vite';
 import { demonstrationBars } from '../src/lib/maintenance/data.ts';
@@ -36,38 +37,8 @@ await cp(
 // Resolve assets from this build, never from hardcoded hashes or a second font import.
 async function renderMaintenancePage() {
 	const clientDir = '.svelte-kit/output/client';
-	const manifest = JSON.parse(await readFile(`${clientDir}/.vite/manifest.json`, 'utf8'));
-	const root = Object.entries(manifest).find(([, entry]) => entry.name === 'nodes/0');
-	if (!root) throw new Error('Maintenance assets missing: root layout');
-	const visited = new Set();
-	const styles = new Set();
-	function collectStyles(key) {
-		if (visited.has(key)) return;
-		visited.add(key);
-		const entry = manifest[key];
-		if (!entry) throw new Error(`Missing manifest entry: ${key}`);
-		for (const imported of entry.imports ?? []) collectStyles(imported);
-		for (const css of entry.css ?? []) styles.add(css);
-	}
-	collectStyles(root[0]);
-	if (!styles.size) throw new Error('Maintenance assets missing: root stylesheet');
-	let theme = '';
-	for (const file of styles) {
-		const css = await readFile(join(clientDir, file), 'utf8');
-		// CSS is embedded to keep tokens available even if a font request fails.
-		const assets = [];
-		theme += css.replace(/url\(([^)]+)\)/g, (match, raw) => {
-			const url = raw.trim().replace(/^['"]|['"]$/g, '');
-			if (url.startsWith('data:') || url.startsWith('#')) return match;
-			const path = posix.normalize(posix.join(posix.dirname(file), url));
-			if (!path.startsWith('_app/immutable/')) {
-				throw new Error(`Maintenance stylesheet references an unexpected asset: ${url}`);
-			}
-			assets.push(path);
-			return `url("/${path}")`;
-		});
-		await Promise.all(assets.map((path) => access(join(clientDir, path))));
-	}
+	const theme = await collectRootTheme(clientDir);
+	await writeBrandUiCss(clientDir, theme);
 	const template = await readFile(new URL('./templates/maintenance.html', import.meta.url), 'utf8');
 	const localTokens = new Set([...template.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
 	for (const match of template.matchAll(/var\((--[\w-]+)/g)) {
@@ -171,7 +142,10 @@ await createFunction(
 	'{"maintenance":false}'
 );
 // The marker must be dynamic: Vercel's static handler can replace cache headers.
-config.routes.unshift({ src: '^/maintenance-state\\.json$', dest: '/__maintenance_state' });
+config.routes.unshift(
+	{ src: '^/brand-ui\\.css$', headers: { 'cache-control': 'no-cache' }, continue: true },
+	{ src: '^/maintenance-state\\.json$', dest: '/__maintenance_state' }
+);
 if (process.env.MAINTENANCE_MODE === 'true') {
 	await createFunction('__maintenance_page', 503, 'text/html; charset=utf-8', maintenanceHtml);
 	await createFunction(
@@ -188,7 +162,7 @@ if (process.env.MAINTENANCE_MODE === 'true') {
 			dest: '/__maintenance_api'
 		},
 		{
-			src: '^/(?!api/(health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$)|waitlist/(confirm|unsubscribe)/?$|privacy-policy/?$|_app/immutable/).*',
+			src: '^/(?!api/(health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$)|waitlist/(confirm|unsubscribe)/?$|privacy-policy/?$|_app/immutable/|brand-ui\\.css$).*',
 			dest: '/__maintenance_page'
 		}
 	);

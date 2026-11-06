@@ -1,9 +1,13 @@
 import { randomBytes } from 'node:crypto';
 import path from 'node:path';
 import sharp from 'sharp';
-import { and, eq, isNull, like, ne, or, sql } from 'drizzle-orm';
+import { and, eq, inArray, isNull, like, ne, or, sql } from 'drizzle-orm';
 import { ensureDbReady } from '../src/lib/server/db';
 import { media, posts, type MediaVariantRecord } from '../src/lib/server/db/schema';
+import {
+	persistPostSearchProjection,
+	postSearchSourceSelection
+} from '../src/lib/server/posts/search-persistence';
 import {
 	getActiveDiskMediaDriver,
 	getMediaStorageDriver,
@@ -357,28 +361,40 @@ export async function backfillBlogImageVariants(
 
 				// Also update posts.cover_image, posts.og_image, and posts.content body references conditional on oldUrl
 				if (newUrl !== oldUrl) {
-					await db
-						.update(posts)
-						.set({
-							coverImage: newUrl,
-							coverImageWidth: origWidth,
-							coverImageHeight: origHeight
-						})
-						.where(eq(posts.coverImage, oldUrl));
+					await db.transaction(async (tx) => {
+						const coverRows = await tx
+							.update(posts)
+							.set({
+								coverImage: newUrl,
+								coverImageWidth: origWidth,
+								coverImageHeight: origHeight
+							})
+							.where(eq(posts.coverImage, oldUrl))
+							.returning({ id: posts.id });
 
-					await db
-						.update(posts)
-						.set({
-							ogImage: newUrl
-						})
-						.where(eq(posts.ogImage, oldUrl));
+						await tx
+							.update(posts)
+							.set({
+								ogImage: newUrl
+							})
+							.where(eq(posts.ogImage, oldUrl));
 
-					await db
-						.update(posts)
-						.set({
-							content: sql`replace(${posts.content}, ${oldUrl}, ${newUrl})`
-						})
-						.where(like(posts.content, `%${oldUrl}%`));
+						const contentRows = await tx
+							.update(posts)
+							.set({
+								content: sql`replace(${posts.content}, ${oldUrl}, ${newUrl})`
+							})
+							.where(like(posts.content, `%${oldUrl}%`))
+							.returning({ id: posts.id });
+						const changedIds = [...new Set([...coverRows, ...contentRows].map((post) => post.id))];
+						if (changedIds.length > 0) {
+							const changed = await tx
+								.select(postSearchSourceSelection)
+								.from(posts)
+								.where(inArray(posts.id, changedIds));
+							for (const post of changed) await persistPostSearchProjection(tx, post);
+						}
+					});
 				}
 
 				result.updated++;

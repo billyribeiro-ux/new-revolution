@@ -2,14 +2,16 @@ import { expect, test } from '@playwright/test';
 
 const articlePath = '/blog/institutional-order-flow-and-gamma-flip-playbook';
 
-test('keeps the TOC on desktop and aligns the article reading column across breakpoints', async ({
+test('keeps the TOC on wide desktop and aligns the article reading column flush with container across breakpoints', async ({
 	page
 }) => {
 	await page.goto(articlePath);
 	const toc = page.locator('.article-toc-aside');
-	for (const width of [320, 375, 768, 1024, 1179, 1180, 1181, 1280, 1440, 1536, 1920, 2440, 2880]) {
+	for (const width of [
+		320, 375, 768, 1024, 1180, 1280, 1440, 1536, 1728, 1899, 1900, 1920, 2048, 2440, 2880
+	]) {
 		await page.setViewportSize({ width, height: 900 });
-		await expect(toc).toBeVisible({ visible: width >= 1180 });
+		await expect(toc).toBeVisible({ visible: width >= 1900 });
 		const geometry = await page.evaluate(() => {
 			const rect = (selector: string) => {
 				const element = document.querySelector(selector);
@@ -28,6 +30,8 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 				Number.parseFloat(getComputedStyle(navContainer).paddingInlineEnd);
 			const related = document.querySelector<HTMLElement>('.related-articles-section');
 			const backRow = document.querySelector<HTMLElement>('.back-to-blog-row');
+			const tocEl = document.querySelector<HTMLElement>('.article-toc-aside');
+			const tocVisible = tocEl && getComputedStyle(tocEl).display !== 'none';
 			return {
 				scrollWidth: document.documentElement.scrollWidth,
 				navShell: navRect.toJSON(),
@@ -38,7 +42,9 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 				header: rect('.article-header'),
 				cover: rect('.article-cover-figure'),
 				body: rect('.article-main-column'),
+				prose: rect('.article-prose'),
 				faq: rect('.article-faq-section'),
+				toc: tocVisible && tocEl ? tocEl.getBoundingClientRect().toJSON() : null,
 				related: related ? related.getBoundingClientRect().toJSON() : null,
 				backRow: backRow ? backRow.getBoundingClientRect().toJSON() : null
 			};
@@ -60,14 +66,23 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 			expect(Math.abs(geometry.backRow.x - geometry.navInnerLeft)).toBeLessThan(1);
 			expect(Math.abs(geometry.backRow.width - geometry.navInnerWidth)).toBeLessThan(1);
 		}
-		expect(geometry.body.width).toBeLessThanOrEqual(901);
-		expect(Math.abs(geometry.header.x - geometry.body.x)).toBeLessThan(2);
-		expect(Math.abs(geometry.cover.x - geometry.body.x)).toBeLessThan(2);
-		expect(Math.abs(geometry.faq.x - geometry.body.x)).toBeLessThan(2);
-		expect(Math.abs(geometry.cover.width - geometry.body.width)).toBeLessThan(2);
+		expect(Math.abs(geometry.header.x - geometry.navInnerLeft)).toBeLessThan(1);
+		expect(Math.abs(geometry.header.width - geometry.navInnerWidth)).toBeLessThan(1);
+		expect(Math.abs(geometry.cover.x - geometry.navInnerLeft)).toBeLessThan(1);
+		expect(Math.abs(geometry.cover.width - geometry.navInnerWidth)).toBeLessThan(1);
+		expect(Math.abs(geometry.body.x - geometry.navInnerLeft)).toBeLessThan(1);
+		expect(Math.abs(geometry.body.width - geometry.navInnerWidth)).toBeLessThan(1);
+		expect(Math.abs(geometry.prose.x - geometry.navInnerLeft)).toBeLessThan(1);
+		expect(Math.abs(geometry.prose.width - geometry.navInnerWidth)).toBeLessThan(1);
+		expect(Math.abs(geometry.faq.x - geometry.navInnerLeft)).toBeLessThan(1);
+		expect(Math.abs(geometry.faq.width - geometry.navInnerWidth)).toBeLessThan(1);
+		if (geometry.toc) {
+			expect(geometry.toc.x).toBeGreaterThanOrEqual(15);
+			expect(geometry.header.x - (geometry.toc.x + geometry.toc.width)).toBeGreaterThanOrEqual(27);
+		}
 	}
 
-	for (const width of [320, 1440, 1536]) {
+	for (const width of [320, 1440, 1536, 1920]) {
 		await page.setViewportSize({ width, height: 900 });
 		const overflowAt200Percent = await page.evaluate(async () => {
 			document.documentElement.style.fontSize = '32px';
@@ -86,7 +101,7 @@ test('keeps the TOC on desktop and aligns the article reading column across brea
 });
 
 test('keeps link and icon geometry stable on hover and focus', async ({ page }) => {
-	await page.setViewportSize({ width: 1440, height: 1000 });
+	await page.setViewportSize({ width: 1920, height: 1000 });
 	await page.goto(articlePath);
 	const link = page.locator('.toc-list a').first();
 	const icon = page.locator('.toc-toggle-icon');
@@ -120,7 +135,7 @@ async function extendLocalToc(page: import('@playwright/test').Page) {
 test('adapts the navigation height without moving the panel when the last FAQ opens', async ({
 	page
 }) => {
-	await page.setViewportSize({ width: 1440, height: 1000 });
+	await page.setViewportSize({ width: 1920, height: 1000 });
 	await page.goto(articlePath);
 	await extendLocalToc(page);
 	const lastSummary = page.locator('.faq-details').last().locator('summary');
@@ -171,7 +186,7 @@ test('adapts the navigation height without moving the panel when the last FAQ op
 });
 
 test('chains wheel scrolling to the page at the TOC edge', async ({ page }) => {
-	await page.setViewportSize({ width: 1440, height: 640 });
+	await page.setViewportSize({ width: 1920, height: 640 });
 	await page.goto(articlePath);
 	await extendLocalToc(page);
 	await page.evaluate(() => window.scrollTo({ top: 600, behavior: 'instant' }));
@@ -188,7 +203,7 @@ test('chains wheel scrolling to the page at the TOC edge', async ({ page }) => {
 test('supports native collapse, keyboard control, heading navigation and active tracking', async ({
 	page
 }) => {
-	await page.setViewportSize({ width: 1440, height: 900 });
+	await page.setViewportSize({ width: 1920, height: 900 });
 	await page.goto(articlePath);
 	const details = page.locator('.toc-details');
 	const summary = details.locator('summary');
@@ -203,7 +218,7 @@ test('supports native collapse, keyboard control, heading navigation and active 
 	await expect(summary).toBeFocused();
 	await page.setViewportSize({ width: 768, height: 900 });
 	await expect(page.locator('.article-toc-aside')).not.toBeVisible();
-	await page.setViewportSize({ width: 1440, height: 900 });
+	await page.setViewportSize({ width: 1920, height: 900 });
 	await expect(details).not.toHaveAttribute('open', '');
 	await summary.focus();
 	await page.keyboard.press('Space');
@@ -225,7 +240,7 @@ test('supports native collapse, keyboard control, heading navigation and active 
 test('keeps its control and scrollable links reachable in a short desktop viewport', async ({
 	page
 }) => {
-	await page.setViewportSize({ width: 1280, height: 320 });
+	await page.setViewportSize({ width: 1920, height: 320 });
 	await page.goto(articlePath);
 	const details = page.locator('.toc-details');
 	await page.evaluate(() => window.scrollTo({ top: 600, behavior: 'instant' }));
@@ -272,7 +287,7 @@ test('keeps its control and scrollable links reachable in a short desktop viewpo
 test('TOC disclosure and heading links work without JavaScript', async ({ browser, baseURL }) => {
 	const context = await browser.newContext({
 		javaScriptEnabled: false,
-		viewport: { width: 1440, height: 900 }
+		viewport: { width: 1920, height: 900 }
 	});
 	try {
 		const page = await context.newPage();

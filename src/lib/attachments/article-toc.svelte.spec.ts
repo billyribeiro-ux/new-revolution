@@ -21,7 +21,7 @@ const settle = () =>
 		requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
 	);
 
-async function mount(width = 1440, height = 1000) {
+async function mount(width = 1920, height = 1000) {
 	await page.viewport(width, height);
 	fixture = document.createElement('div');
 	const css = articleSource.match(/<style>([\s\S]*?)<\/style>/)?.[1];
@@ -110,7 +110,7 @@ describe('article navigation using the real article CSS', () => {
 	});
 
 	it('keeps the summary and scrollable navigation reachable in a short viewport', async () => {
-		const { panel } = await mount(1280, 320);
+		const { panel } = await mount(1920, 320);
 		window.scrollTo({ top: 600, behavior: 'instant' });
 		await settle();
 		expect(panel.getBoundingClientRect().top).toBe(96);
@@ -145,7 +145,7 @@ describe('article navigation using the real article CSS', () => {
 
 	it('keeps enlarged text inside the short viewport even when a full navigation row cannot fit', async () => {
 		document.documentElement.style.fontSize = '200%';
-		const { panel } = await mount(1280, 320);
+		const { panel } = await mount(1920, 320);
 		window.scrollTo({ top: 600, behavior: 'instant' });
 		await settle();
 		expect(panel.getBoundingClientRect().bottom).toBeLessThanOrEqual(innerHeight);

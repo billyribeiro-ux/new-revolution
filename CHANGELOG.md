@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-06 — Align blog article layout 100% flush with `.container` & move TOC to external left margin (`>=1900px`)
+
+- **Fixed:** Unify `.prose-base` (`src/lib/styles/prose.css`) to `max-width: 100%; margin-inline: 0;` and set `max-inline-size: 100%` on `.prose-base` headings (`h1`–`h6`), paragraphs (`p`), lists (`ul`, `ol`, `li`), and blockquotes (`blockquote`) so both the Admin Blog Editor canvas (`RichTextEditor.svelte`) and public blog posts share `100%` full-container width parity without premature `28ch`/`34ch`/`680px` line cutoffs.
+- **Fixed:** Align `.article-header`, `.article-h1`, `.article-subtitle`, `.article-excerpt`, `.article-cover-figure`, `.article-body-layout`, `.article-main-column`, `.article-service-cta`, `.article-faq-section`, and `.author-bio-box` in `src/routes/blog/[slug]/+page.svelte` `100%` flush (`0px` delta) with the website's `.container` inner left and right edges (`1424px` max inner width at `>=1536px`), matching `<Navbar />`, `.breadcrumb-bar__inner`, `.related-articles-section`, and `<Footer />`.
+- **Changed:** Relocate `.article-toc-aside` in `src/routes/blog/[slug]/+page.svelte` and `src/lib/attachments/article-toc.ts` out of the internal article column into the external left viewport margin at `@media (min-width: 118.75rem)` (`1900px+`, where `(100vw - 1424px) / 2 >= 238px` provides `>=16px` left screen padding + `194px–260px` TOC width + `28px–40px` padding before the article), hiding the TOC below `1900px` so it never shifts or cramps the blog content.
+- **Changed:** Update `src/routes/blog/toc-layout.e2e.ts`, `src/lib/attachments/article-toc.svelte.spec.ts`, `src/lib/components/admin/editor-components.svelte.spec.ts`, `src/routes/blog/blog-system.e2e.ts`, `src/routes/admin/image-flow.e2e.ts`, `AGENTS.md`, and `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md` to enforce the `100%` container-flush blog reading column and `118.75rem` (`1900px`) external left-margin TOC contract.
+
 ### 2026-11-06 — Unify breadcrumb layout, Google BreadcrumbList hierarchy & remove `/watchlist` route folder
 
 - **Fixed:** Standardize `src/lib/components/layout/Breadcrumb.svelte` to use the shared `.container` (`max-inline-size: var(--max)` = `96rem` / `1536px` with `calc(var(--gutter) / 2)` inline padding), eliminating the `-24px` horizontal misalignment on `/resources` and `/resources/etf-stocks-list`.

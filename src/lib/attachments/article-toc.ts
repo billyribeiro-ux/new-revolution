@@ -21,7 +21,7 @@ export function attachArticleNavigation(
 	const nav = panel?.querySelector<HTMLElement>('nav');
 	const boundary = article.querySelector<HTMLElement>('.article-main-column');
 	const firstLink = nav?.querySelector<HTMLElement>('[data-toc-id]');
-	const desktop = window.matchMedia('(min-width: 73.75rem)');
+	const desktop = window.matchMedia('(min-width: 118.75rem)');
 	const headings = items.map(({ id }) => ({ id, element: document.getElementById(id) }));
 	const links = Array.from(nav?.querySelectorAll<HTMLElement>('[data-toc-id]') ?? []);
 	let frame = 0;

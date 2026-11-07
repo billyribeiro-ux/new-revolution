@@ -18,9 +18,10 @@ describe('TableOfContentsPanel (Admin Post Editor)', () => {
 			.toBeVisible();
 	});
 
-	it('extracts H2–H3 headings, displays count badge, and toggles Show TOC on Post', async () => {
+	it('extracts H2 headings, displays count badge, and toggles Show TOC on Post', async () => {
 		await render(TableOfContentsPanel, {
-			content: '<h2>Market Structure</h2><h3>Gamma Flip Zone</h3><h2>Execution Blueprint</h2>',
+			content:
+				'<h2>Market Structure</h2><h2>Gamma Flip Zone</h2><h3>Sub-detail</h3><h2>Execution Blueprint</h2>',
 			enableToc: true
 		});
 

@@ -20,14 +20,16 @@ describe('buildTocTree', () => {
 });
 
 describe('published heading identifiers', () => {
-	it('preserves numeric heading identifiers and keeps duplicate TOC targets unique', () => {
+	it('preserves numeric heading identifiers, assigns unique IDs to all headings, and includes only H2 headings in TOC', () => {
 		const { html, toc } = normalizePostHeadings(
-			'<h2>1. What 0DTE Changes About the Trade</h2><h3>1. What 0DTE Changes About the Trade</h3>'
+			'<h2>1. What 0DTE Changes About the Trade</h2><h3>1. What 0DTE Changes About the Trade</h3><h2>2. Execution Discipline</h2>'
 		);
 		expect(toc.map((item) => item.id)).toEqual([
 			'1-what-0dte-changes-about-the-trade',
-			'1-what-0dte-changes-about-the-trade-2'
+			'2-execution-discipline'
 		]);
-		for (const item of toc) expect(html).toContain(`id="${item.id}"`);
+		expect(html).toContain('id="1-what-0dte-changes-about-the-trade"');
+		expect(html).toContain('id="1-what-0dte-changes-about-the-trade-2"');
+		expect(html).toContain('id="2-execution-discipline"');
 	});
 });

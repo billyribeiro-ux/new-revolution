@@ -58,12 +58,12 @@ async function mount(width = 1920, height = 1000) {
 }
 
 describe('article navigation using the real article CSS', () => {
-	it('keeps the sticky top stable while the final FAQ changes the lower boundary', async () => {
+	it('keeps the sticky top and navigation height stable while bounded to article prose', async () => {
 		const { article, panel } = await mount();
 		const faq = article.querySelectorAll<HTMLDetailsElement>('.faq-details')[4];
 		const summary = faq.querySelector<HTMLElement>('summary')!;
 		window.scrollTo({
-			top: summary.getBoundingClientRect().top + scrollY - 150,
+			top: 600,
 			behavior: 'instant'
 		});
 		await settle();
@@ -79,13 +79,22 @@ describe('article navigation using the real article CSS', () => {
 		expect(panel.getBoundingClientRect().top).toBe(before.top);
 		expect(scrollY).toBe(before.y);
 		expect(summary.getBoundingClientRect().top).toBe(before.summary);
-		expect(panel.querySelector('nav')!.clientHeight).toBeGreaterThan(before.height);
+		expect(panel.querySelector('nav')!.clientHeight).toBe(before.height);
 		expect(panel.getBoundingClientRect().bottom).toBeLessThanOrEqual(
 			article.querySelector('.article-main-column')!.getBoundingClientRect().bottom
 		);
 		faq.open = false;
 		await settle();
 		expect(panel.getBoundingClientRect().top).toBe(before.top);
+	});
+
+	it('scrolls smoothly to heading on TOC click without adding a # hash to the URL', async () => {
+		const { article, changes } = await mount();
+		const link = article.querySelector<HTMLAnchorElement>('a[data-toc-id="5-section"]')!;
+		link.click();
+		await settle();
+		expect(location.hash).toBe('');
+		expect(changes.at(-1)).toBe('5-section');
 	});
 
 	it('measures header changes and removes all observer/frame effects on disposal', async () => {

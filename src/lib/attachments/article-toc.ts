@@ -6,9 +6,9 @@ interface ArticleNavigationOptions {
 }
 
 /**
- * Keep CSS sticky in charge of positioning. Only the scrollable navigation's
- * available height changes near the reading column's lower boundary.
- * Native details, links, fragment history and focus retain browser ownership.
+ * Keep CSS sticky in charge of positioning and keep TOC navigation links
+ * free of URL hash fragments (matching Easy Table of Contents `avoid_anch_jump`
+ * and `observerDisabled` click-lock behavior).
  */
 export function attachArticleNavigation(
 	article: HTMLElement,
@@ -19,7 +19,6 @@ export function attachArticleNavigation(
 	const panel = rail?.querySelector<HTMLDetailsElement>('.toc-details');
 	const summary = panel?.querySelector<HTMLElement>('summary');
 	const nav = panel?.querySelector<HTMLElement>('nav');
-	const boundary = article.querySelector<HTMLElement>('.article-main-column');
 	const firstLink = nav?.querySelector<HTMLElement>('[data-toc-id]');
 	const desktop = window.matchMedia('(min-width: 118.75rem)');
 	const headings = items.map(({ id }) => ({ id, element: document.getElementById(id) }));
@@ -28,8 +27,98 @@ export function attachArticleNavigation(
 	let disposed = false;
 	let forceFollow = false;
 	let currentId = '';
+	let lockedHeadingId = '';
+	let lockUntil = 0;
 	let lastNavLimit = -1;
 	let lastHeaderHeight = -1;
+
+	function getAnchorOffset(): number {
+		const rem = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
+		const headerHeight = header?.getBoundingClientRect().height ?? 0;
+		return headerHeight + rem * 1.5;
+	}
+
+	function scrollToHeading(targetId: string, smooth: boolean) {
+		const target = document.getElementById(targetId);
+		if (!target) return;
+		const anchorOffset = getAnchorOffset();
+		const targetTop = Math.max(
+			0,
+			target.getBoundingClientRect().top + window.scrollY - anchorOffset + 4
+		);
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		window.scrollTo({
+			top: targetTop,
+			behavior: smooth && !reducedMotion ? 'smooth' : 'instant'
+		});
+	}
+
+	function onNavClick(event: MouseEvent) {
+		if (
+			event.defaultPrevented ||
+			event.button !== 0 ||
+			event.metaKey ||
+			event.ctrlKey ||
+			event.shiftKey ||
+			event.altKey
+		) {
+			return;
+		}
+		const targetEl = event.target instanceof Element ? event.target : null;
+		const link = targetEl?.closest<HTMLAnchorElement>('a[data-toc-id]');
+		const targetId = link?.dataset.tocId;
+		if (!link || !targetId) return;
+
+		const targetHeading = document.getElementById(targetId);
+		if (!targetHeading) return;
+
+		event.preventDefault();
+
+		// Lock active heading state during smooth scroll (matches ez-toc observerDisabled)
+		lockedHeadingId = targetId;
+		lockUntil = performance.now() + 1800;
+		forceFollow = true;
+		if (currentId !== targetId) {
+			currentId = targetId;
+			onActiveHeadingChange(targetId);
+		}
+		scrollToHeading(targetId, true);
+		schedule();
+	}
+
+	function clearLockOnManualInput() {
+		if (lockedHeadingId) {
+			lockedHeadingId = '';
+			lockUntil = 0;
+		}
+	}
+
+	function consumeLocationHash() {
+		if (window.location.hash.length <= 1) return;
+		const rawHashId = decodeURIComponent(window.location.hash.slice(1));
+		const matchingHeading = document.getElementById(rawHashId);
+		if (matchingHeading) {
+			if (items.some((item) => item.id === rawHashId)) {
+				lockedHeadingId = rawHashId;
+				lockUntil = performance.now() + 1000;
+				forceFollow = true;
+				if (currentId !== rawHashId) {
+					currentId = rawHashId;
+					onActiveHeadingChange(rawHashId);
+				}
+			}
+			scrollToHeading(rawHashId, false);
+			window.history.replaceState(
+				window.history.state,
+				'',
+				`${window.location.pathname}${window.location.search}`
+			);
+			schedule();
+		}
+	}
+
+	// If the reader arrived via a legacy #fragment URL, scroll to the target and strip the # from the URL bar
+	consumeLocationHash();
 
 	function update() {
 		frame = 0;
@@ -37,39 +126,38 @@ export function attachArticleNavigation(
 		const rem = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
 		const headerHeight = header?.getBoundingClientRect().height ?? 0;
 		const anchorOffset = headerHeight + rem * 1.5;
+
 		let nextId = items[0]?.id ?? '';
-		for (const { id, element } of headings) {
-			if (element && element.getBoundingClientRect().top <= anchorOffset + 1) nextId = id;
+		const now = performance.now();
+		if (lockedHeadingId && now < lockUntil) {
+			nextId = lockedHeadingId;
+			const lockedEl = document.getElementById(lockedHeadingId);
+			if (lockedEl && Math.abs(lockedEl.getBoundingClientRect().top - anchorOffset) <= 12) {
+				// Target reached; keep locked briefly until scroll settles
+				lockUntil = Math.min(lockUntil, now + 150);
+			}
+		} else {
+			lockedHeadingId = '';
+			lockUntil = 0;
+			for (const { id, element } of headings) {
+				if (element && element.getBoundingClientRect().top <= anchorOffset + 1) nextId = id;
+			}
 		}
 
 		let navLimit = -1;
 		let followDelta = 0;
-		if (desktop.matches && rail && panel && summary && nav && boundary) {
+		if (desktop.matches && panel && summary && nav) {
 			const stickyTop = headerHeight + rem * 0.5;
-			const railRect = rail.getBoundingClientRect();
-			const top = Math.max(stickyTop, railRect.top);
-			const viewportAvailable = window.innerHeight - top - rem;
-			const boundaryAvailable = boundary.getBoundingClientRect().bottom - top - rem;
-			const navStyle = getComputedStyle(nav);
-			const navChrome =
-				Number.parseFloat(navStyle.paddingTop) +
-				Number.parseFloat(navStyle.paddingBottom) +
-				Number.parseFloat(navStyle.borderTopWidth) +
-				Number.parseFloat(navStyle.borderBottomWidth);
-			// Preserve a useful one-link viewport before allowing the natural sticky exit.
-			const minimum = (firstLink?.getBoundingClientRect().height ?? rem * 2.75) + navChrome;
 			const summaryHeight = summary.getBoundingClientRect().height + 2;
-			navLimit = Math.min(
-				Math.max(0, viewportAvailable - summaryHeight),
-				Math.max(minimum, boundaryAvailable - summaryHeight)
-			);
+			const viewportAvailable = window.innerHeight - stickyTop - rem;
+			// Constant viewport-bounded max-height so the TOC never squishes or slices text at the bottom
+			navLimit = Math.max(0, viewportAvailable - summaryHeight);
+
 			const activeLink = links.find((link) => link.dataset.tocId === nextId);
 			if (
 				panel.open &&
 				activeLink &&
-				(forceFollow ||
-					((nextId !== currentId || navLimit < lastNavLimit) &&
-						!panel.matches(':focus-within, :hover')))
+				(forceFollow || (nextId !== currentId && !panel.matches(':focus-within, :hover')))
 			) {
 				const linkRect = activeLink.getBoundingClientRect();
 				const navRect = nav.getBoundingClientRect();
@@ -105,9 +193,13 @@ export function attachArticleNavigation(
 		schedule();
 	}
 	const observer = new ResizeObserver(schedule);
-	for (const element of [header, boundary, summary, firstLink]) {
+	for (const element of [header, summary, firstLink]) {
 		if (element) observer.observe(element);
 	}
+	nav?.addEventListener('click', onNavClick);
+	window.addEventListener('hashchange', consumeLocationHash);
+	window.addEventListener('wheel', clearLockOnManualInput, { passive: true });
+	window.addEventListener('touchmove', clearLockOnManualInput, { passive: true });
 	window.addEventListener('scroll', schedule, { passive: true });
 	window.addEventListener('resize', schedule, { passive: true });
 	desktop.addEventListener('change', schedule);
@@ -117,6 +209,10 @@ export function attachArticleNavigation(
 		disposed = true;
 		cancelAnimationFrame(frame);
 		observer.disconnect();
+		nav?.removeEventListener('click', onNavClick);
+		window.removeEventListener('hashchange', consumeLocationHash);
+		window.removeEventListener('wheel', clearLockOnManualInput);
+		window.removeEventListener('touchmove', clearLockOnManualInput);
 		window.removeEventListener('scroll', schedule);
 		window.removeEventListener('resize', schedule);
 		desktop.removeEventListener('change', schedule);

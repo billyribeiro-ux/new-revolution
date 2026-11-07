@@ -80,7 +80,7 @@ describe('applyContentSeoTransforms, applyPostAutofill & normalizePostHeadings',
 		expect(filled.canonicalUrl).toBeUndefined();
 	});
 
-	it('normalises post headings, demotes h1 to h2, deduplicates slug IDs, and excludes CTA headings from TOC', () => {
+	it('normalises post headings, demotes h1 to h2, deduplicates slug IDs, and includes only non-CTA H2 headings in TOC', () => {
 		const html = [
 			'<h1>My Post Title</h1>',
 			'<h1 id="custom-id">Why Gamma Matters</h1>',
@@ -96,10 +96,6 @@ describe('applyContentSeoTransforms, applyPostAutofill & normalizePostHeadings',
 		expect(outHtml).toContain('<h2 id="call-to-action">Call to Action</h2>');
 		expect(outHtml).toContain('<h4 id="position-sizing-rules">Position Sizing\nRules</h4>');
 
-		expect(toc).toEqual([
-			{ id: 'why-gamma-matters', text: 'Why Gamma Matters', level: 2 },
-			{ id: 'why-gamma-matters-2', text: 'Why Gamma Matters', level: 3 },
-			{ id: 'position-sizing-rules', text: 'Position Sizing Rules', level: 4 }
-		]);
+		expect(toc).toEqual([{ id: 'why-gamma-matters', text: 'Why Gamma Matters', level: 2 }]);
 	});
 });

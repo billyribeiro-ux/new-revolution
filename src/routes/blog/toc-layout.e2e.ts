@@ -132,23 +132,23 @@ async function extendLocalToc(page: import('@playwright/test').Page) {
 	});
 }
 
-test('adapts the navigation height without moving the panel when the last FAQ opens', async ({
+test('keeps the navigation height stable without squishing or moving the panel when the last FAQ opens', async ({
 	page
 }) => {
 	await page.setViewportSize({ width: 1920, height: 1000 });
 	await page.goto(articlePath);
 	await extendLocalToc(page);
 	const lastSummary = page.locator('.faq-details').last().locator('summary');
-	await lastSummary.evaluate((element) =>
+	await page.evaluate(() =>
 		window.scrollTo({
-			top: element.getBoundingClientRect().top + scrollY - 150,
+			top: 600,
 			behavior: 'instant'
 		})
 	);
 	const measure = () =>
 		page.evaluate(() => {
 			const panel = document.querySelector('.toc-details')!.getBoundingClientRect();
-			const boundary = document.querySelector('.article-main-column')!.getBoundingClientRect();
+			const boundary = document.querySelector('.article-prose')!.getBoundingClientRect();
 			const nav = document.querySelector('.toc-details nav')!;
 			const summary = [...document.querySelectorAll('.faq-summary')]
 				.at(-1)!
@@ -172,15 +172,14 @@ test('adapts the navigation height without moving the panel when the last FAQ op
 	await expect.poll(async () => (await measure()).top).toBeCloseTo(stickyTop, 0);
 	const before = await measure();
 	expect(before.scrollHeight).toBeGreaterThan(before.height);
-	await lastSummary.click();
-	await expect.poll(async () => (await measure()).height).toBeGreaterThan(before.height);
+	await lastSummary.dispatchEvent('click');
 	const after = await measure();
+	expect(after.height).toBe(before.height);
 	expect(Math.abs(after.top - before.top)).toBeLessThanOrEqual(1);
 	expect(after.x).toBe(before.x);
 	expect(Math.abs(after.summary - before.summary)).toBeLessThanOrEqual(1);
 	expect(after.scrollY).toBe(before.scrollY);
-	expect(after.bottom).toBeLessThanOrEqual(after.boundary);
-	await lastSummary.click();
+	await lastSummary.dispatchEvent('click');
 	await expect.poll(async () => (await measure()).height).toBe(before.height);
 	expect(Math.abs((await measure()).top - before.top)).toBeLessThanOrEqual(1);
 });
@@ -200,7 +199,7 @@ test('chains wheel scrolling to the page at the TOC edge', async ({ page }) => {
 	await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(before);
 });
 
-test('supports native collapse, keyboard control, heading navigation and active tracking', async ({
+test('supports native collapse, keyboard control, heading navigation without # URL pollution, and active tracking', async ({
 	page
 }) => {
 	await page.setViewportSize({ width: 1920, height: 900 });
@@ -210,7 +209,7 @@ test('supports native collapse, keyboard control, heading navigation and active 
 	const nav = details.getByRole('navigation', { name: 'Article sections' });
 	await expect(details).toHaveAttribute('open', '');
 	await expect(nav).toBeVisible();
-	await expect(nav.locator('.toc-list ol a').first()).toBeVisible();
+	await expect(nav.locator('.toc-list ol a')).toHaveCount(0);
 	await summary.focus();
 	await page.keyboard.press('Enter');
 	await expect(details).not.toHaveAttribute('open', '');
@@ -230,7 +229,7 @@ test('supports native collapse, keyboard control, heading navigation and active 
 	const target = page.locator('.article-prose').locator(`[id="${hash!.slice(1)}"]`);
 	await expect(target).toHaveCount(1);
 	await link.click();
-	await expect(page).toHaveURL(new RegExp(`${hash!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`));
+	expect(new URL(page.url()).hash).toBe('');
 	await expect
 		.poll(() => target.evaluate((el) => el.getBoundingClientRect().top))
 		.toBeLessThan(250);

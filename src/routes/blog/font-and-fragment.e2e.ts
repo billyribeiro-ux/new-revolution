@@ -48,7 +48,7 @@ for (const path of [
 	});
 }
 
-test('keeps article entry and passive scrolling clean while native TOC deep links remain usable', async ({
+test('keeps article entry, passive scrolling, and TOC clicks hash-free while stripping incoming # fragments', async ({
 	page
 }) => {
 	const errors: string[] = [];
@@ -62,9 +62,9 @@ test('keeps article entry and passive scrolling clean while native TOC deep link
 	await expect(link).toHaveAttribute('aria-current', 'location');
 	expect(new URL(page.url()).hash).toBe('');
 	await link.click();
-	await expect(page).toHaveURL(new RegExp(`${hash}$`));
-	await page.reload();
-	expect(new URL(page.url()).hash).toBe(hash);
+	expect(new URL(page.url()).hash).toBe('');
+	await page.goto(`/blog/institutional-order-flow-and-gamma-flip-playbook${hash}`);
+	await expect.poll(() => new URL(page.url()).hash).toBe('');
 	for (const selector of ['link[rel="canonical"]', 'meta[property="og:url"]']) {
 		const url = await page
 			.locator(selector)

@@ -27,9 +27,9 @@ function makeValidSeoBody(keyword: string): string {
 		<pre><code class="language-typescript">const edge = "${keyword}";\nconsole.log(edge);</code></pre>
 		<h2>Execution Rules for ${keyword}</h2>
 		<p>Check out our <a href="/live-trading-rooms/day-trading-room">Day Trading Room</a> and review <a href="https://www.cboe.com" target="_blank" rel="noopener noreferrer">CBOE Options Data</a>.</p>
-		<h3>Position Sizing Discipline</h3>
+		<h2>Position Sizing Discipline</h2>
 		<p>${paragraph}</p>
-		<h4>Intraday Volatility Adjustments</h4>
+		<h3>Intraday Volatility Adjustments</h3>
 		<p>${paragraph}</p>
 	`;
 }

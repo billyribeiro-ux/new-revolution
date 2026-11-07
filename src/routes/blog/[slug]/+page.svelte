@@ -27,7 +27,7 @@
 
 	// Server (getPublicPostViewBySlug) already runs normalizePostHeadings once (SSOT)
 	// and supplies 1:1 synchronized heading IDs and TOC items.
-	let toc = $derived(data.post?.toc ?? []);
+	let toc = $derived((data.post?.toc ?? []).filter((item) => item.level === 2));
 	let tocTree = $derived(buildTocTree(toc));
 	let processedContent = $derived(data.post?.content ?? '');
 	let customFields = $derived(parsePostCustomFields(data.post?.customFields));

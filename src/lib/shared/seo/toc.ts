@@ -110,7 +110,7 @@ export function normalizePostHeadings(
 			}
 
 			const headingId = slugifyHeadingId(plainText, usedIds);
-			if (!isCtaHeadingText(plainText)) {
+			if (effectiveLevel === 2 && !isCtaHeadingText(plainText)) {
 				toc.push({
 					id: headingId,
 					text: plainText,

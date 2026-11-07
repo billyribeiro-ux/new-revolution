@@ -267,8 +267,8 @@
 					Whether we are calling the <strong>2020 COVID Top and Bottom</strong>, calling the
 					<strong>2022 Market Top and Bottom</strong>, or executing a contrarian defined-risk
 					<strong>OXY put options trade for a reported 600% overnight gain</strong>
-					into institutional distribution (educational historical example; past performance does not
-					guarantee future results), our mission never changes:
+					into institutional distribution (educational historical example; past performance does not guarantee
+					future results), our mission never changes:
 					<strong>Educate, Innovate, and Prosper. We put people over profits.</strong>
 				</p>
 

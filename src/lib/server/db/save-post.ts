@@ -158,8 +158,7 @@ export async function savePostWithRedirect(
 			const targetVisibility = params.values.visibility ?? existingRow?.visibility ?? 'public';
 			const targetNoindex = params.values.robotsNoindex ?? existingRow?.robotsNoindex ?? false;
 			const targetFixture = params.values.isFixture ?? existingRow?.isFixture ?? false;
-			const isPublicIndexable =
-				targetVisibility === 'public' && !targetNoindex && !targetFixture;
+			const isPublicIndexable = targetVisibility === 'public' && !targetNoindex && !targetFixture;
 			const targetFeatured =
 				newlyPublished && isPublicIndexable
 					? true

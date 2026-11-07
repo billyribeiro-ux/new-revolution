@@ -518,9 +518,8 @@
 						<strong>2022 Bull Market Top and Bear Bottom</strong>, and spot the heavy institutional
 						distribution on <strong>Occidental Petroleum (OXY)</strong> where we banked
 						<strong>+600% overnight on Put Options live</strong> while Warren Buffett bought
-						millions long. Because <strong>we put people over profits</strong>, it is
-						built to serve $500+ starter accounts, 9-to-5 working professionals, and full-time pros
-						alike.
+						millions long. Because <strong>we put people over profits</strong>, it is built to serve
+						$500+ starter accounts, 9-to-5 working professionals, and full-time pros alike.
 					</p>
 
 					<!-- Cadence Selector Box (Replaces Old Hardcoded Dollar Price Box) -->

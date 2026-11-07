@@ -536,8 +536,8 @@
 						<strong>2022 Bull Market Top and Bear Bottom</strong>, and spot the institutional
 						distribution on <strong>Occidental Petroleum (OXY)</strong> that banked us
 						<strong>+600% overnight on Put Options live</strong> while Warren Buffett went long
-						millions of dollars. Because <strong>we put people over profits</strong>, we
-						make our entire radar suite accessible for every trader.
+						millions of dollars. Because <strong>we put people over profits</strong>, we make our
+						entire radar suite accessible for every trader.
 					</p>
 
 					<div class="cta-row">

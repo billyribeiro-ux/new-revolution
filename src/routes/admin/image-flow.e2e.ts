@@ -490,7 +490,7 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 				if (route.name === 'article') {
 					const prose = await page.locator('.article-prose').boundingBox();
 					expect(prose).not.toBeNull();
-					expect(prose!.width).toBeLessThanOrEqual(900);
+					expect(prose!.width).toBeLessThanOrEqual(1424);
 				}
 				if (
 					(width === 2440 && ['index', 'article'].includes(route.name)) ||

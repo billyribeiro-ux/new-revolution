@@ -8,7 +8,7 @@
 
 Total gutters remain 24/36/44/56/40/64/112px at base/480/640/768/1024/1280/1536 widths. At 1440px the inner edge is 32px; at 1536px it is 56px; at wider viewports the centered 1536px frame starts at `(viewport - 1536) / 2` and content 56px inside that frame. These are product decisions, not search-engine requirements. Preserve user root-font scaling.
 
-Article title, cover, prose and FAQ share a 900px maximum reading column. The left TOC rail joins that reading grid only from 73.75rem. Related/footer/archive content follows the shared outer content edge. No negative-margin corrections, doubled gutters, fixed article heights, whole-page scaling or overflow clipping to conceal bad sizing.
+Article title, cover, prose, CTA, FAQ, author bio, share bar and related articles align 100% flush with the `.container` inner content edges (`1424px` max inner width at `>=1536px`). The left TOC rail sits outside the `.container` in the left viewport margin only from `118.75rem` (`1900px`, where `>=238px` of left margin accommodates `>=16px` left screen padding + `194px–260px` TOC + `28px–40px` padding before the article). Related/footer/archive content follows the shared outer content edge. No competing internal width caps, doubled gutters, fixed article heights, whole-page scaling or overflow clipping to conceal bad sizing.
 
 ## Archive, search and media
 
@@ -22,9 +22,9 @@ Approved original image roles: hero 1600×900 or 1200×675 under 90KB; regular 8
 
 The reference source is owner-provided Easy Table of Contents 2.0.89. No WordPress settings export was supplied. Follow the audit parity matrix; do not claim identical prior configuration. Preserve authored numbering, published IDs, nesting/exclusions, initial open state and per-post enablement. Duplicate/non-ASCII headings require deterministic unique IDs.
 
-The native TOC hides below 73.75rem with its grid space and focusable controls removed. Header measurement drives sticky inset+0.5rem and anchor/spy inset+1.5rem. Keep native anchors and collapse, stable hover/focus/active geometry, direct fragments/reload/back/forward/noJS, no passive URL changes, wheel chaining and cleanup. A bounded attachment reduces only navigation height near the reading boundary; natural sticky exit is expected when less than a usable row remains.
+The native TOC hides below 118.75rem (1900px) with its focusable controls removed so it never shifts or cramps the container-flush blog content. Header measurement drives sticky inset+0.5rem and anchor/spy inset+1.5rem. Keep native anchors and collapse, stable hover/focus/active geometry, direct fragments/reload/back/forward/noJS, no passive URL changes, wheel chaining and cleanup. A bounded attachment reduces only navigation height near the reading boundary; natural sticky exit is expected when less than a usable row remains.
 
-FAQs use native details, initially open first answer and independent toggles. Expanding an answer changes expected article height; it must not reposition an otherwise viable sticky TOC or unexpectedly scroll the reader. Measure geometry and scrollY, not CLS alone. Acceptance is ≤1px unintended shift where space remains. Test short viewports, 1179/1180/1181 boundaries, 2440+, 200% text, keyboard and reduced motion.
+FAQs use native details, initially open first answer and independent toggles. Expanding an answer changes expected article height; it must not reposition an otherwise viable sticky TOC or unexpectedly scroll the reader. Measure geometry and scrollY, not CLS alone. Acceptance is ≤1px unintended shift where space remains. Test short viewports, 1899/1900/1920 boundaries, 2440+, 200% text, keyboard and reduced motion.
 
 ## Fonts and editorial punctuation
 

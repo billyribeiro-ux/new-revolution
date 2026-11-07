@@ -77,7 +77,7 @@ Verify that all fonts load correctly in production and that no external font req
 
 Full specification: [`docs/CSS_STANDARDS.md`](docs/CSS_STANDARDS.md).
 
-**Shared outer frame:** `.container` uses the single 96rem cap (1536px at 16px root), border-box including shared inline padding; responsive total gutters are split between its two sides. No competing outer caps or nested gutters. Keep 900px article prose and the documented article/outer alignment anchors. Follow the shared layout/content contract for TOC,FAQ,images and search.
+**Shared outer frame:** `.container` uses the single 96rem cap (1536px at 16px root), border-box including shared inline padding; responsive total gutters are split between its two sides. No competing outer caps or nested gutters. Keep article header, cover, prose, FAQ, and related sections 100% flush with the `.container` inner content edges (`1424px` max inner width at `>=1536px`), with the external left-margin TOC rail active only from `118.75rem` (`1900px`). Follow the shared layout/content contract for TOC,FAQ,images and search.
 
 1. **SSOT Location:** [`src/app.css`](src/app.css) owns `@layer reset, tokens, base, typography, layout, components, utilities, responsive;` and all `:root` design tokens.
 2. **Inner-Page System:** [`src/lib/styles/inner-page.css`](src/lib/styles/inner-page.css) owns shared `.inner-page` patterns (`.page-hero`, `.content-section`, `.section-header`, `.section-kicker`, `.section-h2`, `.card-grid`, `.info-card`, `.pricing-card`, `.faq-list`, `.cta-banner`, `.disclaimer-strip`).

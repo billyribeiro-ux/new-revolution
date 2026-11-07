@@ -137,7 +137,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 		expect(cachedRes.status()).toBe(304);
 	});
 
-	test('verifies Prose Parity (.prose-base and max-width: 900px) with real browser screenshots at 1280px and 1440px', async ({
+	test('verifies Prose Parity (.prose-base and max-width: 100%) with real browser screenshots at 1280px and 1440px', async ({
 		browser
 	}, testInfo) => {
 		test.skip(!HAS_ADMIN_CREDENTIALS, ADMIN_SKIP_REASON);
@@ -165,7 +165,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 					lineHeight: s.lineHeight
 				};
 			});
-			expect(editorStyles.maxWidth).toBe('900px');
+			expect(editorStyles.maxWidth).toBe('100%');
 
 			const editorShot = await editorProse.screenshot();
 			expect(editorShot.byteLength).toBeGreaterThan(1000);
@@ -190,7 +190,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 					lineHeight: s.lineHeight
 				};
 			});
-			expect(publicStyles.maxWidth).toBe('900px');
+			expect(publicStyles.maxWidth).toBe('100%');
 			expect(publicStyles.fontFamily).toBe(editorStyles.fontFamily);
 			expect(publicStyles.fontSize).toBe(editorStyles.fontSize);
 			expect(publicStyles.lineHeight).toBe(editorStyles.lineHeight);

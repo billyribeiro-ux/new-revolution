@@ -192,7 +192,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 		expect(img?.getAttribute('loading')).toBe('eager');
 	});
 
-	it('verifies RichTextEditor canvas carries .prose-base with max-width: 900px, status bar, and accessible toolbar toggles', async () => {
+	it('verifies RichTextEditor canvas carries .prose-base with max-width: 100%, status bar, and accessible toolbar toggles', async () => {
 		await render(RichTextEditor, {
 			content: '<h2>Market Structure Heading</h2><p>Institutional risk management paragraph.</p>',
 			onChange: () => {},
@@ -222,7 +222,7 @@ describe('Admin & Blog Svelte 5 Components + Prose Parity', () => {
 		const proseSurface = document.querySelector('.prose-base') as HTMLElement | null;
 		expect(proseSurface).not.toBeNull();
 		const computed = getComputedStyle(proseSurface!);
-		expect(computed.maxWidth).toBe('900px');
+		expect(computed.maxWidth).toBe('100%');
 	});
 
 	it('manages PostEditor metaTitle auto-follow, disclosure panels, dirty tracking during in-flight save, and unpublish/rename confirmations', async () => {

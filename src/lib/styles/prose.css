@@ -7,8 +7,8 @@
 
 .prose-base {
 	width: 100%;
-	max-width: 900px;
-	margin-inline: auto;
+	max-width: 100%;
+	margin-inline: 0;
 	font-family: var(--font-sans);
 	font-size: 1.0625rem;
 	line-height: 1.78;
@@ -31,6 +31,7 @@
 .prose-base h4,
 .prose-base h5,
 .prose-base h6 {
+	max-inline-size: 100%;
 	font-family: var(--font-display);
 	font-weight: 800;
 	line-height: 1.24;
@@ -74,6 +75,7 @@
 }
 
 .prose-base p {
+	max-inline-size: 100%;
 	margin: 0 0 1.25rem;
 }
 
@@ -97,11 +99,13 @@
 
 .prose-base ul,
 .prose-base ol {
+	max-inline-size: 100%;
 	margin: 0 0 1.35rem;
 	padding-left: 1.6rem;
 }
 
 .prose-base li {
+	max-inline-size: 100%;
 	margin-bottom: 0.45rem;
 }
 
@@ -135,6 +139,7 @@
 
 /* Blockquote */
 .prose-base blockquote {
+	max-inline-size: 100%;
 	margin: 1.6rem 0;
 	padding: 1rem 1.35rem;
 	border-left: 4px solid var(--acid);

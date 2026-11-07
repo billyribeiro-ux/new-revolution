@@ -279,26 +279,45 @@
 		--font-body: var(--font-sans);
 		--tracking-h3: -0.01em;
 
-		/* Tier 1: Marketing & Application Scale */
+		/* Tier A: Marketing, Trading Rooms, Mentorship & Hub Pages */
+		--text-eyebrow: 0.75rem; /* 12px fixed floor, uppercase */
+		--leading-eyebrow: 1.35;
+		--tracking-eyebrow: 0.12em;
 		--text-xs: 0.75rem; /* 12px floor - badges, top bar, legal */
+		--text-legal: 0.8125rem; /* 13px */
+		--leading-legal: 1.6;
 		--text-sm: 0.875rem; /* 14px - nav links, buttons, table cells */
+		--leading-sm: 1.4;
 		--text-body: 1rem; /* 16px - standard body copy */
+		--leading-body: 1.65;
 		--text-lead: clamp(1.0625rem, 0.35vw + 0.95rem, 1.25rem); /* 17px -> 20px */
+		--leading-lead: 1.6;
 		--text-card-h4: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem); /* 17px -> 20px */
+		--leading-card-h4: 1.35;
 		--text-card-h3: clamp(1.2rem, 0.8vw + 0.95rem, 1.5rem); /* 19.2px -> 24px */
+		--leading-card-h3: 1.25;
 		--text-section-h2: clamp(1.625rem, 2vw + 0.9rem, 2.375rem); /* 26px -> 38px */
+		--leading-section-h2: 1.15;
+		--tracking-section-h2: -0.02em;
 		--text-display-deck: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); /* 20px -> 28px */
+		--leading-display-deck: 1.25;
+		--tracking-display-deck: -0.015em;
 		--text-display-h1: clamp(2rem, 2.8vw + 1.1rem, 3.25rem); /* 32px -> 52px */
+		--leading-display-h1: 1.08;
+		--tracking-display-h1: -0.025em;
 
-		/* Tier 2: Blog & Editorial Research Scale (.blog-prose) */
+		/* Tier B: Blog Index & Long-Form Editorial Articles (.blog-prose) */
+		--blog-measure: 68ch;
 		--blog-h1: clamp(1.75rem, 2.2vw + 1rem, 2.625rem); /* 28px -> 42px */
 		--blog-deck: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem); /* 17px -> 20px */
 		--blog-h2: clamp(1.375rem, 1.1vw + 1rem, 1.75rem); /* 22px -> 28px */
 		--blog-h3: clamp(1.125rem, 0.5vw + 0.95rem, 1.3125rem); /* 18px -> 21px */
+		--blog-h4: 1.0625rem; /* 17px */
 		--blog-body: clamp(1rem, 0.2vw + 0.95rem, 1.0625rem); /* 16px -> 17px */
+		--blog-callout: 1rem; /* 16px */
 		--blog-table: 0.875rem; /* 14px tabular-nums */
 		--blog-caption: 0.8125rem; /* 13px */
-		--blog-measure: 68ch;
+		--blog-toc: 0.8125rem; /* 13px */
 		--color-brand-gold: #c5a059;
 		--color-brand-gold-light: #e2c27d;
 		--color-brand-gold-dark: #a37e3b;
@@ -331,6 +350,7 @@
 	}
 
 	html {
+		font-size: 100%;
 		scroll-behavior: smooth;
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
@@ -564,11 +584,12 @@
 	.risk-box-title {
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-size: 0.75rem;
+		font-size: var(--text-xs);
 		line-height: 1.5;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		inline-size: fit-content;
+		font-variant-numeric: tabular-nums;
 	}
 
 	.copy {

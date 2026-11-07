@@ -129,7 +129,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 			.element(
 				page.getByRole('heading', {
 					level: 2,
-					name: /Billy Ribeiro — The Only Trader Feared by Wall Street/i
+					name: /Billy Ribeiro — Bringing Institutional Order-Flow Discipline to Self-Directed Traders/i
 				})
 			)
 			.toBeInTheDocument();

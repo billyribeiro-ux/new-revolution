@@ -202,13 +202,13 @@ export const DOCUMENTATION_STANDARD_ITEMS: readonly DocumentationStandardItem[] 
 		number: '01',
 		title: 'Primary sources, cited',
 		description:
-			'Contract specifications, settlement rules and tax references cite primary sources such as Cboe, CME Group, the SEC, FINRA, the OSC and IRS documentation.'
+			'Contract specifications, settlement rules, and tax references cite primary sources such as Cboe, CME Group, the SEC, FINRA, the OSC, and IRS documentation.'
 	},
 	{
 		number: '02',
 		title: 'Risk stated before reward',
 		description:
-			'No strategy, indicator or alert service is presented as a guaranteed return. Setups state invalidation levels, position-sizing limits and realistic drawdown risk.'
+			'No strategy, indicator, or alert service is presented as a guaranteed return. Setups state invalidation levels, position-sizing limits, and realistic drawdown risk.'
 	},
 	{
 		number: '03',

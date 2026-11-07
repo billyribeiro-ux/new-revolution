@@ -78,7 +78,7 @@
 		{
 			step: 'Pillar 03',
 			verb: 'Prosper',
-			tagline: 'People Over Making Money',
+			tagline: 'People Over Profits',
 			headline: 'Deliver Affordable Live Execution & Exact Video Watchlists So Members Thrive',
 			description:
 				'Education and tools mean nothing if subscription fees drain your trading capital. We keep our live trading rooms and alert services genuinely affordable, delivering real-time intraday execution and detailed video watchlists with exact targeted entries, profit exits, and hard stop-losses.',
@@ -219,7 +219,7 @@
 				<li aria-current="page">Our Mission</li>
 			</ol>
 			<p class="breadcrumb-bar__mandate">
-				<span>Educate • Innovate • Prosper</span> • <span>People Over Making Money</span>
+				<span>Educate • Innovate • Prosper</span> • <span>People Over Profits</span>
 			</p>
 		</div>
 	</nav>
@@ -233,7 +233,7 @@
 			<div class="hero-section__main">
 				<div class="eyebrow-pill">
 					<span class="eyebrow-pill__tag">The Anti-Guru Charter</span>
-					<span class="eyebrow-pill__text">Why We Focus on People Over Making Money</span>
+					<span class="eyebrow-pill__text">Why We Focus on People Over Profits</span>
 				</div>
 
 				<h1 id="mission-h1" class="hero-h1">
@@ -242,7 +242,7 @@
 						Success
 					</span>
 					<span class="hero-h1__display">
-						Goal Is to Help You Build Your Dreams, Not Drain Your Capital.
+						Our Goal Is to Help You Build Your Dreams, Not Drain Your Capital.
 					</span>
 				</h1>
 
@@ -389,22 +389,10 @@
 					</p>
 					<div class="crisis-card__resolution">
 						<strong>Our Solution:</strong> Every indicator (<a
-							href={resolve('/store/indicators' as '/')}
-							>Store <CaretRightIcon
-								size={12}
-								weight="bold"
-								class="ic-inline-sm"
-								aria-hidden="true"
-							/> Indicators</a
-						>) and scanner (<a href={resolve('/store/scanners' as '/')}
-							>Store <CaretRightIcon
-								size={12}
-								weight="bold"
-								class="ic-inline-sm"
-								aria-hidden="true"
-							/> Scanners</a
-						>) we engineer is <strong>100% non-repainting</strong>, built to expose real
-						institutional order flow, abandoned price bars, and liquidity sweeps at a fair price.
+							href={resolve('/store/indicators' as '/')}>Store: Indicators</a
+						>) and scanner (<a href={resolve('/store/scanners' as '/')}>Store: Scanners</a>) we
+						engineer is <strong>100% non-repainting</strong>, built to expose real institutional
+						order flow, abandoned price bars, and liquidity sweeps at a fair price.
 					</div>
 				</article>
 

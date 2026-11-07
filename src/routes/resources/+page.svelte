@@ -61,9 +61,10 @@
 						Sachs proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>, who
 						called him <em>"the future of trading."</em> After calling the
 						<strong>2020 COVID Top and Bottom</strong>, calling the
-						<strong>2022 Market Top and Bottom</strong>, and banking
-						<strong>+600% overnight on OXY Put Options live</strong> opposite Warren Buffett, we
-						built Revolution Trading Pros to put <strong>people over making money</strong>.
+						<strong>2022 Market Top and Bottom</strong>, and executing a contrarian defined-risk
+						<strong>OXY put options trade for a reported +600% overnight gain</strong> during
+						high-volume institutional distribution, we built Revolution Trading Pros to put
+						<strong>people over profits</strong>.
 					</p>
 
 					<div class="hero-cta-row">

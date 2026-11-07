@@ -63,7 +63,7 @@
 			badge: 'Zero-Repaint Tool Integration',
 			title: 'Seamless Alignment With Our Indicators & Scanners',
 			description:
-				'Learn how to read raw price action first, and how to pair it with our 100% non-repainting custom indicators (/store/indicators) and scanners (/store/scanners).'
+				'Learn how to read raw price action first, and how to pair it with our 100% non-repainting custom indicators and scanners.'
 		},
 		{
 			num: '05',
@@ -462,11 +462,11 @@
 						<p class="lineage-card__copy">
 							Named <strong>"The Future of Trading"</strong> by Goldman Sachs’s most successful
 							proprietary investor in history. Creator of
-							<strong>"The Move Prior to The Move™"</strong> and the only retail educator feared by
-							Wall Street after calling the 2020 COVID top and bottom, the 2022 bull top and bear
-							bottom, and executing a live
-							<strong>+600% overnight gain on OXY Put Options</strong> while Warren Buffett went long
-							millions of dollars.
+							<strong>"The Move Prior to The Move™"</strong>, bringing institutional order-flow
+							discipline to self-directed traders after calling the 2020 COVID top and bottom, the
+							2022 bull top and bear bottom, and executing a contrarian defined-risk
+							<strong>OXY put options trade for a reported +600% overnight gain</strong> during high-volume
+							institutional distribution (past performance does not guarantee future results).
 						</p>
 						<div class="lineage-card__links">
 							<a href={resolve('/about' as '/')} class="btn btn--outline btn--full">

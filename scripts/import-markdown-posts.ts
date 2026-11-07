@@ -65,8 +65,17 @@ function escapeHtmlAttr(val: string): string {
 		.replace(/>/g, '&gt;');
 }
 
+const CANONICAL_CATEGORY_NAMES: Record<string, string> = {
+	'market-structure': 'Market Structure',
+	'options-mastery': 'Options & Greeks Mastery',
+	'institutional-execution': 'Institutional Order Flow',
+	'trading-psychology': 'Risk & Psychology',
+	'small-accounts': '$500+ Small Accounts',
+	'working-professionals': 'Swing & Working Pros'
+};
+
 function extractTableField(md: string, labelPattern: string): string {
-	const regex = new RegExp(`\\|\\s*[^|]*${labelPattern}[^|]*\\|\\s*\`([^\`]+)\`\\s*\\|`, 'i');
+	const regex = new RegExp(`\\|\\s*[^|]*${labelPattern}[^|]*\\|\\s*\`([^\`]+)\`[^|]*\\|`, 'i');
 	const match = md.match(regex);
 	return match?.[1]?.trim() ?? '';
 }
@@ -129,9 +138,14 @@ export function parseMarkdownPostFile(filename: string, rawMd: string): ParsedMa
 	const focusKeyword = extractTableField(rawMd, '`focusKeyword`');
 	const secondaryKeywords = extractTableField(rawMd, '`secondaryKeywords`') || '[]';
 
-	const categoryRaw = extractTableField(rawMd, '`category`') || 'Options & Greeks Mastery';
 	const catSlugMatch = rawMd.match(/\|[^|]*`category`[^|]*\|[^|]*slug:\s*([a-z0-9-]+)/i);
-	const categorySlug = catSlugMatch?.[1]?.trim() || generateSlug(categoryRaw);
+	const rawExtractedCategory = extractTableField(rawMd, '`category`');
+	const categorySlug =
+		catSlugMatch?.[1]?.trim() || generateSlug(rawExtractedCategory || 'Options & Greeks Mastery');
+	const categoryRaw =
+		rawExtractedCategory ||
+		CANONICAL_CATEGORY_NAMES[categorySlug] ||
+		'Options & Greeks Mastery';
 
 	const tagsRaw = extractTableField(rawMd, '`tags`') || '[]';
 	let tagSlugs: string[] = [];
@@ -371,6 +385,12 @@ export async function importMarkdownPosts(options?: {
 					slug: parsed.categorySlug,
 					isActive: true
 				})
+				.returning();
+		} else if (cat.name !== parsed.categoryName) {
+			[cat] = await db
+				.update(categories)
+				.set({ name: parsed.categoryName, updatedAt: new Date() })
+				.where(eq(categories.id, cat.id))
 				.returning();
 		}
 

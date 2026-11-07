@@ -711,7 +711,7 @@
 				<div class="enrollment-box">
 					<div class="enrollment-box__header">
 						<div>
-							<span class="section-kicker">People Over Making Money • Lifetime Access</span>
+							<span class="section-kicker">People Over Profits • Lifetime Access</span>
 							<h2 id="enrollment-h2" class="section-h2">
 								Complete System Enrollment: {indicatorConfig.systemName}
 							</h2>

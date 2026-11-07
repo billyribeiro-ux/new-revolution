@@ -24,8 +24,8 @@
 			</h2>
 			<p class="copy dark">
 				Whether you trade actively, work a 9-to-5, have a limited account, or prefer prepared
-				watchlists, choose a membership path tailored to your goals. Pricing is intentionally not
-				shown in this blueprint.
+				watchlists, choose a membership path tailored to your goals. Select the room or alert format
+				that matches your schedule, experience level, and risk tolerance.
 			</p>
 		</div>
 

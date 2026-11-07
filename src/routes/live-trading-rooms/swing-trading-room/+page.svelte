@@ -244,12 +244,12 @@
 				<p class="body-copy">
 					Directly mentored by former Wall Street Goldman Sachs proprietary trading giant
 					<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called me
-					<em>"the future of trading"</em>, I became the only retail trader feared by Wall Street:
-					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
-					<strong>2022 Bull Market Top and Bear Bottom</strong>, and embarrassing
-					<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong> when he went long
-					millions of dollars and I shorted with Put Options for a
-					<strong>600% overnight gain</strong>. Now, we hand you that exact multi-day institutional
+					<em>"the future of trading"</em>, I brought institutional order-flow discipline to
+					self-directed traders: calling the <strong>2020 COVID Top and Bottom</strong>, calling the
+					<strong>2022 Bull Market Top and Bear Bottom</strong>, and executing a contrarian
+					defined-risk <strong>OXY put options trade</strong> during high-volume institutional
+					distribution for a reported <strong>600% overnight gain</strong> (educational historical example;
+					past performance does not guarantee future results). Now, we hand you that exact multi-day institutional
 					playbook in 15 to 20 minutes a day.
 				</p>
 
@@ -520,7 +520,7 @@
 	>
 		<div class="container">
 			<div class="routing-header section-heading">
-				<span class="eyebrow">People Over Making Money • Choose Your Exact Fit</span>
+				<span class="eyebrow">People Over Profits • Choose Your Exact Fit</span>
 				<h2 id="routing-h2">
 					Enroll in the Swing Trading Room or Select the Tier Built for Your Capital &amp; Schedule
 				</h2>

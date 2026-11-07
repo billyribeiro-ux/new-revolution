@@ -135,7 +135,7 @@ describe('Shared blog archive controls and results', () => {
 		expect(document.body.textContent).not.toContain('#Risk');
 	});
 
-	it('keeps query and archive scope in both pagination directions and caps a single wide result', async () => {
+	it('keeps query and archive scope in both pagination directions and renders a single result as a standing card', async () => {
 		await render(ArchiveResults, { listing, basePath: '/blog/category/options' });
 		await expect.element(page.getByRole('status')).toHaveTextContent('13 articles found');
 		await expect
@@ -144,10 +144,10 @@ describe('Shared blog archive controls and results', () => {
 		await expect
 			.element(page.getByRole('link', { name: 'Next page' }))
 			.toHaveAttribute('href', '/blog/category/options?search=gamma+%26+risk&page=3');
-		expect(document.querySelector('.articles-grid.is-single')).not.toBeNull();
-		expect(
-			document.querySelector('.blog-post-card.is-lead')?.getBoundingClientRect().width
-		).toBeLessThanOrEqual(1200);
+		const card = document.querySelector<HTMLElement>('.articles-grid .blog-post-card');
+		expect(card).not.toBeNull();
+		expect(card?.classList.contains('is-lead')).toBe(false);
+		expect(card?.getBoundingClientRect().width).toBeLessThanOrEqual(400);
 	});
 
 	it('offers an honest empty search state with a scope-preserving reset', async () => {

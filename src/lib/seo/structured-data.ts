@@ -488,7 +488,7 @@ export function buildAboutJsonLd(origin: string) {
 export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'people-over-making-money',
-		question: 'Why do you emphasize "People Over Making Money" so strongly?',
+		question: 'Why do you emphasize "People Over Profits" so strongly?',
 		answer:
 			'Because our founder has stood on the losing end in the past and knows firsthand how destructive fake gurus are to hardworking families. After being mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick and proving our edge live on the 2020 COVID top and bottom, the 2022 top and bottom, and our 600% overnight OXY Put Options trade, we didn\'t need to exploit retail traders for high-ticket course fees. We keep our services affordable so our members can actually prosper.'
 	},
@@ -563,7 +563,7 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'why-application-only',
 		question: "Why can't I just pay and join 1-on-1 Mentorship immediately?",
 		answer:
-			'Because we focus on people over making money. Taking a credit card from someone who isn\'t ready to be coached is how predatory internet gurus operate. Because our founder was mentored 1-on-1 by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, we treat 1-on-1 mentorship as a serious partnership. We manually vet every applicant to guarantee a 100% fit before we ever discuss enrollment.'
+			'Because we focus on people over profits. Taking a credit card from someone who isn\'t ready to be coached is how predatory internet gurus operate. Because our founder was mentored 1-on-1 by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, we treat 1-on-1 mentorship as a serious partnership. We manually vet every applicant to guarantee a 100% fit before we ever discuss enrollment.'
 	},
 	{
 		id: 'struggling-trader-rejected',
@@ -668,14 +668,14 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'spx-alerts-video-watchlists',
 		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
 		answer:
-			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Protocol (/sunday-alpha-alerts), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse for high-precision S&P 500 index options execution or Sunday Alpha Protocol, our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
 	},
 	{
 		id: 'custom-non-repainting-indicators-scanners',
 		question:
 			'Can I also use your custom non-repainting indicators and scanners alongside the room?',
 		answer:
-			'Yes. The exact 100% non-repainting indicators and institutional order-flow scanners you see on our shared screens every morning are available in our Store (/store/indicators, /store/scanners, and /store/courses), alongside our free Options Calculator (/resources/options-calculator).'
+			'Yes. The exact 100% non-repainting indicators, institutional order-flow scanners, and trading courses you see on our shared screens every morning are available in our Store, alongside our free Options Calculator.'
 	}
 ] as const;
 
@@ -743,28 +743,28 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'stocks-etfs-options-coverage',
 		question: 'Do you swing trade shares of stock, ETFs, or options contracts?',
 		answer:
-			'We cover all three: liquid US stocks, sector and index ETFs (See our ETF Stocks List (/resources/etf-stocks-list) and Stock Indexes List (/resources/stock-indexes-list)), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
+			'We cover all three: liquid US stocks, sector and index ETFs (including our ETF Stocks List and Stock Indexes List), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
 	},
 	{
 		id: 'swing-room-vs-sunday-alpha-alerts',
 		question:
 			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
 		answer:
-			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol (/sunday-alpha-alerts) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
 	},
 	{
 		id: 'methodology-2020-2022-oxy',
 		question:
 			'How did your methodology call the 2020 and 2022 tops/bottoms and the +600% OXY trade?',
 		answer:
-			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." By tracking institutional liquidity exhaustion, volume anomalies, and smart-money distribution rather than lagging retail indicators, we called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and shorted Occidental Petroleum (OXY) live with Put Options for a 600% overnight gain while Warren Buffett bought millions long.'
+			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." By tracking institutional liquidity exhaustion, volume anomalies, and smart-money distribution rather than lagging retail indicators, we called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and executed a contrarian defined-risk OXY put options trade during high-volume institutional distribution for a reported 600% overnight gain.'
 	},
 	{
 		id: 'non-repainting-indicators-courses-mentorship',
 		question:
 			'Can I pair the Swing Trading Room with your custom non-repainting indicators and courses?',
 		answer:
-			'Yes. All of the 100% non-repainting indicators and institutional scanners we use to spot multi-day accumulation and distribution are available in our Store (/store/indicators, /store/scanners, and /store/courses). If you want private, personalized coaching, you can also apply for our application-only 1-on-1 Mentorship (/mentorship).'
+			'Yes. All of the 100% non-repainting indicators, institutional scanners, and trading courses we use to spot multi-day accumulation and distribution are available in our Store. If you want private, personalized coaching, you can also apply for our application-only 1-on-1 Mentorship.'
 	}
 ] as const;
 
@@ -839,19 +839,19 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'Why do you care about $500 small accounts when you have Goldman Sachs mentorship pedigree?',
 		answer:
-			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and banking 600% overnight on OXY Put Options live opposite Warren Buffett, our founder built Revolution Trading Pros to put people over making money, protecting everyday traders from the fake gurus who prey on small accounts.'
+			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and executing a contrarian defined-risk OXY put options trade during high-volume institutional distribution, our founder built Revolution Trading Pros to put people over profits, protecting everyday traders from the fake gurus who prey on small accounts.'
 	},
 	{
 		id: 'full-time-job-small-account',
 		question: 'What if I work a full-time job and also have a small $500+ account?',
 		answer:
-			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol (/sunday-alpha-alerts) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
+			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol video watchlist alerts or our self-paced Trading Courses.'
 	},
 	{
 		id: 'graduating-past-10k-25k',
 		question: 'What happens once my small account grows past $10,000 or $25,000?',
 		answer:
-			'Our entire goal is to graduate you. As your account compounds through our 4-Stage Roadmap, you seamlessly transition into our Day Trading Room (/live-trading-rooms/day-trading-room), Swing Trading Room (/live-trading-rooms/swing-trading-room), or apply for our application-only 1-on-1 Mentorship (/mentorship).'
+			'Our entire goal is to graduate you. As your account compounds through our 4-Stage Roadmap, you seamlessly transition into our Day Trading Room, Swing Trading Room, or apply for our application-only 1-on-1 Mentorship.'
 	}
 ] as const;
 
@@ -1322,7 +1322,7 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
 		answer:
-			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol (/sunday-alpha-alerts) is our multi-day stock and options swing alert service.'
+			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol is our multi-day stock and options swing alert service.'
 	}
 ];
 

@@ -159,7 +159,7 @@
 	}
 
 	.blog-post-card.is-lead {
-		max-inline-size: 75rem;
+		max-inline-size: 100%;
 	}
 
 	.blog-post-card.is-light {

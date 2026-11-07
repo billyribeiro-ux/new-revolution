@@ -56,6 +56,7 @@ export async function createCategory(rawInput: CategoryCreateInput, actorUserId?
 	const db = await ensureDbReady();
 
 	const targetSlug = parsed.slug.trim().toLowerCase();
+	const targetNameLower = parsed.name.trim().toLowerCase();
 	const dup = await db
 		.select({ id: categories.id })
 		.from(categories)
@@ -64,6 +65,16 @@ export async function createCategory(rawInput: CategoryCreateInput, actorUserId?
 
 	if (dup.length > 0) {
 		throw new Error(`DUPLICATE_SLUG: Category slug "${targetSlug}" already exists.`);
+	}
+
+	const dupName = await db
+		.select({ id: categories.id })
+		.from(categories)
+		.where(sql`lower(${categories.name}) = ${targetNameLower}`)
+		.limit(1);
+
+	if (dupName.length > 0) {
+		throw new Error(`DUPLICATE_NAME: Category name "${parsed.name.trim()}" already exists.`);
 	}
 
 	const now = new Date();
@@ -110,6 +121,7 @@ export async function updateCategory(rawInput: CategoryUpdateInput, actorUserId?
 	}
 
 	const targetSlug = parsed.slug.trim().toLowerCase();
+	const targetNameLower = parsed.name.trim().toLowerCase();
 	const dup = await db
 		.select({ id: categories.id })
 		.from(categories)
@@ -118,6 +130,16 @@ export async function updateCategory(rawInput: CategoryUpdateInput, actorUserId?
 
 	if (dup.length > 0) {
 		throw new Error(`DUPLICATE_SLUG: Category slug "${targetSlug}" already exists.`);
+	}
+
+	const dupName = await db
+		.select({ id: categories.id })
+		.from(categories)
+		.where(and(sql`lower(${categories.name}) = ${targetNameLower}`, ne(categories.id, parsed.id)))
+		.limit(1);
+
+	if (dupName.length > 0) {
+		throw new Error(`DUPLICATE_NAME: Category name "${parsed.name.trim()}" already exists.`);
 	}
 
 	await assertNoCategoryCycle(parsed.id, parsed.parentId ?? null);

@@ -283,8 +283,11 @@
 
 				{#if data.post.tags.length > 0}
 					<div class="article-tag-list" aria-label="Article tags">
-						{#each data.post.tags as tag (tag.id)}
-							<a href={resolve('/blog/tag/[slug]', { slug: tag.slug })} class="article-tag-chip">
+						{#each data.post.tags as tag, index (tag.id)}
+							{#if index > 0}<span class="sr-only">, </span>{/if}<a
+								href={resolve('/blog/tag/[slug]', { slug: tag.slug })}
+								class="article-tag-chip"
+							>
 								{tag.name}
 							</a>
 						{/each}
@@ -349,7 +352,7 @@
 			{/if}
 			<div class={['article-body-layout', { 'has-toc': showToc }]}>
 				<div class="article-main-column">
-					<div class="prose-base article-prose">
+					<div class="prose-base article-prose blog-prose">
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						{@html processedContent}
 					</div>

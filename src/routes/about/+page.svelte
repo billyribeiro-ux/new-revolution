@@ -53,7 +53,7 @@
 			id: 'oxy-buffett-trade',
 			cycle: 'Pillar 02 // Live Single-Stock Options Execution',
 			metric: '+600% Overnight on OXY Puts',
-			title: 'Embarrassed Warren Buffett Live on Occidental Petroleum (OXY) With Put Options',
+			title: 'Contrarian Defined-Risk OXY Put Options Execution During Institutional Distribution',
 			thesis:
 				'When mainstream financial media celebrated Warren Buffett buying millions of dollars of OXY stock on the long side, retail traders blindly chased the headline at the top of the liquidity sweep.',
 			outcome:
@@ -151,21 +151,20 @@
 					href: '/store/courses',
 					audience: 'Complete Institutional Toolkit',
 					summary:
-						'Self-paced trading courses (/store/courses), 100% non-repainting custom indicators (/store/indicators), and live order-flow scanners (/store/scanners).'
+						'Self-paced trading courses, 100% non-repainting custom indicators, and live order-flow scanners.'
 				},
 				{
 					name: 'Free Trader Resources & Market Lists',
 					href: '/resources',
 					audience: '100% Free Public Utilities',
-					summary:
-						'Access our Options Calculator (/resources), ETF Stocks List (/resources/etf-stocks-list), and Stock Indexes List (/resources/stock-indexes-list).'
+					summary: 'Access our Options Calculator, ETF Stocks List, and Stock Indexes List.'
 				},
 				{
 					name: 'Published Institutional Market Research',
 					href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
 					audience: 'Authored by Billy Ribeiro',
 					summary:
-						'Read our Institutional Order Flow & S&P 500 Gamma Flip Playbook and 0DTE Risk Management Rules in the Revolution Trading Pros Blog (/blog).'
+						'Read our Institutional Order Flow & S&P 500 Gamma Flip Playbook and 0DTE Risk Management Rules in the Revolution Trading Pros Blog.'
 				}
 			]
 		}
@@ -213,8 +212,8 @@
 						About Revolution Trading Pros • Institutional Stock &amp; Options Trading Lineage
 					</span>
 					<span class="hero-h1__display">
-						I Stood on the Losing Side First. Now I’m the Only Trader Feared by Wall Street,
-						Fighting for You.
+						I Stood on the Losing Side First. Bringing Institutional Order-Flow Discipline to
+						Self-Directed Traders.
 					</span>
 				</h1>
 
@@ -242,10 +241,11 @@
 					proprietary trading legend <strong>Mark "Goldfinger" McGoldrick</strong>, who called me
 					<em>"the future of trading."</em> Armed with real institutional execution, I went on to
 					call the <strong>2020 COVID Top and Bottom</strong>, call the
-					<strong>2022 Market Top and Bottom</strong>, and embarrass
-					<strong>Warren Buffett live on OXY</strong> when he went long millions of dollars and I
-					shorted with Put Options for a <strong>600% overnight gain</strong>. I built Revolution
-					Trading Pros not to steal your money, but to help you achieve your dreams.
+					<strong>2022 Market Top and Bottom</strong>, and execute a contrarian defined-risk
+					<strong>OXY put options trade</strong> during high-volume institutional distribution for a
+					reported <strong>600% overnight gain</strong> (educational historical example; past performance
+					does not guarantee future results). I built Revolution Trading Pros not to steal your money,
+					but to help you achieve your dreams.
 				</p>
 
 				<blockquote class="editorial-quote">
@@ -323,7 +323,7 @@
 					<div class="credentials-list__row">
 						<dt>Core Ethical Mandate</dt>
 						<dd>
-							<strong>People Over Making Money.</strong> Affordable access, zero fake holy grail indicators,
+							<strong>People Over Profits.</strong> Affordable access, zero fake holy grail indicators,
 							and application-only 1-on-1 mentorship.
 						</dd>
 					</div>
@@ -479,7 +479,7 @@
 										weight="fill"
 										class="ic-mark ic-mark--yes"
 										aria-hidden="true"
-									/> People Over Making Money:</strong
+									/> People Over Profits:</strong
 								> Kept intentionally affordable so your capital stays in your trading account where it
 								belongs.
 							</li>
@@ -519,12 +519,13 @@
 			<div class="section-heading">
 				<span class="eyebrow">Hard Evidence • Recorded Live in Front of Traders</span>
 				<h2 id="calls-h2" class="section-h2">
-					Why We Are the Only Retail Desk Feared by Wall Street
+					Built on Institutional Execution &amp; Risk-First Transparency
 				</h2>
 				<p class="body-paragraph section-header__sub">
-					Anyone can post a winning screenshot in a bull market. True institutional mastery is
-					proven at generational macro turning points and when going head-to-head against Wall
-					Street’s biggest billionaires in real time.
+					Anyone can post a winning screenshot in a bull market. Institutional discipline is
+					demonstrated at major macro turning points and by managing defined-risk options structures
+					around real-time liquidity exhaustion (past performance is not indicative of future
+					results).
 				</p>
 			</div>
 
@@ -674,7 +675,31 @@
 									<h3 class="ecosystem-item__name">
 										<a href={resolve(item.href as '/')}>{item.name}</a>
 									</h3>
-									<p class="ecosystem-item__summary">{item.summary}</p>
+									{#if item.href === '/store/courses'}
+										<p class="ecosystem-item__summary">
+											Self-paced <a href={resolve('/store/courses' as '/')}>trading courses</a>,
+											100% non-repainting
+											<a href={resolve('/store/indicators' as '/')}>custom indicators</a>, and
+											<a href={resolve('/store/scanners' as '/')}>live order-flow scanners</a>.
+										</p>
+									{:else if item.href === '/resources'}
+										<p class="ecosystem-item__summary">
+											Access our <a href={resolve('/resources' as '/')}>Options Calculator</a>,
+											<a href={resolve('/resources/etf-stocks-list' as '/')}>ETF Stocks List</a>,
+											and
+											<a href={resolve('/resources/stock-indexes-list' as '/')}
+												>Stock Indexes List</a
+											>.
+										</p>
+									{:else if item.href === '/blog/institutional-order-flow-and-gamma-flip-playbook'}
+										<p class="ecosystem-item__summary">
+											Read our Institutional Order Flow &amp; S&amp;P 500 Gamma Flip Playbook and
+											0DTE Risk Management Rules in the
+											<a href={resolve('/blog' as '/')}>Revolution Trading Pros Blog</a>.
+										</p>
+									{:else}
+										<p class="ecosystem-item__summary">{item.summary}</p>
+									{/if}
 									<a href={resolve(item.href as '/')} class="text-link"
 										>View Details <ArrowRightIcon size={16} weight="bold" aria-hidden="true" /></a
 									>

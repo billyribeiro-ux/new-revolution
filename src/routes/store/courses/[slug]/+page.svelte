@@ -223,7 +223,7 @@
 			duration: 'Small Accounts ($500+) & Working Pros',
 			title: 'Adapting the System for $500+ Small Accounts & 9-to-5 Schedules',
 			summary:
-				'Because we focus on people over making money, this module shows how to execute the exact system whether you have $500 or $500,000, and whether you trade full-time or work a 9-to-5 job.',
+				'Because we focus on people over profits, this module shows how to execute the exact system whether you have $500 or $500,000, and whether you trade full-time or work a 9-to-5 job.',
 			keyTakeaways: [
 				'T+1 Cash Account buying-power rotation to bypass Pattern Day Trader (PDT) locks',
 				'The 20-minute evening routine using conditional limit and stop-limit orders',
@@ -553,7 +553,7 @@
 		<section id="packages" class="packages-section" aria-labelledby="packages-h2">
 			<div class="container">
 				<div class="section-header">
-					<span class="section-kicker">People Over Making Money • Choose Your Package</span>
+					<span class="section-kicker">People Over Profits • Choose Your Package</span>
 					<h2 id="packages-h2" class="section-h2">
 						Compare the Indicator Suite vs. The Complete Accelerator Bundle
 					</h2>
@@ -1082,7 +1082,7 @@
 							<div class="instructor-box__badges">
 								<span class="instructor-badge">Goldman Sachs Prop Mentored</span>
 								<span class="instructor-badge">Creator of The Move Prior to The Move™</span>
-								<span class="instructor-badge">People Over Making Money</span>
+								<span class="instructor-badge">People Over Profits</span>
 							</div>
 						</div>
 
@@ -1113,12 +1113,13 @@
 
 							<p class="body-copy">
 								Armed with his signature system, <strong>"The Move Prior to The Move™,"</strong>
-								Billy became the only retail trader feared by Wall Street: accurately calling both the
+								Billy brought institutional order-flow discipline to self-directed traders: accurately
+								calling both the
 								<strong>2020 COVID Crash Top and Generational Bottom</strong>, calling the
-								<strong>2022 Bull Market Top and Bear Bottom</strong>, and embarrassing
-								<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong> when Buffett went
-								long millions of dollars and Billy shorted live with OXY Put Options for a
-								<strong>600% overnight gain</strong>.
+								<strong>2022 Bull Market Top and Bear Bottom</strong>, and executing a contrarian
+								defined-risk <strong>OXY put options trade</strong> during high-volume institutional
+								distribution for a reported <strong>600% overnight gain</strong> (educational historical
+								example; past performance does not guarantee future results).
 							</p>
 
 							<div class="cta-row">

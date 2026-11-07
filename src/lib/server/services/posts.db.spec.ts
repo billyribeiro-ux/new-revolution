@@ -476,6 +476,19 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 
 		const publicFeaturedList = await listFeaturedPosts(3);
 		expect(publicFeaturedList.map((p) => p.slug)).toEqual(['live-featured-three']);
+
+		// Publishing a new public post automatically rotates it into the Featured slot and moves the previous Featured post into More articles
+		const autoRotatedLead = await createPost(
+			buildCompliantPostInput({
+				slug: 'live-auto-rotated-four',
+				status: 'published'
+			}),
+			actorUserId
+		);
+		expect(autoRotatedLead.featured).toBe(true);
+		const demotedThree = await getPostById(newLiveFeatured.id);
+		expect(demotedThree?.featured).toBe(false);
+		expect((await listFeaturedPosts(3)).map((p) => p.slug)).toEqual(['live-auto-rotated-four']);
 	});
 
 	it('preserves multi-category pivots on quickUpdatePost and preserves omitted pivots on patchPost', async () => {
@@ -537,6 +550,17 @@ describe('Blog Server Services & Transactional DB Suite (*.db.spec.ts)', () => {
 			actorUserId
 		);
 		expect(updatedInactiveCat.isActive).toBe(false);
+
+		await expect(
+			createCategory(
+				{
+					name: 'renamed inactive category',
+					slug: 'different-slug-duplicate-name',
+					color: '#4b5f1d'
+				},
+				actorUserId
+			)
+		).rejects.toThrow(/^DUPLICATE_NAME:/);
 
 		const inactiveAuthor = await createAuthor(
 			{

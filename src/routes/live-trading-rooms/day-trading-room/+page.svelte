@@ -246,12 +246,13 @@
 				<p class="body-copy">
 					Directly mentored by former Wall Street Goldman Sachs proprietary trading giant
 					<strong>Mark "Goldfinger" McGoldrick</strong>, who explicitly called me
-					<em>"the future of trading"</em>, I became the only retail trader feared by Wall Street:
-					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
-					<strong>2022 Market Top and Bottom</strong>, and embarrassing
-					<strong>Warren Buffett live on OXY</strong> by shorting with Put Options for a
-					<strong>600% overnight gain</strong> while he went long millions of dollars. Every morning,
-					we bring that exact institutional order-flow playbook live to your screen.
+					<em>"the future of trading"</em>, I brought institutional order-flow discipline to
+					self-directed traders: calling the <strong>2020 COVID Top and Bottom</strong>, calling the
+					<strong>2022 Market Top and Bottom</strong>, and executing a contrarian defined-risk
+					<strong>OXY put options trade</strong> during high-volume institutional distribution for a
+					reported <strong>600% overnight gain</strong> (educational historical example; past performance
+					does not guarantee future results). Every morning, we bring that exact institutional order-flow
+					playbook live to your screen.
 				</p>
 
 				<blockquote class="editorial-quote">
@@ -524,7 +525,7 @@
 			<div class="routing-banner">
 				<div class="routing-banner__main">
 					<div class="section-heading">
-						<span class="eyebrow">People Over Making Money • Honest Fit Check</span>
+						<span class="eyebrow">People Over Profits • Honest Fit Check</span>
 						<h2 id="routing-h2">
 							Step Into the Live Day Trading Room or Choose the Exact Room Built for Your Life
 						</h2>
@@ -629,7 +630,28 @@
 							<h3 class="faq-item__heading">{item.question}</h3>
 							<span class="faq-item__icon" aria-hidden="true">+</span>
 						</summary>
-						<p class="faq-item__answer">{item.answer}</p>
+						{#if item.id === 'spx-alerts-video-watchlists'}
+							<p class="faq-item__answer">
+								If you prefer dedicated alert-only services without sitting in the full day trading
+								room, explore
+								<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>
+								for high-precision S&amp;P 500 index options execution or
+								<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>, our
+								accessible video watchlist alert membership delivering exact targeted entries,
+								profit exits, and stop-loss levels.
+							</p>
+						{:else if item.id === 'custom-non-repainting-indicators-scanners'}
+							<p class="faq-item__answer">
+								Yes. The exact 100% non-repainting
+								<a href={resolve('/store/indicators' as '/')}>indicators</a>, institutional
+								order-flow <a href={resolve('/store/scanners' as '/')}>scanners</a>, and
+								<a href={resolve('/store/courses' as '/')}>trading courses</a> you see on our shared
+								screens every morning are available in our Store, alongside our free
+								<a href={resolve('/resources' as '/')}>Options Calculator</a>.
+							</p>
+						{:else}
+							<p class="faq-item__answer">{item.answer}</p>
+						{/if}
 					</details>
 				{/each}
 			</div>

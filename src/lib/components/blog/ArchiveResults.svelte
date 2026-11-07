@@ -46,10 +46,9 @@
 				</p>
 			</div>
 			{#if listing.posts.length}
-				<div class={['articles-grid', { 'is-single': listing.posts.length === 1 }]}>
+				<div class="articles-grid">
 					{#each listing.posts as post, i (post.id)}<PostCard
 							{post}
-							lead={listing.posts.length === 1}
 							eager={!listing.featuredPosts.length && i === 0}
 						/>{/each}
 				</div>
@@ -101,10 +100,9 @@
 	.articles-grid {
 		margin-block-start: 1.25rem;
 	}
-	.featured-grid,
-	.articles-grid.is-single {
+	.featured-grid {
 		display: grid;
-		max-inline-size: 75rem;
+		max-inline-size: 100%;
 	}
 	.articles-grid {
 		display: flex;
@@ -112,14 +110,10 @@
 		gap: 1.5rem;
 		align-items: stretch;
 	}
-	.articles-grid:not(.is-single) :global(.blog-post-card) {
+	.articles-grid :global(.blog-post-card) {
 		flex: 1 1 20rem;
 		min-inline-size: min(100%, 20rem);
 		max-inline-size: 25rem;
-	}
-	.articles-grid.is-single {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
 	}
 	.results-heading {
 		display: flex;

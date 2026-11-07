@@ -99,6 +99,39 @@ export function getDb(): AppDatabase {
 async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 	if (process.env.VITEST) return;
 
+	// Repair any previously misnamed markdown-imported categories and sync baseline post_categories pivots
+	await pglite.exec(`
+		UPDATE categories SET name = 'Options & Greeks Mastery' WHERE slug = 'options-mastery' AND name <> 'Options & Greeks Mastery';
+		UPDATE categories SET name = 'Institutional Order Flow' WHERE slug = 'institutional-execution' AND name <> 'Institutional Order Flow';
+		UPDATE categories SET name = 'Risk & Psychology' WHERE slug = 'trading-psychology' AND name <> 'Risk & Psychology';
+		UPDATE categories SET name = '$500+ Small Accounts' WHERE slug = 'small-accounts' AND name <> '$500+ Small Accounts';
+		UPDATE categories SET name = 'Swing & Working Pros' WHERE slug = 'working-professionals' AND name <> 'Swing & Working Pros';
+
+		DELETE FROM post_categories
+		WHERE post_id IN (
+			SELECT id FROM posts
+			WHERE slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		)
+		AND category_id <> (SELECT id FROM categories WHERE slug = 'market-structure' LIMIT 1);
+
+		INSERT INTO post_categories (post_id, category_id)
+		SELECT p.id, p.category_id
+		FROM posts p
+		WHERE p.slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		  AND p.category_id IS NOT NULL
+		ON CONFLICT DO NOTHING;
+
+		UPDATE posts
+		SET published_at = COALESCE(published_at, '2026-10-25T14:00:00.000Z'::timestamptz),
+		    content_updated_at = COALESCE(content_updated_at, '2026-10-25T14:00:00.000Z'::timestamptz)
+		WHERE slug = 'institutional-order-flow-and-gamma-flip-playbook' AND status = 'published';
+
+		UPDATE posts
+		SET published_at = COALESCE(published_at, '2026-10-24T14:00:00.000Z'::timestamptz),
+		    content_updated_at = COALESCE(content_updated_at, '2026-10-24T14:00:00.000Z'::timestamptz)
+		WHERE slug = 'zero-dte-risk-management-and-position-sizing-rules' AND status = 'published';
+	`);
+
 	const check = await pglite.query<{ count: string }>(
 		`SELECT count(*)::text AS count
 		 FROM posts p
@@ -240,7 +273,23 @@ async function seedPreviewBaselineIfEmpty(pglite: PGlite): Promise<void> {
 			status = 'published',
 			visibility = 'public',
 			published = true,
+			featured = EXCLUDED.featured,
+			published_at = COALESCE(posts.published_at, EXCLUDED.published_at),
+			content_updated_at = COALESCE(posts.content_updated_at, EXCLUDED.content_updated_at),
 			table_of_contents = NULL;
+
+		DELETE FROM post_categories
+		WHERE post_id IN (
+			SELECT id FROM posts
+			WHERE slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		);
+
+		INSERT INTO post_categories (post_id, category_id)
+		SELECT p.id, p.category_id
+		FROM posts p
+		WHERE p.slug IN ('institutional-order-flow-and-gamma-flip-playbook', 'zero-dte-risk-management-and-position-sizing-rules')
+		  AND p.category_id IS NOT NULL
+		ON CONFLICT DO NOTHING;
 
 		INSERT INTO posts (
 			title,

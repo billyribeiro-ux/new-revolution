@@ -632,7 +632,7 @@
 		<section id="choose-your-package" class="packages-section" aria-labelledby="packages-h2">
 			<div class="container">
 				<div class="section-header">
-					<span class="section-kicker">People Over Making Money • Accessible Tiers</span>
+					<span class="section-kicker">People Over Profits • Accessible Tiers</span>
 					<h2 id="packages-h2" class="section-h2">
 						Choose Your SPX Profit Pulse Membership Cadence
 					</h2>
@@ -709,7 +709,8 @@
 						<div class="trader-box__content">
 							<span class="section-kicker">Meet Your Head Strategist • Single Unified Desk</span>
 							<h2 id="trader-h2" class="section-h2">
-								Billy Ribeiro — The Only Trader Feared by Wall Street
+								Billy Ribeiro — Bringing Institutional Order-Flow Discipline to Self-Directed
+								Traders
 							</h2>
 							<p class="trader-box__subtitle">
 								Founder of Revolution Trading Pros • Mentored Directly by Mark "Goldfinger"
@@ -729,11 +730,12 @@
 								Combining Goldman Sachs institutional order flow with his proprietary non-repainting
 								system (<strong>"The Move Prior to The Move™"</strong>), Billy accurately called
 								both the <strong>2020 COVID Crash Top and Generational Bottom</strong>, called the
-								<strong>2022 Bull Market Top and Bear Bottom</strong>, and embarrassed
-								<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong> by shorting with
-								Put Options for a <strong>600% overnight gain</strong> while Buffett went long
-								millions of dollars. Inside <strong>SPX Profit Pulse</strong>, Billy delivers his
-								highest-conviction S&amp;P 500 index setups directly to you.
+								<strong>2022 Bull Market Top and Bear Bottom</strong>, and executed a contrarian
+								defined-risk <strong>OXY put options trade</strong> during high-volume institutional
+								distribution for a reported <strong>600% overnight gain</strong> (educational
+								historical example; past performance does not guarantee future results). Inside
+								<strong>SPX Profit Pulse</strong>, Billy delivers his highest-conviction S&amp;P 500
+								index setups directly to you.
 							</p>
 
 							<div class="cta-row">

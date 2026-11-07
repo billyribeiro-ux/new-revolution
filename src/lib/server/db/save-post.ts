@@ -150,10 +150,20 @@ export async function savePostWithRedirect(
 				nextCategoryIds = [primaryCategoryId];
 			}
 
-			// Scoped featured demotion (Section 7.9):
+			// Scoped featured demotion & automatic rotation on new public publication (Section 7.9):
+			// When a public, indexable, non-fixture post transitions to `published` (`newlyPublished`),
+			// it becomes the Featured lead and rotates the previous Featured post into "More articles".
 			// Demote others ONLY when the saved post itself is `published` and not deleted.
 			// Run BEFORE inserting/updating `featured = true` so the partial unique index is never violated.
-			const targetFeatured = params.values.featured ?? existingRow?.featured ?? false;
+			const targetVisibility = params.values.visibility ?? existingRow?.visibility ?? 'public';
+			const targetNoindex = params.values.robotsNoindex ?? existingRow?.robotsNoindex ?? false;
+			const targetFixture = params.values.isFixture ?? existingRow?.isFixture ?? false;
+			const isPublicIndexable =
+				targetVisibility === 'public' && !targetNoindex && !targetFixture;
+			const targetFeatured =
+				newlyPublished && isPublicIndexable
+					? true
+					: (params.values.featured ?? existingRow?.featured ?? false);
 			if (targetFeatured && isPublished) {
 				if (existingRow) {
 					await tx

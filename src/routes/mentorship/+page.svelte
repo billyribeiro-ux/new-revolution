@@ -200,7 +200,7 @@
 				<div class="eyebrow-banner">
 					<span class="eyebrow-banner__tag">Strictly By Application &amp; Approval Only</span>
 					<span class="eyebrow-banner__text">
-						Goldman Sachs Prop Lineage • People Over Making Money
+						Goldman Sachs Prop Lineage • People Over Profits
 					</span>
 				</div>
 
@@ -234,13 +234,13 @@
 				</p>
 
 				<p class="body-copy">
-					That direct 1-on-1 mentorship transformed me into the only trader feared by Wall Street:
-					calling the <strong>2020 COVID Top and Bottom</strong>, calling the
-					<strong>2022 Market Top and Bottom</strong>, and embarrassing
-					<strong>Warren Buffett live on Occidental Petroleum (OXY)</strong>
-					by shorting with Put Options for a <strong>600% overnight gain</strong> while he went long millions
-					of dollars. Now, we open a strictly limited number of private 1-on-1 seats each quarter to pass
-					that exact institutional edge directly to you.
+					That direct 1-on-1 mentorship instilled institutional order-flow discipline: calling the
+					<strong>2020 COVID Top and Bottom</strong>, calling the
+					<strong>2022 Market Top and Bottom</strong>, and executing a contrarian defined-risk
+					<strong>OXY put options trade</strong> during high-volume institutional distribution for a
+					reported <strong>600% overnight gain</strong> (educational historical example; past performance
+					does not guarantee future results). Now, we open a strictly limited number of private 1-on-1
+					seats each quarter to pass that exact institutional edge directly to you.
 				</p>
 
 				<blockquote class="hero-quote">

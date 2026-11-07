@@ -916,7 +916,7 @@
 		<section id="enroll-scanner" class="enroll-section" aria-labelledby="enroll-h2">
 			<div class="container">
 				<div class="section-header">
-					<span class="section-kicker">People Over Making Money • Accessible Access</span>
+					<span class="section-kicker">People Over Profits • Accessible Access</span>
 					<h2 id="enroll-h2" class="section-h2">
 						Ready to Start Scanning With Institutional Precision?
 					</h2>

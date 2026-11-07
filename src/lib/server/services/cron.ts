@@ -78,8 +78,9 @@ export async function runScheduledPublishSweep(): Promise<ScheduledSweepResult> 
 		}
 
 		const dueFeaturedIds = dueRows.filter((r) => r.featured).map((r) => r.id);
-		if (dueFeaturedIds.length > 0) {
-			// Demote any currently live featured post before promoting the scheduled featured post
+		const promotedFeaturedId = dueFeaturedIds[0] ?? dueRows[0]?.id;
+		if (promotedFeaturedId !== undefined) {
+			// Demote any currently live featured post before promoting the newly published scheduled post
 			await tx
 				.update(posts)
 				.set({ featured: false })
@@ -87,13 +88,17 @@ export async function runScheduledPublishSweep(): Promise<ScheduledSweepResult> 
 					and(eq(posts.featured, true), eq(posts.status, 'published'), isNull(posts.deletedAt))
 				);
 
-			// If multiple scheduled posts had featured = true, keep only the newest one featured
-			if (dueFeaturedIds.length > 1) {
-				await tx
-					.update(posts)
-					.set({ featured: false })
-					.where(inArray(posts.id, dueFeaturedIds.slice(1)));
-			}
+			// Ensure only the newest promoted scheduled post has featured = true
+			await tx
+				.update(posts)
+				.set({ featured: false })
+				.where(
+					inArray(
+						posts.id,
+						dueRows.map((r) => r.id).filter((id) => id !== promotedFeaturedId)
+					)
+				);
+			await tx.update(posts).set({ featured: true }).where(eq(posts.id, promotedFeaturedId));
 		}
 
 		return tx

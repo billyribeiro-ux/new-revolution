@@ -1161,6 +1161,16 @@
 			gap: 0.75rem;
 		}
 
+		.announcement-links a:first-child {
+			inline-size: 10.625rem;
+			max-inline-size: 100%;
+			justify-content: center;
+			padding: 6px 7px;
+			font-size: 0.625rem;
+			letter-spacing: 0.01em;
+			gap: 0.2rem;
+		}
+
 		.nav {
 			gap: 0.35rem;
 		}
@@ -1206,6 +1216,11 @@
 			font-size: 0.625rem;
 			letter-spacing: 0.01em;
 			gap: 0.2rem;
+		}
+
+		.nav-actions .btn-primary {
+			inline-size: 10.625rem;
+			justify-content: center;
 		}
 
 		.mobile-toggle {
@@ -1259,12 +1274,25 @@
 			margin-inline-start: 0;
 		}
 
+		.announcement-links a:first-child {
+			inline-size: 12rem;
+			padding: 8px 10px;
+			font-size: 0.6875rem;
+			letter-spacing: 0.02em;
+			gap: 0.25rem;
+		}
+
 		.nav-actions .btn {
 			min-block-size: 40px;
 			padding: 8px 10px;
 			font-size: 0.6875rem;
 			letter-spacing: 0.02em;
 			gap: 0.25rem;
+		}
+
+		.nav-actions .btn-primary {
+			inline-size: 12rem;
+			justify-content: center;
 		}
 	}
 
@@ -1303,11 +1331,24 @@
 			margin-inline-start: 0;
 		}
 
+		.announcement-links a:first-child {
+			inline-size: 13.25rem;
+			padding: 9px 12px;
+			font-size: 0.75rem;
+			letter-spacing: 0.03em;
+			gap: 0.375rem;
+		}
+
 		.nav-actions .btn {
 			padding: 9px 12px;
 			font-size: 0.75rem;
 			letter-spacing: 0.03em;
 			gap: 0.375rem;
+		}
+
+		.nav-actions .btn-primary {
+			inline-size: 13.25rem;
+			justify-content: center;
 		}
 	}
 	.mobile-nav-label > span:not(.mobile-nav-icon) {

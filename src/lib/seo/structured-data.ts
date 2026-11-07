@@ -138,7 +138,7 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 	{
 		id: 'sunday-alpha-alerts',
 		schemaType: 'Service',
-		name: 'Sunday Alpha Alerts',
+		name: 'Sunday Alpha Protocol',
 		serviceType: 'Multi-Day Swing Trading Video Watchlist and Alert Service',
 		description:
 			'Multi-day stock and options video watchlists with pre-planned entry zones, profit targets, and stop-loss invalidation levels for working professionals.',
@@ -198,7 +198,7 @@ export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'Why do you offer a Small Accounts Room for $500+ accounts and affordable alert services?',
 		answer:
-			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Alerts or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
+			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -280,7 +280,7 @@ export function buildOrganizationEntity(origin: string) {
 			'Swing Trading Alerts for Working Professionals',
 			'Small Account ($500+) Risk Management',
 			'Custom Non-Repainting Trading Indicators and Scanners',
-			'SPX Profit Pulse and Sunday Alpha Alerts Video Watchlists',
+			'SPX Profit Pulse and Sunday Alpha Protocol Video Watchlists',
 			'Institutional Order Flow and Market Structure Education'
 		],
 		contactPoint: {
@@ -502,7 +502,7 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'alert-only-memberships',
 		question: "How do your alert-only memberships work if I can't join a live trading room?",
 		answer:
-			'Through our accessible alert services (Sunday Alpha Alerts and SPX Profit Pulse), we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
+			'Through our accessible alert services (Sunday Alpha Protocol and SPX Profit Pulse), we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
 	},
 	{
 		id: 'mentorship-application-only',
@@ -542,7 +542,7 @@ export function buildMissionJsonLd(origin: string) {
 				description:
 					'Five non-negotiable standards: no fake holy grail indicators, no overpriced guru courses, exact entries, exits and stops defined ahead of time, dedicated environments for small accounts and working professionals, and application-only 1-on-1 mentorship.',
 				inLanguage: 'en-US',
-				url: `${missionUrl}#charter`,
+				url: missionUrl,
 				isPartOf: { '@id': `${missionUrl}#webpage` },
 				publisher: { '@id': `${origin}/#organization` }
 			},
@@ -584,7 +584,7 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'What if I want to join a Live Trading Room or Alert Service while my 1-on-1 application is reviewed?',
 		answer:
-			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Alerts).'
+			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Protocol).'
 	}
 ] as const;
 
@@ -668,7 +668,7 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'spx-alerts-video-watchlists',
 		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
 		answer:
-			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Alerts (/sunday-alpha-alerts), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse (/alert-services/spx-profit-pulse) for high-precision S&P 500 index options execution or Sunday Alpha Protocol (/sunday-alpha-alerts), our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
 	},
 	{
 		id: 'custom-non-repainting-indicators-scanners',
@@ -748,9 +748,9 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'swing-room-vs-sunday-alpha-alerts',
 		question:
-			'How is the Swing Trading Room different from your Sunday Alpha Alerts alert service?',
+			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
 		answer:
-			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Alerts (/sunday-alpha-alerts) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol (/sunday-alpha-alerts) is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
 	},
 	{
 		id: 'methodology-2020-2022-oxy',
@@ -845,7 +845,7 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'full-time-job-small-account',
 		question: 'What if I work a full-time job and also have a small $500+ account?',
 		answer:
-			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Alerts (/sunday-alpha-alerts) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
+			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol (/sunday-alpha-alerts) video watchlist alerts or our self-paced Trading Courses (/store/courses).'
 	},
 	{
 		id: 'graduating-past-10k-25k',
@@ -970,7 +970,7 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'small-accounts-working-pros',
 		question: 'Are these indicators suitable for $500+ small accounts or working professionals?',
 		answer:
-			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Alerts alert tier.'
+			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Protocol alert tier.'
 	},
 	{
 		id: 'pair-with-scanners-courses',
@@ -1320,9 +1320,9 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 	{
 		id: 'difference-from-day-room-sunday-alpha-alerts',
 		question:
-			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Alerts?',
+			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
 		answer:
-			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Alerts (/sunday-alpha-alerts) is our multi-day stock and options swing alert service.'
+			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room (/live-trading-rooms/day-trading-room) is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol (/sunday-alpha-alerts) is our multi-day stock and options swing alert service.'
 	}
 ];
 
@@ -1407,7 +1407,7 @@ export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'watch-scanners-live-market-hours',
 		question: 'Can I watch your team use these scanners live during market hours?',
 		answer:
-			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Alerts.'
+			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Protocol.'
 	}
 ];
 
@@ -1863,9 +1863,9 @@ export function buildResourcesHubJsonLd(origin: string) {
 export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 	{
 		id: 'sunday-dispatch-time',
-		question: 'When exactly do I receive the Sunday Alpha Alerts every week?',
+		question: 'When exactly do I receive the Sunday Alpha Protocol every week?',
 		answer:
-			'Sunday Alpha Alerts is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard, one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
+			'Sunday Alpha Protocol is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard, one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
 	},
 	{
 		id: 'markets-and-asset-classes',
@@ -1921,9 +1921,9 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				'@type': 'WebPage',
 				'@id': `${pageUrl}#webpage`,
 				url: pageUrl,
-				name: 'Sunday Alpha Alerts | Revolution Trading Pros',
+				name: 'Sunday Alpha Protocol | Revolution Trading Pros',
 				description:
-					'Explore Sunday Alpha Alerts stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.',
+					'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#protocol` },
@@ -1933,7 +1933,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 			{
 				'@type': 'Service',
 				'@id': `${pageUrl}#service`,
-				name: 'Sunday Alpha Alerts: Institutional Stock & Options Swing Trading Blueprint',
+				name: 'Sunday Alpha Protocol: Institutional Stock & Options Swing Trading Blueprint',
 				url: pageUrl,
 				provider: { '@id': `${origin}/#organization` },
 				serviceType: 'Institutional Stock and Options Swing Trading Watchlist Blueprint',
@@ -1951,7 +1951,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 			{
 				'@type': 'Product',
 				'@id': `${pageUrl}#protocol`,
-				name: 'Sunday Alpha Alerts',
+				name: 'Sunday Alpha Protocol',
 				description:
 					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.',
 				image: `${origin}${BRAND_SOCIAL_IMAGE_PATH}`,
@@ -1965,7 +1965,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 						price: '47.00',
 						priceCurrency: 'USD',
 						availability: 'https://schema.org/InStock',
-						url: `${pageUrl}#pricing`,
+						url: pageUrl,
 						priceValidUntil: '2026-12-31'
 					},
 					{
@@ -1974,7 +1974,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 						price: '127.00',
 						priceCurrency: 'USD',
 						availability: 'https://schema.org/InStock',
-						url: `${pageUrl}#pricing`,
+						url: pageUrl,
 						priceValidUntil: '2026-12-31'
 					},
 					{
@@ -1983,7 +1983,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 						price: '447.00',
 						priceCurrency: 'USD',
 						availability: 'https://schema.org/InStock',
-						url: `${pageUrl}#pricing`,
+						url: pageUrl,
 						priceValidUntil: '2026-12-31'
 					}
 				]
@@ -1996,7 +1996,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 					{
 						'@type': 'ListItem',
 						position: 2,
-						name: 'Sunday Alpha Alerts',
+						name: 'Sunday Alpha Protocol',
 						item: pageUrl
 					}
 				]

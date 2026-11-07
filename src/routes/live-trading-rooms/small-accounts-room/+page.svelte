@@ -562,14 +562,14 @@
 						<div class="route-card__top">
 							<span class="meta-label">Working a 9-to-5 Job or Want Alerts Only?</span>
 						</div>
-						<h3 class="route-card__title">Swing Room &amp; Sunday Alpha Alerts</h3>
+						<h3 class="route-card__title">Swing Room &amp; Sunday Alpha Protocol</h3>
 						<p class="route-card__copy">
 							Cannot watch screens during market hours? Join our
 							<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 								>Swing Trading Room</a
 							>
 							or our ultra-affordable
-							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
+							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
 							video watchlist alert tier for pre-planned multi-day entries, targets, and stops.
 						</p>
 					</div>
@@ -651,7 +651,7 @@
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
 				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
-					Sunday Alpha Alerts Video Watchlist
+					Sunday Alpha Protocol Video Watchlist
 				</a>
 				<a href={resolve('/resources' as '/')} class="btn btn-outline-dark">
 					Free Options Risk Calculator

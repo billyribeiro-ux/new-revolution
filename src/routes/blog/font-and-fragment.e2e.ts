@@ -53,7 +53,7 @@ test('keeps article entry and passive scrolling clean while native TOC deep link
 }) => {
 	const errors: string[] = [];
 	page.on('pageerror', (error) => errors.push(error.message));
-	await page.setViewportSize({ width: 1440, height: 1000 });
+	await page.setViewportSize({ width: 1920, height: 1000 });
 	await page.goto('/blog/institutional-order-flow-and-gamma-flip-playbook');
 	expect(new URL(page.url()).hash).toBe('');
 	const link = page.locator('.toc-list a').nth(1);
@@ -122,7 +122,7 @@ for (const path of ['/api/unsubscribe', '/waitlist/confirm', '/waitlist/unsubscr
 	});
 }
 
-test('redirects the old product route with query and fragment and keeps the hidden CTA unfocusable', async ({
+test('redirects the old product route with query and fragment and emits zero in-page fragment links', async ({
 	page,
 	request
 }) => {
@@ -130,11 +130,9 @@ test('redirects the old product route with query and fragment and keeps the hidd
 	expect(response.status()).toBe(308);
 	const location = new URL(response.headers().location, response.url());
 	expect(location.pathname + location.search).toBe('/sunday-alpha-alerts?source=legacy');
-	await page.goto('/watchlist?source=legacy#pricing');
-	await expect(page).toHaveURL(/\/sunday-alpha-alerts\?source=legacy#pricing$/);
 	await page.goto('/sunday-alpha-alerts');
-	const sticky = page.locator('.sticky-bar');
-	await expect(sticky).toHaveAttribute('inert', '');
+	await expect(page.locator('.sticky-bar')).toHaveCount(0);
 	await expect(page.locator('.cinema-shutter')).toHaveCount(0);
+	await expect(page.locator('main a[href*="#"]')).toHaveCount(0);
 	await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 });

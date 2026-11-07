@@ -280,7 +280,7 @@
 				'Scans 4-Hour, Daily, and Weekly charts for institutional pullback shelves and squeezes',
 				'Calculates pre-planned entry trigger zones, profit targets, and hard stop levels',
 				'Filters out tickers with upcoming binary earnings risk within 7 days',
-				'Pairs directly with our Swing Trading Room and Sunday Alpha Alerts video watchlists'
+				'Pairs directly with our Swing Trading Room and Sunday Alpha Protocol video watchlists'
 			],
 			bestFor: '9-to-5 Working Professionals & Multi-Day Swing Traders',
 			radarPattern: 'matrix'
@@ -420,7 +420,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts',
+			title: 'Sunday Alpha Protocol',
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -1084,7 +1084,7 @@
 							<a href={resolve('/live-trading-rooms/small-accounts-room')}>Small Accounts Room</a>,
 							and use them to curate the setups in
 							<a href={resolve('/alert-services/spx-profit-pulse')}>SPX Profit Pulse</a> and
-							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>.
+							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>.
 						</p>
 					</details>
 				</div>

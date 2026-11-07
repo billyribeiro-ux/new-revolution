@@ -54,7 +54,7 @@
 				<p>
 					You may cancel any monthly, quarterly, or annual membership (including the Day Trading
 					Room, Swing Trading Room, Small Accounts Room, SPX Profit Pulse, and
-					<a href={resolve('/sunday-alpha-alerts')}>Sunday Alpha Alerts</a>) at any time prior to
+					<a href={resolve('/sunday-alpha-alerts')}>Sunday Alpha Protocol</a>) at any time prior to
 					your next billing date. Access continues through the end of your paid billing period.
 				</p>
 			</article>

@@ -10,9 +10,9 @@ import type { PageLoad } from './$types';
 export const prerender = true;
 
 export const load: PageLoad = ({ url }) => {
-	const title = 'Sunday Alpha Alerts';
+	const title = 'Sunday Alpha Protocol';
 	const description =
-		'Explore Sunday Alpha Alerts stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.';
+		'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.';
 	const canonical = getCanonicalUrl(url);
 
 	return {
@@ -23,11 +23,11 @@ export const load: PageLoad = ({ url }) => {
 			openGraph: {
 				type: 'website',
 				url: canonical,
-				title: `Sunday Alpha Alerts | ${BRAND_NAME}`,
+				title: `Sunday Alpha Protocol | ${BRAND_NAME}`,
 				description
 			},
 			twitter: {
-				title: `Sunday Alpha Alerts | ${BRAND_NAME}`,
+				title: `Sunday Alpha Protocol | ${BRAND_NAME}`,
 				description
 			}
 		}),

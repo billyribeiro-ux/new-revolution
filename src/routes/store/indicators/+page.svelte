@@ -105,7 +105,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts',
+			title: 'Sunday Alpha Protocol',
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
@@ -494,7 +494,7 @@
 										>Swing Trading Room</a
 									>
 									and
-									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
+									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
 									alert tier.
 								</p>
 							{:else}

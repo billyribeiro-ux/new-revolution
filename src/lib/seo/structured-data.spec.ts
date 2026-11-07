@@ -606,7 +606,7 @@ describe('buildResourcesHubJsonLd', () => {
 describe('buildSundayAlphaProtocolJsonLd', () => {
 	const graph = buildSundayAlphaProtocolJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Alerts Product with image and 3 Offers ($47, $127, $447)', () => {
+	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Protocol Product with image and 3 Offers ($47, $127, $447)', () => {
 		assertGraphIntegrity(graph);
 		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
 		expect(person['@type']).toBe('Person');
@@ -616,11 +616,14 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 			(n) => n['@id'] === `${ORIGIN}/sunday-alpha-alerts#protocol`
 		) as Node;
 		expect(product['@type']).toBe('Product');
-		expect(product.name).toBe('Sunday Alpha Alerts');
+		expect(product.name).toBe('Sunday Alpha Protocol');
 		expect(product.image).toBe(`${ORIGIN}/og-image.png`);
-		const offers = product.offers as { name: string; price: string }[];
+		const offers = product.offers as { name: string; price: string; url: string }[];
 		expect(offers).toHaveLength(3);
 		expect(offers.map((o) => o.price)).toEqual(['47.00', '127.00', '447.00']);
+		for (const offer of offers) {
+			expect(offer.url).toBe(`${ORIGIN}/sunday-alpha-alerts`);
+		}
 	});
 });
 

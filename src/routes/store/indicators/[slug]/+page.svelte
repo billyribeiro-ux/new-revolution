@@ -249,7 +249,7 @@
 		},
 		{
 			badge: 'Video Watchlist Tier',
-			title: 'Sunday Alpha Alerts',
+			title: 'Sunday Alpha Protocol',
 			description:
 				'Affordable alert-only video watchlists with exact targeted entries, exits, and stops.',
 			ctaLabel: 'Explore Alerts →',

@@ -80,7 +80,7 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 				description: 'Index options video watchlists and alerts.'
 			},
 			{
-				label: 'Sunday Alpha Alerts',
+				label: 'Sunday Alpha Protocol',
 				href: '/sunday-alpha-alerts',
 				previewTarget: 'memberships',
 				icon: 'sunday-alpha-alerts',
@@ -536,7 +536,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	{
 		index: 'MEMBERSHIP / 04',
 		tag: 'SPX PROFIT PULSE · SUNDAY ALPHA ALERTS',
-		title: 'Alert Services: SPX Profit Pulse & Sunday Alpha Alerts',
+		title: 'Alert Services: SPX Profit Pulse & Sunday Alpha Protocol',
 		description:
 			'Want planned stock and options setups without a live room? Review the video thesis, intended trigger areas, targets, and invalidation in your own time.',
 		featured: false,
@@ -551,7 +551,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 			},
 			{
 				lead: 'Timely setup alerts:',
-				body: 'updates across SPX Profit Pulse and Sunday Alpha Alerts when monitored levels trigger.'
+				body: 'updates across SPX Profit Pulse and Sunday Alpha Protocol when monitored levels trigger.'
 			},
 			{
 				lead: 'Lower-commitment access:',
@@ -698,13 +698,13 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'full-time-9-to-5',
 		question: 'Which option works with a full-time 9-to-5 job?',
 		answer:
-			'Start with the Swing Trading Room or our Alert Services (SPX Profit Pulse and Sunday Alpha Alerts). Both are designed around prepared market scenarios, entries, targets, and invalidation levels so you can review ideas outside a live trading room.'
+			'Start with the Swing Trading Room or our Alert Services (SPX Profit Pulse and Sunday Alpha Protocol). Both are designed around prepared market scenarios, entries, targets, and invalidation levels so you can review ideas outside a live trading room.'
 	},
 	{
 		id: 'video-watchlist-deliverables',
 		question: 'What comes with the video watchlist & alert memberships?',
 		answer:
-			'Planned deliverables include detailed video setup explanations, relevant charts and catalysts, proposed entry zones, profit targets, risk levels, and alerts as scenarios develop across SPX Profit Pulse and Sunday Alpha Alerts. Delivery terms and timing should be confirmed on the live membership page.'
+			'Planned deliverables include detailed video setup explanations, relevant charts and catalysts, proposed entry zones, profit targets, risk levels, and alerts as scenarios develop across SPX Profit Pulse and Sunday Alpha Protocol. Delivery terms and timing should be confirmed on the live membership page.'
 	},
 	{
 		id: 'apply-1-on-1-mentorship',
@@ -799,7 +799,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 				previewTarget: 'memberships'
 			},
 			{
-				label: 'Sunday Alpha Alerts',
+				label: 'Sunday Alpha Protocol',
 				href: '/sunday-alpha-alerts',
 				previewTarget: 'memberships'
 			},

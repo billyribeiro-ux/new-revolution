@@ -129,7 +129,7 @@ export const SUNDAY_ALPHA_MECHANISM_ACTS: readonly SundayAlphaMechanismAct[] = [
 		tag: 'ACT 02 // THE 15M GAMMA FLIP',
 		title: 'Wait For Confirmed 15m Close',
 		description:
-			'Amateurs buy the opening 9:30 AM retail head-fake and get stopped out by 10:00 AM. Sunday Alpha Alerts forbids opening-bell chasing. You only execute when a 15-minute candle closes cleanly above our exact trigger coordinate, accompanied by >= 1.5x Relative Volume (RVOL).',
+			'Amateurs buy the opening 9:30 AM retail head-fake and get stopped out by 10:00 AM. Sunday Alpha Protocol forbids opening-bell chasing. You only execute when a 15-minute candle closes cleanly above our exact trigger coordinate, accompanied by >= 1.5x Relative Volume (RVOL).',
 		calloutLabel: 'EXECUTION RULE',
 		calloutValue: '15m Candle Close + 1.5x RVOL Confirmation',
 		calloutColor: 'emerald'
@@ -155,9 +155,9 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 		tabLabel: '$TSLA SWING',
 		name: '$TSLA: Tesla, Inc.',
 		tag: 'BULLISH GAMMA BREAKOUT',
-		tagColor: '#10b981',
-		tagBg: 'rgba(16,185,129,0.12)',
-		tagBorder: 'rgba(16,185,129,0.35)',
+		tagColor: 'var(--acid)',
+		tagBg: 'rgba(220, 255, 101, 0.1)',
+		tagBorder: 'rgba(220, 255, 101, 0.32)',
 		rr: '1 : 2.50',
 		domain: [232, 286],
 		levels: { stop: 241.2, entry: 248.5, t1: 260.0, t2: 269.0, t3: 280.0 },
@@ -206,43 +206,43 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 			{ d: 30, p: 280.0, v: 97 }
 		],
 		specsEq: [
-			{ k: '15m Entry Trigger', v: '$248.50 Confirmed Close', c: 'var(--sap-gold-bright)' },
-			{ k: 'Max Chasing Limit', v: '$250.25 (Hard Cap)', c: 'var(--sap-text-main)' },
+			{ k: '15m Entry Trigger', v: '$248.50 Confirmed Close', c: 'var(--acid)' },
+			{ k: 'Max Chasing Limit', v: '$250.25 (Hard Cap)', c: 'var(--text)' },
 			{
 				k: 'Hard Invalidation Stop',
 				v: '$241.20 (-$7.30 / -2.93%)',
-				c: 'var(--sap-crimson-bright)'
+				c: 'var(--coral)'
 			},
 			{
 				k: 'Target 1 (50% Scale)',
 				v: '$260.00 (+1.58R) -> Stop to BE',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
 			{
 				k: 'Target 2 (30% Scale)',
 				v: '$269.00 (+2.81R) -> Trail 8-EMA',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
-			{ k: 'Target 3 (20% Runner)', v: '$280.00 (+4.32R) -> Full Exit', c: 'var(--sap-cyan)' }
+			{ k: 'Target 3 (20% Runner)', v: '$280.00 (+4.32R) -> Full Exit', c: 'var(--acid2)' }
 		],
 		specsOpt: [
-			{ k: 'Primary Contract', v: '18 DTE $250.00 CALL', c: 'var(--sap-gold-bright)' },
-			{ k: 'Target Delta / IV Rank', v: '0.64 Delta • IVR 28% (Low)', c: 'var(--sap-text-main)' },
-			{ k: 'Contract Limit Band', v: '$9.10 – $9.75 Debit Max', c: 'var(--sap-emerald-bright)' },
+			{ k: 'Primary Contract', v: '18 DTE $250.00 CALL', c: 'var(--acid)' },
+			{ k: 'Target Delta / IV Rank', v: '0.64 Delta • IVR 28% (Low)', c: 'var(--text)' },
+			{ k: 'Contract Limit Band', v: '$9.10 – $9.75 Debit Max', c: 'var(--acid)' },
 			{
 				k: 'Defined-Risk Spread Alt',
 				v: '$250 / $270 Bull Call Debit Spread',
-				c: 'var(--sap-cyan)'
+				c: 'var(--acid2)'
 			},
 			{
 				k: 'Theta Protection Rule',
 				v: 'Exit if un-triggered by Wed 2 PM',
-				c: 'var(--sap-text-sec)'
+				c: 'var(--muted)'
 			},
 			{
 				k: 'Earnings / Catalyst Risk',
 				v: 'CLEAR (26 Days to Earnings)',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			}
 		],
 		context:
@@ -253,9 +253,9 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 		tabLabel: '$NVDA BREAKOUT',
 		name: '$NVDA: NVIDIA Corp.',
 		tag: 'RELATIVE STRENGTH LEADER',
-		tagColor: '#10b981',
-		tagBg: 'rgba(16,185,129,0.12)',
-		tagBorder: 'rgba(16,185,129,0.35)',
+		tagColor: 'var(--acid)',
+		tagBg: 'rgba(220, 255, 101, 0.1)',
+		tagBorder: 'rgba(220, 255, 101, 0.32)',
 		rr: '1 : 2.68',
 		domain: [129, 156],
 		levels: { stop: 132.4, entry: 136.8, t1: 144.0, t2: 149.2, t3: 154.5 },
@@ -303,47 +303,47 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 			{ d: 30, p: 154.5, v: 98 }
 		],
 		specsEq: [
-			{ k: '15m Entry Trigger', v: '$136.80 Confirmed Close', c: 'var(--sap-gold-bright)' },
-			{ k: 'Max Chasing Limit', v: '$137.75 (Hard Cap)', c: 'var(--sap-text-main)' },
+			{ k: '15m Entry Trigger', v: '$136.80 Confirmed Close', c: 'var(--acid)' },
+			{ k: 'Max Chasing Limit', v: '$137.75 (Hard Cap)', c: 'var(--text)' },
 			{
 				k: 'Hard Invalidation Stop',
 				v: '$132.40 (-$4.40 / -3.21%)',
-				c: 'var(--sap-crimson-bright)'
+				c: 'var(--coral)'
 			},
 			{
 				k: 'Target 1 (50% Scale)',
 				v: '$144.00 (+1.64R) -> Stop to BE',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
 			{
 				k: 'Target 2 (30% Scale)',
 				v: '$149.20 (+2.82R) -> Trail 8-EMA',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
-			{ k: 'Target 3 (20% Runner)', v: '$154.50 (+4.02R) -> Full Exit', c: 'var(--sap-cyan)' }
+			{ k: 'Target 3 (20% Runner)', v: '$154.50 (+4.02R) -> Full Exit', c: 'var(--acid2)' }
 		],
 		specsOpt: [
-			{ k: 'Primary Contract', v: '21 DTE $137.00 CALL', c: 'var(--sap-gold-bright)' },
+			{ k: 'Primary Contract', v: '21 DTE $137.00 CALL', c: 'var(--acid)' },
 			{
 				k: 'Target Delta / IV Rank',
 				v: '0.66 Delta • IVR 24% (Optimal)',
-				c: 'var(--sap-text-main)'
+				c: 'var(--text)'
 			},
-			{ k: 'Contract Limit Band', v: '$5.95 – $6.40 Debit Max', c: 'var(--sap-emerald-bright)' },
+			{ k: 'Contract Limit Band', v: '$5.95 – $6.40 Debit Max', c: 'var(--acid)' },
 			{
 				k: 'Defined-Risk Spread Alt',
 				v: '$137 / $150 Bull Call Debit Spread',
-				c: 'var(--sap-cyan)'
+				c: 'var(--acid2)'
 			},
 			{
 				k: 'Theta Protection Rule',
 				v: 'Exit if un-triggered by Wed 2 PM',
-				c: 'var(--sap-text-sec)'
+				c: 'var(--muted)'
 			},
 			{
 				k: 'Earnings / Catalyst Risk',
 				v: 'CLEAR (34 Days to Earnings)',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			}
 		],
 		context:
@@ -354,9 +354,9 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 		tabLabel: '$SPY PIVOT',
 		name: '$SPY: S&P 500 ETF Trust',
 		tag: 'INDEX LIQUIDITY RECLAIM',
-		tagColor: '#38bdf8',
-		tagBg: 'rgba(56,189,248,0.12)',
-		tagBorder: 'rgba(56,189,248,0.35)',
+		tagColor: 'var(--acid)',
+		tagBg: 'rgba(220, 255, 101, 0.1)',
+		tagBorder: 'rgba(220, 255, 101, 0.32)',
 		rr: '1 : 2.55',
 		domain: [573, 601],
 		levels: { stop: 576.4, entry: 580.2, t1: 586.5, t2: 591.2, t3: 597.8 },
@@ -404,44 +404,44 @@ export const SUNDAY_ALPHA_TERMINAL_BLUEPRINTS: Record<
 			{ d: 30, p: 597.8, v: 96 }
 		],
 		specsEq: [
-			{ k: '15m Entry Trigger', v: '$580.20 Confirmed Close', c: 'var(--sap-gold-bright)' },
-			{ k: 'Max Chasing Limit', v: '$581.10 (Hard Cap)', c: 'var(--sap-text-main)' },
+			{ k: '15m Entry Trigger', v: '$580.20 Confirmed Close', c: 'var(--acid)' },
+			{ k: 'Max Chasing Limit', v: '$581.10 (Hard Cap)', c: 'var(--text)' },
 			{
 				k: 'Hard Invalidation Stop',
 				v: '$576.40 (-$3.80 / -0.65%)',
-				c: 'var(--sap-crimson-bright)'
+				c: 'var(--coral)'
 			},
 			{
 				k: 'Target 1 (50% Scale)',
 				v: '$586.50 (+1.66R) -> Stop to BE',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
 			{
 				k: 'Target 2 (30% Scale)',
 				v: '$591.20 (+2.89R) -> Trail 8-EMA',
-				c: 'var(--sap-emerald-bright)'
+				c: 'var(--acid)'
 			},
-			{ k: 'Target 3 (20% Runner)', v: '$597.80 (+4.63R) -> Full Exit', c: 'var(--sap-cyan)' }
+			{ k: 'Target 3 (20% Runner)', v: '$597.80 (+4.63R) -> Full Exit', c: 'var(--acid2)' }
 		],
 		specsOpt: [
-			{ k: 'Primary Contract', v: '14 DTE $580.00 CALL', c: 'var(--sap-gold-bright)' },
+			{ k: 'Primary Contract', v: '14 DTE $580.00 CALL', c: 'var(--acid)' },
 			{
 				k: 'Target Delta / IV Rank',
 				v: '0.65 Delta • VIX 14.8 (Controlled)',
-				c: 'var(--sap-text-main)'
+				c: 'var(--text)'
 			},
-			{ k: 'Contract Limit Band', v: '$7.55 – $7.95 Debit Max', c: 'var(--sap-emerald-bright)' },
+			{ k: 'Contract Limit Band', v: '$7.55 – $7.95 Debit Max', c: 'var(--acid)' },
 			{
 				k: 'Defined-Risk Spread Alt',
 				v: '$580 / $592 Bull Call Debit Spread',
-				c: 'var(--sap-cyan)'
+				c: 'var(--acid2)'
 			},
 			{
 				k: 'Theta Protection Rule',
 				v: 'Exit if un-triggered by Wed 2 PM',
-				c: 'var(--sap-text-sec)'
+				c: 'var(--muted)'
 			},
-			{ k: 'Macro Event Check', v: 'FOMC / CPI Clear Window', c: 'var(--sap-emerald-bright)' }
+			{ k: 'Macro Event Check', v: 'FOMC / CPI Clear Window', c: 'var(--acid)' }
 		],
 		context:
 			'Institutional liquidity sweep below $577.50 fully reclaimed on rising breadth. Positive dealer gamma flip sits directly at $580.20, projecting systematic CTA inflows toward the $591.20 and $597.80 upper distribution targets.'
@@ -537,7 +537,7 @@ export const SUNDAY_ALPHA_AUTHORITY_RECEIPTS: readonly SundayAlphaReceipt[] = [
 		kickerColor: 'cyan',
 		title: 'Zero Hindsight. 100% Pre-Market Coordinates.',
 		description:
-			'Every blueprint in Sunday Alpha Alerts is published at 5:00 PM EST Sunday, before futures open, with immutable entry triggers, stops, and targets.'
+			'Every blueprint in Sunday Alpha Protocol is published at 5:00 PM EST Sunday, before futures open, with immutable entry triggers, stops, and targets.'
 	}
 ] as const;
 
@@ -592,7 +592,7 @@ export const SUNDAY_ALPHA_PRICING_TIERS: readonly SundayAlphaPricingTier[] = [
 		period: '/ year',
 		savingText: 'Equivalent to $37.25/mo (Regular $1,647/yr; save $1,200/yr)',
 		features: [
-			{ strong: '52 Full Weeks', text: 'of Sunday Alpha Alerts Dispatches' },
+			{ strong: '52 Full Weeks', text: 'of Sunday Alpha Protocol Dispatches' },
 			{
 				strong: 'Lowest Effective Rate:',
 				text: 'Save an additional 21% off Founding Monthly',

@@ -16,7 +16,7 @@ function getPageData() {
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
-describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Alerts)', () => {
+describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Protocol)', () => {
 	it('uses the current product name, canonical route and house metadata budgets', () => {
 		const data = getPageData() as {
 			pageMetaTags: {
@@ -27,11 +27,11 @@ describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Alerts)', () => {
 			};
 		};
 
-		expect(data.pageMetaTags.title).toBe('Sunday Alpha Alerts');
+		expect(data.pageMetaTags.title).toBe('Sunday Alpha Protocol');
 		expect(data.pageMetaTags.title.length).toBeLessThanOrEqual(33);
 		expect(data.pageMetaTags.openGraph.type).toBe('website');
 		expect(data.pageMetaTags.description).toBe(
-			'Explore Sunday Alpha Alerts stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.'
+			'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.'
 		);
 		expect(data.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
 		expect(data.pageMetaTags.description.length).toBeLessThanOrEqual(158);
@@ -40,7 +40,7 @@ describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Alerts)', () => {
 		);
 	});
 
-	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy, and 1-to-1 FAQ parity with schema', async () => {
+	it('enforces a single H1, strict H1 -> H2 -> H3 hierarchy, zero in-page # fragment links, and 1-to-1 FAQ parity with schema', async () => {
 		await render(Page, {
 			params: {},
 			data: {
@@ -51,9 +51,10 @@ describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Alerts)', () => {
 
 		const h1s = document.querySelectorAll('h1');
 		expect(h1s.length).toBe(1);
-		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain('THE SUNDAY ALPHA ALERTS.');
+		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain('THE SUNDAY ALPHA PROTOCOL.');
 
 		expect(document.querySelectorAll('h4').length).toBe(0);
+		expect(document.querySelectorAll('main a[href*="#"]').length).toBe(0);
 
 		const faqQuestions = Array.from(document.querySelectorAll('#faq details.faq-item summary')).map(
 			(el) => el.textContent?.trim()

@@ -562,14 +562,14 @@
 								<div class="route-card__top">
 									<span class="meta-label">Working a Full-Time 9-to-5 Job?</span>
 								</div>
-								<h3 class="route-card__title">Swing Trading Room &amp; Sunday Alpha Alerts</h3>
+								<h3 class="route-card__title">Swing Trading Room &amp; Sunday Alpha Protocol</h3>
 								<p class="route-card__copy">
 									Can’t watch live screens during market hours? Join our
 									<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 										>Swing Trading Room</a
 									>
 									or our affordable
-									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Alerts</a>
+									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
 									video watchlist tier for multi-day setups with pre-planned entries, targets, and stops.
 								</p>
 							</div>

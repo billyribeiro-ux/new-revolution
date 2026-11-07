@@ -969,7 +969,7 @@
 					Small Accounts Room ($500+)
 				</a>
 				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
-					Sunday Alpha Alerts Video Watchlist
+					Sunday Alpha Protocol Video Watchlist
 				</a>
 				<a href={resolve('/store/indicators' as '/')} class="btn btn-outline-dark">
 					Non-Repainting Indicators

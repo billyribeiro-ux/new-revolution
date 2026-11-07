@@ -21,13 +21,6 @@
 
 	let { data }: PageProps = $props();
 
-	// Scroll & sticky bar state
-	let scrollProgress = $state(0);
-	let showStickyBar = $state(false);
-
-	// Live Sunday 5:00 PM EST countdown
-	let countdownText = $state('NEXT DISPATCH IN: --d --h --m --s');
-
 	// Act I: D3 15-Trade R-Simulator state
 	let winRate = $state(60);
 	let netRValue = $derived.by(() => {
@@ -79,197 +72,9 @@
 		hudOverride = null;
 	}
 
-	function setupPageTelemetry() {
-		if (typeof window === 'undefined') return;
-
-		const computeCountdown = () => {
-			try {
-				const now = new Date();
-				const estNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-				const day = estNow.getDay();
-				const daysUntilSunday = (7 - day) % 7;
-				const candidate = new Date(
-					estNow.getFullYear(),
-					estNow.getMonth(),
-					estNow.getDate() + daysUntilSunday,
-					17,
-					0,
-					0,
-					0
-				);
-				const targetMs =
-					estNow.getTime() >= candidate.getTime()
-						? candidate.getTime() + 7 * 24 * 60 * 60 * 1000
-						: candidate.getTime();
-				const diff = Math.max(0, targetMs - estNow.getTime());
-				const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-				const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-				const m = Math.floor((diff / 1000 / 60) % 60);
-				const s = Math.floor((diff / 1000) % 60);
-				countdownText = `NEXT DISPATCH IN: ${d}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
-			} catch {
-				countdownText = 'SUNDAY 5:00 PM EST DISPATCH';
-			}
-		};
-
-		computeCountdown();
-		const timerId = window.setInterval(computeCountdown, 1000);
-
-		const onScroll = () => {
-			const scrollTop = window.scrollY;
-			const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-			scrollProgress = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
-			showStickyBar = scrollTop > 700;
-		};
-
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
-
-		return () => {
-			window.clearInterval(timerId);
-			window.removeEventListener('scroll', onScroll);
-		};
-	}
-
-	function setupHeroStageTilt(stage: HTMLElement) {
-		if (typeof window === 'undefined') return;
-		const prefersReduced =
-			typeof window.matchMedia === 'function' &&
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (prefersReduced) return;
-
-		const deck = stage.querySelector<HTMLElement>('.vision-deck');
-
-		const handleMove = (e: MouseEvent) => {
-			const rect = stage.getBoundingClientRect();
-			const x = e.clientX - rect.left;
-			const y = e.clientY - rect.top;
-			stage.style.setProperty('--sap-mouse-x', `${x}px`);
-			stage.style.setProperty('--sap-mouse-y', `${y}px`);
-
-			if (deck && window.innerWidth > 1080) {
-				const dRect = deck.getBoundingClientRect();
-				const cx = dRect.left + dRect.width / 2;
-				const cy = dRect.top + dRect.height / 2;
-				const rx = Math.max(-7, Math.min(7, -((e.clientY - cy) / (dRect.height / 2)) * 4.5));
-				const ry = Math.max(-7, Math.min(7, ((e.clientX - cx) / (dRect.width / 2)) * 4.5));
-				deck.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-			}
-		};
-
-		const handleLeave = () => {
-			if (deck) {
-				deck.style.transform = 'rotateX(0deg) rotateY(0deg)';
-			}
-		};
-
-		stage.addEventListener('mousemove', handleMove, { passive: true });
-		stage.addEventListener('mouseleave', handleLeave, { passive: true });
-
-		return () => {
-			stage.removeEventListener('mousemove', handleMove);
-			stage.removeEventListener('mouseleave', handleLeave);
-		};
-	}
-
-	function setupWavefieldCanvas(canvas: HTMLCanvasElement) {
-		if (typeof window === 'undefined') return;
-		const ctx = canvas.getContext('2d');
-		if (!ctx) return;
-
-		let width = 0;
-		let height = 0;
-		let time = 0;
-		let mouseX = 0.5;
-		let mouseY = 0.5;
-		let rafId = 0;
-		let isVisible = true;
-
-		const resize = () => {
-			const parent = canvas.parentElement;
-			width = parent ? parent.clientWidth : window.innerWidth;
-			height = parent ? parent.clientHeight : window.innerHeight;
-			const density = Math.min(window.devicePixelRatio || 1, 2);
-			canvas.width = Math.round(width * density);
-			canvas.height = Math.round(height * density);
-			ctx.setTransform(density, 0, 0, density, 0, 0);
-		};
-
-		resize();
-
-		const drawFrame = () => {
-			ctx.clearRect(0, 0, width, height);
-			const lines = 20;
-			for (let i = 0; i < lines; i++) {
-				const ratio = i / lines;
-				ctx.beginPath();
-				const alpha = (1 - Math.abs(ratio - 0.5) * 1.6) * 0.22;
-				if (i % 4 === 0) {
-					ctx.strokeStyle = `rgba(212, 175, 55, ${Math.max(0.03, alpha)})`;
-					ctx.lineWidth = 1.4;
-				} else if (i % 3 === 0) {
-					ctx.strokeStyle = `rgba(16, 185, 129, ${Math.max(0.02, alpha * 0.8)})`;
-					ctx.lineWidth = 1.1;
-				} else {
-					ctx.strokeStyle = `rgba(56, 189, 248, ${Math.max(0.015, alpha * 0.5)})`;
-					ctx.lineWidth = 0.8;
-				}
-
-				const baseY = height * (0.18 + ratio * 0.68);
-				for (let x = 0; x <= width; x += 28) {
-					const nx = x / Math.max(1, width);
-					const wave1 = Math.sin(nx * 4.5 + time + i * 0.28) * 28;
-					const wave2 = Math.cos(nx * 2.2 - time * 0.7 + i * 0.15) * 18;
-					const mouseInfluence = Math.exp(-Math.pow(nx - mouseX, 2) * 8) * (mouseY - 0.5) * 55;
-					const y = baseY + wave1 + wave2 + mouseInfluence;
-					if (x === 0) ctx.moveTo(x, y);
-					else ctx.lineTo(x, y);
-				}
-				ctx.stroke();
-			}
-		};
-
-		const prefersReduced =
-			typeof window.matchMedia === 'function' &&
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-		if (prefersReduced) {
-			drawFrame();
-			return;
-		}
-
-		const tick = () => {
-			if (isVisible) {
-				time += 0.008;
-				drawFrame();
-			}
-			rafId = window.requestAnimationFrame(tick);
-		};
-
-		rafId = window.requestAnimationFrame(tick);
-
-		const onMouseMove = (e: MouseEvent) => {
-			mouseX = e.clientX / Math.max(1, width);
-			mouseY = e.clientY / Math.max(1, height);
-		};
-
-		const io =
-			typeof IntersectionObserver !== 'undefined'
-				? new IntersectionObserver((entries) => {
-						isVisible = entries[0]?.isIntersecting ?? true;
-					})
-				: null;
-		io?.observe(canvas);
-
-		window.addEventListener('resize', resize, { passive: true });
-		window.addEventListener('mousemove', onMouseMove, { passive: true });
-
-		return () => {
-			window.cancelAnimationFrame(rafId);
-			io?.disconnect();
-			window.removeEventListener('resize', resize);
-			window.removeEventListener('mousemove', onMouseMove);
-		};
+	function scrollToTerminal() {
+		if (typeof document === 'undefined') return;
+		document.getElementById('d3-terminal-section')?.scrollIntoView({ behavior: 'smooth' });
 	}
 
 	function renderHeroSimChart(svgEl: SVGSVGElement) {
@@ -311,7 +116,7 @@
 			.attr('x2', iW)
 			.attr('y1', y(0))
 			.attr('y2', y(0))
-			.attr('stroke', 'rgba(255,255,255,0.12)')
+			.attr('stroke', 'rgba(255,248,238,0.14)')
 			.attr('stroke-dasharray', '3,3');
 
 		// Gradient fill for Sunday Alpha curve
@@ -326,12 +131,12 @@
 		grad
 			.append('stop')
 			.attr('offset', '0%')
-			.attr('stop-color', '#10b981')
-			.attr('stop-opacity', 0.35);
+			.attr('stop-color', '#dcff65')
+			.attr('stop-opacity', 0.32);
 		grad
 			.append('stop')
 			.attr('offset', '100%')
-			.attr('stop-color', '#10b981')
+			.attr('stop-color', '#dcff65')
 			.attr('stop-opacity', 0.0);
 
 		const areaGen = d3
@@ -351,17 +156,17 @@
 		g.append('path')
 			.datum(retData)
 			.attr('fill', 'none')
-			.attr('stroke', 'rgba(139,149,168,0.45)')
+			.attr('stroke', 'rgba(184,176,166,0.45)')
 			.attr('stroke-width', 1.5)
 			.attr('stroke-dasharray', '4,3')
 			.attr('d', lineGen);
 
-		// Sunday Alpha 1:2.50 area + line
+		// Sunday Alpha Protocol 1:2.50 area + line
 		g.append('path').datum(sapData).attr('fill', 'url(#sapSimGrad)').attr('d', areaGen);
 		g.append('path')
 			.datum(sapData)
 			.attr('fill', 'none')
-			.attr('stroke', '#34d399')
+			.attr('stroke', '#dcff65')
 			.attr('stroke-width', 2.5)
 			.attr('d', lineGen);
 
@@ -374,14 +179,14 @@
 				.attr('cx', x(lastSap.t))
 				.attr('cy', y(lastSap.r))
 				.attr('r', 4.5)
-				.attr('fill', '#34d399')
-				.attr('stroke', '#030407')
+				.attr('fill', '#dcff65')
+				.attr('stroke', '#171514')
 				.attr('stroke-width', 1.5);
 
 			g.append('text')
 				.attr('x', x(lastSap.t) + 6)
 				.attr('y', y(lastSap.r) + 3)
-				.attr('fill', '#34d399')
+				.attr('fill', '#dcff65')
 				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '10px')
 				.attr('font-weight', '700')
@@ -390,7 +195,7 @@
 			g.append('text')
 				.attr('x', x(lastRet.t) + 6)
 				.attr('y', y(lastRet.r) + 3)
-				.attr('fill', '#8b95a8')
+				.attr('fill', '#b8b0a6')
 				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '9px')
 				.text(`1:1 (${lastRet.r >= 0 ? '+' : ''}${lastRet.r.toFixed(0)}R)`);
@@ -403,7 +208,7 @@
 					.attr('x', -6)
 					.attr('y', y(val) + 3)
 					.attr('text-anchor', 'end')
-					.attr('fill', '#525b6d')
+					.attr('fill', '#b8b0a6')
 					.attr('font-family', 'var(--font-mono)')
 					.attr('font-size', '9px')
 					.text(`${val > 0 ? '+' : ''}${val}R`);
@@ -434,12 +239,12 @@
 		priceGrad
 			.append('stop')
 			.attr('offset', '0%')
-			.attr('stop-color', '#38bdf8')
-			.attr('stop-opacity', 0.25);
+			.attr('stop-color', '#dcff65')
+			.attr('stop-opacity', 0.22);
 		priceGrad
 			.append('stop')
 			.attr('offset', '100%')
-			.attr('stop-color', '#38bdf8')
+			.attr('stop-color', '#dcff65')
 			.attr('stop-opacity', 0.0);
 
 		const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
@@ -457,7 +262,7 @@
 			.attr('y', t3Y)
 			.attr('width', iW - x(12))
 			.attr('height', Math.max(0, entryY - t3Y))
-			.attr('fill', 'rgba(16, 185, 129, 0.06)');
+			.attr('fill', 'rgba(220, 255, 101, 0.05)');
 
 		// Risk Zone (Stop -> Entry)
 		g.append('rect')
@@ -465,7 +270,7 @@
 			.attr('y', entryY)
 			.attr('width', iW - x(12))
 			.attr('height', Math.max(0, stopY - entryY))
-			.attr('fill', 'rgba(244, 63, 94, 0.07)');
+			.attr('fill', 'rgba(255, 121, 105, 0.07)');
 
 		// 2. Horizontal Grid Lines
 		const yTicks = y.ticks(6);
@@ -475,12 +280,12 @@
 				.attr('x2', iW)
 				.attr('y1', y(tickVal))
 				.attr('y2', y(tickVal))
-				.attr('stroke', 'rgba(255,255,255,0.04)');
+				.attr('stroke', 'rgba(255,248,238,0.06)');
 			g.append('text')
 				.attr('x', -10)
 				.attr('y', y(tickVal) + 3)
 				.attr('text-anchor', 'end')
-				.attr('fill', '#525b6d')
+				.attr('fill', '#b8b0a6')
 				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '10px')
 				.text(`$${tickVal}`);
@@ -498,19 +303,19 @@
 				.attr('rx', 2)
 				.attr(
 					'fill',
-					bar.type === 'inst' ? 'rgba(212, 175, 55, 0.22)' : 'rgba(139, 149, 168, 0.12)'
+					bar.type === 'inst' ? 'rgba(220, 255, 101, 0.22)' : 'rgba(184, 176, 166, 0.14)'
 				)
-				.attr('stroke', bar.type === 'inst' ? 'rgba(212, 175, 55, 0.45)' : 'none')
+				.attr('stroke', bar.type === 'inst' ? 'rgba(220, 255, 101, 0.45)' : 'none')
 				.attr('stroke-width', 0.7);
 		});
 
 		// 4. Key Institutional Level Lines & Right Pills
 		const levelConfigs = [
-			{ key: 'T3 RUNNER', val: bp.levels.t3, color: '#38bdf8', dash: '3,3' },
-			{ key: 'T2 CORE', val: bp.levels.t2, color: '#34d399', dash: '4,3' },
-			{ key: 'T1 SCALE', val: bp.levels.t1, color: '#10b981', dash: '4,3' },
-			{ key: '15M TRIGGER', val: bp.levels.entry, color: '#fbbf24', dash: 'none' },
-			{ key: 'HARD STOP', val: bp.levels.stop, color: '#fb7185', dash: '3,3' }
+			{ key: 'T3 RUNNER', val: bp.levels.t3, color: '#dcff65', dash: '3,3' },
+			{ key: 'T2 CORE', val: bp.levels.t2, color: '#b9e64f', dash: '4,3' },
+			{ key: 'T1 SCALE', val: bp.levels.t1, color: '#b9e64f', dash: '4,3' },
+			{ key: '15M TRIGGER', val: bp.levels.entry, color: '#f5efe6', dash: 'none' },
+			{ key: 'HARD STOP', val: bp.levels.stop, color: '#ff7969', dash: '3,3' }
 		];
 
 		levelConfigs.forEach((lvl) => {
@@ -531,7 +336,7 @@
 				.attr('width', 106)
 				.attr('height', 18)
 				.attr('rx', 4)
-				.attr('fill', 'rgba(7, 10, 18, 0.92)')
+				.attr('fill', 'rgba(23, 21, 20, 0.94)')
 				.attr('stroke', lvl.color)
 				.attr('stroke-width', 0.9);
 			pillG
@@ -564,7 +369,7 @@
 		g.append('path')
 			.datum(bp.series)
 			.attr('fill', 'none')
-			.attr('stroke', '#38bdf8')
+			.attr('stroke', '#dcff65')
 			.attr('stroke-width', 2.6)
 			.attr('d', lineGen);
 
@@ -575,15 +380,15 @@
 				.attr('cx', x(trigPt.d))
 				.attr('cy', y(trigPt.p))
 				.attr('r', 6)
-				.attr('fill', '#fbbf24')
-				.attr('stroke', '#030407')
+				.attr('fill', '#f5efe6')
+				.attr('stroke', '#171514')
 				.attr('stroke-width', 2);
 
 			g.append('text')
 				.attr('x', x(trigPt.d))
 				.attr('y', y(trigPt.p) - 12)
 				.attr('text-anchor', 'middle')
-				.attr('fill', '#fbbf24')
+				.attr('fill', '#f5efe6')
 				.attr('font-family', 'var(--font-mono)')
 				.attr('font-size', '9.5px')
 				.attr('font-weight', '700')
@@ -596,8 +401,8 @@
 				.attr('cx', x(endPt.d))
 				.attr('cy', y(endPt.p))
 				.attr('r', 5.5)
-				.attr('fill', '#34d399')
-				.attr('stroke', '#030407')
+				.attr('fill', '#dcff65')
+				.attr('stroke', '#171514')
 				.attr('stroke-width', 2);
 		}
 
@@ -607,19 +412,19 @@
 			.append('line')
 			.attr('y1', 0)
 			.attr('y2', iH)
-			.attr('stroke', 'rgba(255,255,255,0.35)')
+			.attr('stroke', 'rgba(255,248,238,0.35)')
 			.attr('stroke-dasharray', '3,3');
 		const hLine = focusG
 			.append('line')
 			.attr('x1', 0)
 			.attr('x2', iW)
-			.attr('stroke', 'rgba(255,255,255,0.35)')
+			.attr('stroke', 'rgba(255,248,238,0.35)')
 			.attr('stroke-dasharray', '3,3');
 		const focusDot = focusG
 			.append('circle')
 			.attr('r', 5.5)
-			.attr('fill', '#f3e5ab')
-			.attr('stroke', '#030407')
+			.attr('fill', '#dcff65')
+			.attr('stroke', '#171514')
 			.attr('stroke-width', 2);
 
 		const riskPerShare = bp.levels.entry - bp.levels.stop;
@@ -688,20 +493,13 @@
 <a class="skip" href="#sunday-alpha-alerts-page">Skip to main content</a>
 <Navbar />
 
-<main
-	id="sunday-alpha-alerts-page"
-	class="inner-page sunday-alpha-alerts-page"
-	{@attach setupPageTelemetry}
->
-	<!-- Top Scroll Progress Laser Line -->
-	<div class="scroll-laser" style={`width: ${scrollProgress}%`} aria-hidden="true"></div>
-
+<main id="sunday-alpha-alerts-page" class="inner-page sunday-alpha-alerts-page">
 	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
 		<div class="container breadcrumb-bar__inner">
 			<ol class="breadcrumb-list">
 				<li><a href={resolve('/')}>Home</a></li>
 				<li aria-hidden="true">/</li>
-				<li aria-current="page">Sunday Alpha Alerts</li>
+				<li aria-current="page">Sunday Alpha Protocol</li>
 			</ol>
 			<p class="breadcrumb-bar__telemetry">
 				<span>Sunday 5:00 PM EST Dispatch</span> • <span>5–7 Swing Blueprints</span> •
@@ -710,47 +508,8 @@
 		</div>
 	</nav>
 
-	<!-- ACT I: CINEMATIC 3D WAVEFIELD HERO STAGE -->
-	<header
-		id="hero-stage"
-		class="page-hero sap-hero-stage"
-		aria-labelledby="sap-hero-h1"
-		{@attach setupHeroStageTilt}
-	>
-		<!-- Top Live Telemetry Ribbon -->
-		<div class="telemetry-ribbon">
-			<div class="container ribbon-inner">
-				<div class="ribbon-badge">
-					<span class="live-dot" aria-hidden="true"></span>
-					<span>
-						Founding Release:
-						<strong>First 100 Subscribers Lock In $47/Month For Life</strong>
-						(Regular $197/mo; save 76%)
-					</span>
-				</div>
-				<div class="countdown-pill" aria-live="polite">{countdownText}</div>
-			</div>
-		</div>
-
-		<!-- Protocol Section Sub-Navigation -->
-		<nav class="sap-subnav" aria-label="Sunday Alpha Alerts sections">
-			<div class="container sap-subnav-inner">
-				<span class="sap-product-name">Sunday Alpha Alerts</span>
-				<div class="nav-links">
-					<a class="sap-subnav-link" href="#keynote-mechanism">The Mechanism</a>
-					<a class="sap-subnav-link" href="#d3-terminal-section">Interactive example</a>
-					<a class="sap-subnav-link" href="#suitability">Suitability</a>
-					<a class="sap-subnav-link" href="#authority">Research approach</a>
-					<a class="sap-subnav-link" href="#pricing">Pricing</a>
-				</div>
-				<a href="#pricing" class="nav-cta">Explore $47 membership</a>
-			</div>
-		</nav>
-
-		<!-- 60fps 2D Canvas Wavefield & Volumetric Spotlight -->
-		<canvas class="wavefield-canvas" aria-hidden="true" {@attach setupWavefieldCanvas}></canvas>
-		<div class="hero-spotlight" aria-hidden="true"></div>
-
+	<!-- ACT I: SPLIT HERO & INTERACTIVE R-MULTIPLE COMMAND DECK -->
+	<header id="hero-stage" class="page-hero sap-hero-stage" aria-labelledby="sap-hero-h1">
 		<div class="container hero-main">
 			<div class="hero-grid">
 				<!-- Left Column: Institutional Manifesto & CTAs -->
@@ -766,7 +525,7 @@
 					<h1 id="sap-hero-h1" class="hero-title sap-gsap-hero">
 						<span class="title-line">THE SUNDAY</span>
 						<span class="title-line title-gold">ALPHA</span>
-						<span class="title-line">ALERTS.</span>
+						<span class="title-line">PROTOCOL.</span>
 					</h1>
 
 					<p class="hero-lead sap-gsap-hero">
@@ -780,8 +539,8 @@
 					</p>
 
 					<div class="hero-cta-row sap-gsap-hero">
-						<a href="#pricing" class="btn-primary-gold">
-							<span>Explore $47/mo membership</span>
+						<a href={resolve('/contact')} class="btn-primary-gold">
+							<span>Ask about $47/mo membership</span>
 							<svg
 								width="18"
 								height="18"
@@ -794,9 +553,9 @@
 								<path d="M5 12h14M12 5l7 7-7 7" />
 							</svg>
 						</a>
-						<a href="#d3-terminal-section" class="btn-secondary-glass">
-							<span>Explore Interactive D3 Terminal</span>
-						</a>
+						<button type="button" class="btn-secondary-glass" onclick={scrollToTerminal}>
+							<span>Explore Interactive D3 Terminal ↓</span>
+						</button>
 					</div>
 
 					<div class="hero-trust-strip sap-gsap-hero">
@@ -845,7 +604,7 @@
 					</div>
 				</div>
 
-				<!-- Right Column: 3D VisionOS Glass Command Deck + Interactive D3 R-Simulator -->
+				<!-- Right Column: Institutional Command Deck + Interactive D3 R-Simulator -->
 				<div class="vision-deck-wrap sap-gsap-hero">
 					<div class="vision-deck">
 						<div class="deck-header">
@@ -915,7 +674,7 @@
 										viewBox="0 0 460 155"
 										preserveAspectRatio="xMidYMid meet"
 										role="img"
-										aria-label="D3 15-trade cumulative R-multiple simulation comparing Sunday Alpha Alerts 1:2.50 risk-to-reward against 1:1 retail risk-to-reward"
+										aria-label="D3 15-trade cumulative R-multiple simulation comparing Sunday Alpha Protocol 1:2.50 risk-to-reward against 1:1 retail risk-to-reward"
 										{@attach renderHeroSimChart}
 									></svg>
 								</div>
@@ -938,7 +697,7 @@
 			</div>
 		</div>
 
-		<!-- Bottom Hero Kinetic Telemetry Bar -->
+		<!-- Bottom Hero Telemetry Bar -->
 		<div class="hero-telemetry-bar">
 			<div class="container telemetry-grid">
 				{#each SUNDAY_ALPHA_HERO_METRICS as metric (metric.label)}
@@ -953,7 +712,7 @@
 		</div>
 	</header>
 
-	<!-- ACT II: APPLE KEYNOTE 3-ACT INSTITUTIONAL MECHANISM -->
+	<!-- ACT II: 3-ACT INSTITUTIONAL MECHANISM -->
 	<section id="keynote-mechanism" class="keynote-section" aria-labelledby="mechanism-h2">
 		<div class="container">
 			<div class="sap-section-header">
@@ -966,7 +725,7 @@
 				<p class="sap-section-subtitle">
 					Retail traders wake up Monday morning, chase extended pre-market gaps with 1-to-1 risk,
 					and become exit liquidity for institutional algorithms. The
-					<strong>Sunday Alpha Alerts</strong> replaces emotional guesswork with a 3-stage quantitative
+					<strong>Sunday Alpha Protocol</strong> replaces emotional guesswork with a 3-stage quantitative
 					execution sequence.
 				</p>
 			</div>
@@ -1005,7 +764,7 @@
 					<span>INTERACTIVE BLUEPRINT INSPECTION</span>
 				</div>
 				<h2 id="terminal-h2" class="sap-section-title">
-					Explore an Illustrative Sunday Alpha Alerts Blueprint.
+					Explore an Illustrative Sunday Alpha Protocol Blueprint.
 				</h2>
 				<p class="sap-section-subtitle">
 					These examples use fixed illustrative prices and simplified options estimates, not live
@@ -1275,7 +1034,7 @@
 					Lock In $47/Month For Life. Save $150/Month (76% OFF).
 				</h2>
 				<p class="sap-section-subtitle">
-					Public retail pricing for the <strong>Sunday Alpha Alerts</strong> is
+					Public retail pricing for the <strong>Sunday Alpha Protocol</strong> is
 					<strong>$197/month</strong>. The first 100 Founding Members lock in
 					<strong>$47/month grandfathered for life</strong>, backed by 1-click self-service
 					cancellation at any time.
@@ -1348,22 +1107,6 @@
 		</div>
 	</section>
 
-	<section class="vault-section" aria-labelledby="vault-h2">
-		<div class="container">
-			<div class="vault-box">
-				<div>
-					<div class="section-kicker"><span>MEMBERSHIP QUESTIONS</span></div>
-					<h2 id="vault-h2" class="vault-title">Find the right research membership.</h2>
-					<p class="vault-copy">
-						Contact our team for current availability, delivery details, and membership terms before
-						joining.
-					</p>
-				</div>
-				<a class="btn-primary-gold" href={resolve('/contact')}>Ask about Sunday Alpha Alerts</a>
-			</div>
-		</div>
-	</section>
-
 	<!-- Visible native FAQ; shared data also informs the page graph. -->
 	<section id="faq" class="faq-section" aria-labelledby="faq-h2">
 		<div class="container">
@@ -1391,7 +1134,7 @@
 			<p class="disclaimer-legal">
 				<strong>IMPORTANT RISK DISCLOSURE &amp; EDUCATIONAL DISCLAIMER:</strong> Revolution Trading Pros
 				LLC and Billy Ribeiro are financial publishers and educational providers, not registered investment
-				advisors or broker-dealers. Sunday Alpha Alerts provides market research, technical chart analysis,
+				advisors or broker-dealers. Sunday Alpha Protocol provides market research, technical chart analysis,
 				and hypothetical trade scenarios strictly for educational and informational purposes. Nothing
 				contained herein constitutes individualized financial, investment, legal, or tax advice. Trading
 				equities, ETFs, and options involves substantial risk of loss and is not suitable for every investor.
@@ -1401,19 +1144,6 @@
 			</p>
 		</div>
 	</section>
-
-	<!-- Sticky Bottom Conversion Bar -->
-	<div
-		class={['sticky-bar', { visible: showStickyBar }]}
-		aria-hidden={!showStickyBar}
-		inert={!showStickyBar}
-	>
-		<div class="sticky-text">
-			<strong>Sunday Alpha Alerts Founding Rate:</strong>
-			<span>$47/mo (Regular $197/mo; save 76% For Life)</span>
-		</div>
-		<a href="#pricing" class="btn-primary-gold sticky-cta">Ask about membership →</a>
-	</div>
 </main>
 
 <Footer />

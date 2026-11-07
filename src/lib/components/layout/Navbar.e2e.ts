@@ -23,7 +23,7 @@ test('keeps the shared navigation usable without JavaScript and at 200% text', a
 				/blog$/
 			);
 			await expect(
-				navigation.getByRole('link', { name: 'Sunday Alpha Alerts', exact: true })
+				navigation.getByRole('link', { name: 'Sunday Alpha Protocol', exact: true })
 			).toHaveAttribute('href', /sunday-alpha-alerts$/);
 			await expect(
 				navigation.getByRole('link', { name: 'Member Login', exact: true })

@@ -30,7 +30,7 @@ export const load: PageLoad = ({ url, data }) => {
 			'1 on 1 stock trading mentorship application',
 			'free institutional trading playbook pdf',
 			'SPX Profit Pulse',
-			'Sunday Alpha Alerts',
+			'Sunday Alpha Protocol',
 			'Revolution Trading Pros'
 		],
 		openGraph: {

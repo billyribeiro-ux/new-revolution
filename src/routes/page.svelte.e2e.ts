@@ -98,7 +98,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.allTextContents();
 		expect((await alertServicesSubmenu).map((t) => t.trim())).toEqual([
 			'SPX Profit Pulse',
-			'Sunday Alpha Alerts'
+			'Sunday Alpha Protocol'
 		]);
 
 		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);

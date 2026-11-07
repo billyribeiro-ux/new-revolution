@@ -309,7 +309,7 @@
 		},
 		{
 			badge: 'Multi-Day Video Alerts',
-			title: 'Sunday Alpha Alerts',
+			title: 'Sunday Alpha Protocol',
 			description:
 				'Pair SPX Profit Pulse with our flagship multi-day stock and options video watchlist alerts.',
 			ctaLabel: 'Explore Alerts →',

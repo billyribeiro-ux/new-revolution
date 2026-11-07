@@ -127,7 +127,7 @@
 						'High-precision S&P 500 index options alerts delivering institutional inflection levels, exact entries, profit targets, and hard stops.'
 				},
 				{
-					name: 'Sunday Alpha Alerts',
+					name: 'Sunday Alpha Protocol',
 					href: '/sunday-alpha-alerts',
 					audience: 'Self-Directed & Busy Traders',
 					summary:
@@ -582,9 +582,9 @@
 					<p class="avatar-card__copy">
 						You don’t need to quit your job or stare at 1-minute charts for six hours a day to trade
 						like an institution. Through our <strong>Swing Trading Room</strong> and our
-						<strong>Sunday Alpha Alerts</strong> video watchlists, you receive complete trade plans with
-						exact targeted entries, profit exits, and hard stop-losses you can set and manage around your
-						workday.
+						<strong>Sunday Alpha Protocol</strong> video watchlists, you receive complete trade plans
+						with exact targeted entries, profit exits, and hard stop-losses you can set and manage around
+						your workday.
 					</p>
 					<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')} class="text-link">
 						Explore the Swing Trading Room
@@ -628,7 +628,7 @@
 					<h3 class="avatar-card__title">Video Watchlist &amp; Alert Members</h3>
 					<p class="avatar-card__copy">
 						Want our institutional chart preparation without sitting in a live room? Our affordable
-						alert-only tiers (<strong>Sunday Alpha Alerts</strong> and
+						alert-only tiers (<strong>Sunday Alpha Protocol</strong> and
 						<strong>SPX Profit Pulse</strong>) send you detailed video watchlists breaking down the
 						exact thesis, entry triggers, profit targets, and invalidation stops before the move
 						happens.

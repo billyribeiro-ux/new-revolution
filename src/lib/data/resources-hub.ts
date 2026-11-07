@@ -47,7 +47,7 @@ export const flagshipUtilities: FlagshipUtility[] = [
 		description:
 			'Calculate exact option profit targets, breakeven levels, Delta/Gamma/Theta/Vega sensitivity, and $500+ small account position sizing before entering a trade.',
 		ctaLabel: 'Open Options Calculator →',
-		href: '/resources#resource-categories-h2'
+		href: '/resources#options-calculator'
 	},
 	{
 		code: 'Public Utility 02 // Institutional Sector Map',
@@ -94,12 +94,12 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Understanding Options Basics',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/blog/0dte-spx-options-strategy-guide',
 				tag: 'Options 101'
 			},
 			{
 				label: 'Risk Management for New Traders',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/blog/0dte-spx-options-strategy-guide',
 				tag: 'Risk Rules'
 			}
 		]
@@ -114,7 +114,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Position Size Calculator',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/resources#options-calculator',
 				tag: 'Live Tool'
 			},
 			{
@@ -124,7 +124,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Options Profit Calculator',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/resources#options-calculator',
 				tag: 'Greeks Engine'
 			},
 			{
@@ -154,7 +154,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Your First Option Trade',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/blog/0dte-spx-options-strategy-guide',
 				tag: 'Walkthrough'
 			},
 			{
@@ -204,7 +204,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Managing Trading Emotions',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/blog/0dte-spx-options-strategy-guide',
 				tag: 'Mindset'
 			},
 			{
@@ -239,7 +239,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Glossary of Trading Terms',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/blog/0dte-spx-options-strategy-guide',
 				tag: 'Glossary'
 			},
 			{

@@ -783,7 +783,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'All Memberships',
-				href: '/live-trading-rooms/day-trading-room#join-day-trading-room',
+				href: '/#memberships',
 				previewTarget: 'memberships'
 			}
 		]

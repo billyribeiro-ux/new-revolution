@@ -161,7 +161,7 @@
 				},
 				{
 					name: 'Published Institutional Market Research',
-					href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+					href: '/blog/0dte-spx-options-strategy-guide',
 					audience: 'Authored by Billy Ribeiro',
 					summary:
 						'Read our Institutional Order Flow & S&P 500 Gamma Flip Playbook and 0DTE Risk Management Rules in the Revolution Trading Pros Blog.'
@@ -691,7 +691,7 @@
 												>Stock Indexes List</a
 											>.
 										</p>
-									{:else if item.href === '/blog/institutional-order-flow-and-gamma-flip-playbook'}
+									{:else if item.href === '/blog/0dte-spx-options-strategy-guide'}
 										<p class="ecosystem-item__summary">
 											Read our Institutional Order Flow &amp; S&amp;P 500 Gamma Flip Playbook and
 											0DTE Risk Management Rules in the

@@ -36,9 +36,8 @@
 
 	// Real files only: the server derives the srcset from the media row's stored variants.
 	let coverSrcset = $derived(data.post?.coverSrcset ?? undefined);
-	let coverSizes = $derived(
-		`${showToc ? '(min-width: 77.5rem) 900px, (min-width: 73.75rem) calc(100vw - 300px - 2.5rem), ' : ''}(min-width: 59.75rem) 900px, (min-width: 48rem) calc(100vw - 56px), (min-width: 40rem) calc(100vw - 44px), (min-width: 30rem) calc(100vw - 36px), calc(100vw - 24px)`
-	);
+	const coverSizes =
+		'(min-width: 96rem) 1424px, (min-width: 80rem) calc(100vw - 64px), (min-width: 64rem) calc(100vw - 40px), (min-width: 48rem) calc(100vw - 56px), (min-width: 40rem) calc(100vw - 44px), (min-width: 30rem) calc(100vw - 36px), calc(100vw - 24px)';
 
 	let shareUrl = $derived(
 		data.post
@@ -304,8 +303,8 @@
 						srcset={coverSrcset}
 						sizes={coverSrcset ? coverSizes : undefined}
 						alt={data.post.coverImageAlt || data.post.title}
-						width={data.post.coverWidth ?? undefined}
-						height={data.post.coverHeight ?? undefined}
+						width={data.post.coverWidth ?? 1600}
+						height={data.post.coverHeight ?? 900}
 						loading="eager"
 						fetchpriority="high"
 						decoding="async"

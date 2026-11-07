@@ -13,6 +13,59 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	let contractType = $state<'call' | 'put'>('call');
+	let underlyingPrice = $state(5850);
+	let strikePrice = $state(5860);
+	let entryPremium = $state(4.5);
+	let targetPrice = $state(5880);
+	let dte = $state(5);
+	let impliedVol = $state(16);
+	let accountSize = $state(2500);
+	let riskPercent = $state(2);
+
+	let safeEntryPremium = $derived(Math.max(0.05, Number(entryPremium) || 0.05));
+	let contractCost = $derived(safeEntryPremium * 100);
+	let breakevenPrice = $derived(
+		contractType === 'call'
+			? Number(strikePrice) + safeEntryPremium
+			: Number(strikePrice) - safeEntryPremium
+	);
+	let intrinsicAtTarget = $derived(
+		contractType === 'call'
+			? Math.max(0, Number(targetPrice) - Number(strikePrice))
+			: Math.max(0, Number(strikePrice) - Number(targetPrice))
+	);
+	let pnlPerContract = $derived((intrinsicAtTarget - safeEntryPremium) * 100);
+	let roiPercent = $derived((pnlPerContract / contractCost) * 100);
+	let rMultiple = $derived(pnlPerContract / contractCost);
+	let maxRiskDollars = $derived(
+		Math.max(0, (Number(accountSize) || 0) * ((Number(riskPercent) || 0) / 100))
+	);
+	let recommendedContracts = $derived(Math.max(0, Math.floor(maxRiskDollars / contractCost)));
+	let moneynessRatio = $derived(
+		(Number(underlyingPrice) - Number(strikePrice)) / Math.max(1, Number(underlyingPrice) * 0.01)
+	);
+	let estDelta = $derived(
+		contractType === 'call'
+			? Math.min(0.95, Math.max(0.05, 0.5 + moneynessRatio * 0.18))
+			: -Math.min(0.95, Math.max(0.05, 0.5 - moneynessRatio * 0.18))
+	);
+	let estGamma = $derived(
+		Math.max(
+			0.005,
+			0.045 /
+				Math.max(1, Math.sqrt(Math.max(1, Number(dte))) * (1 + Math.abs(moneynessRatio) * 0.5))
+		)
+	);
+	let estTheta = $derived(-(safeEntryPremium / Math.max(1, Number(dte) * 1.35)));
+	let estVega = $derived(
+		Math.max(
+			0.02,
+			(Number(underlyingPrice) * 0.0012 * Math.sqrt(Math.max(1, Number(dte)) / 30)) /
+				(1 + Math.abs(moneynessRatio) * 0.35)
+		)
+	);
 </script>
 
 <JsonLd schema={data.jsonLdSchema} />
@@ -68,7 +121,7 @@
 					</p>
 
 					<div class="hero-cta-row">
-						<a href={resolve('/resources#resource-categories-h2' as '/')} class="btn btn--solid">
+						<a href="#options-calculator" class="btn btn--solid">
 							Launch Free Options Calculator →
 						</a>
 						<a href={resolve('/resources/etf-stocks-list')} class="btn btn--outline">
@@ -105,6 +158,153 @@
 						{/each}
 					</div>
 				</aside>
+			</div>
+		</section>
+
+		<!-- =======================================================================
+         SECTION 2B: INTERACTIVE OPTIONS & POSITION SIZE CALCULATOR (#options-calculator)
+         ======================================================================= -->
+		<section
+			id="options-calculator"
+			class="calculator-section"
+			aria-labelledby="options-calculator-h2"
+		>
+			<div class="resources-container">
+				<div class="section-header">
+					<span class="section-kicker">Public Utility 01 • Live Interactive Risk Engine</span>
+					<h2 id="options-calculator-h2" class="section-h2">
+						Interactive Options Profit, Greeks &amp; Position Size Calculator
+					</h2>
+					<p class="section-header__sub">
+						Model defined-risk option breakevens, expiration payoff, estimated Greeks sensitivity,
+						and strict $500+ small-account contract sizing before placing an order.
+					</p>
+				</div>
+
+				<div class="calc-grid">
+					<div class="calc-panel">
+						<h3 class="calc-panel__title">Contract &amp; Account Parameters</h3>
+						<div class="calc-type-toggle" role="group" aria-label="Option contract type">
+							<button
+								type="button"
+								class={['calc-toggle-btn', { 'is-active': contractType === 'call' }]}
+								aria-pressed={contractType === 'call'}
+								onclick={() => (contractType = 'call')}
+							>
+								Call Option (Bullish)
+							</button>
+							<button
+								type="button"
+								class={['calc-toggle-btn', { 'is-active': contractType === 'put' }]}
+								aria-pressed={contractType === 'put'}
+								onclick={() => (contractType = 'put')}
+							>
+								Put Option (Bearish)
+							</button>
+						</div>
+
+						<div class="calc-fields">
+							<label class="calc-field">
+								<span class="calc-field__label">Underlying Price ($)</span>
+								<input type="number" step="1" min="1" bind:value={underlyingPrice} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Strike Price ($)</span>
+								<input type="number" step="1" min="1" bind:value={strikePrice} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Option Entry Premium ($)</span>
+								<input type="number" step="0.1" min="0.05" bind:value={entryPremium} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Target Underlying Price ($)</span>
+								<input type="number" step="1" min="1" bind:value={targetPrice} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Days to Expiration (DTE)</span>
+								<input type="number" step="1" min="1" max="365" bind:value={dte} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Implied Volatility (IV %)</span>
+								<input type="number" step="0.5" min="1" max="200" bind:value={impliedVol} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Account Equity ($)</span>
+								<input type="number" step="100" min="500" bind:value={accountSize} />
+							</label>
+							<label class="calc-field">
+								<span class="calc-field__label">Max Risk Per Trade (%)</span>
+								<input type="number" step="0.5" min="0.5" max="10" bind:value={riskPercent} />
+							</label>
+						</div>
+					</div>
+
+					<div class="calc-results" aria-live="polite">
+						<h3 class="calc-panel__title">Payoff, Risk Budget &amp; Greeks Readout</h3>
+						<div class="calc-metrics-grid">
+							<div class="calc-metric-box">
+								<span class="meta-label">Expiration Breakeven</span>
+								<strong class="calc-metric-val">${breakevenPrice.toFixed(2)}</strong>
+								<span class="calc-metric-sub">
+									{contractType === 'call' ? 'Strike + Premium' : 'Strike − Premium'}
+								</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Max Loss / 1 Contract</span>
+								<strong class="calc-metric-val">${contractCost.toFixed(2)}</strong>
+								<span class="calc-metric-sub">100% Defined Debit Risk</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Target P&amp;L (1 Contract)</span>
+								<strong
+									class={[
+										'calc-metric-val',
+										{ 'is-pos': pnlPerContract >= 0, 'is-neg': pnlPerContract < 0 }
+									]}
+								>
+									{pnlPerContract >= 0 ? '+' : ''}${pnlPerContract.toFixed(2)} ({roiPercent >= 0
+										? '+'
+										: ''}{roiPercent.toFixed(1)}%)
+								</strong>
+								<span class="calc-metric-sub">
+									{rMultiple >= 0 ? '+' : ''}{rMultiple.toFixed(2)}R Asymmetry at ${Number(
+										targetPrice
+									).toFixed(2)}
+								</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Position Size ({riskPercent}% Risk)</span>
+								<strong class="calc-metric-val">
+									{recommendedContracts}
+									{recommendedContracts === 1 ? 'Contract' : 'Contracts'}
+								</strong>
+								<span class="calc-metric-sub">
+									Max Risk Budget: ${maxRiskDollars.toFixed(2)}
+									{recommendedContracts === 0 ? ' (Use vertical spread or XSP micro contract)' : ''}
+								</span>
+							</div>
+						</div>
+
+						<div class="calc-greeks-bar">
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Delta (Δ)</span>
+								<strong>{estDelta.toFixed(2)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Gamma (Γ)</span>
+								<strong>{estGamma.toFixed(3)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Theta (Θ/day)</span>
+								<strong>{estTheta.toFixed(2)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Vega (ν)</span>
+								<strong>{estVega.toFixed(2)} (IV {impliedVol}%)</strong>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -725,6 +925,163 @@
 	@media (min-width: 1536px) {
 		.resources-container {
 			max-width: 1536px;
+		}
+	}
+
+	/* Interactive Options Calculator Section */
+	.calculator-section {
+		padding: 3.5rem 0;
+		border-bottom: 1px solid var(--line);
+		background-color: var(--bg);
+		scroll-margin-top: calc(var(--nav-height) + 1rem);
+	}
+
+	.calc-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.calc-panel,
+	.calc-results {
+		background-color: var(--panel);
+		border: 1px solid var(--line-strong);
+		padding: 1.5rem;
+	}
+
+	.calc-panel__title {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 1.125rem;
+		margin: 0 0 1.25rem;
+		color: var(--text);
+	}
+
+	.calc-type-toggle {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.calc-toggle-btn {
+		min-height: 44px;
+		padding: 0.625rem 1rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background-color: var(--bg-soft);
+		color: var(--muted);
+		border: 1px solid var(--line-strong);
+		cursor: pointer;
+	}
+
+	.calc-toggle-btn.is-active {
+		background-color: var(--acid);
+		color: var(--ink);
+		border-color: var(--acid);
+	}
+
+	.calc-fields {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.calc-field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+	}
+
+	.calc-field__label {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #c4c8c7;
+	}
+
+	.calc-field input {
+		min-height: 44px;
+		padding: 0.5rem 0.75rem;
+		background-color: var(--bg-soft);
+		border: 1px solid var(--line-strong);
+		color: var(--text);
+		font-family: var(--font-sans);
+		font-size: 0.9375rem;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-metrics-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.calc-metric-box {
+		background-color: var(--bg-soft);
+		border: 1px solid var(--line);
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-metric-val {
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 800;
+		color: var(--text);
+	}
+
+	.calc-metric-val.is-pos {
+		color: var(--acid);
+	}
+
+	.calc-metric-val.is-neg {
+		color: var(--coral);
+	}
+
+	.calc-metric-sub {
+		font-size: 0.75rem;
+		color: #b4b9b8;
+	}
+
+	.calc-greeks-bar {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--line);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-greek-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+	}
+
+	.calc-greek-item strong {
+		font-family: var(--font-display);
+		font-size: 0.9375rem;
+		color: var(--text);
+	}
+
+	@media (min-width: 1024px) {
+		.calc-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 2rem;
+		}
+		.calc-greeks-bar {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 	}
 </style>

@@ -493,9 +493,7 @@
 	/* 07 / Section Eyebrows / Kickers (incl. <h1> SEO Kicker) */
 	.eyebrow,
 	.h1-query,
-	.seo-kicker,
-	.hero-h1__kicker,
-	.hero-h1__seo-kicker {
+	.seo-kicker {
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: clamp(0.75rem, 0.8vw, 0.8125rem);

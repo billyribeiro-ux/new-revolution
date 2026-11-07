@@ -84,7 +84,7 @@ export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 		return new Response(null, {
 			status: 308,
 			headers: {
-				Location: `/resources${url.search || ''}`,
+				Location: `/resources${url.search || ''}#options-calculator`,
 				'Cache-Control': 'public, max-age=3600'
 			}
 		});

@@ -30,6 +30,7 @@
 						aria-label="{link.label} (opens in a new tab)"
 					>
 						<Icon size={24} weight="fill" aria-hidden="true" />
+						<span class="sr-only">{link.label}</span>
 					</a>
 					<!-- eslint-enable svelte/no-navigation-without-resolve -->
 				</li>

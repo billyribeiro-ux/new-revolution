@@ -269,7 +269,7 @@
 		{
 			quote:
 				'Most 0DTE alert services gamble on out-of-the-money lottery tickets with no stop-loss. Billy treats SPX like the Goldman Sachs prop desk he was mentored by; every alert respects Delta, Theta, and strict invalidation levels.',
-			author: 'chris M.',
+			author: 'Chris M.',
 			profile: 'Full-Time Index Options Trader',
 			strategyUsed: '0DTE & 1–3 DTE Directional Calls/Puts'
 		},

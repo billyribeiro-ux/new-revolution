@@ -647,7 +647,7 @@
 								order-flow <a href={resolve('/store/scanners' as '/')}>scanners</a>, and
 								<a href={resolve('/store/courses' as '/')}>trading courses</a> you see on our shared
 								screens every morning are available in our Store, alongside our free
-								<a href={resolve('/resources' as '/')}>Options Calculator</a>.
+								<a href={resolve('/resources#options-calculator' as '/')}>Options Calculator</a>.
 							</p>
 						{:else}
 							<p class="faq-item__answer">{item.answer}</p>

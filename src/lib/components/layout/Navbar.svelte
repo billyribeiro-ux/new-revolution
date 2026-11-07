@@ -330,9 +330,9 @@
 				Member Login
 			</a>
 			<a
-				href={resolve('/live-trading-rooms/day-trading-room' as '/')}
+				href={resolve('/#memberships' as '/')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/#memberships', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={14} weight="bold" aria-hidden="true" />
 			</a>
@@ -438,9 +438,9 @@
 				<SignInIcon size={16} weight="bold" aria-hidden="true" /> Member Login
 			</a>
 			<a
-				href={resolve('/live-trading-rooms/day-trading-room' as '/')}
+				href={resolve('/#memberships' as '/')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/#memberships', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={15} weight="bold" aria-hidden="true" />
 			</a>

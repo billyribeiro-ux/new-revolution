@@ -396,7 +396,7 @@
 						>
 						Most SPX alert services exist only to churn subscription fees while members get crushed by
 						Theta decay and dealer Gamma traps. That is why I built Revolution Trading Pros around one
-						unbreakable law: <strong>we focus on PEOPLE, not making money.</strong>
+						unbreakable law: <strong>we put people over profits.</strong>
 					</p>
 
 					<p class="body-copy">

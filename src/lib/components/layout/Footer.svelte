@@ -96,13 +96,16 @@
 				U.S. Securities and Exchange Commission (SEC), Commodity Futures Trading Commission (CFTC),
 				Financial Industry Regulatory Authority (FINRA), or Canadian provincial securities
 				regulators including the Ontario Securities Commission (OSC), British Columbia Securities
-				Commission (BCSC), and Alberta Securities Commission (ASC). Trading stocks and options
-				involves significant risk and is not suitable for everyone. Options can expire worthless and
-				may result in a total loss of premium; some strategies can expose traders to losses greater
-				than their initial investment. Leverage, short-term trading, market volatility, and
-				liquidity can increase the risk of loss. Educational content, hypothetical examples, trade
-				ideas, alerts, and commentary are not guarantees of performance. Past performance does not
-				predict future results. Consult appropriately registered professionals where needed.
+				Commission (BCSC), and Alberta Securities Commission (ASC).
+			</p>
+			<p>
+				Trading stocks and options involves significant risk and is not suitable for everyone.
+				Options can expire worthless and may result in a total loss of premium; some strategies can
+				expose traders to losses greater than their initial investment. Leverage, short-term
+				trading, market volatility, and liquidity can increase the risk of loss. Educational
+				content, hypothetical examples, trade ideas, alerts, and commentary are not guarantees of
+				performance. Past performance does not predict future results. Consult appropriately
+				registered professionals where needed.
 			</p>
 		</div>
 
@@ -266,6 +269,10 @@
 		color: #aab2b6;
 		margin-block: 0;
 		text-align: start;
+	}
+
+	.risk-box p + p:not(.risk-box-title) {
+		margin-block-start: 0.75rem;
 	}
 
 	.risk-box .risk-box-title {

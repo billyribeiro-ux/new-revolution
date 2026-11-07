@@ -80,6 +80,15 @@ export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 			}
 		});
 	}
+	if (normalizedPath === '/resources/options-calculator') {
+		return new Response(null, {
+			status: 308,
+			headers: {
+				Location: `/resources${url.search || ''}`,
+				'Cache-Control': 'public, max-age=3600'
+			}
+		});
+	}
 	if (normalizedPath === '/blogs') {
 		return new Response(null, {
 			status: 308,

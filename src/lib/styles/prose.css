@@ -83,6 +83,16 @@
 	margin: 0 0 1.25rem;
 }
 
+.blog-prose > h2 + p:has(> strong:first-child) {
+	font-size: var(--blog-callout);
+	line-height: 1.65;
+	padding: 1rem 1.25rem;
+	border-left: 3px solid var(--acid);
+	background: var(--panel);
+	border-radius: 0 0.5rem 0.5rem 0;
+	margin-bottom: 1.5rem;
+}
+
 .prose-base a,
 .prose-base .editor-link {
 	color: var(--acid);

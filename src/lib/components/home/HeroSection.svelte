@@ -328,7 +328,7 @@
 		inset-inline-start: 20px;
 		font-family: var(--font-sans);
 		font-weight: 700;
-		font-size: 0.6875rem;
+		font-size: 0.75rem;
 		color: #8b938e;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;

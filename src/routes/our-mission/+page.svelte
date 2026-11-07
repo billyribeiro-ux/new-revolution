@@ -265,10 +265,11 @@
 
 				<p class="body-copy">
 					Whether we are calling the <strong>2020 COVID Top and Bottom</strong>, calling the
-					<strong>2022 Market Top and Bottom</strong>, or shorting
-					<strong>OXY on Put Options live for a 600% overnight gain</strong>
-					while Warren Buffett went long millions of dollars, our mission never changes:
-					<strong>Educate, Innovate, and Prosper. We focus on PEOPLE, not making money.</strong>
+					<strong>2022 Market Top and Bottom</strong>, or executing a contrarian defined-risk
+					<strong>OXY put options trade for a reported 600% overnight gain</strong>
+					into institutional distribution (educational historical example; past performance does not
+					guarantee future results), our mission never changes:
+					<strong>Educate, Innovate, and Prosper. We put people over profits.</strong>
 				</p>
 
 				<blockquote class="mission-quote">
@@ -388,11 +389,11 @@
 						When you load that indicator in a live market, it whipsaws your account to zero.
 					</p>
 					<div class="crisis-card__resolution">
-						<strong>Our Solution:</strong> Every indicator (<a
-							href={resolve('/store/indicators' as '/')}>Store: Indicators</a
-						>) and scanner (<a href={resolve('/store/scanners' as '/')}>Store: Scanners</a>) we
-						engineer is <strong>100% non-repainting</strong>, built to expose real institutional
-						order flow, abandoned price bars, and liquidity sweeps at a fair price.
+						<strong>Our Solution:</strong> Every
+						<a href={resolve('/store/indicators' as '/')}>custom indicator</a> and
+						<a href={resolve('/store/scanners' as '/')}>institutional scanner</a> we engineer is
+						<strong>100% non-repainting</strong>, built to expose real institutional order flow,
+						abandoned price bars, and liquidity sweeps at a fair price.
 					</div>
 				</article>
 

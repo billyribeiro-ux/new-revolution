@@ -242,7 +242,7 @@
 					for six-figure portfolios, where one normal dip wipes out 50% of a beginner's capital. Even
 					worse, fake gurus charge $3,000 for repainted "holy grail" indicators, stealing the very capital
 					you needed to trade with. That is why I built Revolution Trading Pros on one unbreakable rule:
-					<strong>we focus on PEOPLE, not making money.</strong>
+					<strong>we put people over profits.</strong>
 				</p>
 
 				<p class="body-copy">

@@ -240,7 +240,7 @@
 					I watched how typical chatrooms operate: moderators front-running illiquid penny stocks so members
 					become their exit liquidity, or posting winning screenshots after the close without ever mentioning
 					a stop-loss. That is why I built Revolution Trading Pros around one unbreakable rule:
-					<strong>we focus on PEOPLE, not making money.</strong>
+					<strong>we put people over profits.</strong>
 				</p>
 
 				<p class="body-copy">

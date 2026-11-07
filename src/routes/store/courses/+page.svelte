@@ -246,7 +246,7 @@
 						Most trading education companies charge $2,500 to $5,000 for basic retail patterns that Wall
 						Street algorithms actively hunt for liquidity. That is why I built Revolution Trading Pros
 						on one unbreakable rule:
-						<strong>we focus on PEOPLE, not making money.</strong>
+						<strong>we put people over profits.</strong>
 					</p>
 
 					<p class="body-copy">

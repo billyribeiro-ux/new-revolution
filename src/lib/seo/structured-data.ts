@@ -198,7 +198,7 @@ export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'Why do you offer a Small Accounts Room for $500+ accounts and affordable alert services?',
 		answer:
-			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people, not making money. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
+			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people over profits. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
 	},
 	{
 		id: 'mentorship-application-only',

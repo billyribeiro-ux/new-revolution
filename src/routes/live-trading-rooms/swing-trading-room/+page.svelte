@@ -238,7 +238,7 @@
 					guru, and watching your swing trades get chopped to pieces because nobody taught you institutional
 					accumulation, options time-decay control, or hard stop-losses. That is why we built this room
 					with one uncompromising rule:
-					<strong>we focus on PEOPLE, not making money.</strong>
+					<strong>we put people over profits.</strong>
 				</p>
 
 				<p class="body-copy">

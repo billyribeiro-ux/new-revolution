@@ -282,16 +282,18 @@
 				</div>
 
 				{#if data.post.tags.length > 0}
-					<div class="article-tag-list" aria-label="Article tags">
+					<ul class="article-tag-list article-tags" aria-label="Article tags">
 						{#each data.post.tags as tag, index (tag.id)}
-							{#if index > 0}<span class="sr-only">, </span>{/if}<a
-								href={resolve('/blog/tag/[slug]', { slug: tag.slug })}
-								class="article-tag-chip"
-							>
-								{tag.name}
-							</a>
+							<li>
+								{#if index > 0}<span class="sr-only">, </span>{/if}<a
+									href={resolve('/blog/tag/[slug]', { slug: tag.slug })}
+									class="article-tag-chip"
+								>
+									{tag.name}
+								</a>
+							</li>
 						{/each}
-					</div>
+					</ul>
 				{/if}
 			</header>
 
@@ -704,8 +706,10 @@
 	.article-tag-list {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.45rem;
-		margin-top: 0.85rem;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+		margin: 0.85rem 0 0;
 	}
 
 	.article-tag-chip {
@@ -719,7 +723,7 @@
 		color: var(--muted);
 		text-decoration: none;
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
+		font-size: var(--text-xs);
 	}
 
 	.article-cover-figure {
@@ -1154,7 +1158,7 @@
 
 	.pn-label {
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		text-transform: uppercase;
 		color: var(--muted);
 	}
@@ -1211,7 +1215,7 @@
 	.locked-badge {
 		display: inline-block;
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		text-transform: uppercase;
 		color: var(--acid);
 		margin-bottom: 0.5rem;

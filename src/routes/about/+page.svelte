@@ -189,7 +189,7 @@
 				<li aria-current="page">About Revolution Trading Pros</li>
 			</ol>
 			<p class="breadcrumb-bar__status">
-				<span>Institutional Pedigree Verified</span> •
+				<span>Institutional Lineage &amp; Risk-First Execution</span> •
 				<span>Serving US &amp; Canadian Traders</span>
 			</p>
 		</div>
@@ -212,8 +212,8 @@
 						About Revolution Trading Pros • Institutional Stock &amp; Options Trading Lineage
 					</span>
 					<span class="hero-h1__display">
-						I Stood on the Losing Side First. Bringing Institutional Order-Flow Discipline to
-						Self-Directed Traders.
+						I Stood on the Losing Side First. Now I Bring Institutional Order-Flow Discipline and
+						Risk-First Execution to Self-Directed Traders.
 					</span>
 				</h1>
 

@@ -198,7 +198,7 @@
 						I know how predatory marketers operate: they take a free lagging oscillator, add lookahead
 						code that erases losing arrows after the candle closes, slap a $2,500 price tag on it, and
 						call it a "holy grail." At Revolution Trading Pros,
-						<strong>we focus on PEOPLE, not making money</strong>.
+						<strong>we put people over profits</strong>.
 					</p>
 
 					<p class="body-copy">

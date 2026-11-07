@@ -280,47 +280,30 @@
 		--tracking-h3: -0.01em;
 
 		/* Tier A: Marketing, Trading Rooms, Mentorship & Hub Pages */
-		--text-eyebrow: 0.75rem; /* 12px fixed floor, uppercase */
-		--leading-eyebrow: 1.35;
-		--tracking-eyebrow: 0.12em;
+		--text-eyebrow: clamp(0.75rem, 0.8vw, 0.8125rem);
+		--leading-eyebrow: 1.55;
+		--tracking-eyebrow: 0.1em;
 		--text-xs: 0.75rem; /* 12px floor - badges, top bar, legal */
-		--text-legal: 0.8125rem; /* 13px */
-		--leading-legal: 1.6;
-		--text-sm: 0.875rem; /* 14px - nav links, buttons, table cells */
-		--leading-sm: 1.4;
 		--text-body: 1rem; /* 16px - standard body copy */
-		--leading-body: 1.65;
-		--text-lead: clamp(1.0625rem, 0.35vw + 0.95rem, 1.25rem); /* 17px -> 20px */
-		--leading-lead: 1.6;
-		--text-card-h4: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem); /* 17px -> 20px */
-		--leading-card-h4: 1.35;
-		--text-card-h3: clamp(1.2rem, 0.8vw + 0.95rem, 1.5rem); /* 19.2px -> 24px */
-		--leading-card-h3: 1.25;
-		--text-section-h2: clamp(1.625rem, 2vw + 0.9rem, 2.375rem); /* 26px -> 38px */
-		--leading-section-h2: 1.15;
-		--tracking-section-h2: -0.02em;
-		--text-display-deck: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); /* 20px -> 28px */
-		--leading-display-deck: 1.25;
-		--tracking-display-deck: -0.015em;
-		--text-display-h1: clamp(2rem, 2.8vw + 1.1rem, 3.25rem); /* 32px -> 52px */
-		--leading-display-h1: 1.08;
-		--tracking-display-h1: -0.025em;
+		--leading-body: 1.72;
+		--text-lead: clamp(1.0625rem, 1.25vw, 1.2rem);
+		--leading-lead: 1.75;
+		--text-card-h3: clamp(1.15rem, 1.8vw, 1.5rem);
+		--leading-card-h3: 1.18;
+		--text-section-h2: clamp(1.65rem, 3vw, 2.5rem);
+		--leading-section-h2: 1.08;
+		--tracking-section-h2: -0.025em;
+		--text-display-h1: clamp(2rem, 4.2vw, 3.35rem);
+		--leading-display-h1: 1.06;
+		--tracking-display-h1: -0.03em;
 
 		/* Tier B: Blog Index & Long-Form Editorial Articles (.blog-prose) */
-		--blog-measure: 68ch;
-		--blog-h1: clamp(1.75rem, 2.2vw + 1rem, 2.625rem); /* 28px -> 42px */
-		--blog-deck: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem); /* 17px -> 20px */
-		--blog-h2: clamp(1.375rem, 1.1vw + 1rem, 1.75rem); /* 22px -> 28px */
-		--blog-h3: clamp(1.125rem, 0.5vw + 0.95rem, 1.3125rem); /* 18px -> 21px */
-		--blog-h4: 1.0625rem; /* 17px */
-		--blog-body: clamp(1rem, 0.2vw + 0.95rem, 1.0625rem); /* 16px -> 17px */
-		--blog-callout: 1rem; /* 16px */
-		--blog-table: 0.875rem; /* 14px tabular-nums */
-		--blog-caption: 0.8125rem; /* 13px */
-		--blog-toc: 0.8125rem; /* 13px */
+		--blog-h1: clamp(1.75rem, 3vw, 2.45rem);
+		--blog-h2: clamp(1.55rem, 2.5vw, 2.15rem);
+		--blog-h3: clamp(1.28rem, 2vw, 1.6rem);
+		--blog-h4: 1.15rem;
+		--blog-body: 1.0625rem;
 		--color-brand-gold: #c5a059;
-		--color-brand-gold-light: #e2c27d;
-		--color-brand-gold-dark: #a37e3b;
 
 		/* Semantic extensions (single definitions; do not re-declare in components) */
 		--text-secondary: #aab3b7; /* secondary copy on dark surfaces */
@@ -438,9 +421,9 @@
 	.hero-h1 {
 		font-family: var(--font-display);
 		font-weight: 900;
-		font-size: clamp(2rem, 4.2vw, 3.35rem);
-		line-height: 1.06;
-		letter-spacing: -0.03em;
+		font-size: var(--text-display-h1);
+		line-height: var(--leading-display-h1);
+		letter-spacing: var(--tracking-display-h1);
 		max-inline-size: min(16.608em, 780px); /* 24ch of Montserrat 900 */
 		margin-block: 0 1.75rem;
 		text-wrap: balance;
@@ -450,9 +433,9 @@
 	h2 {
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: clamp(1.65rem, 3vw, 2.5rem);
-		line-height: 1.08;
-		letter-spacing: -0.025em;
+		font-size: var(--text-section-h2);
+		line-height: var(--leading-section-h2);
+		letter-spacing: var(--tracking-section-h2);
 		max-inline-size: min(28ch, 760px);
 		margin-block: 1.25rem 1.375rem;
 		text-wrap: balance;
@@ -462,8 +445,8 @@
 	h3 {
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-		line-height: 1.18;
+		font-size: var(--text-card-h3);
+		line-height: var(--leading-card-h3);
 		letter-spacing: -0.015em;
 		max-inline-size: 34ch;
 		margin-block-end: 0.875rem;
@@ -474,8 +457,8 @@
 	p {
 		font-family: var(--font-sans);
 		font-weight: 400;
-		font-size: 1rem;
-		line-height: 1.72;
+		font-size: var(--text-body);
+		line-height: var(--leading-body);
 		letter-spacing: 0.005em;
 		max-inline-size: min(70ch, 680px);
 		text-wrap: pretty;
@@ -496,9 +479,9 @@
 	.seo-kicker {
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: clamp(0.75rem, 0.8vw, 0.8125rem);
-		line-height: 1.55;
-		letter-spacing: 0.1em;
+		font-size: var(--text-eyebrow);
+		line-height: var(--leading-eyebrow);
+		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
 		max-inline-size: 44.5362em; /* 65ch of Montserrat 800 */
 		color: var(--acid);
@@ -527,8 +510,8 @@
 	.hero-lead {
 		font-family: var(--font-sans);
 		font-weight: 500;
-		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
-		line-height: 1.75;
+		font-size: var(--text-lead);
+		line-height: var(--leading-lead);
 		letter-spacing: 0em;
 		max-inline-size: min(39.7263em, 700px); /* 68ch of Sofia Sans 500 */
 		color: #c4c8c7;

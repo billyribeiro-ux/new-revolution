@@ -124,6 +124,19 @@
 
 <SEO schema={data.jsonLdSchema} />
 
+<svelte:head>
+	{#if data.post?.coverImage}
+		<link
+			rel="preload"
+			as="image"
+			href={data.post.coverImage}
+			imagesrcset={coverSrcset}
+			imagesizes={coverSrcset ? coverSizes : undefined}
+			fetchpriority="high"
+		/>
+	{/if}
+</svelte:head>
+
 <a class="skip" href="#blog-article-page">Skip to main content</a>
 <Navbar />
 
@@ -297,25 +310,27 @@
 			</header>
 
 			{#if data.post.coverImage}
-				<figure class="article-cover-figure">
-					<img
-						src={data.post.coverImage}
-						srcset={coverSrcset}
-						sizes={coverSrcset ? coverSizes : undefined}
-						alt={data.post.coverImageAlt || data.post.title}
-						width={data.post.coverWidth ?? 1600}
-						height={data.post.coverHeight ?? 900}
-						loading="eager"
-						fetchpriority="high"
-						decoding="async"
-						class="article-cover-img"
-					/>
-					{#if data.post.coverImageCaption}
-						<figcaption class="article-cover-caption">
-							{data.post.coverImageCaption}
-						</figcaption>
-					{/if}
-				</figure>
+				{#key data.post.slug}
+					<figure class="article-cover-figure">
+						<img
+							src={data.post.coverImage}
+							srcset={coverSrcset}
+							sizes={coverSrcset ? coverSizes : undefined}
+							alt={data.post.coverImageAlt || data.post.title}
+							width={data.post.coverWidth ?? 1600}
+							height={data.post.coverHeight ?? 900}
+							loading="eager"
+							fetchpriority="high"
+							decoding="async"
+							class="article-cover-img"
+						/>
+						{#if data.post.coverImageCaption}
+							<figcaption class="article-cover-caption">
+								{data.post.coverImageCaption}
+							</figcaption>
+						{/if}
+					</figure>
+				{/key}
 			{/if}
 
 			{#if showToc}

@@ -11,16 +11,25 @@
 		headingLevel?: 'h2' | 'h3';
 		tone?: 'dark' | 'light';
 		lead?: boolean;
+		sizes?: string;
 	}
 
-	let { post, eager = false, headingLevel = 'h3', tone = 'dark', lead = false }: Props = $props();
+	let {
+		post,
+		eager = false,
+		headingLevel = 'h3',
+		tone = 'dark',
+		lead = false,
+		sizes
+	}: Props = $props();
 
 	let srcset = $derived(post.coverImageSrcset);
 	let sourceSizes = $derived(
 		srcset
-			? lead
-				? '(min-width: 48rem) min(37.5rem, 50vw), min(75rem, 100vw)'
-				: 'min(25rem, 100vw)'
+			? (sizes ??
+					(lead
+						? '(min-width: 48rem) min(44.5rem, calc(50vw - 1.75rem)), calc(100vw - 1.5rem)'
+						: 'min(25rem, 100vw)'))
 			: undefined
 	);
 	let displayDate = $derived(post.publishedAt ?? post.contentUpdatedAt ?? null);

@@ -143,9 +143,7 @@ export function parseMarkdownPostFile(filename: string, rawMd: string): ParsedMa
 	const categorySlug =
 		catSlugMatch?.[1]?.trim() || generateSlug(rawExtractedCategory || 'Options & Greeks Mastery');
 	const categoryRaw =
-		rawExtractedCategory ||
-		CANONICAL_CATEGORY_NAMES[categorySlug] ||
-		'Options & Greeks Mastery';
+		rawExtractedCategory || CANONICAL_CATEGORY_NAMES[categorySlug] || 'Options & Greeks Mastery';
 
 	const tagsRaw = extractTableField(rawMd, '`tags`') || '[]';
 	let tagSlugs: string[] = [];

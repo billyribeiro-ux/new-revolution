@@ -59,7 +59,8 @@ export default defineConfig({
 			'**/test-results',
 			'.data',
 			'**/.claude',
-			'**/.gemini'
+			'**/.gemini',
+			'**/TOC-plugin'
 		],
 		rules: {
 			'constructor-super': 'error',
@@ -245,7 +246,15 @@ export default defineConfig({
 				language: 'svelte'
 			}
 		],
-		ignorePatterns: ['pnpm-lock.yaml', '/static/', '/drizzle/', '/.gemini/', '/.claude/']
+		ignorePatterns: [
+			'pnpm-lock.yaml',
+			'/static/',
+			'/drizzle/',
+			'/.gemini/',
+			'/.claude/',
+			'/TOC-plugin/',
+			'/blogs/'
+		]
 	},
 	plugins: lazyPlugins(() => [
 		enhancedImages(),

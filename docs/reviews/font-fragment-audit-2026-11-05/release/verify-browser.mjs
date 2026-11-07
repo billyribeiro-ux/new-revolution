@@ -59,12 +59,10 @@ for (const [engine, type] of Object.entries({ chromium, firefox, webkit })) {
 				await page.waitForFunction(
 					() => document.querySelectorAll('svg text[font-family]').length > 0
 				);
-				details = await page
-					.locator('svg text[font-family]')
-					.evaluateAll((nodes) => ({
-						tokens: [...new Set(nodes.map((n) => n.getAttribute('font-family')))],
-						resolved: [...new Set(nodes.map((n) => getComputedStyle(n).fontFamily))]
-					}));
+				details = await page.locator('svg text[font-family]').evaluateAll((nodes) => ({
+					tokens: [...new Set(nodes.map((n) => n.getAttribute('font-family')))],
+					resolved: [...new Set(nodes.map((n) => getComputedStyle(n).fontFamily))]
+				}));
 				if (
 					details.tokens.length !== 1 ||
 					details.tokens[0] !== 'var(--font-mono)' ||

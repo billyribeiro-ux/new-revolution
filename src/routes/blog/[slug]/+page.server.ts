@@ -34,9 +34,12 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const prerender = false;
 
+const INLINE_CONTENT_IMAGE_SIZES =
+	'(min-width: 96rem) 1424px, (min-width: 80rem) calc(100vw - 64px), (min-width: 64rem) calc(100vw - 40px), (min-width: 48rem) calc(100vw - 56px), (min-width: 40rem) calc(100vw - 44px), (min-width: 30rem) calc(100vw - 36px), calc(100vw - 24px)';
+
 function lazyifyAndDimensionContentImages(
 	html: string,
-	mediaDimensionsByUrl: ReadonlyMap<string, { width: number; height: number }>
+	mediaDimensionsByUrl: ReadonlyMap<string, { width: number; height: number; srcset?: string }>
 ): string {
 	return html.replace(/<img\b([^>]*)>/gi, (full, attrs: string) => {
 		// The sanitizer emits self-closed tags (`... />`); appending after the slash would yield `/ decoding=...`.
@@ -47,9 +50,10 @@ function lazyifyAndDimensionContentImages(
 		if (!/\bdecoding\s*=/i.test(updatedAttrs)) {
 			updatedAttrs += ' decoding="async"';
 		}
+		const srcMatch = updatedAttrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
+		const mediaEntry = srcMatch ? mediaDimensionsByUrl.get(srcMatch[1]) : undefined;
 		if (!/\bwidth\s*=/i.test(updatedAttrs) || !/\bheight\s*=/i.test(updatedAttrs)) {
-			const srcMatch = updatedAttrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
-			const dims = (srcMatch ? mediaDimensionsByUrl.get(srcMatch[1]) : undefined) ?? {
+			const dims = mediaEntry ?? {
 				width: 1200,
 				height: 675
 			};
@@ -58,6 +62,12 @@ function lazyifyAndDimensionContentImages(
 			}
 			if (!/\bheight\s*=/i.test(updatedAttrs)) {
 				updatedAttrs += ` height="${dims.height}"`;
+			}
+		}
+		if (mediaEntry?.srcset && !/\bsrcset\s*=/i.test(updatedAttrs)) {
+			updatedAttrs += ` srcset="${mediaEntry.srcset}"`;
+			if (!/\bsizes\s*=/i.test(updatedAttrs)) {
+				updatedAttrs += ` sizes="${INLINE_CONTENT_IMAGE_SIZES}"`;
 			}
 		}
 		return `<img${updatedAttrs}>`;
@@ -175,17 +185,26 @@ export const load: PageServerLoad = async ({
 					)
 			: [];
 
-	const mediaDimensionsByUrl = new Map<string, { width: number; height: number }>();
+	const mediaDimensionsByUrl = new Map<
+		string,
+		{ width: number; height: number; srcset?: string }
+	>();
 	const populateMediaMap = (rows: typeof allMediaRows) => {
 		for (const m of rows) {
 			if (m.width && m.height) {
-				mediaDimensionsByUrl.set(m.blobUrl, { width: m.width, height: m.height });
+				const rowSrcset = coverSrcsetFromMedia(m.blobUrl, m);
+				mediaDimensionsByUrl.set(m.blobUrl, {
+					width: m.width,
+					height: m.height,
+					srcset: rowSrcset
+				});
 				if (m.variantsJson && typeof m.variantsJson === 'object') {
 					for (const variant of Object.values(m.variantsJson)) {
 						if (variant?.url) {
 							mediaDimensionsByUrl.set(variant.url, {
 								width: variant.width ?? m.width,
-								height: variant.height ?? m.height
+								height: variant.height ?? m.height,
+								srcset: coverSrcsetFromMedia(variant.url, m) ?? rowSrcset
 							});
 						}
 					}

@@ -44,7 +44,12 @@
 			{#each listing.featuredPosts as post (post.id)}
 				<div class="blog-featured" data-testid="home-featured-post">
 					<p class="blog-featured-label">Featured article</p>
-					<PostCard {post} tone="light" lead />
+					<PostCard
+						{post}
+						tone="light"
+						lead
+						sizes="(min-width: 48rem) min(37.5rem, 50vw), min(75rem, 100vw)"
+					/>
 				</div>
 			{/each}
 

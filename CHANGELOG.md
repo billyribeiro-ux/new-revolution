@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-07 — Forensic CSS cascade remediation, blog cover double-download fix & inline responsive `srcset`
+
+- **Fixed:** Eliminate the `DPR=2` hydration double-download (`1200w.webp` -> `1600w.webp`) on `/blog` lead `PostCard` images by updating `sourceSizes` in `src/lib/components/blog/PostCard.svelte` to `(min-width: 48rem) min(44.5rem, calc(50vw - 1.75rem)), calc(100vw - 1.5rem)` (`712px` half-width inside the `1424px` `.container`) and passing `sizes="(min-width: 48rem) min(37.5rem, 50vw), min(75rem, 100vw)"` in `src/lib/components/home/BlogSection.svelte` (`75rem` homepage cap).
+- **Fixed:** Add `<link rel="preload" as="image" ...>` for the article hero cover in `<svelte:head>` and wrap `<figure class="article-cover-figure">` in `{#key data.post.slug}` in `src/routes/blog/[slug]/+page.svelte` to prevent blank-box flashing on entry and stale bitmap persistence on article-to-article navigation.
+- **Fixed:** Extend `lazyifyAndDimensionContentImages` and `mediaDimensionsByUrl` in `src/routes/blog/[slug]/+page.server.ts` to inject stored responsive `srcset` and `sizes` onto inline blog content `<img>` elements from `media.variantsJson`.
+- **Fixed:** Wrap `src/lib/styles/inner-page.css` and `src/lib/styles/prose.css` in `@layer components { ... }` so they respect the `@layer` hierarchy declared in `src/app.css`, deduplicate and scope all 16 colliding top-level `.inner-page` selectors in `src/lib/styles/inner-page.css`, add `.inner-page .content-section:not(.error-box):not(.locked-article-section):has(> .container) { max-inline-size: none; padding-inline: 0; }`, and synchronize `:root` typography and `--blog-*` tokens in `src/app.css` 1-to-1 with active approved rules (`0` unused `:root` tokens).
+
 ### 2026-11-06 — Master architectural & typographic remediation, `/blog` topic deduplication, standing cards, TOC `#` suppression & Sunday Alpha Protocol redesign
 
 - **Added:** Declare the full Tier A (`--text-eyebrow` through `--text-display-h1`, including `--leading-*` and `--tracking-*` tokens) and Tier B (`--blog-measure`, `--blog-h1` through `--blog-toc`) typography scale custom properties, explicit `html { font-size: 100%; -webkit-text-size-adjust: 100%; }`, and `font-variant-numeric: tabular-nums` on dossier badges/pills in `src/app.css` while preserving self-hosted `'Montserrat Variable'` and `'Sofia Sans Variable'` Fontsource stacks (`--font-mono: var(--font-sans)`).

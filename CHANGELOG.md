@@ -9,6 +9,14 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Consolidate `src/lib/styles/inner-page.css` into `src/app.css` as a Single Unified Global Stylesheet
+
+- **Changed:** Permanently merged `src/lib/styles/inner-page.css` (7,798 lines) into `src/app.css` inside `@layer components` directly before Section 6 (`@layer utilities`), and deleted `src/lib/styles/inner-page.css`:
+  - Eliminates the multi-file global CSS split so `src/app.css` is the sole global stylesheet (containing all `@font-face` declarations, `:root` design tokens, reset, typography, layout, shared `.inner-page` marketing primitives, utilities, and responsive rules).
+  - Removed all `import '#lib/styles/inner-page.css';` statements from `src/routes/+layout.svelte`, `src/lib/components/blog/BlogArchive.svelte`, `src/routes/blog/+error.svelte`, and `src/routes/blog/[slug]/+page.svelte`.
+  - Updated `AGENTS.md`, `docs/CSS_STANDARDS.md`, and `docs/NEW_PAGE_PLAYBOOK.md` so future contributors and AI agents use `src/app.css` as the single global SSOT and write component/page-specific CSS in scoped `<style>` blocks inside `.svelte` files.
+  - Verified 100% bit-for-bit DOM geometry and computed-style parity across 19 routes (3,509 elements verified, 0 diffs).
+
 ### 2026-11-08 — Eradicate layout shifts (CLS 0.0000), eliminate dev server 304 delays, stabilize logo geometry, and resolve form autofill compliance
 
 - **Fixed:** Restore root layout import of `inner-page.css` in `src/routes/+layout.svelte`:

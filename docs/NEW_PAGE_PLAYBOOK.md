@@ -38,12 +38,12 @@ The repo has two page shapes. Pick one deliberately; do not mix them on one page
 |                | **A. Inner-page (default for every new page)**                                                                                                                                      | **B. Bespoke hub page (legacy shape)**        |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
 | Used by        | `/about`, `/our-mission`, `/mentorship`, 3 live rooms, `/alert-services/spx-profit-pulse`, `/alert-services/sunday-alpha-protocol`, `/blogs`, `/store/**`                           | `/resources`, `/resources/etf-stocks-list`    |
-| Stylesheet     | `import '#lib/styles/inner-page.css'` (global, scoped under `.inner-page`) + a small scoped `<style>` for page-only rules                                                           | Everything in the page's own scoped `<style>` |
+| Stylesheet     | Global `.inner-page` system in `src/app.css` (imported once in `+layout.svelte`) + a small scoped `<style>` in `+page.svelte` for page-only rules                                   | Everything in the page's own scoped `<style>` |
 | `<main>`       | `<main id="<slug>-page" class="inner-page <slug>-page">`                                                                                                                            | `<main id="..." class="<slug>-page">`         |
-| Breadcrumb     | Inline markup using `.breadcrumb-bar` / `.breadcrumb-list` from `inner-page.css`                                                                                                    | `src/lib/components/layout/Breadcrumb.svelte` |
+| Breadcrumb     | Inline markup using `.breadcrumb-bar` / `.breadcrumb-list` from `src/app.css`                                                                                                       | `src/lib/components/layout/Breadcrumb.svelte` |
 | Shared classes | `.page-hero`, `.content-section`, `.section-header`, `.section-kicker`, `.section-h2`, `.card-grid`, `.info-card`, `.pricing-card`, `.faq-list`, `.cta-banner`, `.disclaimer-strip` | none (page owns them)                         |
 
-**Never use the `Breadcrumb.svelte` component inside a `.inner-page` page.** `inner-page.css` styles
+**Never use the `Breadcrumb.svelte` component inside a `.inner-page` page.** `src/app.css` styles
 `.inner-page .breadcrumb-bar*` globally; the component has its own scoped copy of those rules, so the two would stack and conflict.
 Likewise never copy Archetype B's page-local `.btn`, `.meta-label`, `.section-kicker` rules into an Archetype A page.
 
@@ -59,7 +59,7 @@ Read, in this order. Do not rely on memory.
 2. A **sibling page of the same archetype** end to end. Good references:
    - Archetype A, content page: `src/routes/mentorship/` (`+page.ts`, `+page.svelte`) and `buildMentorshipJsonLd` + `MENTORSHIP_FAQ_ITEMS` in `src/lib/seo/structured-data.ts`.
    - Archetype B, data-driven hub: `src/routes/resources/etf-stocks-list/` with `src/lib/data/etf-stocks-list.ts`.
-3. `src/app.css` (tokens, layers, global `.skip`, `.container`, reduced-motion rule) and, for Archetype A, `src/lib/styles/inner-page.css`.
+3. `src/app.css` (tokens, layers, global `.skip`, `.container`, `.inner-page` patterns, reduced-motion rule).
 4. Svelte MCP (mandatory, every time, no task too small):
    - `mcp__svelte__list-sections`, then `mcp__svelte__get-documentation` for every matching section
      (typically `svelte/$state`, `$derived`, `$props`, `snippet`, `@render`, `each`, `class`, `style`, `scoped-styles`,
@@ -191,7 +191,6 @@ House rules (count them, do not eyeball). **Titles and descriptions have no leng
 ```svelte
 <!-- src/routes/<route>/+page.svelte -->
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -271,7 +270,7 @@ Follow this exact recipe; `CourseCard`, `IndicatorCard` and `BlogCard` are the w
 2. **Card component** `src/lib/components/<domain>/<Thing>Card.svelte`: `interface Props extends Omit<HTMLAttributes<HTMLElement>, 'children' | 'class' | 'title'>` with the item, optional `headingLevel`, `class?: ClassValue`, spread `...rest` onto `<CatalogCard>`. Compose snippets (`top`/`media`, `eyebrow`, `title`, `intro`, default children, `footer`). The `title` snippet renders the single `<a class="catalog-card__link" href={detailHref}>` where `detailHref = $derived(resolve('/route/[slug]', { slug }))`. Disclosures are native `<details>`. Style only the content in the component's scoped `<style>`.
 3. **Page**: `<FilterChips label=... options=... bind:value />` then `<CatalogGrid items key isFeatured total noun>` with `{#snippet children(item)}<ThingCard {item} />{/snippet}`. No per-page grid CSS, no `role="tablist"`.
 4. **Specs**: one component spec (`*.svelte.spec.ts`: link target, heading level, class + rest forwarding, disclosure open state, featured marker) and the page spec (list semantics, filter `aria-pressed`, status text). Note: `render()` returns a promise in this repo's vitest-browser-svelte, and a prop literally named `intro` collides with `mount()` options, so pass props via `{ props: {...} }` in that case.
-5. **Remove** the old global CSS for the mock from `inner-page.css` (check no other page uses the classes first) and prove no regression elsewhere with the pixel diff (§7.3).
+5. **Remove** the old global CSS for the mock from `src/app.css` (check no other page uses the classes first) and prove no regression elsewhere with the pixel diff (§7.3).
 6. **Adding or editing a CMS blog card.** Public blog cards derive from CMS post records through `getPublicBlogListing` in `src/lib/server/services/blog-discovery.ts`, used by both `src/routes/+page.server.ts` and `src/routes/blog/+page.server.ts`. Use the [publishing guide](../blog%20implementation.md) to update the saved article fields and real cover media, then verify the resulting card. The earlier recipe to edit `src/lib/data/blog-hub.ts` is obsolete: that file does not exist in the audited application. Shared component design changes still follow the CSS standard and require their own verification.
 7. **Light sections**: pass `tone="light"` to the `FilterChips`, the `CatalogGrid` and every card on a light surface (the `/blogs` list is the reference). Never reuse `--acid` as text or as a focus outline there.
 8. **Device check**: the width list and measurements in `docs/CSS_STANDARDS.md` §4.10, plus a computed WCAG contrast pass over every text node (composite semi-transparent backgrounds first; Chrome returns `color(srgb …)` for `color-mix()`). Disable the global `html { scroll-behavior: smooth }` in the test page, or Playwright click coordinates go stale.
@@ -448,7 +447,7 @@ Compare real screenshots before and after. Procedure:
 
 Do not spread these patterns. Fix them only as an explicit, scoped task and re-run §7.3. (Resolved 2026-10-30, with evidence: skip links on all 50 pages, `stock-indexes-list` FAQ parity, dead `font-stretch`/`wdth` declarations removed with 100/100 screenshots identical, sitemap `lastmod`/404 entries.)
 
-1. **Near-duplicate greys** (`#333b43`, `#2b3239`, `#30363c`, `#2f363d`, `#3e454c`, …) repeat in `inner-page.css` and store pages.
+1. **Near-duplicate greys** (`#333b43`, `#2b3239`, `#30363c`, `#2f363d`, `#3e454c`, …) repeat in `src/app.css` (`.inner-page` rules) and store pages.
    Consolidating them shifts pixels and needs a visual sign-off; do not merge them silently.
 2. **Hub JSON-LD wording** (`RESOURCES_HUB_UTILITIES`) differs from the visible utility names on `/resources`. Aligning them changes SEO output;
    needs an owner decision.

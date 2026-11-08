@@ -739,6 +739,15 @@
 		padding: 25px;
 	}
 
+	.inner-page .comparison-block .meta-label {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--text-eyebrow);
+		line-height: var(--leading-eyebrow);
+		letter-spacing: var(--tracking-eyebrow);
+		text-transform: uppercase;
+	}
+
 	.inner-page .comparison-block--negative {
 		background: var(--card-negative-bg);
 		border: 1px solid var(--card-negative-border);

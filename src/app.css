@@ -404,7 +404,8 @@
 	/* 07 / Section Eyebrows / Kickers (incl. <h1> SEO Kicker) */
 	.eyebrow,
 	.h1-query,
-	.seo-kicker {
+	.seo-kicker,
+	.comparison-label {
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: var(--text-eyebrow);
@@ -480,7 +481,6 @@
 	.panel-badge,
 	.case-kicker,
 	.case-state,
-	.comparison-label,
 	.persona-tag,
 	.member-tag,
 	.membership-index,

@@ -9,6 +9,21 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Harmonize manifesto comparison section typography and card content width with site-wide standards
+
+- **Fixed:** Align "WHAT WE AIM TO DELIVER / THE REVOLUTION STANDARD" and "WHAT YOU LEAVE BEHIND / THE HYPE TRAP" typography on the homepage (`src/lib/components/home/ManifestoSection.svelte`):
+  - In `src/app.css`: move `.comparison-label` out of the monospace telemetry tag cluster (`font-family: var(--font-mono); font-weight: 500;`) into the primary display eyebrow cluster (`.eyebrow, .h1-query, .seo-kicker, .comparison-label`), assigning it `font-family: var(--font-display); font-weight: 800; font-size: var(--text-eyebrow); line-height: var(--leading-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;`.
+  - In `src/lib/components/home/ManifestoSection.svelte`: explicitly declare `font-family: var(--font-display); font-weight: 800;` on `.comparison-label`, ensuring the card kickers match the bold ExtraBold 800 Plus Jakarta Sans weight and letter-spacing of the section eyebrow ("PEOPLE OVER PROFITS / THE ANTI-HYPE STANDARD") and all comparison kickers across the repository.
+  - In `src/lib/styles/inner-page.css`: harmonize `.inner-page .comparison-block .meta-label` ("What We Reject" / "What We Built" on `/about`) to share the same `font-family: var(--font-display); font-weight: 800;` hierarchy.
+- **Fixed:** Eliminate artificial width constraints in manifesto comparison cards:
+  - In `src/lib/components/home/ManifestoSection.svelte`: remove `max-inline-size: 34.8em` (522px clamp) from `.comparison-list li`, setting `max-inline-size: 100%`, and set `max-inline-size: 100%` on `.manifesto-card h3`. This allows the card heading and list items to naturally fill the full 596px content width inside the 680px card on desktop, eliminating the dead 158px whitespace on the right and matching comparison card layouts across the repo.
+- **Evidence & Verification:**
+  - Automated Playwright verification confirmed `fontFamily: "Plus Jakarta Sans"`, `fontWeight: "800"`, `fontSize: "12px"`, and full 596px width on both manifesto card labels.
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check`, and `pnpm lint` passed with 0 errors.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO and E2E suites passed.
+
 ### 2026-11-08 — Eliminate Cumulative Layout Shift (CLS) on refresh site-wide with font-display optional, immutable font caching, and stable layout geometry
 
 - **Fixed:** Eradicate Cumulative Layout Shift (CLS) on refresh across all routes (tested and verified with Playwright `PerformanceObserver` layout-shift tracking):

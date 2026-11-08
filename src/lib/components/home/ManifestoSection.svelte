@@ -121,9 +121,16 @@
 
 	.manifesto-card h3 {
 		margin-block-end: 28px;
+		max-inline-size: 100%;
 	}
 
 	.comparison-label {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--text-eyebrow);
+		line-height: var(--leading-eyebrow);
+		letter-spacing: var(--tracking-eyebrow);
+		text-transform: uppercase;
 		margin-block-end: 15px;
 	}
 
@@ -152,7 +159,7 @@
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Inter 500 */
+		max-inline-size: 100%;
 	}
 
 	.positive .comparison-list li {

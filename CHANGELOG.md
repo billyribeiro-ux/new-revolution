@@ -9,6 +9,18 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Restore Store navigation menu with submenus, enlarge navbar typography & optimize responsive button wraps
+
+- **Added:** Restore the **Store** dropdown menu item to primary navigation with its three submenus (**Courses**, **Indicators**, and **Scanners**) in `src/lib/components/layout/Navbar.svelte` and `src/lib/data/homepage.ts`:
+  - Decouple visible navigation link rendering from search-engine indexing gates by updating `isNavigationHrefVisible()` in `src/lib/data/launch-gate.ts` to expose `/store` and `/store/*` in navigation while preserving canonical indexing and structured-data protections.
+  - Update `FOOTER_COLUMNS` in `src/lib/data/homepage.ts` to surface the Store section in footer navigation, with updated unit test coverage in `src/lib/data/homepage.spec.ts` and `src/lib/seo/structured-data.spec.ts`.
+- **Changed:** Enlarge primary navigation typography and refine responsive desktop layout in `src/lib/components/layout/Navbar.svelte`:
+  - Increase desktop nav link font sizes: `0.71875rem` (11.5px) at `1024px`, `0.8125rem` (13px) at `1280px`, `0.875rem` (14px) at `1440px`, and `0.9375rem` (15px) at `1536px+`.
+  - Enlarge dropdown submenu link labels to `0.9375rem` (15px) across all desktop views.
+  - Optimize CTA button inline sizes (`11rem`–`12rem`) and nav gaps to ensure all 8 top-level items, logo, and dual CTA buttons fit symmetrically without triggering compact mode.
+- **Fixed:** Prevent button text overflow on mobile viewports by setting `white-space: normal; text-align: center; max-inline-size: min(380px, 100%);` on `.btn` in `src/app.css` and `src/lib/styles/inner-page.css`.
+- **Fixed:** Align E2E test suites in `src/routes/page.svelte.e2e.ts` and `src/routes/blog/font-and-fragment.e2e.ts` to assert the 8-item navigation contract, Store submenus, self-hosted font loading, and updated institutional typography tokens.
+
 ### 2026-11-08 — Master site-wide typography harmonization, compact monospace breadcrumbs & 50px hero ceiling
 
 - **Changed:** Harmonize site-wide typography scale, font weights, and letter-spacing across the entire website (excluding `/blog` and `/blog/**`):

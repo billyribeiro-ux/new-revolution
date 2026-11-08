@@ -597,6 +597,7 @@
 		justify-content: center;
 		overflow: hidden;
 		contain: layout size;
+		background: var(--brand-emblem-bg) center / cover no-repeat;
 	}
 
 	.brand-logo-wrap :global(picture) {
@@ -618,13 +619,15 @@
 		min-inline-size: 0;
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		padding-block-start: 4px;
 	}
 
 	.brand-name {
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.875rem;
+		font-size: clamp(0.75rem, 0.55rem + 0.35vw, 0.84375rem);
 		line-height: 1.05;
 		letter-spacing: -0.02em;
 		text-transform: uppercase;
@@ -638,15 +641,15 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.625rem;
+		font-size: clamp(0.525rem, 0.38rem + 0.25vw, 0.59375rem);
 		line-height: 1.15;
-		letter-spacing: 0.082em;
+		letter-spacing: 0.088em;
 		text-transform: uppercase;
 		inline-size: fit-content;
 		max-inline-size: 100%;
 		overflow-wrap: anywhere;
 		color: var(--acid);
-		margin-block-start: 4px;
+		margin-block-start: 3px;
 	}
 
 	.nav-links {
@@ -908,6 +911,7 @@
 		margin-inline-start: auto;
 		inline-size: 48px;
 		block-size: 48px;
+		align-self: center;
 		flex-shrink: 0;
 		background: none;
 		color: var(--text);
@@ -1103,17 +1107,20 @@
 		}
 
 		.brand {
-			gap: 0.75rem;
+			gap: 0.65rem;
+			flex: 0 0 auto;
 		}
 
 		.brand-name {
-			font-size: 1rem;
+			font-size: clamp(0.75rem, 0.55rem + 0.35vw, 0.84375rem);
+			white-space: nowrap;
 		}
 
 		.brand-tagline {
-			font-size: 0.72rem;
-			letter-spacing: 0.06em;
-			margin-block-start: 4px;
+			font-size: clamp(0.525rem, 0.38rem + 0.25vw, 0.59375rem);
+			letter-spacing: 0.09em;
+			margin-block-start: 3px;
+			white-space: nowrap;
 		}
 
 		.mobile-nav-actions .btn {
@@ -1198,12 +1205,12 @@
 		}
 
 		.brand-name {
-			font-size: 0.66rem;
+			font-size: clamp(0.65rem, 0.3rem + 0.48vw, 0.84375rem);
 		}
 
 		.brand-tagline {
-			font-size: 0.46rem;
-			letter-spacing: 0.055em;
+			font-size: clamp(0.45rem, 0.21rem + 0.34vw, 0.59375rem);
+			letter-spacing: 0.09em;
 			margin-block-start: 2px;
 		}
 
@@ -1272,12 +1279,12 @@
 		}
 
 		.brand-name {
-			font-size: 0.8rem;
+			font-size: clamp(0.75rem, 0.4rem + 0.45vw, 0.84375rem);
 		}
 
 		.brand-tagline {
-			font-size: 0.5625rem;
-			letter-spacing: 0.088em;
+			font-size: clamp(0.525rem, 0.28rem + 0.31vw, 0.59375rem);
+			letter-spacing: 0.09em;
 			margin-block-start: 3px;
 		}
 
@@ -1338,13 +1345,13 @@
 		}
 
 		.brand-name {
-			font-size: 0.9375rem;
+			font-size: clamp(0.8125rem, 0.55rem + 0.3vw, 0.84375rem);
 		}
 
 		.brand-tagline {
-			font-size: 0.65625rem;
+			font-size: clamp(0.5625rem, 0.38rem + 0.22vw, 0.59375rem);
 			letter-spacing: 0.092em;
-			margin-block-start: 4px;
+			margin-block-start: 3px;
 		}
 
 		.nav-links {
@@ -1389,13 +1396,13 @@
 		}
 
 		.brand-name {
-			font-size: 0.975rem;
+			font-size: 0.84375rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.6875rem;
+			font-size: 0.59375rem;
 			letter-spacing: 0.092em;
-			margin-block-start: 4px;
+			margin-block-start: 3px;
 		}
 
 		.nav-links {

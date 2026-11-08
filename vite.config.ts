@@ -259,9 +259,17 @@ export default defineConfig({
 	plugins: lazyPlugins(() => [
 		{
 			name: 'dev-static-font-cache',
+			enforce: 'pre',
 			configureServer(server) {
 				server.middlewares.use((req, res, next) => {
-					if (req.url && req.url.startsWith('/fonts/')) {
+					if (
+						req.url &&
+						(req.url.startsWith('/fonts/') ||
+							req.url.startsWith('/@imagetools/') ||
+							req.url.startsWith('/_app/immutable/') ||
+							req.url.startsWith('/favicon') ||
+							req.url.startsWith('/apple-touch-icon'))
+					) {
 						res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
 					}
 					next();

@@ -175,6 +175,7 @@
 		justify-content: center;
 		overflow: hidden;
 		contain: layout size;
+		background: var(--brand-emblem-bg) center / cover no-repeat;
 	}
 
 	.brand-logo-wrap :global(picture) {
@@ -195,13 +196,15 @@
 	.brand-text {
 		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		padding-block-start: 4px;
 	}
 
 	.brand-name {
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.875rem;
+		font-size: clamp(0.75rem, 0.55rem + 0.35vw, 0.84375rem);
 		line-height: 1.05;
 		letter-spacing: -0.02em;
 		text-transform: uppercase;
@@ -214,14 +217,14 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.625rem;
+		font-size: clamp(0.525rem, 0.38rem + 0.25vw, 0.59375rem);
 		line-height: 1.15;
-		letter-spacing: 0.082em;
+		letter-spacing: 0.092em;
 		text-transform: uppercase;
 		white-space: nowrap;
 		inline-size: fit-content;
 		color: var(--acid);
-		margin-block-start: 4px;
+		margin-block-start: 3px;
 	}
 
 	.footer-brand p {
@@ -371,13 +374,13 @@
 		}
 
 		.brand-name {
-			font-size: 0.975rem;
+			font-size: 0.84375rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.6875rem;
+			font-size: 0.59375rem;
 			letter-spacing: 0.092em;
-			margin-block-start: 4px;
+			margin-block-start: 3px;
 		}
 
 		.footer-grid {

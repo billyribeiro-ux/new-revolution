@@ -291,7 +291,12 @@
 					<label for="region-filter">
 						<IconWorld size={20} />
 					</label>
-					<select id="region-filter" bind:value={selectedRegion} class="filter-select">
+					<select
+						id="region-filter"
+						bind:value={selectedRegion}
+						class="filter-select"
+						autocomplete="off"
+					>
 						{#each regions as region (region)}
 							<option value={region}>{region === 'all' ? 'All Regions' : region}</option>
 						{/each}

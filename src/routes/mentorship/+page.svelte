@@ -134,7 +134,7 @@
 		{
 			phase: 'Phase 04',
 			durationTag: 'Live Mastery & Scale',
-			title: '1-on-1 Live Market Calibration & Independent Execution',
+			title: '1\u2011on\u20111 Live Market Calibration & Independent Execution',
 			summary:
 				'Our goal is never to make you dependent on us forever; it is to make you a self-sufficient, fearless institutional executor. We review your live trades one-on-one until your discipline is automatic.',
 			outcomes: [
@@ -505,7 +505,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">Educate • Innovate • Prosper</span>
 				<h2 id="protocol-h2">
-					Inside the 4-Phase <span class="text-nowrap">1-on-1</span> Transformation Architecture
+					Inside the Four-Phase <span class="text-nowrap">1&#8209;on&#8209;1</span> Transformation Architecture
 				</h2>
 				<p class="body-copy section-header__desc">
 					Once your application is approved, we do not hand you a login to pre-recorded fluff and
@@ -712,6 +712,7 @@
 						action="?/submitMentorshipApplication"
 						class="application-form"
 						onsubmit={handleApplicationSubmit}
+						autocomplete="on"
 					>
 						<!-- Step 1: Candidate Track Radio Selector -->
 						<fieldset class="form-fieldset">
@@ -728,6 +729,7 @@
 										name="candidateTrack"
 										value="portfolio-manager"
 										bind:group={selectedTrack}
+										autocomplete="off"
 										required
 									/>
 									<span class="track-radio-card__tag">Track 01</span>
@@ -748,6 +750,7 @@
 										name="candidateTrack"
 										value="professional-trader"
 										bind:group={selectedTrack}
+										autocomplete="off"
 									/>
 									<span class="track-radio-card__tag">Track 02</span>
 									<strong class="track-radio-card__title">Professional / Active Trader</strong>
@@ -767,6 +770,7 @@
 										name="candidateTrack"
 										value="struggling-trader"
 										bind:group={selectedTrack}
+										autocomplete="off"
 									/>
 									<span class="track-radio-card__tag">Track 03</span>
 									<strong class="track-radio-card__title">Struggling Trader Turnaround</strong>
@@ -850,6 +854,7 @@
 										id="applicant-capital"
 										name="capitalTier"
 										bind:value={capitalTier}
+										autocomplete="off"
 										required
 									>
 										<option value="$500 – $5,000 (Small Account Turnaround)"
@@ -874,7 +879,7 @@
 									<label for="applicant-schedule"
 										>Primary Trading Schedule &amp; Availability *</label
 									>
-									<select id="applicant-schedule" name="scheduleType" required>
+									<select id="applicant-schedule" name="scheduleType" autocomplete="off" required>
 										<option value="Full-Time Market Hours (9:30 AM – 4:00 PM ET)"
 											>Full-Time Market Hours (9:30 AM – 4:00 PM ET)</option
 										>
@@ -901,6 +906,7 @@
 									name="primaryBottleneck"
 									rows="4"
 									bind:value={primaryBottleneck}
+									autocomplete="off"
 									required
 									placeholder="Describe your current execution struggles, portfolio mandate, or what has held you back from consistent profitability..."
 								></textarea>
@@ -914,6 +920,7 @@
 									type="checkbox"
 									name="coachabilityPledge"
 									bind:checked={coachabilityConfirmed}
+									autocomplete="off"
 									required
 								/>
 								<span>

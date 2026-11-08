@@ -686,6 +686,7 @@
 										max="75"
 										step="5"
 										bind:value={winRate}
+										autocomplete="off"
 									/>
 									<span class="sim-val-pill">{winRate}% Win Rate</span>
 								</div>

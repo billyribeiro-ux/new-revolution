@@ -257,6 +257,17 @@ export default defineConfig({
 		]
 	},
 	plugins: lazyPlugins(() => [
+		{
+			name: 'dev-static-font-cache',
+			configureServer(server) {
+				server.middlewares.use((req, res, next) => {
+					if (req.url && req.url.startsWith('/fonts/')) {
+						res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+					}
+					next();
+				});
+			}
+		},
 		enhancedImages(),
 		sveltekit({
 			compilerOptions: {

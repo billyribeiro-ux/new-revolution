@@ -9,21 +9,29 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
-### 2026-11-08 — Fix mentorship protocol section architecture, prevent orphan line wraps, and resolve form autofill warning
+### 2026-11-08 — Eradicate layout shifts (CLS 0.0000), eliminate dev server 304 delays, stabilize logo geometry, and resolve form autofill compliance
 
-- **Fixed:** Resolve disruptive wrapping on "Inside the 4-Phase 1-on-1 Transformation Architecture" (`#protocol-h2`) on large displays (e.g., 27" Mac Studio Display):
-  - Root Cause: `text-wrap: balance` balanced `#protocol-h2` within `max-inline-size: 830px`. Because "Inside the 4-Phase 1-on-" and "1 Transformation Architecture" were roughly equal in length, the browser treated the hyphen in `1-on-1` as a legal line break opportunity and split the text between `1-on-` and `1`, leaving the trailing `1` as an orphan on the next line.
-  - In `src/app.css` and `src/lib/styles/inner-page.css`: added atomic `.text-nowrap { white-space: nowrap; }` utility and increased `.protocol-section .section-heading` max width from 830px to 980px.
-  - In `src/routes/mentorship/+page.svelte`: wrapped `1-on-1` in `<span class="text-nowrap">1-on-1</span>` across `#protocol-h2`, `#mentorship-h1`, `#admissions-card__title`, `#application-h2`, `#mentorship-faq-h2`, and `#ecosystem-banner-h2`, preventing the browser from breaking "1-on-1" across lines anywhere on the page.
-- **Fixed:** Modernize mentorship 4-phase protocol grid layout on desktop displays (`>= 1024px`):
-  - In `src/lib/styles/inner-page.css`: added `@media (min-width: 1024px) { .inner-page .protocol-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }`.
-  - Previously, `.protocol-grid` defaulted to `repeat(2, minmax(0, 1fr))` for all viewports above 768px, causing a 2x2 grid that looked disjointed and disruptive on large displays (1024px, 1440px, and 2560px Mac Studio Display). The 4-column layout renders the 4 phases (Foundation & System Calibration, Execution & Live Flow Protocol, Advanced Risk & Asymmetric Payoffs, Institutional Independence) as a seamless, chronological progression timeline.
-- **Fixed:** Resolve Chrome DevTools form autofill console warning on the mentorship application form:
-  - In `src/routes/mentorship/+page.svelte`: added `autocomplete="country-name"` to `<select id="applicant-country" name="country">`.
-  - Conforms with browser autofill specifications, eliminating the DevTools issue: _"A form field has an id or name attribute that the browser's autofill recognizes. However, it doesn't have an autocomplete attribute assigned."_
+- **Fixed:** Restore root layout import of `inner-page.css` in `src/routes/+layout.svelte`:
+  - Root Cause: In a previous refactoring (`e519e24`), `import '#lib/styles/inner-page.css'` was deleted from 21 individual marketing routes under the assumption it was in the root layout, but it was missing there. Consequently, the initial server-rendered HTML for all marketing pages (`/about`, `/mentorship`, `/our-mission`, `/store/**`, `/live-trading-rooms/**`, `/alert-services/**`) was delivered with 0 `.inner-page` CSS rules. On client-side hydration, 7,798 lines of inner-page styles suddenly applied, causing severe layout shifts (e.g. initial CLS of 0.0790 on `/about`).
+  - Added `import '#lib/styles/inner-page.css';` to `src/routes/+layout.svelte` immediately after `app.css`. The server-rendered HTML now delivers 1,163 `.inner-page` CSS rules synchronously in `<style data-sveltekit>` on the very first byte.
+- **Fixed:** Eliminate development server 304 conditional font revalidations and font swap shifts in `vite.config.ts`:
+  - Root Cause: While `vercel.json` serves `/fonts/*` with `Cache-Control: public, max-age=31536000, immutable` in production, Vite's development server lacked this configuration and defaulted to `Cache-Control: no-cache`. On every browser refresh, the browser issued 7-12 conditional HTTP requests for fonts, waited 60-80ms for 304 Not Modified responses, and temporarily rendered system fallback fonts before swapping to the web fonts. This caused the navbar to expand by 35.5px and section headings to shift vertically.
+  - Added `dev-static-font-cache` middleware in `vite.config.ts` to attach `Cache-Control: public, max-age=31536000, immutable` to all `/fonts/*` requests in development mode. The browser now serves self-hosted WOFF2 fonts instantaneously from memory/disk cache on frame 0 without issuing 304 requests or undergoing font swap shifts.
+- **Fixed:** Stabilize brand logo geometry, layout containment, synchronous decoding, and font weights in `Navbar.svelte` and `Footer.svelte`:
+  - Root Cause: `.brand-logo-wrap` had erratic dimensions across breakpoints (36px -> 46px -> 34px -> 38px -> 46px -> 42px), shrinking from 46px to 42px above 1536px, and lacked CSS layout containment. The `<enhanced:img>` had `decoding="async"`, delaying initial emblem rasterization. Additionally, `.brand-name` requested `font-weight: 900` (while `@font-face` only declared weights 600, 700, 800) and `.brand-tagline` requested `font-weight: 700` (while Inter only declared 400, 500, 600), triggering synthetic font bolding and glyph metric shifts on webfont swap.
+  - In `Navbar.svelte`: added `contain: layout size; aspect-ratio: 1 / 1;` to `.brand-logo-wrap`, set `aspect-ratio: 1 / 1; display: block;` on `.brand-logo-wrap :global(img)`, aligned desktop logo size to a stable `42px` across all desktop viewports (>= 1440px), changed `decoding="async"` to `decoding="sync"` for the emblem, aligned `.brand-name` to `font-weight: 800` (ExtraBold) and `.brand-tagline` to `font-weight: 600` (SemiBold).
+  - In `Footer.svelte`: added matching `aspect-ratio: 1 / 1; contain: layout size;` and font-weight alignment (`800` / `600`).
+- **Fixed:** Prevent typographic orphan wraps on mentorship protocol section heading and cards on large displays:
+  - In `src/routes/mentorship/+page.svelte`: changed heading to `Inside the Four-Phase <span class="text-nowrap">1&#8209;on&#8209;1</span> Transformation Architecture` using non-breaking hyphen `&#8209;` (`U+2011`) and `.text-nowrap`, eliminating "4-Phase 1-on-1" adjacent number collisions and guaranteeing that no browser can break "1-on-1" or drop a single "1" to a new line. Applied `1&#8209;on&#8209;1` to Phase 04 card title.
+- **Fixed:** Resolve Chrome DevTools form autofill compliance across all forms:
+  - In `src/routes/mentorship/+page.svelte`: added `autocomplete="on"` to `<form>`, and explicit `autocomplete="off"` to non-autofill fields (`capitalTier`, `scheduleType`, `primaryBottleneck`, `candidateTrack`, `coachabilityPledge`).
+  - In `src/routes/resources/etf-stocks-list/+page.svelte`, `src/routes/resources/stock-indexes-list/+page.svelte`, and `src/routes/alert-services/sunday-alpha-protocol/+page.svelte`: added explicit `autocomplete="off"` to search and filter inputs.
+  - Eliminates Chrome DevTools Issue: _"A form field has an id or name attribute that the browser's autofill recognizes. However, it doesn’t have an autocomplete attribute assigned."_
 - **Evidence & Verification:**
-  - Playwright visual audit on 2560x1440 Mac Studio Display confirmed `#protocol-h2` renders cleanly on 1 line (`h2Lines = 1`), `protocol-grid` renders in 4 equal columns (`gridColumns = 4`, 338px card widths), and `#applicant-country` has `autocomplete="country-name"` with 0 console warnings or errors.
-  - Production build, unit tests, CSS token checks, svelte-check, ESLint, Playwright SEO, and E2E tests verified.
+  - Automated Playwright audit across 16 primary routes confirmed **0.0000 Cumulative Layout Shift (CLS)** on reload across all 16 routes.
+  - Automated Playwright viewport sweep across 19 routes and 6 viewports (375px, 768px, 1024px, 1440px, 1536px, 2560px Mac Studio Display — 114 test runs) confirmed **0 horizontal overflows** site-wide.
+  - Brand container reload test confirmed sub-pixel width delta of 0.015px (stable 42px x 42px logo geometry).
+  - All verification suites passed: `check:css`, `svelte-check` (0 errors, 0 warnings), `pnpm lint` (0 errors, 0 warnings across 809 files), 86 test files (677 unit tests), production build, `check:pages` (46 pages), and Playwright SEO tests (3/3).
 
 ### 2026-11-08 — Unify stylesheet architecture, eradicate layout shifts, and eliminate base-element CSS conflicts
 

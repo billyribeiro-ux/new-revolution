@@ -168,19 +168,28 @@
 	.brand-logo-wrap {
 		inline-size: 36px;
 		block-size: 36px;
+		aspect-ratio: 1 / 1;
 		flex-shrink: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
+		contain: layout size;
 	}
 
-	.brand-logo-wrap :global(picture),
+	.brand-logo-wrap :global(picture) {
+		display: block;
+		inline-size: 100%;
+		block-size: 100%;
+	}
+
 	.brand-logo-wrap :global(img) {
+		display: block;
 		inline-size: 100%;
 		block-size: 100%;
 		object-fit: cover;
 		object-position: left center;
+		aspect-ratio: 1 / 1;
 	}
 
 	.brand-text {
@@ -191,7 +200,7 @@
 	.brand-name {
 		display: block;
 		font-family: var(--font-display);
-		font-weight: 900;
+		font-weight: 800;
 		font-size: 0.9375rem;
 		line-height: 1.02;
 		letter-spacing: -0.025em;
@@ -203,7 +212,7 @@
 	.brand-tagline {
 		display: block;
 		font-family: var(--font-sans);
-		font-weight: 700;
+		font-weight: 600;
 		font-size: 0.52rem;
 		line-height: 1.1;
 		letter-spacing: 0.08em;
@@ -376,8 +385,8 @@
 
 	@media (min-width: 640px) {
 		.brand-logo-wrap {
-			inline-size: 46px;
-			block-size: 46px;
+			inline-size: 42px;
+			block-size: 42px;
 		}
 
 		.footer-bottom {

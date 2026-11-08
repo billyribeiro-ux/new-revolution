@@ -272,6 +272,7 @@
 							bind:value={searchQuery}
 							placeholder="Search SPY, QQQ, IWM, Gold, Bond..."
 							class="search-box__input"
+							autocomplete="off"
 						/>
 					</div>
 				</div>

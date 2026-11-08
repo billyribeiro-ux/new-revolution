@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import '#lib/styles/inner-page.css';
 	import { asset } from '$app/paths';
 	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { page } from '$app/state';

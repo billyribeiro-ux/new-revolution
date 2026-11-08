@@ -59,7 +59,7 @@
 						/>
 					</span>
 					<span class="brand-text">
-						<span class="brand-name">REVOLUTION<br />TRADING PROS</span>
+						<span class="brand-name">REVOLUTION TRADING PROS</span>
 						<span class="brand-tagline">EDUCATE • INNOVATE • PROSPER</span>
 					</span>
 				</a>
@@ -201,10 +201,11 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.9375rem;
-		line-height: 1.02;
-		letter-spacing: -0.025em;
+		font-size: 0.875rem;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
 		text-transform: uppercase;
+		white-space: nowrap;
 		inline-size: fit-content;
 		color: var(--text);
 	}
@@ -215,11 +216,12 @@
 		font-weight: 800;
 		font-size: 0.625rem;
 		line-height: 1.15;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.082em;
 		text-transform: uppercase;
+		white-space: nowrap;
 		inline-size: fit-content;
 		color: var(--acid);
-		margin-block-start: 3px;
+		margin-block-start: 4px;
 	}
 
 	.footer-brand p {
@@ -369,12 +371,12 @@
 		}
 
 		.brand-name {
-			font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+			font-size: 0.975rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.72rem;
-			letter-spacing: 0.06em;
+			font-size: 0.6875rem;
+			letter-spacing: 0.092em;
 			margin-block-start: 4px;
 		}
 

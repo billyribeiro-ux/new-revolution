@@ -256,7 +256,7 @@
 				/>
 			</span>
 			<span class="brand-text">
-				<span class="brand-name">REVOLUTION<br />TRADING PROS</span>
+				<span class="brand-name">REVOLUTION TRADING PROS</span>
 				<span class="brand-tagline">EDUCATE • INNOVATE • PROSPER</span>
 			</span>
 		</a>
@@ -624,9 +624,9 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.9375rem;
-		line-height: 1.02;
-		letter-spacing: -0.025em;
+		font-size: 0.875rem;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
 		text-transform: uppercase;
 		inline-size: fit-content;
 		max-inline-size: 100%;
@@ -640,13 +640,13 @@
 		font-weight: 800;
 		font-size: 0.625rem;
 		line-height: 1.15;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.082em;
 		text-transform: uppercase;
 		inline-size: fit-content;
 		max-inline-size: 100%;
 		overflow-wrap: anywhere;
 		color: var(--acid);
-		margin-block-start: 3px;
+		margin-block-start: 4px;
 	}
 
 	.nav-links {
@@ -1107,7 +1107,7 @@
 		}
 
 		.brand-name {
-			font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+			font-size: 1rem;
 		}
 
 		.brand-tagline {
@@ -1198,12 +1198,12 @@
 		}
 
 		.brand-name {
-			font-size: 0.72rem;
+			font-size: 0.66rem;
 		}
 
 		.brand-tagline {
 			font-size: 0.46rem;
-			letter-spacing: 0.02em;
+			letter-spacing: 0.055em;
 			margin-block-start: 2px;
 		}
 
@@ -1272,29 +1272,29 @@
 		}
 
 		.brand-name {
-			font-size: 0.9rem;
+			font-size: 0.8rem;
 		}
 
 		.brand-tagline {
 			font-size: 0.5625rem;
-			letter-spacing: 0.035em;
+			letter-spacing: 0.088em;
 			margin-block-start: 3px;
 		}
 
 		.nav-links {
-			gap: 0.25rem;
+			gap: 0.15rem;
 		}
 
 		.nav-link,
 		.nav-dropdown-trigger {
 			font-size: 0.8125rem;
 			letter-spacing: 0;
-			padding: 0.45rem 0.12rem;
-			gap: 0.12rem;
+			padding: 0.45rem 0.1rem;
+			gap: 0.1rem;
 		}
 
 		.nav-actions {
-			gap: 0.3rem;
+			gap: 0.25rem;
 			margin-inline-start: 0;
 		}
 
@@ -1309,15 +1309,15 @@
 
 		.nav-actions .btn {
 			min-block-size: 38px;
-			padding: 7px 10px;
+			padding: 7px 9px;
 			font-size: 0.6875rem;
 			letter-spacing: 0.02em;
-			gap: 0.3rem;
+			gap: 0.25rem;
 			white-space: nowrap;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 11rem;
+			inline-size: 10.25rem;
 			justify-content: center;
 			white-space: nowrap;
 		}
@@ -1338,13 +1338,13 @@
 		}
 
 		.brand-name {
-			font-size: 1rem;
+			font-size: 0.9375rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.625rem;
-			letter-spacing: 0.04em;
-			margin-block-start: 3px;
+			font-size: 0.65625rem;
+			letter-spacing: 0.092em;
+			margin-block-start: 4px;
 		}
 
 		.nav-links {
@@ -1389,13 +1389,13 @@
 		}
 
 		.brand-name {
-			font-size: 1.05rem;
+			font-size: 0.975rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.65625rem;
-			letter-spacing: 0.045em;
-			margin-block-start: 3px;
+			font-size: 0.6875rem;
+			letter-spacing: 0.092em;
+			margin-block-start: 4px;
 		}
 
 		.nav-links {

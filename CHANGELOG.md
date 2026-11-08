@@ -9,13 +9,17 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
-### 2026-11-08 — Consolidate `src/lib/styles/inner-page.css` into `src/app.css` as a Single Unified Global Stylesheet
+### 2026-11-08 — Consolidate `src/lib/styles/inner-page.css` into `src/app.css`, establish top-down eyebrow/kicker hierarchy (`16px` / `14px`), and upgrade single-line brand lockup
 
 - **Changed:** Permanently merged `src/lib/styles/inner-page.css` (7,798 lines) into `src/app.css` inside `@layer components` directly before Section 6 (`@layer utilities`), and deleted `src/lib/styles/inner-page.css`:
   - Eliminates the multi-file global CSS split so `src/app.css` is the sole global stylesheet (containing all `@font-face` declarations, `:root` design tokens, reset, typography, layout, shared `.inner-page` marketing primitives, utilities, and responsive rules).
   - Removed all `import '#lib/styles/inner-page.css';` statements from `src/routes/+layout.svelte`, `src/lib/components/blog/BlogArchive.svelte`, `src/routes/blog/+error.svelte`, and `src/routes/blog/[slug]/+page.svelte`.
   - Updated `AGENTS.md`, `docs/CSS_STANDARDS.md`, and `docs/NEW_PAGE_PLAYBOOK.md` so future contributors and AI agents use `src/app.css` as the single global SSOT and write component/page-specific CSS in scoped `<style>` blocks inside `.svelte` files.
   - Verified 100% bit-for-bit DOM geometry and computed-style parity across 19 routes (3,509 elements verified, 0 diffs).
+- **Changed:** Establish top-down typographic hierarchy for section eyebrows (`16px`), H1 SEO kickers (`14px`), and inner-page lineage pills:
+  - Updated `--text-eyebrow` to `1rem` (`16px`) for `.eyebrow`, `.section-kicker`, and `.comparison-label`, and introduced `--text-seo-kicker: var(--step-sm)` (`0.875rem` = `14px`) for `.h1-query`, `.seo-kicker`, `.inner-page .hero-h1__kicker`, and `.inner-page .hero-h1__seo-kicker`.
+  - Consolidated `.inner-page .eyebrow-box`, `.inner-page .eyebrow-pill`, and `.inner-page .eyebrow-banner` in `src/app.css` (plus `sunday-alpha-protocol.css`, `resources/+page.svelte`, and `etf-stocks-list/+page.svelte`) to use `var(--font-display)` (`Plus Jakarta Sans`) `font-weight: 800` (ExtraBold) on both badges (`0.75rem`) and lineage text (`0.8125rem`).
+- **Changed:** Upgrade `Navbar.svelte` and `Footer.svelte` brand lockup to render `REVOLUTION TRADING PROS` on one single line above `EDUCATE • INNOVATE • PROSPER` in `Plus Jakarta Sans` ExtraBold (`800`), aligned left-to-right across breakpoints.
 
 ### 2026-11-08 — Eradicate layout shifts (CLS 0.0000), eliminate dev server 304 delays, stabilize logo geometry, and resolve form autofill compliance
 

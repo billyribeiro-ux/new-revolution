@@ -9,6 +9,19 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Fix CatalogGrid stretching on syllabus disclosure, add Courses Coming Soon notice & gate Store navigation on published production
+
+- **Fixed:** Prevent sibling cards in `CatalogGrid` from stretching row height when a course syllabus accordion is expanded:
+  - Add `align-items: start;` to `.catalog-grid` in `src/lib/components/ui/CatalogGrid.svelte`, eliminating unexpected vertical footer drops on sibling cards (verified 0px shift on Course 03 when Course 04 syllabus opens).
+- **Added:** Render prominent institutional **"COURSES COMING SOON!"** notice on `/store/courses` (`src/routes/store/courses/+page.svelte`):
+  - Highlight Billy Ribeiro's proprietary Goldman Sachs prop desk lineage, "The Move Prior to The Move™", and high-definition video masterclasses in active production.
+  - Bridge to live floor execution with direct CTAs to Live Trading Rooms (`/live-trading-rooms/day-trading-room`) and 1-on-1 Mentorship (`/mentorship`).
+  - Outline four upcoming curriculum tracks (Foundations, Small Account Compounding, Options Greeks, Working Pro Swing) with strict heading hierarchy compliance (zero `h4` tags).
+  - Include interactive track filtering and catalog preview capability with updated unit test assertions in `src/routes/store/courses/page.svelte.spec.ts`.
+- **Changed:** Gate Store navigation visibility on published production builds while preserving offline development workflow:
+  - Configure `isNavigationHrefVisible()` in `src/lib/data/launch-gate.ts`, `getMainNavigation()`, and `getFooterColumns()` in `src/lib/data/homepage.ts` so `/store` and `/store/*` are hidden from public production navigation (`Navbar` 7 items, `Footer` Company column with `/our-mission`), while remaining discoverable in local development (`import.meta.env.DEV`) to allow editing and testing offline with exact published styles.
+  - Align E2E test suites in `src/routes/page.svelte.e2e.ts` to assert the 7-item navigation on published production builds and 0 store submenu links.
+
 ### 2026-11-08 — Restore Store navigation menu with submenus, enlarge navbar typography & optimize responsive button wraps
 
 - **Added:** Restore the **Store** dropdown menu item to primary navigation with its three submenus (**Courses**, **Indicators**, and **Scanners**) in `src/lib/components/layout/Navbar.svelte` and `src/lib/data/homepage.ts`:

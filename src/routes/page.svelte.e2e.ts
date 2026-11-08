@@ -33,7 +33,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('footer p.risk-box-title')).toHaveCount(1);
 	});
 
-	test('renders enhanced brand logo and the 8-item navigation menu and submenus with visible Blog and Store', async ({
+	test('renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog while Store remains gated', async ({
 		page
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
@@ -66,18 +66,17 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			expect(logoStyles.objectPosition).toBe('0% 50%');
 		}
 
-		// Eight visible top-level items including Store with Courses, Indicators, and Scanners
+		// Seven visible top-level items on published; Store remains hidden
 		const topLevelNavItems = page.locator(
 			'nav.nav-links > .nav-item > .nav-dropdown-trigger, nav.nav-links > .nav-item > .nav-link'
 		);
-		await expect(topLevelNavItems).toHaveCount(8);
+		await expect(topLevelNavItems).toHaveCount(7);
 
 		const labels = (await topLevelNavItems.allTextContents()).map((t) => t.trim());
 		expect(labels).toEqual([
 			'Live Trading Rooms',
 			'Alert Services',
 			'Mentorship',
-			'Store',
 			'Our Mission',
 			'About',
 			'Blog',
@@ -102,14 +101,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'Sunday Alpha Protocol'
 		]);
 
-		const storeSubmenu = page
-			.locator('ul[aria-label="Store submenu"] a.dropdown-link')
-			.allTextContents();
-		expect((await storeSubmenu).map((t) => t.trim())).toEqual([
-			'Courses',
-			'Indicators',
-			'Scanners'
-		]);
+		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);
 		await expect(page.locator('nav.nav-links a[href$="blog"]')).toBeVisible();
 
 		const resourcesSubmenu = page

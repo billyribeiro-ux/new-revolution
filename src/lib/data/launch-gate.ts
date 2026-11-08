@@ -39,14 +39,18 @@ export function isLaunchedHref(href: string): boolean {
 	return !isUnlaunchedRoute(href.split(/[?#]/, 1)[0] ?? href);
 }
 
-/** Menu visibility is separate from indexing: Blog and Store are discoverable in navigation. */
-export function isNavigationHrefVisible(href: string): boolean {
+/**
+ * Menu visibility is separate from indexing:
+ * - Blog is launched and visible in navigation.
+ * - Store routes are unlaunched and hidden on published production builds, but remain discoverable
+ *   during local development (`import.meta.env.DEV`) so store pages can be worked on offline with
+ *   the exact published site styling and structure.
+ */
+export function isNavigationHrefVisible(href: string, options?: { isDev?: boolean }): boolean {
 	const pathname = href.split(/[?#]/, 1)[0] ?? href;
-	return (
-		pathname === '/blog' ||
-		pathname.startsWith('/blog/') ||
-		pathname === '/store' ||
-		pathname.startsWith('/store/') ||
-		isLaunchedHref(href)
-	);
+	const isStore = pathname === '/store' || pathname.startsWith('/store/');
+	if (isStore) {
+		return options?.isDev ?? Boolean(import.meta.env?.DEV);
+	}
+	return pathname === '/blog' || pathname.startsWith('/blog/') || isLaunchedHref(href);
 }

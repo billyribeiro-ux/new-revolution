@@ -74,6 +74,7 @@
 	.catalog-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+		align-items: start;
 		gap: 16px;
 		margin: 0;
 		padding: 0;

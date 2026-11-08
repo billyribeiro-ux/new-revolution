@@ -35,7 +35,7 @@ describe('/store/courses page', () => {
 		expect(pageMetaTags.openGraph.url).toBe('https://www.revolutiontradingpros.com/store/courses');
 	});
 
-	it('renders the H1, diagnostic router, 8 course cards, interactive track filter tabs, 6 deliverables, 5 comparison rows, and 4 FAQs', async () => {
+	it('renders the H1, diagnostic router, courses coming soon notice, 8 course cards, and interactive track filters', async () => {
 		await render(CoursesStorePage, {
 			params: {},
 			data: {
@@ -51,6 +51,12 @@ describe('/store/courses page', () => {
 		await expect.element(h1).toBeInTheDocument();
 
 		await expect.element(page.getByText('Not Sure Where to Start?')).toBeInTheDocument();
+
+		// Default view shows institutional "COURSES COMING SOON!" notice
+		await expect
+			.element(page.getByRole('heading', { level: 3, name: 'COURSES COMING SOON!' }))
+			.toBeInTheDocument();
+		await expect.element(page.getByText(/Curriculum in Active Production/i)).toBeInTheDocument();
 
 		// 8 course cards in a semantic list, one h3 title link each, pointing at the typed detail route
 		expect(document.querySelectorAll('ul.catalog-grid > li').length).toBe(8);

@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -15,6 +16,10 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	let showDraftCatalog = $state(
+		typeof window !== 'undefined' && page.url.searchParams.get('preview') === '1'
+	);
 
 	interface LearningDeliverable {
 		num: string;
@@ -171,6 +176,7 @@
 
 	function selectTrackAndScroll(track: CourseTrackFilter) {
 		activeTrack = track;
+		showDraftCatalog = true;
 		const gridEl = document.getElementById('popular-courses-catalog');
 		if (gridEl) {
 			gridEl.scrollIntoView({ behavior: 'smooth' });
@@ -389,6 +395,75 @@
 						>
 							See All Courses ({coursesCatalog.length}) →
 						</button>
+					</div>
+				</div>
+
+				<div class="courses-coming-soon-box" role="region" aria-label="Courses Coming Soon">
+					<div class="courses-coming-soon-badge-row">
+						<span class="courses-coming-soon-badge">Curriculum in Active Production</span>
+						<span class="courses-coming-soon-badge-sub"
+							>High-Definition Video Modules • Spring 2027</span
+						>
+					</div>
+					<h3 class="courses-coming-soon__title">COURSES COMING SOON!</h3>
+					<p class="courses-coming-soon__sub">
+						Comprehensive Institutional Trading Masterclasses Codifying "The Move Prior to The
+						Move™"
+					</p>
+					<p class="courses-coming-soon__copy">
+						We are currently producing and polishing our complete on-demand institutional video
+						curriculum. Codifying Billy Ribeiro’s proprietary Goldman Sachs trading desk lineage,
+						each course features mechanical entry and stop checklists, real verified trade
+						autopsies, and risk architectures right-sized from $500 cash accounts to full-time
+						proprietary desks.
+					</p>
+					<p class="courses-coming-soon__secondary-copy">
+						Because we put <strong>People Over Profits</strong>, we refuse to release rushed or
+						unverified material. In the meantime, the exact trading strategies, gamma levels, and
+						order-flow disciplines taught in this curriculum are executed live on screen every
+						market day inside our Live Trading Rooms, delivered in our Video Watchlist Alerts, or
+						taught directly in 1-on-1 Mentorship.
+					</p>
+					<div class="courses-coming-soon__actions">
+						<a href={resolve('/live-trading-rooms/day-trading-room')} class="btn btn--solid">
+							Explore Live Trading Rooms →
+						</a>
+						<a href={resolve('/mentorship')} class="btn btn--outline">
+							Apply for 1-on-1 Mentorship →
+						</a>
+						<a href={resolve('/store/indicators')} class="btn btn--outline">
+							View Non-Repainting Indicators →
+						</a>
+					</div>
+
+					<div class="courses-coming-soon__grid">
+						<div class="courses-coming-soon__item">
+							<span class="courses-coming-soon__item-num">01 // FOUNDATIONS</span>
+							<strong class="courses-coming-soon__item-title"
+								>Core Foundations &amp; Order Flow</strong
+							>
+							<p>
+								The Move Prior to The Move™ methodology and institutional accumulation footprints.
+							</p>
+						</div>
+						<div class="courses-coming-soon__item">
+							<span class="courses-coming-soon__item-num">02 // COMPOUNDING</span>
+							<strong class="courses-coming-soon__item-title">$500+ Small Account Blueprint</strong>
+							<p>T+1 cash account rotation, risk budgeting, and asymmetric options compounding.</p>
+						</div>
+						<div class="courses-coming-soon__item">
+							<span class="courses-coming-soon__item-num">03 // DERIVATIVES</span>
+							<strong class="courses-coming-soon__item-title">Options Greeks Mastery</strong>
+							<p>Delta, Gamma, Theta, and Vega architecture decoded for retail execution.</p>
+						</div>
+						<div class="courses-coming-soon__item">
+							<span class="courses-coming-soon__item-num">04 // 9-TO-5 CAREERS</span>
+							<strong class="courses-coming-soon__item-title">Working Pro 20-Min Swing</strong>
+							<p>
+								Pre-market and evening analysis routines built specifically for 9-to-5
+								professionals.
+							</p>
+						</div>
 					</div>
 				</div>
 
@@ -663,3 +738,145 @@
 
 	<Footer />
 </div>
+
+<style>
+	.courses-coming-soon-box {
+		border: 1px solid var(--line-strong);
+		background:
+			radial-gradient(800px 300px at 50% 0%, rgba(220, 255, 101, 0.05), transparent 70%),
+			linear-gradient(180deg, var(--panel) 0%, var(--surface-cases) 100%);
+		padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 48px);
+		margin-block-start: 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.courses-coming-soon-badge-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-block-end: 20px;
+	}
+
+	.courses-coming-soon-badge {
+		display: inline-block;
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: var(--tracking-eyebrow);
+		text-transform: uppercase;
+		background: var(--acid);
+		color: var(--ink);
+		padding: 4px 12px;
+	}
+
+	.courses-coming-soon-badge-sub {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		color: var(--text-secondary);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.courses-coming-soon__title {
+		font-family: var(--font-display);
+		font-size: var(--step-h1);
+		color: var(--text);
+		margin: 0 0 16px;
+		letter-spacing: -0.01em;
+	}
+
+	.courses-coming-soon__sub {
+		font-family: var(--font-sans);
+		font-size: var(--step-lead);
+		color: var(--acid);
+		margin: 0 0 24px;
+		max-inline-size: 68ch;
+		line-height: var(--leading-lead);
+	}
+
+	.courses-coming-soon__copy {
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		color: var(--text-secondary);
+		margin: 0 auto 16px;
+		max-inline-size: 75ch;
+		line-height: var(--leading-body);
+	}
+
+	.courses-coming-soon__secondary-copy {
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		color: var(--muted);
+		margin: 0 auto 32px;
+		max-inline-size: 75ch;
+		line-height: var(--leading-body);
+	}
+
+	.courses-coming-soon__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+		justify-content: center;
+		margin-block-end: 48px;
+	}
+
+	.courses-coming-soon__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 16px;
+		inline-size: 100%;
+		text-align: start;
+		padding-block-start: 36px;
+		border-block-start: 1px solid var(--line);
+	}
+
+	@media (min-width: 640px) {
+		.courses-coming-soon__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.courses-coming-soon__grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+
+	.courses-coming-soon__item {
+		border: 1px solid var(--line);
+		background: var(--bg-soft);
+		padding: 24px 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.courses-coming-soon__item-num {
+		font-family: var(--font-mono);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		color: var(--acid);
+		letter-spacing: 0.05em;
+	}
+
+	.courses-coming-soon__item-title {
+		font-family: var(--font-display);
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--text);
+		margin: 0;
+	}
+
+	.courses-coming-soon__item p {
+		font-family: var(--font-sans);
+		font-size: var(--text-xs);
+		color: var(--text-secondary);
+		margin: 0;
+		line-height: 1.5;
+	}
+</style>

@@ -174,17 +174,24 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 	}
 ] as const;
 
+export function getMainNavigation(options?: { isDev?: boolean }): readonly NavItem[] {
+	return FULL_NAVIGATION.flatMap((item): NavItem[] => {
+		if (item.children) {
+			const children = item.children.filter((child) =>
+				isNavigationHrefVisible(child.href, options)
+			);
+			return children.length > 0 ? [{ ...item, children }] : [];
+		}
+		return !item.href || isNavigationHrefVisible(item.href, options) ? [item] : [];
+	});
+}
+
 /**
  * Navigation shared by desktop/mobile, footer policy and navigation JSON-LD.
  * Blog visibility is independent of its search-indexing gate; hidden dropdowns disappear.
+ * On published production builds, unlaunched Store navigation stays hidden.
  */
-export const MAIN_NAVIGATION: readonly NavItem[] = FULL_NAVIGATION.flatMap((item): NavItem[] => {
-	if (item.children) {
-		const children = item.children.filter((child) => isNavigationHrefVisible(child.href));
-		return children.length > 0 ? [{ ...item, children }] : [];
-	}
-	return !item.href || isNavigationHrefVisible(item.href) ? [item] : [];
-});
+export const MAIN_NAVIGATION: readonly NavItem[] = getMainNavigation();
 
 export interface DocumentationStandardItem {
 	number: string;
@@ -817,11 +824,8 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 	},
 	{
 		id: 'footer-store',
-		// When store is visible in navigation, title is STORE & TOOLS; otherwise COMPANY.
-		title: isNavigationHrefVisible('/store') ? 'STORE & TOOLS' : 'COMPANY',
-		ariaLabel: isNavigationHrefVisible('/store')
-			? 'Store, courses, indicators, and scanners'
-			: 'Company',
+		title: 'STORE & TOOLS',
+		ariaLabel: 'Store, courses, indicators, and scanners',
 		links: [
 			{
 				label: 'Courses',
@@ -920,8 +924,23 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 	}
 ] as const;
 
+export function getFooterColumns(options?: { isDev?: boolean }): readonly FooterColumn[] {
+	const isStoreVisible = isNavigationHrefVisible('/store', options);
+	return FULL_FOOTER_COLUMNS.map((column) => {
+		if (column.id === 'footer-store') {
+			return {
+				...column,
+				title: isStoreVisible ? 'STORE & TOOLS' : 'COMPANY',
+				ariaLabel: isStoreVisible ? 'Store, courses, indicators, and scanners' : 'Company',
+				links: column.links.filter((link) => isNavigationHrefVisible(link.href, options))
+			};
+		}
+		return {
+			...column,
+			links: column.links.filter((link) => isNavigationHrefVisible(link.href, options))
+		};
+	}).filter((column) => column.links.length > 0);
+}
+
 /** Footer columns with every link behind the launch gate removed; a column left empty is dropped. */
-export const FOOTER_COLUMNS: readonly FooterColumn[] = FULL_FOOTER_COLUMNS.map((column) => ({
-	...column,
-	links: column.links.filter((link) => isNavigationHrefVisible(link.href))
-})).filter((column) => column.links.length > 0);
+export const FOOTER_COLUMNS: readonly FooterColumn[] = getFooterColumns();

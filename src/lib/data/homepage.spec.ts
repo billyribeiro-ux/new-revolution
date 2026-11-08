@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vite-plus/test';
 import {
 	MAIN_NAVIGATION,
+	getMainNavigation,
 	DOCUMENTATION_STANDARD_ITEMS,
 	TRUST_BAR_METRICS,
 	VERIFIED_CASE_STUDIES,
@@ -16,13 +17,42 @@ import {
 	EBOOK_PROFILES,
 	FAQ_ITEMS,
 	CLOSING_CONTENT,
-	FOOTER_COLUMNS
+	FOOTER_COLUMNS,
+	getFooterColumns
 } from './homepage.ts';
 import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
 
 describe('homepage data and navigation taxonomy', () => {
-	it('shows Blog and Store in navigation while unlaunched routes remain gated from indexing', () => {
-		expect(MAIN_NAVIGATION.map((item) => item.label)).toEqual([
+	it('hides Store on published navigation while exposing it in offline dev mode', () => {
+		expect(MAIN_NAVIGATION).toEqual(getMainNavigation());
+
+		// Published state: 7 flagship items
+		const publishedNav = getMainNavigation({ isDev: false });
+		expect(publishedNav.map((item) => item.label)).toEqual([
+			'Live Trading Rooms',
+			'Alert Services',
+			'Mentorship',
+			'Our Mission',
+			'About',
+			'Blog',
+			'Resources'
+		]);
+
+		const publishedHrefs = publishedNav.flatMap((item) => [
+			...(item.href ? [item.href] : []),
+			...(item.children?.map((c) => c.href) ?? [])
+		]);
+		expect(publishedHrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
+
+		// Published footer: COMPANY column with /our-mission only
+		const publishedFooter = getFooterColumns({ isDev: false });
+		const publishedStoreCol = publishedFooter.find((col) => col.id === 'footer-store');
+		expect(publishedStoreCol?.title).toBe('COMPANY');
+		expect(publishedStoreCol?.links.map((l) => l.href)).toEqual(['/our-mission']);
+
+		// Dev / offline state: 8 items including Store
+		const devNav = getMainNavigation({ isDev: true });
+		expect(devNav.map((item) => item.label)).toEqual([
 			'Live Trading Rooms',
 			'Alert Services',
 			'Mentorship',
@@ -34,7 +64,7 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 
 		const [liveTradingRooms, alertServices, mentorship, store, ourMission, about, blog, resources] =
-			MAIN_NAVIGATION;
+			devNav;
 
 		expect(liveTradingRooms.children?.map((c) => c.label)).toEqual([
 			'Day Trading Room',
@@ -55,7 +85,8 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(blog.href).toBe('/blog');
 		expect(isLaunchedHref('/blog')).toBe(true);
 		expect(isNavigationHrefVisible('/blog?search=options#posts')).toBe(true);
-		expect(isNavigationHrefVisible('/store/courses')).toBe(true);
+		expect(isNavigationHrefVisible('/store/courses', { isDev: true })).toBe(true);
+		expect(isNavigationHrefVisible('/store/courses', { isDev: false })).toBe(false);
 
 		expect(resources.children?.map((c) => c.label)).toEqual([
 			'Options Calculator',
@@ -63,14 +94,25 @@ describe('homepage data and navigation taxonomy', () => {
 			'Stock Indexes List'
 		]);
 
-		const allHrefs = MAIN_NAVIGATION.flatMap((item) => [
+		const devHrefs = devNav.flatMap((item) => [
 			...(item.href ? [item.href] : []),
 			...(item.children?.map((c) => c.href) ?? [])
 		]);
-		expect(allHrefs.filter((href) => href.startsWith('/store'))).toEqual([
+		expect(devHrefs.filter((href) => href.startsWith('/store'))).toEqual([
 			'/store/courses',
 			'/store/indicators',
 			'/store/scanners'
+		]);
+
+		// Dev footer: STORE & TOOLS with all tools
+		const devFooter = getFooterColumns({ isDev: true });
+		const devStoreCol = devFooter.find((col) => col.id === 'footer-store');
+		expect(devStoreCol?.title).toBe('STORE & TOOLS');
+		expect(devStoreCol?.links.map((l) => l.href)).toEqual([
+			'/store/courses',
+			'/store/indicators',
+			'/store/scanners',
+			'/our-mission'
 		]);
 	});
 
@@ -104,22 +146,33 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 	});
 
-	it('shows Blog and Store in the footer while the unwritten eBook remains hidden', () => {
-		const hrefs = FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.href));
-		expect(hrefs.filter((href) => href.startsWith('/store'))).toEqual([
-			'/store/courses',
-			'/store/indicators',
-			'/store/scanners'
-		]);
-		expect(hrefs.filter((href) => href === '/blog')).toEqual(['/blog']);
+	it('keeps unwritten eBook hidden and aligns footer columns with launch status', () => {
 		expect(FREE_EBOOK_AVAILABLE).toBe(false);
 		expect(FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.label))).not.toContain(
 			'Free Trading eBook'
 		);
 
-		const storeColumn = FOOTER_COLUMNS.find((col) => col.id === 'footer-store');
-		expect(storeColumn?.title).toBe('STORE & TOOLS');
-		expect(storeColumn?.links.map((l) => l.href)).toEqual([
+		// Published footer: no store links, title is COMPANY
+		const publishedFooter = getFooterColumns({ isDev: false });
+		const publishedHrefs = publishedFooter.flatMap((col) => col.links.map((l) => l.href));
+		expect(publishedHrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
+		expect(publishedHrefs.filter((href) => href === '/blog')).toEqual(['/blog']);
+		const publishedStoreColumn = publishedFooter.find((col) => col.id === 'footer-store');
+		expect(publishedStoreColumn?.title).toBe('COMPANY');
+		expect(publishedStoreColumn?.links.map((l) => l.href)).toEqual(['/our-mission']);
+
+		// Dev footer: store links present, title is STORE & TOOLS
+		const devFooter = getFooterColumns({ isDev: true });
+		const devHrefs = devFooter.flatMap((col) => col.links.map((l) => l.href));
+		expect(devHrefs.filter((href) => href.startsWith('/store'))).toEqual([
+			'/store/courses',
+			'/store/indicators',
+			'/store/scanners'
+		]);
+		expect(devHrefs.filter((href) => href === '/blog')).toEqual(['/blog']);
+		const devStoreColumn = devFooter.find((col) => col.id === 'footer-store');
+		expect(devStoreColumn?.title).toBe('STORE & TOOLS');
+		expect(devStoreColumn?.links.map((l) => l.href)).toEqual([
 			'/store/courses',
 			'/store/indicators',
 			'/store/scanners',

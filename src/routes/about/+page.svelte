@@ -1,6 +1,5 @@
 <!-- src/routes/about/+page.svelte -->
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';

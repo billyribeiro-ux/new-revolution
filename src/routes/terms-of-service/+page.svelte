@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';

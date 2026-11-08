@@ -331,14 +331,12 @@
 	/* 08 / Primary Hero Display (<h1>) */
 	h1,
 	.h1,
-	.hero-h1,
 	.hero-title {
 		font-family: var(--font-display);
 		font-size: var(--step-hero);
 		font-weight: 700;
 		line-height: var(--leading-display-h1);
 		letter-spacing: var(--tracking-display-h1);
-		max-inline-size: min(16.608em, 780px);
 		margin-block: 0 1.75rem;
 		text-wrap: balance;
 	}
@@ -352,7 +350,6 @@
 		font-weight: 700;
 		line-height: var(--leading-section-h2);
 		letter-spacing: var(--tracking-section-h2);
-		max-inline-size: min(28ch, 760px);
 		margin-block: 1.25rem 1.375rem;
 		text-wrap: balance;
 	}
@@ -366,7 +363,6 @@
 		font-weight: 700;
 		line-height: var(--leading-card-h3);
 		letter-spacing: var(--tracking-h3);
-		max-inline-size: 34ch;
 		margin-block-end: 0.875rem;
 		text-wrap: pretty;
 	}
@@ -381,14 +377,22 @@
 	}
 
 	/* 12 / Standard Body Copy (<p>, <li>) */
-	p,
-	li {
+	p {
 		font-family: var(--font-sans);
 		font-size: var(--step-body);
 		font-weight: 450;
 		line-height: var(--leading-body);
 		letter-spacing: normal;
 		max-inline-size: min(70ch, 680px);
+		text-wrap: pretty;
+	}
+
+	li {
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		font-weight: 450;
+		line-height: var(--leading-body);
+		letter-spacing: normal;
 		text-wrap: pretty;
 	}
 
@@ -416,13 +420,15 @@
 		color: var(--acid);
 	}
 
-	.eyebrow {
+	.eyebrow,
+	.comparison-label {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.75rem;
 	}
 
-	.eyebrow::before {
+	.eyebrow::before,
+	.comparison-label::before {
 		content: '';
 		display: block;
 		inline-size: 23px;
@@ -794,6 +800,10 @@
    6. UTILITIES & REVEAL ANIMATION
    ========================================================================== */
 @layer utilities {
+	.text-nowrap {
+		white-space: nowrap;
+	}
+
 	/* Visually hidden but available to assistive technology */
 	.sr-only {
 		position: absolute;

@@ -752,12 +752,24 @@
 	}
 
 	.inner-page .comparison-block .meta-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: var(--text-eyebrow);
 		line-height: var(--leading-eyebrow);
 		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
+	}
+
+	.inner-page .comparison-block .meta-label::before {
+		content: '';
+		display: block;
+		inline-size: 23px;
+		block-size: 2px;
+		background: currentColor;
+		flex-shrink: 0;
 	}
 
 	.inner-page .comparison-block--negative {
@@ -1845,9 +1857,17 @@
 		color: var(--ink);
 	}
 
+	.inner-page .text-nowrap {
+		white-space: nowrap;
+	}
+
 	/* Protocol */
 	.inner-page .protocol-section {
 		background: var(--surface-audience);
+	}
+
+	.inner-page .protocol-section .section-heading {
+		max-inline-size: 980px;
 	}
 
 	.inner-page .protocol-card {
@@ -2301,6 +2321,10 @@
 
 		.inner-page .tracks-grid {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.inner-page .protocol-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 
 		.inner-page .pedigree-grid {

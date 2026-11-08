@@ -1,6 +1,5 @@
 <!-- src/routes/alert-services/spx-profit-pulse/+page.svelte -->
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import { JsonLd } from 'svelte-meta-tags';

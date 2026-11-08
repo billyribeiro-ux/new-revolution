@@ -1,6 +1,5 @@
 <!-- src/routes/store/indicators/+page.svelte -->
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';

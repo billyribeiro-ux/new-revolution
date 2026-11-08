@@ -6,7 +6,6 @@
 	 * Stock Indexes List Page - Google L11 Enterprise Standard
 	 * Comprehensive stock index education and reference resource
 	 */
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import { cubicOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import '#lib/styles/sunday-alpha-protocol.css';
 	import { resolve } from '$app/paths';
 	import * as d3 from 'd3';

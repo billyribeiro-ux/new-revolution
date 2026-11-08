@@ -116,6 +116,7 @@
 
 	.manifesto-card.positive {
 		background: var(--ink);
+		border: 1px solid var(--line);
 		color: var(--text);
 	}
 
@@ -125,6 +126,9 @@
 	}
 
 	.comparison-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: var(--text-eyebrow);
@@ -132,6 +136,15 @@
 		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
 		margin-block-end: 15px;
+	}
+
+	.comparison-label::before {
+		content: '';
+		display: block;
+		inline-size: 23px;
+		block-size: 2px;
+		background: currentColor;
+		flex-shrink: 0;
 	}
 
 	.negative .comparison-label {

@@ -1,6 +1,5 @@
 <!-- src/routes/mentorship/+page.svelte -->
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
 	import ArrowDownIcon from 'phosphor-svelte/lib/ArrowDownIcon';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
@@ -207,8 +206,8 @@
 
 				<h1 id="mentorship-h1" class="hero-h1">
 					<span class="hero-h1__kicker seo-kicker">
-						Private 1-on-1 Stock &amp; Options Trading Mentorship for Portfolio Managers, Pro
-						Traders &amp; Struggling Traders
+						Private <span class="text-nowrap">1-on-1</span> Stock &amp; Options Trading Mentorship for
+						Portfolio Managers, Pro Traders &amp; Struggling Traders
 					</span>
 					<span class="hero-h1__display">
 						You Cannot Buy Your Way Into This Room. You Have to Be Approved.
@@ -274,7 +273,9 @@
 				<div class="admissions-card__header">
 					<div>
 						<span class="meta-label">Admissions Committee Dossier</span>
-						<h2 class="admissions-card__title">1-on-1 Mentorship Vetting Protocol</h2>
+						<h2 class="admissions-card__title">
+							<span class="text-nowrap">1-on-1</span> Mentorship Vetting Protocol
+						</h2>
 					</div>
 					<span class="admissions-card__badge">No Checkout Button</span>
 				</div>
@@ -503,7 +504,9 @@
 		<div class="container">
 			<div class="section-heading">
 				<span class="eyebrow">Educate • Innovate • Prosper</span>
-				<h2 id="protocol-h2">Inside the 4-Phase 1-on-1 Transformation Architecture</h2>
+				<h2 id="protocol-h2">
+					Inside the 4-Phase <span class="text-nowrap">1-on-1</span> Transformation Architecture
+				</h2>
 				<p class="body-copy section-header__desc">
 					Once your application is approved, we do not hand you a login to pre-recorded fluff and
 					disappear. Every accepted mentee progresses through a structured, four-phase institutional
@@ -679,7 +682,9 @@
 			<div class="application-wrapper">
 				<div class="application-header">
 					<span class="eyebrow">Official Admissions Portal • Manual Review</span>
-					<h2 id="application-h2">Submit Your 1-on-1 Mentorship Application Dossier</h2>
+					<h2 id="application-h2">
+						Submit Your <span class="text-nowrap">1-on-1</span> Mentorship Application Dossier
+					</h2>
 					<p class="body-copy">
 						Complete every field below with 100% honesty. No payment is collected on this page.
 						Every application is reviewed personally by our desk to determine if we can genuinely
@@ -817,7 +822,13 @@
 
 								<div class="form-field">
 									<label for="applicant-country">Country / Market Jurisdiction *</label>
-									<select id="applicant-country" name="country" bind:value={country} required>
+									<select
+										id="applicant-country"
+										name="country"
+										bind:value={country}
+										required
+										autocomplete="country-name"
+									>
 										<option value="United States">United States</option>
 										<option value="Canada">Canada</option>
 										<option value="United Kingdom / Europe">United Kingdom / Europe</option>
@@ -938,7 +949,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">Direct Answers • Zero Evasion</span>
 				<h2 id="mentorship-faq-h2">
-					Frequently Asked Questions About 1-on-1 Mentorship Admissions
+					Frequently Asked Questions About <span class="text-nowrap">1-on-1</span> Mentorship Admissions
 				</h2>
 			</div>
 
@@ -963,7 +974,8 @@
 		<div class="container ecosystem-banner__inner">
 			<span class="eyebrow">Educate • Innovate • Prosper</span>
 			<h2 id="ecosystem-banner-h2" class="ecosystem-banner__h2">
-				Want Immediate Access to Our Desk While Your 1-on-1 Application Is Reviewed?
+				Want Immediate Access to Our Desk While Your <span class="text-nowrap">1-on-1</span>
+				Application Is Reviewed?
 			</h2>
 			<p class="body-copy ecosystem-banner__copy">
 				Explore our affordable Live Trading Rooms, Video Watchlist Alert Services, and 100%

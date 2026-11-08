@@ -9,6 +9,42 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Fix mentorship protocol section architecture, prevent orphan line wraps, and resolve form autofill warning
+
+- **Fixed:** Resolve disruptive wrapping on "Inside the 4-Phase 1-on-1 Transformation Architecture" (`#protocol-h2`) on large displays (e.g., 27" Mac Studio Display):
+  - Root Cause: `text-wrap: balance` balanced `#protocol-h2` within `max-inline-size: 830px`. Because "Inside the 4-Phase 1-on-" and "1 Transformation Architecture" were roughly equal in length, the browser treated the hyphen in `1-on-1` as a legal line break opportunity and split the text between `1-on-` and `1`, leaving the trailing `1` as an orphan on the next line.
+  - In `src/app.css` and `src/lib/styles/inner-page.css`: added atomic `.text-nowrap { white-space: nowrap; }` utility and increased `.protocol-section .section-heading` max width from 830px to 980px.
+  - In `src/routes/mentorship/+page.svelte`: wrapped `1-on-1` in `<span class="text-nowrap">1-on-1</span>` across `#protocol-h2`, `#mentorship-h1`, `#admissions-card__title`, `#application-h2`, `#mentorship-faq-h2`, and `#ecosystem-banner-h2`, preventing the browser from breaking "1-on-1" across lines anywhere on the page.
+- **Fixed:** Modernize mentorship 4-phase protocol grid layout on desktop displays (`>= 1024px`):
+  - In `src/lib/styles/inner-page.css`: added `@media (min-width: 1024px) { .inner-page .protocol-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }`.
+  - Previously, `.protocol-grid` defaulted to `repeat(2, minmax(0, 1fr))` for all viewports above 768px, causing a 2x2 grid that looked disjointed and disruptive on large displays (1024px, 1440px, and 2560px Mac Studio Display). The 4-column layout renders the 4 phases (Foundation & System Calibration, Execution & Live Flow Protocol, Advanced Risk & Asymmetric Payoffs, Institutional Independence) as a seamless, chronological progression timeline.
+- **Fixed:** Resolve Chrome DevTools form autofill console warning on the mentorship application form:
+  - In `src/routes/mentorship/+page.svelte`: added `autocomplete="country-name"` to `<select id="applicant-country" name="country">`.
+  - Conforms with browser autofill specifications, eliminating the DevTools issue: _"A form field has an id or name attribute that the browser's autofill recognizes. However, it doesn't have an autocomplete attribute assigned."_
+- **Evidence & Verification:**
+  - Playwright visual audit on 2560x1440 Mac Studio Display confirmed `#protocol-h2` renders cleanly on 1 line (`h2Lines = 1`), `protocol-grid` renders in 4 equal columns (`gridColumns = 4`, 338px card widths), and `#applicant-country` has `autocomplete="country-name"` with 0 console warnings or errors.
+  - Production build, unit tests, CSS token checks, svelte-check, ESLint, Playwright SEO, and E2E tests verified.
+
+### 2026-11-08 — Unify stylesheet architecture, eradicate layout shifts, and eliminate base-element CSS conflicts
+
+- **Fixed:** Consolidate stylesheet pipeline into a single deterministic root bundle (`src/routes/+layout.svelte`):
+  - Previously, `app.css` was imported in the root layout while `inner-page.css` was imported separately across 21 individual page routes. This created two asynchronous `<link rel="stylesheet">` tags in the document `<head>`, causing race conditions, flash of unstyled content, and Cumulative Layout Shift (CLS) on refresh.
+  - Imported `inner-page.css` directly in `src/routes/+layout.svelte` immediately after `app.css`, allowing Vite to compile all global design tokens, base typography, and component primitives into one atomic stylesheet bundle delivered synchronously on first byte.
+  - Removed redundant `import '#lib/styles/inner-page.css';` from all 21 individual marketing and inner page components (`/about`, `/our-mission`, `/mentorship`, `/store/**`, `/live-trading-rooms/**`, `/alert-services/**`, `/contact`, `/resources/stock-indexes-list`, legal pages, and `+error.svelte`), preserving the dedicated layout and prose contract for blog routes (`/blog/**` and `BlogArchive.svelte`).
+- **Fixed:** Eliminate base-element typography conflicts and artificial character caps in `src/app.css`:
+  - Removed restrictive `max-inline-size: min(16.608em, 780px)` and `.hero-h1` from base `h1`, allowing hero and page headers to be sized by their parent grid layouts rather than an arbitrary character clamp.
+  - Removed `max-inline-size: min(28ch, 760px)` from base `h2` and `max-inline-size: 34ch` from base `h3`, preventing card titles, pricing headers, and section headings from wrapping prematurely into narrow columns before component styles apply.
+  - Separated `p` and `li` base typography rules: kept readable `max-inline-size: min(70ch, 680px)` on `p` body copy while removing it from `li`, ensuring navigation items, dropdowns, card lists, and breadcrumbs are never artificially clamped to 680px.
+- **Fixed:** Align manifesto comparison labels and card geometry across the homepage and inner pages:
+  - In `src/app.css`, `src/lib/components/home/ManifestoSection.svelte`, and `src/lib/styles/inner-page.css`, standardise `.comparison-label` with `display: inline-flex; align-items: center; gap: 0.75rem;` and a 23px horizontal accent bar (`::before`), matching `.eyebrow` and `.section-kicker` site-wide.
+  - In `src/lib/components/home/ManifestoSection.svelte`, add a crisp 1px border (`border: 1px solid var(--line)`) to `.manifesto-card.positive`, matching `.manifesto-card.negative` and comparison card geometry across the repository.
+- **Evidence & Verification:**
+  - Automated Playwright audit across 12 production preview routes (`/`, `/about`, `/our-mission`, `/mentorship`, `/store/courses`, `/store/indicators`, `/store/scanners`, `/live-trading-rooms/day-trading-room`, `/alert-services/spx-profit-pulse`, `/alert-services/sunday-alpha-protocol`, `/resources`, `/blog`) confirmed `initialCls = 0.0000`, `refreshCls = 0.0000`, and `0` shifts on reload across all tested routes.
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check` (0 errors, 0 warnings), and `pnpm lint` (0 errors, 0 warnings across 809 files) passed.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO (3/3) and E2E suites (55 passed, 17 skipped) passed.
+
 ### 2026-11-08 — Fix breadcrumb font size from the ground up across all routes with direct element selectors
 
 - **Fixed:** Resolve breadcrumbs rendering at 16px Inter regular body text instead of 11px Geist Mono compact navigation telemetry:

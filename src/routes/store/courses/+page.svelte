@@ -2,7 +2,6 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
-	import { page } from '$app/state';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -16,10 +15,6 @@
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
-
-	let showDraftCatalog = $state(
-		typeof window !== 'undefined' && page.url.searchParams.get('preview') === '1'
-	);
 
 	interface LearningDeliverable {
 		num: string;
@@ -176,7 +171,6 @@
 
 	function selectTrackAndScroll(track: CourseTrackFilter) {
 		activeTrack = track;
-		showDraftCatalog = true;
 		const gridEl = document.getElementById('popular-courses-catalog');
 		if (gridEl) {
 			gridEl.scrollIntoView({ behavior: 'smooth' });

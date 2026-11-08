@@ -101,7 +101,7 @@ Also fetch the live Google structured-data **Search Gallery** and record which t
 
 The documents that tell future agents what to do are part of the system under audit. For **each** file below, read it in full, then check every factual claim about Google, Svelte or the repo:
 
-- `docs/seo/SEO_STANDARD.md` and any copy of it (`diff` them; copies must be identical or one must be removed), `docs/SEO_EVIDENCE.md`, `docs/seo/DECISIONS.md`, `docs/seo/OPERATIONS.md`, `docs/NEW_PAGE_PLAYBOOK.md`, `AGENTS.md`, `seo-audit.md`, `seo-verify.md`, `SEO-Prompt.md`, and any other `*.md` that mentions SEO (`grep -il "seo\|canonical\|json-ld\|sitemap" **/*.md`).
+- `docs/seo/SEO_STANDARD.md`, `docs/SEO_EVIDENCE.md`, `docs/seo/DECISIONS.md`, `docs/seo/OPERATIONS.md`, `docs/NEW_PAGE_PLAYBOOK.md`, `AGENTS.md`, `seo-audit.md`, `seo-verify.md`, and any other `*.md` that mentions SEO (`grep -il "seo\|canonical\|json-ld\|sitemap" **/*.md`).
 
 For every claim, do all of these:
 

@@ -9,6 +9,19 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Consolidate documentation to eliminate contradictions, prune redundant files & remove boilerplate test scaffolds
+
+- **Removed:** Eliminate contradictory, redundant, and obsolete non-blog `.md` files to provide a single, unified source of truth for AI agents:
+  - Remove `ARCHCITECURE_AND_SEO.md` (misspelled, legacy directive containing contradictions on sitemap hreflang, inline `<svelte:head>` noindex, and outdated typography).
+  - Remove duplicate root `SEO_STANDARD.md` (preserving `docs/seo/SEO_STANDARD.md` as the sole SSOT for technical SEO and structured data).
+  - Remove `SEO-Prompt.md` (historical one-time audit prompt from October 2026).
+- **Removed:** Prune unused boilerplate template code and demo tests:
+  - Delete `src/lib/vitest-examples/` (`Welcome.svelte`, `Welcome.svelte.spec.ts`, `greet.ts`, `greet.spec.ts`), removing dead template scaffold code and unneeded tests while preserving all 86 core application test suites (677 tests).
+- **Changed:** Align references across documentation and CSS comments:
+  - Update `src/app.css` breakpoint section comment to link to `docs/CSS_STANDARDS.md`.
+  - Update `seo-audit.md` document audit list to remove reference to `SEO-Prompt.md`.
+  - Clean up unused variable and import in `src/routes/store/courses/+page.svelte` for 100% clean ESLint pass.
+
 ### 2026-11-08 — Fix CatalogGrid stretching on syllabus disclosure, add Courses Coming Soon notice & gate Store navigation on published production
 
 - **Fixed:** Prevent sibling cards in `CatalogGrid` from stretching row height when a course syllabus accordion is expanded:

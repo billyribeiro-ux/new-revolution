@@ -50,19 +50,22 @@
 
 	function toggleMobileMenu(event: MouseEvent) {
 		const shell = (event.currentTarget as HTMLElement).closest<HTMLElement>('.nav-shell');
-		if (!mobileMenuOpen && shell) {
+		const nextOpen = !mobileMenuOpen;
+		if (nextOpen && shell) {
 			const rect = shell.getBoundingClientRect();
 			// A short viewport may show the toggle while the announcement still leaves
 			// no room beneath it. Bring the sticky header into view before locking scroll.
 			if (window.innerHeight - rect.bottom < 96)
 				window.scrollTo({ top: scrollY + rect.top, behavior: 'instant' });
-			updateMenuSpace(shell);
 		}
-		mobileMenuOpen = !mobileMenuOpen;
+		mobileMenuOpen = nextOpen;
 		if (!mobileMenuOpen) {
 			openMobileSubmenuId = null;
 		}
 		document.body.classList.toggle('menu-open', mobileMenuOpen);
+		if (mobileMenuOpen && shell) {
+			updateMenuSpace(shell);
+		}
 	}
 
 	function closeAllMenus() {
@@ -131,12 +134,9 @@
 		let previousCompact: boolean | undefined;
 
 		function naturalWidth(element: HTMLElement) {
-			if (element.offsetParent !== null) {
-				return element.scrollWidth;
-			}
-			// Hidden desktop groups retain their own fonts/gaps. Temporarily take them
-			// out of flow to measure max-content without a visible clone or an oscillating
-			// "hidden width is zero" decision. Restore every inline declaration immediately.
+			// Measure intrinsic max-content width out of flow so hidden desktop groups and
+			// visible groups with position:absolute dropdowns (.dropdown-menu: 372px) return
+			// identical widths without scrollWidth overflow inflation or compact oscillation.
 			const saved = element.style.cssText;
 			element.style.cssText +=
 				';display:flex;position:fixed;visibility:hidden;inline-size:max-content;max-inline-size:none;min-inline-size:0;margin:0;';
@@ -940,6 +940,7 @@
 		border-block-end: 1px solid #343b41;
 		max-block-size: var(--navigation-menu-height);
 		overflow: auto;
+		scrollbar-gutter: stable;
 		overscroll-behavior: contain;
 		padding: 12px 18px 27px;
 	}
@@ -1244,7 +1245,7 @@
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 9.75rem;
+			inline-size: 8.75rem;
 			justify-content: center;
 			white-space: nowrap;
 		}

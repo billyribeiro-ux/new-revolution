@@ -245,6 +245,7 @@
 		font-family: var(--font-sans);
 		font-size: 16px;
 		scroll-behavior: smooth;
+		scrollbar-gutter: stable;
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
 		-webkit-font-smoothing: antialiased;

@@ -178,4 +178,63 @@ describe('content-aware shared navigation', () => {
 		expect(triggers[0].getAttribute('aria-expanded')).toBe('false');
 		await expect.poll(() => document.querySelectorAll('.mobile-submenu').length).toBe(0);
 	});
+
+	it('preserves stable upper and lower layout geometry when toggling the mobile menu and submenus', async () => {
+		await page.viewport(500, 844);
+		await render(Navbar);
+		const pageContent = document.createElement('main');
+		pageContent.style.blockSize = '2400px';
+		document.querySelector('.nav-shell')!.parentElement!.append(pageContent);
+		await document.fonts.ready;
+		await settle();
+
+		expect(getComputedStyle(document.documentElement).scrollbarGutter).toBe('stable');
+		expect(getComputedStyle(document.querySelector('.mobile-nav')!).scrollbarGutter).toBe('stable');
+
+		const captureGeometry = () => {
+			const announcement = document
+				.querySelector<HTMLElement>('.announcement')!
+				.getBoundingClientRect();
+			const navShell = document.querySelector<HTMLElement>('.nav-shell')!.getBoundingClientRect();
+			const brand = document.querySelector<HTMLElement>('.brand')!.getBoundingClientRect();
+			const toggleBtn = document
+				.querySelector<HTMLElement>('#mobileToggle')!
+				.getBoundingClientRect();
+			const mainRect = pageContent.getBoundingClientRect();
+			return {
+				annX: announcement.x,
+				annY: announcement.y,
+				annW: announcement.width,
+				annH: announcement.height,
+				navX: navShell.x,
+				navY: navShell.y,
+				navW: navShell.width,
+				navH: navShell.height,
+				brandX: brand.x,
+				brandY: brand.y,
+				toggleX: toggleBtn.x,
+				toggleY: toggleBtn.y,
+				mainX: mainRect.x,
+				mainY: mainRect.y,
+				mainW: mainRect.width
+			};
+		};
+
+		const beforeOpen = captureGeometry();
+		await page.getByRole('button', { name: 'Open navigation', exact: true }).click();
+		await settle();
+		const afterOpen = captureGeometry();
+		expect(afterOpen).toEqual(beforeOpen);
+
+		const firstItem = document.querySelector<HTMLElement>('.mobile-nav-item')!;
+		const actions = document.querySelector<HTMLElement>('.mobile-nav-actions')!;
+		const itemWidthBefore = firstItem.getBoundingClientRect().width;
+		const actionsWidthBefore = actions.getBoundingClientRect().width;
+
+		document.querySelector<HTMLButtonElement>('.mobile-nav-trigger')!.click();
+		await settle();
+
+		expect(firstItem.getBoundingClientRect().width).toBe(itemWidthBefore);
+		expect(actions.getBoundingClientRect().width).toBe(actionsWidthBefore);
+	});
 });

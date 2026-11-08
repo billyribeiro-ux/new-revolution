@@ -40,7 +40,7 @@ export async function collectRootTheme(clientDir) {
 			}
 			if (url.startsWith('data:') || url.startsWith('#')) return match;
 			const path = posix.normalize(posix.join(posix.dirname(file), url));
-			if (!path.startsWith('_app/immutable/')) {
+			if (!path.startsWith('_app/immutable/') && !path.startsWith('fonts/')) {
 				throw new Error(`Maintenance stylesheet references an unexpected asset: ${url}`);
 			}
 			assets.push(path);

@@ -14,15 +14,15 @@ export function normalizeBrandFont(value: unknown): string | null {
 		.replace(/^(['"])(.*)\1$/, '$2')
 		.toLowerCase();
 	if (
-		first === 'montserrat' ||
-		first === 'montserrat variable' ||
+		first === 'plus jakarta sans' ||
+		first === 'plus jakarta sans variable' ||
 		first === 'geist mono' ||
 		first === 'geist mono variable'
 	)
 		return BRAND_FONT_DISPLAY;
 	if (
-		first === 'sofia sans' ||
-		first === 'sofia sans variable' ||
+		first === 'inter' ||
+		first === 'inter variable' ||
 		first === 'geist' ||
 		first === 'geist sans' ||
 		first === 'geist variable'

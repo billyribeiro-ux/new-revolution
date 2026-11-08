@@ -134,10 +134,10 @@
 		border-radius: 999px;
 		background: var(--acid);
 		color: var(--ink);
-		font-family: var(--font-mono);
-		font-size: 0.66rem;
+		font-family: var(--font-display);
+		font-size: var(--text-eyebrow);
 		font-weight: 800;
-		letter-spacing: 0.08em;
+		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
 	}
 
@@ -156,10 +156,10 @@
 
 	.sunday-alpha-protocol-page .hero-title {
 		font-family: var(--font-display);
-		font-weight: 900;
-		font-size: clamp(2.6rem, 5.2vw, 4.75rem);
-		line-height: 0.96;
-		letter-spacing: -0.03em;
+		font-weight: 700;
+		font-size: var(--step-hero);
+		line-height: calc(1em + 0.35rem);
+		letter-spacing: -0.032em;
 		margin: 0 0 1.35rem;
 		text-transform: uppercase;
 		overflow-wrap: anywhere;
@@ -582,10 +582,10 @@
 		max-inline-size: 100%;
 		overflow-wrap: anywhere;
 		gap: 0.5rem;
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.16em;
+		font-family: var(--font-display);
+		font-size: var(--text-eyebrow);
+		font-weight: 800;
+		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
 		color: var(--acid);
 		margin-bottom: 0.85rem;

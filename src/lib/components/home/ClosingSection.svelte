@@ -86,7 +86,7 @@
 		font-size: clamp(2.1rem, 4.5vw, 3.6rem);
 		line-height: 1.04;
 		margin-block: 23px 27px;
-		max-inline-size: 19.1848em; /* 28ch of Montserrat 800 */
+		max-inline-size: 19.1848em; /* 28ch of Plus Jakarta Sans 700 */
 	}
 
 	.closing-underline {
@@ -98,7 +98,7 @@
 	.closing p {
 		font-size: 1.0625rem;
 		line-height: 1.75;
-		max-inline-size: min(40.6em, 680px); /* 70ch of Sofia Sans 400 */
+		max-inline-size: min(40.6em, 680px); /* 70ch of Inter 400 */
 	}
 
 	.closing-actions {

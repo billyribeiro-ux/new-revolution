@@ -197,7 +197,7 @@ describe('TipTap 3 Custom Extensions Suite', () => {
 		const editor = createHeadlessEditor('<p>Styled trading commentary</p>');
 		editor.commands.selectAll();
 		editor.commands.setFontSize('20px');
-		editor.commands.setFontFamily("'Montserrat Variable', system-ui, -apple-system, sans-serif");
+		editor.commands.setFontFamily("'Plus Jakarta Sans', system-ui, -apple-system, sans-serif");
 		editor.commands.setBlockStyle({
 			backgroundColor: '#151a20',
 			borderColor: '#dcff65',

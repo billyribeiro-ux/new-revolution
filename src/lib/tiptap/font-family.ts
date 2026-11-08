@@ -10,8 +10,8 @@ import { BRAND_FONT_BODY, BRAND_FONT_DISPLAY, normalizeBrandFont } from '../shar
 
 /** Both families are bundled once by app.css and served statically from our origin. */
 export const EDITOR_FONT_FAMILIES: readonly EditorFontOption[] = [
-	{ label: 'Geist Sans (Body)', value: BRAND_FONT_BODY },
-	{ label: 'Geist Mono (Display)', value: BRAND_FONT_DISPLAY }
+	{ label: 'Inter (Body)', value: BRAND_FONT_BODY },
+	{ label: 'Plus Jakarta Sans (Display)', value: BRAND_FONT_DISPLAY }
 ] as const;
 
 declare module '@tiptap/core' {

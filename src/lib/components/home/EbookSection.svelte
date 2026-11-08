@@ -171,7 +171,7 @@
 	.ebook-lead {
 		font-size: 1rem;
 		line-height: 1.75;
-		max-inline-size: min(40.6em, 680px); /* 70ch of Sofia Sans 400 */
+		max-inline-size: min(40.6em, 680px); /* 70ch of Inter 400 */
 	}
 
 	.ebook-name {
@@ -183,7 +183,7 @@
 		font-size: clamp(1.15rem, 1.8vw, 1.5rem);
 		line-height: 1.3;
 		letter-spacing: -0.015em;
-		max-inline-size: 23.2959em; /* 34ch of Montserrat 800 */
+		max-inline-size: 23.2959em; /* 34ch of Plus Jakarta Sans 700 */
 	}
 
 	.ebook-takeaways {
@@ -200,7 +200,7 @@
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Sofia Sans 400 */
+		max-inline-size: 34.8em; /* 60ch of Inter 400 */
 		padding-block: 10px;
 		border-block-start: 1px solid rgba(10, 30, 10, 0.21);
 	}

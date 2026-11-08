@@ -85,7 +85,7 @@
 		font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
 		line-height: 1.45;
 		letter-spacing: -0.01em;
-		max-inline-size: min(44.1171em, 820px); /* 65ch of Montserrat 700 */
+		max-inline-size: min(44.1171em, 820px); /* 65ch of Plus Jakarta Sans 700 */
 		margin: 0;
 		color: var(--text);
 	}
@@ -112,7 +112,7 @@
 		font-size: 0.96875rem;
 		line-height: 1.8;
 		letter-spacing: 0.005em;
-		max-inline-size: min(39.44em, 780px); /* 68ch of Sofia Sans 400 */
+		max-inline-size: min(39.44em, 780px); /* 68ch of Inter 400 */
 	}
 
 	@media (min-width: 1024px) {

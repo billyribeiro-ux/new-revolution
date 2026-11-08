@@ -4,10 +4,10 @@ import { sanitizePostHtml } from '../sanitize-post-html';
 
 describe('two brand font roles', () => {
 	it.each([
-		["'Montserrat Variable', system-ui, sans-serif", BRAND_FONT_DISPLAY],
-		['Montserrat', BRAND_FONT_DISPLAY],
-		['"Sofia Sans", Arial, sans-serif', BRAND_FONT_BODY],
-		['Sofia Sans Variable', BRAND_FONT_BODY],
+		["'Plus Jakarta Sans Variable', system-ui, sans-serif", BRAND_FONT_DISPLAY],
+		['Plus Jakarta Sans', BRAND_FONT_DISPLAY],
+		['"Inter", Arial, sans-serif', BRAND_FONT_BODY],
+		['Inter Variable', BRAND_FONT_BODY],
 		[BRAND_FONT_DISPLAY, BRAND_FONT_DISPLAY],
 		[BRAND_FONT_BODY, BRAND_FONT_BODY]
 	])('normalizes supported legacy input %s', (input, expected) => {
@@ -18,9 +18,9 @@ describe('two brand font roles', () => {
 		'ui-monospace',
 		'system-ui',
 		'var(--external)',
-		'Montserrat; color:red',
+		'Helvetica; color:red',
 		'url(https://example.net/font)',
-		'Montserrat/*x*/',
+		'Helvetica/*x*/',
 		null
 	])('rejects unsupported input %s', (input) => {
 		expect(normalizeBrandFont(input)).toBeNull();

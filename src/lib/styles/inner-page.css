@@ -1,7 +1,7 @@
 /* ==========================================================================
    INNER-PAGE DESIGN SYSTEM (/about, /our-mission)
    Shares the home page's canonical tokens from app.css (acid/ink/off surfaces,
-   Montserrat × Sofia Sans, 1px hairlines, lift-on-hover cards, acid closing band).
+   Plus Jakarta Sans × Inter, 1px hairlines, lift-on-hover cards, acid closing band).
    Every selector is namespaced under .inner-page so nothing leaks into other routes.
    Global primitives reused as-is: .container .section .eyebrow .btn* .text-link
    .hero-lead .hero-slogan .seo-kicker .section-heading .skip
@@ -135,9 +135,9 @@
 		margin-block-end: 6px;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: clamp(0.75rem, 0.8vw, 0.8125rem);
+		font-size: var(--text-eyebrow);
 		line-height: 1.55;
-		letter-spacing: 0.1em;
+		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
 		color: var(--kicker-color);
 	}
@@ -446,9 +446,9 @@
 		padding: 4px 8px;
 		background: var(--acid);
 		color: var(--ink);
-		font-family: var(--font-display);
-		font-weight: 800;
-		font-size: 0.6875rem;
+		font-family: var(--font-mono);
+		font-weight: 500;
+		font-size: var(--step-xs);
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 	}
@@ -474,9 +474,9 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.75rem;
+		font-size: var(--text-eyebrow);
 		text-transform: uppercase;
-		letter-spacing: 0.09em;
+		letter-spacing: var(--tracking-eyebrow);
 		color: var(--acid2);
 		border-left: 3px solid var(--acid2);
 		padding-left: 10px;
@@ -487,9 +487,9 @@
 		display: block;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.75rem;
+		font-size: var(--text-eyebrow);
 		text-transform: uppercase;
-		letter-spacing: 0.09em;
+		letter-spacing: var(--tracking-eyebrow);
 		color: var(--acid);
 		border-left: 3px solid var(--acid2);
 		padding-left: 10px;
@@ -499,10 +499,10 @@
 	.inner-page .hero-h1__display {
 		display: block;
 		font-family: var(--font-display);
-		font-weight: 800;
-		font-size: clamp(2rem, 4.2vw, 3.35rem);
-		line-height: 1.07;
-		letter-spacing: -0.03em;
+		font-weight: 700;
+		font-size: var(--step-hero);
+		line-height: calc(1em + 0.35rem);
+		letter-spacing: -0.032em;
 		max-width: 22ch;
 		color: var(--text);
 	}
@@ -1449,9 +1449,9 @@
 		padding: 4px 8px;
 		background: var(--acid);
 		color: var(--ink);
-		font-family: var(--font-display);
-		font-weight: 800;
-		font-size: 0.6875rem;
+		font-family: var(--font-mono);
+		font-weight: 500;
+		font-size: var(--step-xs);
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 	}
@@ -7140,14 +7140,15 @@
 
 	.indexes-page .hero__title {
 		font-family: var(--font-display);
-		font-size: clamp(1.75rem, 8vw, 4.5rem);
-		font-weight: 800;
+		font-size: var(--step-hero);
+		font-weight: 700;
+		line-height: calc(1em + 0.35rem);
+		letter-spacing: -0.032em;
 		background: linear-gradient(135deg, #fff 0%, var(--acid) 50%, #fff 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
 		margin: 0 0 1.5rem;
-		line-height: 1.1;
 	}
 
 	.indexes-page .hero__subtitle {

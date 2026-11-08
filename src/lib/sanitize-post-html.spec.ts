@@ -170,7 +170,7 @@ describe('sanitizePostHtml (Section 7.1)', () => {
 		expect(sanitizePostHtml(html)).toBe('<p>Styled</p>');
 
 		const safeStyle =
-			'<p style="color: #dcff65; background-color: rgb(17, 21, 26); font-family: \'Montserrat Variable\', sans-serif; font-size: 1.125rem; text-align: center; position: absolute; float: left">Clean</p>';
+			'<p style="color: #dcff65; background-color: rgb(17, 21, 26); font-family: \'Plus Jakarta Sans\', sans-serif; font-size: 1.125rem; text-align: center; position: absolute; float: left">Clean</p>';
 		const clean = sanitizePostHtml(safeStyle);
 		expect(clean).toContain('color: #dcff65');
 		expect(clean).toContain('background-color: rgb(17, 21, 26)');

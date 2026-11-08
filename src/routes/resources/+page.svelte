@@ -425,7 +425,7 @@
 <style>
 	/* ===========================================================================
      PURE NATIVE SCOPED CSS — BLACK & WHITE EDITORIAL RESOURCES HUB
-     Typography: Montserrat (Headings/Badges/CTAs) + Sofia Sans (Body/Links)
+     Typography: Plus Jakarta Sans (Headings/Badges/CTAs) + Inter (Body/Links)
      =========================================================================== */
 	.resources-page {
 		background-color: var(--bg-soft);

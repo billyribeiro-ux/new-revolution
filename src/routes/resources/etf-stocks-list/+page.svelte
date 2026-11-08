@@ -705,18 +705,20 @@
 	.eyebrow-pill__badge {
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.6875rem;
+		font-size: 0.8125rem;
+		line-height: 1.2;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
 		background-color: var(--panel2);
 		color: #ffffff;
-		padding: 0.125rem 0.45rem;
+		padding: 0.25rem 0.55rem;
 	}
 
 	.eyebrow-pill__text {
-		font-family: var(--font-sans);
-		font-weight: 700;
-		font-size: 0.75rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.875rem;
+		line-height: 1.35;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 	}
@@ -731,7 +733,7 @@
 	.hero-h1__kicker {
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: 0.75rem;
+		font-size: var(--text-seo-kicker);
 		text-transform: uppercase;
 		letter-spacing: 0.09em;
 		color: #c4c8c7;

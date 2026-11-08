@@ -211,11 +211,11 @@
 
 	.brand-tagline {
 		display: block;
-		font-family: var(--font-sans);
-		font-weight: 600;
-		font-size: 0.52rem;
-		line-height: 1.1;
-		letter-spacing: 0.08em;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.625rem;
+		line-height: 1.15;
+		letter-spacing: 0.04em;
 		text-transform: uppercase;
 		inline-size: fit-content;
 		color: var(--acid);
@@ -373,9 +373,9 @@
 		}
 
 		.brand-tagline {
-			font-size: 0.65rem;
-			letter-spacing: 0.16em;
-			margin-block-start: 5px;
+			font-size: 0.72rem;
+			letter-spacing: 0.06em;
+			margin-block-start: 4px;
 		}
 
 		.footer-grid {
@@ -385,8 +385,8 @@
 
 	@media (min-width: 640px) {
 		.brand-logo-wrap {
-			inline-size: 42px;
-			block-size: 42px;
+			inline-size: 46px;
+			block-size: 46px;
 		}
 
 		.footer-bottom {

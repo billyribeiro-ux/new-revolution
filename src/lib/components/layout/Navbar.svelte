@@ -131,6 +131,9 @@
 		let previousCompact: boolean | undefined;
 
 		function naturalWidth(element: HTMLElement) {
+			if (element.offsetParent !== null) {
+				return element.scrollWidth;
+			}
 			// Hidden desktop groups retain their own fonts/gaps. Temporarily take them
 			// out of flow to measure max-content without a visible clone or an oscillating
 			// "hidden width is zero" decision. Restore every inline declaration immediately.

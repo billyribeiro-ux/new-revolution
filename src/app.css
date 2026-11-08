@@ -15,7 +15,7 @@
 	src: url('/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
 	font-weight: 600;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -23,7 +23,7 @@
 	src: url('/fonts/PlusJakartaSans-Bold.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -31,7 +31,7 @@
 	src: url('/fonts/PlusJakartaSans-ExtraBold.woff2') format('woff2');
 	font-weight: 800;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -39,7 +39,7 @@
 	src: url('/fonts/Inter-Regular.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -47,7 +47,7 @@
 	src: url('/fonts/Inter-Medium.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -55,7 +55,7 @@
 	src: url('/fonts/Inter-SemiBold.woff2') format('woff2');
 	font-weight: 600;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 @font-face {
@@ -63,14 +63,14 @@
 	src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
-	font-display: swap;
+	font-display: optional;
 }
 
 /* Zero-CLS Metric-Adjusted System Fallbacks */
 @font-face {
 	font-family: 'Plus Jakarta Sans Fallback';
 	src: local('BlinkMacSystemFont'), local('Segoe UI'), local('Helvetica Neue'), local('Arial');
-	size-adjust: 105.5%;
+	size-adjust: 102%;
 	ascent-override: 96%;
 	descent-override: 24%;
 	line-gap-override: 0%;
@@ -79,7 +79,7 @@
 @font-face {
 	font-family: 'Inter Fallback';
 	src: local('BlinkMacSystemFont'), local('Segoe UI'), local('Helvetica Neue'), local('Arial');
-	size-adjust: 107.2%;
+	size-adjust: 104.5%;
 	ascent-override: 90%;
 	descent-override: 22.4%;
 	line-gap-override: 0%;
@@ -411,7 +411,7 @@
 		line-height: var(--leading-eyebrow);
 		letter-spacing: var(--tracking-eyebrow);
 		text-transform: uppercase;
-		max-inline-size: 44.5362em;
+		max-inline-size: 100%;
 		color: var(--acid);
 	}
 

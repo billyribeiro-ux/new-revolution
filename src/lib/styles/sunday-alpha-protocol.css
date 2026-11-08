@@ -108,7 +108,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
 		gap: clamp(2rem, 4vw, 3.75rem);
-		align-items: center;
+		align-items: start;
 	}
 
 	@media (max-width: 1080px) {
@@ -127,6 +127,12 @@
 		background: var(--panel);
 		border: 1px solid var(--sap-border-gold);
 		margin-bottom: 1.5rem;
+	}
+
+	@media (min-width: 900px) {
+		.sunday-alpha-protocol-page .eyebrow-pill {
+			flex-wrap: nowrap;
+		}
 	}
 
 	.sunday-alpha-protocol-page .eyebrow-tag {

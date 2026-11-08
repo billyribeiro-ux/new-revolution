@@ -541,6 +541,12 @@
 		margin-bottom: 1.25rem;
 	}
 
+	@media (min-width: 900px) {
+		.eyebrow-pill {
+			flex-wrap: nowrap;
+		}
+	}
+
 	.eyebrow-pill__badge {
 		font-family: var(--font-display);
 		font-weight: 800;
@@ -566,7 +572,7 @@
 		font-size: clamp(2rem, 4.1vw, 3.15rem);
 		line-height: 1.08;
 		letter-spacing: -0.03em;
-		max-width: 22ch;
+		max-width: 48.75rem;
 		margin: 0;
 		color: var(--text);
 	}
@@ -576,7 +582,7 @@
 		font-weight: 500;
 		font-size: clamp(1.0625rem, 1.25vw, 1.2rem);
 		line-height: 1.65;
-		max-width: 66ch;
+		max-width: 48rem;
 		margin: 1.25rem 0 0;
 		color: var(--text);
 	}
@@ -585,7 +591,7 @@
 		font-family: var(--font-sans);
 		font-size: 1rem;
 		line-height: 1.65;
-		max-width: 66ch;
+		max-width: 48rem;
 		margin: 1rem 0 0;
 		color: var(--text);
 	}

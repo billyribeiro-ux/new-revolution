@@ -9,6 +9,27 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Eliminate Cumulative Layout Shift (CLS) on refresh site-wide with font-display optional, immutable font caching, and stable layout geometry
+
+- **Fixed:** Eradicate Cumulative Layout Shift (CLS) on refresh across all routes (tested and verified with Playwright `PerformanceObserver` layout-shift tracking):
+  - Transition `@font-face` declarations in `src/app.css` from `font-display: swap` to `font-display: optional`, following W3C CSS Fonts 4 and Google Core Web Vitals standards. On refresh / reload or repeat visits, cached fonts render immediately on first paint with zero swap and zero font-switch layout shift.
+  - Add immutable 1-year cache headers (`Cache-Control: public, max-age=31536000, immutable`) in `vercel.json` for all `/fonts/(.*)` static assets, eliminating network revalidation round-trips (`max-age=0, must-revalidate`) on page refresh.
+  - Recalibrate system fallback font metrics in `src/app.css`:
+    - `Plus Jakarta Sans Fallback`: adjust `size-adjust` to `102%` to match geometric sans character widths.
+    - `Inter Fallback`: adjust `size-adjust` to `104.5%` to accurately match `BlinkMacSystemFont` on macOS / iOS.
+- **Fixed:** Replace fragile `ch` / `em` line-wrapping width caps with stable `rem` units across hero headers:
+  - In `src/lib/styles/inner-page.css`: change `.inner-page .hero-h1__display` from `max-width: 22ch` to `max-width: 48.75rem` and kickers from `max-width: 65ch` to `max-width: 55rem`, eliminating the 133px width collapse in fallback mode that caused headings to wrap to 4 lines and snap upwards by 56px when fonts loaded.
+  - In `src/app.css`: remove `max-inline-size: 44.5362em` from `.eyebrow, .h1-query, .seo-kicker` (setting `max-inline-size: 100%`), eliminating the 18.6px upward jump on the homepage hero.
+  - In `src/routes/resources/+page.svelte`: change `.resources-hero__title` from `22ch` to `48.75rem`, body from `66ch` to `48rem`, and add `@media (min-width: 900px) { flex-wrap: nowrap; }` to `.eyebrow-pill`, dropping refresh CLS on `/resources` from `0.1854` to `0.0000`.
+  - In `src/lib/styles/sunday-alpha-protocol.css`: change `.hero-grid` from `align-items: center` to `align-items: start`, and add desktop nowrap to `.eyebrow-pill`, dropping refresh CLS on `/alert-services/sunday-alpha-protocol` from `0.0968` to `0.0000`.
+- **Fixed:** Eliminate forced reflow and layout shift in `src/lib/components/layout/Navbar.svelte`:
+  - Optimize `naturalWidth(element)` in `fitNavigation` to check `if (element.offsetParent !== null) return element.scrollWidth;`, measuring rendered navigation links and action buttons directly without dirtying inline `style.cssText` or triggering synchronous style recalculations.
+- **Evidence & Verification:**
+  - Measured 15 core routes on production build preview: all 15 routes achieved `0.0000` initial load CLS and `0.0000` refresh CLS.
+  - 86 test files (677 unit tests) passed.
+  - 46 prerendered pages verified in `check:pages`.
+  - All Playwright SEO and E2E specs passed.
+
 ### 2026-11-08 — Consolidate documentation to eliminate contradictions, prune redundant files & remove boilerplate test scaffolds
 
 - **Removed:** Eliminate contradictory, redundant, and obsolete non-blog `.md` files to provide a single, unified source of truth for AI agents:

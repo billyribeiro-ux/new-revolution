@@ -504,7 +504,7 @@
 		color: var(--acid2);
 		border-left: 3px solid var(--acid2);
 		padding-left: 10px;
-		max-width: 65ch;
+		max-width: 55rem;
 	}
 
 	.inner-page .hero-h1__seo-kicker {
@@ -517,7 +517,7 @@
 		color: var(--acid);
 		border-left: 3px solid var(--acid2);
 		padding-left: 10px;
-		max-width: 65ch;
+		max-width: 55rem;
 	}
 
 	.inner-page .hero-h1__display {
@@ -527,7 +527,7 @@
 		font-size: var(--step-hero);
 		line-height: var(--leading-display-h1);
 		letter-spacing: var(--tracking-display-h1);
-		max-width: 22ch;
+		max-width: 48.75rem;
 		color: var(--text);
 	}
 
@@ -3618,7 +3618,7 @@
 		color: var(--acid2);
 		border-left: 3px solid var(--acid2);
 		padding-left: 12px;
-		max-width: 65ch;
+		max-width: 55rem;
 	}
 
 	/* Right Column Engineering Card */
@@ -6038,7 +6038,7 @@
 		color: var(--acid);
 		border-left: 3px solid var(--acid2);
 		padding-left: 10px;
-		max-width: 65ch;
+		max-width: 55rem;
 	}
 
 	/* Right Column Live Radar Terminal */

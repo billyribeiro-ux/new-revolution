@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '#lib/styles/inner-page.css';
 	import '#lib/styles/prose.css';
 	import { resolve } from '$app/paths';
 	import Navbar from '#lib/components/layout/Navbar.svelte';

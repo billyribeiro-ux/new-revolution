@@ -39,8 +39,14 @@ export function isLaunchedHref(href: string): boolean {
 	return !isUnlaunchedRoute(href.split(/[?#]/, 1)[0] ?? href);
 }
 
-/** Menu visibility is separate from indexing: Blog is discoverable during private review. */
+/** Menu visibility is separate from indexing: Blog and Store are discoverable in navigation. */
 export function isNavigationHrefVisible(href: string): boolean {
 	const pathname = href.split(/[?#]/, 1)[0] ?? href;
-	return pathname === '/blog' || pathname.startsWith('/blog/') || isLaunchedHref(href);
+	return (
+		pathname === '/blog' ||
+		pathname.startsWith('/blog/') ||
+		pathname === '/store' ||
+		pathname.startsWith('/store/') ||
+		isLaunchedHref(href)
+	);
 }

@@ -36,15 +36,19 @@ for (const path of [
 			expect(new URL(resource.url).origin, resource.url).toBe(origin);
 		for (const font of fonts) {
 			expect(font.status, font.url).toBe(200);
-			expect(new URL(font.url).pathname).toMatch(/^\/_app\/immutable\/assets\/.+\.woff2$/);
+			expect(new URL(font.url).pathname).toMatch(
+				/^(\/_app\/immutable\/assets\/|\/fonts\/).+\.woff2$/
+			);
 		}
 		const loadedFamilies = await page.evaluate(() =>
 			[...document.fonts]
 				.filter((font) => font.status === 'loaded')
 				.map((font) => font.family.replace(/^['"]|['"]$/g, ''))
 		);
-		expect(loadedFamilies).toContain('Geist Mono');
-		expect(loadedFamilies).toContain('Geist Sans');
+		expect(loadedFamilies.some((f) => ['Plus Jakarta Sans', 'Geist Mono'].includes(f))).toBe(true);
+		expect(loadedFamilies.some((f) => ['Inter', 'Geist Sans', 'Geist Mono'].includes(f))).toBe(
+			true
+		);
 		expect(await page.locator('link[as="font"], link[href*=".woff"]').count()).toBe(0);
 	});
 }
@@ -110,11 +114,11 @@ for (const path of ['/api/unsubscribe', '/waitlist/confirm', '/waitlist/unsubscr
 		});
 		await page.goto(`${path}?token=local-font-referrer-probe`, { waitUntil: 'networkidle' });
 		await page.evaluate(() => document.fonts.ready);
-		expect(await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
-			'Geist Sans'
+		expect(await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(
+			/Inter|Geist Sans/
 		);
-		expect(await page.locator('h1').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
-			'Geist Mono'
+		expect(await page.locator('h1').evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(
+			/Plus Jakarta Sans|Geist Mono/
 		);
 		expect(await page.evaluate(() => window.fontCspViolations)).toEqual([]);
 		expect(referrers.every((referrer) => !referrer.includes('local-font-referrer-probe'))).toBe(

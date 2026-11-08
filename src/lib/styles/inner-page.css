@@ -570,6 +570,12 @@
 		margin-block-start: 8px;
 	}
 
+	.inner-page .btn {
+		max-inline-size: 100%;
+		white-space: normal;
+		text-align: center;
+	}
+
 	/* ---------- Dossier panel (home .proof-panel language) ---------- */
 	.inner-page .credentials-card,
 	.inner-page .charter-box {

@@ -188,15 +188,22 @@ describe('buildHomepageJsonLd', () => {
 		assertGraphIntegrity(graph, { isHomepage: true });
 	});
 
-	it('includes visible Blog navigation while excluding gated store products and blog article lists', () => {
-		const urls = JSON.stringify(graph);
-		expect(urls).not.toContain(`${ORIGIN}/store`);
+	it('includes visible Blog and Store navigation while excluding gated store products from offer catalog and blog article lists', () => {
+		const catalog = graph.find((n) => n['@id'] === `${ORIGIN}/#offer-catalog`) as Node;
+		expect(JSON.stringify(catalog)).not.toContain(`${ORIGIN}/store`);
 		const navigation = graph.find((n) => n['@id'] === `${ORIGIN}/#navigation`) as Node;
 		expect(navigation.itemListElement).toContainEqual(
 			expect.objectContaining({
 				'@type': 'SiteNavigationElement',
 				name: 'Blog',
 				url: `${ORIGIN}/blog`
+			})
+		);
+		expect(navigation.itemListElement).toContainEqual(
+			expect.objectContaining({
+				'@type': 'SiteNavigationElement',
+				name: 'Courses',
+				url: `${ORIGIN}/store/courses`
 			})
 		);
 		expect(graph.some((n) => n['@id'] === `${ORIGIN}/#latest-blogs`)).toBe(false);

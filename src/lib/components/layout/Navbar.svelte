@@ -1181,29 +1181,29 @@
 		}
 
 		.brand-logo-wrap {
-			inline-size: 38px;
-			block-size: 38px;
+			inline-size: 34px;
+			block-size: 34px;
 		}
 
 		.brand-name {
-			font-size: 0.75rem;
+			font-size: 0.72rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.4rem;
+			font-size: 0.38rem;
 			letter-spacing: 0.02em;
 			margin-block-start: 2px;
 		}
 
 		.nav-links {
 			display: flex;
-			gap: 0.0625rem;
+			gap: 0.08rem;
 		}
 
 		.nav-link,
 		.nav-dropdown-trigger {
-			font-size: 0.625rem;
-			letter-spacing: -0.025em;
+			font-size: 0.71875rem;
+			letter-spacing: -0.02em;
 			padding: 0.35rem 0.0625rem;
 			gap: 0.075rem;
 		}
@@ -1219,13 +1219,13 @@
 			min-inline-size: 0;
 			inline-size: auto;
 			padding: 6px 6px;
-			font-size: 0.59375rem;
+			font-size: 0.625rem;
 			letter-spacing: -0.01em;
 			gap: 0.2rem;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 10.5rem;
+			inline-size: 9.75rem;
 			justify-content: center;
 			white-space: nowrap;
 		}
@@ -1247,11 +1247,77 @@
 		}
 
 		.nav {
-			gap: 0.5rem;
+			gap: 0.45rem;
 		}
 
 		.brand {
-			gap: 0.625rem;
+			gap: 0.5rem;
+		}
+
+		.brand-logo-wrap {
+			inline-size: 38px;
+			block-size: 38px;
+		}
+
+		.brand-name {
+			font-size: 0.9rem;
+		}
+
+		.brand-tagline {
+			font-size: 0.48rem;
+			letter-spacing: 0.08em;
+			margin-block-start: 3px;
+		}
+
+		.nav-links {
+			gap: 0.25rem;
+		}
+
+		.nav-link,
+		.nav-dropdown-trigger {
+			font-size: 0.8125rem;
+			letter-spacing: 0;
+			padding: 0.45rem 0.12rem;
+			gap: 0.12rem;
+		}
+
+		.nav-actions {
+			gap: 0.3rem;
+			margin-inline-start: 0;
+		}
+
+		.announcement-links a:first-child {
+			inline-size: 11rem;
+			padding: 8px 12px;
+			font-size: 0.6875rem;
+			letter-spacing: 0.02em;
+			gap: 0.3rem;
+			white-space: nowrap;
+		}
+
+		.nav-actions .btn {
+			min-block-size: 38px;
+			padding: 7px 10px;
+			font-size: 0.6875rem;
+			letter-spacing: 0.02em;
+			gap: 0.3rem;
+			white-space: nowrap;
+		}
+
+		.nav-actions .btn-primary {
+			inline-size: 11rem;
+			justify-content: center;
+			white-space: nowrap;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.nav {
+			gap: 0.6rem;
+		}
+
+		.brand {
+			gap: 0.55rem;
 		}
 
 		.brand-logo-wrap {
@@ -1260,111 +1326,102 @@
 		}
 
 		.brand-name {
-			font-size: 1.05rem;
+			font-size: 1rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.55rem;
+			font-size: 0.52rem;
 			letter-spacing: 0.1em;
-			margin-block-start: 4px;
+			margin-block-start: 3px;
 		}
 
 		.nav-links {
-			gap: 0.35rem;
+			gap: 0.4rem;
 		}
 
 		.nav-link,
 		.nav-dropdown-trigger {
-			font-size: 0.78125rem;
-			letter-spacing: 0;
-			padding: 0.45rem 0.15rem;
-			gap: 0.15rem;
+			font-size: 0.875rem;
+			padding: 0.45rem 0.18rem;
+			gap: 0.18rem;
 		}
 
 		.nav-actions {
-			gap: 0.35rem;
+			gap: 0.4rem;
+		}
+
+		.nav-actions .btn {
+			min-block-size: 40px;
+			padding: 8px 12px;
+			font-size: 0.71875rem;
+			letter-spacing: 0.02em;
+		}
+
+		.nav-actions .btn-primary {
+			inline-size: 12rem;
+		}
+	}
+
+	@media (min-width: 1536px) {
+		.nav {
+			gap: 0.65rem;
+		}
+
+		.brand {
+			gap: 0.55rem;
+		}
+
+		.brand-logo-wrap {
+			inline-size: 42px;
+			block-size: 42px;
+		}
+
+		.brand-name {
+			font-size: 1.02rem;
+		}
+
+		.brand-tagline {
+			font-size: 0.52rem;
+			letter-spacing: 0.1em;
+			margin-block-start: 3px;
+		}
+
+		.nav-links {
+			gap: 0.45rem;
+		}
+
+		.nav-link,
+		.nav-dropdown-trigger {
+			font-size: 0.9375rem;
+			padding: 0.45rem 0.2rem;
+			gap: 0.2rem;
+		}
+
+		.nav-actions {
+			gap: 0.45rem;
 			margin-inline-start: 0;
 		}
 
 		.announcement-links a:first-child {
-			inline-size: 13.25rem;
+			inline-size: 12.5rem;
 			padding: 8px 12px;
-			font-size: 0.6875rem;
+			font-size: 0.71875rem;
 			letter-spacing: 0.02em;
-			gap: 0.3rem;
+			gap: 0.35rem;
 			white-space: nowrap;
 		}
 
 		.nav-actions .btn {
 			min-block-size: 40px;
 			padding: 8px 12px;
-			font-size: 0.6875rem;
+			font-size: 0.75rem;
 			letter-spacing: 0.02em;
-			gap: 0.3rem;
+			gap: 0.35rem;
 			white-space: nowrap;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 13.25rem;
-			justify-content: center;
-			white-space: nowrap;
-		}
-	}
-
-	@media (min-width: 1536px) {
-		.nav {
-			gap: 0.875rem;
-		}
-
-		.brand {
-			gap: 0.6875rem;
-		}
-
-		.brand-name {
-			font-size: 1.15rem;
-		}
-
-		.brand-tagline {
-			font-size: 0.58rem;
-			letter-spacing: 0.12em;
-			margin-block-start: 4px;
-		}
-
-		.nav-links {
-			gap: 0.65rem;
-		}
-
-		.nav-link,
-		.nav-dropdown-trigger {
-			font-size: 0.84375rem;
-			padding: 0.5rem 0.2rem;
-			gap: 0.25rem;
-		}
-
-		.nav-actions {
-			gap: 0.5rem;
-			margin-inline-start: 0;
-		}
-
-		.announcement-links a:first-child {
-			inline-size: 14.5rem;
-			padding: 9px 14px;
-			font-size: 0.75rem;
-			letter-spacing: 0.03em;
-			gap: 0.4rem;
-			white-space: nowrap;
-		}
-
-		.nav-actions .btn {
-			padding: 9px 14px;
-			font-size: 0.75rem;
-			letter-spacing: 0.03em;
-			gap: 0.4rem;
-			white-space: nowrap;
-		}
-
-		.nav-actions .btn-primary {
-			inline-size: 14.5rem;
+			inline-size: 12rem;
 			justify-content: center;
 			white-space: nowrap;
 		}

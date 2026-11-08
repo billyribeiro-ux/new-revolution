@@ -21,18 +21,19 @@ import {
 import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
 
 describe('homepage data and navigation taxonomy', () => {
-	it('shows Blog in navigation while Store remains hidden', () => {
+	it('shows Blog and Store in navigation while unlaunched routes remain gated from indexing', () => {
 		expect(MAIN_NAVIGATION.map((item) => item.label)).toEqual([
 			'Live Trading Rooms',
 			'Alert Services',
 			'Mentorship',
+			'Store',
 			'Our Mission',
 			'About',
 			'Blog',
 			'Resources'
 		]);
 
-		const [liveTradingRooms, alertServices, mentorship, ourMission, about, blog, resources] =
+		const [liveTradingRooms, alertServices, mentorship, store, ourMission, about, blog, resources] =
 			MAIN_NAVIGATION;
 
 		expect(liveTradingRooms.children?.map((c) => c.label)).toEqual([
@@ -46,6 +47,7 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 		expect(mentorship.children).toBeUndefined();
 		expect(mentorship.href).toBe('/mentorship');
+		expect(store.children?.map((c) => c.label)).toEqual(['Courses', 'Indicators', 'Scanners']);
 		expect(ourMission.children).toBeUndefined();
 		expect(ourMission.href).toBe('/our-mission');
 		expect(about.children).toBeUndefined();
@@ -53,6 +55,7 @@ describe('homepage data and navigation taxonomy', () => {
 		expect(blog.href).toBe('/blog');
 		expect(isLaunchedHref('/blog')).toBe(true);
 		expect(isNavigationHrefVisible('/blog?search=options#posts')).toBe(true);
+		expect(isNavigationHrefVisible('/store/courses')).toBe(true);
 
 		expect(resources.children?.map((c) => c.label)).toEqual([
 			'Options Calculator',
@@ -64,7 +67,11 @@ describe('homepage data and navigation taxonomy', () => {
 			...(item.href ? [item.href] : []),
 			...(item.children?.map((c) => c.href) ?? [])
 		]);
-		expect(allHrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
+		expect(allHrefs.filter((href) => href.startsWith('/store'))).toEqual([
+			'/store/courses',
+			'/store/indicators',
+			'/store/scanners'
+		]);
 	});
 
 	it('provides complete structured data for all 11 homepage sections and footer', () => {
@@ -97,19 +104,27 @@ describe('homepage data and navigation taxonomy', () => {
 		]);
 	});
 
-	it('shows Blog in the footer while Store and the unwritten eBook remain hidden', () => {
+	it('shows Blog and Store in the footer while the unwritten eBook remains hidden', () => {
 		const hrefs = FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.href));
-		expect(hrefs.filter((href) => href.startsWith('/store'))).toEqual([]);
+		expect(hrefs.filter((href) => href.startsWith('/store'))).toEqual([
+			'/store/courses',
+			'/store/indicators',
+			'/store/scanners'
+		]);
 		expect(hrefs.filter((href) => href === '/blog')).toEqual(['/blog']);
 		expect(FREE_EBOOK_AVAILABLE).toBe(false);
 		expect(FOOTER_COLUMNS.flatMap((col) => col.links.map((l) => l.label))).not.toContain(
 			'Free Trading eBook'
 		);
 
-		// "Our Mission" is all that is left in the former Store column, so it must not still say "STORE & TOOLS".
 		const storeColumn = FOOTER_COLUMNS.find((col) => col.id === 'footer-store');
-		expect(storeColumn?.title).toBe('COMPANY');
-		expect(storeColumn?.links.map((l) => l.href)).toEqual(['/our-mission']);
+		expect(storeColumn?.title).toBe('STORE & TOOLS');
+		expect(storeColumn?.links.map((l) => l.href)).toEqual([
+			'/store/courses',
+			'/store/indicators',
+			'/store/scanners',
+			'/our-mission'
+		]);
 	});
 
 	it('ships no placeholder or authoring-prompt copy in the proof panel or trust bar', () => {

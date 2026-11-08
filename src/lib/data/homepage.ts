@@ -1,4 +1,4 @@
-import { FREE_EBOOK_AVAILABLE, isLaunchedHref, isNavigationHrefVisible } from './launch-gate.ts';
+import { FREE_EBOOK_AVAILABLE, isNavigationHrefVisible } from './launch-gate.ts';
 
 export type NavIconKey =
 	| 'broadcast'
@@ -817,9 +817,11 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 	},
 	{
 		id: 'footer-store',
-		// With the store gated only "Our Mission" is left, so the column is renamed rather than left mislabelled.
-		title: isLaunchedHref('/store') ? 'STORE & TOOLS' : 'COMPANY',
-		ariaLabel: isLaunchedHref('/store') ? 'Store, courses, indicators, and scanners' : 'Company',
+		// When store is visible in navigation, title is STORE & TOOLS; otherwise COMPANY.
+		title: isNavigationHrefVisible('/store') ? 'STORE & TOOLS' : 'COMPANY',
+		ariaLabel: isNavigationHrefVisible('/store')
+			? 'Store, courses, indicators, and scanners'
+			: 'Company',
 		links: [
 			{
 				label: 'Courses',

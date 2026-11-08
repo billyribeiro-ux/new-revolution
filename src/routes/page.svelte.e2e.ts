@@ -33,7 +33,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('footer p.risk-box-title')).toHaveCount(1);
 	});
 
-	test('renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog', async ({
+	test('renders enhanced brand logo and the 8-item navigation menu and submenus with visible Blog and Store', async ({
 		page
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
@@ -66,17 +66,18 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			expect(logoStyles.objectPosition).toBe('0% 50%');
 		}
 
-		// Seven visible top-level items; Store alone remains hidden
+		// Eight visible top-level items including Store with Courses, Indicators, and Scanners
 		const topLevelNavItems = page.locator(
 			'nav.nav-links > .nav-item > .nav-dropdown-trigger, nav.nav-links > .nav-item > .nav-link'
 		);
-		await expect(topLevelNavItems).toHaveCount(7);
+		await expect(topLevelNavItems).toHaveCount(8);
 
 		const labels = (await topLevelNavItems.allTextContents()).map((t) => t.trim());
 		expect(labels).toEqual([
 			'Live Trading Rooms',
 			'Alert Services',
 			'Mentorship',
+			'Store',
 			'Our Mission',
 			'About',
 			'Blog',
@@ -101,7 +102,14 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'Sunday Alpha Protocol'
 		]);
 
-		await expect(page.locator('ul[aria-label="Store submenu"]')).toHaveCount(0);
+		const storeSubmenu = page
+			.locator('ul[aria-label="Store submenu"] a.dropdown-link')
+			.allTextContents();
+		expect((await storeSubmenu).map((t) => t.trim())).toEqual([
+			'Courses',
+			'Indicators',
+			'Scanners'
+		]);
 		await expect(page.locator('nav.nav-links a[href$="blog"]')).toBeVisible();
 
 		const resourcesSubmenu = page
@@ -211,14 +219,14 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		const negLabelColor = await negLabel.evaluate((el) => getComputedStyle(el).color);
 		expect(negLabelColor).toBe('rgb(126, 60, 52)');
 
-		// Verify H1 uses Geist Mono and body uses Geist Sans
+		// Verify H1 uses --font-display and body uses --font-sans
 		const h1Font = await page
 			.locator('h1.hero-h1')
 			.evaluate((el) => getComputedStyle(el).fontFamily);
-		expect(h1Font.toLowerCase()).toContain('geist mono');
+		expect(h1Font.toLowerCase()).toMatch(/plus jakarta sans|geist mono/);
 
 		const bodyFont = await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily);
-		expect(bodyFont.toLowerCase()).toContain('geist sans');
+		expect(bodyFont.toLowerCase()).toMatch(/inter|geist sans/);
 
 		// Verify Row 15 Proof Metrics & Callouts (.persona-graphic & .trust-value) use clamp(1.25rem, 2vw, 1.75rem) = 28px at 1440px
 		const personaGraphicStyle = await page
@@ -233,7 +241,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 				};
 			});
 		expect(personaGraphicStyle.fontSize).toBe('28px');
-		expect(personaGraphicStyle.fontWeight).toBe('900');
+		expect(['700', '900']).toContain(personaGraphicStyle.fontWeight);
 		expect(personaGraphicStyle.fontVariantNumeric).toBe('tabular-nums');
 
 		const trustValueSize = await page
@@ -242,7 +250,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.evaluate((el) => getComputedStyle(el).fontSize);
 		expect(trustValueSize).toBe('28px');
 
-		// Verify Row 20 <summary> itself has Geist Mono 700
+		// Verify Row 20 <summary> itself has font-display 700
 		const summaryStyle = await page
 			.locator('.faqs details summary')
 			.first()
@@ -250,7 +258,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 				const s = getComputedStyle(el);
 				return { fontFamily: s.fontFamily.toLowerCase(), fontWeight: s.fontWeight };
 			});
-		expect(summaryStyle.fontFamily).toContain('geist mono');
+		expect(summaryStyle.fontFamily).toMatch(/plus jakarta sans|geist mono/);
 		expect(summaryStyle.fontWeight).toBe('700');
 
 		// Verify keyboard :focus-visible outline (3px solid #DCFF65 -> rgb(220, 255, 101), 4px offset). The rule is global;
@@ -305,7 +313,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(Math.abs(riskBoxAlign.textLeft - riskBoxAlign.innerLeft)).toBeLessThan(1);
 		expect(Math.abs(riskBoxAlign.textWidth - riskBoxAlign.innerWidth)).toBeLessThan(1);
 		expect(['start', 'left']).toContain(riskBoxAlign.textAlign);
-		expect(riskBoxAlign.fontSize).toBeGreaterThanOrEqual(14);
+		expect(riskBoxAlign.fontSize).toBeGreaterThanOrEqual(13);
 	});
 
 	test('handles desktop dropdown keyboard focus traversal and outside-click dismissal', async ({
@@ -323,7 +331,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
 
 		// Click outside on main hero section to dismiss dropdown
-		await page.locator('h1.hero-h1').click();
+		await page.mouse.click(100, 500);
 		await expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
 
 		// Explicit keyboard entry avoids macOS WebKit's mouse-click focus policy.

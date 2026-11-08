@@ -67,6 +67,11 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 8px;
+	}
+
+	.breadcrumb-list li,
+	.breadcrumb-list a,
+	.breadcrumb-list span {
 		font-family: var(--font-mono);
 		font-weight: 600;
 		font-size: var(--text-breadcrumb);
@@ -74,6 +79,12 @@
 		letter-spacing: var(--tracking-breadcrumb);
 		line-height: 1.4;
 		color: var(--muted);
+		max-inline-size: none;
+	}
+
+	.breadcrumb-list li {
+		display: inline-flex;
+		align-items: center;
 	}
 
 	/* Decorative separator drawn in CSS so it is not a fake list item; the empty alt text hides it from AT. */

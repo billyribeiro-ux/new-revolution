@@ -9,6 +9,20 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Fix breadcrumb font size from the ground up across all routes with direct element selectors
+
+- **Fixed:** Resolve breadcrumbs rendering at 16px Inter regular body text instead of 11px Geist Mono compact navigation telemetry:
+  - Root Cause: In `src/app.css`, global `p, li` sets `font-family: var(--font-sans); font-size: var(--step-body) (16px); font-weight: 450;`. Because previous breadcrumb rules only targeted `.breadcrumb-list` on the parent `<ol>`, the browser applied the direct `li` tag styles, preventing `li` and `a` from inheriting the 11px monospace telemetry styles.
+  - In `src/app.css`: add a primary Breadcrumbs & Compact Navigation Telemetry block targeting `.breadcrumb-list li, .breadcrumb-list a, .breadcrumb-list span, .breadcrumb-nav ol li, .breadcrumb-nav ol a, .breadcrumb-nav ol span, .breadcrumb-bar__status, .breadcrumb-bar__mandate, .breadcrumb-bar__telemetry, .breadcrumb-bar__member` with `font-family: var(--font-mono); font-weight: 600; font-size: var(--text-breadcrumb) (11px); letter-spacing: var(--tracking-breadcrumb) (0.04em); line-height: 1.4; text-transform: uppercase; max-inline-size: none;`.
+  - In `src/lib/styles/inner-page.css`: update `.inner-page .breadcrumb-list` and `.inner-page .hero-inner .breadcrumb-nav ol` to directly target `li, a, span`, guaranteeing that `p, li` can never override breadcrumb typography on any inner page.
+  - In `src/lib/components/layout/Breadcrumb.svelte`: update `.breadcrumb-list` scoped styles to directly target `li, a, span`.
+- **Evidence & Verification:**
+  - Automated Playwright verification across `/about`, `/store/courses`, `/store/indicators`, `/live-trading-rooms/day-trading-room`, `/alert-services/spx-profit-pulse`, `/our-mission`, and `/blog` confirmed exact computed styles: `liFontSize: 11px`, `liFontFamily: Geist Mono`, `liFontWeight: 600`, `aFontSize: 11px` (down from 15.952px Inter 450).
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check`, and `pnpm lint` passed with 0 errors.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO and E2E suites passed.
+
 ### 2026-11-08 — Harmonize manifesto comparison section typography and card content width with site-wide standards
 
 - **Fixed:** Align "WHAT WE AIM TO DELIVER / THE REVOLUTION STANDARD" and "WHAT YOU LEAVE BEHIND / THE HYPE TRAP" typography on the homepage (`src/lib/components/home/ManifestoSection.svelte`):

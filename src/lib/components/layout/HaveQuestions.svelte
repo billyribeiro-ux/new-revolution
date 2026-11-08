@@ -97,16 +97,22 @@
 
 	.questions__title {
 		margin: 0 0 6px;
-		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-h2);
+		line-height: var(--leading-section-h2);
+		letter-spacing: var(--tracking-section-h2);
 		max-inline-size: none;
 	}
 
 	.questions__copy {
 		margin: 0;
 		color: var(--text-secondary);
+		font-family: var(--font-sans);
+		font-weight: 450;
 		font-size: 0.9375rem;
-		line-height: 1.7;
-		max-inline-size: 34.8em; /* 60ch of Inter 400 */
+		line-height: 1.65;
+		max-inline-size: min(60ch, 640px);
 	}
 
 	.questions__copy a {

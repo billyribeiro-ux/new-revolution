@@ -118,6 +118,10 @@
 	}
 
 	.mentor-frame p {
+		font-family: var(--font-sans);
+		font-weight: 450;
+		font-size: var(--step-body);
+		line-height: var(--leading-body);
 		color: #b1b9b8;
 	}
 
@@ -132,6 +136,11 @@
 	}
 
 	.mentor-steps h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-h3);
+		line-height: var(--leading-card-h3);
+		letter-spacing: var(--tracking-h3);
 		margin-block-end: 24px;
 	}
 
@@ -153,7 +162,7 @@
 
 	.mentor-step strong {
 		display: block;
-		font-family: var(--font-sans);
+		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 0.9375rem;
 		color: var(--text);
@@ -161,8 +170,10 @@
 	}
 
 	.mentor-step p {
+		font-family: var(--font-sans);
+		font-weight: 450;
 		font-size: 0.875rem;
-		line-height: 1.65;
+		line-height: 1.6;
 		margin: 0;
 	}
 

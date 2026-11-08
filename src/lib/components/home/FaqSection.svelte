@@ -82,10 +82,10 @@
 	.faqs summary .faq-question {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
-		line-height: 1.45;
-		letter-spacing: -0.01em;
-		max-inline-size: min(44.1171em, 820px); /* 65ch of Plus Jakarta Sans 700 */
+		font-size: var(--step-h3);
+		line-height: var(--leading-card-h3);
+		letter-spacing: var(--tracking-h3);
+		max-inline-size: min(44.1171em, 820px);
 		margin: 0;
 		color: var(--text);
 	}
@@ -108,11 +108,10 @@
 		margin: -4px 40px 25px 0;
 		color: var(--text-secondary);
 		font-family: var(--font-sans);
-		font-weight: 400;
-		font-size: 0.96875rem;
-		line-height: 1.8;
-		letter-spacing: 0.005em;
-		max-inline-size: min(39.44em, 780px); /* 68ch of Inter 400 */
+		font-weight: 450;
+		font-size: var(--step-body);
+		line-height: var(--leading-body);
+		max-inline-size: min(39.44em, 780px);
 	}
 
 	@media (min-width: 1024px) {

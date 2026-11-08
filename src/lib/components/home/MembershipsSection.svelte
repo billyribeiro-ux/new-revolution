@@ -117,10 +117,20 @@
 	}
 
 	.membership-index {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: #5b6551;
 	}
 
 	.member-tag {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		background: #e8ebdf;
 		color: #38422f;
 		padding: 6px 9px;
@@ -129,6 +139,11 @@
 
 	.membership.featured .member-tag {
 		background: var(--card-featured-badge);
+	}
+
+	.membership h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
 	}
 
 	.member-description {
@@ -149,11 +164,11 @@
 		grid-template-columns: 20px 1fr;
 		gap: 11px;
 		font-family: var(--font-sans);
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Inter 400 */
+		max-inline-size: 34.8em; /* 60ch of Inter 500 */
 		color: #46504e;
 	}
 

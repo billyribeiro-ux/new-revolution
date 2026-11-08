@@ -148,11 +148,11 @@
 		padding-block: 17px;
 		border-block-start: 1px solid rgba(30, 36, 42, 0.14);
 		font-family: var(--font-sans);
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Inter 400 */
+		max-inline-size: 34.8em; /* 60ch of Inter 500 */
 	}
 
 	.positive .comparison-list li {

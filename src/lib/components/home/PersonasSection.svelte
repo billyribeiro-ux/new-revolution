@@ -136,16 +136,39 @@
 	}
 
 	.persona-tag {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 		margin-block-end: 16px;
 	}
 
+	.audience-card h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-h3);
+		line-height: var(--leading-card-h3);
+		letter-spacing: var(--tracking-h3);
+		margin-block-end: 10px;
+	}
+
 	.audience-card p {
+		font-family: var(--font-sans);
+		font-weight: 450;
+		font-size: 0.9375rem;
+		line-height: 1.6;
 		color: #aeb5b8;
 		margin-block-end: 23px;
 	}
 
 	.audience-card .text-link {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.8125rem;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
 		margin-block-start: auto;
 		display: flex;
 		align-items: center;

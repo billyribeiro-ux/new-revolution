@@ -83,22 +83,27 @@
 	}
 
 	.closing h2 {
-		font-size: clamp(2.1rem, 4.5vw, 3.6rem);
-		line-height: 1.04;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-hero);
+		line-height: var(--leading-display-h1);
+		letter-spacing: var(--tracking-display-h1);
 		margin-block: 23px 27px;
-		max-inline-size: 19.1848em; /* 28ch of Plus Jakarta Sans 700 */
+		max-inline-size: min(28ch, 760px);
 	}
 
 	.closing-underline {
 		text-decoration: underline;
-		text-decoration-thickness: 5px;
-		text-underline-offset: 10px;
+		text-decoration-thickness: 4px;
+		text-underline-offset: 8px;
 	}
 
 	.closing p {
-		font-size: 1.0625rem;
-		line-height: 1.75;
-		max-inline-size: min(40.6em, 680px); /* 70ch of Inter 400 */
+		font-family: var(--font-sans);
+		font-weight: 450;
+		font-size: var(--step-lead);
+		line-height: var(--leading-lead);
+		max-inline-size: min(40.6em, 680px);
 	}
 
 	.closing-actions {

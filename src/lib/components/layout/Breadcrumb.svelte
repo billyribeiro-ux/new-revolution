@@ -43,7 +43,13 @@
 	.breadcrumb-bar {
 		background-color: var(--bg-soft);
 		border-block-end: 1px solid #2b3239;
-		padding-block: 12px;
+		padding-block: 8px;
+	}
+
+	@media (min-width: 768px) {
+		.breadcrumb-bar {
+			padding-block: 10px;
+		}
 	}
 
 	.breadcrumb-bar__inner {
@@ -61,11 +67,12 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 8px;
-		font-family: var(--font-sans);
-		font-weight: 700;
-		font-size: 0.75rem;
+		font-family: var(--font-mono);
+		font-weight: 600;
+		font-size: var(--text-breadcrumb);
 		text-transform: uppercase;
-		letter-spacing: 0.06em;
+		letter-spacing: var(--tracking-breadcrumb);
+		line-height: 1.4;
 		color: var(--muted);
 	}
 
@@ -101,11 +108,12 @@
 
 	.breadcrumb-bar__telemetry {
 		margin: 0;
-		font-family: var(--font-sans);
-		font-weight: 700;
-		font-size: 0.75rem;
+		font-family: var(--font-mono);
+		font-weight: 600;
+		font-size: var(--text-breadcrumb);
 		text-transform: uppercase;
-		letter-spacing: 0.06em;
+		letter-spacing: var(--tracking-breadcrumb);
+		line-height: 1.4;
 		color: var(--muted);
 	}
 

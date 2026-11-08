@@ -123,7 +123,7 @@
 			</div>
 
 			<div class="panel-content">
-				<h2 class="panel-head">How every idea<br />is documented.</h2>
+				<h2 class="panel-head">How every idea is documented.</h2>
 				{#each standardItems as item (item.number)}
 					<div class="proof-item">
 						<span class="proof-number">{item.number}</span>
@@ -292,17 +292,28 @@
 	}
 
 	.panel-top-title {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.8125rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 	}
 
 	.panel-top-sub {
 		font-family: var(--font-sans);
-		font-size: 0.75rem;
+		font-weight: 500;
+		font-size: 0.8125rem;
 		color: #858e92;
 		margin-block-start: 4px;
 	}
 
 	.panel-badge {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		padding: 5px 8px;
 		background: #2e3328;
 		color: #d2e79a;
@@ -369,6 +380,8 @@
 	}
 
 	.proof-item h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
 		font-size: 1rem;
 		line-height: 1.35;
 		letter-spacing: -0.015em;
@@ -414,11 +427,18 @@
 	}
 
 	.trust-label {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 		margin-block-end: 7px;
 	}
 
 	.trust-value {
+		font-family: var(--font-sans);
+		font-weight: 600;
 		color: var(--text);
 	}
 

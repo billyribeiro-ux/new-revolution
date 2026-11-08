@@ -233,7 +233,7 @@
 		font-weight: 800;
 		font-size: clamp(1.125rem, 1rem + 0.7vw, 1.375rem);
 		line-height: 1.25;
-		letter-spacing: -0.015em;
+		letter-spacing: var(--tracking-h3);
 		color: var(--_text);
 		text-wrap: balance;
 	}

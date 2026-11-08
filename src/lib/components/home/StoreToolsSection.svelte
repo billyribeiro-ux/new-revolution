@@ -193,8 +193,18 @@
 	}
 
 	.tool-tag {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 		margin-block-end: 13px;
+	}
+
+	.tool-body h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
 	}
 
 	.tool-body p {
@@ -211,11 +221,11 @@
 		padding-inline-start: 2px;
 		margin-block-end: 8px;
 		font-family: var(--font-sans);
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 0.9375rem;
 		line-height: 1.7;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Inter 400 */
+		max-inline-size: 34.8em; /* 60ch of Inter 500 */
 	}
 
 	.tool-body li::marker {

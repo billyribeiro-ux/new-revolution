@@ -9,6 +9,17 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-08 — Master site-wide typography harmonization, compact monospace breadcrumbs & 50px hero ceiling
+
+- **Changed:** Harmonize site-wide typography scale, font weights, and letter-spacing across the entire website (excluding `/blog` and `/blog/**`):
+  - Calibrate `--step-hero` from `3.75rem` (60px) to `3.125rem` (`50px` desktop ceiling, `32px` mobile) in `src/app.css` and align hero titles in `src/lib/styles/inner-page.css`, `src/lib/styles/sunday-alpha-protocol.css`, and `src/lib/components/home/ClosingSection.svelte`.
+  - Loosen squished negative letter-spacing tokens (`--tracking-display-h1: -0.01em`, `--tracking-section-h2: -0.01em`, `--tracking-h3: 0em`) to restore natural typographic breathing room.
+  - Standardize compact monospace navigation breadcrumbs (`font-family: var(--font-mono)`, `font-weight: 600`, `font-size: var(--text-breadcrumb)` [11px], `letter-spacing: 0.04em`, `line-height: 1.4`) with tight `8px` mobile / `10px` desktop vertical padding across `src/lib/components/layout/Breadcrumb.svelte` and `src/lib/styles/inner-page.css`.
+  - Restore `.eyebrow` to `--font-display` (Plus Jakarta Sans ExtraBold 800) with `0.08em` tracking in `src/app.css`, eliminating unwanted thin monospace overrides.
+  - Bold card links (`.info-card a`, `.audience-card .text-link`, `.tool-body .text-link`) with `--font-display` 800 ExtraBold so call-to-actions are prominent and clear.
+  - Align `<em>` and `<strong>` font weights in `src/lib/styles/inner-page.css` so quotes and key phrases (e.g., `"the future of trading"`) match the bold 700 thickness of surrounding bright white emphasis text, with high-contrast AA pairing (`var(--acid-text-on-light)`) on `.is-light` surfaces.
+  - Unify card heading levels, body line heights, and margins across homepage sections ([CaseStudies](src/lib/components/home/CaseStudiesSection.svelte), [Personas](src/lib/components/home/PersonasSection.svelte), [Memberships](src/lib/components/home/MembershipsSection.svelte), [Mentorship](src/lib/components/home/MentorshipSection.svelte), [StoreTools](src/lib/components/home/StoreToolsSection.svelte), [Ebook](src/lib/components/home/EbookSection.svelte), [Faq](src/lib/components/home/FaqSection.svelte), [HaveQuestions](src/lib/components/layout/HaveQuestions.svelte), and [CatalogCard](src/lib/components/ui/CatalogCard.svelte)).
+
 ### 2026-11-08 — Standardize Sunday Alpha Protocol (`/alert-services/sunday-alpha-protocol`), eliminate legacy `/watchlist` & `Explosive Swings` paths, enforce zero-`href` static Geist fonts & zero `#` URL fragments
 
 - **Changed:** Standardize the swing trade alert service route, CSS, and data module to **Sunday Alpha Protocol** at `/alert-services/sunday-alpha-protocol` (`src/routes/alert-services/sunday-alpha-protocol/+page.svelte`, `src/routes/alert-services/sunday-alpha-protocol/+page.ts`, `src/routes/alert-services/sunday-alpha-protocol/page.svelte.spec.ts`, `src/lib/styles/sunday-alpha-protocol.css`, `src/lib/data/sunday-alpha-protocol.ts`) alongside `/alert-services/spx-profit-pulse`.

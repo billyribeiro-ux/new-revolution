@@ -261,10 +261,10 @@
 
 	.risk-box p {
 		font-family: var(--font-sans);
-		font-weight: 400;
-		font-size: 0.875rem;
-		line-height: 1.7;
-		letter-spacing: 0.01em;
+		font-weight: 450;
+		font-size: 0.8125rem;
+		line-height: 1.65;
+		letter-spacing: normal;
 		max-inline-size: none;
 		color: #aab2b6;
 		margin-block: 0;
@@ -276,11 +276,11 @@
 	}
 
 	.risk-box .risk-box-title {
-		font-family: var(--font-sans);
-		font-weight: 700;
+		font-family: var(--font-display);
+		font-weight: 800;
 		font-size: 0.75rem;
 		line-height: 1.5;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: #d8dfd1;
 		margin-block: 0 10px;

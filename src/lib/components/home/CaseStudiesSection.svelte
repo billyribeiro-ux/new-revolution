@@ -143,10 +143,28 @@
 	}
 
 	.case-kicker {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 	}
 
+	.case h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-h3);
+		line-height: var(--leading-card-h3);
+		letter-spacing: var(--tracking-h3);
+		margin-block-end: 8px;
+	}
+
 	.case p {
+		font-family: var(--font-sans);
+		font-weight: 450;
+		font-size: 0.9375rem;
+		line-height: 1.6;
 		color: #b3bbc0;
 		margin-block-end: 20px;
 	}
@@ -166,13 +184,14 @@
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 12px 16px;
-		font-family: var(--font-sans);
+		font-family: var(--font-mono);
 		font-size: 0.8125rem;
 		line-height: 1.5;
 	}
 
 	.case-facts dt {
 		color: #9fa8a8;
+		font-weight: 500;
 	}
 
 	.case-facts dd {

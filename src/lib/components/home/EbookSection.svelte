@@ -169,9 +169,11 @@
 	}
 
 	.ebook-lead {
+		font-family: var(--font-sans);
+		font-weight: 500;
 		font-size: 1rem;
-		line-height: 1.75;
-		max-inline-size: min(40.6em, 680px); /* 70ch of Inter 400 */
+		line-height: 1.7;
+		max-inline-size: min(40.6em, 680px);
 	}
 
 	.ebook-name {
@@ -180,10 +182,10 @@
 		padding-inline-start: 21px;
 		font-family: var(--font-display);
 		font-weight: 800;
-		font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+		font-size: clamp(1.15rem, 1.8vw, 1.375rem);
 		line-height: 1.3;
-		letter-spacing: -0.015em;
-		max-inline-size: 23.2959em; /* 34ch of Plus Jakarta Sans 700 */
+		letter-spacing: var(--tracking-h3);
+		max-inline-size: 28ch;
 	}
 
 	.ebook-takeaways {
@@ -196,19 +198,19 @@
 		display: flex;
 		gap: 10px;
 		font-family: var(--font-sans);
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 0.9375rem;
 		line-height: 1.65;
 		letter-spacing: 0.005em;
-		max-inline-size: 34.8em; /* 60ch of Inter 400 */
+		max-inline-size: 34.8em;
 		padding-block: 10px;
 		border-block-start: 1px solid rgba(10, 30, 10, 0.21);
 	}
 
 	.ebook-takeaways strong {
 		flex: none;
-		font-family: var(--font-sans);
-		font-weight: 700;
+		font-family: var(--font-display);
+		font-weight: 800;
 		font-variant-numeric: tabular-nums;
 	}
 
@@ -222,11 +224,21 @@
 	}
 
 	.ebook-form .form-caption {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--acid);
 		margin-block-end: 12px;
 	}
 
 	.ebook-form h3 {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--step-h3);
+		line-height: var(--leading-card-h3);
+		letter-spacing: var(--tracking-h3);
 		margin-block-end: 24px;
 	}
 

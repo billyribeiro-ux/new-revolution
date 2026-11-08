@@ -10,6 +10,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { SMALL_ACCOUNTS_ROOM_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -263,13 +264,21 @@
 				</blockquote>
 
 				<div class="cta-row">
-					<a href="#join-small-accounts-room" class="btn btn-primary">
+					<button
+						type="button"
+						class="btn btn-primary"
+						onclick={() => scrollToSection('join-small-accounts-room')}
+					>
 						Join the Small Accounts Room
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href="#compounding-roadmap" class="btn btn-outline">
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline"
+						onclick={() => scrollToSection('compounding-roadmap')}
+					>
 						See the $500 to $25,000+ Roadmap
-					</a>
+					</button>
 				</div>
 
 				<!-- 4-Column Telemetry Strip -->

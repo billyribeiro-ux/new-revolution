@@ -2,12 +2,39 @@
 	import '../app.css';
 
 	import { asset } from '$app/paths';
-	import { onNavigate } from '$app/navigation';
+	import { afterNavigate, onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
+
+	function stripLocationHash(): void {
+		if (typeof window === 'undefined' || !window.location.hash) return;
+		const id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+		if (id) {
+			const target = document.getElementById(id);
+			if (target) {
+				const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+				target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+			}
+		}
+		window.history.replaceState(
+			window.history.state,
+			'',
+			window.location.pathname + window.location.search
+		);
+	}
+
+	afterNavigate(() => {
+		stripLocationHash();
+	});
+
+	$effect(() => {
+		stripLocationHash();
+		window.addEventListener('hashchange', stripLocationHash);
+		return () => window.removeEventListener('hashchange', stripLocationHash);
+	});
 
 	// A deployment can replace prerendered pages with maintenance responses.
 	// Check on client navigation as well, including when Kit has preloaded a page.

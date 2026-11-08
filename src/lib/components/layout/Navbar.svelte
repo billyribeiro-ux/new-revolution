@@ -330,9 +330,9 @@
 				Member Login
 			</a>
 			<a
-				href={resolve('/#memberships' as '/')}
+				href={resolve('/live-trading-rooms/day-trading-room')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/#memberships', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={14} weight="bold" aria-hidden="true" />
 			</a>
@@ -438,9 +438,9 @@
 				<SignInIcon size={16} weight="bold" aria-hidden="true" /> Member Login
 			</a>
 			<a
-				href={resolve('/#memberships' as '/')}
+				href={resolve('/live-trading-rooms/day-trading-room')}
 				class="btn btn-primary"
-				onclick={(e) => handleLinkClick('/#memberships', 'memberships', e)}
+				onclick={(e) => handleLinkClick('/live-trading-rooms/day-trading-room', 'memberships', e)}
 			>
 				Explore Memberships <ArrowUpRightIcon size={15} weight="bold" aria-hidden="true" />
 			</a>
@@ -1162,13 +1162,14 @@
 		}
 
 		.announcement-links a:first-child {
-			inline-size: 10.625rem;
+			inline-size: 11.75rem;
 			max-inline-size: 100%;
 			justify-content: center;
-			padding: 6px 7px;
+			padding: 6px 8px;
 			font-size: 0.625rem;
 			letter-spacing: 0.01em;
-			gap: 0.2rem;
+			gap: 0.25rem;
+			white-space: nowrap;
 		}
 
 		.nav {
@@ -1219,8 +1220,9 @@
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 10.625rem;
+			inline-size: 11.75rem;
 			justify-content: center;
+			white-space: nowrap;
 		}
 
 		.mobile-toggle {
@@ -1275,24 +1277,27 @@
 		}
 
 		.announcement-links a:first-child {
-			inline-size: 12rem;
-			padding: 8px 10px;
+			inline-size: 13.25rem;
+			padding: 8px 12px;
 			font-size: 0.6875rem;
 			letter-spacing: 0.02em;
-			gap: 0.25rem;
+			gap: 0.3rem;
+			white-space: nowrap;
 		}
 
 		.nav-actions .btn {
 			min-block-size: 40px;
-			padding: 8px 10px;
+			padding: 8px 12px;
 			font-size: 0.6875rem;
 			letter-spacing: 0.02em;
-			gap: 0.25rem;
+			gap: 0.3rem;
+			white-space: nowrap;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 12rem;
+			inline-size: 13.25rem;
 			justify-content: center;
+			white-space: nowrap;
 		}
 	}
 
@@ -1332,23 +1337,26 @@
 		}
 
 		.announcement-links a:first-child {
-			inline-size: 13.25rem;
-			padding: 9px 12px;
+			inline-size: 14.5rem;
+			padding: 9px 14px;
 			font-size: 0.75rem;
 			letter-spacing: 0.03em;
-			gap: 0.375rem;
+			gap: 0.4rem;
+			white-space: nowrap;
 		}
 
 		.nav-actions .btn {
-			padding: 9px 12px;
+			padding: 9px 14px;
 			font-size: 0.75rem;
 			letter-spacing: 0.03em;
-			gap: 0.375rem;
+			gap: 0.4rem;
+			white-space: nowrap;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 13.25rem;
+			inline-size: 14.5rem;
 			justify-content: center;
+			white-space: nowrap;
 		}
 	}
 	.mobile-nav-label > span:not(.mobile-nav-icon) {

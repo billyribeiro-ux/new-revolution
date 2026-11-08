@@ -92,7 +92,7 @@ describe('homepage data and navigation taxonomy', () => {
 			'/editorial-policy',
 			'/privacy-policy',
 			'/terms-of-service',
-			'/terms-of-service#options-leverage-risk-disclosure',
+			'/terms-of-service',
 			'/refund-policy'
 		]);
 	});

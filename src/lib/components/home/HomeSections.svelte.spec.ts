@@ -53,9 +53,7 @@ describe('Modular Homepage Section Components', () => {
 			name: 'Read the background and context on our About page.'
 		});
 		await expect.element(link).toBeInTheDocument();
-		expect(document.querySelector('a.authority-link')?.getAttribute('href')).toMatch(
-			/about#institutional-mentorship$/
-		);
+		expect(document.querySelector('a.authority-link')?.getAttribute('href')).toMatch(/\/about$/);
 
 		// The third-party name must not appear inside the unattributed brand slogan.
 		expect(document.querySelector('blockquote.hero-slogan')?.textContent).not.toContain(

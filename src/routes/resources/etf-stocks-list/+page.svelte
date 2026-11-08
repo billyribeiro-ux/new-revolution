@@ -16,6 +16,7 @@
 		type EtfFilterCategory
 	} from '#lib/data/etf-stocks-list.ts';
 	import { ETF_STOCKS_LIST_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -112,10 +113,20 @@
 					</p>
 
 					<div class="cta-row">
-						<a href="#popular-etfs-directory" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('popular-etfs-directory')}
+						>
 							Explore Popular ETFs Directory ↓
-						</a>
-						<a href="#etfs-by-sector" class="btn btn--outline"> Jump to All 11 Sector ETFs ↓ </a>
+						</button>
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() => scrollToSection('etfs-by-sector')}
+						>
+							Jump to All 11 Sector ETFs ↓
+						</button>
 						<a href={resolve('/resources' as '/')} class="btn btn--outline">
 							Free Options Risk Calculator →
 						</a>

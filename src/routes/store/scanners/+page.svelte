@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
@@ -541,9 +542,13 @@
 					</p>
 
 					<div class="cta-row">
-						<a href="#popular-scanners-grid" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('popular-scanners-grid')}
+						>
 							Browse All 8 Market Scanners ↓
-						</a>
+						</button>
 						<a href={resolve('/store/indicators')} class="btn btn--outline">
 							Pair With Custom Indicators →
 						</a>
@@ -633,7 +638,10 @@
 					<div class="radar-terminal__footer">
 						<p class="radar-terminal__note">
 							Works on <strong>ThinkorSwim Desktop &amp; Mobile</strong> +
-							<strong>TradingView</strong> • <a href="#popular-scanners-grid">Inspect Scanners ↓</a>
+							<strong>TradingView</strong> •
+							<button type="button" onclick={() => scrollToSection('popular-scanners-grid')}>
+								Inspect Scanners ↓
+							</button>
 						</p>
 					</div>
 				</aside>

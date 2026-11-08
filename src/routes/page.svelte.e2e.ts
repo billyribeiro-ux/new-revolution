@@ -501,7 +501,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'/editorial-policy',
 			'/privacy-policy',
 			'/terms-of-service',
-			'/terms-of-service#options-leverage-risk-disclosure',
+			'/terms-of-service',
 			'/refund-policy'
 		]);
 

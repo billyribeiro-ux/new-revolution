@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -422,12 +423,20 @@
 					</div>
 
 					<div class="cta-row">
-						<a href="#packages" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('packages')}
+						>
 							Compare Course &amp; Indicator Packages ↓
-						</a>
-						<a href="#whats-included" class="btn btn--outline">
+						</button>
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() => scrollToSection('whats-included')}
+						>
 							Inspect All 5 Included Components
-						</a>
+						</button>
 					</div>
 				</div>
 
@@ -583,26 +592,26 @@
 							<ul class="package-checklist">
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#core-indicator"
-										>Move Prior to The Move™ Ultra Indicator (3 Dynamic Filters)</a
+									<button type="button" onclick={() => scrollToSection('core-indicator')}
+										>Move Prior to The Move™ Ultra Indicator (3 Dynamic Filters)</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#multi-timeframe"
-										>Multi-Timeframe Compression Matrix (Up to 18 Timeframes)</a
+									<button type="button" onclick={() => scrollToSection('multi-timeframe')}
+										>Multi-Timeframe Compression Matrix (Up to 18 Timeframes)</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#stats-engine"
-										>On-Chart Historical Expectancy &amp; Squeeze Stats Engine</a
+									<button type="button" onclick={() => scrollToSection('stats-engine')}
+										>On-Chart Historical Expectancy &amp; Squeeze Stats Engine</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#bonus-early-in-out"
-										><strong>BONUS:</strong> MP_EarlyInNOut™ Pro Leading Indicator</a
+									<button type="button" onclick={() => scrollToSection('bonus-early-in-out')}
+										><strong>BONUS:</strong> MP_EarlyInNOut™ Pro Leading Indicator</button
 									>
 								</li>
 								<li>
@@ -644,32 +653,32 @@
 							<ul class="package-checklist">
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#accelerator-class"
-										><strong>INCLUDED:</strong> 6-Module Move Prior to The Move™ Accelerator Class</a
+									<button type="button" onclick={() => scrollToSection('accelerator-class')}
+										><strong>INCLUDED:</strong> 6-Module Move Prior to The Move™ Accelerator Class</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#core-indicator"
-										>Move Prior to The Move™ Ultra Indicator (3 Dynamic Filters)</a
+									<button type="button" onclick={() => scrollToSection('core-indicator')}
+										>Move Prior to The Move™ Ultra Indicator (3 Dynamic Filters)</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#multi-timeframe"
-										>Multi-Timeframe Compression Matrix (Up to 18 Timeframes)</a
+									<button type="button" onclick={() => scrollToSection('multi-timeframe')}
+										>Multi-Timeframe Compression Matrix (Up to 18 Timeframes)</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#stats-engine"
-										>On-Chart Historical Expectancy &amp; Squeeze Stats Engine</a
+									<button type="button" onclick={() => scrollToSection('stats-engine')}
+										>On-Chart Historical Expectancy &amp; Squeeze Stats Engine</button
 									>
 								</li>
 								<li>
 									<span class="package-check" aria-hidden="true">✓</span>
-									<a href="#bonus-early-in-out"
-										><strong>BONUS:</strong> MP_EarlyInNOut™ Pro Leading Indicator</a
+									<button type="button" onclick={() => scrollToSection('bonus-early-in-out')}
+										><strong>BONUS:</strong> MP_EarlyInNOut™ Pro Leading Indicator</button
 									>
 								</li>
 								<li>
@@ -1006,7 +1015,13 @@
 
 										<div class="visual-frame__footer">
 											<span>Works on Stocks, ETFs, SPX &amp; Options</span>
-											<a href="#packages" class="visual-frame__link">Included in Package ↑</a>
+											<button
+												type="button"
+												class="visual-frame__link"
+												onclick={() => scrollToSection('packages')}
+											>
+												Included in Package ↑
+											</button>
 										</div>
 									</div>
 								</div>
@@ -1123,9 +1138,13 @@
 							</p>
 
 							<div class="cta-row">
-								<a href="#packages" class="btn btn--solid">
+								<button
+									type="button"
+									class="btn btn--solid"
+									onclick={() => scrollToSection('packages')}
+								>
 									Enroll in Billy’s Accelerator Class &amp; Indicator Suite ↑
-								</a>
+								</button>
 								<a href={resolve('/about' as '/')} class="btn btn--outline">
 									Read Full Track Record →
 								</a>
@@ -1212,7 +1231,13 @@
 						<a href={resolve('/contact' as '/')} class="btn btn--solid">
 							Claim My Spot in the Accelerator Class + Indicator Suite →
 						</a>
-						<a href="#packages" class="btn btn--outline"> Compare Both Package Options ↑ </a>
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() => scrollToSection('packages')}
+						>
+							Compare Both Package Options ↑
+						</button>
 					</div>
 				</div>
 

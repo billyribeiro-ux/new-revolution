@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -568,7 +569,13 @@
 								Unlock {scannerConfig.name} ({selectedCadence === 'annual' ? 'Annual' : 'Monthly'})
 								→
 							</a>
-							<a href="#what-you-get" class="btn btn--outline"> See Full Included Inventory ↓ </a>
+							<button
+								type="button"
+								class="btn btn--outline"
+								onclick={() => scrollToSection('what-you-get')}
+							>
+								See Full Included Inventory ↓
+							</button>
 						</div>
 					</div>
 				</div>

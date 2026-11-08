@@ -27,7 +27,13 @@ const SKIPPED_REDIRECT_PREFIXES = [
  * download fonts it never used and delayed first paint. Matching is on the file name, which is stable across
  * the content hash (`montserrat-latin-wght-normal.<hash>.woff2`) and also present in the source `filename`.
  */
-const PRELOADED_FONT_FILES = ['montserrat-latin-wght-normal.', 'sofia-sans-latin-wght-normal.'];
+const PRELOADED_FONT_FILES = [
+	'geist-mono-latin-700-normal.',
+	'geist-mono-latin-800-normal.',
+	'geist-mono-latin-900-normal.',
+	'geist-sans-latin-400-normal.',
+	'geist-sans-latin-700-normal.'
+];
 
 export function shouldPreload(input: { type: string; path: string; filename?: string }): boolean {
 	if (input.type === 'js' || input.type === 'css') return true;
@@ -84,7 +90,7 @@ export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 		return new Response(null, {
 			status: 308,
 			headers: {
-				Location: `/resources${url.search || ''}#options-calculator`,
+				Location: `/resources${url.search || ''}`,
 				'Cache-Control': 'public, max-age=3600'
 			}
 		});

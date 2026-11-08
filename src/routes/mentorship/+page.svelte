@@ -11,6 +11,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { MENTORSHIP_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -250,13 +251,21 @@
 				</blockquote>
 
 				<div class="cta-row">
-					<a href="#application-dossier" class="btn btn-primary">
+					<button
+						type="button"
+						class="btn btn-primary"
+						onclick={() => scrollToSection('application-dossier')}
+					>
 						Submit Your 1-on-1 Application
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href="#three-mentorship-tracks" class="btn btn-outline">
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline"
+						onclick={() => scrollToSection('three-mentorship-tracks')}
+					>
 						Compare the 3 Candidate Tracks
-					</a>
+					</button>
 				</div>
 			</div>
 
@@ -316,10 +325,14 @@
 				</div>
 
 				<div class="admissions-card__footer">
-					<a href="#application-dossier" class="btn btn-primary btn--full">
+					<button
+						type="button"
+						class="btn btn-primary btn--full"
+						onclick={() => scrollToSection('application-dossier')}
+					>
 						Proceed to Application Dossier
 						<ArrowDownIcon size={16} weight="bold" class="ic-down" aria-hidden="true" />
-					</a>
+					</button>
 				</div>
 			</aside>
 		</div>

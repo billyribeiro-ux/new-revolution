@@ -13,7 +13,20 @@ export function normalizeBrandFont(value: unknown): string | null {
 		.trim()
 		.replace(/^(['"])(.*)\1$/, '$2')
 		.toLowerCase();
-	if (first === 'montserrat' || first === 'montserrat variable') return BRAND_FONT_DISPLAY;
-	if (first === 'sofia sans' || first === 'sofia sans variable') return BRAND_FONT_BODY;
+	if (
+		first === 'montserrat' ||
+		first === 'montserrat variable' ||
+		first === 'geist mono' ||
+		first === 'geist mono variable'
+	)
+		return BRAND_FONT_DISPLAY;
+	if (
+		first === 'sofia sans' ||
+		first === 'sofia sans variable' ||
+		first === 'geist' ||
+		first === 'geist sans' ||
+		first === 'geist variable'
+	)
+		return BRAND_FONT_BODY;
 	return null;
 }

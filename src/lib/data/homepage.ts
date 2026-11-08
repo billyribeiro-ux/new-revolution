@@ -783,7 +783,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'All Memberships',
-				href: '/#memberships',
+				href: '/live-trading-rooms/day-trading-room',
 				previewTarget: 'memberships'
 			}
 		]
@@ -867,7 +867,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 				? [
 						{
 							label: 'Free Trading eBook',
-							href: '/resources#resource-categories-h2',
+							href: '/resources',
 							previewTarget: 'ebook'
 						}
 					]
@@ -906,7 +906,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'Risk Disclosure',
-				href: '/terms-of-service#options-leverage-risk-disclosure',
+				href: '/terms-of-service',
 				previewTarget: 'footer'
 			},
 			{

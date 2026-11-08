@@ -45,10 +45,10 @@ export function emptyBlogListing(perPage = HOME_BLOG_PAGE_SIZE): BlogListing {
 	};
 }
 
-/** Homepage query pagination preserves the main page identity and lands on the article section. */
+/** Homepage query pagination preserves the main page identity without URL hash fragments. */
 export function homeBlogPageHref<T extends string>(
 	basePath: T,
 	page: number
-): `${T}#blog` | `${T}?blogPage=${number}#blog` {
-	return page > 1 ? `${basePath}?blogPage=${page}#blog` : `${basePath}#blog`;
+): T | `${T}?blogPage=${number}` {
+	return page > 1 ? `${basePath}?blogPage=${page}` : basePath;
 }

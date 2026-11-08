@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
 	import Navbar from '#lib/components/layout/Navbar.svelte';
@@ -216,9 +217,13 @@
 					</p>
 
 					<div class="cta-row">
-						<a href="#popular-indicators-grid" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('popular-indicators-grid')}
+						>
 							Browse Popular Indicators ↓
-						</a>
+						</button>
 						<a href={resolve('/store/scanners' as '/')} class="btn btn--outline">
 							Explore Live Market Scanners →
 						</a>

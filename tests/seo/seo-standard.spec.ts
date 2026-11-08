@@ -281,7 +281,7 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 				'/editorial-policy',
 				'/privacy-policy',
 				'/terms-of-service',
-				'/terms-of-service#options-leverage-risk-disclosure',
+				'/terms-of-service',
 				'/refund-policy'
 			]);
 		}

@@ -10,6 +10,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { SWING_TRADING_ROOM_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -260,13 +261,21 @@
 				</blockquote>
 
 				<div class="cta-row">
-					<a href="#join-swing-trading-room" class="btn btn-primary">
+					<button
+						type="button"
+						class="btn btn-primary"
+						onclick={() => scrollToSection('join-swing-trading-room')}
+					>
 						Join the Swing Trading Room
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href="#working-pro-workflow" class="btn btn-outline">
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline"
+						onclick={() => scrollToSection('working-pro-workflow')}
+					>
 						See the 20-Minute Working Pro Routine
-					</a>
+					</button>
 				</div>
 
 				<!-- 4-Column Telemetry Strip -->

@@ -50,7 +50,7 @@ describe('Homepage CMS blog discovery', () => {
 		});
 		await expect
 			.element(page.getByRole('link', { name: 'Newer articles' }))
-			.toHaveAttribute('href', '/#blog');
+			.toHaveAttribute('href', '/');
 		expect(document.querySelector('[data-testid="home-featured-post"]')).toBeNull();
 	});
 

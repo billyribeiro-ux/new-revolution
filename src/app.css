@@ -1,16 +1,257 @@
 /*
  * Self-hosted typography (SSOT: this file).
- * Fontsource variable packages ship WOFF2 files that Vite bundles and serves from this origin
+ * Static WOFF2 files from Fontsource are stored in src/lib/assets/fonts/ and bundled by Vite
  * (/_app/immutable/assets/*.woff2) - there are no runtime requests to Google Fonts or any CDN.
- * Family names registered by these packages: 'Montserrat Variable', 'Sofia Sans Variable'.
- * Both packages declare a `wght` axis only; `font-stretch` / 'wdth' declarations do not change glyphs.
- * Licences: OFL-1.1 (static/fonts/LICENSES.txt). The two upright Latin faces are preloaded by `shouldPreload`
+ * Family names registered here: 'Geist Mono' (weights 100-900 normal + italic) and 'Geist Sans' (weights 100-900 normal).
+ * Licences: OFL-1.1 (static/fonts/LICENSES.txt). The upright Latin faces are preloaded by `shouldPreload`
  * in src/hooks.server.ts; everything else loads on demand (docs/CSS_STANDARDS.md section 3).
  */
-@import '@fontsource-variable/montserrat/wght.css';
-@import '@fontsource-variable/montserrat/wght-italic.css';
-@import '@fontsource-variable/sofia-sans/wght.css';
-@import '@fontsource-variable/sofia-sans/wght-italic.css';
+/* Geist Mono — Every weight 100 through 900 (normal + italic) */
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-100-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-100-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-100-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-100-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 200;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-200-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-200-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 200;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-200-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-200-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 300;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-300-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-300-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 300;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-300-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-300-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-400-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-400-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 400;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-400-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-400-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 500;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-500-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-500-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 500;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-500-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-500-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 600;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-600-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-600-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 600;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-600-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-600-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 700;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-700-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-700-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 700;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-700-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-700-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 800;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-800-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-800-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 800;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-800-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-800-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 900;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-900-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-900-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Mono';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 900;
+	src:
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-900-italic.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-mono/static/geist-mono-latin-900-italic.woff') format('woff');
+}
+
+/* Geist Sans — Every weight 100 through 900 (normal) */
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-100-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-100-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 200;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-200-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-200-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 300;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-300-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-300-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-400-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-400-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 500;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-500-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-500-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 600;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-600-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-600-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 700;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-700-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-700-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 800;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-800-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-800-normal.woff') format('woff');
+}
+@font-face {
+	font-family: 'Geist Sans';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 900;
+	src:
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-900-normal.woff2') format('woff2'),
+		url('./lib/assets/fonts/geist-sans/static/geist-sans-latin-900-normal.woff') format('woff');
+}
 
 /*
  * Metric-matched fallback faces (SEO_STANDARD PERF-05).
@@ -206,7 +447,7 @@
 @layer reset, tokens, base, typography, layout, components, utilities, responsive;
 
 /* ==========================================================================
-   1. CANONICAL DESIGN TOKENS (SSOT — revolution-trading-pros-color-style-guide.md)
+   1. CANONICAL DESIGN TOKENS (SSOT — docs/CSS_STANDARDS.md)
    ========================================================================== */
 @layer tokens {
 	:root {
@@ -266,15 +507,14 @@
 		--status-amber-text: #dec3a1;
 		--status-amber-border: #77664a;
 
-		/* Fontsource Institutional Pairing: Montserrat (Authority) + Sofia Sans (High-Speed Data/Copy) */
+		/* Fontsource Institutional Pairing: Geist Mono (Headings/Display) + Geist Sans Regular (Text/Copy) */
 		--font-display:
-			'Montserrat Variable', 'Montserrat Variable Fallback', system-ui, -apple-system, 'Segoe UI',
-			Roboto, sans-serif;
-		--font-sans:
-			'Sofia Sans Variable', 'Sofia Sans Variable Fallback', system-ui, -apple-system, 'Segoe UI',
-			Roboto, sans-serif;
-		/* Compatibility name: all code/data uses the approved Sofia face. */
-		--font-mono: var(--font-sans);
+			'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono',
+			'Courier New', monospace;
+		--font-sans: 'Geist Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+		--font-mono:
+			'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono',
+			'Courier New', monospace;
 		--font-heading: var(--font-display);
 		--font-body: var(--font-sans);
 		--tracking-h3: -0.01em;
@@ -509,7 +749,7 @@
 	/* 11 / Hero Lead Paragraph (Anti-Guru Empathy Hook) */
 	.hero-lead {
 		font-family: var(--font-sans);
-		font-weight: 500;
+		font-weight: 400;
 		font-size: var(--text-lead);
 		line-height: var(--leading-lead);
 		letter-spacing: 0em;

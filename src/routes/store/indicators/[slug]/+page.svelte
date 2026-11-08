@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
 	import { resolve } from '$app/paths';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -368,12 +369,20 @@
 					</div>
 
 					<div class="cta-row">
-						<a href="#choose-your-package" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('choose-your-package')}
+						>
 							Get Instant Access to the System ↓
-						</a>
-						<a href="#exclusive-bonuses" class="btn btn--outline">
+						</button>
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() => scrollToSection('exclusive-bonuses')}
+						>
 							Inspect All 6 Included Tools &amp; Bonuses
-						</a>
+						</button>
 					</div>
 				</div>
 
@@ -609,9 +618,13 @@
 						</ul>
 
 						<div class="included-summary-card__footer">
-							<a href="#choose-your-package" class="btn btn--solid btn--full">
+							<button
+								type="button"
+								class="btn btn--solid btn--full"
+								onclick={() => scrollToSection('choose-your-package')}
+							>
 								Enroll &amp; Download Indicator Suite ↓
-							</a>
+							</button>
 						</div>
 					</div>
 				</aside>

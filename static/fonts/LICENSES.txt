@@ -99,6 +99,16 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 ==============================================
+Geist Mono & Geist Sans - Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font.git)
+(C) 2023 Vercel, made in collaboration with basement.studio
+Source: https://fontsource.org/fonts/geist-mono / https://fontsource.org/fonts/geist-sans
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied above, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+==============================================
 Sofia Sans - Copyright 2019 The Sofia Sans Project Authors (https://github.com/lettersoup/Sofia-Sans) SofiaSans-Italic[wght].ttf: Copyright 2019 The Sofia Sans Project Authors (https://github.com/lettersoup/Sofia-Sans)
 Source: https://fontsource.org/fonts/sofia-sans
 
@@ -195,4 +205,14 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+==============================================
+Geist Mono & Geist Sans - Copyright 2024 The Geist Project Authors (https://github.com/vercel/geist-font.git)
+(C) 2023 Vercel, made in collaboration with basement.studio
+Source: https://fontsource.org/fonts/geist-mono / https://fontsource.org/fonts/geist-sans
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied above, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
 

@@ -10,6 +10,7 @@
 		RESOURCE_ICON_PATHS,
 		resourceCategories
 	} from '#lib/data/resources-hub.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -121,9 +122,13 @@
 					</p>
 
 					<div class="hero-cta-row">
-						<a href="#options-calculator" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('options-calculator')}
+						>
 							Launch Free Options Calculator →
-						</a>
+						</button>
 						<a href={resolve('/resources/etf-stocks-list')} class="btn btn--outline">
 							Explore ETF Stocks List →
 						</a>

@@ -47,7 +47,7 @@ export const flagshipUtilities: FlagshipUtility[] = [
 		description:
 			'Calculate exact option profit targets, breakeven levels, Delta/Gamma/Theta/Vega sensitivity, and $500+ small account position sizing before entering a trade.',
 		ctaLabel: 'Open Options Calculator →',
-		href: '/resources#options-calculator'
+		href: '/resources'
 	},
 	{
 		code: 'Public Utility 02 // Institutional Sector Map',
@@ -114,7 +114,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Position Size Calculator',
-				href: '/resources#options-calculator',
+				href: '/resources',
 				tag: 'Live Tool'
 			},
 			{
@@ -124,7 +124,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Options Profit Calculator',
-				href: '/resources#options-calculator',
+				href: '/resources',
 				tag: 'Greeks Engine'
 			},
 			{
@@ -189,7 +189,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Sector Rotation Analysis',
-				href: '/resources/etf-stocks-list#etfs-by-sector',
+				href: '/resources/etf-stocks-list',
 				tag: '11 Sectors'
 			}
 		]
@@ -219,7 +219,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Building Confidence',
-				href: '/about#verified-calls',
+				href: '/about',
 				tag: 'Conviction'
 			}
 		]
@@ -234,7 +234,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 		items: [
 			{
 				label: 'Frequently Asked Questions',
-				href: '/about#about-faq-h2',
+				href: '/about',
 				tag: 'Answers'
 			},
 			{

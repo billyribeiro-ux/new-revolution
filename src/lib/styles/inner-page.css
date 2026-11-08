@@ -4370,14 +4370,21 @@
 		color: var(--text-secondary);
 	}
 
-	.inner-page .package-checklist a {
+	.inner-page .package-checklist a,
+	.inner-page .package-checklist button {
+		background: none;
+		border: 0;
+		padding: 0;
+		font: inherit;
+		text-align: left;
 		color: var(--text);
 		font-weight: 600;
 		text-decoration: underline;
 		text-underline-offset: 3px;
 	}
 
-	.inner-page .package-checklist a:hover {
+	.inner-page .package-checklist a:hover,
+	.inner-page .package-checklist button:hover {
 		color: var(--acid);
 	}
 
@@ -4544,6 +4551,10 @@
 	}
 
 	.inner-page .visual-frame__link {
+		background: none;
+		border: 0;
+		padding: 0;
+		font: inherit;
 		color: var(--acid);
 		text-decoration: underline;
 	}
@@ -6196,7 +6207,15 @@
 		color: var(--text);
 	}
 
-	.inner-page .radar-terminal__note a {
+	.inner-page .radar-terminal__note a,
+	.inner-page .radar-terminal__note button {
+		display: inline;
+		min-block-size: 0;
+		min-inline-size: 0;
+		background: none;
+		border: 0;
+		padding: 0;
+		font: inherit;
 		color: var(--acid);
 		font-weight: 800;
 		text-decoration: underline;

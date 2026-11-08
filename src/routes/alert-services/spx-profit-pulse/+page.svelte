@@ -7,6 +7,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { SPX_PROFIT_PULSE_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -444,12 +445,20 @@
 					</div>
 
 					<div class="cta-row">
-						<a href="#choose-your-package" class="btn btn--solid">
+						<button
+							type="button"
+							class="btn btn--solid"
+							onclick={() => scrollToSection('choose-your-package')}
+						>
 							Compare SPX Profit Pulse Packages ↓
-						</a>
-						<a href="#exclusive-bonuses" class="btn btn--outline">
+						</button>
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() => scrollToSection('exclusive-bonuses')}
+						>
 							See All 6 Included Deliverables
-						</a>
+						</button>
 					</div>
 				</div>
 
@@ -545,9 +554,13 @@
 					</div>
 
 					<div class="alert-simulator__footer">
-						<a href="#choose-your-package" class="btn btn--solid btn--full">
+						<button
+							type="button"
+							class="btn btn--solid btn--full"
+							onclick={() => scrollToSection('choose-your-package')}
+						>
 							Start Receiving SPX Profit Pulse Alerts ↓
-						</a>
+						</button>
 					</div>
 				</aside>
 			</div>
@@ -739,9 +752,13 @@
 							</p>
 
 							<div class="cta-row">
-								<a href="#choose-your-package" class="btn btn--solid">
+								<button
+									type="button"
+									class="btn btn--solid"
+									onclick={() => scrollToSection('choose-your-package')}
+								>
 									Join SPX Profit Pulse Today ↑
-								</a>
+								</button>
 								<a href={resolve('/about')} class="btn btn--outline">
 									Read Full Track Record &amp; Story →
 								</a>

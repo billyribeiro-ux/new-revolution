@@ -10,6 +10,7 @@
 	import Navbar from '#lib/components/layout/Navbar.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import { DAY_TRADING_ROOM_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
+	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -262,13 +263,21 @@
 				</blockquote>
 
 				<div class="cta-row">
-					<a href="#join-day-trading-room" class="btn btn-primary">
+					<button
+						type="button"
+						class="btn btn-primary"
+						onclick={() => scrollToSection('join-day-trading-room')}
+					>
 						Join the Live Day Trading Room
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href="#daily-floor-schedule" class="btn btn-outline">
+					</button>
+					<button
+						type="button"
+						class="btn btn-outline"
+						onclick={() => scrollToSection('daily-floor-schedule')}
+					>
 						See Our Daily Bell-to-Bell Routine
-					</a>
+					</button>
 				</div>
 
 				<!-- 4-Column Floor Telemetry Strip -->
@@ -647,7 +656,7 @@
 								order-flow <a href={resolve('/store/scanners' as '/')}>scanners</a>, and
 								<a href={resolve('/store/courses' as '/')}>trading courses</a> you see on our shared
 								screens every morning are available in our Store, alongside our free
-								<a href={resolve('/resources#options-calculator' as '/')}>Options Calculator</a>.
+								<a href={resolve('/resources')}>Options Calculator</a>.
 							</p>
 						{:else}
 							<p class="faq-item__answer">{item.answer}</p>

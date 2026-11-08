@@ -51,7 +51,7 @@
 				Founder Billy Ribeiro reports being mentored by Mark “Goldfinger” McGoldrick, who he says
 				called him “the future of trading.” That is the founder’s own account, not an independent
 				endorsement.
-				<a class="authority-link" href={resolve('/about#institutional-mentorship' as '/')}>
+				<a class="authority-link" href={resolve('/about')}>
 					Read the background and context on our About page.
 				</a>
 			</p>

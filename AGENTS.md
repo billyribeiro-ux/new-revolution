@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 This file defines the non-negotiable architectural, typography, CSS, Svelte 5 / SvelteKit 3, and SEO / AI-Search standards for every AI agent and engineer working in this repository.
 
@@ -54,21 +54,18 @@ An undeployed site or unpublished content is never a reason to skip a check that
 
 ## 1. Mandatory Font Hosting Standard
 
-All website fonts must be self-hosted, preferably sourced from Fontsource.org. Use optimized WOFF2 files, preserve the existing typography, and maintain a centralized font configuration within the CSS Single Source of Truth (SSOT).
+All website fonts must be self-hosted statically in `src/lib/assets/fonts/`. Use optimized WOFF2/WOFF files, preserve the centralized font configuration within the CSS Single Source of Truth (SSOT) (`src/app.css`), and **never use `href` for fonts anywhere** (no `<link rel="preload" as="font" href="...">`, no `<link rel="stylesheet" href="...">` to font providers, and no external font CDNs).
 
-Fonts must be served exclusively from the website's own infrastructure, with no runtime dependencies on Google Fonts, external font CDNs, or third-party font services.
+Fonts must be served exclusively from the website's own static `@font-face` declarations in `src/app.css`, with no runtime dependencies on Google Fonts, external font CDNs, third-party font services, or HTML `<link href>` font tags.
 
-Follow official Svelte, Fontsource, and web performance guidance for font loading, weight selection, fallback fonts, font-display, and selective preloading.
-
-Verify that all fonts load correctly in production and that no external font requests occur.
+Verify that all fonts load correctly in production and that no external font requests or font `href` tags occur.
 
 ### Implementation Rules in This Repository
 
-- CSS from the Fontsource variable packages (`@fontsource-variable/montserrat` and `@fontsource-variable/sofia-sans`) is imported **solely** at the top of [`src/app.css`](src/app.css). Never duplicate font imports inside `+layout.svelte` or individual page/component files.
+- Static WOFF2/WOFF font files (`Geist Mono` weights 100–900 normal + italic, and `Geist Sans` weights 100–900 normal) are stored in `src/lib/assets/fonts/` and declared via `@font-face` **solely** at the top of [`src/app.css`](src/app.css). Never duplicate `@font-face` rules inside `+layout.svelte` or individual page/component files, and never emit `<link ... as="font" href="...">`.
 - Always reference fonts via the SSOT custom properties: `var(--font-display)`, `var(--font-sans)`, and `var(--font-mono)`.
-- Both packages ship only the `wght` axis (normal + italic). Do not add `font-stretch` or `font-variation-settings: 'wdth'` expecting condensed glyph widths.
-- The only intentional website/admin/editor families are Montserrat and Sofia Sans. `--font-mono` is a compatibility alias to Sofia. Keep fallback stacks for font/glyph failure; unsupported editor families are removed through the shared normalizer, preserving content and revision originals.
-- Standalone web responses use the build-generated same-origin `/brand-ui.css`. The sole image-context exception is `svg-brand-font.ts`, which embeds the existing licensed Sofia WOFF2 bytes in trusted generated SVGs; it is not a second Fontsource CSS import. See the shared font policy for CSP/cache/referrer requirements.
+- The only intentional website/admin/editor families are `Geist Mono` (`--font-display`, `--font-mono`, `--font-heading`) and `Geist Sans` (`--font-sans`, `--font-body`). Keep fallback stacks for font/glyph failure; unsupported editor families are removed through the shared normalizer, preserving content and revision originals.
+- Standalone web responses use the build-generated same-origin `/brand-ui.css`. The sole image-context exception is `svg-brand-font.ts`, which embeds the licensed `Geist Sans` WOFF2 bytes as a data URI inside trusted generated SVGs.
 - Font licenses (`OFL-1.1`) are documented in [`static/fonts/LICENSES.txt`](static/fonts/LICENSES.txt).
 
 ---

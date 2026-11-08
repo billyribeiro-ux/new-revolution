@@ -136,13 +136,13 @@ export const CANONICAL_OFFERINGS: readonly CatalogOffering[] = [
 		path: '/alert-services/spx-profit-pulse'
 	},
 	{
-		id: 'sunday-alpha-alerts',
+		id: 'sunday-alpha-protocol',
 		schemaType: 'Service',
 		name: 'Sunday Alpha Protocol',
 		serviceType: 'Multi-Day Swing Trading Video Watchlist and Alert Service',
 		description:
 			'Multi-day stock and options video watchlists with pre-planned entry zones, profit targets, and stop-loss invalidation levels for working professionals.',
-		path: '/sunday-alpha-alerts'
+		path: '/alert-services/sunday-alpha-protocol'
 	},
 	{
 		id: 'private-mentorship',
@@ -309,7 +309,7 @@ export function buildFounderEntity(origin: string) {
 			'@id': `${origin}/#organization`
 		},
 		// Deliberately claim-free: mentorship and performance statements are not machine-asserted here because
-		// no primary evidence is published for them. The founder's own account is on /about#institutional-mentorship.
+		// no primary evidence is published for them. The founder's own account is on /about.
 		description:
 			'Founder of Revolution Trading Pros, a stock and options trading education company.',
 		knowsAbout: [
@@ -746,7 +746,7 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 			'We cover all three: liquid US stocks, sector and index ETFs (including our ETF Stocks List and Stock Indexes List), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
 	},
 	{
-		id: 'swing-room-vs-sunday-alpha-alerts',
+		id: 'swing-room-vs-sunday-alpha-protocol',
 		question:
 			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
 		answer:
@@ -1318,7 +1318,7 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 			'Yes. While a single full-sized SPX option contract can be expensive, every SPX Profit Pulse alert can be executed in a smaller account using three methods we teach in the Learning Center: (1) Defined-risk 5-wide SPX vertical spreads, (2) XSP (Mini-SPX index options at 1/10th the notional size with the same cash settlement and Section 1256 tax perks), or (3) SPY ETF options.'
 	},
 	{
-		id: 'difference-from-day-room-sunday-alpha-alerts',
+		id: 'difference-from-day-room-sunday-alpha-protocol',
 		question:
 			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
 		answer:
@@ -1894,7 +1894,7 @@ export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 ] as const;
 
 export function buildSundayAlphaProtocolJsonLd(origin: string) {
-	const pageUrl = `${origin}/sunday-alpha-alerts`;
+	const pageUrl = `${origin}/alert-services/sunday-alpha-protocol`;
 
 	return {
 		'@graph': [

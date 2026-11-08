@@ -125,7 +125,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Swing Trading Room for working professionals`                             | `/live-trading-rooms/swing-trading-room`                             | Multi-day swing execution membership funnel                          |
 | `Live Day Trading Room`                                                    | `/live-trading-rooms/day-trading-room`                               | Intraday 5m/15m squeeze execution room                               |
 | `Small Accounts Room ($500+ starting capital)`                             | `/live-trading-rooms/small-accounts-room`                            | Small account vertical debit spread execution funnel                 |
-| `Explosive Swings video watchlist alerts`                                  | `/alert-services/explosive-swings`                                   | Evening squeeze watchlist & multi-day alert funnel                   |
+| `Sunday Alpha Protocol video watchlist alerts`                             | `/alert-services/sunday-alpha-protocol`                              | Evening squeeze watchlist & multi-day alert funnel                   |
 | `SPX Profit Pulse index options alert service`                             | `/alert-services/spx-profit-pulse`                                   | S&P 500 index squeeze alert service                                  |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`                 | `/store/courses/move-prior-to-the-move-ultra`                        | Flagship institutional education & indicator bundle                  |
 | `free Options Profit, Risk & Greeks Calculator`                            | `/resources/options-calculator`                                      | Interactive Delta/Vega payoff modeling utility                       |
@@ -623,8 +623,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<a href="/store/scanners">Multi-Timeframe Volatility Squeeze &amp; Alignment Scanners</a> and our
 	flagship <a href="/store/scanners/high-octane-scanner">High Octane Scanner</a> to automate that
 	entire institutional screening workflow in real time. Every evening when preparing our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> and every
-	morning ahead of our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	and every morning ahead of our
 	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alert service</a>, the
 	scanner applies four non-negotiable filters simultaneously:
 </p>

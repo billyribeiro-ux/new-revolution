@@ -129,7 +129,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `free Options Profit, Risk & Greeks Calculator`                              | `/resources/options-calculator`                                       | Interactive breakeven, collateral, and Delta calculator       |
 | `Live Day Trading Room`                                                      | `/live-trading-rooms/day-trading-room`                                | Intraday execution room                                       |
 | `Swing Trading Room`                                                         | `/live-trading-rooms/swing-trading-room`                              | Multi-week Theta and Wheel spread room                        |
-| `Explosive Swings video watchlist alerts`                                    | `/alert-services/explosive-swings`                                    | Swing options alert conversion                                |
+| `Sunday Alpha Protocol video watchlist alerts`                               | `/alert-services/sunday-alpha-protocol`                               | Swing options alert conversion                                |
 | `SPX Profit Pulse index options alerts`                                      | `/alert-services/spx-profit-pulse`                                    | Index options alert conversion                                |
 | `Options Greeks & Small-Account Mastery Courses`                             | `/store/courses`                                                      | Educational course catalog                                    |
 | `100% non-repainting institutional support/resistance indicators`            | `/store/indicators`                                                   | Demand-zone & order-flow indicator conversion                 |
@@ -399,8 +399,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	To prevent the Broken Wheel trap, every ticker selected inside our
 	<a href="/live-trading-rooms/small-accounts-room">Small Accounts Room</a> and our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> must pass
-	all five institutional filters before we ever sell <strong>cash secured puts</strong>:
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	must pass all five institutional filters before we ever sell <strong>cash secured puts</strong>:
 </p>
 
 <ol>

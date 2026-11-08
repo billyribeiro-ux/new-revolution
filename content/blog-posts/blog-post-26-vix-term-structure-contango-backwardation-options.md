@@ -127,7 +127,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `SPX Dealer Gamma & IV Percentile Scanner`                                      | `/store/scanners/spx-dealer-gamma-iv-skew-scanner`        | Primary scanner conversion (`Scanner 06`)                    |
 | `Macro Cycle Inflection Timing course`                                          | `/store/courses/macro-cycle-inflection-mastery`           | Primary macro & volatility course conversion (`Course 07`)   |
 | `SPX Profit Pulse`                                                              | `/alert-services/spx-profit-pulse`                        | Primary SPX 0DTE & GEX alert service conversion              |
-| `Explosive Swings multi-day options alerts`                                     | `/alert-services/explosive-swings`                        | Swing options alert conversion                               |
+| `Sunday Alpha Protocol multi-day options alerts`                                | `/alert-services/sunday-alpha-protocol`                   | Swing options alert conversion                               |
 | `Live Day Trading Room`                                                         | `/live-trading-rooms/day-trading-room`                    | Live intraday SPX and VIX regime execution room              |
 | `Swing Trading Room`                                                            | `/live-trading-rooms/swing-trading-room`                  | Multi-day volatility and index spread room                   |
 | `Stock Market Indexes Directory`                                                | `/resources/stock-indexes-list`                           | VIX, SPX, NDX, and RUT index specification hub               |
@@ -517,9 +517,10 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 		>
 		When the 9-day volatility index crosses above the 30-day <code>VIX</code> on a non-event
 		session, institutions are quietly buying 1-to-2 week downside puts. Inside our
-		<a href="/alert-services/explosive-swings">Explosive Swings multi-day options alerts</a>, a
-		<code>VIX9D &gt; VIX</code> crossover triggers an immediate halt on new short-put credit spreads
-		and tightens trailing stops on existing long Delta positions.
+		<a href="/alert-services/sunday-alpha-protocol"
+			>Sunday Alpha Protocol multi-day options alerts</a
+		>, a <code>VIX9D &gt; VIX</code> crossover triggers an immediate halt on new short-put credit
+		spreads and tightens trailing stops on existing long Delta positions.
 	</li>
 	<li>
 		<strong

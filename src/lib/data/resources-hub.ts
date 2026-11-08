@@ -159,7 +159,7 @@ export const resourceCategories: ResourceCategoryCard[] = [
 			},
 			{
 				label: 'Live Trade Walkthrough',
-				href: '/sunday-alpha-alerts',
+				href: '/alert-services/sunday-alpha-protocol',
 				tag: '+600% OXY'
 			}
 		]

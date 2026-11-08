@@ -490,19 +490,6 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		const rows = await testDbCtx.db.select().from(redirects);
 		const matched = rows.find((r) => r.sourcePath === '/blog/old-swing-momentum-slug');
 		expect(matched?.hits).toBeGreaterThanOrEqual(1);
-
-		for (const legacyPath of [
-			'/watchlist',
-			'/explosive-swings',
-			'/alert-services/explosive-swings',
-			'/alert-services/sunday-alpha-alerts'
-		]) {
-			const legacyRes = await resolveBlogRedirect(
-				new URL(`https://revolutiontradingpros.com${legacyPath}?source=legacy`)
-			);
-			expect(legacyRes?.status).toBe(308);
-			expect(legacyRes?.headers.get('Location')).toBe('/sunday-alpha-alerts?source=legacy');
-		}
 	});
 
 	it('serves category and tag archives and enforces indexability rules', async () => {

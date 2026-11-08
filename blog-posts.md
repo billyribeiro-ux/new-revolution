@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 > **Prepared by:** Principal SEO & Systems Architecture Audit
 > **Audit Date:** October 31, 2026
@@ -29,7 +29,7 @@ From auditing [`src/lib/seo/structured-data.ts`](src/lib/seo/structured-data.ts)
    - **Small Accounts Room** (`/live-trading-rooms/small-accounts-room`): Risk-first mentorship for $500+ starting capital using T+1 cash account rotation, PDT navigation, and defined-risk spreads.
 3. **Alert Services (`/alert-services/*`):**
    - **SPX Profit Pulse** (`/alert-services/spx-profit-pulse`): S&P 500 index options (`SPX`, `XSP`, `SPY`) video watchlists, dealer gamma walls, and 0DTE/multi-day alerts.
-   - **Explosive Swings** (`/alert-services/explosive-swings`): Accessible alert-only video watchlists with exact entry zones, profit targets, and stop-loss levels.
+   - **Sunday Alpha Protocol** (`/alert-services/sunday-alpha-protocol`): Accessible alert-only video watchlists with exact entry zones, profit targets, and stop-loss levels.
 4. **Private Mentorship (`/mentorship`):**
    - Application-and-approval-only 1-on-1 mentorship across 3 tracks: Portfolio Managers & Institutional Traders, Full-Time Pro Traders, and Struggling Trader Turnaround.
 5. **Proprietary Store (`/store/*`):**
@@ -74,12 +74,12 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 | **07** | `spx-vs-spy-options-xsp-section-1256-taxes`                     | `spx vs spy options`       | Options & Greeks Mastery | `/alert-services/spx-profit-pulse` & `/resources/stock-indexes-list`       | [`blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md`](content/blog-posts/blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md)                                         |
 | **08** | `3-best-options-strategies-for-consistent-income`               | `options strategies`       | Options & Greeks Mastery | `/store/courses/options-greeks-and-volatility-mastery`                     | [`blog-post-08-3-best-options-strategies-for-consistent-income.md`](content/blog-posts/blog-post-08-3-best-options-strategies-for-consistent-income.md)                             |
 | **09** | `30-45-dte-credit-spreads-theta-decay-blueprint`                | `30 45 dte credit spreads` | Options & Greeks Mastery | `/live-trading-rooms/swing-trading-room`                                   | [`blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md`](content/blog-posts/blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md)                               |
-| **10** | `how-we-shorted-oxy-put-options-600-percent-overnight`          | `oxy put options`          | Institutional Order Flow | `/alert-services/explosive-swings` & `/about`                              | [`blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md`](content/blog-posts/blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md)                   |
+| **10** | `how-we-shorted-oxy-put-options-600-percent-overnight`          | `oxy put options`          | Institutional Order Flow | `/alert-services/sunday-alpha-protocol` & `/about`                         | [`blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md`](content/blog-posts/blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md)                   |
 | **11** | `the-move-prior-to-the-move-2020-2022-market-calls`             | `move prior to the move`   | Institutional Order Flow | `/store/courses/move-prior-to-the-move-ultra`                              | [`blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md`](content/blog-posts/blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md)                         |
 | **12** | `why-repainted-holy-grail-indicators-destroy-retail-accounts`   | `holy grail indicators`    | Institutional Order Flow | `/store/indicators` & `/our-mission`                                       | [`blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md`](content/blog-posts/blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md)     |
 | **13** | `multi-timeframe-volatility-squeeze-options-strategy`           | `volatility squeeze`       | Institutional Order Flow | `/store/scanners/high-octane-scanner`                                      | [`blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md`](content/blog-posts/blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md)                     |
 | **14** | `swing-trading-options-with-a-full-time-job-watchlist-routine`  | `swing trading options`    | Swing & Working Pros     | `/live-trading-rooms/swing-trading-room`                                   | [`blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md`](content/blog-posts/blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md)   |
-| **15** | `oco-bracket-orders-thinkorswim-tradingview-swing-guide`        | `oco bracket orders`       | Swing & Working Pros     | `/alert-services/explosive-swings`                                         | [`blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md`](content/blog-posts/blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md)               |
+| **15** | `oco-bracket-orders-thinkorswim-tradingview-swing-guide`        | `oco bracket orders`       | Swing & Working Pros     | `/alert-services/sunday-alpha-protocol`                                    | [`blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md`](content/blog-posts/blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md)               |
 | **16** | `risk-management-essentials-for-active-traders`                 | `risk management`          | Risk & Psychology        | `/mentorship` & `/live-trading-rooms/day-trading-room`                     | [`blog-post-16-risk-management-essentials-for-active-traders.md`](content/blog-posts/blog-post-16-risk-management-essentials-for-active-traders.md)                                 |
 | **17** | `avoid-iv-crush-earnings-options-vega-strategy`                 | `avoid iv crush`           | Options & Greeks Mastery | `/resources/options-calculator`                                            | [`blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md`](content/blog-posts/blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md)                                 |
 | **18** | `sp500-sector-etf-rotation-swing-trading-guide`                 | `sector etf rotation`      | Swing & Working Pros     | `/resources/etf-stocks-list` & `/live-trading-rooms/swing-trading-room`    | [`blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md`](content/blog-posts/blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md)                                 |
@@ -99,7 +99,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 | **32** | `abandoned-price-bar-climax-volume-reversal-guide`              | `abandoned price bar`      | Institutional Order Flow | `/store/indicators` & `/store/courses`                                     | [`blog-post-32-abandoned-price-bar-climax-volume-reversal-guide.md`](content/blog-posts/blog-post-32-abandoned-price-bar-climax-volume-reversal-guide.md)                           |
 | **33** | `relative-volume-rvol-cumulative-delta-absorption`              | `relative volume rvol`     | Institutional Order Flow | `/store/scanners` & `/store/indicators`                                    | [`blog-post-33-relative-volume-rvol-cumulative-delta-absorption.md`](content/blog-posts/blog-post-33-relative-volume-rvol-cumulative-delta-absorption.md)                           |
 | **34** | `options-bid-ask-spread-liquidity-slippage-filter`              | `options bid ask spread`   | $500+ Small Accounts     | `/store/scanners` & `/live-trading-rooms/small-accounts-room`              | [`blog-post-34-options-bid-ask-spread-liquidity-slippage-filter.md`](content/blog-posts/blog-post-34-options-bid-ask-spread-liquidity-slippage-filter.md)                           |
-| **35** | `sunday-evening-swing-trading-watchlist-routine-pro`            | `swing trading watchlist`  | Swing & Working Pros     | `/store/scanners` & `/alert-services/explosive-swings`                     | [`blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md`](content/blog-posts/blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md)                       |
+| **35** | `sunday-evening-swing-trading-watchlist-routine-pro`            | `swing trading watchlist`  | Swing & Working Pros     | `/store/scanners` & `/alert-services/sunday-alpha-protocol`                | [`blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md`](content/blog-posts/blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md)                       |
 | **36** | `rolling-options-credit-spreads-covered-calls-map`              | `rolling options`          | Options & Greeks Mastery | `/resources/options-calculator` & `/live-trading-rooms/swing-trading-room` | [`blog-post-36-rolling-options-credit-spreads-covered-calls-map.md`](content/blog-posts/blog-post-36-rolling-options-credit-spreads-covered-calls-map.md)                           |
 | **37** | `portfolio-hedging-put-debit-spreads-vix-calls-map`             | `portfolio hedging`        | Risk & Psychology        | `/mentorship` & `/store/courses`                                           | [`blog-post-37-portfolio-hedging-put-debit-spreads-vix-calls-map.md`](content/blog-posts/blog-post-37-portfolio-hedging-put-debit-spreads-vix-calls-map.md)                         |
 | **38** | `eliminate-revenge-trading-fomo-circuit-breakers`               | `revenge trading`          | Risk & Psychology        | `/store/courses` & `/mentorship`                                           | [`blog-post-38-eliminate-revenge-trading-fomo-circuit-breakers.md`](content/blog-posts/blog-post-38-eliminate-revenge-trading-fomo-circuit-breakers.md)                             |
@@ -482,7 +482,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
   - `H2`: The 50% Profit Target and 21 DTE Mechanical Exit Protocol
 - **Internal Links to Include:**
   - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
-  - `/alert-services/explosive-swings` (Explosive Swings Alerts)
+  - `/alert-services/sunday-alpha-protocol` (Sunday Alpha Protocol Alerts)
   - `/resources/options-calculator` (Options Calculator)
 - **External Authority Citations:**
   - `https://www.optionseducation.org/` (OIC vertical spread educational reference)
@@ -525,7 +525,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 - **Internal Links to Include:**
   - `/about` (About Us & Proven Track Record)
   - `/store/courses` (Course 06: Contrarian Distribution & Put Options)
-  - `/alert-services/explosive-swings` (Explosive Swings Video Watchlists)
+  - `/alert-services/sunday-alpha-protocol` (Sunday Alpha Protocol Video Watchlists)
 - **External Authority Citations:**
   - `https://www.sec.gov/edgar/searchedgar/companysearch` (SEC EDGAR Form 4 institutional ownership filings context)
   - `https://www.optionseducation.org/` (Long put options risk and payoff mechanics)
@@ -676,7 +676,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 - **Meta Description (`151` chars):** `Master swing trading options with a full-time 9-to-5 job in 20 minutes a day using evening video watchlists, conditional triggers, and pre-set stops.`
 - **Excerpt (`146` chars):** `You do not need six monitors or eight free hours a day to capture multi-day moves. Combine evening watchlists with conditional orders and stops.`
 - **Focus Keyword:** `swing trading options`
-- **Secondary Keywords (JSON):** `["trading with a full time job", "evening watchlist routine", "multi day options setups", "explosive swings alerts", "swing trading room"]`
+- **Secondary Keywords (JSON):** `["trading with a full time job", "evening watchlist routine", "multi day options setups", "Sunday Alpha Protocol alerts", "swing trading room"]`
 - **Category:** `Swing & Working Pros` (`slug: working-professionals`)
 - **Tags:** `swing-trading`, `working-professionals`, `video-watchlists`, `risk-management`
 - **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
@@ -685,7 +685,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
   - `coverImage`: `/images/blog/swing-trading-options-with-a-full-time-job-watchlist-routine.webp` (`1200x630`)
   - `coverImageAlt`: `20-minute evening routine workflow for swing trading options with a full-time job`
   - `coverImageCaption`: `Figure 1: The 20-minute evening watchlist and conditional order workflow for 9-to-5 professionals.`
-- **Search Intent & SERP Evidence:** Featured on both the homepage (`BLOG_ARTICLES`) and `/blogs`; directly targets busy career professionals for the Swing Trading Room (`/live-trading-rooms/swing-trading-room`) and Explosive Swings (`/alert-services/explosive-swings`).
+- **Search Intent & SERP Evidence:** Featured on both the homepage (`BLOG_ARTICLES`) and `/blogs`; directly targets busy career professionals for the Swing Trading Room (`/live-trading-rooms/swing-trading-room`) and Sunday Alpha Protocol (`/alert-services/sunday-alpha-protocol`).
 - **Required H2/H3 Outline:**
   - `H2`: Why 9-to-5 Professionals Have a Structural Edge Over Over-Trading Scalpers
   - `H2`: The 20-Minute Evening Routine: Reviewing Video Watchlists & Key Levels
@@ -693,7 +693,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
   - `H2`: Automating Entries, Profit Targets, and Stops Before Commuting to Work
 - **Internal Links to Include:**
   - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
-  - `/alert-services/explosive-swings` (Explosive Swings Video Watchlist Alerts)
+  - `/alert-services/sunday-alpha-protocol` (Sunday Alpha Protocol Video Watchlist Alerts)
   - `/store/courses` (Course 04: Multi-Day Swing Trading for Working Professionals)
 - **External Authority Citations:**
   - `https://www.optionseducation.org/` (Multi-day options duration and Theta selection principles)
@@ -703,8 +703,8 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
      **A:** `Yes. By trading Daily and 4-Hour chart structures with 21 to 45 DTE expirations and attaching OCO bracket orders in advance, your broker executes your entry, profit targets, and stop-loss automatically.`
   2. **Q:** `How much time per evening does the working professional swing routine take?`
      **A:** `Our members spend 15 to 20 minutes in the evening reviewing our video watchlist, verifying key support and resistance levels, and staging conditional limit orders for the next session.`
-  3. **Q:** `What is the difference between the Swing Trading Room and Explosive Swings alerts?`
-     **A:** `The Swing Trading Room includes full interactive room access, live/recorded chart reviews, and Q&A, while Explosive Swings is our streamlined alert-only video watchlist tier.`
+  3. **Q:** `What is the difference between the Swing Trading Room and Sunday Alpha Protocol alerts?`
+     **A:** `The Swing Trading Room includes full interactive room access, live/recorded chart reviews, and Q&A, while Sunday Alpha Protocol is our streamlined alert-only video watchlist tier.`
 
 ---
 
@@ -1558,7 +1558,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
 - **Meta Description (`150` chars):** `Build a high-conviction swing trading watchlist in 20 minutes on Sunday and weeknights. Filter top sector ETFs, multi-day squeezes, and OCO triggers.`
 - **Excerpt (`148` chars):** `Winning swing trades are planned when the market is closed. Walk through our exact 4-step Sunday and weeknight top-down watchlist filtering process.`
 - **Focus Keyword:** `swing trading watchlist`
-- **Secondary Keywords (JSON):** `["sunday stock market prep", "top down market analysis", "end of day swing scanner", "9 to 5 swing trading", "explosive swings watchlist"]`
+- **Secondary Keywords (JSON):** `["sunday stock market prep", "top down market analysis", "end of day swing scanner", "9 to 5 swing trading", "Sunday Alpha Protocol watchlist"]`
 - **Category:** `Swing & Working Pros` (`slug: working-professionals`)
 - **Tags:** `swing-trading`, `working-professionals`, `video-watchlists`, `scanners`
 - **Schema Type:** `Article` (`isPillar: true`, `featured: false`)
@@ -1567,7 +1567,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
   - `coverImage`: `/images/blog/sunday-evening-swing-trading-watchlist-routine-pro.webp` (`1200x630`)
   - `coverImageAlt`: `4-step top-down swing trading watchlist funnel filtering S&P 500 sectors down to 3 A+ setups`
   - `coverImageCaption`: `Figure 1: Top-down funnel: Macro Index Regime -> Leading Sector ETFs -> 3 A+ Multi-Day Swing Setups.`
-- **Search Intent & SERP Evidence:** Directly funnels 9-to-5 career professionals into `Scanner 05: Working Professional 20-Minute End-of-Day Swing Scanner` (`/store/scanners/working-pro-eod-swing-scanner`), `Explosive Swings` (`/alert-services/explosive-swings`), and `Course 04` (`/store/courses/working-pro-swing-trading-system`).
+- **Search Intent & SERP Evidence:** Directly funnels 9-to-5 career professionals into `Scanner 05: Working Professional 20-Minute End-of-Day Swing Scanner` (`/store/scanners/working-pro-eod-swing-scanner`), `Sunday Alpha Protocol` (`/alert-services/sunday-alpha-protocol`), and `Course 04` (`/store/courses/working-pro-swing-trading-system`).
 - **Required H2/H3 Outline:**
   - `H2`: Why Evening Preparation Beats Reactive Intraday Screen-Staring
   - `H2`: Step 1 (Minutes 1-5): Grading SPY, QQQ, IWM, and VIX Term Structure
@@ -1575,7 +1575,7 @@ Per [`docs/SEO_EVIDENCE.md`](docs/SEO_EVIDENCE.md) and live Google Search Centra
   - `H2`: Step 3 (Minutes 13-20): Running the EOD Swing Scanner & Staging OCO Brackets
 - **Internal Links to Include:**
   - `/store/scanners/working-pro-eod-swing-scanner` (Scanner 05: Working Professional EOD Swing Scanner)
-  - `/alert-services/explosive-swings` (Explosive Swings Video Watchlist Alerts)
+  - `/alert-services/sunday-alpha-protocol` (Sunday Alpha Protocol Video Watchlist Alerts)
   - `/live-trading-rooms/swing-trading-room` (Swing Trading Room)
 - **External Authority Citations:**
   - `https://www.spglobal.com/spdji/en/landing/investment-themes/sectors/` (S&P Global GICS sector framework)

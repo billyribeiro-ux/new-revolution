@@ -8,10 +8,10 @@ export interface EditorFontOption {
 
 import { BRAND_FONT_BODY, BRAND_FONT_DISPLAY, normalizeBrandFont } from '../shared/brand-font';
 
-/** Both families are bundled once by app.css and served from our origin. */
+/** Both families are bundled once by app.css and served statically from our origin. */
 export const EDITOR_FONT_FAMILIES: readonly EditorFontOption[] = [
-	{ label: 'Sofia Sans (Body)', value: BRAND_FONT_BODY },
-	{ label: 'Montserrat (Display)', value: BRAND_FONT_DISPLAY }
+	{ label: 'Geist Sans (Body)', value: BRAND_FONT_BODY },
+	{ label: 'Geist Mono (Display)', value: BRAND_FONT_DISPLAY }
 ] as const;
 
 declare module '@tiptap/core' {

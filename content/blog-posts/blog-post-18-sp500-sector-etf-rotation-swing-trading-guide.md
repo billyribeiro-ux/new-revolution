@@ -127,7 +127,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Complete ETF Stocks & Sector Directory`                                   | `/resources/etf-stocks-list`                                         | Primary hub page supported by this pillar post      |
 | `Swing Trading Room`                                                       | `/live-trading-rooms/swing-trading-room`                             | Core 9-to-5 swing trading room conversion           |
 | `Smart-Money Relative Volume & Accumulation Scanner`                       | `/store/scanners`                                                    | Institutional RVOL & RS scanner store conversion    |
-| `Explosive Swings alert service`                                           | `/alert-services/explosive-swings`                                   | Multi-day swing alert service funnel                |
+| `Sunday Alpha Protocol alert service`                                      | `/alert-services/sunday-alpha-protocol`                              | Multi-day swing alert service funnel                |
 | `SPX Profit Pulse index options alert service`                             | `/alert-services/spx-profit-pulse`                                   | S&P 500 index alert service cross-link              |
 | `Live Day Trading Room`                                                    | `/live-trading-rooms/day-trading-room`                               | Intraday order-flow room conversion                 |
 | `Small Accounts Room`                                                      | `/live-trading-rooms/small-accounts-room`                            | $500+ small account vertical spread room conversion |
@@ -566,7 +566,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	Macro cycle theory gives you the big-picture map, but on an institutional trading desk we never
 	guess when a rotation is starting. We wait for hard quantitative proof in the price and volume
-	tape. Inside our <a href="/alert-services/explosive-swings">Explosive Swings alert service</a> and
+	tape. Inside our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol alert service</a> and
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a>, we combine two objective
 	metrics: <strong>Relative Strength vs. SPY</strong> and <strong>Relative Volume (RVOL)</strong>.
 </p>

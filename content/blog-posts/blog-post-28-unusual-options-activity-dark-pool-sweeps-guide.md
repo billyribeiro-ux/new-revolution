@@ -127,7 +127,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `The Move Prior to The Move Indicator`                                    | `/store/indicators/mp-early-in-n-out`                        | Primary institutional accumulation indicator conversion      |
 | `Live Day Trading Room`                                                   | `/live-trading-rooms/day-trading-room`                       | Live intraday tape-reading & order-flow execution room       |
 | `Swing Trading Room`                                                      | `/live-trading-rooms/swing-trading-room`                     | Multi-day sweep & dark pool swing execution room             |
-| `Explosive Swings video watchlist alerts`                                 | `/alert-services/explosive-swings`                           | Institutional swing options alert conversion                 |
+| `Sunday Alpha Protocol video watchlist alerts`                            | `/alert-services/sunday-alpha-protocol`                      | Institutional swing options alert conversion                 |
 | `SPX Profit Pulse index options alerts`                                   | `/alert-services/spx-profit-pulse`                           | Intraday index order-flow alert conversion                   |
 | `free Options Profit, Risk & Greeks Calculator`                           | `/resources/options-calculator`                              | Interactive spread payoff and Greek calculator               |
 | `Complete ETF Stocks List`                                                | `/resources/etf-stocks-list`                                 | Liquid ETF dark-pool benchmark directory                     |
@@ -418,8 +418,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 
 <p>
 	Before we ever alert a setup inside our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> or
-	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alerts</a>, every raw
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	or <a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alerts</a>, every raw
 	<strong>unusual options activity</strong> print must pass all four gates of our institutional
 	verification checklist:
 </p>

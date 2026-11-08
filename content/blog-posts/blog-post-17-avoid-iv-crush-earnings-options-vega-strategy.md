@@ -127,7 +127,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Swing Trading Room for working professionals`                            | `/live-trading-rooms/swing-trading-room`                              | Multi-day swing room conversion                              |
 | `Small Accounts Room ($500+ starting capital)`                            | `/live-trading-rooms/small-accounts-room`                             | Vertical spread small account conversion                     |
 | `SPX Profit Pulse index options alert service`                            | `/alert-services/spx-profit-pulse`                                    | Macro index options alert conversion                         |
-| `Explosive Swings video watchlist alerts`                                 | `/alert-services/explosive-swings`                                    | Swing watchlist alert conversion                             |
+| `Sunday Alpha Protocol video watchlist alerts`                            | `/alert-services/sunday-alpha-protocol`                               | Swing watchlist alert conversion                             |
 | `100% non-repainting custom trading indicators`                           | `/store/indicators`                                                   | Indicator store conversion                                   |
 | `Private 1-on-1 Trading Mentorship`                                       | `/mentorship`                                                         | Executive mentorship conversion                              |
 | `The Ultimate Guide to Options Greeks: Delta, Gamma, Theta, Vega & Rho`   | `/blog/ultimate-guide-to-options-greeks`                              | Priority Greeks pillar link (`INTERNAL_LINK_PRIORITY_SLUGS`) |
@@ -621,7 +621,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	genuine regime-changing earnings beat or when the S&amp;P 500 digests an FOMC statement (which we
 	trade live inside our
 	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alert service</a> and
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>),
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>),
 	institutional mutual funds do not finish repricing the stock in the first five minutes. They buy
 	for days and weeks.
 </p>

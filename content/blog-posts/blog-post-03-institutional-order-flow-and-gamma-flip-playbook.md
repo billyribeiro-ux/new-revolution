@@ -126,7 +126,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `complete institutional trading courses catalog`                  | `/store/courses`                                             | Store curriculum discovery                                           |
 | `Swing Trading Room for multi-day setups`                         | `/live-trading-rooms/swing-trading-room`                     | Swing trading room cross-silo link                                   |
 | `Small Accounts Room ($500+ starting capital)`                    | `/live-trading-rooms/small-accounts-room`                    | Small account room discovery                                         |
-| `Explosive Swings video watchlist alerts`                         | `/alert-services/explosive-swings`                           | Multi-day swing alert service                                        |
+| `Sunday Alpha Protocol video watchlist alerts`                    | `/alert-services/sunday-alpha-protocol`                      | Multi-day swing alert service                                        |
 | `free Options Profit, Risk & Greeks Calculator`                   | `/resources/options-calculator`                              | Options payoff and Delta/Gamma modeling tool                         |
 | `Stock Market Indexes Directory`                                  | `/resources/stock-indexes-list`                              | SPX, NDX, RUT index specifications hub                               |
 | `Complete ETF Stocks & Sector Directory`                          | `/resources/etf-stocks-list`                                 | SPY, QQQ, IWM ETF liquidity reference hub                            |
@@ -605,7 +605,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for multi-day setups</a>, our
 	<a href="/live-trading-rooms/small-accounts-room">Small Accounts Room ($500+ starting capital)</a
 	>, or via our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>:
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>:
 </p>
 
 <div class="table-scroll-wrap">

@@ -132,7 +132,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Live Day Trading Room`                                                 | `/live-trading-rooms/day-trading-room`                      | Graduation path to active intraday room                              |
 | `Swing Trading Room for working professionals`                          | `/live-trading-rooms/swing-trading-room`                    | Multi-day swing trading room conversion                              |
 | `SPX Profit Pulse index options alert service`                          | `/alert-services/spx-profit-pulse`                          | XSP/SPX alert service cross-link                                     |
-| `Explosive Swings video watchlist alerts`                               | `/alert-services/explosive-swings`                          | Multi-day swing video watchlist alerts                               |
+| `Sunday Alpha Protocol video watchlist alerts`                          | `/alert-services/sunday-alpha-protocol`                     | Multi-day swing video watchlist alerts                               |
 | `Private 1-on-1 Trading Mentorship`                                     | `/mentorship`                                               | High-touch desk mentorship                                           |
 | `About Revolution Trading Pros`                                         | `/about`                                                    | Founder background & Goldman Sachs prop mentorship                   |
 | `The Ultimate Guide to Options Greeks: Delta, Gamma, Theta, Vega & Rho` | `/blog/ultimate-guide-to-options-greeks`                    | Pillar #01 internal blog cluster link                                |
@@ -722,8 +722,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	>, or explore our <a href="/live-trading-rooms/day-trading-room">Live Day Trading Room</a>,
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a>,
 	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alert service</a>,
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, and
-	<a href="/mentorship">Private 1-on-1 Trading Mentorship</a> as your account scales.
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	and <a href="/mentorship">Private 1-on-1 Trading Mentorship</a> as your account scales.
 </p>
 
 <p>

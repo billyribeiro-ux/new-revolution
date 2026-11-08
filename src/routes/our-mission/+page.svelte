@@ -87,7 +87,10 @@
 			routes: [
 				{ label: 'Live Day Trading Room', href: '/live-trading-rooms/day-trading-room' },
 				{ label: 'Swing Trading Room', href: '/live-trading-rooms/swing-trading-room' },
-				{ label: 'Sunday Alpha Protocol Video Watchlist', href: '/sunday-alpha-alerts' }
+				{
+					label: 'Sunday Alpha Protocol Video Watchlist',
+					href: '/alert-services/sunday-alpha-protocol'
+				}
 			]
 		}
 	];
@@ -160,7 +163,7 @@
 			primaryLinkLabel: 'Explore Swing Trading Room',
 			primaryLinkHref: '/live-trading-rooms/swing-trading-room',
 			secondaryLinkLabel: 'View Sunday Alpha Protocol',
-			secondaryLinkHref: '/sunday-alpha-alerts'
+			secondaryLinkHref: '/alert-services/sunday-alpha-protocol'
 		},
 		{
 			tag: 'Starting Capital as Low as $500',
@@ -282,7 +285,7 @@
 						Explore Our Live Trading Rooms
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
-					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline">
+					<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')} class="btn btn-outline">
 						See Video Watchlist &amp; Alert Tiers
 					</a>
 				</div>
@@ -410,7 +413,8 @@
 					</p>
 					<div class="crisis-card__resolution">
 						<strong>Our Solution:</strong> In our live rooms and our affordable alert-only tiers (<a
-							href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a
+							href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+							>Sunday Alpha Protocol</a
 						>
 						&amp;
 						<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>), we
@@ -637,7 +641,10 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+				<a
+					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+					class="btn btn-outline-dark"
+				>
 					Get Video Watchlist &amp; Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

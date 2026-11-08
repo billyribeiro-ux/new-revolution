@@ -211,14 +211,14 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		const negLabelColor = await negLabel.evaluate((el) => getComputedStyle(el).color);
 		expect(negLabelColor).toBe('rgb(126, 60, 52)');
 
-		// Verify H1 uses Montserrat Variable and body uses Sofia Sans Variable
+		// Verify H1 uses Geist Mono and body uses Geist Sans
 		const h1Font = await page
 			.locator('h1.hero-h1')
 			.evaluate((el) => getComputedStyle(el).fontFamily);
-		expect(h1Font.toLowerCase()).toContain('montserrat');
+		expect(h1Font.toLowerCase()).toContain('geist mono');
 
 		const bodyFont = await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily);
-		expect(bodyFont.toLowerCase()).toContain('sofia sans');
+		expect(bodyFont.toLowerCase()).toContain('geist sans');
 
 		// Verify Row 15 Proof Metrics & Callouts (.persona-graphic & .trust-value) use clamp(1.25rem, 2vw, 1.75rem) = 28px at 1440px
 		const personaGraphicStyle = await page
@@ -242,7 +242,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.evaluate((el) => getComputedStyle(el).fontSize);
 		expect(trustValueSize).toBe('28px');
 
-		// Verify Row 20 <summary> itself has Montserrat 700
+		// Verify Row 20 <summary> itself has Geist Mono 700
 		const summaryStyle = await page
 			.locator('.faqs details summary')
 			.first()
@@ -250,7 +250,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 				const s = getComputedStyle(el);
 				return { fontFamily: s.fontFamily.toLowerCase(), fontWeight: s.fontWeight };
 			});
-		expect(summaryStyle.fontFamily).toContain('montserrat');
+		expect(summaryStyle.fontFamily).toContain('geist mono');
 		expect(summaryStyle.fontWeight).toBe('700');
 
 		// Verify keyboard :focus-visible outline (3px solid #DCFF65 -> rgb(220, 255, 101), 4px offset). The rule is global;

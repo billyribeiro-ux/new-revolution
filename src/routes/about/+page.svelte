@@ -128,7 +128,7 @@
 				},
 				{
 					name: 'Sunday Alpha Protocol',
-					href: '/sunday-alpha-alerts',
+					href: '/alert-services/sunday-alpha-protocol',
 					audience: 'Self-Directed & Busy Traders',
 					summary:
 						'Accessible alert-only membership delivering detailed video watchlists with exact targeted entries, exits, and stop-loss levels.'
@@ -634,7 +634,7 @@
 						exact thesis, entry triggers, profit targets, and invalidation stops before the move
 						happens.
 					</p>
-					<a href={resolve('/sunday-alpha-alerts' as '/')} class="text-link">
+					<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')} class="text-link">
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -758,7 +758,10 @@
 					Join Our Live Trading Rooms
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+				<a
+					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+					class="btn btn-outline-dark"
+				>
 					Explore Video Watchlist Alerts
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">

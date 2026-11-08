@@ -119,7 +119,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | Anchor Text in Article Body                                             | Target Internal Path                                                 | Strategic Funnel Role                                           |
 | :---------------------------------------------------------------------- | :------------------------------------------------------------------- | :-------------------------------------------------------------- |
 | `Swing Trading Room for working professionals`                          | `/live-trading-rooms/swing-trading-room`                             | Primary interactive swing room conversion                       |
-| `Explosive Swings video watchlist alerts`                               | `/alert-services/explosive-swings`                                   | Multi-day video watchlist alert conversion                      |
+| `Sunday Alpha Protocol video watchlist alerts`                          | `/alert-services/sunday-alpha-protocol`                              | Multi-day video watchlist alert conversion                      |
 | `Working Professional 20-Minute End-of-Day Swing Scanner`               | `/store/scanners`                                                    | End-of-day scanner conversion                                   |
 | `Course 04: Multi-Day Swing Trading for Working Professionals`          | `/store/courses`                                                     | Store curriculum conversion                                     |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`              | `/store/courses/move-prior-to-the-move-ultra`                        | Flagship course upsell                                          |
@@ -311,10 +311,10 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 
 <p>
 	When our members review our evening
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> or run our
-	<a href="/store/scanners">Working Professional 20-Minute End-of-Day Swing Scanner</a>, they spend
-	less than four minutes staging their orders using saved bracket templates. Follow these exact
-	steps to configure your platform.
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	or run our <a href="/store/scanners">Working Professional 20-Minute End-of-Day Swing Scanner</a>,
+	they spend less than four minutes staging their orders using saved bracket templates. Follow these
+	exact steps to configure your platform.
 </p>
 
 <figure class="article-inline-figure">

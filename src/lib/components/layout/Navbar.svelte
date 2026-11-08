@@ -1162,50 +1162,55 @@
 		}
 
 		.announcement-links a:first-child {
-			inline-size: 11.75rem;
+			inline-size: 10.5rem;
 			max-inline-size: 100%;
 			justify-content: center;
-			padding: 6px 8px;
-			font-size: 0.625rem;
-			letter-spacing: 0.01em;
-			gap: 0.25rem;
+			padding: 6px 6px;
+			font-size: 0.59375rem;
+			letter-spacing: -0.01em;
+			gap: 0.2rem;
 			white-space: nowrap;
 		}
 
 		.nav {
-			gap: 0.35rem;
+			gap: 0.25rem;
 		}
 
 		.brand {
-			gap: 0.45rem;
+			gap: 0.375rem;
+		}
+
+		.brand-logo-wrap {
+			inline-size: 38px;
+			block-size: 38px;
 		}
 
 		.brand-name {
-			font-size: 0.8125rem;
+			font-size: 0.75rem;
 		}
 
 		.brand-tagline {
-			font-size: 0.4375rem;
-			letter-spacing: 0.04em;
-			margin-block-start: 3px;
+			font-size: 0.4rem;
+			letter-spacing: 0.02em;
+			margin-block-start: 2px;
 		}
 
 		.nav-links {
 			display: flex;
-			gap: 0.125rem;
+			gap: 0.0625rem;
 		}
 
 		.nav-link,
 		.nav-dropdown-trigger {
-			font-size: 0.6875rem;
-			letter-spacing: -0.01em;
-			padding: 0.35rem 0.1rem;
-			gap: 0.1rem;
+			font-size: 0.625rem;
+			letter-spacing: -0.025em;
+			padding: 0.35rem 0.0625rem;
+			gap: 0.075rem;
 		}
 
 		.nav-actions {
 			display: flex;
-			gap: 0.25rem;
+			gap: 0.2rem;
 			margin-inline-start: 0;
 		}
 
@@ -1213,14 +1218,14 @@
 			min-block-size: 36px;
 			min-inline-size: 0;
 			inline-size: auto;
-			padding: 6px 7px;
-			font-size: 0.625rem;
-			letter-spacing: 0.01em;
+			padding: 6px 6px;
+			font-size: 0.59375rem;
+			letter-spacing: -0.01em;
 			gap: 0.2rem;
 		}
 
 		.nav-actions .btn-primary {
-			inline-size: 11.75rem;
+			inline-size: 10.5rem;
 			justify-content: center;
 			white-space: nowrap;
 		}
@@ -1247,6 +1252,11 @@
 
 		.brand {
 			gap: 0.625rem;
+		}
+
+		.brand-logo-wrap {
+			inline-size: 46px;
+			block-size: 46px;
 		}
 
 		.brand-name {

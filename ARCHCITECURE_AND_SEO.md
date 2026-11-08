@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 > **SYSTEM MANDATE FOR ARGON:** You are building and maintaining **Revolution Trading Pros** (`https://revolutiontradingpros.com`) using **Svelte 5 (Runes: `$state`, `$derived`, `$props`, `$effect`)**, **SvelteKit (`^3.1.0`)**, and **`pnpm` (`pnpm@12.16.1` strictly enforced — never use `npm`, `npx`, `yarn`, or `bun`)**. You must strictly obey every architectural, SEO, routing, sitemap, landing page, copywriting, and native CSS rule in this document without deviation.
 
@@ -30,7 +30,7 @@ Every marketing page, component, metadata tag, and JSON-LD schema block must fai
    - **Working Professionals (9-to-5 Schedules):** Multi-day swing setups and pre-planned video watchlists with exact entries, exits, and stops.
    - **Active Day Traders, Options Scalpers & Full-Time Pros:** Real-time live market voice, screen sharing, and institutional order flow execution.
    - **Small Account Traders ($500+ Starting Capital):** Dedicated room and strict risk-control strategies built for accounts starting as low as **$500**.
-   - **Affordable Alert-Only Members (`SPX Profit Pulse` & `Explosive Swings`):** Detailed video watchlists and alerts with exact targeted entries, profit exits, and stop-loss levels.
+   - **Affordable Alert-Only Members (`SPX Profit Pulse` & `Sunday Alpha Protocol`):** Detailed video watchlists and alerts with exact targeted entries, profit exits, and stop-loss levels.
    - **1-on-1 Mentorship:** Strictly by **application and approval only** (never a direct "Buy Now" checkout).
 5. **Approved Slogans:**
    - **Primary Institutional Triad:** _"Educate. Innovate. Prosper."_
@@ -47,7 +47,7 @@ Never invent, reorder, or rename top-level navigation items. All navigation comp
 | Menu Order | Top-Level Label          | Type        | Submenu Items (Exact Order)                                                  | Canonical SvelteKit Route Path                                                                                                  |
 | :--------- | :----------------------- | :---------- | :--------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
 | **1**      | **Live Trading Rooms ▾** | Dropdown    | 1. `Day Trading Room`<br>2. `Swing Trading Room`<br>3. `Small Accounts Room` | `/live-trading-rooms/day-trading-room`<br>`/live-trading-rooms/swing-trading-room`<br>`/live-trading-rooms/small-accounts-room` |
-| **2**      | **Alert Services ▾**     | Dropdown    | 1. `SPX Profit Pulse`<br>2. `Explosive Swings`                               | `/alert-services/spx-profit-pulse`<br>`/alert-services/explosive-swings`                                                        |
+| **2**      | **Alert Services ▾**     | Dropdown    | 1. `SPX Profit Pulse`<br>2. `Sunday Alpha Protocol`                          | `/alert-services/spx-profit-pulse`<br>`/alert-services/sunday-alpha-protocol`                                                   |
 | **3**      | **Mentorship**           | Direct Link | _(No submenu — 1-on-1 Application & Approval Only)_                          | `/mentorship`                                                                                                                   |
 | **4**      | **Store ▾**              | Dropdown    | 1. `Courses`<br>2. `Indicators`<br>3. `Scanners`                             | `/store/courses`<br>`/store/indicators`<br>`/store/scanners`                                                                    |
 | **5**      | **Our Mission**          | Direct Link | _(No submenu — People Over Profits Manifesto)_                               | `/our-mission`                                                                                                                  |
@@ -177,7 +177,7 @@ Every landing page falls into one of two strict buckets under Google’s October
   - _Definition:_ A page for a brand-new standalone product, tool, or lead magnet that does NOT duplicate an existing menu page's primary keyword.
   - _Action:_ Place in a standard route folder (e.g., `src/routes/free-trading-ebook/+page.svelte`). Use `<meta name="robots" content="index, follow" />`. It will automatically be included in `sitemap.xml`.
 - **BUCKET 2: Paid Ad, Promo, Webinar, or A/B Test Squeeze Pages**
-  - _Definition:_ A promotional landing page pitching an existing service (e.g., an ad funnel page for the Day Trading Room, Explosive Swings, or a seasonal promo).
+  - _Definition:_ A promotional landing page pitching an existing service (e.g., an ad funnel page for the Day Trading Room, Sunday Alpha Protocol, or a seasonal promo).
   - _Action:_ **NEVER index these pages** or they will cannibalize the #1 organic ranking of the main service page.
     1. Place all campaign/ad squeeze pages inside **`src/routes/lp/[campaign-slug]/+page.svelte`**.
     2. Inject `<meta name="robots" content="noindex, nofollow" />` inside `<svelte:head>`.

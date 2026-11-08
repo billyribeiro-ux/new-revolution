@@ -131,7 +131,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `The Move Prior to The Move Ultra Class & Indicator Suite`              | `/store/courses/move-prior-to-the-move-ultra`                       | Flagship institutional order-flow curriculum                     |
 | `Live Day Trading Room`                                                 | `/live-trading-rooms/day-trading-room`                              | Intraday climax reversal execution room                          |
 | `Swing Trading Room for multi-day setups`                               | `/live-trading-rooms/swing-trading-room`                            | Daily/4H climax reversal swing room                              |
-| `Explosive Swings video watchlist alerts`                               | `/alert-services/explosive-swings`                                  | Multi-day swing alert service                                    |
+| `Sunday Alpha Protocol video watchlist alerts`                          | `/alert-services/sunday-alpha-protocol`                             | Multi-day swing alert service                                    |
 | `free Options Profit, Risk & Greeks Calculator`                         | `/resources/options-calculator`                                     | Pre-trade Delta, Vega, and 1R wick-stop sizing calculator        |
 | `About Revolution Trading Pros & Billy Ribeiro's Desk Background`       | `/about`                                                            | Founder & Goldman Sachs mentorship E-E-A-T verification          |
 | `how we shorted OXY put options for +600% overnight`                    | `/blog/how-we-shorted-oxy-put-options-600-percent-overnight`        | Priority sister blog case study (`INTERNAL_LINK_PRIORITY_SLUGS`) |
@@ -553,8 +553,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 
 <p>
 	In our multi-day swing alert on Occidental Petroleum (<code>OXY</code>) issued through our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> and
-	documented inside
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	and documented inside
 	<a href="/blog/how-we-shorted-oxy-put-options-600-percent-overnight"
 		>how we shorted OXY put options for +600% overnight</a
 	>, <code>OXY</code> spiked into multi-month supply, printed a classic daily

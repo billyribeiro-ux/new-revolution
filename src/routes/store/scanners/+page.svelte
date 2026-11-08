@@ -425,7 +425,7 @@
 			description:
 				'Affordable video watchlists delivering our top scanner picks with exact entries and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		}
 	];
 
@@ -1092,7 +1092,9 @@
 							<a href={resolve('/live-trading-rooms/small-accounts-room')}>Small Accounts Room</a>,
 							and use them to curate the setups in
 							<a href={resolve('/alert-services/spx-profit-pulse')}>SPX Profit Pulse</a> and
-							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>.
+							<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+								>Sunday Alpha Protocol</a
+							>.
 						</p>
 					</details>
 				</div>

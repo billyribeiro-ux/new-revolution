@@ -254,7 +254,7 @@
 			description:
 				'Affordable alert-only video watchlists with exact targeted entries, exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		}
 	];
 

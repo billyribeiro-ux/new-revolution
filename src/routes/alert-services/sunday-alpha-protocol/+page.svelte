@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '#lib/styles/inner-page.css';
-	import '#lib/styles/sunday-alpha-alerts.css';
+	import '#lib/styles/sunday-alpha-protocol.css';
 	import { resolve } from '$app/paths';
 	import * as d3 from 'd3';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -15,7 +15,7 @@
 		SUNDAY_ALPHA_TERMINAL_BLUEPRINTS,
 		type SundayAlphaBlueprint,
 		type SundayAlphaSeriesPoint
-	} from '#lib/data/sunday-alpha-alerts.ts';
+	} from '#lib/data/sunday-alpha-protocol.ts';
 	import { SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS } from '#lib/seo/structured-data.ts';
 	import type { PageProps } from './$types';
 
@@ -490,10 +490,10 @@
 
 <JsonLd schema={data.jsonLdSchema} />
 
-<a class="skip" href="#sunday-alpha-alerts-page">Skip to main content</a>
+<a class="skip" href="#sunday-alpha-protocol-page">Skip to main content</a>
 <Navbar />
 
-<main id="sunday-alpha-alerts-page" class="inner-page sunday-alpha-alerts-page">
+<main id="sunday-alpha-protocol-page" class="inner-page sunday-alpha-protocol-page">
 	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
 		<div class="container breadcrumb-bar__inner">
 			<ol class="breadcrumb-list">

@@ -128,7 +128,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Options Greeks & Volatility Mastery course`                            | `/store/courses/options-greeks-and-volatility-mastery`      | Primary educational course funnel conversion                   |
 | `Small Accounts Room`                                                   | `/live-trading-rooms/small-accounts-room`                   | Capital-efficient options room for $1,500 to $15,000 accounts  |
 | `Live Day Trading Room`                                                 | `/live-trading-rooms/day-trading-room`                      | Intraday execution and market structure room                   |
-| `Explosive Swings alert service`                                        | `/alert-services/explosive-swings`                          | Multi-day swing trade video alerts and watchlists              |
+| `Sunday Alpha Protocol alert service`                                   | `/alert-services/sunday-alpha-protocol`                     | Multi-day swing trade video alerts and watchlists              |
 | `SPX & Index Options Dealer Gamma & IV Percentile Scanner`              | `/store/scanners/spx-dealer-gamma-iv-skew-scanner`          | IV Rank & IV Percentile screening tool for LEAPS entry         |
 | `Dynamic SPX & Index Gamma Inflection Levels indicator`                 | `/store/indicators/spx-gamma-zones`                         | Overhead resistance & call wall mapping for short call strikes |
 | `Complete ETF Stocks & Sector Directory`                                | `/resources/etf-stocks-list`                                | Liquid ETF reference (`SPY`, `QQQ`, `IWM`, `SMH`)              |
@@ -458,8 +458,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	buy Leg 1 when Implied Volatility is at a 52-week extreme. Before entering a
 	<strong>diagonal spread</strong> in our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a> or featuring it on our
-	<a href="/alert-services/explosive-swings">Explosive Swings alert service</a>, we apply three
-	mandatory filters:
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol alert service</a>, we apply
+	three mandatory filters:
 </p>
 
 <ol>

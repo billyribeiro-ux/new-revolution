@@ -127,7 +127,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Swing Trading Room`                                                       | `/live-trading-rooms/swing-trading-room`                | Primary multi-day spread management room        |
 | `Course 03: Options Greeks & Volatility Mastery`                           | `/store/courses/options-greeks-and-volatility-mastery`  | Primary Options Greeks curriculum conversion    |
 | `Small Accounts Room ($500+ starting capital)`                             | `/live-trading-rooms/small-accounts-room`               | Small account spread & Wheel room conversion    |
-| `Explosive Swings video watchlist alerts`                                  | `/alert-services/explosive-swings`                      | Multi-day swing alert service conversion        |
+| `Sunday Alpha Protocol video watchlist alerts`                             | `/alert-services/sunday-alpha-protocol`                 | Multi-day swing alert service conversion        |
 | `institutional options and risk management courses`                        | `/store/courses`                                        | Store courses category hub                      |
 | `institutional ThinkorSwim and TradingView scanners`                       | `/store/scanners`                                       | Store scanners category hub                     |
 | `100% non-repainting custom trading indicators`                            | `/store/indicators`                                     | Store indicators category hub                   |
@@ -565,9 +565,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	To prevent an adjustment from turning into an emotional disaster, every member across our
 	<a href="/store/courses">institutional options and risk management courses</a>,
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, and
-	<a href="/mentorship">Private 1-on-1 Trading Mentorship</a> must run a potential roll through our
-	three-gate mechanical checklist before clicking submit.
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	and <a href="/mentorship">Private 1-on-1 Trading Mentorship</a> must run a potential roll through
+	our three-gate mechanical checklist before clicking submit.
 </p>
 
 <figure class="article-inline-figure">

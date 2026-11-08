@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 **Current owner instruction — November 5, 2026:** maintenance is to be **off** for the normal public website until the owner asks to restore it. Public homepage/blog now return 200, and `/maintenance-state.json` is false. Production `dpl_EbGSBSiqZEEQnmTdKQ21TQpTnhEg` publishes squash commit `e94fc23`; the Production environment variable remains `false`. The current deployment and first-article browser/HTTP proof are recorded in [publication acceptance](reviews/first-blog-2026-11-05/VERIFICATION.md); the prior availability release remains historical in [the layout/release record](reviews/blog-layout-release-2026-11-05/VERIFICATION.md). Changing the variable alone does not change the live deployment. A dedicated free-plan Production Neon database has been initialized separately from Preview. Keep waitlist capture disabled until its separate provider/mailbox prerequisites pass.
 

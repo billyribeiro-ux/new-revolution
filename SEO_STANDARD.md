@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the mandatory blog handoff at repository-root `docs/BLOG_AGENT_HANDOFF.md` before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow repository-root `docs/FONT_AND_FRAGMENT_POLICY.md`. Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow repository-root `docs/FONT_AND_FRAGMENT_POLICY.md`. Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 **Verified:** 2026-11-01 (every `G:` row below was re-fetched from developers.google.com on 2026-11-01; the page's own "Last updated" date is quoted where a rule depends on it. Rows that still carry **†** were not re-verified.)
 **Scope:** Technical SEO only. This standard makes every page crawlable, indexable, fast, and eligible for rich results. Rankings beyond that depend on content and links. SvelteKit's own SEO page says: _"The most important aspect of SEO is to create high-quality content that is widely linked to from around the web."_

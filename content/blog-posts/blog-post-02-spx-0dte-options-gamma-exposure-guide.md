@@ -122,7 +122,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Live Day Trading Room`                                                 | `/live-trading-rooms/day-trading-room`                     | Live intraday voice/screen-share room conversion              |
 | `Small Accounts Room ($500+ starting capital)`                          | `/live-trading-rooms/small-accounts-room`                  | XSP and defined-risk 5-wide spread conversion                 |
 | `Swing Trading Room for multi-day setups`                               | `/live-trading-rooms/swing-trading-room`                   | Cross-silo room discovery                                     |
-| `Explosive Swings video watchlist alerts`                               | `/alert-services/explosive-swings`                         | Swing alert service cross-link                                |
+| `Sunday Alpha Protocol video watchlist alerts`                          | `/alert-services/sunday-alpha-protocol`                    | Swing alert service cross-link                                |
 | `Dynamic SPX & Index Gamma Inflection Levels indicators`                | `/store/indicators`                                        | ThinkorSwim & TradingView indicator store conversion          |
 | `SPX & Index Options Dealer Gamma & IV Percentile Scanner`              | `/store/scanners`                                          | Real-time GEX & options scanner conversion                    |
 | `SPX & Index Options Execution course curriculum`                       | `/store/courses`                                           | Core educational store conversion                             |
@@ -762,9 +762,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<a href="/live-trading-rooms/small-accounts-room">Small Accounts Room ($500+ starting capital)</a>
 	using <code>XSP</code> spreads, building multi-day positions in our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for multi-day setups</a> and
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, or working
-	directly with our desk in <a href="/mentorship">Private 1-on-1 Trading Mentorship</a>, pair this
-	GEX playbook with our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	or working directly with our desk in <a href="/mentorship">Private 1-on-1 Trading Mentorship</a>,
+	pair this GEX playbook with our
 	<a href="/blog/zero-dte-risk-management-and-position-sizing-rules"
 		>zero DTE risk management and position sizing rules</a
 	>

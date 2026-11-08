@@ -160,7 +160,10 @@ export const coursesCatalog: readonly TradingCourse[] = [
 			'Module 3: Identifying climax Volume, Abandoned Tops & Failed Breakout Candles',
 			'Module 4: Structuring Put Contracts & Debit Spreads for Asymmetric Downside Velocity'
 		],
-		room: { label: 'Pairs With: Weekly Video Watchlist →', href: '/sunday-alpha-alerts' }
+		room: {
+			label: 'Pairs With: Sunday Alpha Protocol →',
+			href: '/alert-services/sunday-alpha-protocol'
+		}
 	},
 	{
 		id: 'macro-cycle-inflection-mastery',

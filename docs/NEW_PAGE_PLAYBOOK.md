@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 > **Audience:** every AI agent and engineer adding or changing a route, component, or stylesheet in this repo.
 > **Status:** mandatory. Follow it top to bottom; do not skip a step because it "looks obvious".
@@ -37,7 +37,7 @@ The repo has two page shapes. Pick one deliberately; do not mix them on one page
 
 |                | **A. Inner-page (default for every new page)**                                                                                                                                      | **B. Bespoke hub page (legacy shape)**        |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| Used by        | `/about`, `/our-mission`, `/mentorship`, 3 live rooms, `/alert-services/spx-profit-pulse`, `/blogs`, `/store/**`                                                                    | `/resources`, `/resources/etf-stocks-list`    |
+| Used by        | `/about`, `/our-mission`, `/mentorship`, 3 live rooms, `/alert-services/spx-profit-pulse`, `/alert-services/sunday-alpha-protocol`, `/blogs`, `/store/**`                           | `/resources`, `/resources/etf-stocks-list`    |
 | Stylesheet     | `import '#lib/styles/inner-page.css'` (global, scoped under `.inner-page`) + a small scoped `<style>` for page-only rules                                                           | Everything in the page's own scoped `<style>` |
 | `<main>`       | `<main id="<slug>-page" class="inner-page <slug>-page">`                                                                                                                            | `<main id="..." class="<slug>-page">`         |
 | Breadcrumb     | Inline markup using `.breadcrumb-bar` / `.breadcrumb-list` from `inner-page.css`                                                                                                    | `src/lib/components/layout/Breadcrumb.svelte` |
@@ -304,7 +304,7 @@ pass prerendering with a warning. Therefore:
   list of remaining missing pages. Then find all casts with `grep -rn "as '/'" src` and remove the ones for routes that now exist.
 
 **Currently missing routes that are linked** (verify with the build warnings; this list rots):
-`/resources/options-calculator`, `/alert-services/explosive-swings`, `/signup`, `/contact`
+`/signup`
 (the `/resources` hub test expects "Get Started Free" to link to `/signup`).
 
 When a missing page is built, also update copy that says it is a "planned" or "preview" feature, and add it to the JSON-LD lists that

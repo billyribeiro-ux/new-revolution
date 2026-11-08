@@ -131,7 +131,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Swing Trading Room for multi-day tech setups`                               | `/live-trading-rooms/swing-trading-room`                  | Multi-day Nasdaq-100 vertical and diagonal spread room        |
 | `Small Accounts Room ($500+ starting capital)`                               | `/live-trading-rooms/small-accounts-room`                 | Small account QQQ and XND execution training room             |
 | `SPX Profit Pulse index options alert service`                               | `/alert-services/spx-profit-pulse`                        | Primary index options alert conversion                        |
-| `Explosive Swings video watchlist alerts`                                    | `/alert-services/explosive-swings`                        | Multi-day Nasdaq-100 and mega-cap tech swing alert service    |
+| `Sunday Alpha Protocol video watchlist alerts`                               | `/alert-services/sunday-alpha-protocol`                   | Multi-day Nasdaq-100 and mega-cap tech swing alert service    |
 | `free Options Profit, Risk & Greeks Calculator`                              | `/resources/options-calculator`                           | Interactive contract multiplier & Greek calculator            |
 | `Options Greeks & Index Execution Courses`                                   | `/store/courses`                                          | Core educational store conversion                             |
 | `Institutional Options & Volatility Scanners`                                | `/store/scanners`                                         | Real-time options scanner store                               |
@@ -728,8 +728,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 		<strong>Accounts Between $5,000 and $25,000:</strong> Combine <code>MNX</code> or
 		<code>XND</code> for credit spreads and butterflies alongside <code>QQQ</code> debit spreads
 		from our
-		<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> and
-		<a href="/store/scanners">Institutional Options &amp; Volatility Scanners</a>.
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+		and <a href="/store/scanners">Institutional Options &amp; Volatility Scanners</a>.
 	</li>
 	<li>
 		<strong>Taxable Accounts Over $25,000:</strong> Execute your primary spread, iron condor, and

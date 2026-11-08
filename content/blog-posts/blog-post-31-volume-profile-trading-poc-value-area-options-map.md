@@ -131,7 +131,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Liquidity Sweep & Stop-Hunt Institutional Scanner`                          | `/store/scanners/liquidity-sweep-stop-hunt-scanner`        | Scanner for VAH/VAL failed-auction stop sweeps           |
 | `Swing Trading Room for multi-day setups`                                    | `/live-trading-rooms/swing-trading-room`                   | Composite Volume Profile swing execution room            |
 | `SPX Profit Pulse index options alert service`                               | `/alert-services/spx-profit-pulse`                         | SPX Value Area + Gamma Flip options alert service        |
-| `Explosive Swings video watchlist alerts`                                    | `/alert-services/explosive-swings`                         | Multi-day swing alerts using composite HVN/LVN maps      |
+| `Sunday Alpha Protocol video watchlist alerts`                               | `/alert-services/sunday-alpha-protocol`                    | Multi-day swing alerts using composite HVN/LVN maps      |
 | `free Options Profit, Risk & Greeks Calculator`                              | `/resources/options-calculator`                            | Strike selection and R-multiple payoff calculator        |
 | `Complete ETF Stocks & Sector Directory`                                     | `/resources/etf-stocks-list`                               | SPY, QQQ, IWM, and sector ETF liquidity reference        |
 | `Institutional Order Flow and SPX Gamma Flip Playbook`                       | `/blog/institutional-order-flow-and-gamma-flip-playbook`   | Sister blog cluster cross-link (Post #03)                |
@@ -285,7 +285,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 		volume across multiple weeks or months into one master histogram. Composite profiles reveal the
 		major structural High-Volume Nodes (<code>HVNs</code>) and Low-Volume Nodes (<code>LVNs</code>)
 		that govern multi-day breakouts in our
-		<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>.
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a
+		>.
 	</li>
 	<li>
 		<strong>Event-Anchored Volume Profile:</strong> Anchored from a specific regime-changing

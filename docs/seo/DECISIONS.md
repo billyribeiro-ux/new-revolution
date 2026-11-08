@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](../FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](../FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 **Recorded:** 2026-10-31
 **Authority:** Repository Owner (`Billy Ribeiro`) — Phase 4 of the Evidence-Gated Technical SEO Audit (`docs/seo/audit/04-plan.md`).
@@ -45,7 +45,7 @@
   - `FAQPage` JSON-LD removed from all pages (restricted to government/health sites on 2023-09-14, no longer shown since 2026-05-07, docs removed 2026-06-15; visible `<details>` FAQ accordions remain in the server-rendered DOM).
   - `Course`, `CourseInstance`, and `SpeakableSpecification` JSON-LD removed from all pages (project policy: the Course list carousel and Speakable beta are still in Google's 2026-10-16 gallery but do not fit this site).
 - **Visible Price Parity for `Product` + `Offer` (`SD-08`):**
-  - `Product` + `Offer` (`AggregateOffer` with `$47`–`$447` USD pricing and `image`) is emitted only on `/watchlist`, where those exact prices are visibly rendered in the DOM (`[CODE src/lib/seo/structured-data.ts:1388-1409]`).
+  - `Product` + `Offer` (`AggregateOffer` with `$47`–`$447` USD pricing and `image`) is emitted only on `/alert-services/sunday-alpha-protocol`, where those exact prices are visibly rendered in the DOM (`[CODE src/lib/seo/structured-data.ts]`).
 
 ---
 
@@ -56,7 +56,7 @@
 - **Unlaunched sections are kept out with `noindex`, not robots.txt.** Only `/store` remains in `UNLAUNCHED_ROUTE_PREFIXES` after the owner-authorized, publicly verified November 5 blog indexing launch. Eligible blog posts and archives now participate in the generated sitemap and homepage article ItemList; protected, excluded and thin archive content retains its own restrictions. Store promotion remains hidden. Googlebot can crawl blog pages under the existing `Allow: /`; individual page URLs do not belong in robots.txt. See [release evidence](../reviews/blog-indexing-release-2026-11-05/VERIFICATION.md).
 - **The temporary `*.vercel.app` host is `noindex` at the platform layer.** `vercel.json` sets `X-Robots-Tag: noindex, nofollow, noarchive` for hosts ending `.vercel.app`. The hook in `src/hooks.server.ts` cannot do this alone because prerendered pages are served as static files and never reach `handle` (`SEO_EVIDENCE.md` row 38). The production domain is unaffected. HSTS is left to Vercel, which already sends the header.
 - **No phone number or postal address is published until the owner supplies verified values.** `SUPPORT_CONTACT` stays the single input; the Organization `contactPoint` adds `telephone`/`email` only when they are non-empty. `src/lib/config/site.ts` holds a fabricated address and phone and must not be used for display or schema.
-- **The homepage makes no performance or endorsement claim it cannot evidence.** The founder's mentorship is worded as the founder's own account and links to `/about#institutional-mentorship`. The 2020, 2022 and OXY results appear on the homepage only as a `VerifiedCaseStudy` record (contract symbol, strike, expiration, entry and exit timestamps, size, maximum risk, result, chart with alt text); an incomplete record never renders, and there are no records yet. The schema `Person` (`#founder`) carries no such claims. Other pages still carry them; see `LAUNCH_TRACKER.md` §A and §F.
+- **The homepage makes no performance or endorsement claim it cannot evidence.** The founder's mentorship is worded as the founder's own account and links to `/about`. The 2020, 2022 and OXY results appear on the homepage only as a `VerifiedCaseStudy` record (contract symbol, strike, expiration, entry and exit timestamps, size, maximum risk, result, chart with alt text); an incomplete record never renders, and there are no records yet. The schema `Person` (`#founder`) carries no such claims. Other pages still carry them; see `LAUNCH_TRACKER.md` §A and §F.
 - **One founder title.** `FOUNDER.jobTitle` ("Founder & Head Trader", from the owner's brief) feeds the byline on `/about` and the schema `Person`.
 - **Free eBook hidden.** `FREE_EBOOK_AVAILABLE = false` hides the homepage form (it only validated and sent nothing), the announcement-bar link and the footer link.
 - **Fonts:** only the upright Latin faces of Montserrat and Sofia Sans are preloaded; other subsets and italics load on demand through `unicode-range`.

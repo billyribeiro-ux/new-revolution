@@ -132,7 +132,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Complete ETF Stocks & Sector Directory`                         | `/resources/etf-stocks-list`                                          | Liquid SPY/QQQ/IWM options reference                                 |
 | `Stock Market Indexes Directory`                                 | `/resources/stock-indexes-list`                                       | SPX & XSP index option reference                                     |
 | `SPX Profit Pulse index options alert service`                   | `/alert-services/spx-profit-pulse`                                    | Cash-settled index alert conversion                                  |
-| `Explosive Swings video watchlist alerts`                        | `/alert-services/explosive-swings`                                    | Multi-day swing trade alerts                                         |
+| `Sunday Alpha Protocol video watchlist alerts`                   | `/alert-services/sunday-alpha-protocol`                               | Multi-day Sunday Alpha Protocol alerts                               |
 | `Private 1-on-1 Trading Mentorship`                              | `/mentorship`                                                         | High-ticket desk mentorship                                          |
 | `our complete blueprint on growing a $500 small options account` | `/blog/growing-a-500-dollar-small-options-account-without-blowing-up` | Priority internal blog cluster link (`INTERNAL_LINK_PRIORITY_SLUGS`) |
 | `our cornerstone masterclass on Options Greeks`                  | `/blog/ultimate-guide-to-options-greeks`                              | Priority internal blog cluster link (`INTERNAL_LINK_PRIORITY_SLUGS`) |
@@ -555,8 +555,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<li>
 		<strong>100% Legal Overnight Swing Buy With Unsettled Cash (No Violation):</strong> At 2:30 PM
 		on that same Tuesday, you see a setup from our
-		<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> and use
-		<code>$600</code> of your <code>$1,200 Unsettled Cash</code> to buy a 30-DTE
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+		and use <code>$600</code> of your <code>$1,200 Unsettled Cash</code> to buy a 30-DTE
 		<code>MSFT</code> Call option, holding it overnight into Wednesday. Because Tuesday's
 		<code>QQQ</code> proceeds settle overnight before Wednesday's open, when you sell the
 		<code>MSFT</code> Call on Wednesday morning, the funds that paid for it are now settled.

@@ -18,7 +18,7 @@
 2. **Build Missing Trust Pages & Resolve Broken Internal Links / Prerender Suppressions (`IDX-04`, `IDX-05`, `IDX-10`, `YMYL-07`)**
    - **Root Cause:**
      - `[CODE vite.config.ts:12-36]` suppresses `404` errors during `pnpm build` for `PLANNED_ROUTE_PATTERN` and omits `handleUnseenRoutes`.
-     - `[CODE src/lib/data/homepage.ts:523-547]`, `[CODE src/routes/resources/+page.svelte:95-115]`, and `[CODE src/lib/seo/structured-data.ts:448-475]` link to `/blogs/*` (which 308-redirect to `/blog/*` and 404) and unbuilt routes (`/contact`, `/privacy-policy`, `/terms-of-service`, `/editorial-policy`, `/refund-policy`, `/login`, `/signup`, `/memberships`, `/alert-services/explosive-swings`, `/resources/options-calculator`, `/resources/free-trading-ebook`).
+     - `[CODE src/lib/data/homepage.ts:523-547]`, `[CODE src/routes/resources/+page.svelte:95-115]`, and `[CODE src/lib/seo/structured-data.ts:448-475]` link to `/blogs/*` (which 308-redirect to `/blog/*` and 404) and unbuilt routes (`/contact`, `/privacy-policy`, `/terms-of-service`, `/editorial-policy`, `/refund-policy`, `/login`, `/signup`, `/memberships`, `/alert-services/sunday-alpha-protocol`, `/resources/options-calculator`, `/resources/free-trading-ebook`).
    - **Files to Change:**
      - Create the 5 required YMYL trust pages (`YMYL-07`):
        - `src/routes/contact/+page.ts` & `src/routes/contact/+page.svelte`
@@ -98,10 +98,10 @@
 
 4. **Ensure 1-to-1 `BreadcrumbList` Parity Across All Non-Home Indexable Pages (`SD-03`, `SD-05`)**
    - **Root Cause:**
-     - `/watchlist`, `/resources/stock-indexes-list`, and `/blog` lack a visible `<nav aria-label="Breadcrumb">` in the DOM.
+     - `/alert-services/sunday-alpha-protocol`, `/resources/stock-indexes-list`, and `/blog` lack a visible `<nav aria-label="Breadcrumb">` in the DOM.
      - `/about`, `/mentorship`, `/store/courses`, `/store/indicators`, `/store/scanners`, `/store/courses/[slug]`, `/store/indicators/[slug]`, and `/store/scanners/[slug]` have mismatched labels between JSON-LD `BreadcrumbList` and `<nav aria-label="Breadcrumb">`.
    - **Files to Change:**
-     - Add visible `<nav class="breadcrumb-nav" aria-label="Breadcrumb">` to `src/routes/watchlist/+page.svelte`, `src/routes/resources/stock-indexes-list/+page.svelte`, and `src/routes/blog/+page.svelte`.
+     - Add visible `<nav class="breadcrumb-nav" aria-label="Breadcrumb">` to `src/routes/alert-services/sunday-alpha-protocol/+page.svelte`, `src/routes/resources/stock-indexes-list/+page.svelte`, and `src/routes/blog/+page.svelte`.
      - Align breadcrumb item names 1-to-1 between `src/lib/seo/structured-data.ts` and the visible `<nav aria-label="Breadcrumb">` in `src/routes/about/+page.svelte`, `src/routes/mentorship/+page.svelte`, `src/routes/store/courses/+page.svelte`, `src/routes/store/indicators/+page.svelte`, `src/routes/store/scanners/+page.svelte`, `src/routes/store/courses/[slug]/+page.svelte`, `src/routes/store/indicators/[slug]/+page.svelte`, and `src/routes/store/scanners/[slug]/+page.svelte`.
 
 ---
@@ -124,9 +124,9 @@
      - `src/hooks.server.ts` — Wrap `resolve` to pass `preload: ({ type }) => type === 'js' || type === 'css' || type === 'font'`.
 
 2. **Resolve Orphan Pages (`HTML-04`)**
-   - **Root Cause:** `/watchlist`, `/store/indicators/move-prior-to-the-move-system`, and `/store/scanners/high-octane-scanner` are in `/sitemap.xml` but have zero incoming internal links (`clickDepthFromHome: null`).
+   - **Root Cause:** `/alert-services/sunday-alpha-protocol`, `/store/indicators/move-prior-to-the-move-system`, and `/store/scanners/high-octane-scanner` are in `/sitemap.xml` but have zero incoming internal links (`clickDepthFromHome: null`).
    - **Files to Change:**
-     - `src/lib/components/layout/Navbar.svelte` & `src/lib/components/layout/Footer.svelte` — Link `/watchlist`.
+     - `src/lib/components/layout/Navbar.svelte` & `src/lib/components/layout/Footer.svelte` — Link `/alert-services/sunday-alpha-protocol`.
      - `src/routes/store/indicators/+page.svelte` — Ensure the flagship card links to `/store/indicators/move-prior-to-the-move-system`.
      - `src/routes/store/scanners/+page.svelte` — Ensure the flagship card links to `/store/scanners/high-octane-scanner`.
 

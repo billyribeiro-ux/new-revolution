@@ -8,7 +8,7 @@ description: Evidence-gated technical SEO audit → implement → re-audit for a
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 Audit **every route and every concrete URL** in this repository against `docs/seo/SEO_STANDARD.md`. Implement every missing or incorrect item end to end. Then re-run the **identical** audit and prove, with artifacts, that each requirement is PASS, N-A, or BLOCKED with a stated reason.
 

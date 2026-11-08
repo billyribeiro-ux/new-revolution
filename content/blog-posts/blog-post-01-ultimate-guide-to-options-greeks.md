@@ -148,7 +148,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Swing Trading Room for working professionals`                            | `/live-trading-rooms/swing-trading-room`                              | 9-to-5 swing membership conversion                                   |
 | `Small Accounts Room ($500+ starting capital)`                            | `/live-trading-rooms/small-accounts-room`                             | Small account membership conversion                                  |
 | `SPX Profit Pulse index options alert service`                            | `/alert-services/spx-profit-pulse`                                    | 0DTE & SPX GEX alert service conversion                              |
-| `Explosive Swings video watchlist alerts`                                 | `/alert-services/explosive-swings`                                    | Multi-day swing alert conversion                                     |
+| `Sunday Alpha Protocol video watchlist alerts`                            | `/alert-services/sunday-alpha-protocol`                               | Multi-day swing alert conversion                                     |
 | `100% non-repainting custom trading indicators`                           | `/store/indicators`                                                   | ThinkorSwim & TradingView indicator store                            |
 | `Institutional Trading Scanners`                                          | `/store/scanners`                                                     | Real-time options & IV scanner store                                 |
 | `Complete ETF Stocks & Sector Directory`                                  | `/resources/etf-stocks-list`                                          | Liquid options ETF reference hub                                     |
@@ -858,13 +858,13 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	Suppose the S&amp;P 500 pullbacks into a major institutional support zone after a macro CPI print,
 	pushing <code>IV Rank</code> up to <code>62</code>. Inside our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, rather
-	than buying inflated call premiums at <code>62 IVR</code>, we structure a 35-DTE Bull Put Credit
-	Spread by selling the <code>0.18 Delta</code> put and buying the <code>0.10 Delta</code> put below
-	it. As the market bounces and stabilizes over the next 8 trading days, the position profits from
-	three vectors at once: positive <strong>Delta</strong> (price moving away from our short strike),
-	positive <strong>Theta</strong> (8 days of time decay), and negative
-	<strong>Vega</strong> (Implied Volatility collapsing from <code>62 IVR</code> back to
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	rather than buying inflated call premiums at <code>62 IVR</code>, we structure a 35-DTE Bull Put
+	Credit Spread by selling the <code>0.18 Delta</code> put and buying the
+	<code>0.10 Delta</code> put below it. As the market bounces and stabilizes over the next 8 trading
+	days, the position profits from three vectors at once: positive <strong>Delta</strong> (price
+	moving away from our short strike), positive <strong>Theta</strong> (8 days of time decay), and
+	negative <strong>Vega</strong> (Implied Volatility collapsing from <code>62 IVR</code> back to
 	<code>30 IVR</code>), hitting 50% of max profit in a third of the expiration cycle.
 </p>
 

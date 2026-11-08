@@ -7,9 +7,9 @@ Updated November 5, 2026. Current verified application: `09d310a`; the earlier r
 - [ ] Complete the store's product content, pricing, checkout, legal and operational launch review. The `/store` section remains noindex and excluded from the sitemap until the owner authorizes launch; follow `docs/seo/LAUNCH_TRACKER.md` and the SEO standard when ready.
 - [ ] Review thin blog category and tag archives as content grows. Their existing eligibility thresholds remain in force; publishing eligible content feeds the sitemap automatically.
 - [ ] Complete the remaining CMS publication, scheduled-publication and cache-invalidation work described in `docs/blog/AUTOMATION_PLAN.md` and `docs/blog/FRESHNESS.md`; sitemap discovery does not eliminate editorial review or guarantee immediate cache refresh.
-- [x] Verify Sunday Alpha Alerts source wording and the released shared navigation/marketing/store surfaces; see the current layout release evidence.
-- [x] Verify `/sunday-alpha-alerts`, navigation, canonical, sitemap and the query/fragment-preserving `/watchlist` redirect in the released build and three browser engines.
-- [ ] Confirm Google indexing for `/sunday-alpha-alerts`, `/blog` and the published article in Search Console after sitemap submission; public HTTP checks do not establish Google index status.
+- [x] Verify Sunday Alpha Protocol source wording and the released shared navigation/marketing/store surfaces; see the current layout release evidence.
+- [x] Verify `/alert-services/sunday-alpha-protocol`, navigation, canonical, and sitemap in the released build and three browser engines.
+- [ ] Confirm Google indexing for `/alert-services/sunday-alpha-protocol`, `/blog` and the published article in Search Console after sitemap submission; public HTTP checks do not establish Google index status.
 
 - [x] Complete the repository font/supplied-fragment investigation, publish verified fixes and update the shared agent policy. PR #37 application `e62c340` was promoted before the current layout release; see `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`. Source-draft formatting exceptions and the unrelated remaining launch tasks above are not represented as resolved.
 

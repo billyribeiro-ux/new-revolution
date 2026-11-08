@@ -126,7 +126,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `The Move Prior to The Move System`                                        | `/store/indicators/move-prior-to-the-move-system`                   | Flagship non-repainting institutional indicator                      |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`                 | `/store/courses/move-prior-to-the-move-ultra`                       | Flagship institutional order-flow education course                   |
 | `SPX Profit Pulse index options alert service`                             | `/alert-services/spx-profit-pulse`                                  | Intraday SPX liquidity sweep & GEX alert service                     |
-| `Explosive Swings alert service`                                           | `/alert-services/explosive-swings`                                  | Daily/multi-day swing reversal alert service                         |
+| `Sunday Alpha Protocol alert service`                                      | `/alert-services/sunday-alpha-protocol`                             | Daily/multi-day swing reversal alert service                         |
 | `Swing Trading Room`                                                       | `/live-trading-rooms/swing-trading-room`                            | Daily-chart liquidity sweep swing trading room                       |
 | `Small Accounts Room`                                                      | `/live-trading-rooms/small-accounts-room`                           | Small account options room conversion                                |
 | `free Options Profit, Risk & Greeks Calculator`                            | `/resources/options-calculator`                                     | Options position sizing and Greek modeling tool                      |
@@ -281,7 +281,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<li>
 		<strong>Multi-Week Swing Highs &amp; Lows on Daily Charts:</strong> High-conviction swing traps
 		monitored by our <a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a> and
-		<a href="/alert-services/explosive-swings">Explosive Swings alert service</a>.
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol alert service</a>.
 	</li>
 </ol>
 

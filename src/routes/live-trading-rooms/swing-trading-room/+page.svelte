@@ -366,7 +366,9 @@
 				<div class="swing-blueprint__footer">
 					<p class="swing-blueprint__note">
 						Only want the video watchlist &amp; alerts without the full room? See
-						<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol →</a>
+						<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+							>Sunday Alpha Protocol →</a
+						>
 					</p>
 				</div>
 			</aside>
@@ -569,12 +571,17 @@
 						<h3 class="route-card__title">Sunday Alpha Protocol (Alert Service)</h3>
 						<p class="route-card__copy">
 							Prefer an ultra-affordable alert-only membership without full room sessions?
-							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
+							<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+								>Sunday Alpha Protocol</a
+							>
 							sends you our detailed video watchlists and trade alerts complete with exact targeted entries,
 							profit exits, and stop-loss levels.
 						</p>
 					</div>
-					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark btn--full">
+					<a
+						href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+						class="btn btn-outline-dark btn--full"
+					>
 						Explore Sunday Alpha Protocol
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -651,7 +658,10 @@
 					Join the Swing Trading Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+				<a
+					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+					class="btn btn-outline-dark"
+				>
 					Explore Sunday Alpha Protocol
 				</a>
 				<a

@@ -64,7 +64,7 @@
 		| '/live-trading-rooms/day-trading-room'
 		| '/live-trading-rooms/swing-trading-room'
 		| '/live-trading-rooms/small-accounts-room'
-		| '/sunday-alpha-alerts'
+		| '/alert-services/sunday-alpha-protocol'
 		| '/store/indicators';
 
 	interface RoomCta {
@@ -314,7 +314,7 @@
 			description:
 				'Pair SPX Profit Pulse with our flagship multi-day stock and options video watchlist alerts.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		},
 		{
 			badge: 'Zero-Repaint Tools',

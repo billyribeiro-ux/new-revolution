@@ -344,7 +344,7 @@
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		}
 	];
 </script>

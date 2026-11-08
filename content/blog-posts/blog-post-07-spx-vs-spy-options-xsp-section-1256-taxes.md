@@ -120,7 +120,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | Anchor Text in Article Body                                            | Target Internal Path                                    | Strategic Funnel Role                                                |
 | :--------------------------------------------------------------------- | :------------------------------------------------------ | :------------------------------------------------------------------- |
 | `SPX Profit Pulse index options alert service`                         | `/alert-services/spx-profit-pulse`                      | Primary SPX 0DTE & GEX alert service conversion                      |
-| `Explosive Swings video watchlist alerts`                              | `/alert-services/explosive-swings`                      | Multi-day swing alert conversion                                     |
+| `Sunday Alpha Protocol video watchlist alerts`                         | `/alert-services/sunday-alpha-protocol`                 | Multi-day swing alert conversion                                     |
 | `Stock Market Indexes Directory`                                       | `/resources/stock-indexes-list`                         | SPX, NDX, RUT, and XSP specification hub                             |
 | `Complete ETF Stocks & Sector Directory`                               | `/resources/etf-stocks-list`                            | SPY, QQQ, and sector ETF specification hub                           |
 | `free Options Profit, Risk & Greeks Calculator`                        | `/resources/options-calculator`                         | Interactive contract multiplier & Greek calculator                   |
@@ -717,10 +717,10 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<a href="/live-trading-rooms/small-accounts-room">Small Accounts Room ($500+ starting capital)</a>
 	is using <code>XSP</code> alongside our
 	<a href="/store/scanners">Institutional Trading Scanners</a> and
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>. Because a
-	cash account does not have margin to absorb a $60,000 physical <code>SPY</code> share assignment
-	if you hold an option into the close, trading <code>XSP</code> guarantees that even if an
-	emergency disconnects your internet at 3:55 PM ET on expiration Friday, your contract settles
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>.
+	Because a cash account does not have margin to absorb a $60,000 physical <code>SPY</code> share
+	assignment if you hold an option into the close, trading <code>XSP</code> guarantees that even if
+	an emergency disconnects your internet at 3:55 PM ET on expiration Friday, your contract settles
 	cleanly in cash with zero share delivery risk.
 </p>
 

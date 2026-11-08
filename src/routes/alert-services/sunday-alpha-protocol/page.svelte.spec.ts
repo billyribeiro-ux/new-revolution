@@ -1,7 +1,7 @@
 import { page } from 'vite-plus/test/browser';
 import { describe, expect, it } from 'vite-plus/test';
 import { render } from 'vitest-browser-svelte';
-import '../../app.css';
+import '../../../app.css';
 import Page from './+page.svelte';
 import { load } from './+page.ts';
 import {
@@ -12,11 +12,11 @@ import {
 
 function getPageData() {
 	return load({
-		url: new URL('https://www.revolutiontradingpros.com/sunday-alpha-alerts')
+		url: new URL('https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol')
 	} as Parameters<typeof load>[0]) as Record<string, unknown>;
 }
 
-describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Protocol)', () => {
+describe('/alert-services/sunday-alpha-protocol/+page.svelte (Sunday Alpha Protocol)', () => {
 	it('uses the current product name, canonical route and house metadata budgets', () => {
 		const data = getPageData() as {
 			pageMetaTags: {
@@ -36,7 +36,7 @@ describe('/sunday-alpha-alerts/+page.svelte (Sunday Alpha Protocol)', () => {
 		expect(data.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
 		expect(data.pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(data.pageMetaTags.canonical).toBe(
-			'https://www.revolutiontradingpros.com/sunday-alpha-alerts'
+			'https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol'
 		);
 	});
 

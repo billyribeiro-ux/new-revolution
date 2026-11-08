@@ -579,7 +579,9 @@
 										>Swing Trading Room</a
 									>
 									or our affordable
-									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
+									<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+										>Sunday Alpha Protocol</a
+									>
 									video watchlist tier for multi-day setups with pre-planned entries, targets, and stops.
 								</p>
 							</div>
@@ -645,9 +647,10 @@
 								room, explore
 								<a href={resolve('/alert-services/spx-profit-pulse' as '/')}>SPX Profit Pulse</a>
 								for high-precision S&amp;P 500 index options execution or
-								<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>, our
-								accessible video watchlist alert membership delivering exact targeted entries,
-								profit exits, and stop-loss levels.
+								<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+									>Sunday Alpha Protocol</a
+								>, our accessible video watchlist alert membership delivering exact targeted
+								entries, profit exits, and stop-loss levels.
 							</p>
 						{:else if item.id === 'custom-non-repainting-indicators-scanners'}
 							<p class="faq-item__answer">

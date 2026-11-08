@@ -120,7 +120,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | Anchor Text in Article Body                                                    | Target Internal Path                                        | Strategic Funnel Role                                                |
 | :----------------------------------------------------------------------------- | :---------------------------------------------------------- | :------------------------------------------------------------------- |
 | `Swing Trading Room for working professionals`                                 | `/live-trading-rooms/swing-trading-room`                    | Primary 30-45 DTE swing room conversion                              |
-| `Explosive Swings video watchlist alerts`                                      | `/alert-services/explosive-swings`                          | Primary multi-day swing alert service conversion                     |
+| `Sunday Alpha Protocol video watchlist alerts`                                 | `/alert-services/sunday-alpha-protocol`                     | Primary multi-day swing alert service conversion                     |
 | `SPX Profit Pulse index options alert service`                                 | `/alert-services/spx-profit-pulse`                          | SPX cash-settled index spread alerts                                 |
 | `Live Day Trading Room`                                                        | `/live-trading-rooms/day-trading-room`                      | Active market session execution room                                 |
 | `Small Accounts Room ($500+ starting capital)`                                 | `/live-trading-rooms/small-accounts-room`                   | Small account defined-risk spread room                               |
@@ -166,7 +166,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	Inside our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a>
-	and our <a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>,
+	and our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
 	the 30 to 45 DTE vertical credit spread is our foundational cash-flow engine for traders who have
 	full-time careers or businesses and cannot stare at 1-minute charts all day. By entering at 30 to
 	45 DTE and staging an automated Good-Til-Canceled (GTC) closing order at 50% of maximum profit,

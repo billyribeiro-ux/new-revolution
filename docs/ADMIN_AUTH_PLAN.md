@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 **Current Production publication, November 5:** the dedicated `revolution-production` database now contains the published first article (post 1), its Billy Ribeiro author, SPX Options category, two tags and six real media records. Public files live in Production-only Blob store `revolution-production-media` (`store_zWoSsUN6nA8DJ1wl`, public, iad1). No admin account was created; owner/admin provisioning remains separate work. Existing numbered migrations were reused; no new schema or reinitialization was performed. A new 256-bit Production preview/unlock signing key was provisioned after confirming zero protected or trashed posts; sensitive CLI exports were masked and could not sign a valid hosted preview. See [publication evidence](reviews/first-blog-2026-11-05/VERIFICATION.md). The earlier 55-table/zero-post release snapshot is historical.
 

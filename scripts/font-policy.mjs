@@ -40,9 +40,17 @@ export function findFontPolicyViolations(filename, source) {
 		if (isExternalUrl(match[1])) violations.push('external CSS import');
 	}
 	for (const link of source.matchAll(/<link\b[^>]*>/gi)) {
-		const href = /\bhref\s*=\s*['"]((?:https?:)?\/\/[^'"]+)['"]/i.exec(link[0]);
-		if (/\brel\s*=\s*['"]stylesheet['"]/i.test(link[0]) && href && isExternalUrl(href[1])) {
+		const tag = link[0];
+		const href = /\bhref\s*=\s*['"]((?:https?:)?\/\/[^'"]+)['"]/i.exec(tag);
+		if (/\brel\s*=\s*['"]stylesheet['"]/i.test(tag) && href && isExternalUrl(href[1])) {
 			violations.push('externally hosted stylesheet link');
+		}
+		if (
+			/\bas\s*=\s*['"]font['"]/i.test(tag) ||
+			/\btype\s*=\s*['"]font\//i.test(tag) ||
+			/\bhref\s*=\s*['"][^'"]*\.(?:woff2?|ttf|otf|eot)(?:[?#][^'"]*)?['"]/i.test(tag)
+		) {
+			violations.push('font link href is forbidden');
 		}
 	}
 	const svgFontAsset = filename === 'src/lib/server/svg-brand-font.ts';

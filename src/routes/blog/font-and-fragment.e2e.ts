@@ -10,7 +10,7 @@ for (const path of [
 	'/',
 	'/blog',
 	'/blog/institutional-order-flow-and-gamma-flip-playbook',
-	'/sunday-alpha-alerts',
+	'/alert-services/sunday-alpha-protocol',
 	'/store/courses',
 	'/admin/login',
 	'/maintenance/index.html',
@@ -43,8 +43,9 @@ for (const path of [
 				.filter((font) => font.status === 'loaded')
 				.map((font) => font.family.replace(/^['"]|['"]$/g, ''))
 		);
-		expect(loadedFamilies).toContain('Montserrat Variable');
-		expect(loadedFamilies).toContain('Sofia Sans Variable');
+		expect(loadedFamilies).toContain('Geist Mono');
+		expect(loadedFamilies).toContain('Geist Sans');
+		expect(await page.locator('link[as="font"], link[href*=".woff"]').count()).toBe(0);
 	});
 }
 
@@ -74,8 +75,8 @@ test('keeps article entry, passive scrolling, and TOC clicks hash-free while str
 	expect(errors).toEqual([]);
 });
 
-test('uses the shared Sofia compatibility token in product SVG charts', async ({ page }) => {
-	await page.goto('/sunday-alpha-alerts');
+test('uses the shared Geist Mono token in product SVG charts', async ({ page }) => {
+	await page.goto('/alert-services/sunday-alpha-protocol');
 	const labels = page.locator('svg text[font-family]');
 	await expect.poll(() => labels.count()).toBeGreaterThan(0);
 	const fontTokens = await labels.evaluateAll((elements) =>
@@ -85,7 +86,7 @@ test('uses the shared Sofia compatibility token in product SVG charts', async ({
 	const resolvedFamily = await labels
 		.first()
 		.evaluate((element) => getComputedStyle(element).fontFamily);
-	expect(resolvedFamily).toContain('Sofia Sans Variable');
+	expect(resolvedFamily).toContain('Geist Mono');
 	expect(
 		await labels.first().evaluate((element) => getComputedStyle(element).fontVariantNumeric)
 	).toContain('tabular-nums');
@@ -110,10 +111,10 @@ for (const path of ['/api/unsubscribe', '/waitlist/confirm', '/waitlist/unsubscr
 		await page.goto(`${path}?token=local-font-referrer-probe`, { waitUntil: 'networkidle' });
 		await page.evaluate(() => document.fonts.ready);
 		expect(await page.locator('body').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
-			'Sofia Sans Variable'
+			'Geist Sans'
 		);
 		expect(await page.locator('h1').evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
-			'Montserrat Variable'
+			'Geist Mono'
 		);
 		expect(await page.evaluate(() => window.fontCspViolations)).toEqual([]);
 		expect(referrers.every((referrer) => !referrer.includes('local-font-referrer-probe'))).toBe(
@@ -122,15 +123,10 @@ for (const path of ['/api/unsubscribe', '/waitlist/confirm', '/waitlist/unsubscr
 	});
 }
 
-test('redirects the old product route with query and fragment and emits zero in-page fragment links', async ({
-	page,
-	request
+test('renders the canonical Sunday Alpha Protocol route with zero in-page fragment links', async ({
+	page
 }) => {
-	const response = await request.get('/watchlist?source=legacy', { maxRedirects: 0 });
-	expect(response.status()).toBe(308);
-	const location = new URL(response.headers().location, response.url());
-	expect(location.pathname + location.search).toBe('/sunday-alpha-alerts?source=legacy');
-	await page.goto('/sunday-alpha-alerts');
+	await page.goto('/alert-services/sunday-alpha-protocol');
 	await expect(page.locator('.sticky-bar')).toHaveCount(0);
 	await expect(page.locator('.cinema-shutter')).toHaveCount(0);
 	await expect(page.locator('main a[href*="#"]')).toHaveCount(0);

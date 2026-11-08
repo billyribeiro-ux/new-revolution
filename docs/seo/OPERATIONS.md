@@ -4,7 +4,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](../BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](../FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](../FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 **Updated:** 2026-10-31
 **Companion Standard:** [`docs/seo/SEO_STANDARD.md`](SEO_STANDARD.md)
@@ -81,7 +81,7 @@ The production domains point at Vercel. Automatic custom-domain assignment is di
    - Homepage: `https://www.revolutiontradingpros.com/`
    - ProfilePage: `https://www.revolutiontradingpros.com/about`
    - Service / Room: `https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room`
-   - Product / Watchlist: `https://www.revolutiontradingpros.com/watchlist`
+   - Product / Alert Service: `https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol`
    - Blog Index: `https://www.revolutiontradingpros.com/blog`
    - Blog Post (`BlogPosting`): `https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide`
    - Trust Page: `https://www.revolutiontradingpros.com/contact`

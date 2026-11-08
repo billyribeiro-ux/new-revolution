@@ -613,7 +613,7 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 		expect(person.name).toBe('Billy Ribeiro');
 
 		const product = graph.find(
-			(n) => n['@id'] === `${ORIGIN}/sunday-alpha-alerts#protocol`
+			(n) => n['@id'] === `${ORIGIN}/alert-services/sunday-alpha-protocol#protocol`
 		) as Node;
 		expect(product['@type']).toBe('Product');
 		expect(product.name).toBe('Sunday Alpha Protocol');
@@ -622,7 +622,7 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 		expect(offers).toHaveLength(3);
 		expect(offers.map((o) => o.price)).toEqual(['47.00', '127.00', '447.00']);
 		for (const offer of offers) {
-			expect(offer.url).toBe(`${ORIGIN}/sunday-alpha-alerts`);
+			expect(offer.url).toBe(`${ORIGIN}/alert-services/sunday-alpha-protocol`);
 		}
 	});
 });

@@ -578,11 +578,16 @@
 								>Swing Trading Room</a
 							>
 							or our ultra-affordable
-							<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
+							<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+								>Sunday Alpha Protocol</a
+							>
 							video watchlist alert tier for pre-planned multi-day entries, targets, and stops.
 						</p>
 					</div>
-					<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark btn--full">
+					<a
+						href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+						class="btn btn-outline-dark btn--full"
+					>
 						Explore Video Watchlist Alerts
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
@@ -659,7 +664,10 @@
 					Join the Small Accounts Room
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
-				<a href={resolve('/sunday-alpha-alerts' as '/')} class="btn btn-outline-dark">
+				<a
+					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+					class="btn btn-outline-dark"
+				>
 					Sunday Alpha Protocol Video Watchlist
 				</a>
 				<a href={resolve('/resources' as '/')} class="btn btn-outline-dark">

@@ -126,7 +126,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Live Day Trading Room`                                           | `/live-trading-rooms/day-trading-room`                                | Active intraday trading room conversion                              |
 | `Swing Trading Room`                                              | `/live-trading-rooms/swing-trading-room`                              | 30-to-45 DTE vertical spread swing room conversion                   |
 | `SPX Profit Pulse index options alert service`                    | `/alert-services/spx-profit-pulse`                                    | Cash-settled SPX/XSP vertical spread alert service                   |
-| `Explosive Swings alert service`                                  | `/alert-services/explosive-swings`                                    | Multi-day options swing alert service                                |
+| `Sunday Alpha Protocol alert service`                             | `/alert-services/sunday-alpha-protocol`                               | Multi-day options swing alert service                                |
 | `Stock Market Indexes Directory`                                  | `/resources/stock-indexes-list`                                       | Cash-settled XSP/SPX/NDX specification directory                     |
 | `Complete ETF Stocks & Sector Directory`                          | `/resources/etf-stocks-list`                                          | Liquid ETF option chain directory                                    |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`        | `/store/courses/move-prior-to-the-move-ultra`                         | Flagship institutional education & indicator suite                   |
@@ -425,8 +425,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	When structuring a credit spread inside our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a> or
-	<a href="/alert-services/explosive-swings">Explosive Swings alert service</a>, we apply two strict
-	filtering benchmarks:
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol alert service</a>, we apply
+	two strict filtering benchmarks:
 </p>
 
 <ol>

@@ -110,7 +110,7 @@
 			description:
 				'Affordable video watchlists with exact targeted entries, profit exits, and hard stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		}
 	];
 
@@ -499,7 +499,9 @@
 										>Swing Trading Room</a
 									>
 									and
-									<a href={resolve('/sunday-alpha-alerts' as '/')}>Sunday Alpha Protocol</a>
+									<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+										>Sunday Alpha Protocol</a
+									>
 									alert tier.
 								</p>
 							{:else}

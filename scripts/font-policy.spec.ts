@@ -17,6 +17,10 @@ describe('self-hosted font source policy', () => {
 		],
 		["import '@fontsource-variable/montserrat/wght.css';", 'Fontsource import outside src/app.css'],
 		[
+			'<link rel="preload" as="font" href="/_app/immutable/assets/font.woff2" crossorigin="anonymous">',
+			'font link href is forbidden'
+		],
+		[
 			"selection.attr('font-family', 'Unregistered Display, sans-serif')",
 			'chart font bypasses the shared font tokens'
 		]
@@ -24,19 +28,13 @@ describe('self-hosted font source policy', () => {
 		expect(findFontPolicyViolations('src/lib/Example.svelte', source)).toContain(expected);
 	});
 
-	it('allows bundled font imports only at their owner and permits same-origin font preloads', () => {
+	it('allows bundled font imports only at their owner and chart token references', () => {
 		expect(
 			findFontPolicyViolations('src/app.css', "@import '@fontsource-variable/montserrat/wght.css';")
 		).toEqual([]);
 		expect(
 			findFontPolicyViolations(
-				'src/routes/+layout.svelte',
-				'<link rel="preload" as="font" href="/_app/immutable/assets/font.woff2" crossorigin="anonymous">'
-			)
-		).toEqual([]);
-		expect(
-			findFontPolicyViolations(
-				'src/routes/sunday-alpha-alerts/+page.svelte',
+				'src/routes/alert-services/sunday-alpha-protocol/+page.svelte',
 				"selection.attr('font-family', 'var(--font-mono)')"
 			)
 		).toEqual([]);

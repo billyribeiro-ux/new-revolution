@@ -121,7 +121,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | :------------------------------------------------------------------------------ | :----------------------------------------------------------- | :------------------------------------------------------------------- |
 | `About Us & Proven Institutional Track Record`                                  | `/about`                                                     | Primary E-E-A-T authority & founder credentials verification         |
 | `Course 06: Contrarian Distribution & Put Options in our Trading Courses Store` | `/store/courses`                                             | Primary educational curriculum conversion                            |
-| `Explosive Swings video watchlist and multi-day alert service`                  | `/alert-services/explosive-swings`                           | Flagship swing-trade alert funnel                                    |
+| `Sunday Alpha Protocol video watchlist and multi-day alert service`             | `/alert-services/sunday-alpha-protocol`                      | Flagship swing-trade alert funnel                                    |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`                      | `/store/courses/move-prior-to-the-move-ultra`                | Flagship institutional order-flow course upsell                      |
 | `Live Day Trading Room`                                                         | `/live-trading-rooms/day-trading-room`                       | Real-time voice/screen-share execution room                          |
 | `Swing Trading Room for working professionals`                                  | `/live-trading-rooms/swing-trading-room`                     | Multi-day swing execution room                                       |
@@ -611,8 +611,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 
 <p>
 	Every multi-day swing alert we publish in our
-	<a href="/alert-services/explosive-swings"
-		>Explosive Swings video watchlist and multi-day alert service</a
+	<a href="/alert-services/sunday-alpha-protocol"
+		>Sunday Alpha Protocol video watchlist and multi-day alert service</a
 	>
 	follows a strict tiered profit-taking ladder. Here is how we executed the morning exit on our
 	<strong>oxy put options</strong>:

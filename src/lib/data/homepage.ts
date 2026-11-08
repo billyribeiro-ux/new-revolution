@@ -13,7 +13,7 @@ export type NavIconKey =
 	| 'swing-trading'
 	| 'small-accounts'
 	| 'spx'
-	| 'sunday-alpha-alerts'
+	| 'sunday-alpha-protocol'
 	| 'courses'
 	| 'indicators'
 	| 'scanners'
@@ -81,9 +81,9 @@ const FULL_NAVIGATION: readonly NavItem[] = [
 			},
 			{
 				label: 'Sunday Alpha Protocol',
-				href: '/sunday-alpha-alerts',
+				href: '/alert-services/sunday-alpha-protocol',
 				previewTarget: 'memberships',
-				icon: 'sunday-alpha-alerts',
+				icon: 'sunday-alpha-protocol',
 				description: 'Multi-day watchlists with defined entries and stops.'
 			}
 		]
@@ -535,7 +535,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 	},
 	{
 		index: 'MEMBERSHIP / 04',
-		tag: 'SPX PROFIT PULSE · SUNDAY ALPHA ALERTS',
+		tag: 'SPX PROFIT PULSE · SUNDAY ALPHA PROTOCOL',
 		title: 'Alert Services: SPX Profit Pulse & Sunday Alpha Protocol',
 		description:
 			'Want planned stock and options setups without a live room? Review the video thesis, intended trigger areas, targets, and invalidation in your own time.',
@@ -800,7 +800,7 @@ const FULL_FOOTER_COLUMNS: readonly FooterColumn[] = [
 			},
 			{
 				label: 'Sunday Alpha Protocol',
-				href: '/sunday-alpha-alerts',
+				href: '/alert-services/sunday-alpha-protocol',
 				previewTarget: 'memberships'
 			},
 			{

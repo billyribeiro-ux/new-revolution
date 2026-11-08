@@ -128,7 +128,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Complete ETF Stocks & Sector Directory`                                        | `/resources/etf-stocks-list`                           | Liquid ETF spread candidates (`SPY`, `QQQ`, `IWM`, `SMH`)            |
 | `Stock Market Indexes Directory`                                                | `/resources/stock-indexes-list`                        | Cash-settled index spread candidates (`SPX`, `XSP`, `NDX`)           |
 | `SPX Profit Pulse index options alert service`                                  | `/alert-services/spx-profit-pulse`                     | SPX credit spread & iron condor alert conversion                     |
-| `Explosive Swings video watchlist alerts`                                       | `/alert-services/explosive-swings`                     | Multi-day directional & diagonal swing alerts                        |
+| `Sunday Alpha Protocol video watchlist alerts`                                  | `/alert-services/sunday-alpha-protocol`                | Multi-day directional & diagonal swing alerts                        |
 | `Institutional Trading Scanners`                                                | `/store/scanners`                                      | High-IVR & credit spread scanner conversion                          |
 | `100% non-repainting custom trading indicators`                                 | `/store/indicators`                                    | ThinkorSwim & TradingView GEX/support indicators                     |
 | `Private 1-on-1 Trading Mentorship`                                             | `/mentorship`                                          | High-ticket desk portfolio mentorship                                |
@@ -179,7 +179,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	week inside our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a>,
 	our <a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alert service</a>,
-	and our <a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>.
+	and our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>.
 </p>
 
 <h2 id="why-buying-otm-weekly-options-fails">

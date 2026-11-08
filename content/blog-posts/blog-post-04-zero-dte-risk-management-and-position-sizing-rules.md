@@ -124,7 +124,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `The Move Prior to The Move Ultra Class & Indicator Suite`    | `/store/courses/move-prior-to-the-move-ultra`                         | Flagship order-flow & timing course                        |
 | `Small Accounts Room ($500+ starting capital)`                | `/live-trading-rooms/small-accounts-room`                             | Small account risk discipline conversion                   |
 | `Swing Trading Room for multi-day setups`                     | `/live-trading-rooms/swing-trading-room`                              | Cross-silo room discovery                                  |
-| `Explosive Swings video watchlist alerts`                     | `/alert-services/explosive-swings`                                    | Multi-day swing alert service                              |
+| `Sunday Alpha Protocol video watchlist alerts`                | `/alert-services/sunday-alpha-protocol`                               | Multi-day swing alert service                              |
 | `100% non-repainting custom trading indicators`               | `/store/indicators`                                                   | ThinkorSwim & TradingView indicator store                  |
 | `SPX & Index Options Dealer Gamma & IV Percentile Scanner`    | `/store/scanners`                                                     | Volatility & GEX scanner conversion                        |
 | `free Options Profit, Risk & Greeks Calculator`               | `/resources/options-calculator`                                       | Interactive position sizing & risk modeling tool           |
@@ -615,9 +615,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<a href="/live-trading-rooms/small-accounts-room">Small Accounts Room ($500+ starting capital)</a
 	>, executing multi-day setups in our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for multi-day setups</a> and
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> using
-	<a href="/resources/etf-stocks-list">Complete ETF Stocks &amp; Sector Directory</a> leaders, or
-	mastering order flow through
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	using <a href="/resources/etf-stocks-list">Complete ETF Stocks &amp; Sector Directory</a> leaders,
+	or mastering order flow through
 	<a href="/store/courses/move-prior-to-the-move-ultra"
 		>The Move Prior to The Move Ultra Class &amp; Indicator Suite</a
 	>

@@ -2,7 +2,7 @@
 
 > **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
 
-> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Same-origin font hrefs and native TOC anchors are valid; verify request origins and keep section fragments out of page canonicals.
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 Initial CMS audit: commit `e896ebc`, **November 5, 2026**. Subsequent automatic discovery and menu behavior is verified in [the current acceptance record](docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md). This is the current CMS workflow, with known gaps called out explicitly. Re-read the linked implementation before using this guide after a code change. The [audit and 0DTE implementation plan](docs/reviews/blog-audit-2026-11-05/AUDIT.md) and its machine-readable evidence explain the findings behind these instructions.
 

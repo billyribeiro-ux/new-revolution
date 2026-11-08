@@ -239,10 +239,10 @@
     },
     {
       badge: 'Video Watchlist Tier',
-      title: 'Explosive Swings Alerts',
+      title: 'Sunday Alpha Protocol Alerts',
       description: 'Actionable, alerts-only video watchlist service with exact entries, exits, and stops.',
       ctaLabel: 'Explore Alerts →',
-      href: '/alert-services/explosive-swings'
+      href: '/alert-services/sunday-alpha-protocol'
     }
   ];
 

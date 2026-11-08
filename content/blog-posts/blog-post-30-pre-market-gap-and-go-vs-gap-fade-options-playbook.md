@@ -130,7 +130,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Institutional Hot-Zone & Opening Drive Windows Indicator`                   | `/store/indicators/hot-zone-time-structure`                  | 9:30-9:45 AM ET opening range and pre-market high/low plotting   |
 | `Abandoned Price Bar & Exhaustion Telemetry Indicator`                       | `/store/indicators/abandoned-bar-exhaustion`                 | Climax exhaustion rejection bar detection at 9:35 AM ET          |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`                   | `/store/courses/move-prior-to-the-move-ultra`                | Flagship institutional order-flow curriculum                     |
-| `Explosive Swings video watchlist alerts`                                    | `/alert-services/explosive-swings`                           | Multi-day swing continuation alerts on episodic pivot gaps       |
+| `Sunday Alpha Protocol video watchlist alerts`                               | `/alert-services/sunday-alpha-protocol`                      | Multi-day swing continuation alerts on episodic pivot gaps       |
 | `Small Accounts Room ($500+ starting capital)`                               | `/live-trading-rooms/small-accounts-room`                    | Small account options sizing room                                |
 | `free Options Profit, Risk & Greeks Calculator`                              | `/resources/options-calculator`                              | Options Delta, Vega, and 1R structural stop calculator           |
 | `Stock Market Indexes Directory`                                             | `/resources/stock-indexes-list`                              | Index futures and cash index gap reference                       |
@@ -361,9 +361,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	For a <strong>pre market gap</strong> to qualify as an A+ Gap-and-Go in our
 	<a href="/live-trading-rooms/day-trading-room">Live Day Trading Room</a> and our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, the 9:30
-	AM ET opening print must gap <strong>above</strong> a multi-week consolidation box. If a stock
-	trapped between <code>$170</code> and <code>$180</code> for six weeks opens at
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	the 9:30 AM ET opening print must gap <strong>above</strong> a multi-week consolidation box. If a
+	stock trapped between <code>$170</code> and <code>$180</code> for six weeks opens at
 	<code>$186.50</code> on a blowout earnings report:
 </p>
 

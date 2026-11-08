@@ -129,7 +129,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | `Private 1-on-1 Trading Mentorship`                                          | `/mentorship`                                                       | Direct executive mentorship with Billy Ribeiro                       |
 | `About Us & Proven Institutional Track Record`                               | `/about`                                                            | Founder story & Mark McGoldrick mentorship verification              |
 | `SPX Profit Pulse index options alert service`                               | `/alert-services/spx-profit-pulse`                                  | S&P 500 index execution alert funnel                                 |
-| `Explosive Swings video watchlist alerts`                                    | `/alert-services/explosive-swings`                                  | Multi-day swing trade alert service                                  |
+| `Sunday Alpha Protocol video watchlist alerts`                               | `/alert-services/sunday-alpha-protocol`                             | Multi-day swing trade alert service                                  |
 | `Live Day Trading Room`                                                      | `/live-trading-rooms/day-trading-room`                              | Intraday live order-flow execution room                              |
 | `Swing Trading Room for working professionals`                               | `/live-trading-rooms/swing-trading-room`                            | Multi-week macro and swing execution room                            |
 | `High Octane Scanner in our Institutional Scanners Store`                    | `/store/scanners/high-octane-scanner`                               | Real-time accumulation and compression scanner                       |
@@ -683,8 +683,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	Whether you are trading intraday index options with our
 	<a href="/alert-services/spx-profit-pulse">SPX Profit Pulse index options alert service</a>,
 	executing multi-day setups from our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, or trading
-	live with us in the
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	or trading live with us in the
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a>,
 	run every setup through this 5-step sequence to catch <strong>the move prior to the move</strong>:
 </p>

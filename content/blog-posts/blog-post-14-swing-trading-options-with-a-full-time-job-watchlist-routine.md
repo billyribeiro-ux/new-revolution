@@ -18,7 +18,7 @@
 | **`metaDescription`**    | `Master swing trading options with a full-time 9-to-5 job in 20 minutes a day using evening video watchlists, conditional triggers, and pre-set stops.` | `149` chars (passes both `70 to 155` CMS gate in `meta-budget.ts` and `140 to 158` rule in `AGENTS.md`); contains `swing trading options` verbatim.                                    |
 | **`excerpt`**            | `You do not need six monitors or eight free hours a day to capture multi-day moves. Combine evening watchlists with conditional orders and stops.`      | `144` chars (`<= 160` `EXCERPT_SOFT_MAX`).                                                                                                                                             |
 | **`focusKeyword`**       | `swing trading options`                                                                                                                                 | Present in `title`, `metaTitle`, `metaDescription`, `slug`, first 100 words of body, H2 headings, `coverImageAlt`, and all 4 body `img alt` attributes.                                |
-| **`secondaryKeywords`**  | `["trading with a full time job", "evening watchlist routine", "multi day options setups", "explosive swings alerts", "swing trading room"]`            | Valid JSON string array (`posts.ts`).                                                                                                                                                  |
+| **`secondaryKeywords`**  | `["trading with a full time job", "evening watchlist routine", "multi day options setups", "Sunday Alpha Protocol alerts", "swing trading room"]`       | Valid JSON string array (`posts.ts`).                                                                                                                                                  |
 | **`author`**             | `Billy Ribeiro` (`authorId: 1`, `slug: billy-ribeiro`)                                                                                                  | Founder & Head Institutional Trader, mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick.                                                         |
 | **`category`**           | `Swing & Working Pros` (`categoryId: 4`, `slug: working-professionals`)                                                                                 | Primary topical silo.                                                                                                                                                                  |
 | **`tags`**               | `["swing-trading", "working-professionals", "video-watchlists", "risk-management"]`                                                                     | 4 tags (`>= 2` required by `score.ts` for full points).                                                                                                                                |
@@ -64,7 +64,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 - **Dimensions:** `width="1200" height="675"` (`loading="lazy" decoding="async"`)
 - **`alt_text`:** `Minute-by-minute 20-minute evening routine diagram for swing trading options with a full-time career`
 - **`title` Attribute:** `The 20-Minute Evening Watchlist and Order Staging Protocol`
-- **`caption`:** `Figure 3: How our 9-to-5 members allocate exactly 20 minutes after market close: 5 minutes on macro/sector flow, 6 minutes on Explosive Swings video levels, 5 minutes on contract selection, and 4 minutes staging OCO orders.`
+- **`caption`:** `Figure 3: How our 9-to-5 members allocate exactly 20 minutes after market close: 5 minutes on macro/sector flow, 6 minutes on Sunday Alpha Protocol video levels, 5 minutes on contract selection, and 4 minutes staging OCO orders.`
 - **Detailed Visual `image_description`:** Horizontal 4-card architectural workflow diagram in dark mode (`#0b0e12`). Card 1 (`Minutes 01-05`) shows `SPX / QQQ / VIX Regime & Sector ETF Check`; Card 2 (`Minutes 06-11`) shows `Video Watchlist Level Mapping (Entry, Stop, T1, T2)`; Card 3 (`Minutes 12-16`) shows `Option Chain Filter (21-45 DTE, 0.60-0.70 Delta, IVR Check)`; Card 4 (`Minutes 17-20`) shows `GTC 1st-Triggers-OCO Bracket Order Submission`.
 
 ### 2.4 In-Body Image #3: 21 to 45 DTE Theta Survival & Delta Cushion Matrix
@@ -119,7 +119,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | Anchor Text in Article Body                                             | Target Internal Path                                           | Strategic Funnel Role                                         |
 | :---------------------------------------------------------------------- | :------------------------------------------------------------- | :------------------------------------------------------------ |
 | `Swing Trading Room for working professionals`                          | `/live-trading-rooms/swing-trading-room`                       | Primary interactive swing room conversion                     |
-| `Explosive Swings video watchlist alerts`                               | `/alert-services/explosive-swings`                             | Primary 9-to-5 evening watchlist alert conversion             |
+| `Sunday Alpha Protocol video watchlist alerts`                          | `/alert-services/sunday-alpha-protocol`                        | Primary 9-to-5 evening watchlist alert conversion             |
 | `Course 04: Multi-Day Swing Trading for Working Professionals`          | `/store/courses`                                               | Store curriculum conversion                                   |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`              | `/store/courses/move-prior-to-the-move-ultra`                  | Flagship institutional accumulation course upsell             |
 | `Working Professional 20-Minute End-of-Day Swing Scanner`               | `/store/scanners`                                              | End-of-day scanner conversion                                 |
@@ -174,8 +174,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	prevents revenge trading and midday chop. In this institutional blueprint, you will learn the
 	exact 20-minute evening routine we execute inside our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a>
-	and our <a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a> to
-	scan the market after dinner, select 21 to 45 DTE options contracts that survive overnight time
+	and our
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
+	to scan the market after dinner, select 21 to 45 DTE options contracts that survive overnight time
 	decay, and automate your entries, profit targets, and stop-losses before you ever commute to work.
 </p>
 
@@ -332,8 +333,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	/>
 	<figcaption>
 		Figure 3: How our 9-to-5 members allocate exactly 20 minutes after market close: 5 minutes on
-		macro/sector flow, 6 minutes on Explosive Swings video levels, 5 minutes on contract selection,
-		and 4 minutes staging OCO orders.
+		macro/sector flow, 6 minutes on Sunday Alpha Protocol video levels, 5 minutes on contract
+		selection, and 4 minutes staging OCO orders.
 	</figcaption>
 </figure>
 
@@ -367,9 +368,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 		sectors; for bearish put swings, only stalk weak stocks inside the bottom two sectors.
 	</li>
 	<li>
-		<strong>Minutes 08 to 10 (Reviewing the Explosive Swings Video Watchlist):</strong> Watch our
-		concise evening
-		<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>
+		<strong>Minutes 08 to 10 (Reviewing the Sunday Alpha Protocol Video Watchlist):</strong> Watch
+		our concise evening
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>
 		or the recorded evening recap inside the
 		<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room for working professionals</a
 		>. Instead of sifting through 4,000 tickers yourself, we narrow the universe down to the 2 to 4
@@ -728,13 +729,13 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<details class="faq-item">
 		<summary>
 			<h3 id="what-is-the-difference-between-the-swing-trading-room-and-explos">
-				What is the difference between the Swing Trading Room and Explosive Swings alerts?
+				What is the difference between the Swing Trading Room and Sunday Alpha Protocol alerts?
 			</h3>
 		</summary>
 		<p>
 			The Swing Trading Room includes full interactive room access, live and recorded chart reviews,
-			and direct Q&amp;A with our head traders, while Explosive Swings is our streamlined alert-only
-			video watchlist tier designed for rapid evening review.
+			and direct Q&amp;A with our head traders, while Sunday Alpha Protocol is our streamlined
+			alert-only video watchlist tier designed for rapid evening review.
 		</p>
 	</details>
 
@@ -799,8 +800,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 		"answer": "Our members spend 15 to 20 minutes in the evening reviewing our video watchlist, verifying key support and resistance levels on the Daily and 4-Hour charts, and staging conditional limit orders for the next session."
 	},
 	{
-		"question": "What is the difference between the Swing Trading Room and Explosive Swings alerts?",
-		"answer": "The Swing Trading Room includes full interactive room access, live and recorded chart reviews, and direct Q&A with our head traders, while Explosive Swings is our streamlined alert-only video watchlist tier designed for rapid evening review."
+		"question": "What is the difference between the Swing Trading Room and Sunday Alpha Protocol alerts?",
+		"answer": "The Swing Trading Room includes full interactive room access, live and recorded chart reviews, and direct Q&A with our head traders, while Sunday Alpha Protocol is our streamlined alert-only video watchlist tier designed for rapid evening review."
 	},
 	{
 		"question": "Why should 9-to-5 swing traders buy 21 to 45 DTE options instead of weekly options?",
@@ -960,7 +961,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 				"@type": "SpeakableSpecification",
 				"cssSelector": ["h1", ".lead"]
 			},
-			"keywords": "swing trading options, trading with a full time job, evening watchlist routine, multi day options setups, explosive swings alerts, swing trading room",
+			"keywords": "swing trading options, trading with a full time job, evening watchlist routine, multi day options setups, Sunday Alpha Protocol alerts, swing trading room",
 			"articleSection": "Swing & Working Pros"
 		},
 		{
@@ -985,10 +986,10 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 				},
 				{
 					"@type": "Question",
-					"name": "What is the difference between the Swing Trading Room and Explosive Swings alerts?",
+					"name": "What is the difference between the Swing Trading Room and Sunday Alpha Protocol alerts?",
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "The Swing Trading Room includes full interactive room access, live and recorded chart reviews, and direct Q&A with our head traders, while Explosive Swings is our streamlined alert-only video watchlist tier designed for rapid evening review."
+						"text": "The Swing Trading Room includes full interactive room access, live and recorded chart reviews, and direct Q&A with our head traders, while Sunday Alpha Protocol is our streamlined alert-only video watchlist tier designed for rapid evening review."
 					}
 				},
 				{

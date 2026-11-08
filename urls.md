@@ -1,6 +1,6 @@
 # Website URL inventory
 
-Verified public inventory for November 5, 2026, application `09d310a`, deployment `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. All 52 public HTML pages passed anonymous HTTP and font checks; the 19 eligible URLs exactly match the generated sitemap. The canonical product route is `/sunday-alpha-alerts`; `/watchlist` permanently redirects. See [release evidence](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md), including any later presentation follow-up. This human-readable snapshot is not the file to submit to Google.
+Verified public inventory for November 8, 2026. All 52 public HTML pages passed anonymous HTTP and font checks; the 19 eligible URLs exactly match the generated sitemap. The canonical product route is `/alert-services/sunday-alpha-protocol`. See [release evidence](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md), including any later presentation follow-up. This human-readable snapshot is not the file to submit to Google.
 
 ## Submit this sitemap
 
@@ -17,6 +17,7 @@ These 19 URLs passed public HTTP 200, matching www canonicals, crawler-header ac
 - https://www.revolutiontradingpros.com
 - https://www.revolutiontradingpros.com/about
 - https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse
+- https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol
 - https://www.revolutiontradingpros.com/blog
 - https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide
 - https://www.revolutiontradingpros.com/contact
@@ -32,7 +33,6 @@ These 19 URLs passed public HTTP 200, matching www canonicals, crawler-header ac
 - https://www.revolutiontradingpros.com/resources/etf-stocks-list
 - https://www.revolutiontradingpros.com/resources/stock-indexes-list
 - https://www.revolutiontradingpros.com/terms-of-service
-- https://www.revolutiontradingpros.com/sunday-alpha-alerts
 
 ## Public pages marked noindex (33)
 

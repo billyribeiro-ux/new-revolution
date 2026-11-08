@@ -157,7 +157,7 @@
 			description:
 				'Affordable alert-only video watchlists with exact entries, profit exits, and stops.',
 			ctaLabel: 'Explore Alerts →',
-			href: '/sunday-alpha-alerts'
+			href: '/alert-services/sunday-alpha-protocol'
 		}
 	];
 
@@ -603,7 +603,9 @@
 										>Live Trading Rooms</a
 									>
 									and
-									<a href={resolve('/sunday-alpha-alerts' as '/')}>Alert Services</a>
+									<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+										>Alert Services</a
+									>
 									let you execute those playbooks alongside our desk in real time. Our
 									<a href={resolve('/mentorship' as '/')}>1-on-1 Mentorship</a> is an application-and-approval-only
 									private coaching partnership for Portfolio Managers, Pro Traders, and Struggling Traders

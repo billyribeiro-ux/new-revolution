@@ -18,7 +18,7 @@
 | **`metaDescription`**    | `Build a high-conviction swing trading watchlist in 20 minutes on Sunday and weeknights. Filter top sector ETFs, multi-day squeezes, and OCO triggers.` | `150` chars (passes both `70 to 155` CMS gate in `meta-budget.ts` and `140 to 158` rule in `AGENTS.md`); contains `swing trading watchlist` verbatim.                                  |
 | **`excerpt`**            | `Winning swing trades are planned when the market is closed. Walk through our exact 4-step Sunday and weeknight top-down watchlist filtering process.`  | `148` chars (`<= 160` `EXCERPT_SOFT_MAX`).                                                                                                                                             |
 | **`focusKeyword`**       | `swing trading watchlist`                                                                                                                               | Present in `title`, `metaTitle`, `metaDescription`, `slug`, first 100 words of body, H2/H3 headings, `coverImageAlt`, and all 4 body `img alt` attributes.                             |
-| **`secondaryKeywords`**  | `["sunday stock market prep", "top down market analysis", "end of day swing scanner", "9 to 5 swing trading", "explosive swings watchlist"]`            | Valid JSON string array (`posts.ts`).                                                                                                                                                  |
+| **`secondaryKeywords`**  | `["sunday stock market prep", "top down market analysis", "end of day swing scanner", "9 to 5 swing trading", "Sunday Alpha Protocol watchlist"]`       | Valid JSON string array (`posts.ts`).                                                                                                                                                  |
 | **`author`**             | `Billy Ribeiro` (`authorId: 1`, `slug: billy-ribeiro`)                                                                                                  | Founder & Head Institutional Trader, mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick.                                                         |
 | **`category`**           | `Swing & Working Pros` (`categoryId: 4`, `slug: working-professionals`)                                                                                 | Primary topical silo.                                                                                                                                                                  |
 | **`tags`**               | `["swing-trading", "working-professionals", "video-watchlists", "scanners"]`                                                                            | 4 tags (`>= 2` required by `score.ts` for full points).                                                                                                                                |
@@ -124,7 +124,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 | Anchor Text in Article Body                                           | Target Internal Path                                                 | Strategic Funnel Role                            |
 | :-------------------------------------------------------------------- | :------------------------------------------------------------------- | :----------------------------------------------- |
 | `Scanner 05: Working Professional 20-Minute End-of-Day Swing Scanner` | `/store/scanners/working-pro-eod-swing-scanner`                      | Primary end-of-day swing scanner conversion      |
-| `Explosive Swings video watchlist alerts`                             | `/alert-services/explosive-swings`                                   | Primary evening video watchlist alert conversion |
+| `Sunday Alpha Protocol video watchlist alerts`                        | `/alert-services/sunday-alpha-protocol`                              | Primary evening video watchlist alert conversion |
 | `Swing Trading Room`                                                  | `/live-trading-rooms/swing-trading-room`                             | Interactive swing trading room conversion        |
 | `Course 04: Working Professional Swing Trading System`                | `/store/courses/working-pro-swing-trading-system`                    | Core 9-to-5 swing curriculum conversion          |
 | `The Move Prior to The Move Ultra Class & Indicator Suite`            | `/store/courses/move-prior-to-the-move-ultra`                        | Flagship institutional accumulation course       |
@@ -180,7 +180,8 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	In this step-by-step Sunday and weeknight masterclass, you will learn the exact minute-by-minute
 	<strong>swing trading watchlist</strong> protocol we run inside our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a>, our
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, and
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	and
 	<a href="/store/courses/working-pro-swing-trading-system"
 		>Course 04: Working Professional Swing Trading System</a
 	>. You will also see how
@@ -247,9 +248,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 	<li>
 		<strong>Monday through Thursday Evenings (10 to 12 Minutes Total):</strong> You do not rebuild
 		your watchlist from scratch. You spend 4 minutes reviewing our evening
-		<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, 4
-		minutes auditing whether any open positions hit Target 1 (requiring you to trail your stop to
-		breakeven), and 4 minutes running
+		<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a
+		>, 4 minutes auditing whether any open positions hit Target 1 (requiring you to trail your stop
+		to breakeven), and 4 minutes running
 		<a href="/store/scanners/working-pro-eod-swing-scanner">Scanner 05</a> to see if one fresh A+
 		compression setup earned a spot on tomorrow's order ticket.
 	</li>
@@ -691,9 +692,9 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 <p>
 	Ready to install this exact Sunday and weeknight routine into your own schedule? Join our
 	<a href="/live-trading-rooms/swing-trading-room">Swing Trading Room</a>, subscribe to
-	<a href="/alert-services/explosive-swings">Explosive Swings video watchlist alerts</a>, or apply
-	for <a href="/mentorship">Private 1-on-1 Trading Mentorship</a> with our senior institutional
-	desk.
+	<a href="/alert-services/sunday-alpha-protocol">Sunday Alpha Protocol video watchlist alerts</a>,
+	or apply for <a href="/mentorship">Private 1-on-1 Trading Mentorship</a> with our senior
+	institutional desk.
 </p>
 
 <div class="disclaimer-strip">
@@ -972,7 +973,7 @@ Every image below includes explicit `width` and `height` attributes (preventing 
 				"@type": "SpeakableSpecification",
 				"cssSelector": ["h1", ".article-lead"]
 			},
-			"keywords": "swing trading watchlist, sunday stock market prep, top down market analysis, end of day swing scanner, 9 to 5 swing trading, explosive swings watchlist",
+			"keywords": "swing trading watchlist, sunday stock market prep, top down market analysis, end of day swing scanner, 9 to 5 swing trading, Sunday Alpha Protocol watchlist",
 			"articleSection": "Swing & Working Pros"
 		},
 		{

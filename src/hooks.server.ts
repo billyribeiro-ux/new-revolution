@@ -21,25 +21,11 @@ const SKIPPED_REDIRECT_PREFIXES = [
 ];
 
 /**
- * Font files worth a `<link rel="preload">`: the upright Latin faces that paint the first screen of text.
- * Fontsource ships each family as unicode-range subsets (cyrillic, greek, vietnamese, latin-ext) plus italics,
- * and the browser fetches those only when a character needs them, so preloading all 18 files made every page
- * download fonts it never used and delayed first paint. Matching is on the file name, which is stable across
- * the content hash (`montserrat-latin-wght-normal.<hash>.woff2`) and also present in the source `filename`.
+ * Only preload JS and CSS chunks. Never emit font preload link tags in HTML:
+ * all fonts are self-hosted statically in `src/app.css` without any font `href` tags.
  */
-const PRELOADED_FONT_FILES = [
-	'geist-mono-latin-700-normal.',
-	'geist-mono-latin-800-normal.',
-	'geist-mono-latin-900-normal.',
-	'geist-sans-latin-400-normal.',
-	'geist-sans-latin-700-normal.'
-];
-
 export function shouldPreload(input: { type: string; path: string; filename?: string }): boolean {
-	if (input.type === 'js' || input.type === 'css') return true;
-	if (input.type !== 'font') return false;
-	const name = input.filename ?? input.path;
-	return PRELOADED_FONT_FILES.some((file) => name.includes(file));
+	return input.type === 'js' || input.type === 'css';
 }
 
 export function isNonProductionHost(hostname: string): boolean {
@@ -68,24 +54,8 @@ export function normaliseRedirectLookupPath(pathname: string): string {
 	return lowered || '/';
 }
 
-const LEGACY_SUNDAY_ALPHA_PATHS = new Set([
-	'/watchlist',
-	'/explosive-swings',
-	'/alert-services/explosive-swings',
-	'/alert-services/sunday-alpha-alerts'
-]);
-
 export async function resolveBlogRedirect(url: URL): Promise<Response | null> {
 	const normalizedPath = normaliseRedirectLookupPath(url.pathname);
-	if (LEGACY_SUNDAY_ALPHA_PATHS.has(normalizedPath)) {
-		return new Response(null, {
-			status: 308,
-			headers: {
-				Location: `/sunday-alpha-alerts${url.search || ''}`,
-				'Cache-Control': 'public, max-age=3600'
-			}
-		});
-	}
 	if (normalizedPath === '/resources/options-calculator') {
 		return new Response(null, {
 			status: 308,

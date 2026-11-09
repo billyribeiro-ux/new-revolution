@@ -436,9 +436,11 @@
 	}
 
 	.resources-container {
-		max-width: 1440px;
-		margin: 0 auto;
-		padding: 0 1rem;
+		box-sizing: border-box;
+		inline-size: 100%;
+		max-inline-size: var(--max);
+		padding-inline: calc(var(--gutter) / 2);
+		margin-inline: auto;
 	}
 
 	/* Shared Typography Tokens */
@@ -880,16 +882,7 @@
 	/* ===========================================================================
      ENTERPRISE RESPONSIVE BREAKPOINTS (480px, 640px, 768px, 1024px, 1280px, 1536px)
      =========================================================================== */
-	@media (min-width: 480px) {
-		.resources-container {
-			padding: 0 1.25rem;
-		}
-	}
-
 	@media (min-width: 640px) {
-		.resources-container {
-			padding: 0 1.5rem;
-		}
 		.hero-cta-row,
 		.resources-cta__actions {
 			flex-direction: row;
@@ -907,9 +900,6 @@
 	}
 
 	@media (min-width: 1024px) {
-		.resources-container {
-			padding: 0 2rem;
-		}
 		.resources-hero,
 		.resources-section {
 			padding: 4.5rem 0;
@@ -932,12 +922,6 @@
 	@media (min-width: 1280px) {
 		.resources-hero__grid {
 			gap: 3.5rem;
-		}
-	}
-
-	@media (min-width: 1536px) {
-		.resources-container {
-			max-width: 1536px;
 		}
 	}
 

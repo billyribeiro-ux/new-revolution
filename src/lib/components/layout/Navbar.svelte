@@ -37,7 +37,9 @@
 	let slideDuration = $derived(prefersReducedMotion.current ? 0 : 220);
 
 	let mobileMenuOpen = $state(false);
-	let compactNavigation = $state(false);
+	let compactNavigation = $state(
+		typeof window !== 'undefined' ? !window.matchMedia('(min-width: 1024px)').matches : false
+	);
 	let openDropdownId = $state<string | null>(null);
 	let openMobileSubmenuId = $state<string | null>(null);
 
@@ -96,7 +98,10 @@
 	}
 
 	function handleLinkClick(href: string, targetId: string | undefined, event: MouseEvent) {
-		closeAllMenus();
+		const targetPath = href.split('?')[0]?.split('#')[0] || '/';
+		if (onPreviewNavigate || targetPath === pathname) {
+			closeAllMenus();
+		}
 		onPreviewNavigate?.(href, targetId, event);
 	}
 

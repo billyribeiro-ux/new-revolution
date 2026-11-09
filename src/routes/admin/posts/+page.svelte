@@ -591,19 +591,37 @@
 					placeholder="Search title or slug..."
 					bind:value={searchQuery}
 				/>
-				<select id="posts-status-filter" name="statusFilter" class="admin-select" aria-label="Filter by status" bind:value={statusFilter}>
+				<select
+					id="posts-status-filter"
+					name="statusFilter"
+					class="admin-select"
+					aria-label="Filter by status"
+					bind:value={statusFilter}
+				>
 					<option value="all">All Statuses</option>
 					{#each POST_STATUSES as st (st)}
 						<option value={st}>{st}</option>
 					{/each}
 				</select>
-				<select id="posts-category-filter" name="categoryFilter" class="admin-select" aria-label="Filter by category" bind:value={categoryFilter}>
+				<select
+					id="posts-category-filter"
+					name="categoryFilter"
+					class="admin-select"
+					aria-label="Filter by category"
+					bind:value={categoryFilter}
+				>
 					<option value="all">All Categories</option>
 					{#each categories as cat (cat.id)}
 						<option value={cat.id}>{cat.name}</option>
 					{/each}
 				</select>
-				<select id="posts-author-filter" name="authorFilter" class="admin-select" aria-label="Filter by author" bind:value={authorFilter}>
+				<select
+					id="posts-author-filter"
+					name="authorFilter"
+					class="admin-select"
+					aria-label="Filter by author"
+					bind:value={authorFilter}
+				>
 					<option value="all">All Authors</option>
 					{#each authors as auth (auth.id)}
 						<option value={auth.id}>{auth.name}</option>
@@ -729,15 +747,32 @@
 											<div class="quick-edit-grid">
 												<label class="qe-field" for={`qe-title-${post.id}`}>
 													<span>Title</span>
-													<input id={`qe-title-${post.id}`} name="quickEditTitle" type="text" class="admin-input" bind:value={quickEditTitle} />
+													<input
+														id={`qe-title-${post.id}`}
+														name="quickEditTitle"
+														type="text"
+														class="admin-input"
+														bind:value={quickEditTitle}
+													/>
 												</label>
 												<label class="qe-field" for={`qe-slug-${post.id}`}>
 													<span>Slug</span>
-													<input id={`qe-slug-${post.id}`} name="quickEditSlug" type="text" class="admin-input" bind:value={quickEditSlug} />
+													<input
+														id={`qe-slug-${post.id}`}
+														name="quickEditSlug"
+														type="text"
+														class="admin-input"
+														bind:value={quickEditSlug}
+													/>
 												</label>
 												<label class="qe-field" for={`qe-status-${post.id}`}>
 													<span>Status</span>
-													<select id={`qe-status-${post.id}`} name="quickEditStatus" class="admin-select" bind:value={quickEditStatus}>
+													<select
+														id={`qe-status-${post.id}`}
+														name="quickEditStatus"
+														class="admin-select"
+														bind:value={quickEditStatus}
+													>
 														{#each POST_STATUSES as st (st)}
 															<option value={st}>{st}</option>
 														{/each}
@@ -781,15 +816,30 @@
 												</label>
 												<div class="qe-flags">
 													<label for={`qe-featured-${post.id}`}>
-														<input id={`qe-featured-${post.id}`} name="quickEditFeatured" type="checkbox" bind:checked={quickEditFeatured} />
+														<input
+															id={`qe-featured-${post.id}`}
+															name="quickEditFeatured"
+															type="checkbox"
+															bind:checked={quickEditFeatured}
+														/>
 														Featured
 													</label>
 													<label for={`qe-pillar-${post.id}`}>
-														<input id={`qe-pillar-${post.id}`} name="quickEditPillar" type="checkbox" bind:checked={quickEditPillar} />
+														<input
+															id={`qe-pillar-${post.id}`}
+															name="quickEditPillar"
+															type="checkbox"
+															bind:checked={quickEditPillar}
+														/>
 														Pillar
 													</label>
 													<label for={`qe-sticky-${post.id}`}>
-														<input id={`qe-sticky-${post.id}`} name="quickEditSticky" type="checkbox" bind:checked={quickEditSticky} />
+														<input
+															id={`qe-sticky-${post.id}`}
+															name="quickEditSticky"
+															type="checkbox"
+															bind:checked={quickEditSticky}
+														/>
 														Sticky
 													</label>
 												</div>

@@ -908,7 +908,12 @@
 							<span>New tab</span>
 						</label>
 						<label class="link-checkbox-label" for="rte-link-nofollow">
-							<input id="rte-link-nofollow" name="rteLinkNofollow" type="checkbox" bind:checked={linkNofollow} />
+							<input
+								id="rte-link-nofollow"
+								name="rteLinkNofollow"
+								type="checkbox"
+								bind:checked={linkNofollow}
+							/>
 							<span>Nofollow</span>
 						</label>
 					</div>
@@ -945,7 +950,13 @@
 				</button>
 				{#if activePopover === 'embed'}
 					<div class="toolbar-popover" role="dialog" aria-label="Insert embed">
-						<select id="rte-embed-kind" name="rteEmbedKind" class="popover-select" bind:value={embedKind} aria-label="Embed type">
+						<select
+							id="rte-embed-kind"
+							name="rteEmbedKind"
+							class="popover-select"
+							bind:value={embedKind}
+							aria-label="Embed type"
+						>
 							<option value="youtube">YouTube Video</option>
 							<option value="vimeo">Vimeo Video</option>
 							<option value="tweet">X / Twitter Post</option>
@@ -1385,15 +1396,33 @@
 					<div class="toolbar-popover" role="dialog" aria-label="Block box styling">
 						<label class="pop-field" for="rte-block-bg-color">
 							<span>Background</span>
-							<input id="rte-block-bg-color" name="rteBlockBgColor" type="text" class="popover-input" bind:value={blockBgColor} />
+							<input
+								id="rte-block-bg-color"
+								name="rteBlockBgColor"
+								type="text"
+								class="popover-input"
+								bind:value={blockBgColor}
+							/>
 						</label>
 						<label class="pop-field" for="rte-block-border-color">
 							<span>Border Accent</span>
-							<input id="rte-block-border-color" name="rteBlockBorderColor" type="text" class="popover-input" bind:value={blockBorderColor} />
+							<input
+								id="rte-block-border-color"
+								name="rteBlockBorderColor"
+								type="text"
+								class="popover-input"
+								bind:value={blockBorderColor}
+							/>
 						</label>
 						<label class="pop-field" for="rte-block-padding">
 							<span>Padding</span>
-							<input id="rte-block-padding" name="rteBlockPadding" type="text" class="popover-input" bind:value={blockPadding} />
+							<input
+								id="rte-block-padding"
+								name="rteBlockPadding"
+								type="text"
+								class="popover-input"
+								bind:value={blockPadding}
+							/>
 						</label>
 						<div class="popover-actions">
 							<button
@@ -1462,7 +1491,13 @@
 				oninput={applyFindUpdate}
 			/>
 			<label class="case-toggle" for="rte-find-case-sensitive">
-				<input id="rte-find-case-sensitive" name="rteFindCaseSensitive" type="checkbox" bind:checked={findCaseSensitive} onchange={applyFindUpdate} />
+				<input
+					id="rte-find-case-sensitive"
+					name="rteFindCaseSensitive"
+					type="checkbox"
+					bind:checked={findCaseSensitive}
+					onchange={applyFindUpdate}
+				/>
 				<span>Aa</span>
 			</label>
 			<span class="find-count">

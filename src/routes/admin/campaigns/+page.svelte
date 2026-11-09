@@ -316,7 +316,13 @@
 		<div class="form">
 			<div class="field">
 				<label for="c-name">Name</label>
-				<input id="c-name" name="campaignName" type="text" bind:value={draftName} placeholder="Spring promo" />
+				<input
+					id="c-name"
+					name="campaignName"
+					type="text"
+					bind:value={draftName}
+					placeholder="Spring promo"
+				/>
 			</div>
 			<div class="field field--row">
 				<div>

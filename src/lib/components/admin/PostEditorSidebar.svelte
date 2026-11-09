@@ -346,7 +346,12 @@
 		<div id="sidebar-panel-publish" class="sidebar-body" hidden={!panelState.publish}>
 			<label class="side-field" for="sidebar-post-status">
 				<span class="side-label">Status</span>
-				<select id="sidebar-post-status" name="postStatus" class="side-select" bind:value={form.status}>
+				<select
+					id="sidebar-post-status"
+					name="postStatus"
+					class="side-select"
+					bind:value={form.status}
+				>
 					{#each POST_STATUS_VALUES as st (st)}
 						<option value={st}>{st.toUpperCase()}</option>
 					{/each}
@@ -355,7 +360,12 @@
 
 			<label class="side-field" for="sidebar-post-visibility">
 				<span class="side-label">Visibility</span>
-				<select id="sidebar-post-visibility" name="postVisibility" class="side-select" bind:value={form.visibility}>
+				<select
+					id="sidebar-post-visibility"
+					name="postVisibility"
+					class="side-select"
+					bind:value={form.visibility}
+				>
 					{#each POST_VISIBILITY_VALUES as vis (vis)}
 						<option value={vis}>{vis.replace('_', ' ')}</option>
 					{/each}
@@ -765,7 +775,12 @@
 
 			<label class="side-field" for="sidebar-post-template">
 				<span class="side-label">Template</span>
-				<select id="sidebar-post-template" name="postTemplate" class="side-select" bind:value={form.template}>
+				<select
+					id="sidebar-post-template"
+					name="postTemplate"
+					class="side-select"
+					bind:value={form.template}
+				>
 					{#each POST_TEMPLATE_VALUES as tpl (tpl)}
 						<option value={tpl}>{tpl}</option>
 					{/each}
@@ -774,11 +789,21 @@
 
 			<div class="toggle-group">
 				<label class="chk-row" for="sidebar-post-featured">
-					<input id="sidebar-post-featured" name="featured" type="checkbox" bind:checked={form.featured} />
+					<input
+						id="sidebar-post-featured"
+						name="featured"
+						type="checkbox"
+						bind:checked={form.featured}
+					/>
 					<span>Featured</span>
 				</label>
 				<label class="chk-row" for="sidebar-post-pillar">
-					<input id="sidebar-post-pillar" name="isPillar" type="checkbox" bind:checked={form.isPillar} />
+					<input
+						id="sidebar-post-pillar"
+						name="isPillar"
+						type="checkbox"
+						bind:checked={form.isPillar}
+					/>
 					<span>Pillar Content</span>
 				</label>
 				<label class="chk-row" for="sidebar-post-sticky">

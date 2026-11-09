@@ -470,7 +470,12 @@
 
 				<label class="field-block" for="post-schema-type">
 					<span class="field-label">Schema Type</span>
-					<select id="post-schema-type" name="schemaType" class="select-input" bind:value={form.schemaType}>
+					<select
+						id="post-schema-type"
+						name="schemaType"
+						class="select-input"
+						bind:value={form.schemaType}
+					>
 						{#each POST_SCHEMA_TYPE_VALUES as st (st)}
 							<option value={st}>{st}</option>
 						{/each}
@@ -506,11 +511,21 @@
 						<span>nofollow</span>
 					</label>
 					<label class="chk-label" for="post-robots-noarchive">
-						<input id="post-robots-noarchive" name="robotsNoarchive" type="checkbox" bind:checked={form.noarchive} />
+						<input
+							id="post-robots-noarchive"
+							name="robotsNoarchive"
+							type="checkbox"
+							bind:checked={form.noarchive}
+						/>
 						<span>noarchive</span>
 					</label>
 					<label class="chk-label" for="post-robots-nosnippet">
-						<input id="post-robots-nosnippet" name="robotsNosnippet" type="checkbox" bind:checked={form.nosnippet} />
+						<input
+							id="post-robots-nosnippet"
+							name="robotsNosnippet"
+							type="checkbox"
+							bind:checked={form.nosnippet}
+						/>
 						<span>nosnippet</span>
 					</label>
 				</div>
@@ -537,7 +552,12 @@
 			<div class="two-col">
 				<label class="field-block" for="post-twitter-card-type">
 					<span class="field-label">Twitter Card Type</span>
-					<select id="post-twitter-card-type" name="twitterCardType" class="select-input" bind:value={form.twitterCardType}>
+					<select
+						id="post-twitter-card-type"
+						name="twitterCardType"
+						class="select-input"
+						bind:value={form.twitterCardType}
+					>
 						{#each TWITTER_CARD_TYPE_VALUES as ct (ct)}
 							<option value={ct}>{ct}</option>
 						{/each}
@@ -704,11 +724,21 @@
 		<div id="panel-advanced" class="metabox-body" hidden={activeMainTab !== 'advanced'}>
 			<div class="checkbox-row">
 				<label class="chk-label" for="post-pingbacks-enabled">
-					<input id="post-pingbacks-enabled" name="pingbacksEnabled" type="checkbox" bind:checked={form.pingbacksEnabled} />
+					<input
+						id="post-pingbacks-enabled"
+						name="pingbacksEnabled"
+						type="checkbox"
+						bind:checked={form.pingbacksEnabled}
+					/>
 					<span>Allow Pingbacks &amp; Trackbacks</span>
 				</label>
 				<label class="chk-label" for="post-exclude-from-search">
-					<input id="post-exclude-from-search" name="excludeFromSearch" type="checkbox" bind:checked={form.excludeFromSearch} />
+					<input
+						id="post-exclude-from-search"
+						name="excludeFromSearch"
+						type="checkbox"
+						bind:checked={form.excludeFromSearch}
+					/>
 					<span>Exclude from internal site search</span>
 				</label>
 			</div>

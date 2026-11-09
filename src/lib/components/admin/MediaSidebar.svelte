@@ -77,32 +77,68 @@
 		<div class="ml-fields">
 			<label class="ml-field" for="ml-meta-alt">
 				<span>Alt Text {!editAltText.trim() ? '(Required for SEO)' : ''}</span>
-				<input id="ml-meta-alt" name="editAltText" type="text" class="ml-input" bind:value={editAltText} />
+				<input
+					id="ml-meta-alt"
+					name="editAltText"
+					type="text"
+					class="ml-input"
+					bind:value={editAltText}
+				/>
 			</label>
 
 			<label class="ml-field" for="ml-meta-title">
 				<span>Title</span>
-				<input id="ml-meta-title" name="editTitle" type="text" class="ml-input" bind:value={editTitle} />
+				<input
+					id="ml-meta-title"
+					name="editTitle"
+					type="text"
+					class="ml-input"
+					bind:value={editTitle}
+				/>
 			</label>
 
 			<label class="ml-field" for="ml-meta-caption">
 				<span>Caption</span>
-				<input id="ml-meta-caption" name="editCaption" type="text" class="ml-input" bind:value={editCaption} />
+				<input
+					id="ml-meta-caption"
+					name="editCaption"
+					type="text"
+					class="ml-input"
+					bind:value={editCaption}
+				/>
 			</label>
 
 			<label class="ml-field" for="ml-meta-description">
 				<span>Description</span>
-				<textarea id="ml-meta-description" name="editDescription" class="ml-input" rows="2" bind:value={editDescription}></textarea>
+				<textarea
+					id="ml-meta-description"
+					name="editDescription"
+					class="ml-input"
+					rows="2"
+					bind:value={editDescription}></textarea>
 			</label>
 
 			<label class="ml-field" for="ml-meta-folder">
 				<span>Folder</span>
-				<input id="ml-meta-folder" name="editFolder" type="text" class="ml-input" placeholder="Root" bind:value={editFolder} />
+				<input
+					id="ml-meta-folder"
+					name="editFolder"
+					type="text"
+					class="ml-input"
+					placeholder="Root"
+					bind:value={editFolder}
+				/>
 			</label>
 
 			<label class="ml-field" for="ml-meta-filename">
 				<span>Filename</span>
-				<input id="ml-meta-filename" name="editFilename" type="text" class="ml-input" bind:value={editFilename} />
+				<input
+					id="ml-meta-filename"
+					name="editFilename"
+					type="text"
+					class="ml-input"
+					bind:value={editFilename}
+				/>
 			</label>
 
 			<div class="ml-actions">
@@ -135,7 +171,12 @@
 
 					<label class="ml-field" for="ml-insert-align">
 						<span>Alignment</span>
-						<select id="ml-insert-align" name="insertAlign" class="ml-input" bind:value={insertAlign}>
+						<select
+							id="ml-insert-align"
+							name="insertAlign"
+							class="ml-input"
+							bind:value={insertAlign}
+						>
 							<option value="center">Center</option>
 							<option value="left">Float Left</option>
 							<option value="right">Float Right</option>

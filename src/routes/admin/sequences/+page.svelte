@@ -273,7 +273,13 @@
 		<div class="form">
 			<div class="field">
 				<label for="seq-name">Name</label>
-				<input id="seq-name" name="sequenceName" type="text" bind:value={draftName} placeholder="Lead Nurture" />
+				<input
+					id="seq-name"
+					name="sequenceName"
+					type="text"
+					bind:value={draftName}
+					placeholder="Lead Nurture"
+				/>
 			</div>
 			<div class="field field--row">
 				<div>

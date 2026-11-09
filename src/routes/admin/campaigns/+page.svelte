@@ -316,12 +316,12 @@
 		<div class="form">
 			<div class="field">
 				<label for="c-name">Name</label>
-				<input id="c-name" type="text" bind:value={draftName} placeholder="Spring promo" />
+				<input id="c-name" name="campaignName" type="text" bind:value={draftName} placeholder="Spring promo" />
 			</div>
 			<div class="field field--row">
 				<div>
 					<label for="c-type">Type</label>
-					<select id="c-type" bind:value={draftType}>
+					<select id="c-type" name="campaignType" bind:value={draftType}>
 						<option value="popup">Popup</option>
 						<option value="banner">Banner</option>
 						<option value="cta_swap">CTA swap</option>
@@ -329,7 +329,7 @@
 				</div>
 				<div>
 					<label for="c-status">Status</label>
-					<select id="c-status" bind:value={draftStatus}>
+					<select id="c-status" name="campaignStatus" bind:value={draftStatus}>
 						<option value="draft">Draft</option>
 						<option value="active">Active</option>
 						<option value="paused">Paused</option>
@@ -340,6 +340,7 @@
 				<label for="c-paths">Path prefixes (comma-separated, blank = all pages)</label>
 				<input
 					id="c-paths"
+					name="campaignPathPrefixes"
 					type="text"
 					bind:value={draftPathPrefixes}
 					placeholder="/services, /blog"
@@ -351,9 +352,16 @@
 				<div class="variant">
 					<div class="variant__top">
 						<span class="variant__key">Variant {v.key}</span>
-						<label class="variant__weight">
+						<label class="variant__weight" for={`c-variant-${v.clientId}-weight`}>
 							Weight
-							<input type="number" min="0" max="100" bind:value={v.weight} />
+							<input
+								id={`c-variant-${v.clientId}-weight`}
+								name={`variantWeight_${v.clientId}`}
+								type="number"
+								min="0"
+								max="100"
+								bind:value={v.weight}
+							/>
 						</label>
 						{#if draftVariants.length > 1}
 							<button type="button" class="link link--danger" onclick={() => removeVariant(i)}>
@@ -362,9 +370,11 @@
 						{/if}
 					</div>
 					{#each contentKeys as [key, label] (key)}
-						<label class="variant__field">
+						<label class="variant__field" for={`c-variant-${v.clientId}-${key}`}>
 							<span>{label}</span>
 							<input
+								id={`c-variant-${v.clientId}-${key}`}
+								name={`variant_${v.clientId}_${key}`}
 								type="text"
 								value={contentField(v, key)}
 								oninput={(e) => setContentField(i, key, e.currentTarget.value)}

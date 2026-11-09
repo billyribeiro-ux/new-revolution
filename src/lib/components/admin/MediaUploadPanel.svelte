@@ -31,18 +31,22 @@
 
 <div class="ml-upload">
 	<div class="ml-upload-meta">
-		<label class="ml-field">
+		<label class="ml-field" for="ml-upload-folder">
 			<span>Target Folder</span>
 			<input
+				id="ml-upload-folder"
+				name="uploadFolder"
 				type="text"
 				class="ml-input"
 				placeholder="e.g. charts (leave blank for Root)"
 				bind:value={folder}
 			/>
 		</label>
-		<label class="ml-field">
+		<label class="ml-field" for="ml-upload-alt">
 			<span>Default Alt Text (optional)</span>
 			<input
+				id="ml-upload-alt"
+				name="uploadAltText"
 				type="text"
 				class="ml-input"
 				placeholder="Descriptive alt text for uploaded images"
@@ -73,6 +77,7 @@
 				fileInput = node;
 			}}
 			id="ml-upload-input"
+			name="uploadFiles"
 			type="file"
 			multiple
 			accept={ACCEPT}

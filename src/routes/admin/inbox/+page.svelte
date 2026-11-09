@@ -312,6 +312,7 @@
 			<label for="inboxFilter" class="sr-only">Filter messages</label>
 			<select
 				id="inboxFilter"
+				name="inboxFilter"
 				class="filter-select"
 				bind:value={filterStatus}
 				onchange={() => loadContacts('refresh')}

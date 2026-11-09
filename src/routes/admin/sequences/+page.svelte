@@ -273,15 +273,15 @@
 		<div class="form">
 			<div class="field">
 				<label for="seq-name">Name</label>
-				<input id="seq-name" type="text" bind:value={draftName} placeholder="Lead Nurture" />
+				<input id="seq-name" name="sequenceName" type="text" bind:value={draftName} placeholder="Lead Nurture" />
 			</div>
 			<div class="field field--row">
 				<div>
 					<label for="seq-trigger">Trigger source</label>
-					<input id="seq-trigger" type="text" bind:value={draftTrigger} />
+					<input id="seq-trigger" name="sequenceTrigger" type="text" bind:value={draftTrigger} />
 				</div>
-				<label class="checkbox">
-					<input type="checkbox" bind:checked={draftActive} />
+				<label class="checkbox" for="seq-active">
+					<input id="seq-active" name="sequenceActive" type="checkbox" bind:checked={draftActive} />
 					Active (only one per trigger)
 				</label>
 			</div>
@@ -291,9 +291,16 @@
 				<div class="step">
 					<div class="step__top">
 						<span class="step__num">Step {i + 1}</span>
-						<label class="step__delay">
+						<label class="step__delay" for="seq-step-{step.clientId}-delay">
 							Send
-							<input type="number" min="0" max="365" bind:value={step.delayDays} />
+							<input
+								id="seq-step-{step.clientId}-delay"
+								name="stepDelay_{step.clientId}"
+								type="number"
+								min="0"
+								max="365"
+								bind:value={step.delayDays}
+							/>
 							days after {i === 0 ? 'signup' : 'previous'}
 						</label>
 						<button type="button" class="link link--danger" onclick={() => removeStep(i)}>
@@ -303,6 +310,7 @@
 					<label class="sr-only" for="seq-step-{step.clientId}-subject">Step {i + 1} subject</label>
 					<input
 						id="seq-step-{step.clientId}-subject"
+						name="stepSubject_{step.clientId}"
 						type="text"
 						class="step__subject"
 						bind:value={step.subject}
@@ -311,6 +319,7 @@
 					<label class="sr-only" for="seq-step-{step.clientId}-body">Step {i + 1} body</label>
 					<textarea
 						id="seq-step-{step.clientId}-body"
+						name="stepBody_{step.clientId}"
 						class="step__body"
 						bind:value={step.bodyHtml}
 						rows="6"

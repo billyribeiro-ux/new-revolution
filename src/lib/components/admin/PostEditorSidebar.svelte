@@ -344,18 +344,18 @@
 		</h3>
 
 		<div id="sidebar-panel-publish" class="sidebar-body" hidden={!panelState.publish}>
-			<label class="side-field">
+			<label class="side-field" for="sidebar-post-status">
 				<span class="side-label">Status</span>
-				<select class="side-select" bind:value={form.status}>
+				<select id="sidebar-post-status" name="postStatus" class="side-select" bind:value={form.status}>
 					{#each POST_STATUS_VALUES as st (st)}
 						<option value={st}>{st.toUpperCase()}</option>
 					{/each}
 				</select>
 			</label>
 
-			<label class="side-field">
+			<label class="side-field" for="sidebar-post-visibility">
 				<span class="side-label">Visibility</span>
-				<select class="side-select" bind:value={form.visibility}>
+				<select id="sidebar-post-visibility" name="postVisibility" class="side-select" bind:value={form.visibility}>
 					{#each POST_VISIBILITY_VALUES as vis (vis)}
 						<option value={vis}>{vis.replace('_', ' ')}</option>
 					{/each}
@@ -369,11 +369,14 @@
 							A password is set. Leave blank to keep the existing password, or enter a new one.
 						</p>
 					{/if}
-					<label class="side-field">
+					<label class="side-field" for="sidebar-post-password">
 						<span class="side-label">Post Password (min 4 chars)</span>
 						<input
+							id="sidebar-post-password"
+							name="passwordPlaintext"
 							type="password"
 							class="side-input"
+							autocomplete="new-password"
 							placeholder={form.hasExistingPassword
 								? 'Keep existing password...'
 								: 'Enter password...'}
@@ -381,8 +384,10 @@
 						/>
 					</label>
 					{#if form.hasExistingPassword}
-						<label class="chk-row">
+						<label class="chk-row" for="sidebar-clear-password">
 							<input
+								id="sidebar-clear-password"
+								name="clearPassword"
 								type="checkbox"
 								bind:checked={form.clearPassword}
 								onchange={() => {
@@ -397,9 +402,11 @@
 				</div>
 			{/if}
 
-			<label class="side-field">
+			<label class="side-field" for="sidebar-scheduled-at">
 				<span class="side-label">Schedule Publish Time ({localTimezone})</span>
 				<input
+					id="sidebar-scheduled-at"
+					name="scheduledAt"
 					type="datetime-local"
 					class="side-input"
 					value={toDatetimeLocalValue(form.scheduledAt)}
@@ -410,9 +417,11 @@
 				<p class="schedule-summary">Scheduled for: {formattedScheduleSummary}</p>
 			{/if}
 
-			<label class="side-field">
+			<label class="side-field" for="sidebar-expires-at">
 				<span class="side-label">Expiration Date (optional)</span>
 				<input
+					id="sidebar-expires-at"
+					name="expiresAt"
 					type="datetime-local"
 					class="side-input"
 					value={toDatetimeLocalValue(form.expiresAt)}
@@ -422,9 +431,11 @@
 				/>
 			</label>
 
-			<label class="side-field">
+			<label class="side-field" for="sidebar-revision-notes">
 				<span class="side-label">Revision Note (optional)</span>
 				<input
+					id="sidebar-revision-notes"
+					name="revisionNotes"
 					type="text"
 					class="side-input"
 					placeholder="Summary of changes..."
@@ -481,9 +492,11 @@
 		</h3>
 
 		<div id="sidebar-panel-author" class="sidebar-body" hidden={!panelState.author}>
-			<label class="side-field">
+			<label class="side-field" for="sidebar-author-select">
 				<span class="side-label">Primary Author (Required to Publish)</span>
 				<select
+					id="sidebar-author-select"
+					name="authorId"
 					class="side-select"
 					value={form.authorId ?? ''}
 					onchange={(e) => {
@@ -503,6 +516,8 @@
 			{#if onQuickCreateAuthor}
 				<div class="quick-add-row">
 					<input
+						id="sidebar-new-author-name"
+						name="newAuthorName"
 						type="text"
 						class="side-input"
 						aria-label="New author name"
@@ -549,8 +564,14 @@
 					{@const isChecked = form.categoryIds.includes(cat.id)}
 					{@const isPrimary = form.categoryId === cat.id}
 					<div class="cat-item-row">
-						<label class="chk-row">
-							<input type="checkbox" checked={isChecked} onchange={() => toggleCategory(cat.id)} />
+						<label class="chk-row" for={`sidebar-cat-${cat.id}`}>
+							<input
+								id={`sidebar-cat-${cat.id}`}
+								name={`category_${cat.id}`}
+								type="checkbox"
+								checked={isChecked}
+								onchange={() => toggleCategory(cat.id)}
+							/>
 							<span>{cat.name}</span>
 						</label>
 						{#if isChecked}
@@ -572,6 +593,8 @@
 
 			<div class="quick-add-row">
 				<input
+					id="sidebar-new-category-name"
+					name="newCategoryName"
 					type="text"
 					class="side-input"
 					aria-label="New category name"
@@ -681,6 +704,8 @@
 
 			<div class="quick-add-row">
 				<input
+					id="sidebar-new-tag-name"
+					name="newTagName"
 					type="text"
 					class="side-input"
 					aria-label="New tag name"
@@ -721,9 +746,11 @@
 		</h3>
 
 		<div id="sidebar-panel-postAttributes" class="sidebar-body" hidden={!panelState.postAttributes}>
-			<label class="side-field">
+			<label class="side-field" for="sidebar-post-format">
 				<span class="side-label">Post Format</span>
 				<select
+					id="sidebar-post-format"
+					name="postFormat"
 					class="side-select"
 					bind:value={form.postFormat}
 					onchange={() => {
@@ -736,9 +763,9 @@
 				</select>
 			</label>
 
-			<label class="side-field">
+			<label class="side-field" for="sidebar-post-template">
 				<span class="side-label">Template</span>
-				<select class="side-select" bind:value={form.template}>
+				<select id="sidebar-post-template" name="postTemplate" class="side-select" bind:value={form.template}>
 					{#each POST_TEMPLATE_VALUES as tpl (tpl)}
 						<option value={tpl}>{tpl}</option>
 					{/each}
@@ -746,16 +773,18 @@
 			</label>
 
 			<div class="toggle-group">
-				<label class="chk-row">
-					<input type="checkbox" bind:checked={form.featured} />
+				<label class="chk-row" for="sidebar-post-featured">
+					<input id="sidebar-post-featured" name="featured" type="checkbox" bind:checked={form.featured} />
 					<span>Featured</span>
 				</label>
-				<label class="chk-row">
-					<input type="checkbox" bind:checked={form.isPillar} />
+				<label class="chk-row" for="sidebar-post-pillar">
+					<input id="sidebar-post-pillar" name="isPillar" type="checkbox" bind:checked={form.isPillar} />
 					<span>Pillar Content</span>
 				</label>
-				<label class="chk-row">
+				<label class="chk-row" for="sidebar-post-sticky">
 					<input
+						id="sidebar-post-sticky"
+						name="isSticky"
 						type="checkbox"
 						bind:checked={form.isSticky}
 						onchange={() => {
@@ -764,8 +793,10 @@
 					/>
 					<span>Sticky</span>
 				</label>
-				<label class="chk-row">
+				<label class="chk-row" for="sidebar-post-comments">
 					<input
+						id="sidebar-post-comments"
+						name="commentsEnabled"
 						type="checkbox"
 						bind:checked={form.commentsEnabled}
 						onchange={() => {
@@ -781,8 +812,10 @@
 					<span class="side-label">Related Articles ({form.relatedPostIds.length}/3)</span>
 					<div class="tax-checklist">
 						{#each candidateRelatedPosts as rel (rel.id)}
-							<label class="chk-row">
+							<label class="chk-row" for={`sidebar-related-${rel.id}`}>
 								<input
+									id={`sidebar-related-${rel.id}`}
+									name={`relatedPost_${rel.id}`}
 									type="checkbox"
 									checked={form.relatedPostIds.includes(rel.id)}
 									disabled={!form.relatedPostIds.includes(rel.id) &&
@@ -846,9 +879,11 @@
 				<p class="empty-note">No custom metadata fields configured.</p>
 			{:else}
 				<div class="cf-list">
-					{#each form.customFields as cf (getObjectRowKey(cf))}
+					{#each form.customFields as cf, cfIdx (getObjectRowKey(cf))}
 						<div class="cf-row">
 							<input
+								id={`sidebar-cf-key-${cfIdx}`}
+								name={`customFieldKey_${cfIdx}`}
 								type="text"
 								class="side-input"
 								aria-label="Custom field key"
@@ -856,6 +891,8 @@
 								bind:value={cf.key}
 							/>
 							<input
+								id={`sidebar-cf-val-${cfIdx}`}
+								name={`customFieldValue_${cfIdx}`}
 								type="text"
 								class="side-input"
 								aria-label="Custom field value"

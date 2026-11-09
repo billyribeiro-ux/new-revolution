@@ -145,6 +145,8 @@
 					</button>
 					{#if !showTrash}
 						<input
+							id={`media-card-check-${item.id}`}
+							name={`mediaSelect_${item.id}`}
 							type="checkbox"
 							class="ml-check media-card-check"
 							aria-label={`Select ${item.filename} for bulk actions`}
@@ -162,6 +164,8 @@
 					{#if !showTrash}
 						<th class="col-check">
 							<input
+								id="media-table-select-all"
+								name="mediaSelectAll"
 								type="checkbox"
 								class="ml-check"
 								aria-label="Select all items on this page"
@@ -189,6 +193,8 @@
 						{#if !showTrash}
 							<td class="col-check">
 								<input
+									id={`media-table-check-${item.id}`}
+									name={`mediaSelect_${item.id}`}
 									type="checkbox"
 									class="ml-check"
 									aria-label={`Select ${item.filename} for bulk actions`}

@@ -98,8 +98,8 @@
 
 <div class="toc-panel" data-testid="toc-panel">
 	<div class="toc-controls-row">
-		<label class="toc-toggle-label">
-			<input type="checkbox" bind:checked={enableToc} />
+		<label class="toc-toggle-label" for="toc-enable-checkbox">
+			<input id="toc-enable-checkbox" name="enableToc" type="checkbox" bind:checked={enableToc} />
 			<span>Show TOC on Post</span>
 		</label>
 		{#if tocItems.length > 0}

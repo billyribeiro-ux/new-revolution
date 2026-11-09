@@ -41,6 +41,8 @@
 
 <div class="ml-toolbar">
 	<input
+		id="ml-toolbar-search"
+		name="mediaSearch"
 		type="search"
 		class="ml-input ml-search"
 		placeholder="Search filename, title, alt text, caption..."
@@ -50,6 +52,8 @@
 	/>
 
 	<select
+		id="ml-toolbar-folder"
+		name="mediaFolder"
 		class="ml-input"
 		aria-label="Filter by folder"
 		value={selectedFolder === undefined ? '__ALL__' : selectedFolder}
@@ -66,6 +70,8 @@
 	</select>
 
 	<select
+		id="ml-toolbar-mime"
+		name="mediaMime"
 		class="ml-input"
 		aria-label="Filter by MIME type"
 		value={selectedMime}
@@ -80,6 +86,8 @@
 	</select>
 
 	<select
+		id="ml-toolbar-sort"
+		name="mediaSort"
 		class="ml-input"
 		aria-label="Sort media"
 		value={selectedSort}
@@ -113,6 +121,8 @@
 
 	<div class="ml-inline">
 		<input
+			id="ml-toolbar-new-folder"
+			name="newFolderName"
 			type="text"
 			class="ml-input ml-folder-input"
 			placeholder="New folder..."

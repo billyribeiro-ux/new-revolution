@@ -27,6 +27,7 @@
 		<label class="ml-sr-only" for="ml-bulk-move">Move selected to folder</label>
 		<select
 			id="ml-bulk-move"
+			name="bulkMoveFolder"
 			class="ml-input"
 			disabled={busy}
 			onchange={(e) => {

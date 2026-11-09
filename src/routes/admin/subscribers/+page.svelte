@@ -169,6 +169,8 @@
 		</div>
 		<div class="page__actions">
 			<input
+				id="subscribers-search"
+				name="subscriberSearch"
 				type="search"
 				class="page__search"
 				placeholder="Search name or email…"

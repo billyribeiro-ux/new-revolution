@@ -75,34 +75,34 @@
 		</div>
 
 		<div class="ml-fields">
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-alt">
 				<span>Alt Text {!editAltText.trim() ? '(Required for SEO)' : ''}</span>
-				<input type="text" class="ml-input" bind:value={editAltText} />
+				<input id="ml-meta-alt" name="editAltText" type="text" class="ml-input" bind:value={editAltText} />
 			</label>
 
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-title">
 				<span>Title</span>
-				<input type="text" class="ml-input" bind:value={editTitle} />
+				<input id="ml-meta-title" name="editTitle" type="text" class="ml-input" bind:value={editTitle} />
 			</label>
 
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-caption">
 				<span>Caption</span>
-				<input type="text" class="ml-input" bind:value={editCaption} />
+				<input id="ml-meta-caption" name="editCaption" type="text" class="ml-input" bind:value={editCaption} />
 			</label>
 
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-description">
 				<span>Description</span>
-				<textarea class="ml-input" rows="2" bind:value={editDescription}></textarea>
+				<textarea id="ml-meta-description" name="editDescription" class="ml-input" rows="2" bind:value={editDescription}></textarea>
 			</label>
 
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-folder">
 				<span>Folder</span>
-				<input type="text" class="ml-input" placeholder="Root" bind:value={editFolder} />
+				<input id="ml-meta-folder" name="editFolder" type="text" class="ml-input" placeholder="Root" bind:value={editFolder} />
 			</label>
 
-			<label class="ml-field">
+			<label class="ml-field" for="ml-meta-filename">
 				<span>Filename</span>
-				<input type="text" class="ml-input" bind:value={editFilename} />
+				<input id="ml-meta-filename" name="editFilename" type="text" class="ml-input" bind:value={editFilename} />
 			</label>
 
 			<div class="ml-actions">
@@ -122,9 +122,9 @@
 			{#if canInsert && !showTrash}
 				<hr class="ml-divider" />
 				<div class="ml-fields">
-					<label class="ml-field">
+					<label class="ml-field" for="ml-insert-size">
 						<span>Insert Size</span>
-						<select class="ml-input" bind:value={insertSize}>
+						<select id="ml-insert-size" name="insertSize" class="ml-input" bind:value={insertSize}>
 							{#each item.available_sizes as s (s.value)}
 								<option value={s.value} disabled={!s.available}>
 									{s.label}{!s.available ? ' (Not needed)' : ''}
@@ -133,9 +133,9 @@
 						</select>
 					</label>
 
-					<label class="ml-field">
+					<label class="ml-field" for="ml-insert-align">
 						<span>Alignment</span>
-						<select class="ml-input" bind:value={insertAlign}>
+						<select id="ml-insert-align" name="insertAlign" class="ml-input" bind:value={insertAlign}>
 							<option value="center">Center</option>
 							<option value="left">Float Left</option>
 							<option value="right">Float Right</option>
@@ -143,9 +143,11 @@
 						</select>
 					</label>
 
-					<label class="ml-field">
+					<label class="ml-field" for="ml-insert-link-url">
 						<span>Link URL (optional)</span>
 						<input
+							id="ml-insert-link-url"
+							name="insertLinkUrl"
 							type="url"
 							class="ml-input"
 							placeholder="https://..."

@@ -154,6 +154,7 @@
 			<label for="post-title" class="sr-only">Post Title</label>
 			<input
 				id="post-title"
+				name="postTitle"
 				type="text"
 				class="title-input"
 				placeholder="Add title"
@@ -167,6 +168,7 @@
 			<span class="slug-prefix">revolutiontradingpros.com/blog/</span>
 			<input
 				id="post-slug"
+				name="postSlug"
 				type="text"
 				class="slug-input"
 				aria-label="Post slug"
@@ -198,9 +200,11 @@
 		</div>
 
 		<div class="sub-excerpt-grid">
-			<label class="field-block">
+			<label class="field-block" for="post-subtitle">
 				<span class="field-label">Subtitle / Deck</span>
 				<input
+					id="post-subtitle"
+					name="postSubtitle"
 					type="text"
 					class="text-input"
 					placeholder="Optional secondary deck headline..."
@@ -217,6 +221,7 @@
 				</span>
 				<textarea
 					id="post-excerpt"
+					name="postExcerpt"
 					class="textarea-input"
 					rows={3}
 					placeholder="Concise summary for blog index cards and feeds (auto-fills from body if blank)..."
@@ -288,9 +293,11 @@
 			</div>
 
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-focus-keyword">
 					<span class="field-label">Focus Keyword</span>
 					<input
+						id="post-focus-keyword"
+						name="focusKeyword"
 						type="text"
 						class="text-input"
 						placeholder="e.g. spx gamma exposure"
@@ -302,6 +309,8 @@
 					<span class="field-label">Secondary Keywords</span>
 					<div class="kw-input-row">
 						<input
+							id="post-secondary-keywords"
+							name="secondaryKeywords"
 							type="text"
 							class="text-input"
 							aria-label="Secondary keywords"
@@ -351,6 +360,7 @@
 				</span>
 				<input
 					id="post-meta-title"
+					name="metaTitle"
 					type="text"
 					class="text-input"
 					maxlength={META_TITLE_MAX}
@@ -370,11 +380,13 @@
 				{/if}
 			</label>
 
-			<label class="field-block">
+			<label class="field-block" for="post-meta-description">
 				<span class="field-label">
 					Meta Description ({form.metaDescription.length}/{META_DESCRIPTION_MAX} chars, target 120-160)
 				</span>
 				<textarea
+					id="post-meta-description"
+					name="metaDescription"
 					class="textarea-input"
 					rows={2}
 					maxlength={META_DESCRIPTION_MAX}
@@ -399,9 +411,11 @@
 			</div>
 
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-og-title">
 					<span class="field-label">OG Title ({form.ogTitle.length}/{OG_TITLE_MAX})</span>
 					<input
+						id="post-og-title"
+						name="ogTitle"
 						type="text"
 						class="text-input"
 						maxlength={OG_TITLE_MAX}
@@ -414,6 +428,9 @@
 					<span class="field-label">OG Image URL</span>
 					<div class="kw-input-row">
 						<input
+							id="post-og-image"
+							name="ogImage"
+							aria-label="OG Image URL"
 							type="text"
 							class="text-input"
 							placeholder="Defaults to Cover Image"
@@ -424,11 +441,13 @@
 				</div>
 			</div>
 
-			<label class="field-block">
+			<label class="field-block" for="post-og-description">
 				<span class="field-label">
 					OG Description ({form.ogDescription.length}/{OG_DESCRIPTION_MAX})
 				</span>
 				<textarea
+					id="post-og-description"
+					name="ogDescription"
 					class="textarea-input"
 					rows={2}
 					maxlength={OG_DESCRIPTION_MAX}
@@ -437,9 +456,11 @@
 			</label>
 
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-canonical-url">
 					<span class="field-label">Canonical URL Override</span>
 					<input
+						id="post-canonical-url"
+						name="canonicalUrl"
 						type="url"
 						class="text-input"
 						placeholder="https://revolutiontradingpros.com/blog/..."
@@ -447,9 +468,9 @@
 					/>
 				</label>
 
-				<label class="field-block">
+				<label class="field-block" for="post-schema-type">
 					<span class="field-label">Schema Type</span>
-					<select class="select-input" bind:value={form.schemaType}>
+					<select id="post-schema-type" name="schemaType" class="select-input" bind:value={form.schemaType}>
 						{#each POST_SCHEMA_TYPE_VALUES as st (st)}
 							<option value={st}>{st}</option>
 						{/each}
@@ -460,8 +481,10 @@
 			<div class="field-block">
 				<span class="field-label">Robots Directives</span>
 				<div class="checkbox-row">
-					<label class="chk-label">
+					<label class="chk-label" for="post-robots-noindex">
 						<input
+							id="post-robots-noindex"
+							name="robotsNoindex"
 							type="checkbox"
 							bind:checked={form.noindex}
 							onchange={() => {
@@ -470,8 +493,10 @@
 						/>
 						<span>noindex</span>
 					</label>
-					<label class="chk-label">
+					<label class="chk-label" for="post-robots-nofollow">
 						<input
+							id="post-robots-nofollow"
+							name="robotsNofollow"
 							type="checkbox"
 							bind:checked={form.nofollow}
 							onchange={() => {
@@ -480,12 +505,12 @@
 						/>
 						<span>nofollow</span>
 					</label>
-					<label class="chk-label">
-						<input type="checkbox" bind:checked={form.noarchive} />
+					<label class="chk-label" for="post-robots-noarchive">
+						<input id="post-robots-noarchive" name="robotsNoarchive" type="checkbox" bind:checked={form.noarchive} />
 						<span>noarchive</span>
 					</label>
-					<label class="chk-label">
-						<input type="checkbox" bind:checked={form.nosnippet} />
+					<label class="chk-label" for="post-robots-nosnippet">
+						<input id="post-robots-nosnippet" name="robotsNosnippet" type="checkbox" bind:checked={form.nosnippet} />
 						<span>nosnippet</span>
 					</label>
 				</div>
@@ -510,9 +535,9 @@
 
 		<div id="panel-twitter" class="metabox-body" hidden={activeMainTab !== 'twitter'}>
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-twitter-card-type">
 					<span class="field-label">Twitter Card Type</span>
-					<select class="select-input" bind:value={form.twitterCardType}>
+					<select id="post-twitter-card-type" name="twitterCardType" class="select-input" bind:value={form.twitterCardType}>
 						{#each TWITTER_CARD_TYPE_VALUES as ct (ct)}
 							<option value={ct}>{ct}</option>
 						{/each}
@@ -523,6 +548,9 @@
 					<span class="field-label">Twitter Image</span>
 					<div class="kw-input-row">
 						<input
+							id="post-twitter-image"
+							name="twitterImage"
+							aria-label="Twitter Image URL"
 							type="text"
 							class="text-input"
 							placeholder="Defaults to OG / Cover Image"
@@ -534,11 +562,13 @@
 			</div>
 
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-twitter-title">
 					<span class="field-label">
 						Twitter Title ({form.twitterTitle.length}/{TWITTER_TITLE_MAX})
 					</span>
 					<input
+						id="post-twitter-title"
+						name="twitterTitle"
 						type="text"
 						class="text-input"
 						maxlength={TWITTER_TITLE_MAX}
@@ -547,11 +577,13 @@
 					/>
 				</label>
 
-				<label class="field-block">
+				<label class="field-block" for="post-twitter-description">
 					<span class="field-label">
 						Twitter Description ({form.twitterDescription.length}/{TWITTER_DESCRIPTION_MAX})
 					</span>
 					<input
+						id="post-twitter-description"
+						name="twitterDescription"
 						type="text"
 						class="text-input"
 						maxlength={TWITTER_DESCRIPTION_MAX}
@@ -631,6 +663,8 @@
 								</button>
 							</div>
 							<input
+								id={`post-faq-q-${idx}`}
+								name={`faqQuestion_${idx}`}
 								type="text"
 								class="text-input"
 								aria-label="FAQ question {idx + 1}"
@@ -638,6 +672,8 @@
 								bind:value={faq.question}
 							/>
 							<textarea
+								id={`post-faq-a-${idx}`}
+								name={`faqAnswer_${idx}`}
 								class="textarea-input"
 								rows={2}
 								aria-label="FAQ answer {idx + 1}"
@@ -667,20 +703,22 @@
 
 		<div id="panel-advanced" class="metabox-body" hidden={activeMainTab !== 'advanced'}>
 			<div class="checkbox-row">
-				<label class="chk-label">
-					<input type="checkbox" bind:checked={form.pingbacksEnabled} />
+				<label class="chk-label" for="post-pingbacks-enabled">
+					<input id="post-pingbacks-enabled" name="pingbacksEnabled" type="checkbox" bind:checked={form.pingbacksEnabled} />
 					<span>Allow Pingbacks &amp; Trackbacks</span>
 				</label>
-				<label class="chk-label">
-					<input type="checkbox" bind:checked={form.excludeFromSearch} />
+				<label class="chk-label" for="post-exclude-from-search">
+					<input id="post-exclude-from-search" name="excludeFromSearch" type="checkbox" bind:checked={form.excludeFromSearch} />
 					<span>Exclude from internal site search</span>
 				</label>
 			</div>
 
 			<div class="two-col">
-				<label class="field-block">
+				<label class="field-block" for="post-series-name">
 					<span class="field-label">Series Name</span>
 					<input
+						id="post-series-name"
+						name="seriesName"
 						type="text"
 						class="text-input"
 						placeholder="e.g. Options Greeks Masterclass"
@@ -688,9 +726,11 @@
 					/>
 				</label>
 
-				<label class="field-block">
+				<label class="field-block" for="post-series-order">
 					<span class="field-label">Series Part / Order</span>
 					<input
+						id="post-series-order"
+						name="seriesOrder"
 						type="number"
 						class="text-input"
 						min="1"
@@ -703,9 +743,11 @@
 				</label>
 			</div>
 
-			<label class="field-block">
+			<label class="field-block" for="post-custom-jsonld">
 				<span class="field-label">Custom JSON-LD Override (optional valid JSON object)</span>
 				<textarea
+					id="post-custom-jsonld"
+					name="customJsonLd"
 					class="textarea-input code-textarea"
 					rows={4}
 					placeholder={`{"@context": "https://schema.org", ...}`}

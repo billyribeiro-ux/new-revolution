@@ -290,9 +290,12 @@
 				<div class="filter-bar">
 					<label for="region-filter">
 						<IconWorld size={20} />
+						<span class="sr-only">Filter by region</span>
 					</label>
 					<select
 						id="region-filter"
+						name="regionFilter"
+						aria-label="Filter stock indexes by region"
 						bind:value={selectedRegion}
 						class="filter-select"
 						autocomplete="off"

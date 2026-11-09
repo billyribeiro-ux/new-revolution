@@ -254,9 +254,11 @@
 
 	{#if editingDetails}
 		<div class="menu-editor">
-			<label>
+			<label for="image-control-alt">
 				<span>Alt text <em>(required for SEO)</em></span>
 				<input
+					id="image-control-alt"
+					name="imageAlt"
 					type="text"
 					{@attach focusField}
 					bind:value={draftAlt}
@@ -264,27 +266,33 @@
 					onkeydown={fieldKeydown}
 				/>
 			</label>
-			<label>
+			<label for="image-control-title">
 				<span>Title <em>(optional)</em></span>
 				<input
+					id="image-control-title"
+					name="imageTitle"
 					type="text"
 					bind:value={draftTitle}
 					placeholder="Tooltip text shown on hover"
 					onkeydown={fieldKeydown}
 				/>
 			</label>
-			<label>
+			<label for="image-control-caption">
 				<span>Caption <em>(optional)</em></span>
 				<input
+					id="image-control-caption"
+					name="imageCaption"
 					type="text"
 					bind:value={draftCaption}
 					placeholder="Visible figure caption"
 					onkeydown={fieldKeydown}
 				/>
 			</label>
-			<label>
+			<label for="image-control-description">
 				<span>Image Description <em>(visual placeholder spec)</em></span>
 				<input
+					id="image-control-description"
+					name="imageDescription"
 					type="text"
 					bind:value={draftDescription}
 					placeholder="Detailed visual description for creating this image"

@@ -734,6 +734,8 @@
 
 		<div class="toolbar-group">
 			<select
+				id="rte-heading-level"
+				name="rteHeadingLevel"
 				class="tool-select"
 				aria-label="Block heading level"
 				value={currentHeadingValue}
@@ -871,6 +873,8 @@
 			{#if activePopover === 'link'}
 				<div class="toolbar-popover" role="dialog" aria-label="Insert or edit link">
 					<input
+						id="rte-link-url"
+						name="rteLinkUrl"
 						type="url"
 						class="popover-input"
 						aria-label="Link URL"
@@ -891,8 +895,10 @@
 						}}
 					/>
 					<div class="link-checkbox-row">
-						<label class="link-checkbox-label">
+						<label class="link-checkbox-label" for="rte-link-new-tab">
 							<input
+								id="rte-link-new-tab"
+								name="rteLinkNewTab"
 								type="checkbox"
 								bind:checked={linkNewTab}
 								onchange={() => {
@@ -901,8 +907,8 @@
 							/>
 							<span>New tab</span>
 						</label>
-						<label class="link-checkbox-label">
-							<input type="checkbox" bind:checked={linkNofollow} />
+						<label class="link-checkbox-label" for="rte-link-nofollow">
+							<input id="rte-link-nofollow" name="rteLinkNofollow" type="checkbox" bind:checked={linkNofollow} />
 							<span>Nofollow</span>
 						</label>
 					</div>
@@ -939,12 +945,14 @@
 				</button>
 				{#if activePopover === 'embed'}
 					<div class="toolbar-popover" role="dialog" aria-label="Insert embed">
-						<select class="popover-select" bind:value={embedKind} aria-label="Embed type">
+						<select id="rte-embed-kind" name="rteEmbedKind" class="popover-select" bind:value={embedKind} aria-label="Embed type">
 							<option value="youtube">YouTube Video</option>
 							<option value="vimeo">Vimeo Video</option>
 							<option value="tweet">X / Twitter Post</option>
 						</select>
 						<input
+							id="rte-embed-url"
+							name="rteEmbedUrl"
 							type="url"
 							class="popover-input"
 							aria-label="Embed URL"
@@ -1030,9 +1038,11 @@
 	<!-- Code Block Language Bar (visible when cursor is inside a codeBlock, Section 13 #30) -->
 	{#if isCodeBlockActive && !htmlSourceMode}
 		<div class="code-lang-bar">
-			<label class="code-lang-label">
+			<label class="code-lang-label" for="rte-code-language">
 				<span>Code Language:</span>
 				<select
+					id="rte-code-language"
+					name="rteCodeLanguage"
 					class="tool-select"
 					value={currentCodeLanguage}
 					onchange={(e) => {
@@ -1057,6 +1067,8 @@
 		>
 			<div class="toolbar-group">
 				<select
+					id="rte-font-family"
+					name="rteFontFamily"
 					class="tool-select"
 					aria-label="Font family"
 					onchange={(e) => {
@@ -1072,6 +1084,8 @@
 				</select>
 
 				<select
+					id="rte-font-size"
+					name="rteFontSize"
 					class="tool-select"
 					aria-label="Font size"
 					onchange={(e) => {
@@ -1369,17 +1383,17 @@
 				</button>
 				{#if activePopover === 'blockStyle'}
 					<div class="toolbar-popover" role="dialog" aria-label="Block box styling">
-						<label class="pop-field">
+						<label class="pop-field" for="rte-block-bg-color">
 							<span>Background</span>
-							<input type="text" class="popover-input" bind:value={blockBgColor} />
+							<input id="rte-block-bg-color" name="rteBlockBgColor" type="text" class="popover-input" bind:value={blockBgColor} />
 						</label>
-						<label class="pop-field">
+						<label class="pop-field" for="rte-block-border-color">
 							<span>Border Accent</span>
-							<input type="text" class="popover-input" bind:value={blockBorderColor} />
+							<input id="rte-block-border-color" name="rteBlockBorderColor" type="text" class="popover-input" bind:value={blockBorderColor} />
 						</label>
-						<label class="pop-field">
+						<label class="pop-field" for="rte-block-padding">
 							<span>Padding</span>
-							<input type="text" class="popover-input" bind:value={blockPadding} />
+							<input id="rte-block-padding" name="rteBlockPadding" type="text" class="popover-input" bind:value={blockPadding} />
 						</label>
 						<div class="popover-actions">
 							<button
@@ -1428,6 +1442,8 @@
 	{#if findBarOpen && !htmlSourceMode}
 		<div class="find-replace-bar" role="search" aria-label="Find and replace">
 			<input
+				id="rte-find-query"
+				name="rteFindQuery"
 				type="search"
 				class="popover-input find-input"
 				aria-label="Find in article"
@@ -1436,6 +1452,8 @@
 				oninput={applyFindUpdate}
 			/>
 			<input
+				id="rte-replace-query"
+				name="rteReplaceQuery"
 				type="text"
 				class="popover-input find-input"
 				aria-label="Replace with"
@@ -1443,8 +1461,8 @@
 				bind:value={replaceQuery}
 				oninput={applyFindUpdate}
 			/>
-			<label class="case-toggle">
-				<input type="checkbox" bind:checked={findCaseSensitive} onchange={applyFindUpdate} />
+			<label class="case-toggle" for="rte-find-case-sensitive">
+				<input id="rte-find-case-sensitive" name="rteFindCaseSensitive" type="checkbox" bind:checked={findCaseSensitive} onchange={applyFindUpdate} />
 				<span>Aa</span>
 			</label>
 			<span class="find-count">
@@ -1652,6 +1670,8 @@
 
 		{#if htmlSourceMode}
 			<textarea
+				id="rte-html-source"
+				name="rteHtmlSource"
 				class="html-source-textarea"
 				aria-label="HTML source"
 				value={rawHtmlBuffer}

@@ -126,6 +126,8 @@
 		</div>
 		<div class="page__actions">
 			<select
+				id="calls-status-filter"
+				name="filterStatus"
 				bind:value={filterStatus}
 				onchange={() => load('refresh')}
 				aria-label="Filter by status"

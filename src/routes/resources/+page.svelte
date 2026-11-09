@@ -209,37 +209,104 @@
 						</div>
 
 						<div class="calc-fields">
-							<label class="calc-field">
+							<label class="calc-field" for="calc-underlying-price">
 								<span class="calc-field__label">Underlying Price ($)</span>
-								<input type="number" step="1" min="1" bind:value={underlyingPrice} />
+								<input
+									id="calc-underlying-price"
+									name="underlyingPrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={underlyingPrice}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-strike-price">
 								<span class="calc-field__label">Strike Price ($)</span>
-								<input type="number" step="1" min="1" bind:value={strikePrice} />
+								<input
+									id="calc-strike-price"
+									name="strikePrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={strikePrice}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-entry-premium">
 								<span class="calc-field__label">Option Entry Premium ($)</span>
-								<input type="number" step="0.1" min="0.05" bind:value={entryPremium} />
+								<input
+									id="calc-entry-premium"
+									name="entryPremium"
+									type="number"
+									step="0.1"
+									min="0.05"
+									autocomplete="off"
+									bind:value={entryPremium}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-target-price">
 								<span class="calc-field__label">Target Underlying Price ($)</span>
-								<input type="number" step="1" min="1" bind:value={targetPrice} />
+								<input
+									id="calc-target-price"
+									name="targetPrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={targetPrice}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-dte">
 								<span class="calc-field__label">Days to Expiration (DTE)</span>
-								<input type="number" step="1" min="1" max="365" bind:value={dte} />
+								<input
+									id="calc-dte"
+									name="dte"
+									type="number"
+									step="1"
+									min="1"
+									max="365"
+									autocomplete="off"
+									bind:value={dte}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-implied-vol">
 								<span class="calc-field__label">Implied Volatility (IV %)</span>
-								<input type="number" step="0.5" min="1" max="200" bind:value={impliedVol} />
+								<input
+									id="calc-implied-vol"
+									name="impliedVol"
+									type="number"
+									step="0.5"
+									min="1"
+									max="200"
+									autocomplete="off"
+									bind:value={impliedVol}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-account-size">
 								<span class="calc-field__label">Account Equity ($)</span>
-								<input type="number" step="100" min="500" bind:value={accountSize} />
+								<input
+									id="calc-account-size"
+									name="accountSize"
+									type="number"
+									step="100"
+									min="500"
+									autocomplete="off"
+									bind:value={accountSize}
+								/>
 							</label>
-							<label class="calc-field">
+							<label class="calc-field" for="calc-risk-percent">
 								<span class="calc-field__label">Max Risk Per Trade (%)</span>
-								<input type="number" step="0.5" min="0.5" max="10" bind:value={riskPercent} />
+								<input
+									id="calc-risk-percent"
+									name="riskPercent"
+									type="number"
+									step="0.5"
+									min="0.5"
+									max="10"
+									autocomplete="off"
+									bind:value={riskPercent}
+								/>
 							</label>
 						</div>
 					</div>

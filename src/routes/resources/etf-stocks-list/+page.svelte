@@ -269,6 +269,7 @@
 						<input
 							type="search"
 							id="etf-search"
+							name="etfSearch"
 							bind:value={searchQuery}
 							placeholder="Search SPY, QQQ, IWM, Gold, Bond..."
 							class="search-box__input"

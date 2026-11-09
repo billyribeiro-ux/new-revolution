@@ -82,9 +82,11 @@
 		{/if}
 	</div>
 
-	<label class="field">
+	<label class="field" for="featured-cover-image-url">
 		<span class="label">Cover Image URL</span>
 		<input
+			id="featured-cover-image-url"
+			name="coverImage"
 			type="text"
 			class="input"
 			placeholder="/images/blog/... or https://..."
@@ -93,9 +95,11 @@
 		/>
 	</label>
 
-	<label class="field">
+	<label class="field" for="featured-cover-image-title">
 		<span class="label">Image Title</span>
 		<input
+			id="featured-cover-image-title"
+			name="coverImageTitle"
 			type="text"
 			class="input"
 			placeholder="Image title attribute..."
@@ -104,7 +108,7 @@
 		/>
 	</label>
 
-	<label class="field">
+	<label class="field" for="featured-cover-image-alt">
 		<span class="label">
 			Alt Text
 			<span class={['required', { missing: altMissing }]}>
@@ -112,6 +116,8 @@
 			</span>
 		</span>
 		<input
+			id="featured-cover-image-alt"
+			name="coverImageAlt"
 			type="text"
 			class={['input', { invalid: altMissing }]}
 			placeholder="Describe the image itself..."
@@ -125,9 +131,11 @@
 		{/if}
 	</label>
 
-	<label class="field">
+	<label class="field" for="featured-cover-image-caption">
 		<span class="label">Caption (optional)</span>
 		<input
+			id="featured-cover-image-caption"
+			name="coverImageCaption"
 			type="text"
 			class="input"
 			placeholder="Optional figure credit..."
@@ -136,9 +144,11 @@
 		/>
 	</label>
 
-	<label class="field">
+	<label class="field" for="featured-cover-image-description">
 		<span class="label">Image Description (Placeholder Spec)</span>
 		<textarea
+			id="featured-cover-image-description"
+			name="coverImageDescription"
 			class="input"
 			rows="4"
 			placeholder="Detailed visual description for creating this cover graphic..."

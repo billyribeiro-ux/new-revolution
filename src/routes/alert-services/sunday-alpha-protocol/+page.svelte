@@ -681,6 +681,7 @@
 									<label for="sap-winrate-slider">SIMULATE WIN RATE:</label>
 									<input
 										id="sap-winrate-slider"
+										name="winRate"
 										type="range"
 										min="40"
 										max="75"

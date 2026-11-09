@@ -583,25 +583,27 @@
 		<section class="admin-section" aria-label="Posts list">
 			<div class="filter-bar">
 				<input
+					id="posts-search-input"
+					name="postsSearch"
 					type="search"
 					class="admin-input"
 					aria-label="Search posts by title or slug"
 					placeholder="Search title or slug..."
 					bind:value={searchQuery}
 				/>
-				<select class="admin-select" aria-label="Filter by status" bind:value={statusFilter}>
+				<select id="posts-status-filter" name="statusFilter" class="admin-select" aria-label="Filter by status" bind:value={statusFilter}>
 					<option value="all">All Statuses</option>
 					{#each POST_STATUSES as st (st)}
 						<option value={st}>{st}</option>
 					{/each}
 				</select>
-				<select class="admin-select" aria-label="Filter by category" bind:value={categoryFilter}>
+				<select id="posts-category-filter" name="categoryFilter" class="admin-select" aria-label="Filter by category" bind:value={categoryFilter}>
 					<option value="all">All Categories</option>
 					{#each categories as cat (cat.id)}
 						<option value={cat.id}>{cat.name}</option>
 					{/each}
 				</select>
-				<select class="admin-select" aria-label="Filter by author" bind:value={authorFilter}>
+				<select id="posts-author-filter" name="authorFilter" class="admin-select" aria-label="Filter by author" bind:value={authorFilter}>
 					<option value="all">All Authors</option>
 					{#each authors as auth (auth.id)}
 						<option value={auth.id}>{auth.name}</option>
@@ -623,6 +625,8 @@
 							<tr>
 								<th scope="col" class="col-check">
 									<input
+										id="posts-select-all"
+										name="selectAllPosts"
 										type="checkbox"
 										aria-label="Select all visible posts"
 										checked={selectedPostIds.length === filteredPosts.length &&
@@ -648,6 +652,8 @@
 								<tr>
 									<td>
 										<input
+											id={`posts-select-${post.id}`}
+											name={`selectPost_${post.id}`}
 											type="checkbox"
 											aria-label={`Select ${post.title}`}
 											checked={selectedPostIds.includes(post.id)}
@@ -721,25 +727,27 @@
 												</div>
 											{/if}
 											<div class="quick-edit-grid">
-												<label class="qe-field">
+												<label class="qe-field" for={`qe-title-${post.id}`}>
 													<span>Title</span>
-													<input type="text" class="admin-input" bind:value={quickEditTitle} />
+													<input id={`qe-title-${post.id}`} name="quickEditTitle" type="text" class="admin-input" bind:value={quickEditTitle} />
 												</label>
-												<label class="qe-field">
+												<label class="qe-field" for={`qe-slug-${post.id}`}>
 													<span>Slug</span>
-													<input type="text" class="admin-input" bind:value={quickEditSlug} />
+													<input id={`qe-slug-${post.id}`} name="quickEditSlug" type="text" class="admin-input" bind:value={quickEditSlug} />
 												</label>
-												<label class="qe-field">
+												<label class="qe-field" for={`qe-status-${post.id}`}>
 													<span>Status</span>
-													<select class="admin-select" bind:value={quickEditStatus}>
+													<select id={`qe-status-${post.id}`} name="quickEditStatus" class="admin-select" bind:value={quickEditStatus}>
 														{#each POST_STATUSES as st (st)}
 															<option value={st}>{st}</option>
 														{/each}
 													</select>
 												</label>
-												<label class="qe-field">
+												<label class="qe-field" for={`qe-author-${post.id}`}>
 													<span>Author</span>
 													<select
+														id={`qe-author-${post.id}`}
+														name="quickEditAuthorId"
 														class="admin-select"
 														value={quickEditAuthorId ?? ''}
 														onchange={(e) => {
@@ -753,9 +761,11 @@
 														{/each}
 													</select>
 												</label>
-												<label class="qe-field">
+												<label class="qe-field" for={`qe-category-${post.id}`}>
 													<span>Primary Category</span>
 													<select
+														id={`qe-category-${post.id}`}
+														name="quickEditCategoryId"
 														class="admin-select"
 														value={quickEditCategoryId ?? ''}
 														onchange={(e) => {
@@ -770,16 +780,16 @@
 													</select>
 												</label>
 												<div class="qe-flags">
-													<label>
-														<input type="checkbox" bind:checked={quickEditFeatured} />
+													<label for={`qe-featured-${post.id}`}>
+														<input id={`qe-featured-${post.id}`} name="quickEditFeatured" type="checkbox" bind:checked={quickEditFeatured} />
 														Featured
 													</label>
-													<label>
-														<input type="checkbox" bind:checked={quickEditPillar} />
+													<label for={`qe-pillar-${post.id}`}>
+														<input id={`qe-pillar-${post.id}`} name="quickEditPillar" type="checkbox" bind:checked={quickEditPillar} />
 														Pillar
 													</label>
-													<label>
-														<input type="checkbox" bind:checked={quickEditSticky} />
+													<label for={`qe-sticky-${post.id}`}>
+														<input id={`qe-sticky-${post.id}`} name="quickEditSticky" type="checkbox" bind:checked={quickEditSticky} />
 														Sticky
 													</label>
 												</div>
@@ -872,9 +882,11 @@
 			<div class="form-card">
 				<h2>{editingAuthorId ? 'Edit Author' : 'Add Author'}</h2>
 				<div class="form-grid">
-					<label class="field-label">
+					<label class="field-label" for="author-name-input">
 						<span>Name *</span>
 						<input
+							id="author-name-input"
+							name="authorName"
 							type="text"
 							class="admin-input"
 							bind:value={authorName}
@@ -884,54 +896,66 @@
 							}}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-slug-input">
 						<span>Slug *</span>
 						<input
+							id="author-slug-input"
+							name="authorSlug"
 							type="text"
 							class="admin-input"
 							bind:value={authorSlug}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-job-title-input">
 						<span>Job Title</span>
 						<input
+							id="author-job-title-input"
+							name="authorJobTitle"
 							type="text"
 							class="admin-input"
 							bind:value={authorJobTitle}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-company-input">
 						<span>Company</span>
 						<input
+							id="author-company-input"
+							name="authorCompany"
 							type="text"
 							class="admin-input"
 							bind:value={authorCompany}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-credentials-input">
 						<span>Credentials</span>
 						<input
+							id="author-credentials-input"
+							name="authorCredentials"
 							type="text"
 							class="admin-input"
 							bind:value={authorCredentials}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-expertise-input">
 						<span>Expertise</span>
 						<input
+							id="author-expertise-input"
+							name="authorExpertise"
 							type="text"
 							class="admin-input"
 							bind:value={authorExpertise}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-years-exp-input">
 						<span>Years of Experience</span>
 						<input
+							id="author-years-exp-input"
+							name="authorYearsExperience"
 							type="number"
 							min="0"
 							max="80"
@@ -940,78 +964,96 @@
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-email-input">
 						<span>Email</span>
 						<input
+							id="author-email-input"
+							name="authorEmail"
 							type="email"
 							class="admin-input"
 							bind:value={authorEmail}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-avatar-input">
 						<span>Avatar URL</span>
 						<input
+							id="author-avatar-input"
+							name="authorAvatar"
 							type="url"
 							class="admin-input"
 							bind:value={authorAvatar}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-avatar-alt-input">
 						<span>Avatar Alt Text</span>
 						<input
+							id="author-avatar-alt-input"
+							name="authorAvatarAlt"
 							type="text"
 							class="admin-input"
 							bind:value={authorAvatarAlt}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-linkedin-input">
 						<span>LinkedIn URL</span>
 						<input
+							id="author-linkedin-input"
+							name="authorLinkedin"
 							type="url"
 							class="admin-input"
 							bind:value={authorLinkedin}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-twitter-input">
 						<span>X / Twitter URL</span>
 						<input
+							id="author-twitter-input"
+							name="authorTwitter"
 							type="url"
 							class="admin-input"
 							bind:value={authorTwitter}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="author-website-input">
 						<span>Website URL</span>
 						<input
+							id="author-website-input"
+							name="authorWebsite"
 							type="url"
 							class="admin-input"
 							bind:value={authorWebsite}
 							oninput={() => (authorDirty = true)}
 						/>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="author-short-bio-input">
 						<span>Short Bio</span>
 						<textarea
+							id="author-short-bio-input"
+							name="authorShortBio"
 							rows="2"
 							class="admin-textarea"
 							bind:value={authorShortBio}
 							oninput={() => (authorDirty = true)}></textarea>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="author-full-bio-input">
 						<span>Full Bio</span>
 						<textarea
+							id="author-full-bio-input"
+							name="authorBio"
 							rows="4"
 							class="admin-textarea"
 							bind:value={authorBio}
 							oninput={() => (authorDirty = true)}></textarea>
 					</label>
-					<label class="field-check full-span">
+					<label class="field-check full-span" for="author-is-active-input">
 						<input
+							id="author-is-active-input"
+							name="authorIsActive"
 							type="checkbox"
 							bind:checked={authorIsActive}
 							onchange={() => (authorDirty = true)}
@@ -1061,9 +1103,11 @@
 			<div class="form-card">
 				<h2>{editingCategoryId ? 'Edit Category' : 'Add Category'}</h2>
 				<div class="form-grid">
-					<label class="field-label">
+					<label class="field-label" for="category-name-input">
 						<span>Name *</span>
 						<input
+							id="category-name-input"
+							name="categoryName"
 							type="text"
 							class="admin-input"
 							bind:value={categoryName}
@@ -1073,18 +1117,22 @@
 							}}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="category-slug-input">
 						<span>Slug *</span>
 						<input
+							id="category-slug-input"
+							name="categorySlug"
 							type="text"
 							class="admin-input"
 							bind:value={categorySlug}
 							oninput={() => (categoryDirty = true)}
 						/>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="category-parent-input">
 						<span>Parent Category</span>
 						<select
+							id="category-parent-input"
+							name="categoryParentId"
 							class="admin-select"
 							value={categoryParentId ?? ''}
 							onchange={(e) => {
@@ -1099,26 +1147,32 @@
 							{/each}
 						</select>
 					</label>
-					<label class="field-label">
+					<label class="field-label" for="category-color-input">
 						<span>Badge Color</span>
 						<input
+							id="category-color-input"
+							name="categoryColor"
 							type="color"
 							class="admin-input"
 							bind:value={categoryColor}
 							oninput={() => (categoryDirty = true)}
 						/>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="category-description-input">
 						<span>Description</span>
 						<textarea
+							id="category-description-input"
+							name="categoryDescription"
 							rows="2"
 							class="admin-textarea"
 							bind:value={categoryDescription}
 							oninput={() => (categoryDirty = true)}></textarea>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="category-meta-title-input">
 						<span>Meta Title (max {META_TITLE_MAX} chars)</span>
 						<input
+							id="category-meta-title-input"
+							name="categoryMetaTitle"
 							type="text"
 							maxlength={META_TITLE_MAX}
 							class="admin-input"
@@ -1126,25 +1180,31 @@
 							oninput={() => (categoryDirty = true)}
 						/>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="category-meta-description-input">
 						<span>Meta Description (max {META_DESCRIPTION_MAX} chars)</span>
 						<textarea
+							id="category-meta-description-input"
+							name="categoryMetaDescription"
 							rows="2"
 							maxlength={META_DESCRIPTION_MAX}
 							class="admin-textarea"
 							bind:value={categoryMetaDescription}
 							oninput={() => (categoryDirty = true)}></textarea>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="category-pillar-content-input">
 						<span>Pillar Hub Content (HTML/Prose)</span>
 						<textarea
+							id="category-pillar-content-input"
+							name="categoryPillarContent"
 							rows="4"
 							class="admin-textarea"
 							bind:value={categoryPillarContent}
 							oninput={() => (categoryDirty = true)}></textarea>
 					</label>
-					<label class="field-check full-span">
+					<label class="field-check full-span" for="category-is-active-input">
 						<input
+							id="category-is-active-input"
+							name="categoryIsActive"
 							type="checkbox"
 							bind:checked={categoryIsActive}
 							onchange={() => (categoryDirty = true)}
@@ -1196,9 +1256,11 @@
 			<div class="form-card">
 				<h2>{editingTagId ? 'Edit Tag' : 'Add Tag'}</h2>
 				<div class="form-grid">
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="tag-name-input">
 						<span>Name *</span>
 						<input
+							id="tag-name-input"
+							name="tagName"
 							type="text"
 							class="admin-input"
 							bind:value={tagName}
@@ -1208,18 +1270,22 @@
 							}}
 						/>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="tag-slug-input">
 						<span>Slug *</span>
 						<input
+							id="tag-slug-input"
+							name="tagSlug"
 							type="text"
 							class="admin-input"
 							bind:value={tagSlug}
 							oninput={() => (tagDirty = true)}
 						/>
 					</label>
-					<label class="field-label full-span">
+					<label class="field-label full-span" for="tag-description-input">
 						<span>Description</span>
 						<textarea
+							id="tag-description-input"
+							name="tagDescription"
 							rows="3"
 							class="admin-textarea"
 							bind:value={tagDescription}

@@ -719,12 +719,14 @@
 							<legend class="form-legend">01 // Select Your Candidate Track (Required)</legend>
 							<div class="track-selector-grid">
 								<label
+									for="track-portfolio-manager"
 									class={[
 										'track-radio-card',
 										{ 'track-radio-card--active': selectedTrack === 'portfolio-manager' }
 									]}
 								>
 									<input
+										id="track-portfolio-manager"
 										type="radio"
 										name="candidateTrack"
 										value="portfolio-manager"
@@ -740,12 +742,14 @@
 								</label>
 
 								<label
+									for="track-professional-trader"
 									class={[
 										'track-radio-card',
 										{ 'track-radio-card--active': selectedTrack === 'professional-trader' }
 									]}
 								>
 									<input
+										id="track-professional-trader"
 										type="radio"
 										name="candidateTrack"
 										value="professional-trader"
@@ -760,12 +764,14 @@
 								</label>
 
 								<label
+									for="track-struggling-trader"
 									class={[
 										'track-radio-card',
 										{ 'track-radio-card--active': selectedTrack === 'struggling-trader' }
 									]}
 								>
 									<input
+										id="track-struggling-trader"
 										type="radio"
 										name="candidateTrack"
 										value="struggling-trader"
@@ -915,8 +921,9 @@
 
 						<!-- Step 4: Coachability Pledge & Submit -->
 						<div class="form-pledge-box">
-							<label class="checkbox-label">
+							<label class="checkbox-label" for="coachability-pledge">
 								<input
+									id="coachability-pledge"
 									type="checkbox"
 									name="coachabilityPledge"
 									bind:checked={coachabilityConfirmed}

@@ -98,7 +98,12 @@
 
 			<div class="field">
 				<label for="profile">Which best describes you?</label>
-				<select id="profile" required {...submitEbookLead.fields.profile.as('select')}>
+				<select
+					id="profile"
+					autocomplete="off"
+					required
+					{...submitEbookLead.fields.profile.as('select')}
+				>
 					<option value="" selected disabled>Select your trading profile</option>
 					{#each profiles as profileOption (profileOption)}
 						<option value={profileOption}>{profileOption}</option>

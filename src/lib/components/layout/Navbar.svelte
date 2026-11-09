@@ -1210,6 +1210,26 @@
 			block-size: 34px;
 		}
 
+		.nav-shell:not(.is-compact) .brand-text {
+			display: grid;
+			grid-template-rows: 1fr auto 1fr;
+			align-self: stretch;
+			padding-block-start: 0;
+		}
+
+		.nav-shell:not(.is-compact) .brand-text::before {
+			content: '';
+		}
+
+		.nav-shell:not(.is-compact) .brand-name {
+			grid-row: 2;
+		}
+
+		.nav-shell:not(.is-compact) .brand-tagline {
+			grid-row: 3;
+			align-self: start;
+		}
+
 		.brand-name {
 			font-size: clamp(0.65rem, 0.3rem + 0.48vw, 0.84375rem);
 		}

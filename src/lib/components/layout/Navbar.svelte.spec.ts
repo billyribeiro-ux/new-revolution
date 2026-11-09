@@ -146,6 +146,16 @@ describe('content-aware shared navigation', () => {
 			const rightGap = aRect.left - pRect.right;
 			expect(leftGap).toBeGreaterThan(8);
 			expect(Math.abs(leftGap - rightGap)).toBeLessThanOrEqual(1);
+
+			const brandNameRect = document
+				.querySelector<HTMLElement>('.brand-name')!
+				.getBoundingClientRect();
+			const navLinkRect = document
+				.querySelector<HTMLElement>('a.nav-link')!
+				.getBoundingClientRect();
+			const brandNameCenterY = brandNameRect.top + brandNameRect.height / 2;
+			const navLinkCenterY = navLinkRect.top + navLinkRect.height / 2;
+			expect(Math.abs(brandNameCenterY - navLinkCenterY)).toBeLessThanOrEqual(0.5);
 		}
 	);
 

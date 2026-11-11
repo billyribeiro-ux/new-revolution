@@ -12,7 +12,7 @@ export const prerender = true;
 export const load: PageLoad = ({ url }) => {
 	const title = 'Terms of Service & Disclosures';
 	const description =
-		'Review the Terms of Service, educational risk disclosures, and U.S. (SEC/CFTC/FINRA) and Canadian (OSC/BCSC/ASC) regulatory notices for our platform.';
+		'Read the terms for this AI-assisted website concept, development status, content limitations, and trading risks. No purchases or paid subscriptions offered.';
 	const canonical = getCanonicalUrl(url);
 
 	return {

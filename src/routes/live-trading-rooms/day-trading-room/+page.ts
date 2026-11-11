@@ -7,7 +7,7 @@ import {
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.';
+	'Explore our proposed day trading room, with concepts for market preparation, chart reviews, and risk education. In development; no purchases or enrollment.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

@@ -1,5 +1,6 @@
 <!-- src/routes/live-trading-rooms/small-accounts-room/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
@@ -181,6 +182,15 @@
 <Navbar />
 
 <main id="small-accounts-room-page" class="inner-page small-room-page">
+	<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+		<p>
+			<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+			platform support, charts, signals, and workflows below are development proposals or illustrative
+			demonstrations. They are not live services, verified product capabilities, or an invitation to purchase
+			or enroll. No price, release date, or future availability is guaranteed.
+		</p>
+	</aside>
+
 	<!-- =========================================================================
        SECTION 1: BREADCRUMB & SMALL ACCOUNT TELEMETRY BAR
        ========================================================================= -->
@@ -266,9 +276,10 @@
 					<button
 						type="button"
 						class="btn btn-primary"
-						onclick={() => scrollToSection('join-small-accounts-room')}
+						data-concept-offer
+						onclick={openConceptOffer}
 					>
-						Join the Small Accounts Room
+						Explore the Small Accounts Room Concept
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</button>
 					<button
@@ -535,7 +546,7 @@
 			<div class="section-heading">
 				<span class="eyebrow">People Over Profits • Start in the Right Room</span>
 				<h2 id="routing-h2">
-					Enroll in the Small Accounts Room or Compare Our Other Trading Rooms &amp; Alerts
+					Discuss the Small Accounts Room Concept or Compare Our Other Trading Rooms &amp; Alerts
 				</h2>
 				<p class="body-copy section-header__sub">
 					Our mission is to make sure every trader is placed in the exact environment built for
@@ -558,10 +569,15 @@
 							rotation, defined-risk vertical spreads, and strict stop-loss discipline.
 						</p>
 					</div>
-					<a href={resolve('/contact' as '/')} class="btn btn-dark btn--full">
-						Enroll in the Small Accounts Room
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-dark btn--full"
+					>
+						Discuss the Small Accounts Room Concept
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
+					</button>
 				</article>
 
 				<!-- Option 2: Working Professionals / Alert-Only Video Watchlists -->
@@ -572,7 +588,7 @@
 						</div>
 						<h3 class="route-card__title">Swing Room &amp; Sunday Alpha Protocol</h3>
 						<p class="route-card__copy">
-							Cannot watch screens during market hours? Join our
+							Interested in a different schedule? Explore our proposed
 							<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 								>Swing Trading Room</a
 							>
@@ -659,10 +675,10 @@
 				institutional risk discipline.
 			</p>
 			<div class="cta-row cta-row--centered">
-				<a href={resolve('/contact' as '/')} class="btn btn-dark">
-					Join the Small Accounts Room
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn btn-dark">
+					Explore the Small Accounts Room Concept
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-				</a>
+				</button>
 				<a
 					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
 					class="btn btn-outline-dark"

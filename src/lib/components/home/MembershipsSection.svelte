@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import CheckIcon from 'phosphor-svelte/lib/CheckIcon';
 	import { revealOnScroll } from '#lib/attachments/reveal.ts';
@@ -7,27 +7,31 @@
 
 	interface Props {
 		tiers?: readonly MembershipTier[];
-		onPreviewNavigate?: (href: string, targetId?: string, event?: MouseEvent) => void;
 	}
 
-	let { tiers = MEMBERSHIP_TIERS, onPreviewNavigate }: Props = $props();
+	let { tiers = MEMBERSHIP_TIERS }: Props = $props();
 </script>
 
 <!-- 05 / MEMBERSHIPS -->
 <section class="section memberships" id="memberships" aria-labelledby="member-title">
 	<div class="container">
 		<div class="section-heading reveal" {@attach revealOnScroll}>
-			<div class="eyebrow dark">REAL-TIME ROOMS / STRUCTURED MENTORSHIP / VIDEO ALERTS</div>
+			<div class="eyebrow dark">PROPOSED ROOMS / MENTORSHIP / VIDEO ALERTS</div>
 			<h2 id="member-title">
-				Four ways to trade smarter.
+				Four concepts in development.
 				<span class="manifesto-accent">One people-first philosophy.</span>
 			</h2>
 			<p class="copy dark">
 				Whether you trade actively at the opening bell, work a full-time 9-to-5 schedule, manage a
-				small account, or prefer prepared video watchlists, choose the membership path built around
-				your goals and risk parameters.
+				small account, or prefer prepared video watchlists, explore proposed membership paths built
+				around your goals and risk parameters.
 			</p>
 		</div>
+
+		<p class="copy dark">
+			Concept only · purchases and paid subscriptions are unavailable. Features shown below are
+			proposed.
+		</p>
 
 		<div class="membership-grid">
 			{#each tiers as tier (tier.index)}
@@ -54,16 +58,17 @@
 							</li>
 						{/each}
 					</ul>
-					<a
+					<button
+						type="button"
+						data-concept-offer
 						class={['btn', { 'btn-primary': tier.featured }]}
-						href={resolve(tier.href as '/')}
-						onclick={(e) => onPreviewNavigate?.(tier.href, tier.previewTarget, e)}
+						onclick={openConceptOffer}
 					>
 						<span>{tier.ctaLabel}</span>
 						<span class="arrow" aria-hidden="true">
 							<ArrowUpRightIcon size={16} weight="bold" />
 						</span>
-					</a>
+					</button>
 				</article>
 			{/each}
 		</div>

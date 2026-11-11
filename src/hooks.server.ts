@@ -9,6 +9,7 @@ import { redirects } from '#lib/server/db/schema';
 import { isLiveBlogPath } from '#lib/server/posts/redirect-integrity';
 import { requestLogger } from '#lib/server/logger.ts';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
+import { conceptCommerceResponse } from '#lib/server/commerce-guard';
 
 const SKIPPED_REDIRECT_PREFIXES = [
 	'/_app/',
@@ -137,6 +138,8 @@ const handleApp: Handle = async ({ event, resolve }) => {
 	const reqId = randomUUID();
 	event.locals.reqId = reqId;
 	event.locals.logger = requestLogger({ reqId, route: pathname, method });
+	const commerceResponse = conceptCommerceResponse(pathname);
+	if (commerceResponse) return commerceResponse;
 
 	// 1. Redirect serving hook (Section 7.11): GET and HEAD only, before router
 	if (

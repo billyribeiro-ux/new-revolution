@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import {
 		DOCUMENTATION_STANDARD_ITEMS,
@@ -35,7 +36,7 @@
 			<div class="eyebrow">WALL STREET THINKING. BUILT FOR MAIN STREET TRADERS.</div>
 			<h1 class="hero-h1" id="hero-title">
 				<span class="h1-query seo-kicker">
-					Live Stock &amp; Options Trading Room, Mentorship &amp; Custom Indicators
+					Stock &amp; Options Trading Concepts, Mentorship &amp; Proposed Tools
 				</span>
 				<span class="h1-emotional">
 					You Finally Found What You’ve Been Searching For.
@@ -60,17 +61,12 @@
 				Wall Street Protects Its Own. <span class="highlight">We Are the Revolution.</span>
 			</blockquote>
 			<div class="hero-ctas">
-				<a
-					class="btn btn-primary"
-					href={resolve('/live-trading-rooms/day-trading-room' as '/')}
-					onclick={(e) =>
-						onPreviewNavigate?.('/live-trading-rooms/day-trading-room', 'memberships', e)}
-				>
-					Explore Our Memberships
+				<button type="button" data-concept-offer class="btn btn-primary" onclick={openConceptOffer}>
+					Explore Membership Concepts
 					<span class="arrow" aria-hidden="true">
 						<ArrowUpRightIcon size={16} weight="bold" />
 					</span>
-				</a>
+				</button>
 				<a
 					class="btn btn-outline"
 					href={resolve('/about' as '/')}
@@ -83,8 +79,8 @@
 				</a>
 			</div>
 			<p class="hero-note">
-				Educational services only. Trading can result in substantial losses, including loss of the
-				entire amount invested.
+				Concept only · purchases unavailable. Trading can result in substantial losses, including
+				loss of the entire amount invested.
 			</p>
 		</div>
 

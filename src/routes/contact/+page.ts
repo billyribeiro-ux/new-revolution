@@ -12,7 +12,7 @@ export const prerender = true;
 export const load: PageLoad = ({ url }) => {
 	const title = 'Contact Our Trading Desk';
 	const description =
-		'Contact Revolution Trading Pros for live trading room support, mentorship inquiries, indicator setup help, and media verification. People over profits.';
+		'Contact Revolution Trading Pros about its AI-assisted website concept, browser testing, or content corrections. No sales, paid enrollment, or subscriptions.';
 	const canonical = getCanonicalUrl(url);
 
 	return {

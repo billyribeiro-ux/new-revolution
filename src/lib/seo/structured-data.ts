@@ -14,6 +14,10 @@ import { SITE_ORIGIN } from '#lib/shared/site-origin';
 
 export { SITE_ORIGIN };
 
+function describeProposedConcept(description: string): string {
+	return `Concept in development; unavailable for purchase. Proposed design: ${description}`;
+}
+
 export const BRAND_NAME = 'Revolution Trading Pros';
 export const BRAND_SLOGAN = 'Educate. Innovate. Prosper.';
 export const BRAND_LOGO_PATH = '/logo.png';
@@ -185,26 +189,26 @@ export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'goldman-mentor',
 		question: 'Who mentored the founder of Revolution Trading Pros, and why does it matter?',
 		answer:
-			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who explicitly called him "the future of trading." It matters because most retail trading educators only teach recycled chart patterns. Learning directly from a Goldman Sachs proprietary trading veteran means our rooms, indicators, and courses are grounded in institutional order flow, liquidity mechanics, and asymmetric risk control.'
+			'The founder reports a personal mentorship experience with Mark McGoldrick. This is a personal account, not an independently verified credential, endorsement, affiliation, or evidence of product performance. The proposed programs remain unavailable.'
 	},
 	{
 		id: 'oxy-put-options-600',
 		question: 'How did you make 600% overnight on OXY Put Options when Warren Buffett went long?',
 		answer:
-			'When news broke that Warren Buffett had purchased millions of dollars of Occidental Petroleum (OXY) shares, retail traders chased the headline at the top of an exhausted move. Using our institutional volume and liquidity exhaustion rules, we identified distribution into that retail buying wave, entered defined-risk OXY Put Options live, and locked in a 600% overnight gain, demonstrating why price and liquidity structure come before media headlines.'
+			'This is a historical performance claim, not a verified customer result or a promised return. It should not be relied on without the original trade records, costs, dates, and risk context. No proposed service is available for purchase.'
 	},
 	{
 		id: 'small-accounts-500-mission',
 		question:
 			'Why do you offer a Small Accounts Room for $500+ accounts and affordable alert services?',
 		answer:
-			'Because our founder stood on the losing end in the past and built Revolution Trading Pros around people over profits. A trader starting with $500 or a working professional following our video watchlists (Sunday Alpha Protocol or SPX Profit Pulse) deserves the same institutional discipline and risk transparency as a full-time day trader.'
+			'The concept explores education for people with limited trading capital. A $500 example is not a recommended minimum, a statement of suitability, or a promise of account growth. No room or membership is available.'
 	},
 	{
 		id: 'mentorship-application-only',
 		question: 'Why is your 1-on-1 Mentorship by application and approval only?',
 		answer:
-			'Predatory marketers will charge exorbitant high-ticket fees to anyone with a credit card because they only care about subscription revenue. We refuse to operate that way. Our 1-on-1 Mentorship requires a formal application and manual approval so we only work with traders who are coachable, disciplined, and committed to the process.'
+			'An application and fit review is a proposed design for a possible future program. Applications and paid enrollment are not currently open, and no future availability is guaranteed.'
 	}
 ] as const;
 
@@ -248,7 +252,7 @@ export function buildOrganizationEntity(origin: string) {
 		sameAs: SOCIAL_LINKS.map((link) => link.href),
 		slogan: BRAND_SLOGAN,
 		description:
-			'Stock and options trading education, live trading rooms, small-account mentorship ($500+), custom indicators, scanners, and video watchlists for US and Canadian traders. People over profits.',
+			'AI-assisted trading education website concept, public for browser testing and search visibility. No purchases or paid subscriptions are available.',
 		logo: {
 			'@type': 'ImageObject',
 			'@id': `${origin}/#logo`,
@@ -285,7 +289,7 @@ export function buildOrganizationEntity(origin: string) {
 		],
 		contactPoint: {
 			'@type': 'ContactPoint',
-			contactType: 'customer support',
+			contactType: 'website feedback and corrections',
 			url: `${origin}/contact`,
 			availableLanguage: ['en-US', 'en-CA'],
 			// Only real, published values: `SUPPORT_CONTACT` is empty until the owner supplies them.
@@ -322,22 +326,22 @@ export function buildFounderEntity(origin: string) {
 	};
 }
 
-/** Offerings that are live; store products behind the launch gate are not advertised to search engines. */
-const LAUNCHED_OFFERINGS = CANONICAL_OFFERINGS.filter((offering) => isLaunchedHref(offering.path));
+/** Public concept descriptions eligible for discovery; this does not enable purchasing. */
+const INDEXABLE_CONCEPTS = CANONICAL_OFFERINGS.filter((offering) => isLaunchedHref(offering.path));
 
 export function buildOfferCatalogEntity(origin: string) {
 	return {
 		'@type': 'OfferCatalog',
 		'@id': `${origin}/#offer-catalog`,
-		name: 'Revolution Trading Pros Trading Rooms, Alert Services, Mentorship & Store',
+		name: 'Revolution Trading Pros Proposed Concepts — Not Available for Purchase',
 		url: `${origin}/live-trading-rooms/day-trading-room`,
-		numberOfItems: LAUNCHED_OFFERINGS.length,
-		itemListElement: LAUNCHED_OFFERINGS.map((offering, index) => ({
+		numberOfItems: INDEXABLE_CONCEPTS.length,
+		itemListElement: INDEXABLE_CONCEPTS.map((offering, index) => ({
 			'@type': offering.schemaType,
 			'@id': `${origin}${offering.path}#${offering.schemaType.toLowerCase()}`,
 			position: index + 1,
 			name: offering.name,
-			description: offering.description,
+			description: describeProposedConcept(offering.description),
 			url: `${origin}${offering.path}`,
 			provider: {
 				'@id': `${origin}/#organization`
@@ -490,25 +494,25 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'people-over-making-money',
 		question: 'Why do you emphasize "People Over Profits" so strongly?',
 		answer:
-			'Because our founder has stood on the losing end in the past and knows firsthand how destructive fake gurus are to hardworking families. After being mentored by former Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick and proving our edge live on the 2020 COVID top and bottom, the 2022 top and bottom, and our 600% overnight OXY Put Options trade, we didn\'t need to exploit retail traders for high-ticket course fees. We keep our services affordable so our members can actually prosper.'
+			'The development goal is clear educational explanations and realistic risk discussion. Purchases and paid subscriptions have never been available; the public concept is used for browser testing and search visibility.'
 	},
 	{
 		id: 'small-account-coverage',
 		question: 'What if I only have $500 to start trading? Am I really covered?',
 		answer:
-			'Yes. Our Small Accounts Room was created specifically so traders starting with as little as $500 never have to gamble or copy trades meant for six-figure portfolios. We teach strict risk-per-trade limits, affordable contract selection, and cash-account settlement discipline so you can grow safely.'
+			'Small-account education is a proposed concept, not an available service or a promise of growth. Trading can exhaust a small account, and examples do not establish suitability.'
 	},
 	{
 		id: 'alert-only-memberships',
 		question: "How do your alert-only memberships work if I can't join a live trading room?",
 		answer:
-			'Through our accessible alert services (Sunday Alpha Protocol and SPX Profit Pulse), we send you detailed video watchlists and trade alerts that map out the exact thesis, targeted entry price, tiered profit targets, and hard stop-loss level before the trade plays out.'
+			'SPX Profit Pulse and Sunday Alpha Protocol are proposed concepts for educational watchlists and scenarios. There is no active alert membership, paid subscription, or enrollment.'
 	},
 	{
 		id: 'mentorship-application-only',
 		question: "Why can't I pay directly for 1-on-1 Mentorship on your website?",
 		answer:
-			"Because 1-on-1 Mentorship is strictly by application and approval only. If our goal were making quick money, we would put a checkout button on that page and take anyone's credit card. Instead, we review every applicant personally to ensure we only accept disciplined, coachable traders who are ready to commit to the process."
+			'An application and fit review is a proposed design for a possible future program. Applications and paid enrollment are not currently open, and no future availability is guaranteed.'
 	}
 ] as const;
 
@@ -563,28 +567,28 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'why-application-only',
 		question: "Why can't I just pay and join 1-on-1 Mentorship immediately?",
 		answer:
-			'Because we focus on people over profits. Taking a credit card from someone who isn\'t ready to be coached is how predatory internet gurus operate. Because our founder was mentored 1-on-1 by former Goldman Sachs legend Mark "Goldfinger" McGoldrick, we treat 1-on-1 mentorship as a serious partnership. We manually vet every applicant to guarantee a 100% fit before we ever discuss enrollment.'
+			'A future program might use an application and fit review. This is a proposed workflow only; applications, paid enrollment, and personalized trading services are unavailable.'
 	},
 	{
 		id: 'struggling-trader-rejected',
 		question:
 			'I am a struggling trader who has lost money to fake gurus. Will my application be rejected?',
 		answer:
-			'Past losses do not disqualify an applicant; a bad attitude does. Our founder stood on the losing end in the past too, which is why we created Track 03 (Struggling Trader Turnaround). We do not judge you by your past drawdowns or account size; we judge you strictly by your honesty, work ethic, and willingness to unlearn bad retail habits and follow mechanical entry, exit, and stop-loss rules.'
+			'Potential eligibility criteria are draft concepts, not an active application process. No applications are accepted and no recovery of trading losses is promised.'
 	},
 	{
 		id: 'portfolio-managers',
 		question:
 			'How do you structure 1-on-1 Mentorship for Portfolio Managers and Institutional Traders?',
 		answer:
-			'Under Track 01, we work directly with Portfolio Managers, family offices, and proprietary traders on macro cycle regime detection (the exact framework behind our 2020 and 2022 top/bottom calls), liquidity-sweep execution, and asymmetric options hedging structures (such as the institutional distribution read behind our +600% overnight OXY Put Options trade).'
+			'The draft explores structured learning and trade-review topics for experienced readers. It is not an available advisory, portfolio management, or private coaching service.'
 	},
 	{
 		id: 'rooms-while-reviewed',
 		question:
 			'What if I want to join a Live Trading Room or Alert Service while my 1-on-1 application is reviewed?',
 		answer:
-			'You do not have to wait to access our daily preparation. While your 1-on-1 dossier is under review, you can step directly into our Day Trading Room, Swing Trading Room, Small Accounts Room ($500+), or our video watchlist alert services (SPX Profit Pulse and Sunday Alpha Protocol).'
+			'No rooms, alert memberships, or mentorship enrollment are currently available. Visitors can explore the concept and educational material without purchasing or reserving access.'
 	}
 ] as const;
 
@@ -603,7 +607,7 @@ export function buildMentorshipJsonLd(origin: string) {
 				url: pageUrl,
 				name: '1-on-1 Trading Mentorship | Revolution Trading Pros',
 				description:
-					'Application-only 1-on-1 trading mentorship for portfolio managers, pro traders, and struggling traders. Mentored by Goldman Sachs legend Mark McGoldrick.',
+					'Explore our proposed one-on-one trading mentorship concept, including learning goals, process review, and risk education. No applications or paid enrollment.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
@@ -629,8 +633,9 @@ export function buildMentorshipJsonLd(origin: string) {
 					},
 					{ '@type': 'Audience', audienceType: 'Struggling Retail Traders Seeking Turnaround' }
 				],
-				description:
+				description: describeProposedConcept(
 					"Strictly application-and-approval-only 1-on-1 mentorship built on the Goldman Sachs proprietary trading lineage of Mark 'Goldfinger' McGoldrick."
+				)
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -649,33 +654,33 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'liquid-institutional-stocks-options',
 		question: 'Do you trade micro-float penny stocks or liquid institutional stocks and options?',
 		answer:
-			'We strictly trade high-liquidity US stocks, ETFs, and options. We never touch illiquid micro-float penny stocks. In penny-stock chatrooms, the host buys shares early and alerts 5,000 members who drive the price up for 10 seconds before getting dumped on. By trading deeply liquid institutional equities, ETFs, and options contracts, every member in our room can enter and exit cleanly without slippage traps.'
+			'The proposed educational scope includes liquid U.S. stocks, ETFs, and options. Liquidity varies and does not guarantee execution, prevent slippage, or eliminate losses. No live room is operating as an available service.'
 	},
 	{
 		id: 'live-voice-and-screen-share',
 		question:
 			'Will I actually see your screen and hear your voice live, or is it just text alerts?',
 		answer:
-			'You get live voice commentary and real-time screen sharing every market morning, paired with written level posts. Text-only rooms only tell you what someone bought after the fact. Watching our charts live and hearing our institutional thesis before the trigger price is hit teaches you why the trade works so you become a self-sufficient trader.'
+			'Live commentary and screen sharing are proposed features, not currently available room access. Any interface demonstrations are illustrative and do not represent a live session.'
 	},
 	{
 		id: 'goldman-sachs-mentorship-lineage',
 		question: 'How does your Goldman Sachs mentorship lineage change how you day trade?',
 		answer:
-			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." Instead of chasing retail breakout candles, we track institutional order flow, liquidity sweeps, and buyer/seller exhaustion, the exact methodology behind our 2020 COVID top and bottom calls, our 2022 bull top and bear bottom calls, and our live 600% overnight gain on OXY Put Options opposite Warren Buffett.'
+			'The founder reports a personal mentorship experience. That account does not establish institutional affiliation, endorsement, independently verified performance, or the effectiveness of a proposed service.'
 	},
 	{
 		id: 'spx-alerts-video-watchlists',
 		question: 'What if I only want SPX index options alerts or pre-planned video watchlists?',
 		answer:
-			'If you prefer dedicated alert-only services without sitting in the full day trading room, explore SPX Profit Pulse for high-precision S&P 500 index options execution or Sunday Alpha Protocol, our accessible video watchlist alert membership delivering exact targeted entries, profit exits, and stop-loss levels.'
+			'The proposed concepts explore educational options scenarios and video watchlists. Alerts, memberships, paid access, and delivery schedules are not currently available.'
 	},
 	{
 		id: 'custom-non-repainting-indicators-scanners',
 		question:
 			'Can I also use your custom non-repainting indicators and scanners alongside the room?',
 		answer:
-			'Yes. The exact 100% non-repainting indicators, institutional order-flow scanners, and trading courses you see on our shared screens every morning are available in our Store, alongside our free Options Calculator.'
+			'Indicators and scanners are concepts under development. Compatibility, signal behavior, and performance require validation; no software access, purchase, or download is offered.'
 	}
 ] as const;
 
@@ -694,7 +699,7 @@ export function buildDayTradingRoomJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Live Day Trading Room | Revolution Trading Pros',
 				description:
-					'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.',
+					'Explore our proposed day trading room, with concepts for market preparation, chart reviews, and risk education. In development; no purchases or enrollment.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
@@ -716,8 +721,9 @@ export function buildDayTradingRoomJsonLd(origin: string) {
 					'@type': 'Audience',
 					audienceType: 'Active Day Traders, Options Scalpers, and Full-Time Traders'
 				},
-				description:
+				description: describeProposedConcept(
 					'Daily live pre-market preparation, real-time voice commentary, live screen sharing, and institutional order-flow execution across liquid US stocks, ETFs, and options.'
+				)
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -737,34 +743,34 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'How much time per day do I need to follow the Swing Trading Room if I have a full-time job?',
 		answer:
-			'Most working professionals in our room spend 15 to 20 minutes in the evening or before work. Because our swing setups focus on multi-day and multi-week institutional moves, we map out exact entry trigger prices, profit targets, and hard stop-losses ahead of time so you can set conditional orders with your broker without watching intraday ticks.'
+			'The proposed workflow explores preparation outside market hours. Time requirements depend on the activity and are not established or guaranteed. No live service or enrollment is available.'
 	},
 	{
 		id: 'stocks-etfs-options-coverage',
 		question: 'Do you swing trade shares of stock, ETFs, or options contracts?',
 		answer:
-			'We cover all three: liquid US stocks, sector and index ETFs (including our ETF Stocks List and Stock Indexes List), and options contracts. Every setup specifies both the underlying stock/ETF price levels and the exact options structure (calls, puts, or defined-risk vertical/diagonal spreads) so you can trade shares, options, or both.'
+			'Stocks, ETFs, and options are the proposed educational scope. They involve different risks and may be unsuitable for a particular reader. This is not an available trading or advisory service.'
 	},
 	{
 		id: 'swing-room-vs-sunday-alpha-protocol',
 		question:
 			'How is the Swing Trading Room different from your Sunday Alpha Protocol alert service?',
 		answer:
-			'The Swing Trading Room gives you full interactive room access, including live and recorded chart review sessions, portfolio hedging and sector rotation education, and direct Q&A where we review tickers you ask about. Sunday Alpha Protocol is our affordable alert-only tier designed for independent traders who simply want our video watchlists and trade alerts with exact entries, exits, and stops sent to them.'
+			'The swing room concept explores discussion and chart review; Sunday Alpha explores prepared educational scenarios. Both are in development and neither offers current paid access or subscriptions.'
 	},
 	{
 		id: 'methodology-2020-2022-oxy',
 		question:
 			'How did your methodology call the 2020 and 2022 tops/bottoms and the +600% OXY trade?',
 		answer:
-			'Our founder was mentored directly by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick, who called him "the future of trading." By tracking institutional liquidity exhaustion, volume anomalies, and smart-money distribution rather than lagging retail indicators, we called the 2020 COVID top and bottom, the 2022 bull top and bear bottom, and executed a contrarian defined-risk OXY put options trade during high-volume institutional distribution for a reported 600% overnight gain.'
+			'Historical timing and return claims require original supporting records and context. They do not verify the effectiveness of this concept or predict future results.'
 	},
 	{
 		id: 'non-repainting-indicators-courses-mentorship',
 		question:
 			'Can I pair the Swing Trading Room with your custom non-repainting indicators and courses?',
 		answer:
-			'Yes. All of the 100% non-repainting indicators, institutional scanners, and trading courses we use to spot multi-day accumulation and distribution are available in our Store. If you want private, personalized coaching, you can also apply for our application-only 1-on-1 Mentorship.'
+			'The store, courses, indicators, scanners, and mentorship are proposed concepts. No purchases, software delivery, applications, or paid enrollment are currently available.'
 	}
 ] as const;
 
@@ -783,7 +789,7 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Live Swing Trading Room | Revolution Trading Pros',
 				description:
-					'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.',
+					'Explore a proposed swing trading room for multi-day planning, chart review, and risk education. Concept in development; no purchases or paid subscriptions.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
@@ -806,8 +812,9 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 					audienceType:
 						'Working Professionals, 9-to-5 Careers, and Multi-Day Stock and Options Swing Traders'
 				},
-				description:
+				description: describeProposedConcept(
 					'Institutional multi-day stock, ETF, and options swing trading room delivering pre-planned entry triggers, tiered profit targets, hard stop-losses, and evening video chart reviews.'
+				)
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -826,7 +833,7 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'starting-capital-500',
 		question: 'Is $500 really enough starting capital to join the Small Accounts Room?',
 		answer:
-			'Yes. We specifically built the Small Accounts Room so traders starting with as little as $500 have an honest, institutional home. Instead of calling expensive contracts that require a $25,000 account, we focus on liquid, affordable stock, ETF, and options structures (including defined-risk vertical spreads) where your risk per trade is strictly capped.'
+			'A $500 figure is an illustrative account example, not a recommended starting balance or a statement that trading is suitable. Losses may consume the account. No membership is available.'
 	},
 	{
 		id: 'cash-vs-margin-account-under-25k',
@@ -839,19 +846,19 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 		question:
 			'Why do you care about $500 small accounts when you have Goldman Sachs mentorship pedigree?',
 		answer:
-			'Because our founder stood on the losing end in the past before being mentored by former Wall Street Goldman Sachs proprietary trading legend Mark "Goldfinger" McGoldrick (who called him "the future of trading"). After calling the 2020 COVID top and bottom, the 2022 market top and bottom, and executing a contrarian defined-risk OXY put options trade during high-volume institutional distribution, our founder built Revolution Trading Pros to put people over profits, protecting everyday traders from the fake gurus who prey on small accounts.'
+			'The small-account concept concerns position sizing and risk awareness. Personal background claims are not evidence that the proposed program protects capital or produces profits.'
 	},
 	{
 		id: 'full-time-job-small-account',
 		question: 'What if I work a full-time job and also have a small $500+ account?',
 		answer:
-			'Every setup in the Small Accounts Room includes pre-planned entry triggers, profit targets, and hard invalidation stops, and all live sessions are recorded for on-demand replay. You can also pair your learning with our affordable Sunday Alpha Protocol video watchlist alerts or our self-paced Trading Courses.'
+			'The concept explores planning and risk education for different schedules and account sizes. It does not establish suitability or promise a manageable workload or return. No access is offered.'
 	},
 	{
 		id: 'graduating-past-10k-25k',
 		question: 'What happens once my small account grows past $10,000 or $25,000?',
 		answer:
-			'Our entire goal is to graduate you. As your account compounds through our 4-Stage Roadmap, you seamlessly transition into our Day Trading Room, Swing Trading Room, or apply for our application-only 1-on-1 Mentorship.'
+			'Account growth and progression are not promised. Any roadmap is illustrative, and future programs, eligibility, and access have not been established.'
 	}
 ] as const;
 
@@ -870,7 +877,7 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Small Accounts Trading Room | Revolution Trading Pros',
 				description:
-					'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.',
+					'Explore a proposed small-account trading education room focused on position sizing and risk awareness. Concept in development; paid enrollment unavailable.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
@@ -892,8 +899,9 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 					'@type': 'Audience',
 					audienceType: 'Traders Starting With Small Accounts ($500 to $5,000+)'
 				},
-				description:
+				description: describeProposedConcept(
 					'Dedicated live trading room and compounding framework engineered specifically for accounts starting as low as $500, covering affordable options contracts, T+1 cash account rotation, PDT navigation, and strict stop-loss discipline.'
+				)
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -958,25 +966,25 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'never-repaint',
 		question: 'Do your indicators ever repaint or change past signals after the bar closes?',
 		answer:
-			'Never. Every indicator in our Store is 100% non-repainting. Once a candle closes and a signal, squeeze dot, abandoned bar, or gamma level prints on your chart, it stays there permanently. We built Revolution Trading Pros to destroy the fake "holy grail" indicator scam, not participate in it.'
+			'Non-repainting behavior is a proposed engineering goal requiring reproducible testing. It is not a current product guarantee or evidence of profitability; no indicator is available for purchase.'
 	},
 	{
 		id: 'platforms-markets',
 		question: 'Which trading platforms and markets do these indicators work on?',
 		answer:
-			'Our custom indicators are built for ThinkorSwim (thinkScript) and TradingView. They work across all liquid US stocks, sector and index ETFs (see our free ETF Stocks List and Stock Indexes List), SPX/NDX index charts, and options contracts on intraday, daily, and weekly timeframes.'
+			'ThinkorSwim and TradingView are potential integration targets. Compatibility and supported markets have not been verified for a released product, and no software access is available.'
 	},
 	{
 		id: 'small-accounts-working-pros',
 		question: 'Are these indicators suitable for $500+ small accounts or working professionals?',
 		answer:
-			'Yes. Because our indicators plot objective entry triggers and tight structural stop-loss invalidation levels, they are ideal both for Small Accounts Room ($500+) traders who need strict risk caps and for 9-to-5 working professionals in our Swing Trading Room and Sunday Alpha Protocol alert tier.'
+			'The proposed indicators explore chart-study workflows for different schedules and risk budgets. Suitability and effectiveness are not established and access is unavailable.'
 	},
 	{
 		id: 'pair-with-scanners-courses',
 		question: 'How do your indicators pair with your Scanners and Trading Courses?',
 		answer:
-			'Our Institutional Scanners automatically scan the entire market in real time to find tickers triggering our indicator conditions (such as Multi-Timeframe Squeezes or Liquidity Sweeps), while our Trading Courses teach you the complete Goldman Sachs-mentored execution rules behind every setup.'
+			'Combining indicators, scanners, and lessons is a proposed workflow. These products and bundles are not available for purchase, download, or enrollment.'
 	}
 ];
 
@@ -995,7 +1003,7 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Custom Trading Indicators | Revolution Trading Pros',
 				description:
-					'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.',
+					'Preview proposed trading indicator concepts for chart study, market structure, and risk education. AI-assisted development; no purchases or downloads offered.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#catalog` },
@@ -1039,27 +1047,27 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'I am a complete beginner or starting with a $500 account. Which course should I take first?',
 		answer:
-			'Start with Course 02 (The $500+ Small Account Compounding & T+1 Cash Rotation Blueprint) paired with Course 08 (Ironclad Risk Architecture). They give you the exact mathematical position-sizing rules, cash-account settlement rotation, and pre-trade checklists we execute daily inside our Small Accounts Room.'
+			'Draft course ideas include position sizing, options mechanics, and risk awareness. These are concepts, not available courses or a recommendation to trade with $500.'
 	},
 	{
 		id: 'indicators-scanners-optional',
 		question:
 			'Do I need to buy your custom indicators or scanners to use what is taught in the courses?',
 		answer:
-			'No. Raw price, volume, and Options Greeks come first. Every course teaches you how to read institutional market structure on any standard charting platform. Our 100% non-repainting Custom Indicators and Institutional Scanners are optional accelerators designed to spot those exact setups faster across multiple timeframes.'
+			'The concept explores education that can be understood without proprietary software. No course or software purchase is available or required to browse the public material.'
 	},
 	{
 		id: 'courses-vs-mentorship-rooms',
 		question:
 			'How is a self-paced course different from your 1-on-1 Mentorship or Live Trading Rooms?',
 		answer:
-			'Our Courses give you permanent, on-demand video modules and written playbooks to study at your own pace. Our Live Trading Rooms and Alert Services let you execute those playbooks alongside our desk in real time. Our 1-on-1 Mentorship is an application-and-approval-only private coaching partnership for Portfolio Managers, Pro Traders, and Struggling Traders seeking direct personal transformation.'
+			'Self-paced lessons, discussion rooms, and private review are different proposed learning formats. None is currently available for paid enrollment.'
 	},
 	{
 		id: 'us-canadian-brokerages',
 		question: 'Do your courses cover both US and Canadian brokerage accounts?',
 		answer:
-			'Yes. Our curriculum covers US-listed stocks, ETFs, and options contracts traded by members across both the United States and Canada, including US Pattern Day Trader (PDT) and T+1 cash settlement rules as well as Canadian margin and registered account considerations.'
+			'Brokerage access and trading eligibility depend on jurisdiction and the provider. No brokerage compatibility, integration, or regulatory approval is claimed for this concept.'
 	}
 ];
 
@@ -1078,7 +1086,7 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Stock & Options Trading Courses | Revolution Trading Pros',
 				description:
-					'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.',
+					'Explore proposed stock and options course concepts covering market structure, trade planning, and risk education. In development; paid enrollment unavailable.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#catalog` },
@@ -1122,32 +1130,32 @@ export const SINGLE_COURSE_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'What is the difference between Package 1 (Indicator Suite) and Package 2 (Indicators + Accelerator Class)?',
 		answer:
-			'Package 1 gives you the complete 4-tool non-repainting indicator suite (Move Prior to The Move™ Ultra, Multi-Timeframe Matrix, On-Chart Stats Engine, and Bonus MP_EarlyInNOut™ Pro) plus our step-by-step installation session for ThinkorSwim and TradingView. Package 2 includes the entire indicator suite PLUS the 6-Module Accelerator Class where Billy Ribeiro teaches you the complete Goldman Sachs-mentored execution playbook, Options Greeks structuring, and bar-by-bar case studies.'
+			'The package comparison is a proposed design only. Contents, pricing, licenses, and availability are not finalized; no package can be purchased or reserved.'
 	},
 	{
 		id: 'non-repainting-guarantee',
 		question: 'Do any of the indicators in this package repaint after the candle closes?',
 		answer:
-			'Never. Every indicator engineered by Revolution Trading Pros is 100% non-repainting. Once a price bar closes, every compression dot, liquidity sweep marker, early in/out trigger, and historical stat is permanently locked on your chart.'
+			'There is no released product or current non-repainting guarantee. Signal permanence and historical behavior would need reproducible validation before any such claim.'
 	},
 	{
 		id: 'platforms-tickers-timeframes',
 		question: 'Which platforms, tickers, and timeframes do these tools and strategies work on?',
 		answer:
-			'All indicators and workspace templates are built for ThinkorSwim and TradingView. They work on any liquid instrument, including US stocks, ETFs, SPX/NDX indexes, and futures, across all timeframes from 1-minute scalping charts to Daily and Weekly swing charts.'
+			'Platform, instrument, and timeframe descriptions are proposed specifications. They are not verified compatibility commitments or available software access.'
 	},
 	{
 		id: 'working-pro-and-500-account',
 		question:
 			'Can I use this course and indicator suite if I work a 9-to-5 job or have a $500 small account?',
 		answer:
-			'Yes. Module 04 of the Accelerator Class is dedicated specifically to 9-to-5 working professionals (using a 20-minute evening routine and conditional orders) and $500+ small accounts (using T+1 cash account rotation and affordable, defined-risk options structures).'
+			'The concept explores educational examples for different schedules and account sizes. It does not establish suitability, protect capital, or promise trading outcomes.'
 	},
 	{
 		id: 'lifetime-on-demand-access',
 		question: 'Is the Accelerator Class live or recorded, and how long do I keep access?',
 		answer:
-			'You receive immediate, lifetime on-demand access to all HD training modules, downloadable PDF playbooks, and workspace files so you can study and review them at your own pace 24/7.'
+			'No course access, downloads, lifetime license, or enrollment is available. Any possible future access terms would be published before a purchase becomes possible.'
 	}
 ] as const;
 
@@ -1196,8 +1204,9 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 				'@type': 'Service',
 				'@id': `${pageUrl}#service`,
 				name: 'Get the NEW Automated Move Prior to The Move™ Ultra System',
-				description:
-					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim and TradingView tools.',
+				description: describeProposedConcept(
+					'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes 100% non-repainting ThinkorSwim and TradingView tools.'
+				),
 				provider: { '@id': `${origin}/#organization` },
 				serviceType: 'Self-Paced Options Trading Curriculum and Non-Repainting Indicator Suite',
 				areaServed: [
@@ -1215,26 +1224,26 @@ export const SINGLE_INDICATOR_FAQ_ITEMS: FaqItem[] = [
 		question:
 			'Are there step-by-step instructions for installing the indicators on desktop and mobile?',
 		answer:
-			'Yes. You get instant access to our Quick-Start Indicator Installation Video and written setup guide the moment you enroll, covering ThinkorSwim Desktop, the ThinkorSwim Mobile App, and TradingView. If you ever want a hand, our support desk is available by phone or email.'
+			'Installation guides and import workflows are proposed features. No indicator download or installation entitlement is currently offered.'
 	},
 	{
 		id: 'platforms-and-devices',
 		question: 'What charting platforms and devices work with these indicators?',
 		answer:
-			'The complete indicator suite is available for ThinkorSwim and TradingView on Windows, Mac, and Web, and the core Move Prior to The Move™ indicator is also fully compatible with the ThinkorSwim Mobile App (iOS and Android) so working professionals can monitor setups from anywhere.'
+			'Desktop and mobile compatibility are proposed design targets and remain subject to testing. No released indicator access is available.'
 	},
 	{
 		id: 'signals-non-repainting',
 		question: 'Do any of the Buy/Sell or Early In/Out signals repaint?',
 		answer:
-			'Never. Unlike predatory "holy grail" scripts that erase losing signals in hindsight, 100% of our code is non-repainting. Once a candle closes, the compression level, Early In/Out marker, and Buy/Sell trigger remain on your chart permanently.'
+			'The displayed signals are illustrative. Non-repainting behavior and performance are not guaranteed and require validation in a released implementation.'
 	},
 	{
 		id: 'access-and-duration',
 		question:
 			'Where do I get access, and how long will I have access to the indicators and training?',
 		answer:
-			'Immediately upon enrollment, all indicator scripts, workspace templates, the Strategy Class, the Precision Entries bonus session, and the 5 recorded live-trading days are unlocked in your member dashboard with lifetime on-demand access.'
+			'There is no current paid access, subscription term, or lifetime license. Purchases and paid subscriptions have never been made available.'
 	}
 ];
 
@@ -1253,7 +1262,7 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 				url: pageUrl,
 				name: 'MP Early In & Out Indicator | Revolution Trading Pros',
 				description:
-					'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.',
+					'Explore the proposed indicator suite and illustrative chart concepts for market structure and risk education. In development; no purchases or access offered.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#software` },
@@ -1285,8 +1294,9 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 				name: 'The Move Prior to The Move™ Pro System',
 				applicationCategory: 'FinanceApplication',
 				operatingSystem: 'ThinkorSwim Desktop, ThinkorSwim Mobile App, TradingView',
-				description:
-					'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.',
+				description: describeProposedConcept(
+					'Explore the proposed indicator suite and illustrative chart concepts for market structure and risk education. In development; no purchases or access offered.'
+				),
 				creator: {
 					'@type': 'Person',
 					'@id': `${origin}/#founder`,
@@ -1302,27 +1312,27 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 		id: 'watch-market-all-day',
 		question: 'Do I have to watch the market all day to follow SPX Profit Pulse alerts?',
 		answer:
-			'No. SPX Profit Pulse is specifically designed for traders who want institutional S&P 500 options execution without sitting in a 6-hour chatroom. Because we publish detailed video watchlists mapping our exact trigger levels ahead of time and dispatch real-time API alerts the moment a trade opens, scales out, or adjusts its stop, both full-time traders and 9-to-5 working professionals can follow seamlessly.'
+			'The concept explores prepared educational scenarios, not an active alert delivery service. It does not promise a particular screen-time requirement or execution outcome.'
 	},
 	{
 		id: 'zero-dte-or-multi-day',
 		question:
 			'Do you only trade 0DTE (Zero Days to Expiration), or do you also alert multi-day SPX setups?',
 		answer:
-			'We trade both. When intraday volatility and dealer Gamma walls align, we execute high-asymmetry 0DTE and 1DTE setups. When macro structure favors multi-day expansion or high-probability Theta collection, we structure 2-to-14 DTE directional plays and defined-risk vertical spreads.'
+			'The draft explores short-dated SPX options scenarios for education. Such options can lose value rapidly; no real-time alert subscription or trading service is available.'
 	},
 	{
 		id: 'small-account-compatibility',
 		question: 'Can I follow SPX Profit Pulse if I have a small account ($500 to $2,500)?',
 		answer:
-			'Yes. While a single full-sized SPX option contract can be expensive, every SPX Profit Pulse alert can be executed in a smaller account using three methods we teach in the Learning Center: (1) Defined-risk 5-wide SPX vertical spreads, (2) XSP (Mini-SPX index options at 1/10th the notional size with the same cash settlement and Section 1256 tax perks), or (3) SPY ETF options.'
+			'Options trading may be unsuitable for small accounts and can cause substantial losses. These examples do not establish suitability or affordable risk for any reader.'
 	},
 	{
 		id: 'difference-from-day-room-sunday-alpha-protocol',
 		question:
 			'How is SPX Profit Pulse different from the Live Day Trading Room or Sunday Alpha Protocol?',
 		answer:
-			'SPX Profit Pulse is a dedicated, alerts-and-video-watchlist service focused 100% on S&P 500 index options (SPX/XSP/SPY). Our Day Trading Room is a full live-voice and screen-share floor covering individual stocks, ETFs, and options. Sunday Alpha Protocol is our multi-day stock and options swing alert service.'
+			'SPX Profit Pulse explores index-options scenarios; the other concepts explore discussion or weekly preparation. All remain in development with no paid access.'
 	}
 ];
 
@@ -1341,7 +1351,7 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'SPX Profit Pulse Options Alerts | Revolution Trading Pros',
 				description:
-					'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.',
+					'Preview the SPX Profit Pulse concept for options education, illustrative scenarios, and risk planning. In development; no purchases or paid subscriptions.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#service` },
@@ -1376,8 +1386,9 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 					audienceType:
 						'Full-Time and Part-Time SPX Index Options Traders, Working Professionals, and Small Accounts'
 				},
-				description:
+				description: describeProposedConcept(
 					'Real-time SPX and 0DTE index options trade alerts paired with pre-market video watchlists, institutional dealer gamma walls, and exact entry, profit target, and hard stop-loss levels.'
+				)
 			}
 		]
 	};
@@ -1388,26 +1399,26 @@ export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
 		id: 'install-thinkorswim-tradingview',
 		question: 'How do these scanners install on ThinkorSwim and TradingView?',
 		answer:
-			'Every scanner includes one-click import links and custom thinkScript code for ThinkorSwim (working inside both Stock Hacker, Option Hacker, and dynamic MarketWatch watchlist columns) as well as TradingView alert and screener templates, plus a step-by-step installation walkthrough video.'
+			'Import links, setup guides, and platform integration are proposed features. No scanner installation, software delivery, or purchase is currently available.'
 	},
 	{
 		id: 'scanners-non-repainting-real-time',
 		question: 'Do your scanners ever repaint or lag behind live market price action?',
 		answer:
-			'Never. All 8 scanners run on real-time market data using 100% non-repainting institutional math. Even better, because our scanners look for pre-ignition volatility compression and liquidity absorption, they alert you before the breakout candle fires rather than chasing extended moves.'
+			'Real-time scanning and stable signals are proposed engineering goals. The demonstrations do not establish production capability, signal reliability, or profitability.'
 	},
 	{
 		id: 'best-scanner-small-account-working-pro',
 		question:
 			'Which scanner is best if I have a $500+ small account or work a full-time 9-to-5 job?',
 		answer:
-			'If you are building a small account starting around $500, use Scanner 04 ($500+ Small Account Affordable Options & Spread Scanner), which filters strictly for liquid options contracts and vertical spreads that fit a small risk budget. If you work a 9-to-5 career, use Scanner 05 (Working Professional 20-Minute End-of-Day Swing Scanner) to plan conditional multi-day orders in the evening.'
+			'Draft filter presets explore different schedules and risk budgets. No scanner is available, and affordability filters do not establish suitability or protect an account.'
 	},
 	{
 		id: 'watch-scanners-live-market-hours',
 		question: 'Can I watch your team use these scanners live during market hours?',
 		answer:
-			'Yes. We run these exact scanners live on our shared screens every market morning inside our Day Trading Room, Swing Trading Room, and Small Accounts Room, and use them to curate the setups in SPX Profit Pulse and Sunday Alpha Protocol.'
+			'The concept explores different scanning cadences. Actual operation, workload, and alert delivery have not been established; no scanner access is offered.'
 	}
 ];
 
@@ -1469,7 +1480,7 @@ export function buildScannersStoreJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Live Stock & Options Scanners | Revolution Trading Pros',
 				description:
-					'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.',
+					'Explore proposed market scanner concepts for chart screening, liquidity study, and risk education. AI-assisted development; no purchases or access offered.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#catalog` },
@@ -1516,31 +1527,31 @@ export const SINGLE_SCANNER_FAQ_ITEMS: FaqItem[] = [
 		id: 'supported-platforms-and-devices',
 		question: 'Which platforms and devices work with the High Octane Scanner™?',
 		answer:
-			'The High Octane Scanner™ works seamlessly with ThinkorSwim (Desktop and ThinkorSwim Mobile App via shared scan queries and dynamic watchlist alerts) and TradingView, plus instant SMS and email notifications.'
+			'The proposed scanner explores ThinkorSwim and TradingView workflows. Device and platform support are not verified release commitments, and access is unavailable.'
 	},
 	{
 		id: 'non-repainting-real-time-triggers',
 		question: 'Do any of the High Octane Scanner triggers repaint or use delayed data?',
 		answer:
-			'Never. Every scan condition is 100% non-repainting and processes real-time market data. Once a compression, liquidity sweep, or Relative Volume anomaly triggers at bar close, it is permanent.'
+			'The trigger display is an illustrative prototype. Stable bar-close signals and real-time operation require testing and are not current guarantees.'
 	},
 	{
 		id: 'small-account-filter-benefit',
 		question: 'How does the High Octane Scanner help if I only have $500 to $2,500 in my account?',
 		answer:
-			'We built Mode 03 ($500+ Small Account Affordable Contract Filter) specifically so small accounts never get priced out. It automatically filters for deeply liquid stocks and ETFs whose options contracts and vertical spreads fit safely within a $500+ risk rule.'
+			'A proposed affordability filter could screen contract prices, but it cannot make trading suitable or safe. No filter or scanner product is currently available.'
 	},
 	{
 		id: 'installation-for-non-programmers',
 		question: 'Is installation difficult if I am not a programmer?',
 		answer:
-			'No coding is required. You receive one-click import links for ThinkorSwim and TradingView plus a step-by-step Quick-Start installation video. Most members have all scan presets and watchlist columns running in under 5 minutes.'
+			'A guided setup experience is proposed. Installation time, import links, training, and software access are not currently available or guaranteed.'
 	},
 	{
 		id: 'monthly-vs-annual-access',
 		question: 'What is the difference between Monthly and Annual access?',
 		answer:
-			'Both Monthly and Annual access unlock the complete High Octane Scanner™ suite, all 50+ institutional filters, mobile/desktop alerts, and the 5 recorded live-scanning training sessions. Annual access is designed for committed traders who want uninterrupted year-round access across all four quarterly earnings cycles.'
+			'Monthly and annual options are draft interface concepts. No paid subscription, price, billing cadence, access entitlement, or rate reservation is available.'
 	}
 ];
 
@@ -1559,7 +1570,7 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 				url: pageUrl,
 				name: 'High Octane Options Scanner | Revolution Trading Pros',
 				description:
-					'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.',
+					'Preview the High Octane scanner concept, illustrative chart screening, and proposed market filters. In development; no purchases or paid access available.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				mainEntity: { '@id': `${pageUrl}#software` },
@@ -1591,8 +1602,9 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 				name: 'High Octane Scanner™',
 				applicationCategory: 'FinanceApplication',
 				operatingSystem: 'ThinkorSwim Desktop, ThinkorSwim Mobile App, TradingView, Web',
-				description:
-					'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.',
+				description: describeProposedConcept(
+					'Preview the High Octane scanner concept, illustrative chart screening, and proposed market filters. In development; no purchases or paid access available.'
+				),
 				creator: {
 					'@type': 'Person',
 					'@id': `${origin}/#founder`,
@@ -1865,31 +1877,31 @@ export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'sunday-dispatch-time',
 		question: 'When exactly do I receive the Sunday Alpha Protocol every week?',
 		answer:
-			'Sunday Alpha Protocol is dispatched every Sunday at 5:00 PM EST directly to your email inbox and private member dashboard, one full hour before Sunday night futures open. This gives you a quiet, distraction-free window to review all 5 to 7 blueprints and set your brokerage alerts before Monday morning.'
+			'A weekly preparation schedule is a proposed design only. No paid dispatch, member dashboard, subscription, or guaranteed delivery time is available.'
 	},
 	{
 		id: 'markets-and-asset-classes',
 		question: 'What markets and asset classes do you cover?',
 		answer:
-			'We focus strictly on high-liquidity U.S. large-cap equities (such as TSLA, NVDA, AMD, AAPL, MSFT, META) and major index ETFs (SPY, QQQ) where options bid-ask spreads are tight and institutional dark-pool volume is transparent. We never trade illiquid penny stocks, micro-caps, or futures.'
+			'The concept explores educational scenarios for U.S. stocks and ETFs with listed options. Instrument examples do not establish suitability, execution quality, or a live service.'
 	},
 	{
 		id: 'risk-to-reward-math',
 		question: 'How does the 1:2.50 minimum Risk-to-Reward math work?',
 		answer:
-			'Every setup is engineered so that the weighted blended return across Target 1 (50% scale at 1.6R), Target 2 (30% scale at 2.8R), and Target 3 (20% runner at 4.3R) equals or exceeds a 1:2.50 Risk-to-Reward multiplier. If a setup cannot mathematically clear 1:2.50 against structural invalidation, it is discarded.'
+			'The displayed targets and allocations are illustrative assumptions. A calculated reward-to-risk ratio does not establish target probabilities or expected returns; losses and costs can change outcomes.'
 	},
 	{
 		id: 'screen-time-requirements',
 		question: 'Do I need to sit in front of screens during market hours?',
 		answer:
-			'No. Entries require a 15-minute candle close confirmation and swing holds span 2 to 5 trading sessions. You simply set price alerts on your brokerage platform on Sunday evening and execute when triggers confirm.'
+			'The concept explores prepared scenarios that can be studied outside market hours. No workload, execution, or delivery commitment is established.'
 	},
 	{
 		id: 'cancellation-policy',
 		question: 'What is your cancellation policy?',
 		answer:
-			'You can cancel your subscription at any time with a single click inside your self-service Stripe billing portal with zero recurring obligations. If you lock in the $47/month Founding Member rate, that price is grandfathered for the life of your active membership.'
+			'There are no paid subscriptions to cancel. Purchases and paid subscriptions have never been available; any future billing and cancellation terms would be published before sales are enabled.'
 	}
 ] as const;
 
@@ -1923,7 +1935,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				url: pageUrl,
 				name: 'Sunday Alpha Protocol | Revolution Trading Pros',
 				description:
-					'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.',
+					'Explore the Sunday Alpha Protocol concept for weekly stock and options preparation and illustrative plans. In development; paid subscriptions unavailable.',
 				inLanguage: 'en-US',
 				isPartOf: { '@id': `${origin}/#website` },
 				about: { '@id': `${pageUrl}#protocol` },
@@ -1945,48 +1957,21 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 					'@type': 'Audience',
 					audienceType: 'Beginners, Active Stock & Options Swing Traders, and Portfolio Allocators'
 				},
-				description:
+				description: describeProposedConcept(
 					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.'
+				)
 			},
 			{
 				'@type': 'Product',
 				'@id': `${pageUrl}#protocol`,
 				name: 'Sunday Alpha Protocol',
-				description:
-					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.',
+				description: describeProposedConcept(
+					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with 15-minute confirmation triggers, cent-level stop invalidations, and explicit options contracts every Sunday at 5:00 PM EST.'
+				),
 				image: `${origin}${BRAND_SOCIAL_IMAGE_PATH}`,
 				brand: {
 					'@id': `${origin}/#organization`
-				},
-				offers: [
-					{
-						'@type': 'Offer',
-						name: 'Founding Member Monthly',
-						price: '47.00',
-						priceCurrency: 'USD',
-						availability: 'https://schema.org/InStock',
-						url: pageUrl,
-						priceValidUntil: '2026-12-31'
-					},
-					{
-						'@type': 'Offer',
-						name: 'Quarterly Protocol Pass',
-						price: '127.00',
-						priceCurrency: 'USD',
-						availability: 'https://schema.org/InStock',
-						url: pageUrl,
-						priceValidUntil: '2026-12-31'
-					},
-					{
-						'@type': 'Offer',
-						name: 'Annual VIP Founding Pass',
-						price: '447.00',
-						priceCurrency: 'USD',
-						availability: 'https://schema.org/InStock',
-						url: pageUrl,
-						priceValidUntil: '2026-12-31'
-					}
-				]
+				}
 			},
 			{
 				'@type': 'BreadcrumbList',
@@ -2052,7 +2037,7 @@ export function buildContactPageJsonLd(origin: string) {
 		breadcrumbName: 'Contact',
 		title: 'Contact Our Trading Desk',
 		description:
-			'Contact Revolution Trading Pros for live trading room support, mentorship inquiries, indicator setup help, and media verification. People over profits.',
+			'Contact Revolution Trading Pros about its AI-assisted website concept, browser testing, or content corrections. No sales, paid enrollment, or subscriptions.',
 		schemaType: 'ContactPage'
 	});
 }
@@ -2063,7 +2048,7 @@ export function buildEditorialPolicyPageJsonLd(origin: string) {
 		breadcrumbName: 'Editorial Policy',
 		title: 'Editorial Policy & Standards',
 		description:
-			'Read the Revolution Trading Pros editorial policy covering research verification, primary exchange citations, conflict disclosures, and risk standards.'
+			'Read how AI is used in this trading education website concept, its content limitations, source verification goals, and process for reporting possible errors.'
 	});
 }
 
@@ -2083,7 +2068,7 @@ export function buildTermsOfServicePageJsonLd(origin: string) {
 		breadcrumbName: 'Terms of Service',
 		title: 'Terms of Service & Disclosures',
 		description:
-			'Review the Terms of Service, educational risk disclosures, and U.S. (SEC/CFTC/FINRA) and Canadian (OSC/BCSC/ASC) regulatory notices for our platform.'
+			'Read the terms for this AI-assisted website concept, development status, content limitations, and trading risks. No purchases or paid subscriptions offered.'
 	});
 }
 
@@ -2093,6 +2078,6 @@ export function buildRefundPolicyPageJsonLd(origin: string) {
 		breadcrumbName: 'Refund Policy',
 		title: 'Cancellation & Refund Policy',
 		description:
-			'Transparent subscription cancellation, billing terms, and refund policy for Revolution Trading Pros memberships, alert services, and digital software.'
+			'Read the current purchase, billing, and refund status of this website concept. No purchases or paid subscriptions have ever been made available to visitors.'
 	});
 }

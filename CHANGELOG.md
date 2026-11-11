@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-11 — Public concept disclosure and unavailable-offer dialog
+
+- Added prominent development/AI notices and an accessible informational dialog on proposed offer controls. The owner confirmed purchases and paid subscriptions have never been available; the stated public purpose is browser testing and search visibility.
+- Blocked direct cart, checkout, payment, billing, and paid-subscription endpoint paths before routing. Public-page indexing and the existing store launch gate remain independent.
+- Removed prototype testimonials, unverified recognition defaults, priced Sunday Alpha offers and `InStock` schema; aligned legal pages, metadata and FAQs with development status. No CMS article body, payment service, hosted configuration or production deployment was changed.
+- TEMPORARY: concept mode and commerce guard remain until a separately authorized product launch (T14). Validation is recorded in `docs/AGENT_COORDINATION.md`.
+
 ### 2026-11-08 — Consolidate `src/lib/styles/inner-page.css` into `src/app.css`, establish top-down eyebrow/kicker hierarchy (`16px` / `14px`), and upgrade single-line brand lockup
 
 - **Changed:** Permanently merged `src/lib/styles/inner-page.css` (7,798 lines) into `src/app.css` inside `@layer components` directly before Section 6 (`@layer utilities`), and deleted `src/lib/styles/inner-page.css`:

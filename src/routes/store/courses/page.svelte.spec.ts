@@ -29,9 +29,9 @@ describe('/store/courses page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(57);
 		expect(pageMetaTags.description).toBe(
-			'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.'
+			'Explore proposed stock and options course concepts covering market structure, trade planning, and risk education. In development; paid enrollment unavailable.'
 		);
-		expect(pageMetaTags.description.length).toBe(148);
+		expect(pageMetaTags.description.length).toBe(158);
 		expect(pageMetaTags.openGraph.url).toBe('https://www.revolutiontradingpros.com/store/courses');
 	});
 

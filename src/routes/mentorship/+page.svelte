@@ -1,5 +1,6 @@
 <!-- src/routes/mentorship/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import ArrowDownIcon from 'phosphor-svelte/lib/ArrowDownIcon';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
@@ -54,7 +55,7 @@
 				'Execution & Liquidity Sweep Telemetry: Enter and exit large equity, ETF, and index options positions using institutional absorption zones.',
 				'Direct 1-on-1 Desk Consultation: Private weekly strategy reviews tailored to your mandate, risk tolerance, and capital allocation rules.'
 			],
-			ctaText: 'Apply Under the Portfolio Manager Track'
+			ctaText: 'Preview the Portfolio Manager Track'
 		},
 		{
 			id: 'professional-trader',
@@ -72,7 +73,7 @@
 				'Conviction Sizing & Scaling Architecture: Mathematical rules for pressing A+ setups with size while keeping B-grade chop exposure near zero.',
 				'Live Market Co-Execution Drills: Real-time 1-on-1 feedback on entries, tiered profit scaling, and dynamic stop management.'
 			],
-			ctaText: 'Apply Under the Professional Trader Track'
+			ctaText: 'Preview the Professional Trader Track'
 		},
 		{
 			id: 'struggling-trader',
@@ -90,7 +91,7 @@
 				'Right-Sized Capital Compounding ($500+ to Six Figures): Position-sizing rules built for your exact current account balance and 9-to-5 schedule.',
 				'1-on-1 Psychological & Execution Accountability: Direct mentorship to eradicate revenge trading, fear of pulling the trigger, and early profit-taking.'
 			],
-			ctaText: 'Apply Under the Struggling Trader Track'
+			ctaText: 'Preview the Struggling Trader Track'
 		}
 	];
 
@@ -153,17 +154,10 @@
 	let capitalTier = $state('$25,000 – $100,000 (Active / Full-Time)');
 	let primaryBottleneck = $state('');
 	let coachabilityConfirmed = $state(false);
-	let applicationSubmitted = $state(false);
 
 	function selectTrackAndScroll(trackId: CandidateTrackId) {
 		selectedTrack = trackId;
 		document.getElementById('application-dossier')?.scrollIntoView({ behavior: 'smooth' });
-	}
-
-	function handleApplicationSubmit(event: SubmitEvent) {
-		event.preventDefault();
-		if (!coachabilityConfirmed) return;
-		applicationSubmitted = true;
 	}
 </script>
 
@@ -174,6 +168,15 @@
 <Navbar />
 
 <main id="mentorship-page" class="inner-page mentorship-page">
+	<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+		<p>
+			<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+			platform support, charts, signals, and workflows below are development proposals or illustrative
+			demonstrations. They are not live services, verified product capabilities, or an invitation to purchase
+			or enroll. No price, release date, or future availability is guaranteed.
+		</p>
+	</aside>
+
 	<!-- =========================================================================
        SECTION 1: BREADCRUMB & APPLICATION STATUS BAR
        ========================================================================= -->
@@ -185,7 +188,7 @@
 				<li aria-current="page">1-on-1 Mentorship</li>
 			</ol>
 			<p class="breadcrumb-bar__status">
-				<span>Admissions Status:</span> Strictly By Application &amp; Manual Approval Only
+				<span>Concept Status:</span> Applications and enrollment are unavailable
 			</p>
 		</div>
 	</nav>
@@ -253,7 +256,8 @@
 					<button
 						type="button"
 						class="btn btn-primary"
-						onclick={() => scrollToSection('application-dossier')}
+						data-concept-offer
+						onclick={openConceptOffer}
 					>
 						Submit Your 1-on-1 Application
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
@@ -329,7 +333,8 @@
 					<button
 						type="button"
 						class="btn btn-primary btn--full"
-						onclick={() => scrollToSection('application-dossier')}
+						data-concept-offer
+						onclick={openConceptOffer}
 					>
 						Proceed to Application Dossier
 						<ArrowDownIcon size={16} weight="bold" class="ic-down" aria-hidden="true" />
@@ -550,8 +555,8 @@
 	<section class="section is-light vetting-section" aria-labelledby="vetting-h2">
 		<div class="container">
 			<div class="section-heading">
-				<span class="eyebrow">Strict Meritocracy • Read Before Applying</span>
-				<h2 id="vetting-h2">Who We Approve vs. Applications We Immediately Reject</h2>
+				<span class="eyebrow">Proposed Criteria • Applications Closed</span>
+				<h2 id="vetting-h2">Proposed Mentorship Suitability Criteria</h2>
 				<p class="body-copy section-header__desc">
 					We protect the integrity of our desk and our mentees’ results. Before filling out the
 					application dossier below, verify where you stand:
@@ -681,38 +686,33 @@
 		<div class="container">
 			<div class="application-wrapper">
 				<div class="application-header">
-					<span class="eyebrow">Official Admissions Portal • Manual Review</span>
+					<p class="body-copy">Concept only · applications and paid enrollment unavailable.</p>
+					<button
+						type="button"
+						class="btn btn-primary"
+						data-concept-offer
+						onclick={openConceptOffer}>About this unavailable concept</button
+					>
+					<span class="eyebrow">Application Interface Prototype • Disabled</span>
 					<h2 id="application-h2">
-						Submit Your <span class="text-nowrap">1-on-1</span> Mentorship Application Dossier
+						Preview the Proposed <span class="text-nowrap">1-on-1</span> Mentorship Application
 					</h2>
 					<p class="body-copy">
-						Complete every field below with 100% honesty. No payment is collected on this page.
-						Every application is reviewed personally by our desk to determine if we can genuinely
-						help you achieve your goals.
+						This disabled interface is shown for browser testing only. Applications are not open, no
+						form data is submitted, and no place or diagnostic call can be reserved. Do not enter
+						personal or financial information.
 					</p>
 				</div>
 
-				{#if applicationSubmitted}
-					<div class="submission-confirmation" role="status" aria-live="polite">
-						<span class="eyebrow">Application Logged</span>
-						<h3 class="submission-confirmation__title">
-							Your 1-on-1 Mentorship Dossier Has Been Received for Manual Review.
-						</h3>
-						<p class="body-copy">
-							Thank you, <strong>{fullName}</strong>. Our admissions desk has logged your
-							application under the
-							<strong>{selectedTrack.replaceAll('-', ' ').toUpperCase()}</strong>
-							track. We review all applications manually and will reach out to
-							<strong>{email}</strong> if your profile is approved for a 1-on-1 diagnostic call.
-						</p>
-					</div>
-				{:else}
-					<form
-						method="POST"
-						action="?/submitMentorshipApplication"
-						class="application-form"
-						onsubmit={handleApplicationSubmit}
-						autocomplete="on"
+				<form
+					class="application-form"
+					onsubmit={(event) => event.preventDefault()}
+					autocomplete="off"
+				>
+					<fieldset
+						class="application-prototype"
+						disabled
+						aria-label="Unavailable application prototype"
 					>
 						<!-- Step 1: Candidate Track Radio Selector -->
 						<fieldset class="form-fieldset">
@@ -940,17 +940,16 @@
 						</div>
 
 						<div class="form-submit-row">
-							<button type="submit" class="btn btn-primary btn--full btn--large">
-								Submit 1-on-1 Mentorship Application for Review
+							<button type="submit" disabled class="btn btn-primary btn--full btn--large">
+								Applications Are Not Available
 								<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 							</button>
 							<p class="form-privacy-note">
-								Strict Confidentiality: All Portfolio Manager, Professional Trader, and Turnaround
-								applications are reviewed under strict non-disclosure by our senior desk.
+								Development preview only. This form is disabled and does not submit an application.
 							</p>
 						</div>
-					</form>
-				{/if}
+					</fieldset>
+				</form>
 			</div>
 		</div>
 	</section>
@@ -988,8 +987,7 @@
 		<div class="container ecosystem-banner__inner">
 			<span class="eyebrow">Educate • Innovate • Prosper</span>
 			<h2 id="ecosystem-banner-h2" class="ecosystem-banner__h2">
-				Want Immediate Access to Our Desk While Your <span class="text-nowrap">1-on-1</span>
-				Application Is Reviewed?
+				Explore Other Educational Concepts in Development
 			</h2>
 			<p class="body-copy ecosystem-banner__copy">
 				Explore our affordable Live Trading Rooms, Video Watchlist Alert Services, and 100%
@@ -1022,3 +1020,14 @@
 </main>
 
 <Footer />
+
+<style>
+	.application-prototype {
+		border: 0;
+		padding: 0;
+		margin: 0;
+		min-inline-size: 0;
+		display: grid;
+		gap: 24px;
+	}
+</style>

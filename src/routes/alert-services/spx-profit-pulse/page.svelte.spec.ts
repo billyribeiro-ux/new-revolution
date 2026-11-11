@@ -35,9 +35,9 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 		expect(data.pageMetaTags.openGraph.title.length).toBe(57);
 		expect(data.pageMetaTags.openGraph.type).toBe('website');
 		expect(data.pageMetaTags.description).toBe(
-			'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.'
+			'Preview the SPX Profit Pulse concept for options education, illustrative scenarios, and risk planning. In development; no purchases or paid subscriptions.'
 		);
-		expect(data.pageMetaTags.description.length).toBe(149);
+		expect(data.pageMetaTags.description.length).toBe(154);
 		expect(data.pageMetaTags.canonical).toBe(
 			'https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse'
 		);
@@ -104,7 +104,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 			.toBeInTheDocument();
 	});
 
-	it('renders all 6 deliverables, 4 SPX structural advantages, 3 membership cadences with zero prices, trader bio, 4 member reviews, and 5 ecosystem cards', async () => {
+	it('renders all 6 deliverables, 4 SPX structural advantages, 3 membership cadences with zero prices, trader bio, no prototype member reviews, and 5 ecosystem cards', async () => {
 		await render(Page, {
 			params: {},
 			data: {
@@ -118,7 +118,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 		expect(document.querySelectorAll('.package-card').length).toBe(3);
 		expect(document.querySelectorAll('.package-card--featured').length).toBe(1);
 		expect(document.querySelectorAll('.trader-box').length).toBe(1);
-		expect(document.querySelectorAll('.review-card').length).toBe(4);
+		expect(document.querySelectorAll('.review-card').length).toBe(0);
 		expect(document.querySelectorAll('.room-cta-card').length).toBe(5);
 
 		// Verify zero subscription prices inside the membership cadence cards

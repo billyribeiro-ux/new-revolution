@@ -26,9 +26,9 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 		expect(result.pageMetaTags.title).toBe('Small Accounts Trading Room');
 		expect(`${result.pageMetaTags.title} | Revolution Trading Pros`.length).toBe(53);
 		expect(result.pageMetaTags.description).toBe(
-			'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.'
+			'Explore a proposed small-account trading education room focused on position sizing and risk awareness. Concept in development; paid enrollment unavailable.'
 		);
-		expect(result.pageMetaTags.description.length).toBe(152);
+		expect(result.pageMetaTags.description.length).toBe(155);
 		expect(result.pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room'
 		);

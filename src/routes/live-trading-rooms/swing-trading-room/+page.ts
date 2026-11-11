@@ -7,7 +7,7 @@ import {
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.';
+	'Explore a proposed swing trading room for multi-day planning, chart review, and risk education. Concept in development; no purchases or paid subscriptions.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

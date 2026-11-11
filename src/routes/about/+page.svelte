@@ -1,6 +1,7 @@
 <!-- src/routes/about/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import CheckCircleIcon from 'phosphor-svelte/lib/CheckCircleIcon';
@@ -252,14 +253,29 @@
 					Prosper—we are the present and the future, we are the revolution!"
 				</blockquote>
 
+				<p class="body-copy">
+					Concept only · purchases, paid subscriptions, and enrollment are unavailable. Founder
+					background statements are personal accounts, not independent verification or a Goldman
+					Sachs endorsement.
+				</p>
 				<div class="cta-row">
-					<a href={resolve('/live-trading-rooms/day-trading-room' as '/')} class="btn btn-primary">
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-primary"
+					>
 						Explore Our Live Trading Rooms
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href={resolve('/mentorship' as '/')} class="btn btn-outline">
-						Apply for 1-on-1 Mentorship
-					</a>
+					</button>
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-outline"
+					>
+						Explore the Mentorship Concept
+					</button>
 				</div>
 			</div>
 
@@ -744,28 +760,33 @@
 		<div class="container final-banner__inner">
 			<span class="eyebrow">Educate • Innovate • Prosper</span>
 			<h2 id="final-banner-h2" class="final-banner__h2">
-				Wall Street Protects Its Own. Mark "Goldfinger" McGoldrick Called Us the Future of Trading.
-				We Are the Revolution!
+				Explore the Trading Education Concept in Development. We Are the Revolution!
 			</h2>
 			<p class="body-paragraph final-banner__copy">
-				Stop handing your money to fake gurus selling repainted holy grail indicators. Join a
-				transparent trading institution built by someone who has walked in your shoes, conquered
-				Wall Street, and puts your success first.
+				Explore the proposed education, research, and trading-tool concepts. This project is still
+				in development; purchases, paid subscriptions, and enrollment are unavailable.
 			</p>
 			<div class="cta-row cta-row--centered">
-				<a href={resolve('/live-trading-rooms/day-trading-room' as '/')} class="btn btn-dark">
-					Join Our Live Trading Rooms
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn btn-dark">
+					Explore Trading Room Concepts
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-				</a>
-				<a
-					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+				</button>
+				<button
+					type="button"
+					data-concept-offer
+					onclick={openConceptOffer}
 					class="btn btn-outline-dark"
 				>
 					Explore Video Watchlist Alerts
-				</a>
-				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">
-					Apply for 1-on-1 Mentorship
-				</a>
+				</button>
+				<button
+					type="button"
+					data-concept-offer
+					onclick={openConceptOffer}
+					class="btn btn-outline-dark"
+				>
+					Explore the Mentorship Concept
+				</button>
 			</div>
 		</div>
 	</section>

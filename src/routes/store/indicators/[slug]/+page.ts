@@ -8,7 +8,7 @@ import {
 import type { EntryGenerator, PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.';
+	'Explore the proposed indicator suite and illustrative chart concepts for market structure and risk education. In development; no purchases or access offered.';
 
 const FLAGSHIP_SLUG = 'move-prior-to-the-move-system';
 

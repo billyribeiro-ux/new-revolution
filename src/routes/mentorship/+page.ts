@@ -3,7 +3,7 @@ import { buildMentorshipJsonLd, getCanonicalUrl, SITE_ORIGIN } from '#lib/seo/st
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Application-only 1-on-1 trading mentorship for portfolio managers, pro traders, and struggling traders. Mentored by Goldman Sachs legend Mark McGoldrick.';
+	'Explore our proposed one-on-one trading mentorship concept, including learning goals, process review, and risk education. No applications or paid enrollment.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

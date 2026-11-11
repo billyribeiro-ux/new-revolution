@@ -33,14 +33,8 @@ export interface PressMention {
  * Every entry is a claim of coverage or recognition: publish only entries that can be verified,
  * and replace the text wordmarks with licensed logo assets when available.
  */
-export const PRESS_MENTIONS: readonly PressMention[] = [
-	{ id: 'inc', name: 'Inc. 500' },
-	{ id: 'forbes', name: 'Forbes' },
-	{ id: 'cnbc', name: 'CNBC' },
-	{ id: 'fox-business', name: 'FOX Business' },
-	{ id: 'fox-news', name: 'FOX News' },
-	{ id: 'cheddar', name: 'Cheddar' }
-] as const;
+// No primary evidence is published for the former prototype recognition logos.
+export const PRESS_MENTIONS: readonly PressMention[] = [];
 
 /**
  * Founder portrait shown in instructor and bio blocks. The real photo only ever existed on the legacy

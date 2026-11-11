@@ -4,7 +4,7 @@ import type { PageLoad } from './$types';
 
 /** 148 Characters Total (Zero Desktop/Mobile SERP Truncation) */
 const DESCRIPTION =
-	'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.';
+	'Explore proposed stock and options course concepts covering market structure, trade planning, and risk education. In development; paid enrollment unavailable.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

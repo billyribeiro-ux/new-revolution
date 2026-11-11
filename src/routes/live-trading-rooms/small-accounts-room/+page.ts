@@ -7,7 +7,7 @@ import {
 import type { PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.';
+	'Explore a proposed small-account trading education room focused on position sizing and risk awareness. Concept in development; paid enrollment unavailable.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

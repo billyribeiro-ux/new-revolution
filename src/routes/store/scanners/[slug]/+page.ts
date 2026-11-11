@@ -8,7 +8,7 @@ import {
 import type { EntryGenerator, PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.';
+	'Preview the High Octane scanner concept, illustrative chart screening, and proposed market filters. In development; no purchases or paid access available.';
 
 const FLAGSHIP_SLUG = 'high-octane-scanner';
 

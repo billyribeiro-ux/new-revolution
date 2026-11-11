@@ -18,8 +18,8 @@
 				Good questions deserve <span class="highlight">clear answers.</span>
 			</h2>
 			<p class="faq-note">
-				Find the membership structure that fits your schedule and level, understand the approval
-				process, and review risk before making a decision.
+				Explore proposed concepts and development plans. Purchases, paid subscriptions, and
+				enrollment are unavailable; features and future availability are not guaranteed.
 			</p>
 		</div>
 

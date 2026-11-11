@@ -1,6 +1,7 @@
 <!-- src/routes/our-mission/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -195,7 +196,7 @@
 				'You want direct, personalized guidance from a trader mentored by Goldman Sachs legend Mark "Goldfinger" McGoldrick rather than a generic pre-recorded webinar.',
 			solution:
 				'Our application-only 1-on-1 Mentorship pairs approved traders directly with our desk to rebuild your execution, psychology, and risk management from the ground up.',
-			primaryLinkLabel: 'Apply for 1-on-1 Mentorship',
+			primaryLinkLabel: 'Explore the Mentorship Concept',
 			primaryLinkHref: '/mentorship',
 			secondaryLinkLabel: 'Read Founder Story & Track Record',
 			secondaryLinkHref: '/about'
@@ -279,14 +280,29 @@
 					you finally know you found what you have been searching for."
 				</blockquote>
 
+				<p class="body-copy">
+					Concept only · purchases, paid subscriptions, and enrollment are unavailable. Founder
+					background statements are personal accounts, not independent verification or a Goldman
+					Sachs endorsement.
+				</p>
 				<div class="cta-group">
-					<a href={resolve('/live-trading-rooms/day-trading-room' as '/')} class="btn btn-primary">
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-primary"
+					>
 						Explore Our Live Trading Rooms
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
-					<a href={resolve('/alert-services/sunday-alpha-protocol' as '/')} class="btn btn-outline">
+					</button>
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-outline"
+					>
 						See Video Watchlist &amp; Alert Tiers
-					</a>
+					</button>
 				</div>
 			</div>
 
@@ -354,7 +370,7 @@
 
 				<div class="charter-box__footer">
 					<a href={resolve('/about' as '/')} class="text-link">
-						Inspect Our Founder’s Goldman Sachs Pedigree &amp; Track Record
+						Read the Founder’s Reported Background
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</a>
 				</div>
@@ -513,8 +529,8 @@
 					Six Ironclad Promises We Make to Every Trader Who Walks Through Our Doors
 				</h2>
 				<p class="body-copy section-intro__desc">
-					When you join Revolution Trading Pros, you are not buying a subscription; you are entering
-					an institution governed by six unbreakable commitments to your success.
+					The proposed Revolution Trading Pros concept is intended to support an institution
+					governed by six unbreakable commitments to your success.
 				</p>
 			</div>
 
@@ -580,10 +596,15 @@
 						</div>
 
 						<div class="protection-card__actions">
-							<a href={resolve(group.primaryLinkHref as '/')} class="btn btn-primary btn--full">
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn-primary btn--full"
+							>
 								{group.primaryLinkLabel}
 								<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-							</a>
+							</button>
 							<a href={resolve(group.secondaryLinkHref as '/')} class="btn btn-outline btn--full">
 								{group.secondaryLinkLabel}
 								<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
@@ -636,19 +657,26 @@
 				victory.
 			</p>
 			<div class="cta-group cta-group--centered">
-				<a href={resolve('/live-trading-rooms/day-trading-room' as '/')} class="btn btn-dark">
-					Join Our Live Trading Rooms
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn btn-dark">
+					Explore Trading Room Concepts
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-				</a>
-				<a
-					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
+				</button>
+				<button
+					type="button"
+					data-concept-offer
+					onclick={openConceptOffer}
 					class="btn btn-outline-dark"
 				>
 					Get Video Watchlist &amp; Alerts
-				</a>
-				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">
-					Apply for 1-on-1 Mentorship
-				</a>
+				</button>
+				<button
+					type="button"
+					data-concept-offer
+					onclick={openConceptOffer}
+					class="btn btn-outline-dark"
+				>
+					Explore the Mentorship Concept
+				</button>
 			</div>
 		</div>
 	</section>

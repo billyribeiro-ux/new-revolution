@@ -29,16 +29,16 @@
 
 	<section class="page-hero" aria-labelledby="editorial-h1">
 		<div class="hero-inner">
-			<span class="section-kicker">Research Integrity &amp; YMYL Governance</span>
+			<span class="section-kicker">AI Development &amp; Editorial Transparency</span>
 			<h1 id="editorial-h1" class="hero-h1">Editorial Policy &amp; Standards</h1>
 			<p class="lead-copy">
-				Every educational guide, options structure breakdown, and market analysis published by
-				Revolution Trading Pros follows strict verification, primary-source citation, and risk
-				disclosure standards.
+				This AI-developed concept website may contain inaccurate, incomplete, or outdated content.
+				The standards below describe our review goals, not a guarantee that every statement has been
+				verified.
 			</p>
 			<p class="meta-byline">
-				Authored by <a href={resolve('/about')}>Billy Ribeiro</a> • Updated
-				<time datetime="2026-10-31">October 31, 2026</time>
+				Published by <a href={resolve('/about')}>Billy Ribeiro</a> • Updated
+				<time datetime="2026-11-11">November 11, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -46,32 +46,34 @@
 	<section class="content-section" aria-labelledby="verification-h2">
 		<div class="section-header">
 			<span class="section-kicker">People Over Profits</span>
-			<h2 id="verification-h2" class="section-h2">Our Three Editorial Commitments</h2>
+			<h2 id="verification-h2" class="section-h2">Accuracy, Sources &amp; Corrections</h2>
 		</div>
 		<div class="card-grid">
 			<article class="info-card">
-				<h3>1. Primary Regulatory &amp; Exchange Sources</h3>
+				<h3>1. AI Assistance &amp; Human Responsibility</h3>
 				<p>
-					All contract specifications, settlement rules (such as T+1 equity/options settlement and
-					European cash settlement on SPX), and tax references cite primary sources including Cboe,
-					CME Group, SEC, FINRA, OSC, and IRS Section 1256 documentation.
+					AI is used to develop website code, copy, charts, and demonstrations. AI output can
+					contain factual mistakes, misleading explanations, unsupported claims, and unfinished
+					behavior. Publishing a preview does not establish accuracy. Material claims should be
+					checked against authoritative sources before reliance.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>2. Asymmetric Risk &amp; Drawdown Transparency</h3>
+				<h3>2. Evidence &amp; Illustrative Demonstrations</h3>
 				<p>
-					No strategy, indicator, or alert service is ever presented as a guaranteed return. Every
-					case study and setup specifies hard invalidation stop-losses, position-sizing limits, and
-					realistic drawdown risks for both $500+ small accounts and full-time desks.
+					Primary regulator, exchange, and product documentation should support financial and
+					technical claims. Demonstrations and sample prices are illustrative unless expressly
+					documented otherwise; they are not live signals, verified trading results, or customer
+					outcomes. No strategy or proposed tool guarantees a return.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>3. Zero Repainting &amp; Reproducible Signals</h3>
+				<h3>3. Corrections &amp; Proposed Services</h3>
 				<p>
-					Technical claims regarding our <a href={resolve('/store/indicators')}>Custom Indicators</a
-					>
-					and <a href={resolve('/store/scanners')}>Institutional Scanners</a> require bar-close signal
-					permanence with zero historical repainting.
+					Please <a href={resolve('/contact')}>report suspected errors</a> with the relevant page and
+					source. Proposed features, compatibility, and future availability remain subject to development
+					and verification. None of the proposed products or paid subscriptions is currently offered for
+					sale.
 				</p>
 			</article>
 		</div>

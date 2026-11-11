@@ -138,6 +138,15 @@
 	<Navbar />
 
 	<main id="indicators-store-page" class="inner-page indicators-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB & ZERO-REPAINT TELEMETRY BAR
        ========================================================================= -->
@@ -531,8 +540,8 @@
 							See Our Non-Repainting Indicators in Action Live Every Market Day
 						</h2>
 						<p class="body-copy pro-cta-box__sub">
-							Tools are powerful, but live institutional execution is unstoppable. Join our Live
-							Trading Rooms or Video Watchlist Alert Services to trade alongside our desk:
+							Explore the educational workflow proposed for our Live Trading Rooms or Video
+							Watchlist Alert Services to trade alongside our desk:
 						</p>
 					</div>
 

@@ -1,5 +1,6 @@
 <!-- src/routes/live-trading-rooms/swing-trading-room/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
@@ -181,6 +182,15 @@
 <Navbar />
 
 <main id="swing-trading-room-page" class="inner-page swing-room-page">
+	<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+		<p>
+			<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+			platform support, charts, signals, and workflows below are development proposals or illustrative
+			demonstrations. They are not live services, verified product capabilities, or an invitation to purchase
+			or enroll. No price, release date, or future availability is guaranteed.
+		</p>
+	</aside>
+
 	<!-- =========================================================================
        SECTION 1: BREADCRUMB & SCHEDULE TELEMETRY BAR
        ========================================================================= -->
@@ -263,9 +273,10 @@
 					<button
 						type="button"
 						class="btn btn-primary"
-						onclick={() => scrollToSection('join-swing-trading-room')}
+						data-concept-offer
+						onclick={openConceptOffer}
 					>
-						Join the Swing Trading Room
+						Explore the Swing Trading Room Concept
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</button>
 					<button
@@ -532,7 +543,8 @@
 			<div class="routing-header section-heading">
 				<span class="eyebrow">People Over Profits • Choose Your Exact Fit</span>
 				<h2 id="routing-h2">
-					Enroll in the Swing Trading Room or Select the Tier Built for Your Capital &amp; Schedule
+					Discuss the Swing Trading Room Concept or Select the Tier Built for Your Capital &amp;
+					Schedule
 				</h2>
 				<p class="body-copy section-header__sub">
 					We never push you into the wrong tier just to collect a fee. Compare our three multi-day
@@ -555,10 +567,15 @@
 							stops, portfolio rotation workshops, and direct Q&amp;A with our team.
 						</p>
 					</div>
-					<a href={resolve('/contact' as '/')} class="btn btn-dark btn--full">
-						Enroll in the Swing Trading Room
+					<button
+						type="button"
+						data-concept-offer
+						onclick={openConceptOffer}
+						class="btn btn-dark btn--full"
+					>
+						Discuss the Swing Trading Room Concept
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-					</a>
+					</button>
 				</article>
 
 				<!-- Option 2: Sunday Alpha Protocol (Alert-Only Video Watchlist) -->
@@ -653,10 +670,10 @@
 				financial future. Step into a Swing Trading Room that puts people over profits.
 			</p>
 			<div class="cta-row cta-row--centered">
-				<a href={resolve('/contact' as '/')} class="btn btn-dark">
-					Join the Swing Trading Room
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn btn-dark">
+					Explore the Swing Trading Room Concept
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-				</a>
+				</button>
 				<a
 					href={resolve('/alert-services/sunday-alpha-protocol' as '/')}
 					class="btn btn-outline-dark"

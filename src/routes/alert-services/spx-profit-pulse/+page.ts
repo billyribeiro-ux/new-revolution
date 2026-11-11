@@ -17,7 +17,7 @@ export const prerender = true;
 const PAGE_TITLE = 'SPX Profit Pulse Options Alerts';
 const FULL_TITLE = 'SPX Profit Pulse Options Alerts | Revolution Trading Pros';
 const PAGE_DESCRIPTION =
-	'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.';
+	'Preview the SPX Profit Pulse concept for options education, illustrative scenarios, and risk planning. In development; no purchases or paid subscriptions.';
 
 export const load: PageLoad = ({ url }) => {
 	const canonicalUrl = url

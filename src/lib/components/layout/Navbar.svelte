@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import DevelopmentNotice from './DevelopmentNotice.svelte';
+	import ConceptPurchaseDialog from './ConceptPurchaseDialog.svelte';
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 	import { tick } from 'svelte';
@@ -206,6 +208,9 @@
 </script>
 
 <svelte:window onkeydown={handleKeydown} onclick={handleWindowClick} />
+
+<DevelopmentNotice />
+<ConceptPurchaseDialog />
 
 <div class="announcement">
 	<div class="container">

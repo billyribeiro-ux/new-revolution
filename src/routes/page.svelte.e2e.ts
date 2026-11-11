@@ -15,7 +15,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		const h1Text = await h1List.first().textContent();
 		expect(h1Text).toBeTruthy();
 		expect(h1Text).not.toContain('IndicatorsYou');
-		expect(h1Text).toMatch(/Custom Indicators\s+You Finally Found/);
+		expect(h1Text).toMatch(/Proposed Tools\s+You Finally Found/);
 
 		// The eBook does not exist yet (FREE_EBOOK_AVAILABLE=false in launch-gate.ts): no dead lead form on a YMYL page
 		await expect(page.locator('#ebook')).toHaveCount(0);
@@ -30,7 +30,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// Footer column headers and risk disclosure title are <p> tags, NOT H3 headings
 		await expect(page.locator('footer h3')).toHaveCount(0);
 		await expect(page.locator('footer p.footer-col-title')).toHaveCount(5);
-		await expect(page.locator('footer p.risk-box-title')).toHaveCount(1);
+		await expect(page.locator('footer .risk-box:not([aria-label]) p.risk-box-title')).toHaveCount(
+			1
+		);
 	});
 
 	test('renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog while Store remains gated', async ({
@@ -278,7 +280,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(inputFocusOutline.outlineOffset).toBe('4px');
 
 		// The disclosure copy must align to the same responsive container as the footer.
-		const riskBoxAlign = await page.locator('.risk-box').evaluate((el) => {
+		const riskBoxAlign = await page.locator('.risk-box:not([aria-label])').evaluate((el) => {
 			const container = el.closest('.container');
 			const title = el.querySelector('.risk-box-title');
 			const body = el.querySelector('p:not(.risk-box-title)');
@@ -505,7 +507,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			'/refund-policy'
 		]);
 
-		const riskDisclosureText = await page.locator('footer .risk-box').textContent();
+		const riskDisclosureText = await page
+			.locator('footer .risk-box:not([aria-label])')
+			.textContent();
 		for (const regulator of ['SEC', 'CFTC', 'FINRA', 'OSC', 'BCSC', 'ASC']) {
 			expect(riskDisclosureText).toContain(regulator);
 		}
@@ -581,9 +585,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
 		const dayRoomDesc = await page.locator('head meta[name="description"]').getAttribute('content');
 		expect(dayRoomDesc).toBe(
-			'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.'
+			'Explore our proposed day trading room, with concepts for market preparation, chart reviews, and risk education. In development; no purchases or enrollment.'
 		);
-		expect(dayRoomDesc?.length).toBe(147);
+		expect(dayRoomDesc?.length).toBe(155);
 
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
@@ -634,9 +638,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(swingRoomDesc).toBe(
-			'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.'
+			'Explore a proposed swing trading room for multi-day planning, chart review, and risk education. Concept in development; no purchases or paid subscriptions.'
 		);
-		expect(swingRoomDesc?.length).toBe(144);
+		expect(swingRoomDesc?.length).toBe(155);
 
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
@@ -687,9 +691,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(smallRoomDesc).toBe(
-			'Grow a $500+ small account without gambling. Strict risk control, T+1 cash account rotation, and affordable stock & options setups. People over profits.'
+			'Explore a proposed small-account trading education room focused on position sizing and risk awareness. Concept in development; paid enrollment unavailable.'
 		);
-		expect(smallRoomDesc?.length).toBe(152);
+		expect(smallRoomDesc?.length).toBe(155);
 
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
@@ -807,9 +811,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(indicatorsDesc).toBe(
-			'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.'
+			'Preview proposed trading indicator concepts for chart study, market structure, and risk education. AI-assisted development; no purchases or downloads offered.'
 		);
-		expect(indicatorsDesc?.length).toBe(151);
+		expect(indicatorsDesc?.length).toBe(158);
 
 		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
@@ -855,9 +859,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
 		const coursesDesc = await page.locator('head meta[name="description"]').getAttribute('content');
 		expect(coursesDesc).toBe(
-			'Self-paced stock, ETF, and options trading courses. Master institutional order flow, Options Greeks, and $500+ small account compounding. Zero hype.'
+			'Explore proposed stock and options course concepts covering market structure, trade planning, and risk education. In development; paid enrollment unavailable.'
 		);
-		expect(coursesDesc?.length).toBe(148);
+		expect(coursesDesc?.length).toBe(158);
 
 		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
@@ -905,9 +909,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(singleCourseDesc).toBe(
-			'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes non-repainting ThinkorSwim and TradingView tools.'
+			'Preview the Move Prior to The Move course concept, proposed lessons, and illustrative study tools. In development; no purchases or paid enrollment available.'
 		);
-		expect(singleCourseDesc?.length).toBe(156);
+		expect(singleCourseDesc?.length).toBe(157);
 
 		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
@@ -920,7 +924,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('.package-card')).toHaveCount(2);
 		await expect(page.locator('.component-block')).toHaveCount(5);
 		await expect(page.locator('.module-card')).toHaveCount(6);
-		await expect(page.locator('.review-card')).toHaveCount(6);
+		await expect(page.locator('.review-card')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
 		await expect(page.locator('.room-cta-card')).toHaveCount(5);
 
@@ -956,9 +960,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(singleIndicatorDesc).toBe(
-			'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.'
+			'Explore the proposed indicator suite and illustrative chart concepts for market structure and risk education. In development; no purchases or access offered.'
 		);
-		expect(singleIndicatorDesc?.length).toBe(150);
+		expect(singleIndicatorDesc?.length).toBe(157);
 
 		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
@@ -970,7 +974,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.comp-card')).toHaveCount(6);
 		await expect(page.locator('.suitability-card')).toHaveCount(3);
-		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('.review-card')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
 		await expect(page.locator('.room-cta-card')).toHaveCount(5);
 
@@ -1007,9 +1011,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head meta[name="description"]')).toHaveCount(1);
 		const spxDesc = await page.locator('head meta[name="description"]').getAttribute('content');
 		expect(spxDesc).toBe(
-			'Real-time SPX & 0DTE index options alerts with video watchlists, gamma levels, and exact entries, targets, and stops. People over profits. Zero hype.'
+			'Preview the SPX Profit Pulse concept for options education, illustrative scenarios, and risk planning. In development; no purchases or paid subscriptions.'
 		);
-		expect(spxDesc?.length).toBe(149);
+		expect(spxDesc?.length).toBe(154);
 
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(1);
 		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
@@ -1024,7 +1028,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('.deliverable-card')).toHaveCount(6);
 		await expect(page.locator('.advantage-card')).toHaveCount(4);
 		await expect(page.locator('.package-card')).toHaveCount(3);
-		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('.review-card')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
 		await expect(page.locator('.room-cta-card')).toHaveCount(5);
 
@@ -1060,9 +1064,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('head meta[name="description"]')
 			.getAttribute('content');
 		expect(scannersDesc).toBe(
-			'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.'
+			'Explore proposed market scanner concepts for chart screening, liquidity study, and risk education. AI-assisted development; no purchases or access offered.'
 		);
-		expect(scannersDesc?.length).toBe(148);
+		expect(scannersDesc?.length).toBe(155);
 
 		// Store remains behind the launch gate.
 		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
@@ -1107,9 +1111,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			.locator('meta[name="description"]')
 			.getAttribute('content');
 		expect(singleScannerDesc).toBe(
-			'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.'
+			'Preview the High Octane scanner concept, illustrative chart screening, and proposed market filters. In development; no purchases or paid access available.'
 		);
-		expect(singleScannerDesc!.length).toBe(149);
+		expect(singleScannerDesc!.length).toBe(154);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
@@ -1117,7 +1121,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('.suitability-card')).toHaveCount(3);
 		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
 		await expect(page.locator('.package-card')).toHaveCount(2);
-		await expect(page.locator('.review-card')).toHaveCount(4);
+		await expect(page.locator('.review-card')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(5);
 		await expect(page.locator('.room-cta-card')).toHaveCount(5);
 

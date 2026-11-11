@@ -122,8 +122,8 @@
 			</button>
 
 			<p class="privacy">
-				DESIGN PREVIEW: This form does not collect, store, or transmit your information. Connect a
-				consent-aware mailing service and create the eBook before launching.
+				DESIGN PREVIEW: This guide and delivery form are proposed concepts. The eBook is not
+				currently available. No purchase, reservation, or guarantee of future access is created.
 			</p>
 
 			{#if !submitEbookLead.fields.allIssues()?.length && (localFormStatus || submitEbookLead.result?.message)}

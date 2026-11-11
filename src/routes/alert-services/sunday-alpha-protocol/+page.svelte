@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import '#lib/styles/sunday-alpha-protocol.css';
 	import { resolve } from '$app/paths';
 	import * as d3 from 'd3';
@@ -9,7 +10,6 @@
 		SUNDAY_ALPHA_AUTHORITY_RECEIPTS,
 		SUNDAY_ALPHA_HERO_METRICS,
 		SUNDAY_ALPHA_MECHANISM_ACTS,
-		SUNDAY_ALPHA_PRICING_TIERS,
 		SUNDAY_ALPHA_SUITABILITY_TIERS,
 		SUNDAY_ALPHA_TERMINAL_BLUEPRINTS,
 		type SundayAlphaBlueprint,
@@ -493,6 +493,15 @@
 <Navbar />
 
 <main id="sunday-alpha-protocol-page" class="inner-page sunday-alpha-protocol-page">
+	<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+		<p>
+			<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+			platform support, charts, signals, and workflows below are development proposals or illustrative
+			demonstrations. They are not live services, verified product capabilities, or an invitation to purchase
+			or enroll. No price, release date, or future availability is guaranteed.
+		</p>
+	</aside>
+
 	<nav class="breadcrumb-bar" aria-label="Breadcrumb">
 		<div class="container breadcrumb-bar__inner">
 			<ol class="breadcrumb-list">
@@ -528,8 +537,9 @@
 					</h1>
 
 					<p class="hero-lead sap-gsap-hero">
-						Stop guessing at Monday’s opening bell. Every Sunday at
-						<strong>5:00 PM EST</strong> (one full hour before futures open), receive
+						The proposed weekly format would explore preparation before Monday’s opening bell. An
+						illustrative schedule is Sunday at
+						<strong>5:00 PM EST</strong> with a proposed briefing containing
 						<strong
 							>5 to 7 institutional-grade U.S. large-cap stock &amp; options swing blueprints</strong
 						>
@@ -538,8 +548,13 @@
 					</p>
 
 					<div class="hero-cta-row sap-gsap-hero">
-						<a href={resolve('/contact')} class="btn-primary-gold">
-							<span>Ask about $47/mo membership</span>
+						<button
+							type="button"
+							data-concept-offer
+							onclick={openConceptOffer}
+							class="btn-primary-gold"
+						>
+							<span>Discuss the concept</span>
 							<svg
 								width="18"
 								height="18"
@@ -551,7 +566,7 @@
 							>
 								<path d="M5 12h14M12 5l7 7-7 7" />
 							</svg>
-						</a>
+						</button>
 						<button type="button" class="btn-secondary-glass" onclick={scrollToTerminal}>
 							<span>Explore Interactive D3 Terminal ↓</span>
 						</button>
@@ -570,7 +585,7 @@
 							>
 								<polyline points="20 6 9 17 4 12" />
 							</svg>
-							<span>Save <strong>$150/mo (76% OFF)</strong> vs. $197 Regular Rate</span>
+							<span><strong>Concept preview:</strong> no purchases or paid subscriptions</span>
 						</div>
 						<div class="trust-item">
 							<svg
@@ -598,7 +613,7 @@
 							>
 								<polyline points="20 6 9 17 4 12" />
 							</svg>
-							<span>1-Click Cancel Anytime via Stripe</span>
+							<span>No payment or billing is available</span>
 						</div>
 					</div>
 				</div>
@@ -1024,86 +1039,21 @@
 		</div>
 	</section>
 
-	<!-- ACT VI: FOUNDING MEMBER PRICING MATRIX ($47/MO vs $197/MO) -->
+	<!-- Development status replaces the earlier illustrative price promotion. -->
 	<section id="pricing" class="pricing-section" aria-labelledby="pricing-h2">
 		<div class="container">
 			<div class="sap-section-header">
-				<div class="section-kicker">
-					<span>GRANDFATHERED FOUNDING MEMBER RELEASE</span>
-				</div>
-				<h2 id="pricing-h2" class="sap-section-title">
-					Lock In $47/Month For Life. Save $150/Month (76% OFF).
-				</h2>
+				<div class="section-kicker"><span>DEVELOPMENT CONCEPT</span></div>
+				<h2 id="pricing-h2" class="sap-section-title">No Sales or Paid Subscriptions Available</h2>
 				<p class="sap-section-subtitle">
-					Public retail pricing for the <strong>Sunday Alpha Protocol</strong> is
-					<strong>$197/month</strong>. The first 100 Founding Members lock in
-					<strong>$47/month grandfathered for life</strong>, backed by 1-click self-service
-					cancellation at any time.
+					Sunday Alpha Protocol is a proposed educational concept. Purchases and paid subscriptions
+					have never been made available. Pricing, delivery schedules, packages, and launch timing
+					are undecided and may change. There is no founding-member offer, reservation, or price
+					lock.
 				</p>
-			</div>
-
-			<div class="pricing-grid">
-				{#each SUNDAY_ALPHA_PRICING_TIERS as tier (tier.id)}
-					<article class={['price-card', { featured: tier.featured }]}>
-						{#if tier.badge}
-							<div class="popular-ribbon">{tier.badge}</div>
-						{/if}
-						<div class="plan-name">{tier.name}</div>
-						<p class="plan-sub">{tier.subtitle}</p>
-						<div class="price-block">
-							<div class="price-strike">
-								{#if tier.id === 'monthly'}
-									Regular Retail Rate: <s>$197 / month</s>
-								{:else if tier.id === 'quarterly'}
-									Regular Retail Rate: <s>$497 / quarter</s>
-								{:else}
-									Regular Retail Rate: <s>$1,647 / year</s>
-								{/if}
-							</div>
-							<div class="price-main">
-								<span class="price-amount">{tier.price}</span>
-								<span class="price-period">{tier.period}</span>
-							</div>
-							<div class={['price-saving-pill', { 'is-muted': !tier.savingHighlight }]}>
-								{tier.savingText}
-							</div>
-						</div>
-						<ul class="plan-features">
-							{#each tier.features as feat (feat.text)}
-								<li>
-									<svg
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2.5"
-										aria-hidden="true"
-									>
-										<polyline points="20 6 9 17 4 12" />
-									</svg>
-									<span>
-										{#if feat.strong}
-											<strong class={{ 'val-emerald': Boolean(feat.highlight) }}>
-												{feat.strong}
-											</strong>
-										{/if}
-										{feat.text}
-									</span>
-								</li>
-							{/each}
-						</ul>
-						<a
-							href={resolve(tier.ctaHref as '/')}
-							class={[
-								'btn-full',
-								{ 'btn-primary-gold': tier.featured, 'btn-secondary-glass': !tier.featured }
-							]}
-						>
-							{tier.ctaLabel}
-						</a>
-					</article>
-				{/each}
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn-primary-gold"
+					>Share feedback on the concept</button
+				>
 			</div>
 		</div>
 	</section>

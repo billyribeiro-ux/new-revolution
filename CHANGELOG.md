@@ -13,7 +13,7 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 - Diagnose the recreated Vercel project with zero environment variables, unassigned public domains and a hosted PGlite filesystem failure. Reconnect the original Production/Preview databases and Production-only media store, restore origin/signing settings and canonical domains; preserve the published article bytes, media and dates.
 - Reject unconfigured hosted CMS builds and runtime database fallback, with build-process and generated-function regressions.
-- Keep the desktop brand grid stable when hydration selects compact navigation at enlarged text sizes; restore the documented 75rem featured-card cap. Correct geometry assertions to measure available layout width including the reserved scrollbar gutter, retaining existing tolerances.
+- Keep the desktop brand grid stable when hydration selects compact navigation at enlarged text sizes; restore the documented 75rem featured-card cap. Reserve symmetric scrollbar gutters from the existing wide-screen TOC breakpoint to preserve its screen padding. Correct geometry assertions to measure available layout width including the reserved scrollbar gutter, retaining existing tolerances.
 - Evidence and validation: [hosting and layout-shift verification](docs/reviews/blog-availability-cls-2026-11-11/VERIFICATION.md).
 
 ### 2026-11-11 — Evidence-based build and CI repair

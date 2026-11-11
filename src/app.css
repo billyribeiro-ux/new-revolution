@@ -256,6 +256,14 @@
 		scrollbar-gutter: stable;
 	}
 
+	/* At the external TOC breakpoint, reserve matching gutters on every public
+	 * route so the capped frame stays centered and the rail retains its 16px inset. */
+	@media (min-width: 118.75rem) {
+		html:has(.nav) {
+			scrollbar-gutter: stable both-edges;
+		}
+	}
+
 	body {
 		margin: 0;
 		background: var(--bg);

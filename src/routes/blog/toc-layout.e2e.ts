@@ -34,6 +34,7 @@ test('keeps the TOC on wide desktop and aligns the article reading column flush 
 			const tocVisible = tocEl && getComputedStyle(tocEl).display !== 'none';
 			return {
 				availableInlineSize: document.documentElement.getBoundingClientRect().width,
+				availableInlineStart: document.documentElement.getBoundingClientRect().x,
 				rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize),
 				scrollWidth: document.documentElement.scrollWidth,
 				navShell: navRect.toJSON(),
@@ -56,14 +57,22 @@ test('keeps the TOC on wide desktop and aligns the article reading column flush 
 		expect(Math.abs(geometry.breadcrumbShell.width - geometry.navShell.width)).toBeLessThan(1);
 		expect(Math.abs(geometry.articleShell.x - geometry.navShell.x)).toBeLessThan(1);
 		expect(Math.abs(geometry.articleShell.width - geometry.navShell.width)).toBeLessThan(1);
-		// The frame fills available layout space, capped at 96rem. A stable scrollbar
-		// gutter reserves real space even when headless Chromium hides the scrollbar:
-		// at a 1536px viewport the root layout box is 1521px, while clientWidth can
-		// still report 1536px. Measure that independent root box, not the nav result.
+		// The frame fills the available root layout box, capped at 96rem. Reserved
+		// gutters sit outside that box even when headless Chromium hides the scrollbar.
+		// From the external TOC breakpoint they are symmetric on every public route.
+		// Keep both the independent root origin and width when checking centering.
+		if (width >= 1900) {
+			const reservedInlineEnd =
+				width - geometry.availableInlineStart - geometry.availableInlineSize;
+			expect(Math.abs(geometry.availableInlineStart - reservedInlineEnd)).toBeLessThan(1);
+		}
 		const expectedFrame = Math.min(96 * geometry.rootFontSize, geometry.availableInlineSize);
 		expect(Math.abs(geometry.navShell.width - expectedFrame)).toBeLessThan(1);
 		expect(
-			Math.abs(geometry.navShell.x - (geometry.availableInlineSize - expectedFrame) / 2)
+			Math.abs(
+				geometry.navShell.x -
+					(geometry.availableInlineStart + (geometry.availableInlineSize - expectedFrame) / 2)
+			)
 		).toBeLessThan(1);
 		if (geometry.related) {
 			expect(Math.abs(geometry.related.x - geometry.navInnerLeft)).toBeLessThan(1);

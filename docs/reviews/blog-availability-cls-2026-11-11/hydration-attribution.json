@@ -1,0 +1,1522 @@
+[
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 390,
+			"rootSize": 16,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 28,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 347.25,
+					"width": 375,
+					"height": 74,
+					"top": 347.25,
+					"right": 375,
+					"bottom": 421.25,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 12,
+					"y": 361.75,
+					"width": 222.453125,
+					"height": 44,
+					"top": 361.75,
+					"right": 234.453125,
+					"bottom": 405.75,
+					"left": 12
+				}
+			},
+			"last": {
+				"t": 4186,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 347.25,
+					"width": 375,
+					"height": 74,
+					"top": 347.25,
+					"right": 375,
+					"bottom": 421.25,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 12,
+					"y": 361.75,
+					"width": 222.453125,
+					"height": 44,
+					"top": 361.75,
+					"right": 234.453125,
+					"bottom": 405.75,
+					"left": 12
+				}
+			},
+			"count": 251,
+			"navHeightRange": [74, 74]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 28,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 347.25,
+					"width": 375,
+					"height": 74,
+					"top": 347.25,
+					"right": 375,
+					"bottom": 421.25,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 12,
+					"y": 361.75,
+					"width": 222.453125,
+					"height": 44,
+					"top": 361.75,
+					"right": 234.453125,
+					"bottom": 405.75,
+					"left": 12
+				}
+			},
+			"last": {
+				"t": 7003.5,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 347.25,
+					"width": 375,
+					"height": 74,
+					"top": 347.25,
+					"right": 375,
+					"bottom": 421.25,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 12,
+					"y": 361.75,
+					"width": 222.453125,
+					"height": 44,
+					"top": 361.75,
+					"right": 234.453125,
+					"bottom": 405.75,
+					"left": 12
+				}
+			},
+			"count": 420,
+			"navHeightRange": [74, 74]
+		},
+		"errors": []
+	},
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 1024,
+			"rootSize": 16,
+			"delay": "fonts"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 28.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 214.515625,
+					"width": 1009,
+					"height": 88,
+					"top": 214.515625,
+					"right": 1009,
+					"bottom": 302.515625,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 233.328125,
+					"width": 190.859375,
+					"height": 49.359375,
+					"top": 233.328125,
+					"right": 210.859375,
+					"bottom": 282.6875,
+					"left": 20
+				}
+			},
+			"last": {
+				"t": 2965.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 214.515625,
+					"width": 1009,
+					"height": 88,
+					"top": 214.515625,
+					"right": 1009,
+					"bottom": 302.515625,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 233.328125,
+					"width": 190.859375,
+					"height": 49.359375,
+					"top": 233.328125,
+					"right": 210.859375,
+					"bottom": 282.6875,
+					"left": 20
+				}
+			},
+			"count": 177,
+			"navHeightRange": [88, 88]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 28.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 214.515625,
+					"width": 1009,
+					"height": 88,
+					"top": 214.515625,
+					"right": 1009,
+					"bottom": 302.515625,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 233.328125,
+					"width": 190.859375,
+					"height": 49.359375,
+					"top": 233.328125,
+					"right": 210.859375,
+					"bottom": 282.6875,
+					"left": 20
+				}
+			},
+			"last": {
+				"t": 4549.299999998882,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 214.515625,
+					"width": 1009,
+					"height": 88,
+					"top": 214.515625,
+					"right": 1009,
+					"bottom": 302.515625,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 233.328125,
+					"width": 190.859375,
+					"height": 49.359375,
+					"top": 233.328125,
+					"right": 210.859375,
+					"bottom": 282.6875,
+					"left": 20
+				}
+			},
+			"count": 272,
+			"navHeightRange": [88, 88]
+		},
+		"errors": []
+	},
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 1280,
+			"rootSize": 16,
+			"delay": "css"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 1233.7999999988824,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 216.53125,
+					"width": 1265,
+					"height": 88,
+					"top": 216.53125,
+					"right": 1265,
+					"bottom": 304.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 230.734375,
+					"width": 226.59375,
+					"height": 58.59375,
+					"top": 230.734375,
+					"right": 258.59375,
+					"bottom": 289.328125,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 4199.799999998882,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 216.53125,
+					"width": 1265,
+					"height": 88,
+					"top": 216.53125,
+					"right": 1265,
+					"bottom": 304.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 230.734375,
+					"width": 226.59375,
+					"height": 58.59375,
+					"top": 230.734375,
+					"right": 258.59375,
+					"bottom": 289.328125,
+					"left": 32
+				}
+			},
+			"count": 179,
+			"navHeightRange": [88, 88]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 1233.7999999988824,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 216.53125,
+					"width": 1265,
+					"height": 88,
+					"top": 216.53125,
+					"right": 1265,
+					"bottom": 304.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 230.734375,
+					"width": 226.59375,
+					"height": 58.59375,
+					"top": 230.734375,
+					"right": 258.59375,
+					"bottom": 289.328125,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 6966.5,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 216.53125,
+					"width": 1265,
+					"height": 88,
+					"top": 216.53125,
+					"right": 1265,
+					"bottom": 304.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 230.734375,
+					"width": 226.59375,
+					"height": 58.59375,
+					"top": 230.734375,
+					"right": 258.59375,
+					"bottom": 289.328125,
+					"left": 32
+				}
+			},
+			"count": 344,
+			"navHeightRange": [88, 88]
+		},
+		"errors": []
+	},
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 1440,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [
+				{
+					"t": 2489.7999999988824,
+					"value": 0.002449379007054291,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 766.1875,
+								"width": 1425,
+								"height": 133.8125,
+								"top": 766.1875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 755.296875,
+								"width": 1425,
+								"height": 144.703125,
+								"top": 755.296875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 32,
+								"y": 667.296875,
+								"width": 447.9375,
+								"height": 97.890625,
+								"top": 667.296875,
+								"right": 479.9375,
+								"bottom": 765.1875,
+								"left": 32
+							},
+							"current": {
+								"x": 32,
+								"y": 674.96875,
+								"width": 447.9375,
+								"height": 71.640625,
+								"top": 674.96875,
+								"right": 479.9375,
+								"bottom": 746.609375,
+								"left": 32
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 32.09999999962747,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 4175.199999999255,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 88,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 755.296875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 674.96875,
+					"width": 447.9375,
+					"height": 71.640625,
+					"top": 674.96875,
+					"right": 479.9375,
+					"bottom": 746.609375,
+					"left": 32
+				}
+			},
+			"count": 250,
+			"navHeightRange": [88, 98.890625]
+		},
+		"end": {
+			"shifts": [
+				{
+					"t": 2489.7999999988824,
+					"value": 0.002449379007054291,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 766.1875,
+								"width": 1425,
+								"height": 133.8125,
+								"top": 766.1875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 755.296875,
+								"width": 1425,
+								"height": 144.703125,
+								"top": 755.296875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 32,
+								"y": 667.296875,
+								"width": 447.9375,
+								"height": 97.890625,
+								"top": 667.296875,
+								"right": 479.9375,
+								"bottom": 765.1875,
+								"left": 32
+							},
+							"current": {
+								"x": 32,
+								"y": 674.96875,
+								"width": 447.9375,
+								"height": 71.640625,
+								"top": 674.96875,
+								"right": 479.9375,
+								"bottom": 746.609375,
+								"left": 32
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 32.09999999962747,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 7008.299999998882,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 88,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 755.296875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 674.96875,
+					"width": 447.9375,
+					"height": 71.640625,
+					"top": 674.96875,
+					"right": 479.9375,
+					"bottom": 746.609375,
+					"left": 32
+				}
+			},
+			"count": 420,
+			"navHeightRange": [88, 98.890625]
+		},
+		"errors": []
+	},
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 1920,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [
+				{
+					"t": 2486.800000000745,
+					"value": 0.002739454495465314,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 700.53125,
+								"width": 1905,
+								"height": 199.46875,
+								"top": 700.53125,
+								"right": 1905,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 686.90625,
+								"width": 1905,
+								"height": 213.09375,
+								"top": 686.90625,
+								"right": 1905,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 56,
+								"y": 598.90625,
+								"width": 461.65625,
+								"height": 100.625,
+								"top": 598.90625,
+								"right": 517.65625,
+								"bottom": 699.53125,
+								"left": 56
+							},
+							"current": {
+								"x": 56,
+								"y": 605.640625,
+								"width": 461.65625,
+								"height": 73.53125,
+								"top": 605.640625,
+								"right": 517.65625,
+								"bottom": 679.171875,
+								"left": 56
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 24.100000001490116,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"last": {
+				"t": 4184.300000000745,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 88,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 686.90625,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 605.640625,
+					"width": 461.65625,
+					"height": 73.53125,
+					"top": 605.640625,
+					"right": 517.65625,
+					"bottom": 679.171875,
+					"left": 56
+				}
+			},
+			"count": 251,
+			"navHeightRange": [88, 101.625]
+		},
+		"end": {
+			"shifts": [
+				{
+					"t": 2486.800000000745,
+					"value": 0.002739454495465314,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 700.53125,
+								"width": 1905,
+								"height": 199.46875,
+								"top": 700.53125,
+								"right": 1905,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 686.90625,
+								"width": 1905,
+								"height": 213.09375,
+								"top": 686.90625,
+								"right": 1905,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 56,
+								"y": 598.90625,
+								"width": 461.65625,
+								"height": 100.625,
+								"top": 598.90625,
+								"right": 517.65625,
+								"bottom": 699.53125,
+								"left": 56
+							},
+							"current": {
+								"x": 56,
+								"y": 605.640625,
+								"width": 461.65625,
+								"height": 73.53125,
+								"top": 605.640625,
+								"right": 517.65625,
+								"bottom": 679.171875,
+								"left": 56
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 24.100000001490116,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"last": {
+				"t": 7017.300000000745,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 88,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 686.90625,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 605.640625,
+					"width": 461.65625,
+					"height": 73.53125,
+					"top": 605.640625,
+					"right": 517.65625,
+					"bottom": 679.171875,
+					"left": 56
+				}
+			},
+			"count": 421,
+			"navHeightRange": [88, 101.625]
+		},
+		"errors": []
+	},
+	{
+		"source": "slow-baseline",
+		"scenario": {
+			"width": 1440,
+			"rootSize": 32,
+			"delay": "fonts"
+		},
+		"initial": {
+			"shifts": [
+				{
+					"t": 89.80000000074506,
+					"value": 0.002449379007054291,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 766.1875,
+								"width": 1425,
+								"height": 133.8125,
+								"top": 766.1875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 755.296875,
+								"width": 1425,
+								"height": 144.703125,
+								"top": 755.296875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 32,
+								"y": 667.296875,
+								"width": 447.9375,
+								"height": 97.890625,
+								"top": 667.296875,
+								"right": 479.9375,
+								"bottom": 765.1875,
+								"left": 32
+							},
+							"current": {
+								"x": 32,
+								"y": 674.96875,
+								"width": 447.9375,
+								"height": 71.640625,
+								"top": 674.96875,
+								"right": 479.9375,
+								"bottom": 746.609375,
+								"left": 32
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 29.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 2969.10000000149,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 88,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 755.296875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 674.96875,
+					"width": 447.9375,
+					"height": 71.640625,
+					"top": 674.96875,
+					"right": 479.9375,
+					"bottom": 746.609375,
+					"left": 32
+				}
+			},
+			"count": 177,
+			"navHeightRange": [88, 98.890625]
+		},
+		"end": {
+			"shifts": [
+				{
+					"t": 89.80000000074506,
+					"value": 0.002449379007054291,
+					"recent": false,
+					"path": "/",
+					"sources": [
+						{
+							"node": "<::before></::before>",
+							"previous": {
+								"x": 0,
+								"y": 766.1875,
+								"width": 1425,
+								"height": 133.8125,
+								"top": 766.1875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							},
+							"current": {
+								"x": 0,
+								"y": 755.296875,
+								"width": 1425,
+								"height": 144.703125,
+								"top": 755.296875,
+								"right": 1425,
+								"bottom": 900,
+								"left": 0
+							}
+						},
+						{
+							"node": "<a class=\"brand svelte-1n8e4t1\" href=\"/\" aria-label=\"Revolution Trading Pros homepage\" style=\"\"><span class=\"brand-logo-wrap svelte-1n8e4t1\"><picture><source srcset=\"/_app/immutable/assets/REvolution-Trading-Pros-logo.Du29AlI1.avif 360w\" type=\"image/avif\"><source srcset=\"/_app/immutable/assets/REvol",
+							"previous": {
+								"x": 32,
+								"y": 667.296875,
+								"width": 447.9375,
+								"height": 97.890625,
+								"top": 667.296875,
+								"right": 479.9375,
+								"bottom": 765.1875,
+								"left": 32
+							},
+							"current": {
+								"x": 32,
+								"y": 674.96875,
+								"width": 447.9375,
+								"height": 71.640625,
+								"top": 674.96875,
+								"right": 479.9375,
+								"bottom": 746.609375,
+								"left": 32
+							}
+						}
+					]
+				}
+			],
+			"first": {
+				"t": 29.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 4585.60000000149,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 88,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 755.296875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 674.96875,
+					"width": 447.9375,
+					"height": 71.640625,
+					"top": 674.96875,
+					"right": 479.9375,
+					"bottom": 746.609375,
+					"left": 32
+				}
+			},
+			"count": 274,
+			"navHeightRange": [88, 98.890625]
+		},
+		"errors": []
+	},
+	{
+		"source": "grid-fixed-experiment",
+		"scenario": {
+			"width": 1024,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 36.30000000074506,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 688.8125,
+					"width": 1009,
+					"height": 88,
+					"top": 688.8125,
+					"right": 1009,
+					"bottom": 776.8125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 692.96875,
+					"width": 347.84375,
+					"height": 78.6875,
+					"top": 692.96875,
+					"right": 367.84375,
+					"bottom": 771.65625,
+					"left": 20
+				}
+			},
+			"last": {
+				"t": 4189.800000000745,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 688.8125,
+					"width": 1009,
+					"height": 88,
+					"top": 688.8125,
+					"right": 1009,
+					"bottom": 776.8125,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 692.96875,
+					"width": 347.84375,
+					"height": 78.6875,
+					"top": 692.96875,
+					"right": 367.84375,
+					"bottom": 771.65625,
+					"left": 20
+				}
+			},
+			"count": 250,
+			"navHeightRange": [88, 88]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 36.30000000074506,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 688.8125,
+					"width": 1009,
+					"height": 88,
+					"top": 688.8125,
+					"right": 1009,
+					"bottom": 776.8125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 692.96875,
+					"width": 347.84375,
+					"height": 78.6875,
+					"top": 692.96875,
+					"right": 367.84375,
+					"bottom": 771.65625,
+					"left": 20
+				}
+			},
+			"last": {
+				"t": 7021.9000000003725,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 688.8125,
+					"width": 1009,
+					"height": 88,
+					"top": 688.8125,
+					"right": 1009,
+					"bottom": 776.8125,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 20,
+					"y": 692.96875,
+					"width": 347.84375,
+					"height": 78.6875,
+					"top": 692.96875,
+					"right": 367.84375,
+					"bottom": 771.65625,
+					"left": 20
+				}
+			},
+			"count": 420,
+			"navHeightRange": [88, 88]
+		},
+		"errors": []
+	},
+	{
+		"source": "grid-fixed-experiment",
+		"scenario": {
+			"width": 1280,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 24.700000001117587,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 705.6875,
+					"width": 1265,
+					"height": 93.421875,
+					"top": 705.6875,
+					"right": 1265,
+					"bottom": 799.109375,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 705.6875,
+					"width": 410.890625,
+					"height": 92.421875,
+					"top": 705.6875,
+					"right": 442.890625,
+					"bottom": 798.109375,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 4165.5,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 705.6875,
+					"width": 1265,
+					"height": 93.421875,
+					"top": 705.6875,
+					"right": 1265,
+					"bottom": 799.109375,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 705.6875,
+					"width": 410.890625,
+					"height": 92.421875,
+					"top": 705.6875,
+					"right": 442.890625,
+					"bottom": 798.109375,
+					"left": 32
+				}
+			},
+			"count": 250,
+			"navHeightRange": [93.421875, 93.421875]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 24.700000001117587,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 705.6875,
+					"width": 1265,
+					"height": 93.421875,
+					"top": 705.6875,
+					"right": 1265,
+					"bottom": 799.109375,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 705.6875,
+					"width": 410.890625,
+					"height": 92.421875,
+					"top": 705.6875,
+					"right": 442.890625,
+					"bottom": 798.109375,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 6981.700000001118,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 705.6875,
+					"width": 1265,
+					"height": 93.421875,
+					"top": 705.6875,
+					"right": 1265,
+					"bottom": 799.109375,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 705.6875,
+					"width": 410.890625,
+					"height": 92.421875,
+					"top": 705.6875,
+					"right": 442.890625,
+					"bottom": 798.109375,
+					"left": 32
+				}
+			},
+			"count": 419,
+			"navHeightRange": [93.421875, 93.421875]
+		},
+		"errors": []
+	},
+	{
+		"source": "grid-fixed-experiment",
+		"scenario": {
+			"width": 1440,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 26.40000000037253,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 4184.199999999255,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"count": 251,
+			"navHeightRange": [98.890625, 98.890625]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 26.40000000037253,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"last": {
+				"t": 7000,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 667.296875,
+					"width": 1425,
+					"height": 98.890625,
+					"top": 667.296875,
+					"right": 1425,
+					"bottom": 766.1875,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 32,
+					"y": 667.296875,
+					"width": 447.9375,
+					"height": 97.890625,
+					"top": 667.296875,
+					"right": 479.9375,
+					"bottom": 765.1875,
+					"left": 32
+				}
+			},
+			"count": 420,
+			"navHeightRange": [98.890625, 98.890625]
+		},
+		"errors": []
+	},
+	{
+		"source": "grid-fixed-experiment",
+		"scenario": {
+			"width": 1920,
+			"rootSize": 32,
+			"delay": "js"
+		},
+		"initial": {
+			"shifts": [],
+			"first": {
+				"t": 23.799999998882413,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"last": {
+				"t": 4180.799999998882,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"count": 251,
+			"navHeightRange": [101.625, 101.625]
+		},
+		"end": {
+			"shifts": [],
+			"first": {
+				"t": 23.799999998882413,
+				"path": "/",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"last": {
+				"t": 6997.5,
+				"path": "/blog",
+				"nav": {
+					"x": 0,
+					"y": 598.90625,
+					"width": 1905,
+					"height": 101.625,
+					"top": 598.90625,
+					"right": 1905,
+					"bottom": 700.53125,
+					"left": 0
+				},
+				"class": "nav-shell is-compact svelte-1n8e4t1",
+				"brand": {
+					"x": 56,
+					"y": 598.90625,
+					"width": 461.65625,
+					"height": 100.625,
+					"top": 598.90625,
+					"right": 517.65625,
+					"bottom": 699.53125,
+					"left": 56
+				}
+			},
+			"count": 420,
+			"navHeightRange": [101.625, 101.625]
+		},
+		"errors": []
+	}
+]

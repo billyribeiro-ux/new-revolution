@@ -464,13 +464,14 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 				if (width >= 1536) {
 					// The stable scrollbar gutter consumes viewport space. The shared frame caps
 					// available layout width, rather than overflowing that reserved gutter.
-					const { availableWidth, maximumWidth } = await page.evaluate(() => ({
+					const { availableStart, availableWidth, maximumWidth } = await page.evaluate(() => ({
+						availableStart: document.documentElement.getBoundingClientRect().x,
 						availableWidth: document.documentElement.getBoundingClientRect().width,
 						maximumWidth: 96 * parseFloat(getComputedStyle(document.documentElement).fontSize)
 					}));
 					const frameWidth = Math.min(maximumWidth, availableWidth);
 					expect(reference!.width).toBe(frameWidth);
-					expect(reference!.x).toBe((availableWidth - frameWidth) / 2);
+					expect(reference!.x).toBe(availableStart + (availableWidth - frameWidth) / 2);
 				}
 				if (route.name !== 'article') {
 					const innerEdge = await page

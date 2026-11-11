@@ -47,7 +47,7 @@ Owner-confirmed November 11, 2026: purchases and paid subscriptions have never b
 
 Removal criterion: a separately authorized launch of an actual deliverable, with reviewed factual claims, price/billing/delivery/cancellation terms, tested payment and access flows, aligned page/schema copy, and an intentional server-side activation. An availability flag alone does not complete a launch. Preserve accurate historical disclosures and update current-status language at launch.
 
-Status: implemented and reviewed in PR #45 for owner-authorized integration into the sole `main` branch; no production promotion performed. No live payment credentials or production data were accessed.
+Status: integrated into the sole `main` branch through PR #45. The November 11 hosting recovery restored the original domains to the deployed concept site; the notices and unavailable commerce controls are public. No live payment credentials or CMS article content were changed. See [hosting recovery evidence](reviews/blog-availability-cls-2026-11-11/VERIFICATION.md).
 
 ## T15 — Oxlint JavaScript-plugin allocator workaround
 

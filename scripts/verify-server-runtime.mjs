@@ -35,10 +35,14 @@ export async function verifyServerRuntime(functionDirectory) {
 	let requests = 0;
 	try {
 		globalThis.fetch = async (url, options) => {
-			if (String(url) !== 'https://api.resend.com/emails') {
+			const endpoint = url instanceof Request ? url.url : url instanceof URL ? url.href : url;
+			if (endpoint !== 'https://api.resend.com/emails') {
 				throw new Error('Unexpected email endpoint in offline smoke check.');
 			}
-			const body = JSON.parse(String(options?.body));
+			if (typeof options?.body !== 'string') {
+				throw new Error('Expected a serialized JSON email request.');
+			}
+			const body = JSON.parse(options.body);
 			if (body.react || !body.html || !body.text) {
 				throw new Error('Expected the application HTML/text email path.');
 			}

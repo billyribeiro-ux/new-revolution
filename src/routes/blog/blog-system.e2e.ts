@@ -107,7 +107,7 @@ test.describe('Blog System & Prose Parity E2E Suite', () => {
 
 		// Submit correct password to unlock
 		await passwordInput.fill('AlphaDesk2026!');
-		await page.locator('button[type="submit"]').click();
+		await page.getByRole('button', { name: 'Unlock Article', exact: true }).click();
 
 		await expect(page.locator('.prose-base')).toBeVisible();
 		await expect(page.locator('.prose-base')).toContainText(

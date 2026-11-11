@@ -1,5 +1,6 @@
 <!-- src/routes/alert-services/spx-profit-pulse/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -50,13 +51,6 @@
 		badgeText?: string;
 		includes: string[];
 		ctaLabel: string;
-	}
-
-	interface TraderTestimonial {
-		quote: string;
-		author: string;
-		profile: string;
-		strategyUsed: string;
 	}
 
 	type RoomRoute =
@@ -217,7 +211,7 @@
 				'Full Access to the SPX & 0DTE Learning Center',
 				'QuickStart to SPX Execution Onboarding Session'
 			],
-			ctaLabel: 'Select Monthly SPX Profit Pulse →'
+			ctaLabel: 'Preview Monthly Concept →'
 		},
 		{
 			id: 'quarterly-cadence',
@@ -233,7 +227,7 @@
 				'Small-Account ($500+) Vertical Spread & XSP Sizing Guide',
 				'Priority Desk Q&A Support on SPX Strike & Expiration Selection'
 			],
-			ctaLabel: 'Select Quarterly SPX Profit Pulse →'
+			ctaLabel: 'Preview Quarterly Concept →'
 		},
 		{
 			id: 'annual-cadence',
@@ -247,38 +241,7 @@
 				'Direct Integration Guide for ThinkorSwim & TradingView Gamma Levels',
 				'Locked-In Member Priority for Future SPX Masterclasses'
 			],
-			ctaLabel: 'Select Annual SPX Profit Pulse →'
-		}
-	];
-
-	const testimonials: TraderTestimonial[] = [
-		{
-			quote:
-				'I took my first SPX trade with Billy’s pre-planned gamma levels this week and scaled out at Target 1 and Target 2 cleanly. After struggling in noisy Discord groups for years, having the exact entry, target, and hard stop ahead of time makes all the difference.',
-			author: 'Daniel K.',
-			profile: 'Part-Time SPX & SPY Options Trader',
-			strategyUsed: 'Pre-Planned Gamma Wall Reversals'
-		},
-		{
-			quote:
-				'Because of my day job, I cannot sit on a live stream for six hours. The pre-market video watchlist shows me the exact SPX inflection zones so I can set my vertical spread orders and let the trade work without staring at my screen.',
-			author: 'Victor G.',
-			profile: 'Working Professional (9-to-5 Schedule)',
-			strategyUsed: 'Defined-Risk SPX Vertical Spreads'
-		},
-		{
-			quote:
-				'Most 0DTE alert services gamble on out-of-the-money lottery tickets with no stop-loss. Billy treats SPX like the Goldman Sachs prop desk he was mentored by; every alert respects Delta, Theta, and strict invalidation levels.',
-			author: 'Chris M.',
-			profile: 'Full-Time Index Options Trader',
-			strategyUsed: '0DTE & 1–3 DTE Directional Calls/Puts'
-		},
-		{
-			quote:
-				'Starting with a smaller account, I used Billy’s exact SPX Profit Pulse levels on 5-wide defined-risk spreads and XSP. Knowing my maximum dollar risk before entering gave me the confidence to follow the plan without panic selling.',
-			author: 'Sarah J.',
-			profile: '$500+ Small Account Builder',
-			strategyUsed: 'Defined-Risk Spreads & XSP Execution'
+			ctaLabel: 'Preview Annual Concept →'
 		}
 	];
 
@@ -287,7 +250,7 @@
 			badge: 'Live Intraday Floor',
 			title: 'Day Trading Room',
 			description:
-				'Want live voice and screen-share execution across stocks, ETFs, and SPX? Join our main floor.',
+				'Explore a proposed voice and screen-share learning workflow across stocks, ETFs, and SPX.',
 			ctaLabel: 'Learn More →',
 			href: '/live-trading-rooms/day-trading-room'
 		},
@@ -337,6 +300,15 @@
 	<Navbar />
 
 	<main id="spx-profit-pulse-page" class="inner-page spx-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB & REAL-TIME DISPATCH TELEMETRY BAR
        ========================================================================= -->
@@ -468,8 +440,8 @@
 				>
 					<div class="alert-simulator__header">
 						<div>
-							<span class="meta-label">Zero-Latency API Dispatch Preview</span>
-							<h2 class="alert-simulator__title">Inspect a Real SPX Profit Pulse Alert</h2>
+							<span class="meta-label">Simulated Alert Interface Preview</span>
+							<h2 class="alert-simulator__title">Inspect an Illustrative SPX Alert</h2>
 						</div>
 						<span class="alert-simulator__badge">Exact Levels</span>
 					</div>
@@ -654,6 +626,8 @@
 					</p>
 				</div>
 
+				<p class="body-copy">Concept only · purchases unavailable.</p>
+
 				<div class="packages-grid">
 					{#each cadencePackages as pkg (pkg.id)}
 						<article class={['package-card', { 'package-card--featured': pkg.featured }]}>
@@ -682,15 +656,17 @@
 							</div>
 
 							<div class="package-card__footer">
-								<a
-									href={resolve('/contact' as '/')}
+								<button
+									type="button"
+									data-concept-offer
+									onclick={openConceptOffer}
 									class={[
 										'btn btn--full',
 										{ 'btn--solid': pkg.featured, 'btn--outline': !pkg.featured }
 									]}
 								>
 									{pkg.ctaLabel}
-								</a>
+								</button>
 							</div>
 						</article>
 					{/each}
@@ -756,7 +732,7 @@
 									class="btn btn--solid"
 									onclick={() => scrollToSection('choose-your-package')}
 								>
-									Join SPX Profit Pulse Today ↑
+									Explore the SPX Profit Pulse Concept ↑
 								</button>
 								<a href={resolve('/about')} class="btn btn--outline">
 									Read Full Track Record &amp; Story →
@@ -772,29 +748,6 @@
        SECTION 7: WHAT MEMBERS SAY ABOUT SPX PROFIT PULSE (4 UNIQUE REVIEWS)
        (Fixes Simpler Trading's Duplicate Testimonial Copy-Paste Bug)
        ========================================================================= -->
-		<section class="reviews-section" aria-labelledby="reviews-h2">
-			<div class="container">
-				<div class="section-header">
-					<span class="section-kicker">Verified Member Experience • Zero Duplicates</span>
-					<h2 id="reviews-h2" class="section-h2">
-						Here’s What Members Are Saying About SPX Profit Pulse
-					</h2>
-				</div>
-
-				<div class="reviews-grid">
-					{#each testimonials as t (t.author)}
-						<blockquote class="review-card">
-							<p class="review-card__quote">"{t.quote}"</p>
-							<footer class="review-card__footer">
-								<strong>— {t.author}</strong>
-								<span>{t.profile}</span>
-								<span class="review-card__strategy">{t.strategyUsed}</span>
-							</footer>
-						</blockquote>
-					{/each}
-				</div>
-			</div>
-		</section>
 
 		<!-- =========================================================================
        SECTION 8: SPX PROFIT PULSE FAQ ACCORDION + LIVE SUPPORT CALLOUT

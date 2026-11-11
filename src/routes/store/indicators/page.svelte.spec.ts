@@ -29,9 +29,9 @@ describe('/store/indicators page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(51);
 		expect(pageMetaTags.description).toBe(
-			'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.'
+			'Preview proposed trading indicator concepts for chart study, market structure, and risk education. AI-assisted development; no purchases or downloads offered.'
 		);
-		expect(pageMetaTags.description.length).toBe(151);
+		expect(pageMetaTags.description.length).toBe(158);
 		expect(pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/store/indicators'
 		);

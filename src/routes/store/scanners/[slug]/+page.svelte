@@ -1,5 +1,6 @@
 <!-- src/routes/store/scanners/[slug]/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
@@ -46,13 +47,6 @@
 		criterion: string;
 		genericScanners: string;
 		highOctaneScanner: string;
-	}
-
-	interface MemberReview {
-		quote: string;
-		author: string;
-		profile: string;
-		scanModeUsed: string;
 	}
 
 	interface RoomCta {
@@ -357,37 +351,6 @@
 		}
 	];
 
-	const memberReviews: MemberReview[] = [
-		{
-			quote:
-				'Before the High Octane Scanner, I spent two hours every night clicking through charts and still missed the best moves. Now I run the 18-Timeframe Squeeze scan in 5 minutes and have my exact watchlist ready before work.',
-			author: 'Kevin D.',
-			profile: 'Working Professional & Swing Trader',
-			scanModeUsed: 'Uses Mode 02: 18-Timeframe Squeeze Scan'
-		},
-		{
-			quote:
-				'The $500+ Small Account Filter saved my trading career. It keeps me completely away from overpriced contracts and illiquid garbage, surfacing clean ETF and large-cap setups that fit my cash account.',
-			author: 'Natalie S.',
-			profile: '$500+ Small Account Trader',
-			scanModeUsed: 'Uses Mode 03: Small Account Affordable Filter'
-		},
-		{
-			quote:
-				'Having the High Octane watchlist columns running live on ThinkorSwim at the opening bell is like having a Goldman Sachs radar on my desk. It spots liquidity sweeps and RVOL explosions the second they start.',
-			author: 'Brian W.',
-			profile: 'Full-Time Options & Equity Day Trader',
-			scanModeUsed: 'Uses Mode 01: Real-Time Options Ignition'
-		},
-		{
-			quote:
-				'Zero hype and zero repainting. Watching the 5 recorded live-market scanning days showed me exactly how Billy combines the scanner with hard stop-losses and Delta selection.',
-			author: 'Mark T.',
-			profile: 'SPX & Large-Cap Options Trader',
-			scanModeUsed: 'Full High Octane Suite + Custom Indicators'
-		}
-	];
-
 	const bottomRoomCards: RoomCta[] = [
 		{
 			badge: 'Live Intraday Floor',
@@ -443,6 +406,15 @@
 	<Navbar />
 
 	<main id="main-content" class="inner-page scanner-product-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB & REAL-TIME RADAR STATUS BAR
        ========================================================================= -->
@@ -564,10 +536,15 @@
 						</p>
 
 						<div class="cta-row">
-							<a href={resolve('/contact' as '/')} class="btn btn--solid">
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn--solid"
+							>
 								Unlock {scannerConfig.name} ({selectedCadence === 'annual' ? 'Annual' : 'Monthly'})
 								→
-							</a>
+							</button>
 							<button
 								type="button"
 								class="btn btn--outline"
@@ -588,14 +565,14 @@
 						<div class="terminal-card__header">
 							<div>
 								<span class="meta-label">Interactive Scanner Interface</span>
-								<h2 class="terminal-card__title">Live {scannerConfig.name} Telemetry</h2>
+								<h2 class="terminal-card__title">Simulated {scannerConfig.name} Telemetry</h2>
 							</div>
-							<span class="terminal-card__status">● REAL-TIME</span>
+							<span class="terminal-card__status">● SIMULATED</span>
 						</div>
 
 						<p class="terminal-card__intro">
-							Click any of the three scan presets below to inspect how the {scannerConfig.name} filters
-							the market in real time:
+							Click any of the three scan presets below to inspect how the {scannerConfig.name} would
+							filter an illustrative market dataset:
 						</p>
 
 						<div class="terminal-tabs" role="tablist" aria-label="Switch Scanner Preset Mode">
@@ -931,6 +908,8 @@
 					</p>
 				</div>
 
+				<p class="body-copy">Concept only · purchases unavailable.</p>
+
 				<div class="packages-grid">
 					<!-- Option 1: Monthly Access -->
 					<article class="package-card">
@@ -984,9 +963,14 @@
 						</div>
 
 						<div class="package-card__footer">
-							<a href={resolve('/contact' as '/')} class="btn btn--outline btn--full">
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn--outline btn--full"
+							>
 								Get Started With Monthly Access →
-							</a>
+							</button>
 						</div>
 					</article>
 
@@ -1047,9 +1031,14 @@
 						</div>
 
 						<div class="package-card__footer">
-							<a href={resolve('/contact' as '/')} class="btn btn--solid btn--full">
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn--solid btn--full"
+							>
 								Get Started With Annual Access →
-							</a>
+							</button>
 						</div>
 					</article>
 				</div>
@@ -1105,28 +1094,8 @@
 		<!-- =========================================================================
        SECTION 8: VERIFIED MEMBER REVIEWS + FAQ ACCORDION
        ========================================================================= -->
-		<section class="reviews-faq-section" aria-labelledby="reviews-h2">
+		<section class="reviews-faq-section" aria-labelledby="scanner-faq-h2">
 			<div class="container">
-				<div class="section-header">
-					<span class="section-kicker">Verified Member Experience</span>
-					<h2 id="reviews-h2" class="section-h2">
-						What Traders Say About the {scannerConfig.name}
-					</h2>
-				</div>
-
-				<div class="reviews-grid">
-					{#each memberReviews as rev (rev.author)}
-						<blockquote class="review-card">
-							<p class="review-card__quote">"{rev.quote}"</p>
-							<footer class="review-card__footer">
-								<strong>— {rev.author}</strong>
-								<span>{rev.profile}</span>
-								<span class="review-card__mode">{rev.scanModeUsed}</span>
-							</footer>
-						</blockquote>
-					{/each}
-				</div>
-
 				<!-- FAQ Accordion -->
 				<div class="faq-wrapper">
 					<div class="section-header">

@@ -27,7 +27,7 @@
 
 		{#if hasDirectContact}
 			<p class="questions__copy">
-				If you’d like to speak to a live support representative you can
+				To ask about this concept or report a browser issue, you can
 				<!-- eslint-disable svelte/no-navigation-without-resolve -- tel:/mailto: links are not app routes -->
 				{#if phone}call <a href={phoneHref}>{phone}</a>{/if}
 				{#if phone && email}or{/if}
@@ -36,8 +36,8 @@
 			</p>
 		{:else}
 			<p class="questions__copy">
-				Our support team can help with memberships, rooms, alerts, and your 1-on-1 mentorship
-				application.
+				Contact the project about concept feedback, browser testing, accessibility, or suspected
+				inaccuracies. Purchases and paid enrollment are unavailable.
 			</p>
 		{/if}
 
@@ -49,7 +49,7 @@
 					onclick={(e) => onPreviewNavigate?.(contactHref, 'footer', e)}
 				>
 					<EnvelopeIcon size={18} weight="bold" aria-hidden="true" />
-					Contact support
+					Contact the project
 					<ArrowUpRightIcon size={16} weight="bold" aria-hidden="true" />
 				</a>
 			</li>

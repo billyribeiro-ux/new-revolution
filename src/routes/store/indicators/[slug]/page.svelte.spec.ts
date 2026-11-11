@@ -34,15 +34,15 @@ describe('/store/indicators/[slug] page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(53);
 		expect(pageMetaTags.description).toBe(
-			'Spot explosive stock, ETF, and options moves early with our 100% non-repainting indicator system for ThinkorSwim and TradingView. People over profits.'
+			'Explore the proposed indicator suite and illustrative chart concepts for market structure and risk education. In development; no purchases or access offered.'
 		);
-		expect(pageMetaTags.description.length).toBe(150);
+		expect(pageMetaTags.description.length).toBe(157);
 		expect(pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system'
 		);
 	});
 
-	it('renders the H1, interactive 3-tab preview, 6 system components & bonuses, 3 suitability pillars, enrollment dossier, instructor bio, 4 member reviews, 4 FAQs, and 5 room CTA cards', async () => {
+	it('renders the H1, interactive 3-tab preview, 6 system components & bonuses, 3 suitability pillars, enrollment dossier, instructor bio, no prototype member reviews, 4 FAQs, and 5 room CTA cards', async () => {
 		await render(SingleIndicatorPage, {
 			params: { slug: 'move-prior-to-the-move-system' },
 			data: {
@@ -66,11 +66,11 @@ describe('/store/indicators/[slug] page', () => {
 		await tabStats.click();
 		await expect.element(tabStats).toHaveAttribute('aria-selected', 'true');
 
-		// 6 system components, 3 suitability cards, 4 member reviews, 5 room CTA cards
+		// 6 system components, 3 suitability cards, no prototype member reviews, 5 room CTA cards
 		expect(document.querySelectorAll('.comp-card').length).toBe(6);
 		expect(document.querySelectorAll('.comp-card--bonus').length).toBe(2);
 		expect(document.querySelectorAll('.suitability-card').length).toBe(3);
-		expect(document.querySelectorAll('.review-card').length).toBe(4);
+		expect(document.querySelectorAll('.review-card').length).toBe(0);
 		expect(document.querySelectorAll('.room-cta-card').length).toBe(5);
 
 		// 4 FAQ items

@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import ArrowUpRightIcon from 'phosphor-svelte/lib/ArrowUpRightIcon';
 	import { revealOnScroll } from '#lib/attachments/reveal.ts';
 	import { MENTORSHIP_STEPS, type MentorshipStep } from '#lib/data/homepage.ts';
 
 	interface Props {
 		steps?: readonly MentorshipStep[];
-		onPreviewNavigate?: (href: string, targetId?: string, event?: MouseEvent) => void;
 	}
 
-	let { steps = MENTORSHIP_STEPS, onPreviewNavigate }: Props = $props();
+	let { steps = MENTORSHIP_STEPS }: Props = $props();
 </script>
 
 <!-- 07 / PRIVATE MENTORSHIP -->
@@ -17,20 +16,20 @@
 	<div class="container">
 		<div class="mentor-frame reveal" {@attach revealOnScroll}>
 			<div>
-				<div class="eyebrow">STRICTLY BY APPLICATION &amp; APPROVAL</div>
+				<div class="eyebrow">PROPOSED MENTORSHIP / CONCEPT PREVIEW</div>
 				<h2 id="mentor-title">
 					Private 1-on-1 Mentorship.
-					<span class="highlight">You cannot just buy your way in.</span>
+					<span class="highlight">Enrollment is not available.</span>
 				</h2>
 				<p>
 					Personal mentoring should be built on genuine fit, mutual commitment, and realistic
-					objectives. Our founder’s reported personal mentorship experience inspired this selective
+					objectives. Our founder’s reported personal mentorship experience inspired this proposed
 					program.
 				</p>
 				<p>
-					There is no instant “buy now” checkout for private 1-on-1 sessions. Candidates describe
-					their background, challenges, goals, and ability to commit to the process. Applications
-					are reviewed before any offer is made.
+					This is a proposed application workflow for future development. No applications, paid
+					enrollment, or private sessions are currently available. No launch or future access is
+					guaranteed.
 				</p>
 				<blockquote class="mentor-quote">
 					The standard is commitment to the process—not the size of your credit card.
@@ -38,7 +37,7 @@
 			</div>
 
 			<div class="mentor-steps">
-				<h3>How the application works.</h3>
+				<h3>Proposed application workflow.</h3>
 				{#each steps as step (step.number)}
 					<div class="mentor-step">
 						<span>{step.number}</span>
@@ -48,18 +47,14 @@
 						</div>
 					</div>
 				{/each}
-				<a
-					class="btn btn-primary"
-					href={resolve('/mentorship' as '/')}
-					onclick={(e) => onPreviewNavigate?.('/mentorship', 'mentorship', e)}
-				>
-					<span>Apply for 1-on-1 Mentorship</span>
+				<button type="button" data-concept-offer class="btn btn-primary" onclick={openConceptOffer}>
+					<span>Explore the mentorship concept</span>
 					<span class="arrow" aria-hidden="true">
 						<ArrowUpRightIcon size={16} weight="bold" />
 					</span>
-				</a>
+				</button>
 				<p class="mentor-micro">
-					Application only. Acceptance is not guaranteed. No promise of investment results.
+					Concept only · purchases unavailable. No application or reservation is created.
 				</p>
 			</div>
 		</div>

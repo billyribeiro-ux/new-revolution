@@ -35,9 +35,9 @@ describe('/store/scanners/+page.svelte', () => {
 		expect(data.pageMetaTags.openGraph.title.length).toBe(55);
 		expect(data.pageMetaTags.openGraph.type).toBe('website');
 		expect(data.pageMetaTags.description).toBe(
-			'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.'
+			'Explore proposed market scanner concepts for chart screening, liquidity study, and risk education. AI-assisted development; no purchases or access offered.'
 		);
-		expect(data.pageMetaTags.description.length).toBe(148);
+		expect(data.pageMetaTags.description.length).toBe(155);
 		expect(data.pageMetaTags.canonical).toBe(
 			'https://www.revolutiontradingpros.com/store/scanners'
 		);

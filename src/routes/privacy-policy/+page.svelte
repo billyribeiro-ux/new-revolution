@@ -29,15 +29,15 @@
 
 	<section class="page-hero" aria-labelledby="privacy-h1">
 		<div class="hero-inner">
-			<span class="section-kicker">Data Protection &amp; Member Privacy</span>
+			<span class="section-kicker">Data Protection &amp; Development Privacy</span>
 			<h1 id="privacy-h1" class="hero-h1">Privacy Policy &amp; Data Security</h1>
 			<p class="lead-copy">
-				Revolution Trading Pros respects your privacy and never sells member personal data to
-				third-party brokers, lead lists, or marketing networks.
+				Revolution Trading Pros respects your privacy and never sells personal data to third-party
+				brokers, lead lists, or marketing networks.
 			</p>
 			<p class="meta-byline">
 				Reviewed by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
-				<time datetime="2026-11-04">November 4, 2026</time>
+				<time datetime="2026-11-11">November 11, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -51,13 +51,14 @@
 			<article class="info-card">
 				<h3>1. Information We Collect</h3>
 				<p>
-					We collect only the account information you voluntarily provide when subscribing to our
-					trading rooms, alert services, or newsletter (such as name and email address), plus
-					privacy-preserving session cookies required for authentication.
+					We collect information you voluntarily provide through enabled development email signup or
+					contact channels, such as an email address. Staff authentication uses session cookies.
+					Purchases, paid subscriptions, and paid enrollment are unavailable; no payment card
+					information is requested.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>Reopening Waitlist</h3>
+				<h3>Development Email Updates</h3>
 				<p>
 					When you request waitlist emails, we store your email address, consent version, request
 					date and confirmation status. We first send a thank-you email with a confirmation link.
@@ -77,18 +78,20 @@
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>2. Payment Processing &amp; Encryption</h3>
+				<h3>2. No Payment Collection</h3>
 				<p>
-					All billing transactions are processed via PCI-DSS Level 1 encrypted payment
-					infrastructure (Stripe). Revolution Trading Pros never stores raw credit card numbers on
-					our servers.
+					Purchases and paid subscriptions have never been made available. We accept no orders,
+					payments, deposits, or paid enrollment and do not request payment card details.
+					Development email signup does not purchase or reserve access, a price, or a future launch
+					date.
 				</p>
 			</article>
 			<article class="info-card">
 				<h3>3. Your Rights &amp; Contact</h3>
 				<p>
-					U.S. and Canadian members may request data access, correction, or deletion at any time via
-					our <a href={resolve('/contact')}>Contact Desk</a>. See also our
+					Visitors may request data access, correction, or deletion at any time via our <a
+						href={resolve('/contact')}>Contact Desk</a
+					>. See also our
 					<a href={resolve('/terms-of-service')}>Terms of Service</a> and
 					<a href={resolve('/refund-policy')}>Refund Policy</a>.
 				</p>

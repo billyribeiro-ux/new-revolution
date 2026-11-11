@@ -29,15 +29,15 @@
 
 	<section class="page-hero" aria-labelledby="terms-h1">
 		<div class="hero-inner">
-			<span class="section-kicker">Legal Terms &amp; Regulatory Disclosures</span>
+			<span class="section-kicker">Concept Development &amp; Public Testing</span>
 			<h1 id="terms-h1" class="hero-h1">Terms of Service &amp; Disclosures</h1>
 			<p class="lead-copy">
-				These Terms of Service govern your access to Revolution Trading Pros live trading rooms,
-				alert services, courses, and custom software indicators.
+				This website is a concept in progress, developed with AI and made public for real-browser
+				testing and search visibility. It does not offer products, services, or paid enrollment.
 			</p>
 			<p class="meta-byline">
-				Reviewed by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
-				<time datetime="2026-10-31">October 31, 2026</time>
+				Published by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
+				<time datetime="2026-11-11">November 11, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -45,33 +45,48 @@
 	<section class="content-section" aria-labelledby="terms-sections-h2">
 		<div class="section-header">
 			<span class="section-kicker">U.S. &amp; Canadian Regulatory Notice</span>
-			<h2 id="terms-sections-h2" class="section-h2">Core Terms &amp; Risk Acknowledgements</h2>
+			<h2 id="terms-sections-h2" class="section-h2">
+				Development Terms &amp; Risk Acknowledgements
+			</h2>
 		</div>
 		<div class="card-grid">
 			<article class="info-card">
-				<h3>1. Educational &amp; Non-Advisory Scope</h3>
+				<h3>1. Concept Status &amp; No Sales</h3>
 				<p>
-					Revolution Trading Pros is not registered as an investment adviser, broker-dealer, or
-					commodity trading advisor with the U.S. SEC, CFTC, FINRA, or Canadian provincial
-					regulators (OSC, BCSC, ASC). All commentary, watchlists, and indicators are strictly
-					educational.
+					Purchases and paid subscriptions have never been made available. We do not accept orders,
+					payments, deposits, or paid enrollment. Described trading rooms, alerts, mentorship,
+					courses, indicators, and scanners are proposed concepts. Features, pricing, and
+					availability may change; no launch is guaranteed.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3 id="options-leverage-risk-disclosure">2. Options &amp; Leverage Risk Disclosure</h3>
+				<h3>2. AI Development &amp; Accuracy</h3>
 				<p>
-					Options trading involves substantial risk of loss and is not suitable for every investor.
-					Before trading options, read the Characteristics and Risks of Standardized Options
-					published by the Options Clearing Corporation (OCC).
+					This website is developed with AI. Text, code, charts, examples, and demonstrations may
+					contain errors, inaccuracies, omissions, outdated information, or unfinished
+					functionality. Verify material information against authoritative sources. A prototype or
+					disclosure is not evidence that a factual, technical, or performance claim has been
+					verified. Please <a href={resolve('/contact')}>report suspected inaccuracies</a>.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>3. Software Licensing &amp; Cancellations</h3>
+				<h3>3. Educational Content &amp; Trading Risk</h3>
 				<p>
-					Proprietary thinkScript and Pine Script code is licensed for individual member use only.
-					Subscription billing and cancellations are governed by our
-					<a href={resolve('/refund-policy')}>Cancellation &amp; Refund Policy</a> and
-					<a href={resolve('/privacy-policy')}>Privacy Policy</a>.
+					Content is for general education and testing, not personalized investment, legal, or tax
+					advice. Demonstrations are illustrative unless expressly documented otherwise. No trading
+					outcome is guaranteed. Stocks and options involve substantial risk, including loss of
+					capital; some strategies can lose more than the initial investment. Consult appropriately
+					qualified professionals before acting.
+				</p>
+			</article>
+			<article class="info-card">
+				<h3>4. Feedback &amp; Development Updates</h3>
+				<p>
+					Contacting us or requesting development emails does not purchase, reserve, or guarantee a
+					product, launch date, price, or future access. Email updates are separate from paid
+					subscriptions. Read our <a href={resolve('/privacy-policy')}>Privacy Policy</a> for
+					information handling and our
+					<a href={resolve('/refund-policy')}>purchase availability notice</a>.
 				</p>
 			</article>
 		</div>

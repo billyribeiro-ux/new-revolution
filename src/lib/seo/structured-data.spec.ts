@@ -262,7 +262,7 @@ describe('founder and organization entities (YMYL entity signals)', () => {
 
 	it('publishes no telephone or email until real values exist in SUPPORT_CONTACT', () => {
 		const contact = org.contactPoint as Node;
-		expect(contact.contactType).toBe('customer support');
+		expect(contact.contactType).toBe('website feedback and corrections');
 		expect(contact.url).toBe(`${ORIGIN}/contact`);
 		expect(contact).not.toHaveProperty('telephone');
 		expect(contact).not.toHaveProperty('email');
@@ -613,7 +613,7 @@ describe('buildResourcesHubJsonLd', () => {
 describe('buildSundayAlphaProtocolJsonLd', () => {
 	const graph = buildSundayAlphaProtocolJsonLd(ORIGIN)['@graph'] as Node[];
 
-	it('satisfies graph integrity and includes Billy Ribeiro Person and Sunday Alpha Protocol Product with image and 3 Offers ($47, $127, $447)', () => {
+	it('describes Sunday Alpha as a proposed concept without prices or purchasable offers', () => {
 		assertGraphIntegrity(graph);
 		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
 		expect(person['@type']).toBe('Person');
@@ -625,12 +625,10 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 		expect(product['@type']).toBe('Product');
 		expect(product.name).toBe('Sunday Alpha Protocol');
 		expect(product.image).toBe(`${ORIGIN}/og-image.png`);
-		const offers = product.offers as { name: string; price: string; url: string }[];
-		expect(offers).toHaveLength(3);
-		expect(offers.map((o) => o.price)).toEqual(['47.00', '127.00', '447.00']);
-		for (const offer of offers) {
-			expect(offer.url).toBe(`${ORIGIN}/alert-services/sunday-alpha-protocol`);
-		}
+		expect(product.description).toContain('Concept in development; unavailable for purchase.');
+		expect(product).not.toHaveProperty('offers');
+		expect(JSON.stringify(graph)).not.toContain('https://schema.org/InStock');
+		expect(JSON.stringify(graph)).not.toContain('"price"');
 	});
 });
 

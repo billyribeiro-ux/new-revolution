@@ -12,7 +12,7 @@ export const prerender = true;
 export const load: PageLoad = ({ url }) => {
 	const title = 'Editorial Policy & Standards';
 	const description =
-		'Read the Revolution Trading Pros editorial policy covering research verification, primary exchange citations, conflict disclosures, and risk standards.';
+		'Read how AI is used in this trading education website concept, its content limitations, source verification goals, and process for reporting possible errors.';
 	const canonical = getCanonicalUrl(url);
 
 	return {

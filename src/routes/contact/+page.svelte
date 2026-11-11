@@ -22,23 +22,23 @@
 				<li aria-current="page">Contact</li>
 			</ol>
 			<p class="breadcrumb-bar__telemetry">
-				<span>Member Support Desk</span> • <span>Monday–Friday 8:30 AM – 5:00 PM EST</span>
+				<span>Project Feedback</span> • <span>Concept in Progress</span>
 			</p>
 		</div>
 	</nav>
 
 	<section class="page-hero" aria-labelledby="contact-h1">
 		<div class="hero-inner">
-			<span class="section-kicker">Member Support &amp; Desk Inquiries</span>
-			<h1 id="contact-h1" class="hero-h1">Contact Our Trading Desk</h1>
+			<span class="section-kicker">Project Feedback &amp; Development Questions</span>
+			<h1 id="contact-h1" class="hero-h1">Contact the Project</h1>
 			<p class="lead-copy">
-				Reach the Revolution Trading Pros desk for live trading room support, ThinkorSwim and
-				TradingView indicator installation help, 1-on-1 mentorship applications, or billing
-				assistance.
+				Contact the Revolution Trading Pros project about browser testing, accessibility,
+				inaccuracies, or proposed concepts. Purchases, paid subscriptions, and enrollment are
+				unavailable.
 			</p>
 			<p class="meta-byline">
-				Reviewed by <a href={resolve('/about')}>Billy Ribeiro</a> • Updated
-				<time datetime="2026-10-31">October 31, 2026</time>
+				Published by <a href={resolve('/about')}>Billy Ribeiro</a> • Updated
+				<time datetime="2026-11-11">November 11, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -46,34 +46,35 @@
 	<section class="content-section" aria-labelledby="support-channels-h2">
 		<div class="section-header">
 			<span class="section-kicker">Direct Desk Channels</span>
-			<h2 id="support-channels-h2" class="section-h2">How to Reach Our Team</h2>
+			<h2 id="support-channels-h2" class="section-h2">How to Contact the Project</h2>
 		</div>
 		<div class="card-grid">
 			<article class="info-card">
-				<h3>Member &amp; Technical Support</h3>
+				<h3>Browser Testing &amp; Accuracy Feedback</h3>
 				<p>
-					Need assistance configuring our non-repainting indicators on ThinkorSwim or TradingView,
-					or accessing your live room dashboard? Email
-					<a href="mailto:support@revolutiontradingpros.com">support@revolutiontradingpros.com</a>
-					during market hours (Monday–Friday, 8:30 AM – 5:00 PM EST).
+					Found a broken interaction, accessibility issue, inaccurate statement, or misleading
+					example? Email <a href="mailto:support@revolutiontradingpros.com"
+						>support@revolutiontradingpros.com</a
+					> and describe the page and issue. Do not send account passwords, payment details, or sensitive
+					financial records.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>1-on-1 Mentorship Applications</h3>
+				<h3>Proposed Products &amp; Mentorship</h3>
 				<p>
-					Private 1-on-1 mentorship with Billy Ribeiro is strictly by application and manual review.
-					Review our <a href={resolve('/mentorship')}>1-on-1 Trading Mentorship</a> criteria before submitting
-					your trading background.
+					The services shown on this site are development concepts. We are not accepting enrollment,
+					orders, deposits, or payments. Questions and feedback are welcome, but contacting us does
+					not reserve access or create an advisory or mentorship relationship.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>Billing, Cancellations &amp; Governance</h3>
+				<h3>Development Information &amp; Privacy</h3>
 				<p>
-					Manage subscriptions anytime or review our
-					<a href={resolve('/refund-policy')}>Cancellation &amp; Refund Policy</a>,
-					<a href={resolve('/editorial-policy')}>Editorial Policy</a>,
-					<a href={resolve('/privacy-policy')}>Privacy Policy</a>, and
-					<a href={resolve('/terms-of-service')}>Terms of Service</a>.
+					Review our <a href={resolve('/terms-of-service')}>development terms and AI disclosures</a
+					>, <a href={resolve('/refund-policy')}>purchase availability notice</a>,
+					<a href={resolve('/editorial-policy')}>Editorial Policy</a>, and
+					<a href={resolve('/privacy-policy')}>Privacy Policy</a>. Any development email signup is
+					separate from paid subscriptions.
 				</p>
 			</article>
 		</div>

@@ -40,3 +40,11 @@ historical market replay; provenance/display rights remain an explicit release r
 - **Current behavior:** prepared email section is visible, controls are disabled, capture API refuses requests, and no email is represented as sent.
 - **Removal criterion:** dedicated Production database and all four migrations, verified sender/API/webhook, worker secret/schedule, controlled-mailbox confirmation/receipt test and staged activation pass. Then enable capture and remove this temporary entry.
 - **Status:** active; owner-deferred configuration.
+
+## T14 — Public concept mode; commerce unavailable
+
+Owner-confirmed November 11, 2026: purchases and paid subscriptions have never been available. The public site is a concept used for real-browser testing and search visibility. `src/lib/shared/development-status.ts` owns disclosure text and the disabled commerce flag; `src/lib/server/commerce-guard.ts` enforces unavailable commerce before routing. Offer controls display the native informational dialog; they do not start checkout or accept deposits. Public content indexing and the existing `/store` indexing gate are unchanged.
+
+Removal criterion: a separately authorized launch of an actual deliverable, with reviewed factual claims, price/billing/delivery/cancellation terms, tested payment and access flows, aligned page/schema copy, and an intentional server-side activation. An availability flag alone does not complete a launch. Preserve accurate historical disclosures and update current-status language at launch.
+
+Status: implemented and reviewed in PR #45 for owner-authorized integration into the sole `main` branch; no production promotion performed. No live payment credentials or production data were accessed.

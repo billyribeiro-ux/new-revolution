@@ -33,15 +33,15 @@ describe('/store/scanners/[slug] page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(53);
 		expect(pageMetaTags.description).toBe(
-			'Find explosive stock, ETF, and options setups in real time with the 100% non-repainting High Octane Scanner for ThinkorSwim & TradingView. Zero hype.'
+			'Preview the High Octane scanner concept, illustrative chart screening, and proposed market filters. In development; no purchases or paid access available.'
 		);
-		expect(pageMetaTags.description.length).toBe(149);
+		expect(pageMetaTags.description.length).toBe(154);
 		expect(pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/store/scanners/high-octane-scanner'
 		);
 	});
 
-	it('renders the H1, interactive cadence toggle, 3-mode terminal preview, 6 feature cards, 3 suitability cards, 5 comparison rows, 2 packages, 4 reviews, 5 FAQs, and 5 room CTA cards', async () => {
+	it('renders the H1, interactive cadence toggle, 3-mode terminal preview, 6 feature cards, 3 suitability cards, 5 comparison rows, 2 packages, no prototype reviews, 5 FAQs, and 5 room CTA cards', async () => {
 		await render(SingleScannerPage, {
 			params: { slug: 'high-octane-scanner' },
 			data: {
@@ -90,7 +90,7 @@ describe('/store/scanners/[slug] page', () => {
 		expect(document.querySelectorAll('.suitability-card').length).toBe(3);
 		expect(document.querySelectorAll('.comparison-table tbody tr').length).toBe(5);
 		expect(document.querySelectorAll('.package-card').length).toBe(2);
-		expect(document.querySelectorAll('.review-card').length).toBe(4);
+		expect(document.querySelectorAll('.review-card').length).toBe(0);
 		expect(document.querySelectorAll('.room-cta-card').length).toBe(5);
 
 		// 5 FAQ items

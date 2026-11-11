@@ -22,22 +22,22 @@
 				<li aria-current="page">Refund Policy</li>
 			</ol>
 			<p class="breadcrumb-bar__telemetry">
-				<span>Transparent Billing</span> • <span>One-Click Self-Service Cancellation</span>
+				<span>Concept Preview</span> • <span>No Purchases Available</span>
 			</p>
 		</div>
 	</nav>
 
 	<section class="page-hero" aria-labelledby="refund-h1">
 		<div class="hero-inner">
-			<span class="section-kicker">Transparent Billing &amp; Self-Service Cancellation</span>
+			<span class="section-kicker">Concept Status &amp; Purchase Availability</span>
 			<h1 id="refund-h1" class="hero-h1">Cancellation &amp; Refund Policy</h1>
 			<p class="lead-copy">
-				We put people over profits. Every recurring membership and alert service includes one-click
-				self-service cancellation with zero hidden lock-ins or retention traps.
+				Purchases and paid subscriptions have never been made available. This concept website
+				accepts no orders, payments, deposits, or paid enrollment.
 			</p>
 			<p class="meta-byline">
-				Reviewed by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
-				<time datetime="2026-10-31">October 31, 2026</time>
+				Published by <a href={resolve('/about')}>Billy Ribeiro</a> • Effective
+				<time datetime="2026-11-11">November 11, 2026</time>
 			</p>
 		</div>
 	</section>
@@ -45,35 +45,35 @@
 	<section class="content-section" aria-labelledby="refund-terms-h2">
 		<div class="section-header">
 			<span class="section-kicker">Clear Member Terms</span>
-			<h2 id="refund-terms-h2" class="section-h2">Subscription &amp; Digital Software Terms</h2>
+			<h2 id="refund-terms-h2" class="section-h2">No Current Billing or Paid Enrollment</h2>
 		</div>
 		<div class="card-grid">
 			<article class="info-card">
-				<h3>1. Recurring Rooms &amp; Watchlist Alerts</h3>
+				<h3>1. No Purchases or Paid Subscriptions</h3>
 				<p>
-					You may cancel any monthly, quarterly, or annual membership (including the Day Trading
-					Room, Swing Trading Room, Small Accounts Room, SPX Profit Pulse, and
-					<a href={resolve('/alert-services/sunday-alpha-protocol')}>Sunday Alpha Protocol</a>) at
-					any time prior to your next billing date. Access continues through the end of your paid
-					billing period.
+					Trading rooms, alerts, mentorship, courses, indicators, and scanners are proposed concepts
+					under development. No checkout, paid subscription, or payment collection is available.
+					Offer controls display an informational concept notice.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>2. Digital Courses &amp; Non-Repainting Scripts</h3>
+				<h3>2. Future Terms Are Not Yet Offered</h3>
 				<p>
-					Because our <a href={resolve('/store/courses')}>Trading Courses</a>,
-					<a href={resolve('/store/indicators')}>Custom Indicators</a>, and
-					<a href={resolve('/store/scanners')}>Institutional Scanners</a> deliver immediate, downloadable
-					proprietary source code and lifetime on-demand video modules upon enrollment, all digital software
-					and course sales are final once accessed.
+					No current price, promotional rate, delivery date, software license, billing cycle, or
+					refund arrangement is offered. Any future launch would require accurate purchase terms and
+					appropriate review before payments could be enabled. Do not send money or payment card
+					details.
 				</p>
 			</article>
 			<article class="info-card">
-				<h3>3. Billing Support &amp; Dispute Resolution</h3>
+				<h3>3. Questions &amp; Unrecognized Payment Requests</h3>
 				<p>
-					If you experience an accidental duplicate charge or billing error, contact our support
-					desk via <a href={resolve('/contact')}>Contact</a> within 7 calendar days and we will resolve
-					it promptly.
+					If you encounter a payment request claiming to be from this project, <a
+						href={resolve('/contact')}>contact us</a
+					>
+					for clarification. Requesting development emails or sending feedback creates no purchase or
+					reservation. See our <a href={resolve('/terms-of-service')}>development terms</a> and
+					<a href={resolve('/privacy-policy')}>Privacy Policy</a>.
 				</p>
 			</article>
 		</div>
@@ -83,8 +83,8 @@
 		<p>
 			<strong>Billing &amp; Risk Notice:</strong> Review our
 			<a href={resolve('/terms-of-service')}>Terms of Service</a> and
-			<a href={resolve('/privacy-policy')}>Privacy Policy</a> before enrolling. Trading involves substantial
-			risk of loss.
+			<a href={resolve('/privacy-policy')}>Privacy Policy</a> for this development preview. Trading involves
+			substantial risk of loss.
 		</p>
 	</aside>
 </main>

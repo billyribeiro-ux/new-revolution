@@ -1,5 +1,6 @@
 <!-- src/routes/store/indicators/[slug]/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
@@ -29,12 +30,6 @@
 		title: string;
 		subtitle: string;
 		points: string[];
-	}
-
-	interface MemberReview {
-		quote: string;
-		author: string;
-		role: string;
 	}
 
 	interface RoomCta {
@@ -91,7 +86,7 @@
 			id: 'core-pro-indicator',
 			badge: 'Core Engine 01 // Desktop & ThinkorSwim Mobile Ready',
 			title: 'The Move Prior to The Move™ Core Indicator (3 Signals in 1)',
-			platformNote: 'Available for ThinkorSwim (Desktop + Mobile App) & TradingView',
+			platformNote: 'Proposed for ThinkorSwim (Desktop + Mobile App) & TradingView',
 			description:
 				'Our flagship breakthrough combines three distinct institutional compression and absorption thresholds (Low, High, and Ultra) into a single non-repainting indicator. It dynamically adapts to faster, slower, and volatile price action, giving you an earlier "heads up" before an explosive directional move fires long or short.',
 			keyAdvantage:
@@ -101,7 +96,7 @@
 			id: 'objective-buy-sell-signals',
 			badge: 'Core Engine 02 // Rule-Based Execution',
 			title: 'Calibrated Buy/Sell Entry & Invalidation Signals',
-			platformNote: 'Available for ThinkorSwim & TradingView • 100% Non-Repainting',
+			platformNote: 'Proposed for ThinkorSwim & TradingView • 100% Non-Repainting',
 			description:
 				'Engineered to eliminate hesitation at the moment of execution, these objective entry triggers are specifically calibrated to each of the three compression power levels. Higher-timeframe institutional trend direction and volume structure are automatically factored in.',
 			keyAdvantage:
@@ -111,7 +106,7 @@
 			id: 'early-in-out-pro',
 			badge: 'Core Engine 03 // Leading Order-Flow Edge',
 			title: 'The Early In & Out Pro Indicator (MP_EarlyInNOut™)',
-			platformNote: 'Available for ThinkorSwim & TradingView',
+			platformNote: 'Proposed for ThinkorSwim & TradingView',
 			description:
 				'Designed to give you a market-defying institutional edge, this leading telemetry tool is calibrated directly to our three power levels. First, it anticipates when smart-money accumulation is about to fire a compression early. Second, it flags buyer or seller exhaustion at the extreme of the move so you lock in gains before the reversal.',
 			keyAdvantage:
@@ -121,7 +116,7 @@
 			id: 'on-chart-stats-tool',
 			badge: 'Core Engine 04 // Quantitative Expectancy',
 			title: 'On-Chart Historical Move & Duration Stats Tool',
-			platformNote: 'Available for ThinkorSwim & TradingView',
+			platformNote: 'Proposed for ThinkorSwim & TradingView',
 			description:
 				'Puts real historical performance data directly at the top of your chart, calculating the average dollar/percentage gain, average bar duration, and historical long vs. short firing outcomes for every compression level on whatever symbol and timeframe you are viewing.',
 			keyAdvantage:
@@ -142,7 +137,7 @@
 			id: 'precision-entries-bonus',
 			badge: 'Exclusive Bonus 02 // Pinpoint Execution Class',
 			title: 'Special Bonus: The Precision Entries Recorded Masterclass',
-			platformNote: 'Lifetime On-Demand HD Access + PDF Checklist',
+			platformNote: 'Proposed HD Lessons + PDF Checklist',
 			description:
 				'Master the art of sniper entries and asymmetric 3R-to-5R risk structuring for stocks, ETFs, SPX index options, and $500+ small accounts. Learn how to combine our three indicator levels with Options Greeks (Delta, Gamma, Theta, and Vega) so you never overpay for implied volatility.',
 			keyAdvantage:
@@ -184,33 +179,6 @@
 				'1-Hour, 4-Hour, and Daily charts for working professionals executing in 20 minutes a day',
 				'Weekly and Monthly charts for macro cycle inflection timing (our 2020 & 2022 top/bottom framework)'
 			]
-		}
-	];
-
-	const memberReviews: MemberReview[] = [
-		{
-			quote:
-				'The new Move Prior to The Move tools and Precision Entries class are the best I have ever used. Having the 3 compression levels plus the Early In/Out signal stopped me from chasing late breakouts. All I can say is wow.',
-			author: 'Rob C.',
-			role: 'Active Stock & Options Trader'
-		},
-		{
-			quote:
-				'I loaded the indicator on both my ThinkorSwim desktop and mobile app so I can check Daily and 4-Hour setups at work. Knowing the exact entry trigger and invalidation stop ahead of time completely transformed my swing trading.',
-			author: 'Scott M.',
-			role: 'Working Professional & Swing Trader'
-		},
-		{
-			quote:
-				'After getting burned by a fake guru selling a repainted indicator, I was skeptical. Billy’s signals never repaint after the bar closes, and the On-Chart Stats Tool keeps my $500+ small account out of low-probability gambles.',
-			author: 'Phil R.',
-			role: 'Small Account Options Trader'
-		},
-		{
-			quote:
-				'The 5 recorded live-trading days included in the package showed me exactly how Billy combines the indicator with Delta and Theta selection in real time. Worth every single penny.',
-			author: 'M.W.',
-			role: 'SPX & ETF Options Trader'
 		}
 	];
 
@@ -268,6 +236,15 @@
 	<Navbar />
 
 	<main id="indicator-product-page" class="inner-page indicator-product-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB & MEMBER SIGN-IN BAR
        ========================================================================= -->
@@ -622,7 +599,7 @@
 								class="btn btn--solid btn--full"
 								onclick={() => scrollToSection('choose-your-package')}
 							>
-								Enroll &amp; Download Indicator Suite ↓
+								Explore the Proposed Indicator Suite ↓
 							</button>
 						</div>
 					</div>
@@ -642,9 +619,9 @@
 						When You Sign Up, You Get These 6 Core Indicators, Tools &amp; Exclusive Bonuses
 					</h2>
 					<p class="body-copy section-header__sub">
-						We don’t sell you a bare script and leave you guessing how to trade it. Every enrollment
-						includes the complete 4-part indicator engine plus 2 recorded live-market training
-						bonuses:
+						We don’t sell you a bare script and leave you guessing how to trade it. The proposed
+						package includes the complete 4-part indicator engine plus 2 recorded live-market
+						training bonuses:
 					</p>
 				</div>
 
@@ -725,10 +702,10 @@
 						<div>
 							<span class="section-kicker">People Over Profits • Lifetime Access</span>
 							<h2 id="enrollment-h2" class="section-h2">
-								Complete System Enrollment: {indicatorConfig.systemName}
+								Proposed System: {indicatorConfig.systemName}
 							</h2>
 							<p class="enrollment-box__sub">
-								Available for ThinkorSwim (Desktop &amp; Mobile App) and TradingView • Instant
+								Proposed for ThinkorSwim (Desktop &amp; Mobile App) and TradingView • Instant
 								Digital Delivery
 							</p>
 						</div>
@@ -809,9 +786,14 @@
 					</div>
 
 					<div class="enrollment-box__cta-bar">
-						<a href={resolve('/contact' as '/')} class="btn btn--solid btn--large">
+						<button
+							type="button"
+							data-concept-offer
+							onclick={openConceptOffer}
+							class="btn btn--solid btn--large"
+						>
 							Sign Up Now &amp; Unlock Instant Access →
-						</a>
+						</button>
 						<p class="enrollment-box__support">
 							Have a question before enrolling? Call our desk at
 							<strong>{indicatorConfig.supportPhone}</strong> or email
@@ -879,28 +861,6 @@
 		<!-- =========================================================================
        SECTION 7: WHAT OUR MEMBERS SAY (VERIFIED TRADER TESTIMONIALS)
        ========================================================================= -->
-		<section class="reviews-section" aria-labelledby="reviews-h2">
-			<div class="container">
-				<div class="section-header">
-					<span class="section-kicker">Verified Member Feedback</span>
-					<h2 id="reviews-h2" class="section-h2">
-						Here’s What Traders Say About {indicatorConfig.systemName}
-					</h2>
-				</div>
-
-				<div class="reviews-grid">
-					{#each memberReviews as rev (rev.author)}
-						<blockquote class="review-card">
-							<p class="review-card__quote">"{rev.quote}"</p>
-							<footer class="review-card__footer">
-								<strong>— {rev.author}</strong>
-								<span>{rev.role}</span>
-							</footer>
-						</blockquote>
-					{/each}
-				</div>
-			</div>
-		</section>
 
 		<!-- =========================================================================
        SECTION 8: FREQUENTLY ASKED QUESTIONS + DIRECT SUPPORT BAR

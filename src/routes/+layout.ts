@@ -28,7 +28,7 @@ export const load: LayoutLoad = ({ url }) => {
 					maxVideoPreview: -1
 				},
 		description:
-			'Live stock and options trading rooms, $500+ small-account mentorship, non-repainting indicators, courses, and video watchlists. People over profits.',
+			'Explore an AI-built trading education concept in development, including proposed rooms, tools, and mentorship. Purchases and paid subscriptions unavailable.',
 		canonical: noIndex ? undefined : canonicalUrl,
 		openGraph: {
 			type: 'website',
@@ -37,7 +37,7 @@ export const load: LayoutLoad = ({ url }) => {
 			siteName: BRAND_NAME,
 			title: `${BRAND_NAME} | ${BRAND_SLOGAN}`,
 			description:
-				'Stock and options trading education, live rooms, mentorship, watchlists, and transparent case studies. People over profits.',
+				'Explore an AI-built trading education concept in development, including proposed rooms, tools, and mentorship. Purchases and paid subscriptions unavailable.',
 			images: [
 				{
 					url: socialImageUrl,

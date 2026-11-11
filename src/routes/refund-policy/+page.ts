@@ -12,7 +12,7 @@ export const prerender = true;
 export const load: PageLoad = ({ url }) => {
 	const title = 'Cancellation & Refund Policy';
 	const description =
-		'Transparent subscription cancellation, billing terms, and refund policy for Revolution Trading Pros memberships, alert services, and digital software.';
+		'Read the current purchase, billing, and refund status of this website concept. No purchases or paid subscriptions have ever been made available to visitors.';
 	const canonical = getCanonicalUrl(url);
 
 	return {

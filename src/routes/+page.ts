@@ -17,7 +17,7 @@ export const load: PageLoad = ({ url, data }) => {
 	const pageTags = definePageMetaTags({
 		title: 'Live Stock & Options Trading Rooms',
 		description:
-			'Join Revolution Trading Pros for live stock and options trading rooms, 1-on-1 mentorship, video watchlists, and non-repainting indicators. Zero hype.',
+			'Explore an AI-built trading education concept in development, including proposed rooms, tools, and mentorship. Purchases and paid subscriptions unavailable.',
 		keywords: [
 			'live stock and options trading room',
 			'best options trading mentorship',
@@ -38,12 +38,12 @@ export const load: PageLoad = ({ url, data }) => {
 			url: canonicalUrl,
 			title: `${BRAND_NAME} | ${BRAND_SLOGAN}`,
 			description:
-				'Stock and options trading education, live rooms, mentorship, watchlists, and transparent case studies. People over profits.'
+				'Explore an AI-built trading education concept in development, including proposed rooms, tools, and mentorship. Purchases and paid subscriptions unavailable.'
 		},
 		twitter: {
 			title: `${BRAND_NAME}: Live Trading Rooms, Mentorship & Indicators`,
 			description:
-				'Stock and options trading education, live rooms, mentorship, watchlists, and transparent case studies. People over profits.'
+				'Explore an AI-built trading education concept in development, including proposed rooms, tools, and mentorship. Purchases and paid subscriptions unavailable.'
 		}
 	});
 

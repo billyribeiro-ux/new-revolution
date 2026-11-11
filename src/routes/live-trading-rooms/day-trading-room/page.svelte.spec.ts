@@ -11,7 +11,7 @@ import DayTradingRoomPage from './+page.svelte';
 import { load } from './+page.ts';
 
 describe('/live-trading-rooms/day-trading-room/+page.svelte (Vitest Browser Mode)', () => {
-	it('locks exact 47-char title and 147-char description in +page.ts load()', () => {
+	it('locks exact 47-char title and 155-char concept description in +page.ts load()', () => {
 		const loaded = load({
 			url: new URL('https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room')
 		} as Parameters<typeof load>[0]) as {
@@ -26,9 +26,9 @@ describe('/live-trading-rooms/day-trading-room/+page.svelte (Vitest Browser Mode
 		expect(loaded.pageMetaTags.title).toBe('Live Day Trading Room');
 		expect(`${loaded.pageMetaTags.title} | Revolution Trading Pros`).toHaveLength(47);
 		expect(loaded.pageMetaTags.description).toBe(
-			'Join our live stock, ETF, and options day trading room. Real-time voice, screen share, and exact entries and stops. People over profits. Zero hype.'
+			'Explore our proposed day trading room, with concepts for market preparation, chart reviews, and risk education. In development; no purchases or enrollment.'
 		);
-		expect(loaded.pageMetaTags.description).toHaveLength(147);
+		expect(loaded.pageMetaTags.description).toHaveLength(155);
 		expect(loaded.pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room'
 		);

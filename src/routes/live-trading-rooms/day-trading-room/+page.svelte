@@ -1,5 +1,6 @@
 <!-- src/routes/live-trading-rooms/day-trading-room/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import ArrowRightIcon from 'phosphor-svelte/lib/ArrowRightIcon';
 	import CaretRightIcon from 'phosphor-svelte/lib/CaretRightIcon';
@@ -181,6 +182,15 @@
 <Navbar />
 
 <main id="day-trading-room-page" class="inner-page day-room-page">
+	<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+		<p>
+			<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+			platform support, charts, signals, and workflows below are development proposals or illustrative
+			demonstrations. They are not live services, verified product capabilities, or an invitation to purchase
+			or enroll. No price, release date, or future availability is guaranteed.
+		</p>
+	</aside>
+
 	<!-- =========================================================================
        SECTION 1: BREADCRUMB & LIVE TRADING FLOOR STATUS BAR
        ========================================================================= -->
@@ -265,9 +275,10 @@
 					<button
 						type="button"
 						class="btn btn-primary"
-						onclick={() => scrollToSection('join-day-trading-room')}
+						data-concept-offer
+						onclick={openConceptOffer}
 					>
-						Join the Live Day Trading Room
+						Explore the Day Trading Room Concept
 						<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
 					</button>
 					<button
@@ -559,10 +570,15 @@
 									screen sharing, and intraday stock, ETF, and options execution.
 								</p>
 							</div>
-							<a href={resolve('/contact' as '/')} class="btn btn-dark btn--full">
-								Enroll in the Day Trading Room
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn-dark btn--full"
+							>
+								Discuss the Day Trading Room Concept
 								<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-							</a>
+							</button>
 						</article>
 
 						<!-- Alternative 1: Working Professionals -->
@@ -573,7 +589,7 @@
 								</div>
 								<h3 class="route-card__title">Swing Trading Room &amp; Sunday Alpha Protocol</h3>
 								<p class="route-card__copy">
-									Can’t watch live screens during market hours? Join our
+									Interested in a different schedule? Explore our proposed
 									<a href={resolve('/live-trading-rooms/swing-trading-room' as '/')}
 										>Swing Trading Room</a
 									>
@@ -683,10 +699,10 @@
 				Step onto a transparent live trading floor built to put people over profits.
 			</p>
 			<div class="cta-row cta-row--centered">
-				<a href={resolve('/contact' as '/')} class="btn btn-dark">
-					Join the Live Day Trading Room
+				<button type="button" data-concept-offer onclick={openConceptOffer} class="btn btn-dark">
+					Explore the Day Trading Room Concept
 					<ArrowRightIcon size={16} weight="bold" aria-hidden="true" />
-				</a>
+				</button>
 				<a
 					href={resolve('/live-trading-rooms/small-accounts-room' as '/')}
 					class="btn btn-outline-dark"
@@ -694,7 +710,7 @@
 					Small Accounts Room ($500+)
 				</a>
 				<a href={resolve('/mentorship' as '/')} class="btn btn-outline-dark">
-					Apply for 1-on-1 Mentorship
+					Explore the Mentorship Concept
 				</a>
 			</div>
 		</div>

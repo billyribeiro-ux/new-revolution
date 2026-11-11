@@ -34,9 +34,9 @@ describe('/store/courses/[slug] page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(55);
 		expect(pageMetaTags.description).toBe(
-			'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes non-repainting ThinkorSwim and TradingView tools.'
+			'Preview the Move Prior to The Move course concept, proposed lessons, and illustrative study tools. In development; no purchases or paid enrollment available.'
 		);
-		expect(pageMetaTags.description.length).toBe(156);
+		expect(pageMetaTags.description.length).toBe(157);
 		expect(pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra'
 		);
@@ -68,9 +68,9 @@ describe('/store/courses/[slug] page', () => {
 		expect(document.getElementById('stats-engine')).not.toBeNull();
 		expect(document.getElementById('bonus-early-in-out')).not.toBeNull();
 
-		// 6 curriculum modules, 6 member reviews, 5 room CTA cards
+		// 6 curriculum modules, no prototype member reviews, 5 room CTA cards
 		expect(document.querySelectorAll('.module-card').length).toBe(6);
-		expect(document.querySelectorAll('.review-card').length).toBe(6);
+		expect(document.querySelectorAll('.review-card').length).toBe(0);
 		expect(document.querySelectorAll('.room-cta-card').length).toBe(5);
 
 		// Instructor bio section

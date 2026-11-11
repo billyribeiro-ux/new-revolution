@@ -8,7 +8,7 @@ import {
 import type { EntryGenerator, PageLoad } from './$types';
 
 const DESCRIPTION =
-	'Master institutional order flow, multi-timeframe squeezes, and Options Greeks with Billy Ribeiro. Includes non-repainting ThinkorSwim and TradingView tools.';
+	'Preview the Move Prior to The Move course concept, proposed lessons, and illustrative study tools. In development; no purchases or paid enrollment available.';
 
 const FLAGSHIP_SLUG = 'move-prior-to-the-move-ultra';
 

@@ -12,7 +12,7 @@ export const prerender = true;
 export const load: PageLoad = ({ url }) => {
 	const title = 'Sunday Alpha Protocol';
 	const description =
-		'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.';
+		'Explore the Sunday Alpha Protocol concept for weekly stock and options preparation and illustrative plans. In development; paid subscriptions unavailable.';
 	const canonical = getCanonicalUrl(url);
 
 	return {

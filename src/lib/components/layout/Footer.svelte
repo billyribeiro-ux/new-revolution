@@ -1,5 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import {
+		DEVELOPMENT_NOTICE,
+		PURCHASE_HISTORY_NOTICE,
+		DEVELOPMENT_PURPOSE,
+		AI_CONTENT_NOTICE,
+		PROPOSED_SERVICE_NOTICE
+	} from '#lib/shared/development-status.ts';
 	import { FOOTER_COLUMNS } from '#lib/data/homepage.ts';
 	import PreFooter from './PreFooter.svelte';
 	import EnvelopeIcon from 'phosphor-svelte/lib/EnvelopeIcon';
@@ -64,8 +71,8 @@
 					</span>
 				</a>
 				<p>
-					Education, innovative tools, and a community approach grounded in transparent risk. People
-					over profits.
+					A concept for education, innovative tools, and community, grounded in transparent risk.
+					People over profits.
 				</p>
 			</div>
 
@@ -88,15 +95,29 @@
 			{/each}
 		</div>
 
+		<div class="risk-box" aria-label="Development and AI disclosure">
+			<p class="risk-box-title">CONCEPT IN PROGRESS / DEVELOPED WITH AI</p>
+			<p>{DEVELOPMENT_NOTICE} {DEVELOPMENT_PURPOSE}</p>
+			<p>{PURCHASE_HISTORY_NOTICE} {PROPOSED_SERVICE_NOTICE}</p>
+			<p>
+				{AI_CONTENT_NOTICE} Content is for general education and testing, not personalized investment
+				advice. This disclosure does not verify factual or performance claims.
+			</p>
+			<p>
+				Read our <a href={resolve('/terms-of-service')}>development terms and disclosures</a> or
+				<a href={resolve('/contact')}>report an inaccuracy</a>.
+			</p>
+		</div>
+
 		<div class="risk-box">
 			<p class="risk-box-title">IMPORTANT RISK DISCLOSURE / UNITED STATES &amp; CANADA</p>
 			<p>
-				Revolution Trading Pros is a financial education and market research publisher and is not
-				registered as a broker-dealer, investment adviser, or futures commission merchant with the
-				U.S. Securities and Exchange Commission (SEC), Commodity Futures Trading Commission (CFTC),
-				Financial Industry Regulatory Authority (FINRA), or Canadian provincial securities
-				regulators including the Ontario Securities Commission (OSC), British Columbia Securities
-				Commission (BCSC), and Alberta Securities Commission (ASC).
+				Revolution Trading Pros is a financial education and market research concept under
+				development and is not registered as a broker-dealer, investment adviser, or futures
+				commission merchant with the U.S. Securities and Exchange Commission (SEC), Commodity
+				Futures Trading Commission (CFTC), Financial Industry Regulatory Authority (FINRA), or
+				Canadian provincial securities regulators including the Ontario Securities Commission (OSC),
+				British Columbia Securities Commission (BCSC), and Alberta Securities Commission (ASC).
 			</p>
 			<p>
 				Trading stocks and options involves significant risk and is not suitable for everyone.
@@ -157,6 +178,7 @@
 	}
 
 	.brand {
+		max-inline-size: 100%;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -194,6 +216,7 @@
 	}
 
 	.brand-text {
+		min-inline-size: 0;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -208,7 +231,8 @@
 		line-height: 1.05;
 		letter-spacing: -0.02em;
 		text-transform: uppercase;
-		white-space: nowrap;
+		white-space: normal;
+		max-inline-size: 100%;
 		inline-size: fit-content;
 		color: var(--text);
 	}
@@ -221,7 +245,8 @@
 		line-height: 1.15;
 		letter-spacing: 0.092em;
 		text-transform: uppercase;
-		white-space: nowrap;
+		white-space: normal;
+		max-inline-size: 100%;
 		inline-size: fit-content;
 		color: var(--acid);
 		margin-block-start: 3px;

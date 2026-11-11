@@ -429,7 +429,7 @@ export const TRADER_PERSONAS: readonly TraderPersona[] = [
 		title: 'Experienced & Full-Time Traders',
 		description:
 			'Go deeper into execution process, repeatability, custom tools, and structured 1-on-1 review through a selective mentorship program.',
-		ctaLabel: 'Apply for private mentorship',
+		ctaLabel: 'Explore the mentorship concept',
 		href: '/mentorship',
 		previewTarget: 'mentorship'
 	}
@@ -458,7 +458,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 		tag: 'DAY TRADERS · SCALPERS · PROS',
 		title: 'Day Trading Room: Live Stock & Options Execution',
 		description:
-			'Step into our virtual trading floor. Follow real-time market reads, voice commentary, screen sharing, and execution discipline across stocks and options.',
+			'A proposed virtual learning room exploring market preparation, voice commentary, chart sharing, and risk education. No live room access or paid enrollment is available.',
 		featured: true,
 		bullets: [
 			{
@@ -478,7 +478,7 @@ export const MEMBERSHIP_TIERS: readonly MembershipTier[] = [
 				body: 'understand the thesis, the invalidation, and when no trade is the right trade.'
 			}
 		],
-		ctaLabel: 'Join the Day Trading Room',
+		ctaLabel: 'Explore the Day Trading Room concept',
 		href: '/live-trading-rooms/day-trading-room',
 		previewTarget: 'memberships'
 	},
@@ -633,19 +633,21 @@ export interface MentorshipStep {
 export const MENTORSHIP_STEPS: readonly MentorshipStep[] = [
 	{
 		number: '01',
-		title: 'Submit your trader application',
-		description: 'Share your experience, current struggles, preferred markets, schedule, and goals.'
+		title: 'Proposed application workflow',
+		description:
+			'A possible future application could ask about learning goals and experience. Applications are not open.'
 	},
 	{
 		number: '02',
 		title: 'Personal review & fit assessment',
-		description: 'We assess whether the program format matches your needs and commitment.'
+		description:
+			'A possible future fit review would assess the learning format. No reviews or enrollment are currently offered.'
 	},
 	{
 		number: '03',
 		title: 'Individual education plan',
 		description:
-			'If accepted, define specific learning priorities, process goals, and review checkpoints.'
+			'Proposed learning priorities and review checkpoints remain under development; access is unavailable.'
 	}
 ] as const;
 
@@ -699,25 +701,25 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
 		id: 'small-account-500',
 		question: 'I have a $500 account. Is there a membership for me?',
 		answer:
-			'Yes, the planned Small Accounts Room mentorship is intended for people who want to learn how limited capital affects position sizing, stock and options exposure, and account rules. A $500 account can be lost, and small balances limit what strategies are practical or appropriate.'
+			'No membership is currently available. The Small Accounts Room concept explores position sizing, options exposure, and account constraints. A $500 account can be lost and does not establish suitability.'
 	},
 	{
 		id: 'full-time-9-to-5',
 		question: 'Which option works with a full-time 9-to-5 job?',
 		answer:
-			'Start with the Swing Trading Room or our Alert Services (SPX Profit Pulse and Sunday Alpha Protocol). Both are designed around prepared market scenarios, entries, targets, and invalidation levels so you can review ideas outside a live trading room.'
+			'The Swing Trading Room, SPX Profit Pulse, and Sunday Alpha Protocol concepts explore educational preparation outside market hours. None is currently an available service or paid subscription.'
 	},
 	{
 		id: 'video-watchlist-deliverables',
 		question: 'What comes with the video watchlist & alert memberships?',
 		answer:
-			'Planned deliverables include detailed video setup explanations, relevant charts and catalysts, proposed entry zones, profit targets, risk levels, and alerts as scenarios develop across SPX Profit Pulse and Sunday Alpha Protocol. Delivery terms and timing should be confirmed on the live membership page.'
+			'Proposed features include educational video explanations, charts, scenario levels, and risk discussion. These are development ideas, not delivery commitments; no alert subscription, membership, or paid access is available.'
 	},
 	{
 		id: 'apply-1-on-1-mentorship',
 		question: 'How do I apply for 1-on-1 mentorship?',
 		answer:
-			'Submit an application describing your experience, needs, goals, and schedule. The team reviews applications for fit. The program is not sold by immediate checkout, and acceptance or financial success is never guaranteed.'
+			'Applications and paid enrollment are not open. The page describes a possible future application workflow only. No purchase, reservation, or acceptance is created by browsing or requesting updates.'
 	}
 ] as const;
 
@@ -745,12 +747,12 @@ export const CLOSING_CONTENT: ClosingContent = {
 	description:
 		'Leave the hype behind. Choose education, transparency, and realistic risk management. Explore a trading community designed to help you improve your process, with no promise of easy profits.',
 	primaryCta: {
-		label: 'Explore Memberships Now',
+		label: 'Explore Membership Concepts',
 		href: '/live-trading-rooms/day-trading-room',
 		previewTarget: 'memberships'
 	},
 	secondaryCta: {
-		label: 'Apply for Private Mentorship',
+		label: 'Explore Private Mentorship Concept',
 		href: '/mentorship',
 		previewTarget: 'mentorship'
 	}

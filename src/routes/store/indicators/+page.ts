@@ -6,9 +6,9 @@ import {
 } from '#lib/seo/structured-data.ts';
 import type { PageLoad } from './$types';
 
-/** 151 Characters Total (Zero Desktop/Mobile SERP Truncation) */
+/** Public concept metadata: describes development status without advertising an active offer. */
 const DESCRIPTION =
-	'100% non-repainting stock, ETF, and options trading indicators for ThinkorSwim and TradingView. Spot institutional order flow and liquidity. Zero hype.';
+	'Preview proposed trading indicator concepts for chart study, market structure, and risk education. AI-assisted development; no purchases or downloads offered.';
 
 /** Static marketing page: identical for every visitor, so it is rendered once at build time (SSG). */
 export const prerender = true;

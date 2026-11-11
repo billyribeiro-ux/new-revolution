@@ -185,6 +185,15 @@
 	<Navbar />
 
 	<main id="courses-store-page" class="inner-page courses-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB & CURRICULUM TELEMETRY BAR
        ========================================================================= -->
@@ -422,7 +431,7 @@
 							Explore Live Trading Rooms →
 						</a>
 						<a href={resolve('/mentorship')} class="btn btn--outline">
-							Apply for 1-on-1 Mentorship →
+							Explore the Mentorship Concept →
 						</a>
 						<a href={resolve('/store/indicators')} class="btn btn--outline">
 							View Non-Repainting Indicators →
@@ -546,7 +555,7 @@
 								Read Full Track Record &amp; Story →
 							</a>
 							<a href={resolve('/mentorship' as '/')} class="btn btn--solid btn--full">
-								Apply for 1-on-1 Mentorship →
+								Explore the Mentorship Concept →
 							</a>
 						</div>
 					</div>

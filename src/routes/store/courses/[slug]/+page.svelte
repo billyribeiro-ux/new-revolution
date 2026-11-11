@@ -1,5 +1,6 @@
 <!-- src/routes/store/courses/[slug]/+page.svelte -->
 <script lang="ts">
+	import { openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
 	import { scrollToSection } from '#lib/utils/scroll.ts';
 	import { FOUNDER_PORTRAIT } from '#lib/data/site.ts';
@@ -33,13 +34,6 @@
 		keyTakeaways: string[];
 	}
 
-	interface TraderReview {
-		quote: string;
-		author: string;
-		profileTag: string;
-		verifiedFocus: string;
-	}
-
 	interface RoomCta {
 		badge: string;
 		title: string;
@@ -68,7 +62,7 @@
 		instructorName: 'Billy Ribeiro',
 		instructorRole: 'Founder of Revolution Trading Pros • Mentored by Mark "Goldfinger" McGoldrick',
 		instructorAvatar: FOUNDER_PORTRAIT.src,
-		platformsSupported: 'Available for ThinkorSwim & TradingView • All Timeframes (1-Min to Weekly)'
+		platformsSupported: 'Proposed for ThinkorSwim & TradingView • All Timeframes (1-Min to Weekly)'
 	};
 
 	/* ===========================================================================
@@ -91,7 +85,7 @@
 			bulletSpecs: [
 				'Complete rules-based checklist for intraday scalps, multi-day swings, and $500+ small accounts',
 				'Exact Delta, Gamma, Theta, and Vega contract selection rules so volatility crush never ruins a winning chart read',
-				'Lifetime on-demand access to all recorded class modules, PDF workbooks, and live Q&A session archives'
+				'Proposed on-demand access to all recorded class modules, PDF workbooks, and live Q&A session archives'
 			],
 			svgType: 'class'
 		},
@@ -99,7 +93,7 @@
 			id: 'core-indicator',
 			tag: 'Component 02 // Primary Core Telemetry',
 			name: 'Move Prior to The Move™ Ultra Indicator',
-			platforms: 'Available for ThinkorSwim & TradingView • 100% Non-Repainting',
+			platforms: 'Proposed for ThinkorSwim & TradingView • 100% Non-Repainting',
 			shortSummary:
 				'Automatically adapts to market volatility using three dynamic institutional filters with built-in entry, target, and invalidation alerts.',
 			deepDiveHeadline:
@@ -119,7 +113,7 @@
 			id: 'multi-timeframe',
 			tag: 'Component 03 // 18-Timeframe Alignment Grid',
 			name: 'Multi-Timeframe Compression & Order Flow Matrix',
-			platforms: 'Available for ThinkorSwim & TradingView',
+			platforms: 'Proposed for ThinkorSwim & TradingView',
 			shortSummary:
 				'See at a single glance when a stock, ETF, or index has institutional compression and trend thrust aligned across up to 18 timeframes.',
 			deepDiveHeadline:
@@ -139,7 +133,7 @@
 			id: 'stats-engine',
 			tag: 'Component 04 // On-Chart Quantitative Expectancy',
 			name: 'On-Chart Historical Expectancy & Squeeze Stats Engine',
-			platforms: 'Available for ThinkorSwim & TradingView',
+			platforms: 'Proposed for ThinkorSwim & TradingView',
 			shortSummary:
 				'Displays the historical average move size, duration, and long vs. short win rate directly at the top of whatever chart and timeframe you are viewing.',
 			deepDiveHeadline:
@@ -159,7 +153,7 @@
 			id: 'bonus-early-in-out',
 			tag: 'Component 05 // Included Bonus Indicator',
 			name: 'BONUS: MP_EarlyInNOut™ Pro Leading Telemetry',
-			platforms: 'Available for ThinkorSwim & TradingView + Dedicated Install Session',
+			platforms: 'Proposed for ThinkorSwim & TradingView + Dedicated Install Session',
 			shortSummary:
 				'Engineered to give you an early institutional "heads up" before compression fires and flag buyer/seller exhaustion at the top of the move.',
 			deepDiveHeadline:
@@ -259,50 +253,6 @@
 	/* ===========================================================================
      6 UNIQUE VERIFIED MEMBER REVIEWS (ZERO DUPLICATE COPY-PASTE BUGS)
      =========================================================================== */
-	const memberReviews: TraderReview[] = [
-		{
-			quote:
-				'Before this course, I kept buying late into breakouts and getting stopped out on the pullback. Having MP_EarlyInNOut and the Multi-Timeframe Matrix on ThinkorSwim completely changed my patience. I know my exact entry and stop before the candle even fires.',
-			author: 'Marcus T.',
-			profileTag: 'Active Options & ETF Day Trader',
-			verifiedFocus: 'Uses the 5-Min & 15-Min Multi-Timeframe Matrix'
-		},
-		{
-			quote:
-				'I work a demanding 50-hour-a-week job and used to think I couldn’t trade options consistently. The On-Chart Stats Engine and Daily/4H compression setups let me plan my conditional orders in 20 minutes at night with zero stress during work.',
-			author: 'David R.',
-			profileTag: 'Working Professional (9-to-5 Engineer)',
-			verifiedFocus: 'Multi-Day Swing Setups + Sunday Alpha Protocol Member'
-		},
-		{
-			quote:
-				'I started with a $650 cash account after getting burned by a fake guru indicator that repainted arrows. Billy’s tools never repaint, and Module 4 on T+1 cash rotation and affordable vertical spreads helped me finally grow my account safely.',
-			author: 'Elena M.',
-			profileTag: '$500+ Small Account Trader',
-			verifiedFocus: 'Small Accounts Room + Course Graduate'
-		},
-		{
-			quote:
-				'The On-Chart Historical Stats Engine alone is worth its weight in gold for options traders. Seeing the average duration and average move right on the chart stopped me from buying short-dated options that die to Theta decay.',
-			author: 'jason K.',
-			profileTag: 'SPX & Large-Cap Options Trader',
-			verifiedFocus: 'Uses Stats Engine + Dynamic Gamma Levels'
-		},
-		{
-			quote:
-				'There are plenty of marketers online selling $2,500 holy grail garbage, but Billy actually stood on the losing side first and was mentored by Goldman Sachs legend Mark McGoldrick. You can feel that institutional honesty in every single module.',
-			author: 'Robert H.',
-			profileTag: '20-Year Equity & Options Trader',
-			verifiedFocus: 'Full Indicator Suite + Accelerator Class'
-		},
-		{
-			quote:
-				'Watching Billy break down the +600% overnight OXY Put Options trade and the 2020/2022 macro calls bar-by-bar using the exact same indicators we have on our screens gave me complete conviction in the process.',
-			author: 'Sophia L.',
-			profileTag: 'Swing & Macro Portfolio Trader',
-			verifiedFocus: 'Daily & Weekly Macro Regime Execution'
-		}
-	];
 
 	const bottomRoomCards: RoomCta[] = [
 		{
@@ -356,6 +306,15 @@
 	<Navbar />
 
 	<main id="single-course-page" class="inner-page single-course-page">
+		<aside class="disclaimer-strip" aria-label="Proposed product and demonstration notice">
+			<p>
+				<strong>Proposed concept, not an available service.</strong> The features, packages, schedules,
+				platform support, charts, signals, and workflows below are development proposals or illustrative
+				demonstrations. They are not live services, verified product capabilities, or an invitation to
+				purchase or enroll. No price, release date, or future availability is guaranteed.
+			</p>
+		</aside>
+
 		<!-- =========================================================================
        SECTION 1: BREADCRUMB BAR (CLEAN CANONICAL NAME — NO CRM CAMPAIGN LEAKS)
        ========================================================================= -->
@@ -571,6 +530,8 @@
 					</p>
 				</div>
 
+				<p class="body-copy">Concept only · purchases unavailable.</p>
+
 				<div class="packages-grid">
 					<!-- PACKAGE 1: INDICATORS SUITE ONLY -->
 					<article class="package-card">
@@ -579,7 +540,7 @@
 								<span class="meta-label">Option 01 // Tools &amp; Telemetry Package</span>
 								<h3 class="package-card__title">Move Prior to The Move™ Ultra Indicator Suite</h3>
 								<p class="package-card__platforms">
-									Available for ThinkorSwim &amp; TradingView • Lifetime License
+									Proposed for ThinkorSwim &amp; TradingView • Lifetime License
 								</p>
 							</div>
 
@@ -621,9 +582,14 @@
 						</div>
 
 						<div class="package-card__footer">
-							<a href={resolve('/contact' as '/')} class="btn btn--outline btn--full">
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn--outline btn--full"
+							>
 								Select Indicator Suite Package →
-							</a>
+							</button>
 						</div>
 					</article>
 
@@ -640,7 +606,7 @@
 									Ultra Indicator Suite + 6-Module Accelerator Class
 								</h3>
 								<p class="package-card__platforms">
-									Available for ThinkorSwim &amp; TradingView + Lifetime HD Course Access
+									Proposed for ThinkorSwim &amp; TradingView + Lifetime HD Course Access
 								</p>
 							</div>
 
@@ -690,9 +656,14 @@
 						</div>
 
 						<div class="package-card__footer">
-							<a href={resolve('/contact' as '/')} class="btn btn--solid btn--full">
-								Enroll in Complete Indicators + Class Bundle →
-							</a>
+							<button
+								type="button"
+								data-concept-offer
+								onclick={openConceptOffer}
+								class="btn btn--solid btn--full"
+							>
+								Discuss the Proposed Class Bundle →
+							</button>
 						</div>
 					</article>
 				</div>
@@ -711,7 +682,7 @@
 					</h2>
 					<p class="body-copy section-header__sub">
 						Here is the exact engineering and strategic purpose behind each of the five components
-						included in your enrollment:
+						envisioned for the proposed package:
 					</p>
 				</div>
 
@@ -1142,7 +1113,7 @@
 									class="btn btn--solid"
 									onclick={() => scrollToSection('packages')}
 								>
-									Enroll in Billy’s Accelerator Class &amp; Indicator Suite ↑
+									Explore the Proposed Class &amp; Indicator Suite ↑
 								</button>
 								<a href={resolve('/about' as '/')} class="btn btn--outline">
 									Read Full Track Record →
@@ -1157,33 +1128,6 @@
 		<!-- =========================================================================
        SECTION 7: WHAT OUR MEMBERS SAY (6 UNIQUE VERIFIED REVIEWS — ZERO DUPLICATES)
        ========================================================================= -->
-		<section class="reviews-section" aria-labelledby="reviews-h2">
-			<div class="container">
-				<div class="section-header">
-					<span class="section-kicker">Real Trader Feedback • Across All Account Sizes</span>
-					<h2 id="reviews-h2" class="section-h2">
-						Here’s What Members Say About Training With Billy Ribeiro
-					</h2>
-					<p class="body-copy section-header__sub">
-						From $500+ small accounts and busy 9-to-5 working professionals to full-time options
-						traders:
-					</p>
-				</div>
-
-				<div class="reviews-grid">
-					{#each memberReviews as rev (rev.author)}
-						<blockquote class="review-card">
-							<p class="review-card__quote">"{rev.quote}"</p>
-							<footer class="review-card__footer">
-								<strong class="review-card__author">— {rev.author}</strong>
-								<span class="review-card__tag">{rev.profileTag}</span>
-								<span class="review-card__focus">{rev.verifiedFocus}</span>
-							</footer>
-						</blockquote>
-					{/each}
-				</div>
-			</div>
-		</section>
 
 		<!-- =========================================================================
        SECTION 8: COURSE & INDICATOR SUITE FAQ ACCORDION
@@ -1227,9 +1171,14 @@
 						Mark "Goldfinger" McGoldrick called "the future of trading."
 					</p>
 					<div class="cta-row cta-row--centered">
-						<a href={resolve('/contact' as '/')} class="btn btn--solid">
+						<button
+							type="button"
+							data-concept-offer
+							onclick={openConceptOffer}
+							class="btn btn--solid"
+						>
 							Claim My Spot in the Accelerator Class + Indicator Suite →
-						</a>
+						</button>
 						<button
 							type="button"
 							class="btn btn--outline"

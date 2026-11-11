@@ -9,16 +9,18 @@
 </script>
 
 <!-- Recognition strip: 146px tall on tablet/desktop. Homepage only. -->
-<section class="press" aria-labelledby="press-title">
-	<div class="container press__inner">
-		<p id="press-title" class="press__label">As featured in</p>
-		<ul class="press__list">
-			{#each mentions as mention (mention.id)}
-				<li class="press__item press__item--{mention.id}">{mention.name}</li>
-			{/each}
-		</ul>
-	</div>
-</section>
+{#if mentions.length > 0}
+	<section class="press" aria-labelledby="press-title">
+		<div class="container press__inner">
+			<p id="press-title" class="press__label">As featured in</p>
+			<ul class="press__list">
+				{#each mentions as mention (mention.id)}
+					<li class="press__item press__item--{mention.id}">{mention.name}</li>
+				{/each}
+			</ul>
+		</div>
+	</section>
+{/if}
 
 <style>
 	.press {

@@ -26,9 +26,9 @@ describe('/live-trading-rooms/swing-trading-room (+page.ts & +page.svelte)', () 
 		expect(result.pageMetaTags.title).toBe('Live Swing Trading Room');
 		expect(`${result.pageMetaTags.title} | Revolution Trading Pros`.length).toBe(49);
 		expect(result.pageMetaTags.description).toBe(
-			'Stock, ETF, and options swing trading room built for working professionals. Pre-planned entries, profit targets, and stops. People over profits.'
+			'Explore a proposed swing trading room for multi-day planning, chart review, and risk education. Concept in development; no purchases or paid subscriptions.'
 		);
-		expect(result.pageMetaTags.description.length).toBe(144);
+		expect(result.pageMetaTags.description.length).toBe(155);
 		expect(result.pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room'
 		);

@@ -31,7 +31,7 @@ describe('/alert-services/sunday-alpha-protocol/+page.svelte (Sunday Alpha Proto
 		expect(data.pageMetaTags.title.length).toBeLessThanOrEqual(33);
 		expect(data.pageMetaTags.openGraph.type).toBe('website');
 		expect(data.pageMetaTags.description).toBe(
-			'Explore Sunday Alpha Protocol stock and options research, weekly preparation, entry scenarios, risk levels, and educational tools for independent traders.'
+			'Explore the Sunday Alpha Protocol concept for weekly stock and options preparation and illustrative plans. In development; paid subscriptions unavailable.'
 		);
 		expect(data.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
 		expect(data.pageMetaTags.description.length).toBeLessThanOrEqual(158);
@@ -84,7 +84,7 @@ describe('/alert-services/sunday-alpha-protocol/+page.svelte (Sunday Alpha Proto
 		await expect.element(page.getByText('INDEX LIQUIDITY RECLAIM')).toBeVisible();
 	});
 
-	it('renders all 3 mechanism acts, 3 suitability tiers, 3 Billy Ribeiro receipts, and 3 pricing tiers ($47, $127, $447)', async () => {
+	it('preserves illustrative mechanisms and suitability while withholding priced offers', async () => {
 		await render(Page, {
 			params: {},
 			data: {
@@ -96,9 +96,8 @@ describe('/alert-services/sunday-alpha-protocol/+page.svelte (Sunday Alpha Proto
 		expect(document.querySelectorAll('.mech-card').length).toBe(3);
 		expect(document.querySelectorAll('.persona-card').length).toBe(3);
 		expect(document.querySelectorAll('.receipt-box').length).toBe(3);
-		expect(document.querySelectorAll('.price-card').length).toBe(3);
-		await expect.element(page.getByText('Founding Member Monthly')).toBeVisible();
-		await expect.element(page.getByText('Quarterly Pass')).toBeVisible();
-		await expect.element(page.getByText('Annual VIP Pass')).toBeVisible();
+		expect(document.querySelectorAll('.price-card').length).toBe(0);
+		expect(document.body.textContent).toContain('Purchases unavailable');
+		expect(document.body.textContent).not.toContain('Lock In $47/Month');
 	});
 });

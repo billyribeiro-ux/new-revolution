@@ -17,7 +17,7 @@ export const prerender = true;
 const PAGE_TITLE = 'Live Stock & Options Scanners';
 const FULL_TITLE = 'Live Stock & Options Scanners | Revolution Trading Pros';
 const PAGE_DESCRIPTION =
-	'Real-time, 100% non-repainting stock, ETF, and options scanners. Spot institutional order flow, multi-timeframe squeezes, and liquidity sweeps live.';
+	'Explore proposed market scanner concepts for chart screening, liquidity study, and risk education. AI-assisted development; no purchases or access offered.';
 
 export const load: PageLoad = ({ url }) => {
 	const canonicalUrl = url ? getCanonicalUrl(url) : `${SITE_ORIGIN}/store/scanners`;

@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-11 — Evidence-based build and CI repair
+
+- Use the supported Node `26.x` deployment range and retain local `26.13.0` pins. Replace fake package-manager engine versions with `devEngines.packageManager` and a local pnpm-only preinstall guard.
+- TEMPORARY (T15): remove Oxlint JavaScript-plugin arena allocation while preserving native/type-aware rules, all 37 explicit Svelte rules, and the installed Vite+ import-policy visitor through ESLint. The baseline reproduces exit 134 and the fixed command passes under the same Linux resource limit. Add the `typecheck` alias required by Vercel CI.
+- Split the measured admin-editor chunk from 798,843 bytes to a largest client chunk of 339,070 bytes without increasing the warning threshold or changing toolchain versions.
+- Make complete builds verify actual packaged native image processing and offline HTML/text email behavior. Audit expected optional tracer warnings without suppressing them or installing unused platform binaries. Evidence and verification limits: `docs/reviews/tooling-warnings-2026-11-11/VERIFICATION.md`.
+
 ### 2026-11-11 — Owner-requested single-branch workflow
 
 - The owner requires only `main` locally and on GitHub. Integrate the concept disclosure via PR #45, remove its temporary branch, and preserve the single-branch instruction in `docs/AGENT_COORDINATION.md`. This supersedes the earlier feature-branch workflow; no source history is rewritten.

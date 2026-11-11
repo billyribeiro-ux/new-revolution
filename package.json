@@ -5,22 +5,19 @@
 	"type": "module",
 	"packageManager": "pnpm@12.16.1",
 	"engines": {
-		"node": "26.13.0",
-		"pnpm": ">=10.0.0",
-		"npm": "please-use-pnpm",
-		"yarn": "please-use-pnpm",
-		"bun": "please-use-pnpm"
+		"node": "26.x",
+		"pnpm": ">=10.0.0"
 	},
 	"scripts": {
 		"dev": "vp dev",
-		"build": "vp build && node scripts/maintenance-build.mjs",
+		"build": "vp build && node scripts/maintenance-build.mjs && node scripts/verify-server-runtime.mjs",
 		"preview": "vp preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:css": "node scripts/check-css-tokens.mjs",
 		"check:pages": "node scripts/check-prerendered-pages.mjs",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "vp fmt --check . && vp lint . && eslint \"**/*.svelte\"",
+		"lint": "vp fmt --check . && vp lint . && eslint .",
 		"format": "vp fmt .",
 		"test:unit": "vp test",
 		"test": "pnpm run test:unit --run && pnpm run test:e2e",
@@ -33,7 +30,9 @@
 		"db:seed-admin": "node --env-file-if-exists=.env scripts/seed-admin.ts",
 		"db:import-posts": "node --env-file-if-exists=.env scripts/import-markdown-posts.ts",
 		"auth:schema": "auth generate --config src/lib/server/auth.ts --output src/lib/server/db/auth.schema.ts --yes",
-		"db:backfill-post-search": "node --env-file-if-exists=.env scripts/backfill-post-search.ts"
+		"db:backfill-post-search": "node --env-file-if-exists=.env scripts/backfill-post-search.ts",
+		"preinstall": "node scripts/check-package-manager.mjs",
+		"typecheck": "pnpm check"
 	},
 	"devDependencies": {
 		"@electric-sql/pglite": "^0.5.15",
@@ -119,5 +118,12 @@
 		"three": "^0.187.0",
 		"valibot": "^1.5.0",
 		"zod": "^4.6.7"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.16.1",
+			"onFail": "error"
+		}
 	}
 }

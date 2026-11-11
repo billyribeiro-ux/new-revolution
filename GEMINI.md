@@ -7,7 +7,7 @@
 > **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
 
 - **Language**: TypeScript (`6.0.3`, Node `26.13.0`)
-- **Package Manager**: `pnpm` ONLY (`pnpm@12.16.1` enforced via `.npmrc` `engine-strict=true` and `package.json#engines`; `npm`, `yarn`, and `bun` are strictly blocked)
+- **Package Manager**: `pnpm` ONLY (`pnpm@12.16.1` selected by `packageManager` / `devEngines.packageManager` and enforced by the local preinstall guard; `.npmrc` retains `engine-strict=true`; `npm`, `yarn`, and `bun` are strictly blocked)
 - **Toolchain**: Vite+ `1.4.0` (Vite `8.3.5`, Vitest `5.0.5`, Oxfmt, Oxlint); ESLint remains required for Svelte-specific rules. The `vite` dependency is the Vite+ core alias through the pnpm catalog.
 - **Add-ons**: Playwright, enhanced-img, adapter-vercel, Drizzle, Better Auth, mdsvex, ai-tools, experimental
 - **Key Dependencies**: `svelte@^5.57.3`, `@sveltejs/kit@^3.1.1`, `@threlte/core@^8.7.0`, `@threlte/extras@^9.23.1`, `three@^0.187.0`, `@types/node@^26.6.6`, `gsap@^3.15.0`, `phosphor-svelte@^3.1.1`, `svelte-meta-tags@^5.0.3`, `drizzle-orm@^0.45.4`, `better-auth@^1.7.15`

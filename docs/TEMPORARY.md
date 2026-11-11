@@ -48,3 +48,9 @@ Owner-confirmed November 11, 2026: purchases and paid subscriptions have never b
 Removal criterion: a separately authorized launch of an actual deliverable, with reviewed factual claims, price/billing/delivery/cancellation terms, tested payment and access flows, aligned page/schema copy, and an intentional server-side activation. An availability flag alone does not complete a launch. Preserve accurate historical disclosures and update current-status language at launch.
 
 Status: implemented and reviewed in PR #45 for owner-authorized integration into the sole `main` branch; no production promotion performed. No live payment credentials or production data were accessed.
+
+## T15 — Oxlint JavaScript-plugin allocator workaround
+
+The original Vite+ 1.4.0 lint configuration reproduces exit 134 at `oxc_allocator/src/pool/fixed_size.rs:112:67` on constrained Linux. Native/type-aware rules remain in Oxlint. ESLint now executes the unchanged 37 explicit Svelte rules and the installed Vite+ import-policy visitor. The same controlled Linux resource limit passes after this change. See [the evidence](reviews/tooling-warnings-2026-11-11/VERIFICATION.md) and [current commands](VITE_PLUS_WORKFLOW.md).
+
+Removal criterion: an explicitly authorized aligned Vite+ toolchain upgrade with a released Unix allocator fix, verified on the constrained Linux and hosted CI environments, with all rule-coverage regressions preserved. Do not remove enforcement or increase CI memory merely to hide the failure. Status: implemented on the sole `main` branch; hosted verification pending.

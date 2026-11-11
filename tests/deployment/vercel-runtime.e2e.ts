@@ -74,3 +74,24 @@ test('generated Vercel handler renders the SSR homepage and blog without Vite as
 	expect(results[1].blogHeading).toBe(true);
 	expect(stderr).not.toContain('remote_prerender_not_dynamic');
 });
+
+test('packaged native imaging and HTML email work without optional platform or React modules', async () => {
+	const functionDirectory = resolve('.vercel/output/functions/![-]/catchall.func');
+
+	const { stdout } = await execute(
+		process.execPath,
+		['scripts/verify-server-runtime.mjs', functionDirectory],
+		{ timeout: 30_000, env: process.env }
+	);
+	const line = stdout
+		.split('\n')
+		.find((entry) => entry.startsWith('Required server dependencies verified: '));
+	expect(line).toBeTruthy();
+	expect(JSON.parse(line!.slice('Required server dependencies verified: '.length))).toMatchObject({
+		width: 6,
+		height: 4,
+		format: 'webp',
+		emailRequests: 1,
+		network: 'mocked; no email sent'
+	});
+});

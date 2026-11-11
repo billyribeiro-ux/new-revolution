@@ -9,6 +9,10 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-11 — Owner-requested single-branch workflow
+
+- The owner requires only `main` locally and on GitHub. Integrate the concept disclosure via PR #45, remove its temporary branch, and preserve the single-branch instruction in `docs/AGENT_COORDINATION.md`. This supersedes the earlier feature-branch workflow; no source history is rewritten.
+
 ### 2026-11-11 — Public concept disclosure and unavailable-offer dialog
 
 - Added prominent development/AI notices and an accessible informational dialog on proposed offer controls. The owner confirmed purchases and paid subscriptions have never been available; the stated public purpose is browser testing and search visibility.

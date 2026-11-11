@@ -9,11 +9,14 @@
 The owner runs several AI sessions at once against this repo. They share one checkout and one remote.
 This file is how they avoid colliding. Read it **before** you start; update it **when** you start and finish.
 
+## Current owner instruction — November 11, 2026
+
+Keep **only `main`**, locally and on GitHub. Do not create or retain feature branches. This explicit owner instruction supersedes the earlier branch-per-agent and mandatory-PR workflow. Preserve others’ uncommitted changes, coordinate file ownership below, and use a detached checkout only when isolation is necessary. The owner authorized integrating the concept-disclosure update into `main` and deleting its temporary branch after PR #45 merges.
+
 ## Rules
 
-1. **Work in your own git worktree + branch**, never the shared checkout:
-   `git worktree add /tmp/wt-<topic> -b <type>/<topic> origin/main`.
-2. **Never `git stash` bare** (the stash is shared). Never push to `main`; open a PR.
+1. **Use only `main`.** Never create another local or remote branch. Inspect the worktree and coordinate file ownership before editing; preserve existing work. Detached checkouts may be used for isolated validation without creating branches.
+2. **Never `git stash` bare** (the stash is shared). Do not overwrite unrelated work or force-push. Update `main` only within the owner-authorized scope; do not create a feature branch merely to open a PR.
 3. **Claim before you edit.** Add a row to "Active work" with the files/areas you will touch. If a row
    already claims them, do not edit them; pick other work or ask the owner.
 4. **Log every change** in `CHANGELOG.md` under `[Unreleased]`. Anything temporary also gets a row in
@@ -22,7 +25,7 @@ This file is how they avoid colliding. Read it **before** you start; update it *
    did not verify.
 6. **Test what changed**; run the full gate once, right before pushing (`AGENTS.md` section 4, step 4).
 7. Merging and pushing are separate acts. The owner decides when to merge.
-8. When done, move your row to "Recently finished" with the PR number.
+8. When done, move your row to "Recently finished" with the commit or PR reference, as applicable.
 
 ## Active work
 
@@ -31,7 +34,7 @@ This file is how they avoid colliding. Read it **before** you start; update it *
 
 ## Recently finished
 
-- **Public concept and AI disclosure (Codex, November 11; local branch `fix/concept-disclosure`, no PR/deployment):** owner confirmed purchases and paid subscriptions have never been available and selected browser testing plus search visibility as the public purpose. Added visible development notices, keyboard-accessible unavailable-offer dialog, server commerce guard, honest policy/metadata/FAQ copy; removed prototype testimonials, unsupported recognition defaults and priced/InStock offers. No CMS article bodies, hosted settings, live payments or production data changed. T14 records the activation boundary.
+- **Public concept and AI disclosure (Codex, November 11; [PR #45](https://github.com/billyribeiro-ux/new-revolution/pull/45); owner-authorized main consolidation, no production promotion):** owner confirmed purchases and paid subscriptions have never been available and selected browser testing plus search visibility as the public purpose. Added visible development notices, keyboard-accessible unavailable-offer dialog, server commerce guard, honest policy/metadata/FAQ copy; removed prototype testimonials, unsupported recognition defaults and priced/InStock offers. No CMS article bodies, hosted settings, live payments or production data changed. T14 records the activation boundary.
   - Validation: `pnpm check:css`, `pnpm check` (zero errors/warnings), `pnpm lint`, `pnpm test:unit --run` (680 tests), `pnpm build`, and `pnpm check:pages` (46 contracts) pass. Official Svelte MCP validated each changed component with complete source after corrections. Reviewed the 390px dialog screenshot and tested 320px/200% text without JavaScript.
   - The full `pnpm test:e2e` run passed 70 cases and found three failures, with two later media cases blocked by the serial-suite failure. One failure was an outdated exact description-length expectation, corrected afterward. A final `pnpm exec playwright test` follow-up against the already-built output passed all 22 selected cases, including the complete SEO suite, new concept/commerce tests, navigation, all route metadata tests and the formerly blocked media cases. A temporary config under ignored `.svelte-kit/` reused `pnpm preview`; the known baseline blog-card layout case was explicitly excluded from that follow-up. All three disposable local test administrators were revoked.
   - Two unrelated layout failures remain with their assertions unchanged: `src/routes/admin/image-flow.e2e.ts:485` expects lead cards <=1200px (actual 1361px), and `src/routes/blog/toc-layout.e2e.ts:58` expects a 1536px frame at a 1536px viewport (actual 1521px with stable scrollbar gutter). An untouched archive of starting commit `3bbb672`, built with `pnpm build` and served with `pnpm preview`, reproduces both exact measurements. The affected blog layout files and global stylesheet were not modified for this task. This is local verification, not a production or legal-compliance certification.

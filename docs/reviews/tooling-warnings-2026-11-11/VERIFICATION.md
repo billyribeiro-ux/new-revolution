@@ -79,4 +79,23 @@ Local verification completed on the sole `main` working tree and a detached, env
 
 The unchanged failures are a 1361px lead card versus the existing <=1200px assertion and a 1521px frame versus the existing 1536px assertion at a 1536px viewport with stable scrollbars. Both exact measurements reproduce on the untouched baseline, as documented in coordination. No related CSS/components/tests or thresholds were changed for this task.
 
-Hosted build and CI verification will be recorded after pushing `main`. No hosted CMS content, live email, or production promotion was requested or performed.
+## Hosted verification
+
+Application commit `ceb653d955a596f21cd365a245a4bc2c3e6c778e` is pushed to the sole `main` branch. The Vercel deployment [new-revolution-8cucv7zrl](https://new-revolution-8cucv7zrl-will-ribeiros-projects.vercel.app) is READY. Its actual build log contains neither ambiguous Node/Bun detection, exact-patch Node selection, nor oversized-client-chunk warnings. The optional dependency-tracer diagnostics remain visible, followed by the new successful required-capability gate:
+
+```text
+2026-11-11T16:08:52.213Z Required server dependencies verified: {"platform":"linux-x64","width":6,"height":4,"format":"webp","emailRequests":1,"network":"mocked; no email sent"}
+```
+
+Actual Vercel CI run `AJFrg01Cnh0KdLoB3Ky4hALC`, attempt 1, for that exact commit is **succeeded**:
+
+| Job       | Result    | Duration  |
+| --------- | --------- | --------- |
+| lint      | succeeded | 68,746 ms |
+| typecheck | succeeded | 41,793 ms |
+
+The first repair commit `bf5735272e60e3bc6b82b67165c78c64340ca439` also passed both hosted jobs in run `7l8cfKpLuXUrtQTnD2n5AEYA`; the final helper refinement replaces generic object stringification with explicit URL/body validation and passes five focused regressions plus local and Linux artifact probes.
+
+These hosted results were read with `vercel ci inspect` and `vercel inspect --logs`, not inferred from local success. No CI machine-size increase, task bypass, blanket warning filter, dependency upgrade or function-runtime migration was used. The final evidence-only documentation commit changes no application/build/lint implementation bytes.
+
+Both disposable QA administrators were revoked and the task-owned Linux container was removed. No hosted CMS changes, real email sends or manual production promotion commands were performed.

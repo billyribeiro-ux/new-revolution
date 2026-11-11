@@ -462,8 +462,15 @@ test.describe.serial('Admin image flow: upload, feature, insert, publish, public
 					expect(Math.abs(shell.width - reference!.width)).toBeLessThan(1);
 				}
 				if (width >= 1536) {
-					expect(reference!.width).toBe(1536);
-					expect(reference!.x).toBe((width - 1536) / 2);
+					// The stable scrollbar gutter consumes viewport space. The shared frame caps
+					// available layout width, rather than overflowing that reserved gutter.
+					const { availableWidth, maximumWidth } = await page.evaluate(() => ({
+						availableWidth: document.documentElement.getBoundingClientRect().width,
+						maximumWidth: 96 * parseFloat(getComputedStyle(document.documentElement).fontSize)
+					}));
+					const frameWidth = Math.min(maximumWidth, availableWidth);
+					expect(reference!.width).toBe(frameWidth);
+					expect(reference!.x).toBe((availableWidth - frameWidth) / 2);
 				}
 				if (route.name !== 'article') {
 					const innerEdge = await page

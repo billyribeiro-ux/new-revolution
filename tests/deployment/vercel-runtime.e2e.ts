@@ -7,6 +7,41 @@ import { promisify } from 'node:util';
 
 const execute = promisify(execFile);
 
+test('generated hosted handler refuses an unconfigured CMS without creating a local database', async () => {
+	const functionDirectory = resolve('.vercel/output/functions/![-]/catchall.func');
+	const config = JSON.parse(
+		await readFile(resolve(functionDirectory, '.vc-config.json'), 'utf8')
+	) as { handler: string };
+	const probe = `
+		import { pathToFileURL } from 'node:url';
+		const { default: handler } = await import(pathToFileURL(process.env.ADAPTER_PROBE_HANDLER).href);
+		const response = await handler.fetch(new Request('https://adapter-probe.example.invalid/blog', {
+			headers: { 'x-forwarded-for': '127.0.0.1' }
+		}));
+		console.log('UNCONFIGURED_CMS:' + response.status);
+		process.exit(0);
+	`;
+	const { stdout, stderr } = await execute(
+		process.execPath,
+		['--input-type=module', '--eval', probe],
+		{
+			timeout: 30_000,
+			env: {
+				...process.env,
+				NODE_ENV: 'production',
+				VERCEL: '1',
+				DATABASE_URL: '',
+				BETTER_AUTH_SECRET: randomBytes(32).toString('hex'),
+				ADAPTER_PROBE_HANDLER: resolve(functionDirectory, config.handler)
+			}
+		}
+	);
+	expect(stdout).toContain('UNCONFIGURED_CMS:503');
+	expect(stderr).toContain('Hosted CMS requires a real PostgreSQL DATABASE_URL');
+	expect(stderr).not.toContain('ENOENT');
+	expect(stderr).not.toContain('mkdir');
+});
+
 test('generated Vercel handler renders the SSR homepage and blog without Vite asset fallbacks', async () => {
 	test.setTimeout(60_000);
 	const functionDirectory = resolve('.vercel/output/functions/![-]/catchall.func');
@@ -41,7 +76,8 @@ test('generated Vercel handler renders the SSR homepage and blog without Vite as
 			env: {
 				...process.env,
 				NODE_ENV: 'production',
-				VERCEL: '1',
+				// The packaged handler runs locally with an explicit isolated database.
+				VERCEL: '',
 				DATABASE_URL: 'memory://adapter-runtime-regression',
 				ORIGIN: 'https://adapter-probe.example.invalid',
 				BETTER_AUTH_SECRET: randomBytes(32).toString('hex'),

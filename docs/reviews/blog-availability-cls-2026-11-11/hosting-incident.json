@@ -1,0 +1,40 @@
+{
+	"checkedAt": "2026-11-11T16:32:48.002Z",
+	"previousProjectId": "prj_tZfGFo3Kzo7NSQvtGl9s1VJRY5kE",
+	"currentProjectId": "prj_TJA4UdRjIDz2qHNcLV7cZ5OckArX",
+	"currentProjectCreatedAt": "2026-11-11T15:34:03.397Z",
+	"before": {
+		"wwwStatus": 404,
+		"wwwError": "DEPLOYMENT_NOT_FOUND",
+		"assignedAliasStatus": 503,
+		"environmentVariables": 0,
+		"runtimeError": "[/blog] Failed to load blog index: Error: ENOENT: no such file or directory, mkdir '/var/task/.svelte-kit/pglite-blog'\n    at mkdirSync (node:fs:1410:26)\n    at createDefaultDb (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/db.js:12906:3)\n    at getDb (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/db.js:12913:28)\n    at ensureDbReady (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/db.js:13162:19)\n    at getPublicBlogListing (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/blog-discovery.js:80:19)\n    at load (file:///var/task/vercel/path0/.svelte-kit/output/server/entries/pages/blog/_page.server.ts.js:16:31)\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/instance.js:418:19\n    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:65:14)\n    at with_request_store (file:///var/task/vercel/path0/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)\n    at fn (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/instance.js:415:18) {\n  errno: -2,\n  code: 'ENOENT',\n  syscall: 'mkdir',\n  path: '/var/task/.svelte-kit/pglite-blog'\n}"
+	},
+	"cms": {
+		"posts": [
+			{
+				"id": 1,
+				"slug": "0dte-spx-options-strategy-guide",
+				"status": "published",
+				"visibility": "public",
+				"featured": true,
+				"is_fixture": false,
+				"deleted_at": null,
+				"published_at": "2026-11-05T21:29:51.520Z",
+				"content_bytes": 26699,
+				"has_cover": true
+			}
+		],
+		"media": [
+			{
+				"total": 6
+			}
+		],
+		"bodySha256": "73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4"
+	},
+	"recoveryDeployment": "dpl_8pEs4aEJPQqBDiCRtP7oNaS1xXZn",
+	"databaseStore": "store_33hCKEHObQ48M56L",
+	"previewDatabaseStore": "store_hAk41A2k1GB0sAOa",
+	"mediaStore": "store_zWoSsUN6nA8DJ1wl",
+	"contentWrites": 0
+}

@@ -4,6 +4,7 @@ import { PGlite } from '@electric-sql/pglite';
 import { drizzle as drizzlePglite, type PgliteDatabase } from 'drizzle-orm/pglite';
 import { drizzle as drizzlePostgres, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+import { assertHostedDatabaseConfig } from '../database-config';
 import { hashPostPassword } from '../posts/visibility.ts';
 import { backfillPostSearchProjections } from '../posts/search-persistence.ts';
 import * as schema from './schema.ts';
@@ -69,6 +70,7 @@ function attachBatch(instance: BaseAppDatabase): AppDatabase {
 }
 
 function createDefaultDb(): AppDatabase {
+	assertHostedDatabaseConfig(process.env);
 	const rawUrl = process.env.DATABASE_URL ?? 'postgres://user:password@host:port/db-name';
 
 	if (!isPlaceholderDatabaseUrl(rawUrl)) {

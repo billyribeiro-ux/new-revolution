@@ -29,9 +29,9 @@ Keep **only `main`**, locally and on GitHub. Do not create or retain feature bra
 
 ## Active work
 
-| Branch | Owner session | Area / files claimed                                                                                                                        | Started    | Status                                                                                                 |
-| ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
-| main   | Codex         | Evidence-based Node/pnpm runtime detection, CI lint allocator, client chunking, server dependency tracing; package/Vite/ESLint/scripts/docs | 2026-11-11 | Local gates complete; constrained Linux panic reproduced/fixed; hosted build and CI validation pending |
+| Branch | Owner session | Area / files claimed                                                                                                                                                                                          | Started    | Status                                                                         |
+| ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------ |
+| main   | Codex         | Published blog availability, Vercel configuration recovery, DB configuration guard, archive/article verification, navigation layout-shift attribution and regressions; Svelte editor owns Navbar/root/app.css | 2026-11-11 | Investigating hosted failures and browser layout shifts; no CMS content writes |
 
 ## Recently finished
 

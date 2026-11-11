@@ -1217,22 +1217,24 @@
 			block-size: 34px;
 		}
 
-		.nav-shell:not(.is-compact) .brand-text {
+		/* Keep the brand geometry stable when hydration selects compact navigation,
+		 * including enlarged text where the grid can exceed the minimum nav height. */
+		.nav-shell .brand-text {
 			display: grid;
 			grid-template-rows: 1fr auto 1fr;
 			align-self: stretch;
 			padding-block-start: 0;
 		}
 
-		.nav-shell:not(.is-compact) .brand-text::before {
+		.nav-shell .brand-text::before {
 			content: '';
 		}
 
-		.nav-shell:not(.is-compact) .brand-name {
+		.nav-shell .brand-name {
 			grid-row: 2;
 		}
 
-		.nav-shell:not(.is-compact) .brand-tagline {
+		.nav-shell .brand-tagline {
 			grid-row: 3;
 			align-self: start;
 		}

@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-11 — Restore published blog availability and stable navigation
+
+- Diagnose the recreated Vercel project with zero environment variables, unassigned public domains and a hosted PGlite filesystem failure. Reconnect the original Production/Preview databases and Production-only media store, restore origin/signing settings and canonical domains; preserve the published article bytes, media and dates.
+- Reject unconfigured hosted CMS builds and runtime database fallback, with build-process and generated-function regressions.
+- Keep the desktop brand grid stable when hydration selects compact navigation at enlarged text sizes; restore the documented 75rem featured-card cap. Correct geometry assertions to measure available layout width including the reserved scrollbar gutter, retaining existing tolerances.
+- Evidence and validation: [hosting and layout-shift verification](docs/reviews/blog-availability-cls-2026-11-11/VERIFICATION.md).
+
 ### 2026-11-11 — Evidence-based build and CI repair
 
 - Use the supported Node `26.x` deployment range and retain local `26.13.0` pins. Replace fake package-manager engine versions with `devEngines.packageManager` and a local pnpm-only preinstall guard.

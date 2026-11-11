@@ -28,7 +28,7 @@
 		srcset
 			? (sizes ??
 					(lead
-						? '(min-width: 48rem) min(44.5rem, calc(50vw - 1.75rem)), calc(100vw - 1.5rem)'
+						? '(min-width: 48rem) min(37.5rem, calc(50vw - 1.75rem)), calc(100vw - 1.5rem)'
 						: 'min(25rem, 100vw)'))
 			: undefined
 	);
@@ -168,7 +168,7 @@
 	}
 
 	.blog-post-card.is-lead {
-		max-inline-size: 100%;
+		max-inline-size: 75rem;
 	}
 
 	.blog-post-card.is-light {

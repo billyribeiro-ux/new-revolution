@@ -33,6 +33,8 @@ test('keeps the TOC on wide desktop and aligns the article reading column flush 
 			const tocEl = document.querySelector<HTMLElement>('.article-toc-aside');
 			const tocVisible = tocEl && getComputedStyle(tocEl).display !== 'none';
 			return {
+				availableInlineSize: document.documentElement.getBoundingClientRect().width,
+				rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize),
 				scrollWidth: document.documentElement.scrollWidth,
 				navShell: navRect.toJSON(),
 				navInnerLeft,
@@ -54,10 +56,15 @@ test('keeps the TOC on wide desktop and aligns the article reading column flush 
 		expect(Math.abs(geometry.breadcrumbShell.width - geometry.navShell.width)).toBeLessThan(1);
 		expect(Math.abs(geometry.articleShell.x - geometry.navShell.x)).toBeLessThan(1);
 		expect(Math.abs(geometry.articleShell.width - geometry.navShell.width)).toBeLessThan(1);
-		if (width >= 1536) {
-			expect(geometry.navShell.width).toBe(1536);
-			expect(geometry.navShell.x).toBe((width - 1536) / 2);
-		}
+		// The frame fills available layout space, capped at 96rem. A stable scrollbar
+		// gutter reserves real space even when headless Chromium hides the scrollbar:
+		// at a 1536px viewport the root layout box is 1521px, while clientWidth can
+		// still report 1536px. Measure that independent root box, not the nav result.
+		const expectedFrame = Math.min(96 * geometry.rootFontSize, geometry.availableInlineSize);
+		expect(Math.abs(geometry.navShell.width - expectedFrame)).toBeLessThan(1);
+		expect(
+			Math.abs(geometry.navShell.x - (geometry.availableInlineSize - expectedFrame) / 2)
+		).toBeLessThan(1);
 		if (geometry.related) {
 			expect(Math.abs(geometry.related.x - geometry.navInnerLeft)).toBeLessThan(1);
 			expect(Math.abs(geometry.related.width - geometry.navInnerWidth)).toBeLessThan(1);

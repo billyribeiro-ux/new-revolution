@@ -10,7 +10,7 @@
 	},
 	"scripts": {
 		"dev": "vp dev",
-		"build": "vp build && node scripts/maintenance-build.mjs && node scripts/verify-server-runtime.mjs",
+		"build": "node scripts/check-hosted-database.ts && vp build && node scripts/maintenance-build.mjs && node scripts/verify-server-runtime.mjs",
 		"preview": "vp preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

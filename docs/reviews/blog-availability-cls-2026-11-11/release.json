@@ -1,0 +1,51 @@
+{
+	"applicationCommit": "905bd56d7cb6cd9acc1a94eef478e8ce86cacb5f",
+	"deploymentId": "dpl_74zQRHL4QkNrDwDvWWZ58bgL56iH",
+	"url": "new-revolution-337gpwluo-will-ribeiros-projects.vercel.app",
+	"readyState": "READY",
+	"liveDomain": "www.revolutiontradingpros.com",
+	"ci": {
+		"id": "M8OVC0nPl7gI7EBOy01zYeSa",
+		"attempt": 1,
+		"status": "succeeded",
+		"repository": "billyribeiro-ux/new-revolution",
+		"branch": "main",
+		"commitSha": "905bd56d7cb6cd9acc1a94eef478e8ce86cacb5f",
+		"createdAt": "2026-11-11T16:48:36.608Z"
+	},
+	"jobs": [
+		{
+			"name": "lint",
+			"kind": "command",
+			"status": "succeeded",
+			"startedAt": "2026-11-11T16:48:58.514Z",
+			"completedAt": "2026-11-11T16:51:20.668Z",
+			"durationMs": 142154,
+			"tasks": []
+		},
+		{
+			"name": "typecheck",
+			"kind": "command",
+			"status": "succeeded",
+			"startedAt": "2026-11-11T16:48:58.513Z",
+			"completedAt": "2026-11-11T16:50:28.078Z",
+			"durationMs": 89565,
+			"tasks": []
+		}
+	],
+	"linuxRuntime": {
+		"platform": "linux-x64",
+		"width": 6,
+		"height": 4,
+		"format": "webp",
+		"emailRequests": 1,
+		"network": "mocked; no email sent"
+	},
+	"publicErrorLogRecords": 0,
+	"local": {
+		"unitTests": 688,
+		"e2eTests": 79,
+		"staticContracts": 46,
+		"disposableAdminsRevoked": 3
+	}
+}

@@ -505,7 +505,13 @@
 				</p>
 			</div>
 
-			<div class="table-wrapper" role="region" aria-labelledby="comparison-h2">
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex (Scrollable table regions need native keyboard access.) -->
+			<div
+				class="table-wrapper"
+				role="region"
+				aria-label="Small accounts room comparison table"
+				tabindex="0"
+			>
 				<table class="comparison-table">
 					<thead>
 						<tr>

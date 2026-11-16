@@ -428,7 +428,13 @@
 					</p>
 				</div>
 
-				<div class="table-wrapper" role="region" aria-labelledby="comparison-h2">
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex (Scrollable table regions need native keyboard access.) -->
+				<div
+					class="table-wrapper"
+					role="region"
+					aria-label="ETF and mutual fund comparison table"
+					tabindex="0"
+				>
 					<table class="comparison-table">
 						<thead>
 							<tr>
@@ -571,6 +577,7 @@
      Typography: --font-display (Headings/Tickers/CTAs) + --font-sans (Body/Data)
      =========================================================================== */
 	.etf-page {
+		overflow-wrap: anywhere;
 		background-color: var(--bg-soft);
 		color: var(--text);
 		font-family: var(--font-sans);
@@ -786,7 +793,8 @@
 		background-color: var(--panel2);
 		color: #ffffff;
 		padding: 0.25rem 0.5rem;
-		white-space: nowrap;
+		white-space: normal;
+		max-inline-size: 100%;
 	}
 
 	.quick-ref-list {
@@ -1063,6 +1071,8 @@
 
 	.etf-card__header {
 		display: flex;
+		flex-wrap: wrap;
+		min-inline-size: 0;
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.75rem;
@@ -1072,6 +1082,8 @@
 
 	.etf-card__symbol-group {
 		display: flex;
+		flex-wrap: wrap;
+		min-inline-size: 0;
 		align-items: center;
 		gap: 0.625rem;
 	}

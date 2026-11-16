@@ -4,13 +4,15 @@
  * Uses Playwright Chromium (mobile preset: 375x812, DPR 3) against `pnpm preview`
  * to measure Core Web Vitals (LCP, CLS, TBT, FCP, TTFB), LCP element, render-blocking
  * resources, external font requests, mobile viewport overflow, tap target sizes,
- * and WCAG 2.2 AA accessibility rules across one representative URL per template.
+ * and real axe-core WCAG 2.2 AA/best-practice results (no numeric accessibility score) across one representative URL per template.
  */
 
 import { spawn, type ChildProcess } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
+import type { AxeResults } from 'axe-core';
+import { auditAccessibility } from '../accessibility/axe.ts';
 
 export interface TemplateTarget {
 	template: string;
@@ -28,13 +30,6 @@ export const REPRESENTATIVE_TARGETS: TemplateTarget[] = [
 	{ template: 'blog-listing', url: '/blog' },
 	{ template: 'article', url: '/blog/institutional-order-flow-and-gamma-flip-playbook' }
 ];
-
-export interface A11yViolation {
-	id: string;
-	impact: 'critical' | 'serious' | 'moderate' | 'minor';
-	description: string;
-	nodes: string[];
-}
 
 export interface TemplateLabResult {
 	template: string;
@@ -60,10 +55,7 @@ export interface TemplateLabResult {
 		undersizedTapTargetsCount: number;
 		undersizedTapTargetExamples: string[];
 	};
-	a11y: {
-		score: number;
-		violations: A11yViolation[];
-	};
+	a11y: AxeResults;
 }
 
 async function waitForServer(url: string, timeoutMs = 20000): Promise<void> {
@@ -92,7 +84,18 @@ export async function runLabAudit(outDir: string): Promise<{
 		{
 			cwd: process.cwd(),
 			stdio: 'pipe',
-			env: { ...process.env, NODE_ENV: 'production' }
+			env: {
+				...process.env,
+				NODE_ENV: 'production',
+				DATABASE_URL: 'memory://accessibility-lab',
+				ORIGIN: baseUrl,
+				MEDIA_STORAGE: 'disk',
+				BLOB_READ_WRITE_TOKEN: '',
+				RESEND_API_KEY: '',
+				GSC_SERVICE_ACCOUNT_JSON: '',
+				INDEXNOW_API_KEY: '',
+				WAITLIST_SIGNUPS_ENABLED: 'false'
+			}
 		}
 	);
 
@@ -100,8 +103,7 @@ export async function runLabAudit(outDir: string): Promise<{
 		await waitForServer(baseUrl);
 		const browser = await chromium.launch({ headless: true });
 		const results: TemplateLabResult[] = [];
-		const allAxeViolations: Array<{ template: string; url: string; violations: A11yViolation[] }> =
-			[];
+		const axeResults: Array<{ template: string; url: string; result: AxeResults }> = [];
 
 		try {
 			for (const target of REPRESENTATIVE_TARGETS) {
@@ -258,148 +260,6 @@ export async function runLabAudit(outDir: string): Promise<{
 						}
 					}
 
-					// Accessibility checks (WCAG 2.2 AA rules)
-					const violations: Array<{
-						id: string;
-						impact: 'critical' | 'serious' | 'moderate' | 'minor';
-						description: string;
-						nodes: string[];
-					}> = [];
-
-					// 1. html-has-lang
-					if (!document.documentElement.getAttribute('lang')) {
-						violations.push({
-							id: 'html-has-lang',
-							impact: 'serious',
-							description: '<html> element must have a lang attribute',
-							nodes: ['html']
-						});
-					}
-
-					// 2. document-title
-					if (!document.title || !document.title.trim()) {
-						violations.push({
-							id: 'document-title',
-							impact: 'serious',
-							description: 'Document must have a non-empty <title>',
-							nodes: ['head > title']
-						});
-					}
-
-					// 3. bypass / skip-link
-					const firstLink = document.querySelector('a.skip');
-					if (!firstLink) {
-						violations.push({
-							id: 'bypass',
-							impact: 'moderate',
-							description:
-								'Page must have a skip link (a.skip) targeting the main content landmark',
-							nodes: ['body']
-						});
-					} else {
-						const targetId = firstLink.getAttribute('href')?.slice(1) ?? '';
-						if (!targetId || !document.getElementById(targetId)) {
-							violations.push({
-								id: 'skip-link-target',
-								impact: 'moderate',
-								description: `Skip link href="#${targetId}" does not resolve to an element ID in the DOM`,
-								nodes: [firstLink.outerHTML.slice(0, 100)]
-							});
-						}
-					}
-
-					// 4. landmark-one-main
-					const mains = document.querySelectorAll('main');
-					if (mains.length !== 1) {
-						violations.push({
-							id: 'landmark-one-main',
-							impact: 'moderate',
-							description: `Document must have exactly 1 <main> landmark (found ${mains.length})`,
-							nodes: ['body']
-						});
-					}
-
-					// 5. image-alt
-					const missingAltNodes: string[] = [];
-					for (const img of Array.from(document.querySelectorAll('img'))) {
-						if (
-							img.getAttribute('alt') === null &&
-							img.getAttribute('role') !== 'presentation' &&
-							img.getAttribute('aria-hidden') !== 'true'
-						) {
-							missingAltNodes.push(img.outerHTML.slice(0, 120));
-						}
-					}
-					if (missingAltNodes.length > 0) {
-						violations.push({
-							id: 'image-alt',
-							impact: 'critical',
-							description: 'Images must have alternate text',
-							nodes: missingAltNodes
-						});
-					}
-
-					// 6. button-name
-					const unnamedButtons: string[] = [];
-					for (const btn of Array.from(document.querySelectorAll('button'))) {
-						const text = (btn.textContent ?? '').trim();
-						const ariaLabel = btn.getAttribute('aria-label')?.trim();
-						const ariaLabelledBy = btn.getAttribute('aria-labelledby')?.trim();
-						const title = btn.getAttribute('title')?.trim();
-						if (!text && !ariaLabel && !ariaLabelledBy && !title) {
-							unnamedButtons.push(btn.outerHTML.slice(0, 120));
-						}
-					}
-					if (unnamedButtons.length > 0) {
-						violations.push({
-							id: 'button-name',
-							impact: 'critical',
-							description: 'Buttons must have discernible text',
-							nodes: unnamedButtons
-						});
-					}
-
-					// 7. link-name
-					const unnamedLinks: string[] = [];
-					for (const a of Array.from(document.querySelectorAll('a[href]'))) {
-						const text = (a.textContent ?? '').trim();
-						const ariaLabel = a.getAttribute('aria-label')?.trim();
-						const ariaLabelledBy = a.getAttribute('aria-labelledby')?.trim();
-						const imgAlt = a.querySelector('img[alt]')?.getAttribute('alt')?.trim();
-						if (!text && !ariaLabel && !ariaLabelledBy && !imgAlt) {
-							unnamedLinks.push(a.outerHTML.slice(0, 120));
-						}
-					}
-					if (unnamedLinks.length > 0) {
-						violations.push({
-							id: 'link-name',
-							impact: 'serious',
-							description: 'Links must have discernible text',
-							nodes: unnamedLinks
-						});
-					}
-
-					// 8. heading-order
-					const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
-					const headingJumpNodes: string[] = [];
-					for (let i = 1; i < headings.length; i++) {
-						const prev = Number(headings[i - 1].tagName[1]);
-						const curr = Number(headings[i].tagName[1]);
-						if (curr > prev + 1) {
-							headingJumpNodes.push(
-								`h${prev} ("${(headings[i - 1].textContent ?? '').trim().slice(0, 35)}") -> h${curr} ("${(headings[i].textContent ?? '').trim().slice(0, 35)}")`
-							);
-						}
-					}
-					if (headingJumpNodes.length > 0) {
-						violations.push({
-							id: 'heading-order',
-							impact: 'moderate',
-							description: 'Heading levels should only increase by one',
-							nodes: headingJumpNodes
-						});
-					}
-
 					return {
 						ttfbMs: Math.round(nav ? nav.responseStart - nav.requestStart : 0),
 						fcpMs: Math.round(fcp ? fcp.startTime : 0),
@@ -411,12 +271,11 @@ export async function runLabAudit(outDir: string): Promise<{
 						totalTransferBytes,
 						hasHorizontalOverflow,
 						undersizedTapTargetsCount: undersizedTapTargetExamples.length,
-						undersizedTapTargetExamples: undersizedTapTargetExamples.slice(0, 10),
-						violations
+						undersizedTapTargetExamples: undersizedTapTargetExamples.slice(0, 10)
 					};
 				});
 
-				const score = Math.max(0, 100 - evalData.violations.length * 5);
+				const accessibility = await auditAccessibility(page);
 				const templateResult: TemplateLabResult = {
 					template: target.template,
 					url: target.url,
@@ -441,17 +300,14 @@ export async function runLabAudit(outDir: string): Promise<{
 						undersizedTapTargetsCount: evalData.undersizedTapTargetsCount,
 						undersizedTapTargetExamples: evalData.undersizedTapTargetExamples
 					},
-					a11y: {
-						score,
-						violations: evalData.violations
-					}
+					a11y: accessibility
 				};
 
 				results.push(templateResult);
-				allAxeViolations.push({
+				axeResults.push({
 					template: target.template,
 					url: target.url,
-					violations: evalData.violations
+					result: accessibility
 				});
 
 				mkdirSync(outDir, { recursive: true });
@@ -472,7 +328,7 @@ export async function runLabAudit(outDir: string): Promise<{
 		};
 		mkdirSync(outDir, { recursive: true });
 		writeFileSync(resolve(outDir, 'lab-summary.json'), JSON.stringify(summary, null, 2) + '\n');
-		writeFileSync(resolve(outDir, 'axe.json'), JSON.stringify(allAxeViolations, null, 2) + '\n');
+		writeFileSync(resolve(outDir, 'axe.json'), JSON.stringify(axeResults, null, 2) + '\n');
 
 		return summary;
 	} finally {
@@ -487,7 +343,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 	const outDir =
 		outIdx !== -1 && process.argv[outIdx + 1]
 			? resolve(process.cwd(), process.argv[outIdx + 1])
-			: resolve(process.cwd(), 'docs/seo/audit/03-lab');
+			: resolve(process.cwd(), 'test-results/accessibility-lab');
 
 	runLabAudit(outDir)
 		.then((summary) => {
@@ -503,7 +359,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 						externalFonts: r.resources.externalFontUrls.length,
 						overflow: r.mobileUsability.hasHorizontalOverflow,
 						undersizedTargets: r.mobileUsability.undersizedTapTargetsCount,
-						a11yScore: r.a11y.score,
+						a11yEngine: r.a11y.testEngine,
+						a11yNeedsReview: r.a11y.incomplete.length,
 						a11yViolations: r.a11y.violations.map((v) => v.id)
 					})),
 					null,

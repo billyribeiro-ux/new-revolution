@@ -181,7 +181,7 @@
 			</div>
 			<div class="hero__content" in:fly={{ y: 30, duration: 600, easing: cubicOut }}>
 				<div class="hero__badge">
-					<IconChartBar size={20} />
+					<IconChartBar size={20} aria-hidden="true" focusable="false" />
 					<span>IRC Section 1256 &amp; Index Reference</span>
 				</div>
 				<h1 class="hero__title">Cash-Settled Index Options &amp; Section 1256 Guide</h1>
@@ -260,7 +260,7 @@
 					</div>
 					<div class="sp500-feature__chart">
 						<div class="chart-placeholder">
-							<IconChartLine size={64} />
+							<IconChartLine size={64} aria-hidden="true" focusable="false" />
 							<span>SPY Chart</span>
 							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 							<a
@@ -270,7 +270,7 @@
 								class="chart-link"
 							>
 								View on TradingView
-								<IconExternalLink size={16} />
+								<IconExternalLink size={16} aria-hidden="true" focusable="false" />
 							</a>
 						</div>
 					</div>
@@ -291,7 +291,7 @@
 				<!-- Region Filter -->
 				<div class="filter-bar">
 					<label for="region-filter">
-						<IconWorld size={20} />
+						<IconWorld size={20} aria-hidden="true" focusable="false" />
 						<span class="sr-only">Filter by region</span>
 					</label>
 					<select
@@ -321,11 +321,11 @@
 							<p class="index-card__description">{index.description}</p>
 							<div class="index-card__meta">
 								<div class="index-card__meta-item">
-									<IconBuildingSkyscraper size={16} />
+									<IconBuildingSkyscraper size={16} aria-hidden="true" focusable="false" />
 									<span>{index.companies > 0 ? `${index.companies} Companies` : 'N/A'}</span>
 								</div>
 								<div class="index-card__meta-item">
-									<IconChartBar size={16} />
+									<IconChartBar size={16} aria-hidden="true" focusable="false" />
 									<span>{index.type}</span>
 								</div>
 							</div>
@@ -368,7 +368,13 @@
 					</p>
 				</div>
 
-				<div class="sec1256-table-wrap">
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex (Scrollable table regions need native keyboard access.) -->
+				<div
+					class="sec1256-table-wrap"
+					role="region"
+					aria-label="Cash-settled index options comparison table"
+					tabindex="0"
+				>
 					<table class="sec1256-table">
 						<thead>
 							<tr>
@@ -455,10 +461,15 @@
 					{#each STOCK_INDEXES_LIST_FAQ_ITEMS as faq (faq.id)}
 						<details class="faq-item" name="stock-indexes-faq">
 							<summary class="faq-item__question">
-								<IconQuestionMark size={20} class="faq-item__icon" />
+								<IconQuestionMark
+									size={20}
+									class="faq-item__icon"
+									aria-hidden="true"
+									focusable="false"
+								/>
 								<span>{faq.question}</span>
 								<span class="faq-item__chevron" aria-hidden="true"
-									><IconChevronDown size={20} /></span
+									><IconChevronDown size={20} aria-hidden="true" focusable="false" /></span
 								>
 							</summary>
 							<div class="faq-item__answer">
@@ -484,7 +495,7 @@
 					<div class="cta-buttons">
 						<a href={resolve('/alert-services/spx-profit-pulse')} class="cta-btn cta-btn--primary">
 							Explore SPX Profit Pulse Alerts
-							<IconArrowRight size={20} />
+							<IconArrowRight size={20} aria-hidden="true" focusable="false" />
 						</a>
 						<a
 							href={resolve('/live-trading-rooms/day-trading-room')}
@@ -523,6 +534,11 @@
 		text-transform: uppercase;
 		color: var(--acid);
 		margin: 0 0 0.5rem;
+	}
+
+	.sec1256-table-wrap:focus-visible {
+		outline: 3px solid var(--acid);
+		outline-offset: -3px;
 	}
 
 	.sec1256-table-wrap {

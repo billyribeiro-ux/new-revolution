@@ -9,6 +9,20 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-16 — Frontend accessibility repairs and real axe verification
+
+- **Fixed:** Add named, keyboard-accessible table scroll regions and inset focus indicators to six confirmed routes and three additional gated store templates; mark redundant Phosphor icons decorative on the stock-index directory; repair enlarged-text wrapping in room/course headers, ETF card labels/links, and narrow grids, including text previously hidden by clipping.
+- **Changed:** Retain Phosphor and remove unused Carbon icons. Replace the lab auditor's handwritten checks and invented accessibility score with pinned `axe-core@4.11.0`, full engine results, and manual-review findings; expose `pnpm audit:frontend` with generated output under ignored `test-results/` and isolated local data.
+- **Added:** Real axe, cross-browser native keyboard, no-JavaScript, enlarged-text, and negative-control regressions. Track exact verification and remaining frontend work in [the implementation ledger](docs/audit/2026-11-16/frontend-implementation.md). Preserve raw historical evidence outside Git with a checksum index alongside the curated reports.
+
+### 2026-11-16 — Separate backend audit scope
+
+- **Added (Docs):** Create [backend-report.md](backend-report.md) identifying six primarily backend-related audit findings and two overlapping findings, their implementation/evidence references, and the distinction between existing-path defects, unfinished wiring, test infrastructure, and planned member/enrollment work. The classification is not a backend completion percentage.
+
+### 2026-11-16 — Verify audit findings against primary and runtime evidence
+
+- **Added (Docs):** Preserve a claim-by-claim verification report and reproducible evidence for A01–A12 under `docs/audit/2026-11-16/`: source excerpts/hashes, production-mode auth controls, isolated database/loader/date probes, primary advisory metadata, selected read-only Vercel/GitHub configuration, real axe-core results at three widths, and prior raw gate logs. Correct the PATCH-schema omission, qualify accessibility/launch scope, and record that the owner's main-domain removal is intentional. Application behavior and hosted settings remain unchanged.
+
 ### 2026-11-16 — Owner-authorized clean Git history baseline
 
 - **Changed (Repository):** Consolidate the 98-commit `main` history into one parentless baseline containing the current tracked project and audit documentation. Preserve the original history in a verified Git bundle outside the checkout; publish with an explicit force-with-lease against the inspected GitHub head. Historical commit identifiers in existing documentation remain recoverable from the backup.

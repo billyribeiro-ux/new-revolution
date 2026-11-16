@@ -2,9 +2,11 @@
 
 **Audit date:** November 16, 2026  
 **Baseline:** `bc73303` on `main`  
-**Status:** Discovery complete; remediation items below remain open.
+**Status:** Discovery complete; evidence verification recorded below; remediation items remain open.
 
 This file preserves the end-to-end discovery and provides a running follow-up checklist. Counts and test results describe the audited baseline; re-verify them after implementation changes. Follow [AGENTS.md](AGENTS.md) and the active domain standards in `docs/` when addressing findings.
+
+**Evidence review:** The [claim-verification report](docs/audit/2026-11-16/verification-report.md) verifies A01–A12 against commit `592f440`, with source-line citations, reproducible probes, primary advisories, selected hosted configuration, real axe results, and retained raw logs. It expands A07 to include the missing PATCH schema field, narrows A08 by route/viewport, and qualifies A11's launch wording. The original discovery performed no application remediation. Subsequent fixes and their validation are tracked in [frontend-implementation.md](docs/audit/2026-11-16/frontend-implementation.md).
 
 ## Assessment
 
@@ -27,7 +29,7 @@ The discovery covered repository instructions, configuration, routes, shared com
 | Migrations              | Five forward-only SQL files, `0000` through `0004`                                                          |
 | Content packages        | 43 Markdown article packages under `content/blog-posts/`                                                    |
 | SEO inventory           | 124 entries: 31 indexable, 93 nonindexable                                                                  |
-| Prerendered output      | 99 pages: 26 indexable, 73 nonindexable                                                                     |
+| Prerendered output      | 99 pages: 26 with indexable metadata, 73 with noindex metadata                                              |
 | TODO shells             | 67: 33 store, 22 resources, eight enrollment, plus login, register, memberships, and mentorship application |
 
 Installed versions were checked against `package.json`, the lockfile, and `pnpm list --depth 0`. SvelteKit configuration lives in [vite.config.ts](vite.config.ts). Article packages on disk do not establish their publication status in a hosted CMS. The SEO inventory includes local fixture URLs and does not represent a live production content inventory.
@@ -56,7 +58,8 @@ See [CSS standards](docs/CSS_STANDARDS.md) and the [blog contract](docs/BLOG_CON
 - Local configuration was classified without displaying credentials: `.env` contains a placeholder database; `.env.local` configures hosted PostgreSQL, a Blob token, and `PUBLIC_ENV=development`. Ordinary `pnpm dev` can therefore use hosted data/media.
 - Audit verification used explicit in-memory databases and disabled external email, Blob, and search integrations.
 - `COMMERCE_ENABLED=false`, `CONCEPT_PREVIEW=false`, store launch gating, and free eBook unavailability remain in effect. Local `/checkout` returned `403`.
-- Hosted deployment settings, actual hosted signing secrets, and external scheduler configuration were not inspected.
+- The main custom domain was deliberately removed by the owner; its absence is not a defect. Subsequent hosted verification uses the current Vercel deployment domain only.
+- Initial discovery did not inspect hosted settings. The evidence review now verifies selected Vercel scheduling/domain/promotion and GitHub workflow metadata; actual hosted signing secrets and unrelated external schedulers remain uninspected.
 
 ## Open findings and follow-up checklist
 
@@ -65,6 +68,8 @@ See [CSS standards](docs/CSS_STANDARDS.md) and the [blog contract](docs/BLOG_CON
 - [ ] Reject missing, placeholder, and inadequate signing secrets in hosted production; add meaningful regression coverage.
 
 [src/env.ts](src/env.ts) supplies a known development secret when `BETTER_AUTH_SECRET` is missing, and [auth.ts](src/lib/server/auth.ts) passes it to Better Auth. [assertProductionEnv()](src/lib/server/config/runtime.ts) currently performs no validation. An isolated in-memory Better Auth probe accepted the repository fallback under `NODE_ENV=production`.
+
+The subsequent [production-generated application probe](docs/audit/2026-11-16/evidence-index.md) confirms acceptance of both the missing-secret fallback and an eight-character secret under `NODE_ENV=production`, `VERCEL=1`, without Vitest and with all networking blocked. A negative control rejects the library's own default secret.
 
 This confirms a missing-configuration risk. It does not establish which secret a hosted deployment actually uses. The implementation is weaker than the fail-closed behavior described in the operational documentation.
 
@@ -110,15 +115,15 @@ Following the recipe does not create the promised isolated shared seed/server ta
 
 ### A07 — PATCH minor-edit propagation
 
-- [ ] Forward `minorEdit` through `patchPost` into the save path and verify editorial modification-date behavior with unit/database coverage.
+- [ ] Declare `minorEdit` in the PATCH schema, forward it through `patchPost` into the save path, and verify editorial modification-date behavior with unit/database coverage.
 
-[patchPost()](src/lib/server/services/posts.ts) constructs the update payload without forwarding `minorEdit`. This remains roadmap finding `F12`.
+[patchPost()](src/lib/server/services/posts.ts) constructs the update payload without forwarding `minorEdit`, and [the PATCH schema](src/lib/shared/schemas/posts.ts) does not declare the field. The evidence probe confirms that full update preserves a minor edit's editorial date while PATCH advances it. This remains roadmap finding `F12`.
 
 ### A08 — Accessibility audit tooling
 
-- [ ] Run actual `axe-core`, fix confirmed accessibility defects, and make heuristic output clearly distinguishable from axe results.
+- [x] Run actual `axe-core`, fix the confirmed scroll-region/icon defects, and replace the heuristic accessibility output. Completed November 16, 2026; broader manual accessibility review remains open.
 
-[tests/seo/lab.ts](tests/seo/lab.ts) writes `axe.json` from handwritten DOM checks rather than an actual axe-core run. Its heading checks also include hidden dialog headings. A green local gate does not establish comprehensive WCAG compliance. Real accessibility remediation and verification remain in roadmap findings `F04` and `F05`.
+At the audited baseline, [tests/seo/lab.ts](tests/seo/lab.ts) wrote `axe.json` from handwritten DOM checks rather than an actual axe-core run. Its heading selector does not filter visibility; a current hidden-dialog heading failure was not reproduced. The subsequent [real axe run](docs/audit/2026-11-16/evidence-index.md) confirms scroll-region defects on six routes at 320px/375px and 30 unnamed SVGs on the stock-index directory. The seeded blog article did not reproduce those violations at the tested widths. A green local gate does not establish comprehensive WCAG compliance. Roadmap findings `F04` and `F05` are now remediated; see [the implementation and verification ledger](docs/audit/2026-11-16/frontend-implementation.md).
 
 ### A09 — Versioned CI enforcement
 
@@ -136,7 +141,7 @@ Prominent membership/login destinations lead to TODO shells. The generated outpu
 
 - [ ] Reconcile deployment promotion instructions with verified hosted settings, repair the test runbook, and replace the incomplete launch summary with the actual remaining work.
 
-[ADMIN_AND_OPS.md](docs/ADMIN_AND_OPS.md) describes `autoAssignCustomDomains=false`, while the latest changelog/temporary registry records enabling automatic aliasing. [remaining.md](remaining.md) says only three non-code launch steps remain despite the confirmed shells and open engineering work. Hosted deployment settings were not queried. Some roadmap entries are stale in the opposite direction: placeholder contact defaults have already been removed from the current config.
+[ADMIN_AND_OPS.md](docs/ADMIN_AND_OPS.md) describes `autoAssignCustomDomains=false`; the subsequent authenticated Vercel query confirms that the current flag is `true`. [remaining.md](remaining.md) says only three non-code launch steps remain, but does not clearly distinguish opening indexing from completing the commercial product. Existing unfinished shells do not establish that already-built pages cannot be published. The owner's deliberate main-domain removal is not a defect and does not authorize restoring that domain. Some roadmap entries are stale in the opposite direction: placeholder contact defaults have already been removed from the current config.
 
 ### A12 — Outstanding evidence assets
 

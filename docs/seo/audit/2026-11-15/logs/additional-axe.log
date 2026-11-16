@@ -1,0 +1,17 @@
+[]
+file:///private/tmp/revolution-seo-tools/node_modules/.pnpm/@axe-core+playwright@4.14.0_playwright-core@1.64.1/node_modules/@axe-core/playwright/dist/index.mjs:219
+      throw new Error(
+            ^
+
+Error: Please use browser.newContext()
+ Please check out https://github.com/dequelabs/axe-core-npm/blob/develop/packages/playwright/error-handling.md
+    at AxeBuilder.analyze (file:///private/tmp/revolution-seo-tools/node_modules/.pnpm/@axe-core+playwright@4.14.0_playwright-core@1.64.1/node_modules/@axe-core/playwright/dist/index.mjs:219:13)
+    at async file:///private/tmp/revolution-seo-tools/extra-axe.mjs:7:10 {
+  [cause]: Error: Please use browser.newContext()
+      at _BrowserContext.newPage (/private/tmp/revolution-seo-tools/node_modules/.pnpm/playwright-core@1.64.1/node_modules/playwright-core/lib/coreBundle.js:63972:17)
+      at AxeBuilder.finishRun (file:///private/tmp/revolution-seo-tools/node_modules/.pnpm/@axe-core+playwright@4.14.0_playwright-core@1.64.1/node_modules/@axe-core/playwright/dist/index.mjs:315:37)
+      at AxeBuilder.analyze (file:///private/tmp/revolution-seo-tools/node_modules/.pnpm/@axe-core+playwright@4.14.0_playwright-core@1.64.1/node_modules/@axe-core/playwright/dist/index.mjs:217:25)
+      at async file:///private/tmp/revolution-seo-tools/extra-axe.mjs:7:10
+}
+
+Node.js v26.13.0

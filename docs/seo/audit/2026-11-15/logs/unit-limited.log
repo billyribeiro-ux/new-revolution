@@ -1,0 +1,12 @@
+$ vp test --run --maxWorkers=4
+
+ RUN  v5.0.5 /Users/billyribeiro/dev/new-revolution-web
+
+
+ Test Files  89 passed (89)
+      Tests  688 passed (688)
+   Start at  13:45:29
+   Duration  12.22s (worker 69%, tests 25%, import 5%, transform 1%)
+
+    Isolate  53 workers spawned · ~68ms startup each (spawn + environment, per file)
+             at least ~834ms faster with isolate: false — reuses workers across files instead of one per file

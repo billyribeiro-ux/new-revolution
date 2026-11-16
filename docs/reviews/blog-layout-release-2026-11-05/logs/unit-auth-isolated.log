@@ -1,0 +1,10 @@
+$ vp test --run src/lib/server/auth-role.db.spec.ts
+
+ RUN  v5.0.5 /private/tmp/wt-blog-audit-20261105
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:23:24
+   Duration  1.85s (tests 76%, import 21%, transform 2%)
+

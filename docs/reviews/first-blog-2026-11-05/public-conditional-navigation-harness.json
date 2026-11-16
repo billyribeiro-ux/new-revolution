@@ -1,0 +1,172 @@
+{
+	"origin": "https://www.revolutiontradingpros.com",
+	"mode": "public",
+	"cases": [
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 2420,
+			"path": "/",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 2420,
+			"path": "/blog",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 2420,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"draft": false,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		}
+	],
+	"http": [],
+	"graphCrops": [
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-16x9.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 38096,
+			"format": "webp"
+		},
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-4x3.webp",
+			"width": 1200,
+			"height": 900,
+			"bytes": 43768,
+			"format": "webp"
+		},
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-1x1.webp",
+			"width": 900,
+			"height": 900,
+			"bytes": 37418,
+			"format": "webp"
+		}
+	],
+	"passed": false,
+	"error": "Expected values to be strictly equal:\n\n304 !== 200\n"
+}

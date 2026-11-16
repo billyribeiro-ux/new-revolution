@@ -1,0 +1,12 @@
+$ node --env-file-if-exists=.env scripts/seed-admin.ts
+.env not found. Continuing without it.
+Database: PGlite (local file) /private/tmp/revolution-dependency-e2e-20261115/.svelte-kit/pglite-blog
+Account created: role=admin, email verified.
+email=diagnosis-1794771533807@example.test id=O0NCAZGuf9jSVaz6nZUS9KCCvLkSh2z4 role=admin action=created
+$ vp preview --port 4673
+  ➜  Local:   http://localhost:4673/
+  ➜  Network: use --host to expose
+$ node --env-file-if-exists=.env scripts/seed-admin.ts --revoke
+.env not found. Continuing without it.
+Database: PGlite (local file) /private/tmp/revolution-dependency-e2e-20261115/.svelte-kit/pglite-blog
+Revoked: deleted user O0NCAZGuf9jSVaz6nZUS9KCCvLkSh2z4 (diagnosis-1794771533807@example.test); ON DELETE CASCADE removed 1 session(s) and 1 account row(s).

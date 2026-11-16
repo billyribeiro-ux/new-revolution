@@ -1,0 +1,18 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T18:36:04.889Z",
+		"duration": 32740.851,
+		"expected": 13,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"screenshots": [
+		"firefox-cms-card-home-320.png",
+		"firefox-cms-card-home-1440.png",
+		"firefox-cms-card-blog-320.png",
+		"firefox-cms-card-blog-1440.png",
+		"firefox-navbar-desktop.png",
+		"firefox-navbar-mobile.png"
+	]
+}

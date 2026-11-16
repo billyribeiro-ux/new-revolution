@@ -1,0 +1,32 @@
+{
+	"referenceDate": "2026-11-05",
+	"branch": "docs/blog-audit-20261105",
+	"sourceFiles": {
+		"src/lib/components/blog/PostCard.svelte": "9a3baaebce61881319c03e84182f2945c0f78c93f7ba4a6cfe2ee83bd14d7fed",
+		"src/lib/components/blog/PostCard.svelte.spec.ts": "e9684197d4f1459323d6b2df1ea41bc7b6ca79f74edfa8a4818a0e43b64e1661",
+		"src/lib/components/home/BlogSection.svelte": "b1416be8b9f2224aa42a99573549a32440d4c0c8cac407cd32867f8c30efa06a",
+		"src/lib/components/home/BlogSection.svelte.spec.ts": "b45f7576be476971ed5e68a68f2d58c0f9a6c9c56c9b54677d730c0b28f77a13",
+		"src/lib/components/home/HomeSections.svelte.spec.ts": "2efb07da9926a83a395162e2866fcf851aa8e203aba6750e84e125191b3dd2ff",
+		"src/lib/components/layout/Navbar.svelte": "5fe9fe728a700c42e958d18a74a135f2b21f5b1b81c1dd18747d38822f8e93ca",
+		"src/lib/data/homepage.spec.ts": "a112388cb6429a3454c94eed13409daf4f991efc762bb3a02c722bdd4bf5e71d",
+		"src/lib/data/homepage.ts": "de255f603afbd7fd6f7bb1b26f2f603d5c7b47913e0996506d4a1e275d202e22",
+		"src/lib/data/launch-gate.ts": "ed4c2f79f677da564d98b9292ed28a5601501bad1a1d4a0497bc217b151bc064",
+		"src/lib/seo/structured-data.spec.ts": "b90f6c3665d3db505db35aff49e5dcc346032122240fb991f1f5c9d32ba676a6",
+		"src/lib/seo/structured-data.ts": "fcf0a2081872bf8a260fd2c94812f7150b7ed2b0c7a298d1dce8bcc56b41dd84",
+		"src/lib/server/services/blog-discovery.db.spec.ts": "223ecc21e6797a0634da3462edca788508ef6ecf7210f2406fc9788bc3dccd07",
+		"src/lib/server/services/blog-discovery.ts": "912327d960a1887f68a8f2d91c038c3dda0836b7359cd3c2dec15116889e3ec3",
+		"src/lib/shared/blog/discovery.ts": "b3f1562a285783afbad773f3d9cf6a392cc78130f04c9711ea64f1a45d2314c8",
+		"src/lib/shared/blog/pagination.ts": "d3f7c8c1da9a3483e7c6a9c92a8ab31ccac77bfe3ed862b1fe516bbb6f040571",
+		"src/routes/+page.server.ts": "a3db4827d0ad7b14f90967e3e3a7703bf16678666cc236e9ae804700207d63ee",
+		"src/routes/+page.svelte": "ae12bfb6236638836a4f929e8c909544077c617fe5ee7523f5e0b770326ced34",
+		"src/routes/+page.ts": "6d963bf868f142c139877c318273f16c59e15db438e1cdedaee3f4f1ea0e113c",
+		"src/routes/admin/image-flow.e2e.ts": "d37ec9dfd46e2e772e33a9890650a949116ca1b19ae430b9f07ebd3b1e10e5ec",
+		"src/routes/blog/+page.server.ts": "a726bf0166d2bd58a942f8949a439054890f517bfe88ed3cb79de5d9aca60272",
+		"src/routes/blog/+page.svelte": "0c96a5293eb71d4ef4075546acb8b333d7fef54c9e7b95a92329c2285870dce9",
+		"src/routes/blog/blog-pagination.spec.ts": "e62c587aa64c492559ff2d4f72fdcda25bec3573cb33230151d203ec2958afae",
+		"src/routes/blog/blog-routes.spec.ts": "fa6858cd318bfe08b9ac73d5e10ffe039d909a625d81dfe72a985b9f30bcd8d9",
+		"src/routes/page.svelte.e2e.ts": "0f93fddfa3207641286d0c86f03d5be5703c2d2c55da859c0fa53b654ebacced",
+		"src/lib/components/layout/Footer.svelte": "dcc5e2fb00a0b8495d1a39ee570a8f19fed85ffc61435a4f07492e6726932bd7",
+		"src/routes/our-mission/+page.svelte": "23ac822022e48873d75179151f572c3ee3d95df0d970d37539a74d9855c48dba"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"viewport": 1024,
+	"rootFontSize": 16,
+	"fonts": "loaded",
+	"allWidthSymmetricGutter": {
+		"outerWidth": 994,
+		"inlinePadding": 40,
+		"available": 954,
+		"brand": 193.953125,
+		"primary": 528.640625,
+		"actions": 225.765625,
+		"twoMinimumGaps": 8,
+		"required": 956.359375,
+		"compact": true
+	},
+	"scopedGutter": {
+		"available": 969,
+		"spare": 12.640625,
+		"compact": false
+	}
+}

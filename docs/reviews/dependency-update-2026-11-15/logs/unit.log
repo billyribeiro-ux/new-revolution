@@ -1,0 +1,30 @@
+$ vp test --run
+
+ RUN  v5.1.0 /Users/billyribeiro/dev/new-revolution-web
+
+ ❯ |server| scripts/tooling-policy.spec.ts (5 tests | 1 failed) 8234ms
+   ❯ ESLint coverage after moving JavaScript plugins out of Oxlint (3)
+     × continues to detect missing Svelte each-block keys 6651ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| scripts/tooling-policy.spec.ts > ESLint coverage after moving JavaScript plugins out of Oxlint > continues to detect missing Svelte each-block keys
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/tooling-policy.spec.ts:29:2
+     27|  });
+     28|
+     29|  it('continues to detect missing Svelte each-block keys', async () => {
+       |  ^
+     30|   const eslint = new ESLint();
+     31|   const [result] = await eslint.lintText(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 88 passed (89)
+      Tests  1 failed | 687 passed (688)
+   Start at  14:30:29
+   Duration  14.97s (tests 63%, transform 15%, import 14%, worker 8%)
+
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,51 @@
+{
+	"template": "profile",
+	"url": "/about",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 52,
+		"lcpMs": 52,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "span.hero-h1__display"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+		],
+		"totalTransferBytes": 364382
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 35,
+		"undersizedTapTargetExamples": [
+			"a[35x15]: Home",
+			"a[293x22]: Explore the Day Trading Room",
+			"a[163x20]: Day Trading Room",
+			"a[134x22]: View Details",
+			"a[184x20]: Swing Trading Room",
+			"a[134x22]: View Details",
+			"a[194x20]: Small Accounts Room",
+			"a[134x22]: View Details",
+			"a[142x20]: SPX Profit Pulse",
+			"a[134x22]: View Details"
+		]
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

@@ -1,0 +1,143 @@
+[
+	{
+		"url": "http://revolutiontradingpros.com/",
+		"finalUrl": "https://www.revolutiontradingpros.com/",
+		"status": 200,
+		"headers": {
+			"Age": "0",
+			"Cache-Control": "private, no-store, no-cache, must-revalidate",
+			"Content-Length": "116952",
+			"Content-Type": "text/html",
+			"Date": "Sun, 15 Nov 2026 18:57:47 GMT",
+			"Etag": "\"jvv9wf\"",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Server": "Vercel",
+			"Strict-Transport-Security": "max-age=63072000",
+			"X-Content-Type-Options": "nosniff",
+			"X-Frame-Options": "SAMEORIGIN",
+			"X-Sveltekit-Page": "true",
+			"X-Vercel-Cache": "MISS",
+			"X-Vercel-Id": "iad1::iad1::5wz4p-1794769067336-e54b6718ea1e",
+			"Connection": "close"
+		},
+		"chain": [
+			{
+				"url": "http://revolutiontradingpros.com/",
+				"status": 308,
+				"location": "https://revolutiontradingpros.com/"
+			},
+			{
+				"url": "https://revolutiontradingpros.com/",
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/"
+			}
+		],
+		"bodyType": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t"
+	},
+	{
+		"url": "http://www.revolutiontradingpros.com/",
+		"finalUrl": "https://www.revolutiontradingpros.com/",
+		"status": 200,
+		"headers": {
+			"Age": "0",
+			"Cache-Control": "private, no-store, no-cache, must-revalidate",
+			"Content-Length": "116952",
+			"Content-Type": "text/html",
+			"Date": "Sun, 15 Nov 2026 18:57:47 GMT",
+			"Etag": "\"jvv9wf\"",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Server": "Vercel",
+			"Strict-Transport-Security": "max-age=63072000",
+			"X-Content-Type-Options": "nosniff",
+			"X-Frame-Options": "SAMEORIGIN",
+			"X-Sveltekit-Page": "true",
+			"X-Vercel-Cache": "MISS",
+			"X-Vercel-Id": "iad1::iad1::rtwgg-1794769067686-a86fdf18034f",
+			"Connection": "close"
+		},
+		"chain": [
+			{
+				"url": "http://www.revolutiontradingpros.com/",
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/"
+			}
+		],
+		"bodyType": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t"
+	},
+	{
+		"url": "https://revolutiontradingpros.com/",
+		"finalUrl": "https://www.revolutiontradingpros.com/",
+		"status": 200,
+		"headers": {
+			"Age": "0",
+			"Cache-Control": "private, no-store, no-cache, must-revalidate",
+			"Content-Length": "116952",
+			"Content-Type": "text/html",
+			"Date": "Sun, 15 Nov 2026 18:57:48 GMT",
+			"Etag": "\"jvv9wf\"",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Server": "Vercel",
+			"Strict-Transport-Security": "max-age=63072000",
+			"X-Content-Type-Options": "nosniff",
+			"X-Frame-Options": "SAMEORIGIN",
+			"X-Sveltekit-Page": "true",
+			"X-Vercel-Cache": "MISS",
+			"X-Vercel-Id": "iad1::iad1::xbn4c-1794769068045-0ddcf8d07237",
+			"Connection": "close"
+		},
+		"chain": [
+			{
+				"url": "https://revolutiontradingpros.com/",
+				"status": 308,
+				"location": "https://www.revolutiontradingpros.com/"
+			}
+		],
+		"bodyType": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t"
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/",
+		"finalUrl": "https://www.revolutiontradingpros.com/",
+		"status": 200,
+		"headers": {
+			"Age": "0",
+			"Cache-Control": "private, no-store, no-cache, must-revalidate",
+			"Content-Length": "116952",
+			"Content-Type": "text/html",
+			"Date": "Sun, 15 Nov 2026 18:57:48 GMT",
+			"Etag": "\"jvv9wf\"",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Server": "Vercel",
+			"Strict-Transport-Security": "max-age=63072000",
+			"X-Content-Type-Options": "nosniff",
+			"X-Frame-Options": "SAMEORIGIN",
+			"X-Sveltekit-Page": "true",
+			"X-Vercel-Cache": "MISS",
+			"X-Vercel-Id": "iad1::iad1::gzvv8-1794769068243-ff6629a17014",
+			"Connection": "close"
+		},
+		"chain": [],
+		"bodyType": "<!doctype html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\" />\n\t\t"
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/images/blog/seo-audit-missing-image.webp",
+		"finalUrl": "https://www.revolutiontradingpros.com/images/blog/seo-audit-missing-image.webp",
+		"status": 200,
+		"headers": {
+			"Age": "0",
+			"Cache-Control": "no-cache",
+			"Content-Type": "image/svg+xml; charset=utf-8",
+			"Date": "Sun, 15 Nov 2026 18:57:48 GMT",
+			"Referrer-Policy": "strict-origin-when-cross-origin",
+			"Server": "Vercel",
+			"Strict-Transport-Security": "max-age=63072000",
+			"X-Content-Type-Options": "nosniff",
+			"X-Frame-Options": "SAMEORIGIN",
+			"X-Vercel-Cache": "MISS",
+			"X-Vercel-Id": "iad1::iad1::bwj8g-1794769068484-75c7e5cc5788",
+			"Connection": "close",
+			"Transfer-Encoding": "chunked"
+		},
+		"chain": [],
+		"bodyType": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2"
+	}
+]

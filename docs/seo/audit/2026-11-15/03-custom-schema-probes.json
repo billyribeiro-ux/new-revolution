@@ -1,0 +1,20 @@
+{
+	"topLevelRestricted": [],
+	"nestedRestricted": [
+		{
+			"@type": "WebPage",
+			"hasPart": {
+				"@type": "FAQPage",
+				"name": "Nested FAQ"
+			}
+		}
+	],
+	"duplicateEntity": [
+		{
+			"@type": "Person",
+			"@id": "https://www.revolutiontradingpros.com/#founder",
+			"name": "Conflicting entity"
+		}
+	],
+	"nullInput": "Cannot read properties of null (reading '@type')"
+}

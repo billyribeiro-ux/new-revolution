@@ -1,0 +1,35 @@
+{
+	"tags": {
+		"test": "0.0.2-g9a3a310d.20260303-0757",
+		"alpha": "0.1.21-alpha.7",
+		"latest": "1.6.0",
+		"staging": "1.6.0"
+	},
+	"version": "1.6.0",
+	"time": "2026-11-11T04:16:46.718Z",
+	"peerDependencies": {
+		"playwright": "*",
+		"@vitest/browser-playwright": "5.1.0",
+		"@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+	},
+	"engines": {
+		"node": "^22.18.0 || ^24.11.0 || >=26.0.0"
+	},
+	"dependencies": {
+		"vite": "npm:@voidzero-dev/vite-plus-core@1.6.0",
+		"oxfmt": "=0.78.0",
+		"oxlint": "=1.93.0",
+		"vitest": "5.1.0",
+		"@vitest/spy": "5.1.0",
+		"@vitest/utils": "5.1.0",
+		"@vitest/mocker": "5.1.0",
+		"@oxlint/plugins": "=1.93.0",
+		"@vitest/browser": "5.1.0",
+		"oxlint-tsgolint": "=7.0.2006",
+		"@vitest/snapshot": "5.1.0",
+		"@oxc-project/types": "=0.158.0",
+		"@oxc-project/runtime": "=0.158.0",
+		"@vitest/pretty-format": "5.1.0",
+		"@vitest/browser-preview": "5.1.0"
+	}
+}

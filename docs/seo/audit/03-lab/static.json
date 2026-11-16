@@ -1,0 +1,52 @@
+{
+	"template": "static",
+	"url": "/our-mission",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 52,
+		"lcpMs": 52,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.lead-copy"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+		],
+		"totalTransferBytes": 401777
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 31,
+		"undersizedTapTargetExamples": [
+			"a[35x15]: Home",
+			"a[120x18]: Store  Scanners",
+			"a[113x18]: Explosive Swings",
+			"a[105x18]: SPX Profit Pulse",
+			"a[133x18]: Swing Trading Room",
+			"a[273x22]: Structured Trading Courses",
+			"a[274x22]: Small Accounts Room ($500+)",
+			"a[256x22]: Market Intelligence Blogs",
+			"a[240x22]: Free Options Calculator",
+			"a[219x22]: Live Day Trading Room"
+		]
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

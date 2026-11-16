@@ -1,0 +1,415 @@
+{
+	"generatedAt": "2026-11-01T01:44:30.817Z",
+	"results": [
+		{
+			"template": "home",
+			"url": "/",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 56,
+				"lcpMs": 56,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.hero-lead"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/4.B4hDcnvI.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+					"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+				],
+				"totalTransferBytes": 368417
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 25,
+				"undersizedTapTargetExamples": [
+					"a[299x22]: Explore Custom Indicators",
+					"a[299x22]: Explore Trading Courses",
+					"a[301x22]: Read Full Article",
+					"a[301x22]: Read Full Article",
+					"a[301x22]: Read Full Article",
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room",
+					"a[100x17]: All Memberships",
+					"a[97x17]: SPX Profit Pulse"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "profile",
+			"url": "/about",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 52,
+				"lcpMs": 52,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "span.hero-h1__display"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+					"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+				],
+				"totalTransferBytes": 364382
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 35,
+				"undersizedTapTargetExamples": [
+					"a[35x15]: Home",
+					"a[293x22]: Explore the Day Trading Room",
+					"a[163x20]: Day Trading Room",
+					"a[134x22]: View Details",
+					"a[184x20]: Swing Trading Room",
+					"a[134x22]: View Details",
+					"a[194x20]: Small Accounts Room",
+					"a[134x22]: View Details",
+					"a[142x20]: SPX Profit Pulse",
+					"a[134x22]: View Details"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "static",
+			"url": "/our-mission",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 52,
+				"lcpMs": 52,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.lead-copy"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+					"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+				],
+				"totalTransferBytes": 401777
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 31,
+				"undersizedTapTargetExamples": [
+					"a[35x15]: Home",
+					"a[120x18]: Store  Scanners",
+					"a[113x18]: Explosive Swings",
+					"a[105x18]: SPX Profit Pulse",
+					"a[133x18]: Swing Trading Room",
+					"a[273x22]: Structured Trading Courses",
+					"a[274x22]: Small Accounts Room ($500+)",
+					"a[256x22]: Market Intelligence Blogs",
+					"a[240x22]: Free Options Calculator",
+					"a[219x22]: Live Day Trading Room"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "static-resource",
+			"url": "/resources/stock-indexes-list",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 44,
+				"lcpMs": 44,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.sp500-feature__text"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+				],
+				"totalTransferBytes": 318950
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 20,
+				"undersizedTapTargetExamples": [
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room",
+					"a[100x17]: All Memberships",
+					"a[97x17]: SPX Profit Pulse",
+					"a[104x17]: Explosive Swings",
+					"a[161x17]: Private 1-on-1 Mentorship",
+					"a[174x17]: Track Record & Case Studies",
+					"a[50x17]: Courses",
+					"a[61x17]: Indicators"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "membership-product",
+			"url": "/live-trading-rooms/day-trading-room",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 56,
+				"lcpMs": 56,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "span.hero-h1__display"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+					"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2"
+				],
+				"totalTransferBytes": 363963
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 25,
+				"undersizedTapTargetExamples": [
+					"a[35x15]: Home",
+					"a[150x17]: Small Accounts Room →",
+					"a[133x18]: Swing Trading Room",
+					"a[113x18]: Explosive Swings",
+					"a[144x18]: Small Accounts Room",
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room",
+					"a[100x17]: All Memberships",
+					"a[97x17]: SPX Profit Pulse"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "listing",
+			"url": "/store/courses",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 60,
+				"lcpMs": 60,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.lead-copy"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/FilterChips.Da8Fub1q.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/37.crvd42Yu.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+				],
+				"totalTransferBytes": 333055
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 26,
+				"undersizedTapTargetExamples": [
+					"a[35x15]: Home",
+					"a[126x19]: Custom Indicators",
+					"a[151x19]: Institutional Scanners",
+					"a[131x19]: Live Trading Rooms",
+					"a[96x19]: Alert Services",
+					"a[129x19]: 1-on-1 Mentorship",
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room",
+					"a[100x17]: All Memberships"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "product",
+			"url": "/store/courses/move-prior-to-the-move-ultra",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 1,
+				"fcpMs": 64,
+				"lcpMs": 64,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.hero-subtitle"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+				],
+				"totalTransferBytes": 368986
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 27,
+				"undersizedTapTargetExamples": [
+					"a[35x15]: Home",
+					"a[112x15]: Trading Courses",
+					"a[135x21]: Included in Package ↑",
+					"a[135x21]: Included in Package ↑",
+					"a[135x21]: Included in Package ↑",
+					"a[135x21]: Included in Package ↑",
+					"a[135x21]: Included in Package ↑",
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		},
+		{
+			"template": "blog-listing",
+			"url": "/blog",
+			"status": 200,
+			"viewport": {
+				"width": 375,
+				"height": 812
+			},
+			"cwv": {
+				"ttfbMs": 79,
+				"fcpMs": 128,
+				"lcpMs": 128,
+				"cls": 0,
+				"tbtMs": 0,
+				"lcpElement": "p.hero-sub.svelte-u4k2t"
+			},
+			"resources": {
+				"renderBlockingUrls": [
+					"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+					"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+					"http://localhost:4280/_app/immutable/assets/SEO.B60FdWEa.css",
+					"http://localhost:4280/_app/immutable/assets/24.5lJn-aqS.css",
+					"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+				],
+				"externalFontUrls": [],
+				"selfHostedFontUrls": [
+					"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+					"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+				],
+				"totalTransferBytes": 308515
+			},
+			"mobileUsability": {
+				"hasHorizontalOverflow": false,
+				"undersizedTapTargetsCount": 20,
+				"undersizedTapTargetExamples": [
+					"a[109x17]: Day Trading Room",
+					"a[123x17]: Swing Trading Room",
+					"a[133x17]: Small Accounts Room",
+					"a[100x17]: All Memberships",
+					"a[97x17]: SPX Profit Pulse",
+					"a[104x17]: Explosive Swings",
+					"a[161x17]: Private 1-on-1 Mentorship",
+					"a[174x17]: Track Record & Case Studies",
+					"a[50x17]: Courses",
+					"a[61x17]: Indicators"
+				]
+			},
+			"a11y": {
+				"score": 100,
+				"violations": []
+			}
+		}
+	]
+}

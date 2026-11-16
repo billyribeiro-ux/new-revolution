@@ -1,0 +1,3 @@
+$ node scripts/check-css-tokens.mjs
+Font source policy OK: runtime source and static/templates use self-hosted font loading.
+CSS tokens OK: 122 custom properties in use, all declared.

@@ -1,0 +1,19 @@
+allowBuilds:
+  sharp: true
+  esbuild: true
+overrides:
+  drizzle-kit>@esbuild-kit/esm-loader: '-'
+  vite@*: 'catalog:'
+  vitest@*: 'catalog:'
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.6.0
+  vitest: 5.1.0
+  vite-plus: 1.6.0
+  '@vitest/browser-playwright': 5.1.0
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'

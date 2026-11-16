@@ -1,0 +1,18 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T18:27:27.859Z",
+		"duration": 65358.286,
+		"expected": 11,
+		"skipped": 0,
+		"unexpected": 2,
+		"flaky": 0
+	},
+	"screenshots": [
+		"webkit-cms-card-home-320.png",
+		"webkit-cms-card-home-1440.png",
+		"webkit-cms-card-blog-320.png",
+		"webkit-cms-card-blog-1440.png",
+		"webkit-navbar-desktop.png",
+		"webkit-navbar-mobile.png"
+	]
+}

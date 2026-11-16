@@ -1,0 +1,172 @@
+{
+	"environment": "Isolated local publication rehearsal against production build; no hosted writes",
+	"cases": [
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 320,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 1440,
+			"path": "/",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"placement": "single featured lead",
+			"noHorizontalOverflow": true
+		},
+		{
+			"engine": "webkit",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"placement": "article",
+			"noHorizontalOverflow": true
+		}
+	],
+	"decodedGraphCrops": [
+		{
+			"width": 1200,
+			"height": 675,
+			"bytes": 38096,
+			"format": "webp"
+		},
+		{
+			"width": 1200,
+			"height": 900,
+			"bytes": 43768,
+			"format": "webp"
+		},
+		{
+			"width": 900,
+			"height": 900,
+			"bytes": 37418,
+			"format": "webp"
+		}
+	],
+	"rssIncludesArticle": true,
+	"sitemapExcludesGatedArticle": true,
+	"manualSchemaTitleListChanges": false
+}

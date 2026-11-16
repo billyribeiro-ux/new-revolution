@@ -1,0 +1,15 @@
+{
+	"inspectedPublicHostname": "www.revolutiontradingpros.com",
+	"deployment": {
+		"id": "dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8",
+		"url": "new-revolution-45tgwybnh-will-ribeiros-projects.vercel.app",
+		"readyState": "READY",
+		"target": "production"
+	},
+	"applicationCommit": "e62c34031e9ced43df48f26de88d7daa97d1bf6d",
+	"sourcePullRequest": 37,
+	"privateDeploymentAnonymousAccess": {
+		"status": 302,
+		"redirectHost": "vercel.com"
+	}
+}

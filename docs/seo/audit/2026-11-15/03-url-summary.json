@@ -1,0 +1,673 @@
+[
+	{
+		"url": "https://www.revolutiontradingpros.com",
+		"path": "/",
+		"status": 200,
+		"titleLength": 60,
+		"descriptionLength": 156,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ItemList",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"SiteNavigationElement",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"class": "card-date",
+				"datetime": "2026-11-05T21:29:51.520Z"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 0,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/about",
+		"path": "/about",
+		"status": 200,
+		"titleLength": 56,
+		"descriptionLength": 146,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"ProfilePage",
+			"Service",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-10-31"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+		"path": "/alert-services/spx-profit-pulse",
+		"status": 200,
+		"titleLength": 57,
+		"descriptionLength": 154,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse#service"
+		],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol",
+		"path": "/alert-services/sunday-alpha-protocol",
+		"status": 200,
+		"titleLength": 47,
+		"descriptionLength": 154,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Organization",
+			"Person",
+			"Product",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/#organization",
+			"https://www.revolutiontradingpros.com/alert-services/sunday-alpha-protocol#service"
+		],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-10-31"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/blog",
+		"path": "/blog",
+		"status": 200,
+		"titleLength": 57,
+		"descriptionLength": 143,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Blog",
+			"BlogPosting",
+			"BreadcrumbList",
+			"CollectionPage",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"Person",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [
+			"https://www.revolutiontradingpros.com/#founder",
+			"https://www.revolutiontradingpros.com/#offer-catalog"
+		],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"class": "card-date",
+				"datetime": "2026-11-05T21:29:51.520Z"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/contact",
+		"path": "/contact",
+		"status": 200,
+		"titleLength": 50,
+		"descriptionLength": 156,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPage",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-11-11"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/editorial-policy",
+		"path": "/editorial-policy",
+		"status": 200,
+		"titleLength": 54,
+		"descriptionLength": 157,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-11-11"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+		"path": "/live-trading-rooms/day-trading-room",
+		"status": 200,
+		"titleLength": 47,
+		"descriptionLength": 155,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room#service"
+		],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+		"path": "/live-trading-rooms/small-accounts-room",
+		"status": 200,
+		"titleLength": 53,
+		"descriptionLength": 155,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room#service"
+		],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+		"path": "/live-trading-rooms/swing-trading-room",
+		"status": 200,
+		"titleLength": 49,
+		"descriptionLength": 155,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room#service"
+		],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/mentorship",
+		"path": "/mentorship",
+		"status": 200,
+		"titleLength": 51,
+		"descriptionLength": 157,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"Audience",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": ["https://www.revolutiontradingpros.com/mentorship#service"],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/our-mission",
+		"path": "/our-mission",
+		"status": 200,
+		"titleLength": 58,
+		"descriptionLength": 148,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"CreativeWork",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/privacy-policy",
+		"path": "/privacy-policy",
+		"status": 200,
+		"titleLength": 56,
+		"descriptionLength": 147,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-11-11"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/refund-policy",
+		"path": "/refund-policy",
+		"status": 200,
+		"titleLength": 54,
+		"descriptionLength": 156,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-11-11"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/resources",
+		"path": "/resources",
+		"status": 200,
+		"titleLength": 56,
+		"descriptionLength": 148,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"CollectionPage",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ItemList",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+		"path": "/resources/etf-stocks-list",
+		"status": 200,
+		"titleLength": 56,
+		"descriptionLength": 149,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"CollectionPage",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ItemList",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-10-31"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": true,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+		"path": "/resources/stock-indexes-list",
+		"status": 200,
+		"titleLength": 51,
+		"descriptionLength": 154,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"CollectionPage",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ItemList",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-10-31"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/terms-of-service",
+		"path": "/terms-of-service",
+		"status": 200,
+		"titleLength": 56,
+		"descriptionLength": 156,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"OfferCatalog",
+			"Person",
+			"Service",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [],
+		"duplicateDefinedIds": [],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"datetime": "2026-11-11"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	},
+	{
+		"url": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+		"path": "/blog/0dte-spx-options-strategy-guide",
+		"status": 200,
+		"titleLength": 57,
+		"descriptionLength": 149,
+		"canonicalMatchesSitemap": true,
+		"oneGraph": true,
+		"graphContext": true,
+		"types": [
+			"BlogPosting",
+			"BreadcrumbList",
+			"ContactPoint",
+			"Country",
+			"EducationalOrganization",
+			"ImageObject",
+			"ListItem",
+			"Person",
+			"WebPage",
+			"WebSite"
+		],
+		"unresolvedLocalReferences": [
+			"https://www.revolutiontradingpros.com/#founder",
+			"https://www.revolutiontradingpros.com/#offer-catalog"
+		],
+		"duplicateDefinedIds": [
+			"https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide#webpage"
+		],
+		"bylineLink": true,
+		"visibleDates": [
+			{
+				"class": "byline-date svelte-1teoznn",
+				"datetime": "2026-11-05T21:29:51.520Z"
+			}
+		],
+		"containsUnverifiedPerformanceClaims": false,
+		"problems": [],
+		"clickDepth": 1,
+		"mentionsUnavailable": true
+	}
+]

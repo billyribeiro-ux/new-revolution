@@ -1,0 +1,59 @@
+[
+	{
+		"status": "fulfilled",
+		"value": {
+			"file": "src/lib/components/home/BlogSection.svelte",
+			"result": {
+				"content": [
+					{
+						"type": "text",
+						"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+					}
+				],
+				"structuredContent": {
+					"issues": [],
+					"suggestions": [],
+					"require_another_tool_call_after_fixing": false
+				}
+			}
+		}
+	},
+	{
+		"status": "fulfilled",
+		"value": {
+			"file": "src/lib/components/blog/PostCard.svelte",
+			"result": {
+				"content": [
+					{
+						"type": "text",
+						"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+					}
+				],
+				"structuredContent": {
+					"issues": [],
+					"suggestions": [],
+					"require_another_tool_call_after_fixing": false
+				}
+			}
+		}
+	},
+	{
+		"status": "fulfilled",
+		"value": {
+			"file": "src/routes/blog/+page.svelte",
+			"result": {
+				"content": [
+					{
+						"type": "text",
+						"text": "{\"issues\":[],\"suggestions\":[],\"require_another_tool_call_after_fixing\":false}"
+					}
+				],
+				"structuredContent": {
+					"issues": [],
+					"suggestions": [],
+					"require_another_tool_call_after_fixing": false
+				}
+			}
+		}
+	}
+]

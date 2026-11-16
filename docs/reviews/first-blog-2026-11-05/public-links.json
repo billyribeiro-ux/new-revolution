@@ -1,0 +1,42 @@
+[
+	{
+		"path": "/blog/category/spx-options",
+		"status": 200,
+		"htmlSha256": "7c756413e3634def509ef52c3d7614942c4cd129d94b66443918ec8b9a10e0bf"
+	},
+	{
+		"path": "/blog/tag/0dte-options",
+		"status": 200,
+		"htmlSha256": "9e5be50d2f56d10deec8ad019615562433b41a0edf06a50fc1ae187f6f0b8de5"
+	},
+	{
+		"path": "/blog/tag/risk-management",
+		"status": 200,
+		"htmlSha256": "1869280b3bb0fcff803da7c948db44769b8d59d1b3db3d1baf56a146f6ed48b3"
+	},
+	{
+		"path": "/live-trading-rooms/day-trading-room",
+		"status": 200,
+		"htmlSha256": "1cd860a79e31bc342ee8911cbf6e4e77f1c681705e4637c68bab1ad6c959a098"
+	},
+	{
+		"path": "/alert-services/spx-profit-pulse",
+		"status": 200,
+		"htmlSha256": "9856cd668448c3cac3b7fa83a33b209dc53d8cabf24eb45d1e5345cef92bf4e3"
+	},
+	{
+		"path": "/watchlist",
+		"status": 200,
+		"htmlSha256": "4c80ed3b2a5eaa0228bac4e0e500ad287f956daec49cd547c2e42adef3474c17"
+	},
+	{
+		"path": "/live-trading-rooms/small-accounts-room",
+		"status": 200,
+		"htmlSha256": "380802bcd139513beaa47196e6a427bd9a487a92242f56917c6e60699d0da829"
+	},
+	{
+		"path": "/terms-of-service#options-leverage-risk-disclosure",
+		"status": 200,
+		"htmlSha256": "61d5fd9de1a682460308866112ba29b585ce2487eb2b8053a7779d7467b7c577"
+	}
+]

@@ -1,0 +1,4 @@
+$ node --env-file-if-exists=.env scripts/seed-admin.ts --revoke
+.env not found. Continuing without it.
+Database: PGlite (local file) /private/tmp/wt-blog-audit-20261105/.svelte-kit/pglite-blog
+Revoked: deleted user smd8bB8Rr4QjFD2UM1tk0tmVmtz6NqyU (blog-nav-9b73a0464bf7@example.invalid); ON DELETE CASCADE removed 1 session(s) and 1 account row(s).

@@ -1,0 +1,9 @@
+{
+	"origin": "https://new-revolution-fx4wk69nh-will-ribeiros-projects.vercel.app",
+	"mode": "preview",
+	"cases": [],
+	"http": [],
+	"passed": false,
+	"error": "Expected values to be strictly equal:\n\n500 !== 200\n",
+	"recordType": "Historical final-head Preview failure before remote runtime correction"
+}

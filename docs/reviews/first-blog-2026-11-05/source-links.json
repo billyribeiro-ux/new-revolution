@@ -1,0 +1,145 @@
+{
+	"checkedAt": "2026-11-05T20:16:08.192566+00:00",
+	"rows": [
+		{
+			"url": "https://ir.cboe.com/news/news-details/2026/Cboe-Global-Markets-Reports-Trading-Volume-for-October-2026/default.aspx",
+			"status": 200,
+			"finalUrl": "https://ir.cboe.com/news/news-details/2026/Cboe-Global-Markets-Reports-Trading-Volume-for-October-2026/default.aspx",
+			"mimeType": "text/html",
+			"bodySha256": "3059a9363ab1b7bd124addd99fce4263dde3995b201e021170d273ea7a353955"
+		},
+		{
+			"url": "https://www.cboe.com/tradable-products/0dte/",
+			"status": 200,
+			"finalUrl": "https://www.cboe.com/tradable-products/0dte/",
+			"mimeType": "text/html",
+			"bodySha256": "6dc87743b757eace120c0c81a1b597b53123142c1cecc3fe6a71f0ef2134cd54"
+		},
+		{
+			"url": "https://www.optionseducation.org/advancedconcepts/gamma",
+			"status": 200,
+			"finalUrl": "https://www.optionseducation.org/advancedconcepts/gamma",
+			"mimeType": "text/html",
+			"bodySha256": "6dd90a321bc17c57f45fe53fea46fe1799aff920f20629b03222670205672602"
+		},
+		{
+			"url": "https://cdn.cboe.com/resources/spx/spx-fact-sheet.pdf",
+			"status": 200,
+			"finalUrl": "https://cdn.cboe.com/resources/spx/spx-fact-sheet.pdf",
+			"mimeType": "application/pdf",
+			"bodySha256": "c166d077cff0b02043b36df4a389ad9d6431f719fcd6d95dff3c09c526816332"
+		},
+		{
+			"url": "https://www.cboe.com/tradable-products/sp-500/spx-options/spx-specifications",
+			"status": 200,
+			"finalUrl": "https://www.cboe.com/tradable-products/sp-500/spx-options/spx-specifications",
+			"mimeType": "text/html",
+			"bodySha256": "8e23469e258eb8bc35f45fdff2b53bad2ed08585bfd4414ad41319504eb5f03b"
+		},
+		{
+			"url": "https://www.cboe.com/tradable-products/sp-500/xsp-options",
+			"status": 200,
+			"finalUrl": "https://www.cboe.com/tradable-products/sp-500/xsp-options",
+			"mimeType": "text/html",
+			"bodySha256": "f76c0b69a76c83f34188454b6ad5776a2822bdaa044e3febe2a48de0a6b722c0"
+		},
+		{
+			"url": "https://www.schwab.com/learn/story/options-expiration-definitions-checklist-more",
+			"status": 200,
+			"finalUrl": "https://www.schwab.com/learn/story/options-expiration-definitions-checklist-more",
+			"mimeType": "text/html",
+			"bodySha256": "8acf7f20fae92ffe5cf763801b9f7b4edd549346e977031177776f842e3871fc"
+		},
+		{
+			"url": "https://www.irs.gov/pub/irs-pdf/f6781.pdf",
+			"status": 200,
+			"finalUrl": "https://www.irs.gov/pub/irs-pdf/f6781.pdf",
+			"mimeType": "application/pdf",
+			"bodySha256": "69212af20e69e628a1a7b3a59cf8855c38c4c5b8b6843e9292f5a7234d757a55"
+		},
+		{
+			"url": "https://www.irs.gov/taxtopics/tc559",
+			"status": 200,
+			"finalUrl": "https://www.irs.gov/taxtopics/tc559",
+			"mimeType": "text/html",
+			"bodySha256": "d3a4f1c2f709038659ed4b9d2d11c2dc1c6be9bc30c502092cf23d433a245f52"
+		},
+		{
+			"url": "https://www.cboe.com/insights/posts/0-dt-es-decoded-positioning-trends-and-market-impact",
+			"status": 200,
+			"finalUrl": "https://www.cboe.com/insights/posts/0-dt-es-decoded-positioning-trends-and-market-impact",
+			"mimeType": "text/html",
+			"bodySha256": "a0d6fb0c56018abcb7d318b410f2e1651061363c150b114de0b39bbdd7f083c1"
+		},
+		{
+			"url": "https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/GetYYYYMMDD",
+			"status": 200,
+			"finalUrl": "https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/GetYYYYMMDD",
+			"mimeType": "text/html",
+			"bodySha256": "7de0c0f6550758d4d768c168a6ea9578f2b095945be97295d3dfa3dc517dc388"
+		},
+		{
+			"url": "https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/SecondsFromTime",
+			"status": 200,
+			"finalUrl": "https://toslc.thinkorswim.com/center/reference/thinkScript/Functions/Date---Time/SecondsFromTime",
+			"mimeType": "text/html",
+			"bodySha256": "08b82cf078c40433dd67126bd06fa4f667c1a999b3dfa2b77b178a85a85f6273"
+		},
+		{
+			"url": "https://www.cboe.com/insights/posts/what-the-vix-and-vix-1-d-indices-attempt-to-measure-and-how-they-differ/",
+			"status": 200,
+			"finalUrl": "https://www.cboe.com/insights/posts/what-the-vix-and-vix-1-d-indices-attempt-to-measure-and-how-they-differ/",
+			"mimeType": "text/html",
+			"bodySha256": "0252b99b464c87c935ff24113e995ed1cb1d1690969447c7b11ba6a4b09cd723"
+		},
+		{
+			"url": "https://www.finra.org/rules-guidance/notices/26-10",
+			"status": 200,
+			"finalUrl": "https://www.finra.org/rules-guidance/notices/26-10",
+			"mimeType": "text/html",
+			"bodySha256": "98386e0c0b324f719e786aa6e0e785e4c1d9e2c70fc0f6b7259d4b8c7a690098"
+		},
+		{
+			"url": "/live-trading-rooms/day-trading-room",
+			"status": 200,
+			"finalUrl": "http://localhost:4184/live-trading-rooms/day-trading-room",
+			"mimeType": "text/html",
+			"bodySha256": "81e6b5ebdf033dd33f5f88045f917d96914948e8d8200159b706faf2905f79ff"
+		},
+		{
+			"url": "/alert-services/spx-profit-pulse",
+			"status": 200,
+			"finalUrl": "http://localhost:4184/alert-services/spx-profit-pulse",
+			"mimeType": "text/html",
+			"bodySha256": "ec3371f9dd9fa09f96e1273ab9b686b1238bb6ade6caa261395f5326c0ccd7c7"
+		},
+		{
+			"url": "/watchlist",
+			"status": 200,
+			"finalUrl": "http://localhost:4184/watchlist",
+			"mimeType": "text/html",
+			"bodySha256": "3b1eb4428a067f39f4e198a25dfd9b9cf8791bd380e8a5174a6aea262b0d0878"
+		},
+		{
+			"url": "/live-trading-rooms/small-accounts-room",
+			"status": 200,
+			"finalUrl": "http://localhost:4184/live-trading-rooms/small-accounts-room",
+			"mimeType": "text/html",
+			"bodySha256": "6b495ab42408f62f6e14372d5a648caf5d9e8ad5aa347371e67ef376de3905ee"
+		},
+		{
+			"url": "/terms-of-service#options-leverage-risk-disclosure",
+			"status": 200,
+			"finalUrl": "http://localhost:4184/terms-of-service#options-leverage-risk-disclosure",
+			"mimeType": "text/html",
+			"bodySha256": "b0201544674b144f76fef6844bf8cfffac54f9e743ead67a011b6ae2f5627b23"
+		},
+		{
+			"url": "https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document",
+			"status": 200,
+			"finalUrl": "https://www.theocc.com/company-information/documents-and-archives/options-disclosure-document",
+			"mimeType": "text/html",
+			"bodySha256": "8ae5dcfb8886da7f63e59d0ec8827769097c3eece2d936fd65cfe4bafccbebb4"
+		}
+	]
+}

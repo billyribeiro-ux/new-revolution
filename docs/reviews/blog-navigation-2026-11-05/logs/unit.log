@@ -1,0 +1,10 @@
+$ vp test --run
+
+ RUN  v5.0.5 /private/tmp/wt-blog-audit-20261105
+
+
+ Test Files  79 passed (79)
+      Tests  575 passed (575)
+   Start at  13:34:56
+   Duration  13.12s (worker 47%, tests 28%, transform 15%, import 10%)
+

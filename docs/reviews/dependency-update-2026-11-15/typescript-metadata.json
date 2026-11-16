@@ -1,0 +1,38 @@
+{
+	"tags": {
+		"dev": "3.9.4",
+		"tag-for-publishing-older-releases": "4.1.6",
+		"insiders": "4.6.2-insiders.20220225",
+		"rc": "7.0.1-rc",
+		"latest": "7.0.2",
+		"beta": "7.1.0-beta",
+		"next": "7.1.0-dev.20261115.1"
+	},
+	"version": "7.0.2",
+	"time": "2026-07-08T15:55:18.431Z",
+	"engines": {
+		"node": ">=16.20.0"
+	},
+	"dependencies": {
+		"@typescript/typescript-aix-ppc64": "7.0.2",
+		"@typescript/typescript-linux-arm": "7.0.2",
+		"@typescript/typescript-linux-x64": "7.0.2",
+		"@typescript/typescript-sunos-x64": "7.0.2",
+		"@typescript/typescript-win32-x64": "7.0.2",
+		"@typescript/typescript-darwin-x64": "7.0.2",
+		"@typescript/typescript-netbsd-x64": "7.0.2",
+		"@typescript/typescript-freebsd-x64": "7.0.2",
+		"@typescript/typescript-linux-arm64": "7.0.2",
+		"@typescript/typescript-linux-ppc64": "7.0.2",
+		"@typescript/typescript-linux-s390x": "7.0.2",
+		"@typescript/typescript-openbsd-x64": "7.0.2",
+		"@typescript/typescript-win32-arm64": "7.0.2",
+		"@typescript/typescript-darwin-arm64": "7.0.2",
+		"@typescript/typescript-netbsd-arm64": "7.0.2",
+		"@typescript/typescript-freebsd-arm64": "7.0.2",
+		"@typescript/typescript-linux-loong64": "7.0.2",
+		"@typescript/typescript-linux-riscv64": "7.0.2",
+		"@typescript/typescript-openbsd-arm64": "7.0.2",
+		"@typescript/typescript-linux-mips64el": "7.0.2"
+	}
+}

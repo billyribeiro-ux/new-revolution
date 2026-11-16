@@ -1,0 +1,37 @@
+{
+	"head": "128d679d1060c8a29ed0b554b79eddc016ccdd96",
+	"logs": [
+		{
+			"timestamp": "2026-11-05T19:15:41.622Z",
+			"deploymentId": "dpl_2haGDN6zftMcoYGgFtbgLood3FHF",
+			"requestPath": "/",
+			"runtime": "nodejs24.x",
+			"level": "error",
+			"message": "Error: remote_prerender_not_dynamic\nUnexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?\nhttps://svelte.dev/e/kit/remote_prerender_not_dynamic\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/home.remote.js:13:8\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:41\n    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:65:14)\n    at with_request_store (file:///var/task/vercel/path0/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)\n    at run_remote_function (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:585:19"
+		},
+		{
+			"timestamp": "2026-11-05T19:15:41.618Z",
+			"deploymentId": "dpl_2haGDN6zftMcoYGgFtbgLood3FHF",
+			"requestPath": "/",
+			"runtime": "nodejs24.x",
+			"level": "error",
+			"message": "Error: remote_prerender_not_dynamic\nUnexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?\nhttps://svelte.dev/e/kit/remote_prerender_not_dynamic\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/home.remote.js:13:8\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:41\n    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:65:14)\n    at with_request_store (file:///var/task/vercel/path0/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)\n    at run_remote_function (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:585:19"
+		},
+		{
+			"timestamp": "2026-11-05T19:13:59.277Z",
+			"deploymentId": "dpl_2haGDN6zftMcoYGgFtbgLood3FHF",
+			"requestPath": "/",
+			"runtime": "nodejs24.x",
+			"level": "error",
+			"message": "Error: remote_prerender_not_dynamic\nUnexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?\nhttps://svelte.dev/e/kit/remote_prerender_not_dynamic\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/home.remote.js:13:8\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:41\n    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:65:14)\n    at with_request_store (file:///var/task/vercel/path0/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)\n    at run_remote_function (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:585:19"
+		},
+		{
+			"timestamp": "2026-11-05T19:13:59.259Z",
+			"deploymentId": "dpl_2haGDN6zftMcoYGgFtbgLood3FHF",
+			"requestPath": "/",
+			"runtime": "nodejs24.x",
+			"level": "error",
+			"message": "Error: remote_prerender_not_dynamic\nUnexpectedly called `prerender` function. Did you forget to set `{ dynamic: true }`?\nhttps://svelte.dev/e/kit/remote_prerender_not_dynamic\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/home.remote.js:13:8\n    at file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:41\n    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:65:14)\n    at with_request_store (file:///var/task/vercel/path0/node_modules/.pnpm/@sveltejs+kit@3.1.1_@sveltejs+vite-plugin-svelte@7.3.1_@voidzero-dev+vite-plus-core@1.4_fb3259a4695edeaeb0a8648b518b98f9/node_modules/@sveltejs/kit/src/exports/internal/server/event.js:61:20)\n    at run_remote_function (file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:104:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///var/task/vercel/path0/.svelte-kit/output/server/chunks/remote.js:585:19"
+		}
+	]
+}

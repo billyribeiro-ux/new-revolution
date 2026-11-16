@@ -1,0 +1,14 @@
+[
+	{
+		"snapshot": "/tmp/revolution-dependency-e2e-20261115",
+		"users": 0,
+		"sessions": 0,
+		"accounts": 0
+	},
+	{
+		"snapshot": "/tmp/revolution-dependency-baseline-20261115",
+		"users": 0,
+		"sessions": 0,
+		"accounts": 0
+	}
+]

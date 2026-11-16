@@ -1,0 +1,48 @@
+{
+	"date": "2026-11-05",
+	"implementationPR": 27,
+	"reviewedHead": "26c4a74ddd572e35bbf4711c32383cb5e4859035",
+	"squashCommit": "b19c91f8749d8162f3be0b6d2a342ed4609700aa",
+	"applicationSourceParity": true,
+	"scope": [
+		"src",
+		"static",
+		"scripts",
+		"tests",
+		"package.json",
+		"pnpm-lock.yaml",
+		"pnpm-workspace.yaml",
+		"vite.config.ts",
+		"vercel.json"
+	],
+	"production": {
+		"id": "dpl_5QU1Tz3sngobduDUb1jKoqmaggpF",
+		"url": "new-revolution-ca1oj6x7k-will-ribeiros-projects.vercel.app",
+		"target": "production",
+		"state": "READY",
+		"gitCommit": "b19c91f8749d8162f3be0b6d2a342ed4609700aa",
+		"maintenance": false
+	},
+	"privatePreview": {
+		"id": "dpl_9F5jprZgVDUwV7SAXfRWg2bjbGiz",
+		"sourceCommit": "26c4a74ddd572e35bbf4711c32383cb5e4859035",
+		"alias": "new-revolution-development-will-ribeiros-projects.vercel.app",
+		"anonymousProtection": {
+			"status": 302,
+			"redirectHost": "vercel.com"
+		}
+	},
+	"bareDomain": {
+		"status": 308,
+		"redirectHost": "www.revolutiontradingpros.com",
+		"finalStatus": 200,
+		"finalHost": "www.revolutiontradingpros.com"
+	},
+	"project": {
+		"autoAssignCustomDomains": false,
+		"ssoProtection": {
+			"deploymentType": "all_except_custom_domains"
+		}
+	},
+	"nativeChrome": "Public Blog observed rendering with shared gutters, centered hero, normal navigation and honest empty CMS state; no maintenance page."
+}

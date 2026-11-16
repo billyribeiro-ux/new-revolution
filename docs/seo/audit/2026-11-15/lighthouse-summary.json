@@ -1,0 +1,128 @@
+[
+	{
+		"url": "http://127.0.0.1:4176/about",
+		"scores": {
+			"performance": 0.98,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1986.7846,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/blog/institutional-order-flow-and-gamma-flip-playbook",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1351.8704,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/store/courses",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 0.66,
+			"agentic-browsing": 1
+		},
+		"lcp": 1352.0226,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": [["is-crawlable", "Page is blocked from indexing"]]
+	},
+	{
+		"url": "http://127.0.0.1:4176/blog",
+		"scores": {
+			"performance": 0.98,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1989.668,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/live-trading-rooms/day-trading-room",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1052.2257,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/resources/etf-stocks-list",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1352.1093,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/contact",
+		"scores": {
+			"performance": 0.98,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1983.417,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": []
+	},
+	{
+		"url": "http://127.0.0.1:4176/store/courses/move-prior-to-the-move-ultra",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 0.66,
+			"agentic-browsing": 1
+		},
+		"lcp": 1052.3317,
+		"cls": 0,
+		"tbt": 0,
+		"seoFailures": [["is-crawlable", "Page is blocked from indexing"]]
+	},
+	{
+		"url": "http://127.0.0.1:4176/",
+		"scores": {
+			"performance": 1,
+			"accessibility": 1,
+			"best-practices": 1,
+			"seo": 1,
+			"agentic-browsing": 1
+		},
+		"lcp": 1352.5441,
+		"cls": 0,
+		"tbt": 50.5,
+		"seoFailures": []
+	}
+]

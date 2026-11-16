@@ -1,0 +1,27 @@
+# RTP Opening Range: educational price levels, NOT dealer GEX.
+# Use a complete 1-minute or 5-minute equity/index session.
+# Source reviewed; thinkorswim compilation/replay is not verified.
+declare upper;
+input showMidpoint = yes;
+def intraday = GetAggregationPeriod() < AggregationPeriod.DAY;
+def regular = intraday and SecondsFromTime(0930) >= 0 and SecondsTillTime(1600) > 0;
+def opening = regular and SecondsTillTime(1000) > 0;
+def newSession = GetYYYYMMDD() != GetYYYYMMDD()[1] or !regular[1];
+def rangeHigh = CompoundValue(1,
+    if regular and newSession then (if opening then high else Double.NaN)
+    else if opening then Max(high, rangeHigh[1])
+    else rangeHigh[1],
+    if opening then high else Double.NaN);
+def rangeLow = CompoundValue(1,
+    if regular and newSession then (if opening then low else Double.NaN)
+    else if opening then Min(low, rangeLow[1])
+    else rangeLow[1],
+    if opening then low else Double.NaN);
+plot OpeningHigh = if regular and !opening then rangeHigh else Double.NaN;
+plot OpeningLow = if regular and !opening then rangeLow else Double.NaN;
+plot OpeningMidpoint = if regular and !opening and showMidpoint
+    then (rangeHigh + rangeLow) / 2 else Double.NaN;
+OpeningHigh.SetDefaultColor(Color.CYAN);
+OpeningLow.SetDefaultColor(Color.MAGENTA);
+OpeningMidpoint.SetDefaultColor(Color.YELLOW);
+AddLabel(!intraday, "Use a complete 1-minute or 5-minute session", Color.RED);

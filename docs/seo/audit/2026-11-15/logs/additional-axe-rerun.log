@@ -1,0 +1,39 @@
+[
+  {
+    "path": "/admin/login",
+    "status": 200,
+    "violations": [],
+    "passes": 21
+  },
+  {
+    "path": "/store/courses",
+    "status": 200,
+    "violations": [
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "nodes": [
+          {
+            "target": [
+              ".table-wrapper"
+            ],
+            "html": "<div class=\"table-wrapper\" role=\"region\" aria-labelledby=\"comparison-h2\">"
+          }
+        ]
+      }
+    ],
+    "passes": 29
+  },
+  {
+    "path": "/store/courses/move-prior-to-the-move-ultra",
+    "status": 200,
+    "violations": [],
+    "passes": 23
+  },
+  {
+    "path": "/blog/category/market-structure",
+    "status": 200,
+    "violations": [],
+    "passes": 27
+  }
+]

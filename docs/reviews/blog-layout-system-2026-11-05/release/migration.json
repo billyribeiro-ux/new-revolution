@@ -1,0 +1,41 @@
+{
+	"environment": "Production",
+	"migration": "0004_post_search_projection.sql",
+	"before": [
+		{
+			"id": 1,
+			"source_hash": "19c88c3fc980a5d378d4018a62e2ab81"
+		}
+	],
+	"after": [
+		{
+			"id": 1,
+			"source_hash": "19c88c3fc980a5d378d4018a62e2ab81"
+		}
+	],
+	"sourceRowsIdentical": true,
+	"dryRun": {
+		"dryRun": true,
+		"scanned": 1,
+		"updated": 0,
+		"skipped": 0,
+		"pending": 1
+	},
+	"apply": {
+		"dryRun": false,
+		"scanned": 1,
+		"updated": 1,
+		"skipped": 0,
+		"pending": 0
+	},
+	"pending": [
+		{
+			"count": 0
+		}
+	],
+	"triggers": [
+		{
+			"tgname": "posts_invalidate_search_projection"
+		}
+	]
+}

@@ -1,0 +1,235 @@
+$ pnpm run test:unit --run && pnpm run test:e2e
+$ vp test --run
+
+ RUN  v5.0.5 /Users/billyribeiro/dev/new-revolution-web
+
+ ❯ |server| src/lib/server/db/modified-date.db.spec.ts (10 tests | 10 skipped) 12794ms
+ ❯ |server| src/lib/server/services/blog-discovery.db.spec.ts (8 tests | 8 skipped) 12858ms
+ ❯ |server| src/lib/server/posts/redirect-integrity.db.spec.ts (13 tests | 8 skipped) 10916ms
+ ❯ |server| src/lib/server/waitlist/service.spec.ts (19 tests | 19 skipped) 12905ms
+ ❯ |server| src/lib/server/posts/search-projection.db.spec.ts (12 tests | 12 skipped) 12893ms
+ ❯ |server| src/lib/server/services/media-crops.db.spec.ts (5 tests | 5 skipped) 12879ms
+ ❯ |server| src/lib/server/auth-role.db.spec.ts (3 tests | 3 skipped) 13011ms
+ ❯ |server| src/lib/server/services/posts.db.spec.ts (11 tests | 11 skipped) 12818ms
+ ❯ |server| src/lib/server/services/media-pipeline.db.spec.ts (4 tests | 4 skipped) 12747ms
+ ❯ |server| src/routes/blog/blog-pagination.spec.ts (32 tests | 32 skipped) 12635ms
+ ❯ |server| scripts/backfill-blog-image-variants.spec.ts (6 tests | 1 failed) 14728ms
+   ❯ scripts/backfill-blog-image-variants (4)
+     × skips variant-named, non-raster, and <=480px images and rejects disallowed hosts or >15 MiB files 12836ms
+ ❯ |server| scripts/tooling-policy.spec.ts (5 tests | 1 failed) 17646ms
+   ❯ ESLint coverage after moving JavaScript plugins out of Oxlint (3)
+     × continues to detect missing Svelte each-block keys 13540ms
+ ❯ |server| src/routes/api/media/media-api.spec.ts (4 tests | 1 failed) 16175ms
+   ❯ Media REST API & Backfill Pipeline (4)
+     × rejects non-multipart requests with 415 and oversized Content-Length or streamed bodies with 413 12651ms
+ ❯ |server| scripts/seed-admin.spec.ts (13 tests | 1 failed) 20941ms
+   ❯ scripts/seed-admin (13)
+     × creates the admin account with role admin and a verified email 12716ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 10 ⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| src/lib/server/auth-role.db.spec.ts > Better Auth user.role (auth-role.db.spec)
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/auth-role.db.spec.ts:49:2
+     47|  let auth: typeof import('./auth.ts').auth;
+     48|
+     49|  beforeAll(async () => {
+       |  ^
+     50|   process.env.BETTER_AUTH_SECRET = 'test-secret-with-at-least-32-chara…
+     51|   testEnv = await createTestDatabase();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL  |server| src/routes/blog/blog-pagination.spec.ts > Blog pagination, 404 handling and cache tags
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/routes/blog/blog-pagination.spec.ts:65:2
+     63|  let fixtureCategoryId = 0;
+     64|
+     65|  beforeAll(async () => {
+       |  ^
+     66|   process.env.POST_PASSWORD_SECRET = 'test-post-password-secret-at-lea…
+     67|   ctx = await createTestDatabase();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL  |server| src/lib/server/db/modified-date.db.spec.ts > content_updated_at (editorial modification date)
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/db/modified-date.db.spec.ts:15:2
+     13|  const wait = (ms = 15) => new Promise((done) => setTimeout(done, ms));
+     14|
+     15|  beforeAll(async () => {
+       |  ^
+     16|   env = await createTestDatabase();
+     17|   setActiveDbForTest(env.db, env.client);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL  |server| src/lib/server/waitlist/service.spec.ts > durable waitlist
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/waitlist/service.spec.ts:27:2
+     25|  let env: Awaited<ReturnType<typeof createTestDatabase>>;
+     26|  const now = new Date('2026-11-04T12:00:00Z');
+     27|  beforeAll(async () => {
+       |  ^
+     28|   env = await createTestDatabase();
+     29|   setActiveDbForTest(env.db, env.client);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL  |server| src/lib/server/services/blog-discovery.db.spec.ts > Shared homepage and blog discovery
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/services/blog-discovery.db.spec.ts:9:2
+      7| describe('Shared homepage and blog discovery', () => {
+      8|  let env: Awaited<ReturnType<typeof createTestDatabase>>;
+      9|  beforeAll(async () => {
+       |  ^
+     10|   env = await createTestDatabase();
+     11|   setActiveDbForTest(env.db, env.client);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL  |server| src/lib/server/services/media-crops.db.spec.ts > cover crops at upload
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/services/media-crops.db.spec.ts:49:2
+     47|  const actorUserId = 'admin-crops-1';
+     48|
+     49|  beforeAll(async () => {
+       |  ^
+     50|   env = await createTestDatabase();
+     51|   setActiveDbForTest(env.db);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL  |server| src/lib/server/services/media-pipeline.db.spec.ts > media pipeline: orphans, audit failure, restore
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/services/media-pipeline.db.spec.ts:46:2
+     44|  let png: Buffer;
+     45|
+     46|  beforeAll(async () => {
+       |  ^
+     47|   testEnv = await createTestDatabase();
+     48|   setActiveDbForTest(testEnv.db);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL  |server| src/lib/server/services/posts.db.spec.ts > Blog Server Services & Transactional DB Suite (*.db.spec.ts)
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/services/posts.db.spec.ts:54:2
+     52|  const actorUserId = 'admin-user-1';
+     53|
+     54|  beforeAll(async () => {
+       |  ^
+     55|   process.env.BETTER_AUTH_SECRET = 'test-secret-with-at-least-32-chara…
+     56|   testEnv = await createTestDatabase();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL  |server| src/lib/server/posts/redirect-integrity.db.spec.ts > redirect integrity against the database
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/posts/redirect-integrity.db.spec.ts:58:2
+     56|  let env: Awaited<ReturnType<typeof createTestDatabase>>;
+     57|
+     58|  beforeAll(async () => {
+       |  ^
+     59|   env = await createTestDatabase();
+     60|   setActiveDbForTest(env.db, env.client);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ FAIL  |server| src/lib/server/posts/redirect-integrity.db.spec.ts > redirect integrity against the database
+TypeError: Cannot read properties of undefined (reading 'cleanup')
+ ❯ src/lib/server/posts/redirect-integrity.db.spec.ts:63:13
+     61|  });
+     62|  afterAll(async () => {
+     63|   await env.cleanup();
+       |             ^
+     64|  });
+     65|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
+
+ FAIL  |server| src/lib/server/posts/search-projection.db.spec.ts > Persistent public search and compatible legacy writers
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/posts/search-projection.db.spec.ts:21:2
+     19| describe('Persistent public search and compatible legacy writers', () …
+     20|  let env: Awaited<ReturnType<typeof createTestDatabase>>;
+     21|  beforeAll(async () => {
+       |  ^
+     22|   env = await createTestDatabase();
+     23|   setActiveDbForTest(env.db, env.client);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| scripts/backfill-blog-image-variants.spec.ts > scripts/backfill-blog-image-variants > skips variant-named, non-raster, and <=480px images and rejects disallowed hosts or >15 MiB files
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/backfill-blog-image-variants.spec.ts:63:2
+     61|  });
+     62|
+     63|  it('skips variant-named, non-raster, and <=480px images and rejects d…
+       |  ^
+     64|   const { db } = await createTestDatabase();
+     65|   setActiveDbForTest(db);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
+
+ FAIL  |server| scripts/seed-admin.spec.ts > scripts/seed-admin > creates the admin account with role admin and a verified email
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ scripts/seed-admin.spec.ts:44:2
+     42|  }
+     43|
+     44|  beforeEach(async () => {
+       |  ^
+     45|   testEnv = await createTestDatabase();
+     46|   ctx = contextFor();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/15]⎯
+
+ FAIL  |server| scripts/tooling-policy.spec.ts > ESLint coverage after moving JavaScript plugins out of Oxlint > continues to detect missing Svelte each-block keys
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/tooling-policy.spec.ts:29:2
+     27|  });
+     28|
+     29|  it('continues to detect missing Svelte each-block keys', async () => {
+       |  ^
+     30|   const eslint = new ESLint();
+     31|   const [result] = await eslint.lintText(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/15]⎯
+
+ FAIL  |server| src/routes/api/media/media-api.spec.ts > Media REST API & Backfill Pipeline > rejects non-multipart requests with 415 and oversized Content-Length or streamed bodies with 413
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/routes/api/media/media-api.spec.ts:75:2
+     73|  });
+     74|
+     75|  beforeEach(async () => {
+       |  ^
+     76|   setMediaStorageDriverForTest(createDiskStorageDriver(mediaRoot));
+     77|   const { db } = await createTestDatabase();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/15]⎯
+
+
+ Test Files  14 failed | 75 passed (89)
+      Tests  4 failed | 572 passed | 112 skipped (688)
+   Start at  13:44:07
+   Duration  24.08s (tests 55%, worker 30%, import 11%, transform 4%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Test failed. See above for more details.

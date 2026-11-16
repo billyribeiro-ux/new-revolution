@@ -1,0 +1,7 @@
+{
+	"issues": [],
+	"suggestions": [
+		"You are calling the function `render` inside an $effect. Please check if the function is reassigning a stateful variable because that's considered malpractice and check if it could use  `$derived` instead. Ignore this suggestion if you are sure this function is not assigning any stateful variable or if you can't check if it does."
+	],
+	"require_another_tool_call_after_fixing": true
+}

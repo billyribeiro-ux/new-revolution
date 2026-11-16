@@ -1,0 +1,13 @@
+● Formatting code...
+● Code formatted
+◇ Updated . to Vite+ 1.6.0
+• Node 26.13.0  pnpm 12.16.1
+• Dependencies:
+    vite-plus                   1.4.0 → 1.6.0
+    vite                        8.3.5 → 8.3.7
+    vitest                      5.0.5 → 5.1.0
+    @vitest/browser-playwright  5.0.5 → 5.1.0
+✓ Dependencies installed in 2.4s
+• Package manager settings configured
+• Skipped editor, hooks, and lint setup. Run `vp migrate --full` to apply them.
+Done in 10.3s using pnpm v12.16.1

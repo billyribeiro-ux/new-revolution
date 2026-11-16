@@ -1,0 +1,91 @@
+$ playwright install && playwright test --reporter=list,json src/routes/page.svelte.e2e.ts src/routes/admin/image-flow.e2e.ts --browser webkit --workers 1
+[WebServer] $ vp build && node scripts/maintenance-build.mjs
+[WebServer] (node:13414) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13422) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13422) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] [plugin builtin:vite-reporter] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:13422) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.mjs
+[WebServer]     - @react-email/render
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.cjs
+[WebServer]     - @react-email/render
+[WebServer]   .svelte-kit/output/server/chunks/auth.js
+[WebServer]     - @opentelemetry/api
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.cjs
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-libvips-/package
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/libvips.cjs
+[WebServer]     - @img/sharp-libvips-dev/include
+[WebServer]     - @img/sharp-libvips-dev/cplusplus
+[WebServer] (node:13609) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vp preview
+[WebServer] (node:13684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 15 tests using 1 worker
+
+(node:13693) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [webkit] › src/routes/admin/image-flow.e2e.ts:158:2 › Admin image flow: upload, feature, insert, publish, public page › creates a post with featured and inline images, saves a draft, reloads, and publishes (2.6s)
+  ✓   2 [webkit] › src/routes/admin/image-flow.e2e.ts:305:2 › Admin image flow: upload, feature, insert, publish, public page › publishing automatically adds one real card to homepage and blog without a rebuild (1.3s)
+  ✓   3 [webkit] › src/routes/admin/image-flow.e2e.ts:359:2 › Admin image flow: upload, feature, insert, publish, public page › keeps wide CMS tables and code locally scrollable without widening the article (1.0s)
+  ✓   4 [webkit] › src/routes/admin/image-flow.e2e.ts:416:2 › Admin image flow: upload, feature, insert, publish, public page › aligns every blog surface with the shared site container from mobile to ultrawide (2.7s)
+  ✓   5 [webkit] › src/routes/admin/image-flow.e2e.ts:477:2 › Admin image flow: upload, feature, insert, publish, public page › public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap (640ms)
+  ✓   6 [webkit] › src/routes/page.svelte.e2e.ts:4:2 › Revolution Trading Pros Homepage Blueprint › enforces single H1 with whitespace separation and semantic H2/H3 outline (308ms)
+  ✓   7 [webkit] › src/routes/page.svelte.e2e.ts:36:2 › Revolution Trading Pros Homepage Blueprint › renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog (329ms)
+  ✓   8 [webkit] › src/routes/page.svelte.e2e.ts:117:2 › Revolution Trading Pros Homepage Blueprint › keeps Blog navigation, footer and JSON-LD aligned and navigates on desktop and mobile (1.4s)
+  ✓   9 [webkit] › src/routes/page.svelte.e2e.ts:198:2 › Revolution Trading Pros Homepage Blueprint › applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography (346ms)
+  ✓  10 [webkit] › src/routes/page.svelte.e2e.ts:291:2 › Revolution Trading Pros Homepage Blueprint › handles desktop dropdown keyboard focus traversal and outside-click dismissal (865ms)
+  ✓  11 [webkit] › src/routes/page.svelte.e2e.ts:327:2 › Revolution Trading Pros Homepage Blueprint › renders US/Canada hreflang tags, JSON-LD EducationalOrganization schema, OpenGraph/Twitter image metadata, robots.txt, and clean sitemap.xml (383ms)
+  ✓  12 [webkit] › src/routes/page.svelte.e2e.ts:490:2 › Revolution Trading Pros Homepage Blueprint › verifies /about route has zero duplicate meta tags, valid AboutPage/ProfilePage JSON-LD, strict H1->H2->H3 hierarchy, and noindex on /demo/* (3.3s)
+  ✓  13 [webkit] › src/routes/page.svelte.e2e.ts:1154:2 › Revolution Trading Pros Homepage Blueprint › scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow (411ms)
+  ✓  14 [webkit] › src/routes/page.svelte.e2e.ts:1255:2 › Revolution Trading Pros Homepage Blueprint › handles mobile menu toggle, 48px tap targets, resize cleanup, and Escape key (414ms)
+  ✓  15 [webkit] › src/routes/page.svelte.e2e.ts:1288:2 › Revolution Trading Pros Homepage Blueprint › keeps all .reveal section elements visible (opacity: 1) when JavaScript is disabled (300ms)
+
+  15 passed (30.4s)

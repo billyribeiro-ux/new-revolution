@@ -1,0 +1,42 @@
+{
+	"requirements": 104,
+	"templates": [
+		"admin",
+		"article",
+		"blog-listing",
+		"home",
+		"membership-product",
+		"profile",
+		"static",
+		"static-resource",
+		"store-detail",
+		"store-listing",
+		"taxonomy",
+		"trust"
+	],
+	"matrixRows": 1248,
+	"statuses": {
+		"PASS": 187,
+		"FAIL": 112,
+		"PASS-STRUCTURE": 465,
+		"N-A": 224,
+		"REQUIRES-HUMAN": 237,
+		"REQUIRES-PRODUCTION": 22,
+		"BLOCKED": 1
+	},
+	"baselineFailRows": 113,
+	"currentFailRows": 112,
+	"liveSitemapUrls": 19,
+	"liveBaselineCrawlUrls": 85,
+	"previewCrawlUrls": 81,
+	"productionTemplateCounts": {
+		"home": 1,
+		"profile": 1,
+		"membership-product": 6,
+		"blog-listing": 1,
+		"trust": 5,
+		"static": 1,
+		"static-resource": 3,
+		"article": 1
+	}
+}

@@ -1,0 +1,42 @@
+[
+	{
+		"label": "final-css",
+		"args": ["check:css"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-check",
+		"args": ["check"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-tsc",
+		"args": ["exec", "tsc", "--noEmit"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-unit",
+		"args": ["test:unit", "--run"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-build",
+		"args": ["build"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-pages",
+		"args": ["check:pages"],
+		"exitCode": 0
+	},
+	{
+		"label": "final-seo",
+		"args": ["test:seo"],
+		"exitCode": 0
+	},
+	{
+		"label": "acceptance-lint",
+		"args": ["lint"],
+		"exitCode": 0
+	}
+]

@@ -1,0 +1,5 @@
+$ node --env-file-if-exists=.env scripts/seed-admin.ts
+.env not found. Continuing without it.
+Database: PGlite (local file) /private/tmp/revolution-dependency-baseline-20261115/.svelte-kit/pglite-blog
+Account created: role=admin, email verified.
+email=dependency-e2e-1794771426812@example.test id=JUaRvLOWCrzY35R90IAm6yjcTZkx2sGm role=admin action=created

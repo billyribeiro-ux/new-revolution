@@ -1,0 +1,642 @@
+Latest documentation updates
+ This page details the latest major updates made to the Google Search Central documentation.
+ To get the latest Search Central documentation updates delivered to you, add the URL of this
+ page to your feed reader,
+ or add the feed URL directly:
+ https://developers.google.com/search/updates/search_docs_updates.rss.
+November 2026
+ November 12
+Added documentation on identifying traffic from Google Search
+ What: Added a new page about
+ identifying traffic from Google Search
+ using HTTP Referer headers.
+ Why: To document how site owners can identify and track traffic from Google Search
+ in their web analytics systems.
+ November 9
+Added "things to do" query support to the aggregator and supplier units
+ What: Updated the aggregator unit and
+ supplier unit
+ documentation to include support for "things to do" queries.
+ Why: The aggregator unit and supplier unit now support "things to do" queries.
+October 2026
+ October 26
+Updated guidance on preventing user-generated spam
+ What: Updated the
+ user-generated spam prevention guide
+ with guidance on blocking indexing of link-shared content and monitoring abuse in Search
+ Console.
+ Why: To help platforms keep user-created pages that aren't meant for Search out of
+ the index and detect spam earlier.
+ October 23
+Updated guidance on crawlable URL structures
+ What: Updated the URL structure best practices to clarify word separation guidelines using hyphens versus underscores.
+ Why: To synchronize the documentation with the episodes of "The Non-Canonical Cabinet" video series.
+ October 21
+Updated the control what you share with Google Search documentation
+ What: Updated the
+ control what you share with Google Search documentation
+ to include existing options such as the robots meta tag,
+ data-nosnippet, X-Robots-Tag, and the Search generative AI control,
+ along with minor clarifications that the page applies to Google Search.
+ Why: To keep the page fresh and reflect the current set of options available to site owners.
+ October 16
+Updating the Indexing API quota page
+ What: Updated the Indexing API quota page
+ to reflect the current quota limits and process.
+ Why: To document the current quota limits for the Indexing API and remove an outdated form.
+ October 8
+Added documentation on the UGC Fresh Data Program
+ What: Added a new page about the
+ UGC Fresh Data Program.
+ Why: To explain the purpose of the program and help prospective applicants
+ understand the eligibility criteria and how to participate.
+ October 1
+Updated guidance on using generative AI content
+ What: Updated the
+ using generative AI content guide
+ with information from the Search Quality Raters guidelines.
+ Why: To get our documentation in sync with our presentations we use at our developer events.
+September 2026
+ September 24
+Added creator property and updated interactionStatistic in VideoObject structured data
+ What: Added the creator property (noting support for author) and updated interactionStatistic to document supported interaction types in the VideoObject structured data documentation.
+ Why: To document support for the creator and author properties, and clarify supported interaction types for interactionStatistic in VideoObject structured data.
+ September 18
+Added local business query support to the aggregator and supplier units
+ What: Updated the aggregator unit and
+ supplier unit
+ documentation to include support for local business queries.
+ Why: The aggregator unit and supplier unit now support local business queries.
+ September 16
+Added documentation on adding a Search profile badge to your website
+ What: Added a new guide on how to
+ add a Search profile badge to your website.
+ Why: To help site owners point their audience to their Search profile.
+ September 8
+Added documentation about regional differences in Search experience
+ What: Added documentation about
+ regional differences in Search experience,
+ which includes information about search experiences available in
+ certain countries, such as aggregator units, supplier units, and carousels.
+ Why: To help publishers, businesses, and aggregators learn about the different
+ regional search features available and understand the eligibility criteria and how
+ to participate.
+August 2026
+ August 31
+Updated the European Search Dataset Licensing Program page
+ What: Updated the Google European Search Dataset Licensing Program page.
+ Why: Refreshed the program overview, eligibility criteria, and application details.
+ August 28
+Updated the favicon documentation
+ What: Updated the favicon documentation
+ to specifically list out the supported favicon file formats.
+ Why: To be clearer about which favicon file formats are supported by Google Search.
+ Previously, the documentation linked to an external reference that evolved over time and
+ caused ambiguity about which favicon file formats are actually supported in Google Search.
+ Google Search's supported file formats haven't changed; this update
+ explicitly lists them in the documentation.
+Updated the site reputation policy
+ What: Updated the site reputation policy.
+ Why: We've adjusted our enforcement approach within the
+ European Economic Area
+ (EEA). For more information, see our blog post.
+ August 20
+New custom button for preferred sources
+ What: Updated the preferred sources documentation
+ to include instructions on how to add the new custom, interactive button to your site.
+ Why: Site owners can now implement a custom, interactive button to guide their
+ audience to set them as a preferred source, ensuring a seamless experience where users are
+ brought right back to where they left off.
+July 2026
+ July 29
+Added guide on analyzing social and video platform content
+ What: Added a new guide on how to
+ analyze your social and video platform content performance in Search Console.
+ Why: To help content creators, social media managers, and SEO professionals
+ understand how their social and video platform content performs on Google Search.
+ July 24
+Added a new review snippet guideline
+ What: Added a new guideline to the review snippet documentation
+ about fake and undisclosed incentivized reviews.
+ Why: To improve user review transparency.
+ July 14
+Updated the package tracking documentation
+ What: Updated the feature availability and eligibility requirements sections
+ package tracking early adopters program documentation.
+ Why: The package tracking early adopters program is no longer accepting new partners.
+ July 10
+Updated the canonicalization troubleshooting guide
+ What: Updated the
+ canonicalization troubleshooting guide
+ with clarifications on re-evaluation time.
+ Why: To provide better expectations about how long it takes for canonicalization
+ changes to take effect.
+ July 7
+Added category to merchant listing structured data
+ What: Updated the Merchant listing
+ documentation to detail how the Product.category property can be used with both
+ Text and CategoryCode types. This aligns with the Google Merchant Center feed
+ specifications for the
+ product_type and
+ google_product_category attributes.
+ Why: To help merchants provide both merchant-defined
+ and Google-defined category information within their schema.org markup, enhancing product
+ information for Google Search and Shopping.
+Clarified how to specify sale price effective dates in Product structured data
+ What: Added a new section on "Sale duration" to the Merchant listing guide. This explains how to use the validFrom, validThrough, and priceValidUntil
+ schema.org properties to set the effective range for sale prices, including best practices and examples for placement on either Offer or PriceSpecification nodes.
+ Why: This aligns schema.org usage with the Merchant Center feed attribute
+ sale_price_effective_date,
+ providing clear instructions and best practices for merchants using structured data.
+ July 1
+Updating our AMP documentation
+ What: Simplified our AMP documentation by removing outdated references to the AMP viewer, AMP Cache, and signed exchange.
+ Why: Starting today, Google Search is updating how it connects users to AMP pages,
+ and will now take users directly to the publisher's AMP host pages. This change simplifies
+ and reduces maintenance efforts for publishers who are creating AMP content, as they no
+ longer need to update the AMP cache or configure signed exchanges. AMP content will
+ continue to rank just like any other web page.
+June 2026
+ June 17
+Site move guidance now includes information on domain variants
+ What: The site move guide
+ now includes information on using the Change of Address tool for all subdomain variants
+ (including www and non-www) during domain migrations.
+ Why: The domain migrations work best when all variants of a site are migrated properly.
+ June 15
+Clarifying guidance on llms.txt files
+ What: Added a note to the AI optimization guide clarifying Google Search's usage of llms.txt files.
+ Why: To address questions from the community and clarify that while these files
+ aren't needed for Google Search (and won't negatively or positively impact your
+ visibility or rankings), it's fine if you want to maintain these files for other services or
+ systems that use them.
+Removing documentation for the FAQ rich result feature
+ What: Removed documentation for the FAQ rich result feature.
+ Why: The FAQ rich result feature is no longer shown in Google Search results, as announced in the changelog entry in May 2026.
+ June 12
+New article for small business owners in Tennessee
+ What: Created a new article explaining how small business owners in Tennessee can receive notifications from Google Search.
+ Why: To help small businesses in Tennessee learn how they can get notified if their web content is removed or restricted on Google Search (for example, signing up for Search Console, Business Profile, or Merchant Center).
+ June 5
+Guidance on third-party SEO tools, services, and advice
+ What: Added Google Search's guidance on using third-party SEO tools, services, and advice.
+ Also added guidance to the Do you need an SEO? page on
+ evaluating your SEO's recommendations and tools, along with other minor updates to the
+ page to simplify and modernize the content.
+ Why: To highlight important considerations when evaluating third-party SEO tools and
+ advice, and to simplify some sections and remove outdated examples in existing
+ documentation.
+May 2026
+ May 27
+Preferred sources is available in AI Mode and AI Overviews
+ What: Updated the feature availability section of the
+ preferred sources documentation to
+ include AI Overviews and AI Mode.
+ Why: The preferred sources feature is starting to roll out to AI Overviews and AI Mode.
+ May 20
+Added hasAdultConsideration to product-related structured data types
+ What: Added the hasAdultConsideration property to the
+ Merchant listing and
+ Product variant
+ documentation.
+ Why: This property brings parity with the Merchant Center feed specification for the
+ adult property.
+ May 15
+Adding a new guide on optimizing for generative AI features
+ What: Added a new guide on optimizing for generative AI features
+ on Search. Notable new sections include guidance on the importance of providing non-commodity content,
+ tips about providing local, shopping, image, and video content, mythbusting common "AEO/GEO"
+ misconceptions, initial guidance on AI agents, and more information on why SEO best practices
+ continue to be relevant for success in our generative AI features on Search.
+ Why: To help site owners, SEOs, and developers better understand how to optimize
+ their content for appearance in generative AI features on Search, and what they can ignore.
+Clarifying that spam policies apply to generative AI responses in Google Search
+ What: Clarified that our spam policies
+ also apply to generative AI responses in Google Search.
+ Why: To make it clear that the spam policies apply to all of Google Search,
+ including generative AI responses.
+ May 8
+Deprecating the FAQ rich result feature
+ What: Added a deprecation notice to the FAQ rich result documentation.
+ Why: This feature will no longer appear in Google Search starting May 7, 2026.
+April 2026
+ April 30
+Expanding preferred sources to all languages where Google Search is available
+ What: Added that the preferred sources feature
+ is now available in all languages where Google Search is available,
+ including new translated downloadable button assets.
+ Why: The preferred sources feature is now available in all languages supported by Google Search.
+ April 23
+Clarifying when and why we may take manual action based on spam reports
+ What: Further clarified when and why we may take manual action based on spam reports.
+ Why: To address feedback we received about the change on using spam reports to take
+ manual action.
+ April 20
+Added a section about "read more" deep links
+ What: Added a new section on "read more" deep links
+ to the snippet documentation.
+ Why: To explain how to increase the likelihood of your content appearing with a
+ "read more" deeplink in Google Search results.
+ April 14
+Clarifying the use of spam reports
+ What: Clarified that Google may use spam report submissions
+ to take manual action against violations.
+ Why: Google may now use spam report submissions to take manual action.
+ April 13
+Introducing a new spam policy for "back button hijacking"
+ What: Added a new section to the malicious practices spam policy
+ to address a deceptive practice known as "back button hijacking".
+ Why: Learn more about this update in our blog post on back button hijacking.
+March 2026
+ March 24
+Added new supported properties for Discussion Forum and QA Page markup
+ What: Added more supported properties
+ for Discussion Forum
+ and QA Page markup.
+ Why: For providing more clarity on comment thread structure to Google ingestion systems.
+ This prevents misinterpretations in our handling of forum and Q&A content.
+Added a note on the robots meta tags documentation
+ What: Added a note to the robots meta tags documentation on the way Google Search processes robots meta tags outside the HTML head.
+ Why: The behavior didn't change but was previously undocumented.
+ March 4
+Removed outdated information about JavaScript and accessibility
+ What: Removed a section on accessibility from the JavaScript SEO basics documentation.
+ Why: The information was out of date and not as helpful as it used to be. Google Search has been rendering JavaScript for multiple years now, so using JavaScript to load content is not "making it harder for Google Search".
+ Most assistive technologies are able to work with JavaScript now as well.
+ March 2
+Added preferred image best practices
+ What: Added a new section on specifying a preferred image with metadata
+ to the image SEO best practices and Discover documentation.
+ Why: Based on feedback, we're clarifying that Google uses both schema.org markup and the og:image
+ meta tag as sources when determining image thumbnails in Google Search and
+ Discover.
+February 2026
+ February 5
+Added information to the Get on Discover page for site owners
+ What: Added more information on how sites can increase the likelihood of their
+ content appearing in Discover.
+ Why: We're rolling out the February 2026 Discover Core Update.
+ February 3
+Clarified information about the default file size limits for Googlebot
+ What: While moving over the information about the default file size limits of
+ Google's crawlers and fetchers to the
+ crawler documentation,
+ we also updated the
+ Googlebot documentation
+ about its own file size limits.
+ Why: The original location of the default file size limits was not the most logical
+ place as it applies to all of Google's crawlers and fetchers, and the move enabled us to
+ be more precise about Googlebot's limits.
+January 2026
+ January 30
+Adding preferred sources documentation
+ What: Added preferred sources documentation
+ for website owners.
+ Why: To help publishers understand how to help their audience find their site as a preferred source.
+ January 21
+Adding more supported query types to South African carousel documentation
+ What: Updated the structured data carousels (beta)
+ documentation and the South African badges and refinement chips blog post
+ to include additional query types.
+ Why: The South African carousel, badges, and refinement chips now support queries
+ related to food delivery, car hire, and bus booking.
+ January 6
+Removing documentation for the practice problem structured data type
+ What: Removed documentation for the practice problem
+ structured data type.
+ Why: The practice problem structured data type is no longer shown in Google Search results.
+ Learn more about this change in our blog post and changelog entry announced in November 2025.
+2025 updates
+December 2025
+ December 18
+Clarifying JavaScript execution on non-200 HTTP status codes
+ What: We added a note on how Googlebot processes JavaScript.
+ Why: While pages with a 200 HTTP status code are sent to rendering, this might not be the case for pages with a non-200 HTTP status code.
+Migrating more crawling documentation to a new location
+ What: Migrated the following documentation to
+ Google's crawling infrastructure site. The functionality hasn't changed,
+ only the location of the documentation and some minor wording changes to clarify that some
+ guidance applies to both Google Search and other Google products.
+Managing crawling of faceted navigation URLs
+Optimize your crawl budget
+How HTTP status codes affect Google's crawlers
+Debug DNS and network errors
+ Why: This documentation is more relevant to many Google products that use Google's crawlers,
+ not just Search.
+ December 17
+Clarifying canonicalization best practices for JavaScript
+ What: We added a section on canonicalization best practices for JavaScript
+ to our JavaScript documentation and the best practices for consolidation of duplicate URLs.
+ Why: Canonicalization happens before and after rendering, so it's important to make the canonical URL as clear as possible. With JavaScript, this means setting the canonical URL to the same URL as in the original HTML or if that isn't possible, to leave the canonical URL out of the original HTML.
+ December 15
+Clarifying noindex and JavaScript
+ What: Clarified in our JavaScript documentation
+ how Google's crawler handles noindex tags in pages that use JavaScript.
+ Why: While Google may be able to render a page that uses JavaScript, the behavior
+ of this is not well defined and might change. If there's a possibility that you do
+ want the page indexed, don't use a noindex tag in the original page code.
+ December 9
+Adding a section on smaller core updates
+ What: Added information to the core updates documentation
+ about how Google continually makes updates to our search algorithms (including smaller core updates),
+ and how that can affect your website.
+ Why: To clarify that site owners that make content improvements can see a rise in position in Google Search results without
+ having to wait for the next major core update.
+November 2025
+ November 20
+Migrating Google's crawling documentation to a new location
+ What: Migrated the following crawling documentation to a new location,
+ Google's crawling infrastructure documentation
+ (the content hasn't changed, only the location). Notable moves include:
+Overview of Google crawlers and fetchers
+Verify requests from Google crawlers and fetchers
+Reduce the Google crawl rate
+Google common crawlers
+How Google interprets the robots.txt specification
+To subscribe to updates about Google's crawling infrastructure,
+ add the URL of the new changelog page to your
+ feed reader,
+ or add the feed URL directly:
+ https://developers.google.com/crawling/docs/changelog/crawling_docs_updates.rss.
+ Why: Google's crawling infrastructure is shared across a variety of Google products beyond Search,
+ including Google Shopping, News, Gemini, AdSense, and more. The new site
+ is a more logical home for this documentation and makes it easier to document new features
+ and updates that are relevant to all of these products.
+ November 19
+Removing guidance on the Follow feature in Discover
+ What: Removed guidance on the Follow feature
+ from Google Discover documentation.
+ Why: The Follow feature is no longer shown in Google Discover.
+ November 12
+Clarifying nesting in reviews and aggregate ratings
+ What: Clarified the review snippet documentation to explain that site owners
+ should avoid using multiple ways of indicating what's being reviewed.
+ Why: To prevent ambiguity and make sure Google can better interpret your review and aggregate rating structured data.
+Adding a new user-triggered fetcher
+ What: We added the
+ Google-Pinpoint
+ fetcher to the list of user-triggered fetchers.
+ Why: The Google-Pinpoint fetcher is used by the Pinpoint research tool.
+Launching new merchant shipping policies documentation
+ What: Added documentation for shipping policies.
+ Why: We now support merchant-level shipping policy markup in Search.
+ November 5
+Removing and clarifying documentation for some structured data types
+ What: Added a deprecation notice to the practice problem
+ documentation. Starting in January 2026, we'll also be removing support for that feature
+ in Search Console rich result reporting, the Rich Result Test, and the
+ list of Search appearance filters.
+ The Search Console API will continue to support the
+ practice problem type through January 2026.
+ Clarified that Dataset structured data
+ is only used by Dataset Search,
+ and not Google Search. Removed the deprecation banner from
+ Book actions documentation,
+ as there's still a feature using the markup in Google Search.
+ Why: As part of our ongoing efforts to simplify the search results page,
+ we are phasing out the practice problem and dataset structured data types from Google
+ Search results.
+ November 3
+Adding a new user-triggered fetcher
+ What: Based on feedback, we added the
+ Google-CWS
+ fetcher to the list of user-triggered fetchers.
+October 2025
+ October 15
+Update the list of Google products that use the Read Aloud service
+ What: Update the documentation on Google Read Aloud with an updated list of Google products that use the Read Aloud service.
+ Why: Other Google products can now use the Google Read Aloud service.
+ October 9
+Adding Google-NotebookLM to the list of user-triggered fetchers
+ What: Based on feedback, we added
+ Google-NotebookLM
+ to the list of user-triggered fetchers.
+September 2025
+ September 9
+Removing documentation for some deprecated structured data types
+ What: Removed documentation for the following structured data types:
+ course info,
+ estimated salary,
+ learning video,
+ special announcement,
+ and
+ vehicle listing.
+ Why: These structured data types are no longer shown in Google Search results. Learn
+ more about this change in our blog post.
+August 2025
+ August 28
+Adding guidance for JavaScript-based paywalls
+ What: Added new guidance on JavaScript-based paywall considerations.
+ Why: To help sites understand challenges with the JavaScript-based paywall design
+ pattern, as it makes it difficult for Google to automatically determine which content is
+ paywalled and which isn't.
+Expanding the structured data carousels (beta) feature to South Africa
+ What: Updated the structured data carousels (beta) documentation
+ to include South Africa.
+ Why: The feature is available in South Africa.
+July 2025
+ July 11
+Updated documentation related to merchant return policies and loyalty programs
+ What: Updated merchant return policy documentation and
+ merchant listing documentation to
+ clarify that (1) offer-level return policies only support a subset of organization-level return policies, and (2)
+ merchant-level return policies must be defined under Organization markup.
+ Updated loyalty program documentation and
+ merchant listing documentation
+ to clarify that (1) loyalty program information needs to be defined separately from offer-level loyalty benefits (price and points)
+ under Organization markup on a separate page or on Merchant Center, and (2) shipping and returns loyalty benefits are
+ not supported by Google at the moment.
+ Why: Removing unclarities in the documentation and examples.
+ July 1
+Updating the Google Read Aloud user agent
+ What: Updated Google Read Aloud user agent
+ in HTTP requests with newer browser versions.
+ Why: To accommodate sites which don't support old browser versions.
+June 2025
+ June 18
+Revamped the URL structure documentation
+ What: Reorganized the URL structure documentation
+ so it has a clearer flow and is easier to navigate, with added examples based on real-world URLs we've encountered.
+ Why: Every now and then, we revisit our documentation and look for ways to make it
+ better. This is a docs-only change, no change in behavior.
+ June 17
+Adding feature availability information for loyalty program structured data
+ What: Added a section on feature availability to the
+ loyalty program documentation.
+ Why: The feature is available in Australia, Brazil, Canada,
+ France, Germany, Mexico, the UK, and the US, on both desktop and mobile.
+ June 16
+AI Mode is now counting towards totals in Search Console
+ What: Updated the AI feature documentation
+ to point to the section about how AI Mode is counted
+ towards the overall search traffic in Search Console.
+ Why: Data from AI Mode is now counting towards the totals in the Search Console
+ Performance report.
+ June 12
+Retiring a few structured data features
+ What: Added banners to a few structured data features to indicate upcoming changes: book actions,
+ course info,
+ estimated salary,
+ ClaimReview,
+ learning video,
+ special announcement,
+ and
+ vehicle listing.
+ Why: As part of our ongoing efforts to simplify the Google Search results page, we
+ will be phasing out support for a few structured data features in Search. Learn more in our
+ blog post.
+ June 11
+Spring cleaning in our multilingual documentation
+ What: Removed a section from our multilingual documentation
+ about using robots.txt to block all automatically translated pages.
+ Why: To align with our spam policy update in March 2024.
+ This is a docs-only change, no change in behavior.
+ June 10
+Launching new merchant return policies and loyalty program documentation
+ What: Added documentation for loyalty programs
+ and migrated the merchant return policy documentation
+ to a separate page.
+ Why: We now support loyalty program markup in Search. We migrated merchant return
+ policies from the Organization documentation
+ to a new dedicated document
+ to make it easier to find return policy guidance.
+ June 5
+Updating our guidance for event structured data
+ What: Added more examples of eliglible and illegible events to the
+ events documentation.
+ Also removed the online event properties.
+ Why: To be eligible for the event experience on Google, events must be bookable by
+ the general public and held at a physical location.
+Clarifying the use of the image property for recipes
+ What: Clarified that the image property in Recipe structured data
+ doesn't influence the image that's chosen as a text result image.
+ Why: The image property in Recipe markup is only used for recipe rich
+ results, not for text result images.
+ June 4
+Revamping our SafeSearch documentation
+ What: Revamped our documentation for sites with explicit content
+ to make sure our guidance is up-to-date with Google Search policies and algorithmic protections.
+ Among other updates, we introduced best practices for moderating content and eliminating CSAM and non-consensual content,
+ expanded documentation for sharing video bytes,
+ and added more guidance on
+ what to do if your site is incorrectly flagged as explicit.
+ Why: To better help site owners reach their target audience while respecting user
+ preferences around explicit content and minimizing access to violative explicit content. Also, the
+ troubleshooting section has been separated for more clarity. Finally, Google Search is updating
+ the ranking algorithms to more strongly affect the sites that host explicit videos but don't
+ allow Googlebot to fetch those video files
+ (these sites may experience a significant drop in ranking, especially in Video mode).
+May 2025
+ May 21
+Adding documentation on AI features and using generative AI on your site
+ What: Added new documentation on AI features and your site
+ and Google Search's guidance on using generative AI content on your website.
+ Learn more in our
+ blog post on succeeding in Google's AI experiences on Search.
+Expanding the structured data carousels (beta) feature to Turkey
+ What: Updated the structured data carousels (beta) documentation
+ to include Turkey.
+ Why: The feature is available in Turkey.
+ May 12
+Clarified best practices for shared images
+ What: We updated the
+ Google Image SEO best practices
+ to clarify that URLs for images should be referenced consistently for easier crawling on larger websites.
+April 2025
+ April 25
+Updated the description of the Google-Extended product token
+ What: Based on publisher feedback, we updated the Google-Extended
+ product token description to provide additional specificity and clarity.
+Correcting the description of the crawler preferences addressed to the Googlebot-News user agent
+ What: Updated the
+ Googlebot-News
+ user agent description.
+ Why: The description for how crawling preferences addressed to
+ Googlebot-News mistakenly stated that they'd affect the News tab on Google,
+ which is not the case.
+ April 24
+Updating the merchant listing documentation on energy efficiency
+ What: Updated the merchant listing documentation
+ on energy efficiency. Specifically, removed the EnergyConsumptionDetails
+ properties, added a note on backwards compatibility for developers that implemented the
+ original markup, and added an alternative solution to the certificationIdentification
+ property for merchants that don't have EPREL codes.
+ Why: As announced in October 2024, the EnergyConsumptionDetails
+ type has been replaced with the more robust Certification type.
+ April 23
+Deprecating the special announcement feature
+ What: Added a deprecation notice to the special announcements documentation.
+ Why: This feature will be deprecated starting July 31, 2025.
+ April 11
+Updating the interest forms for structured data carousels (beta)
+ What: Updated the structured data carousels (beta) documentation
+ to include the current interest forms and supported query types.
+ Why: To reflect the current state of the feature and process for expressing interest.
+ April 1
+Expanding the education Q&A carousel to Portuguese
+ What: Updated the education Q&A documentation
+ to include Portuguese.
+ Why: The education Q&A carousel is available in Portuguese.
+March 2025
+ March 27
+Removing AI while browsing documentation
+ What: Removed the AI while browsing feature from the
+ paywall documentation.
+ Why: The AI while browsing feature is no longer available.
+ March 17
+Expanding the education Q&A carousel to more languages
+ What: Updated the education Q&A documentation
+ to include Spanish and Vietnamese.
+ Why: The education Q&A carousel is available in more languages.
+ March 14
+Updating the return policy examples
+ What: Added returnPolicyCountry to the return policy examples.
+ Why: returnPolicyCountry is required for MerchantReturnPolicy.
+ March 7
+Removing page annotations documentation
+ What: Removed the Page Annotations feature from the
+ control what you share with Google documentation.
+ Why: The Page Annotations feature is no longer available.
+ March 5
+Adding AI Mode to the robots meta tag documentation
+ What: Added information about AI Mode to the
+ robots meta tags, data-nosnippet, and X-Robots-Tag specifications page.
+ Why: AI Mode is now available in Search Labs.
+February 2025
+ February 13
+Explaining how to encode various types of prices in structured data
+ What: Added examples and instructions for using the priceType property
+ and new beta validForMemberTier property to encode active prices, sale prices,
+ strikethrough prices, and member prices in JSON-LD to the
+ Merchant listing structured data
+ guidelines.
+ Why: To make it easier for merchants to specify complex pricing through structured
+ data and bring parity with price features in Merchant Center.
+ February 6
+Adding documentation for using Google Analytics and Search Console data together
+ What: Added new documentation about using Search Console and Google Analytics data for SEO.
+ Why: Using Google Analytics and Search Console together can help you understand
+ how people discover and experience your website, which can you make more informed
+ decisions as you work on your site's SEO.
+January 2025
+ January 22
+Updating feature availability of breadcrumb markup
+ What: Added a feature availability
+ section to the breadcrumb documentation to state that they only appear on desktop search
+ results, not mobile.
+ Why: Because of how breadcrumbs get truncated on smaller screens, we've found this
+ feature isn't as useful to people who are searching on mobile. Breadcrumbs will continue
+ to appear on desktop search results. Learn more in our blog post.
+ January 21
+Clarifying the site reputation abuse policy
+ What: Updated the site reputation abuse policy
+ to include guidance from our blog post's FAQ on site reputation abuse.
+ Why: To make it easier to find this guidance. These are editiorial changes only,
+ no change in behavior.
+ January 15
+Adding a recommendation about accepting ratings and reviews
+ What: Added a recommendation to our
+ review snippet documentation.
+ Why: We recommend implementing a setup that only accepts ratings and reviews that
+ are accompanied by a review comment and author's name, as this approach can help your
+ users understand the context for a given rating.

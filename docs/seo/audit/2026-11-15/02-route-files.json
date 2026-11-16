@@ -1,0 +1,1124 @@
+[
+	{
+		"file": "src/routes/+error.svelte",
+		"route": "/",
+		"kind": "+error.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/+layout.ts",
+		"route": "/",
+		"kind": "+layout.ts",
+		"options": {},
+		"loadExports": ["export const load: LayoutLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/+page.server.ts",
+		"route": "/",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/+page.svelte",
+		"route": "/",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/+page.ts",
+		"route": "/",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/about/+page.svelte",
+		"route": "/about",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/about/+page.ts",
+		"route": "/about",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/+layout.server.ts",
+		"route": "/admin",
+		"kind": "+layout.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: LayoutServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/+page.server.ts",
+		"route": "/admin",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/+page.svelte",
+		"route": "/admin",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/analytics/+page.svelte",
+		"route": "/admin/analytics",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/analytics/+page.ts",
+		"route": "/admin/analytics",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/calls/+page.svelte",
+		"route": "/admin/calls",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/calls/+page.ts",
+		"route": "/admin/calls",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/campaigns/+page.svelte",
+		"route": "/admin/campaigns",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/campaigns/+page.ts",
+		"route": "/admin/campaigns",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/consent/+page.svelte",
+		"route": "/admin/consent",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/consent/+page.ts",
+		"route": "/admin/consent",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/email-analytics/+page.svelte",
+		"route": "/admin/email-analytics",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/inbox/+page.svelte",
+		"route": "/admin/inbox",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/inbox/+page.ts",
+		"route": "/admin/inbox",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/integrations/+page.svelte",
+		"route": "/admin/integrations",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/leads/+page.svelte",
+		"route": "/admin/leads",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/leads/+page.ts",
+		"route": "/admin/leads",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/login/+page.server.ts",
+		"route": "/admin/login",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/login/+page.svelte",
+		"route": "/admin/login",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/logout/+server.ts",
+		"route": "/admin/logout",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/media/+page.server.ts",
+		"route": "/admin/media",
+		"kind": "+page.server.ts",
+		"options": {},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/media/+page.svelte",
+		"route": "/admin/media",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/notifications/+page.server.ts",
+		"route": "/admin/notifications",
+		"kind": "+page.server.ts",
+		"options": {},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/notifications/+page.svelte",
+		"route": "/admin/notifications",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/posts/+page.server.ts",
+		"route": "/admin/posts",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/posts/+page.svelte",
+		"route": "/admin/posts",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/posts/[id]/+page.server.ts",
+		"route": "/admin/posts/[id]",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/admin/posts/[id]/+page.svelte",
+		"route": "/admin/posts/[id]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/admin/posts/new/+page.server.ts",
+		"route": "/admin/posts/new",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/posts/new/+page.svelte",
+		"route": "/admin/posts/new",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/sequences/+page.svelte",
+		"route": "/admin/sequences",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/sequences/+page.ts",
+		"route": "/admin/sequences",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/subscribers/+page.svelte",
+		"route": "/admin/subscribers",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/admin/subscribers/+page.ts",
+		"route": "/admin/subscribers",
+		"kind": "+page.ts",
+		"options": {
+			"ssr": "false",
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/alert-services/spx-profit-pulse/+page.svelte",
+		"route": "/alert-services/spx-profit-pulse",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/alert-services/spx-profit-pulse/+page.ts",
+		"route": "/alert-services/spx-profit-pulse",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/alert-services/sunday-alpha-protocol/+page.svelte",
+		"route": "/alert-services/sunday-alpha-protocol",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/alert-services/sunday-alpha-protocol/+page.ts",
+		"route": "/alert-services/sunday-alpha-protocol",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/admin/events/+server.ts",
+		"route": "/api/admin/events",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/admin/leads/+server.ts",
+		"route": "/api/admin/leads",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/admin/leads/[id]/+server.ts",
+		"route": "/api/admin/leads/[id]",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/api/admin/notifications/head/+server.ts",
+		"route": "/api/admin/notifications/head",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/admin/posts/+server.ts",
+		"route": "/api/admin/posts",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/admin/posts/[id]/+server.ts",
+		"route": "/api/admin/posts/[id]",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/api/analytics/pageview/+server.ts",
+		"route": "/api/analytics/pageview",
+		"kind": "+server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/campaign-events/+server.ts",
+		"route": "/api/campaign-events",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/campaigns/active/+server.ts",
+		"route": "/api/campaigns/active",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/consent/+server.ts",
+		"route": "/api/consent",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/cron/analytics-daily/+server.ts",
+		"route": "/api/cron/analytics-daily",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/cron/analytics-weekly/+server.ts",
+		"route": "/api/cron/analytics-weekly",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/cron/publish-scheduled/+server.ts",
+		"route": "/api/cron/publish-scheduled",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/cron/send-sequence-emails/+server.ts",
+		"route": "/api/cron/send-sequence-emails",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/cron/waitlist-email/+server.ts",
+		"route": "/api/cron/waitlist-email",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/health/+server.ts",
+		"route": "/api/health",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/lead/+server.ts",
+		"route": "/api/lead",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/media/[id]/+server.ts",
+		"route": "/api/media/[id]",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/api/media/folders/+server.ts",
+		"route": "/api/media/folders",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/media/list/+server.ts",
+		"route": "/api/media/list",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/media/upload/+server.ts",
+		"route": "/api/media/upload",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/page-view/+server.ts",
+		"route": "/api/page-view",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/track/click/+server.ts",
+		"route": "/api/track/click",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/unsubscribe/+server.ts",
+		"route": "/api/unsubscribe",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/waitlist/confirm/+server.ts",
+		"route": "/api/waitlist/confirm",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/waitlist/signup/+server.ts",
+		"route": "/api/waitlist/signup",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/waitlist/unsubscribe/+server.ts",
+		"route": "/api/waitlist/unsubscribe",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/webhooks/calendly/+server.ts",
+		"route": "/api/webhooks/calendly",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/api/webhooks/resend/+server.ts",
+		"route": "/api/webhooks/resend",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/blog/+error.svelte",
+		"route": "/blog",
+		"kind": "+error.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/blog/+page.server.ts",
+		"route": "/blog",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/blog/+page.svelte",
+		"route": "/blog",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/blog/[slug]/+page.server.ts",
+		"route": "/blog/[slug]",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/blog/[slug]/+page.svelte",
+		"route": "/blog/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/blog/category/[slug]/+page.server.ts",
+		"route": "/blog/category/[slug]",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/blog/category/[slug]/+page.svelte",
+		"route": "/blog/category/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/blog/tag/[slug]/+page.server.ts",
+		"route": "/blog/tag/[slug]",
+		"kind": "+page.server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": ["export const load: PageServerLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/blog/tag/[slug]/+page.svelte",
+		"route": "/blog/tag/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/contact/+page.svelte",
+		"route": "/contact",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/contact/+page.ts",
+		"route": "/contact",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/demo/playwright/+page.svelte",
+		"route": "/demo/playwright",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/editorial-policy/+page.svelte",
+		"route": "/editorial-policy",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/editorial-policy/+page.ts",
+		"route": "/editorial-policy",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/images/blog/[...file]/+server.ts",
+		"route": "/images/blog/[...file]",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/live-trading-rooms/day-trading-room/+page.svelte",
+		"route": "/live-trading-rooms/day-trading-room",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/live-trading-rooms/day-trading-room/+page.ts",
+		"route": "/live-trading-rooms/day-trading-room",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/live-trading-rooms/small-accounts-room/+page.svelte",
+		"route": "/live-trading-rooms/small-accounts-room",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/live-trading-rooms/small-accounts-room/+page.ts",
+		"route": "/live-trading-rooms/small-accounts-room",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/live-trading-rooms/swing-trading-room/+page.svelte",
+		"route": "/live-trading-rooms/swing-trading-room",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/live-trading-rooms/swing-trading-room/+page.ts",
+		"route": "/live-trading-rooms/swing-trading-room",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/media/[...path]/+server.ts",
+		"route": "/media/[...path]",
+		"kind": "+server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/mentorship/+page.svelte",
+		"route": "/mentorship",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/mentorship/+page.ts",
+		"route": "/mentorship",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/our-mission/+page.svelte",
+		"route": "/our-mission",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/our-mission/+page.ts",
+		"route": "/our-mission",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/privacy-policy/+page.svelte",
+		"route": "/privacy-policy",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/privacy-policy/+page.ts",
+		"route": "/privacy-policy",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/refund-policy/+page.svelte",
+		"route": "/refund-policy",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/refund-policy/+page.ts",
+		"route": "/refund-policy",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/+page.svelte",
+		"route": "/resources",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/+page.ts",
+		"route": "/resources",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/etf-stocks-list/+page.svelte",
+		"route": "/resources/etf-stocks-list",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/etf-stocks-list/+page.ts",
+		"route": "/resources/etf-stocks-list",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/stock-indexes-list/+page.svelte",
+		"route": "/resources/stock-indexes-list",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/resources/stock-indexes-list/+page.ts",
+		"route": "/resources/stock-indexes-list",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/rss.xml/+server.ts",
+		"route": "/rss.xml",
+		"kind": "+server.ts",
+		"options": {
+			"prerender": "false"
+		},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/sitemap.xml/+server.ts",
+		"route": "/sitemap.xml",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/courses/+page.svelte",
+		"route": "/store/courses",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/courses/+page.ts",
+		"route": "/store/courses",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/courses/[slug]/+page.svelte",
+		"route": "/store/courses/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/store/courses/[slug]/+page.ts",
+		"route": "/store/courses/[slug]",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/store/indicators/+page.svelte",
+		"route": "/store/indicators",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/indicators/+page.ts",
+		"route": "/store/indicators",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/indicators/[slug]/+page.svelte",
+		"route": "/store/indicators/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/store/indicators/[slug]/+page.ts",
+		"route": "/store/indicators/[slug]",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/store/scanners/+page.svelte",
+		"route": "/store/scanners",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/scanners/+page.ts",
+		"route": "/store/scanners",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/store/scanners/[slug]/+page.svelte",
+		"route": "/store/scanners/[slug]",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/store/scanners/[slug]/+page.ts",
+		"route": "/store/scanners/[slug]",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": true
+	},
+	{
+		"file": "src/routes/terms-of-service/+page.svelte",
+		"route": "/terms-of-service",
+		"kind": "+page.svelte",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/terms-of-service/+page.ts",
+		"route": "/terms-of-service",
+		"kind": "+page.ts",
+		"options": {
+			"prerender": "true"
+		},
+		"loadExports": ["export const load: PageLoad ="],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/waitlist/confirm/+server.ts",
+		"route": "/waitlist/confirm",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	},
+	{
+		"file": "src/routes/waitlist/unsubscribe/+server.ts",
+		"route": "/waitlist/unsubscribe",
+		"kind": "+server.ts",
+		"options": {},
+		"loadExports": [],
+		"dynamic": false
+	}
+]

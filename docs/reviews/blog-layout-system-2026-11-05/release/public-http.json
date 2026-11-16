@@ -1,0 +1,701 @@
+{
+	"origin": "https://www.revolutiontradingpros.com",
+	"expectedSha": "37a23f29491f872dbc736cb67ad701cb89112941",
+	"generatedAt": "2026-11-06T03:46:47.851Z",
+	"protectedStage": false,
+	"checks": [
+		{
+			"name": "https://www.revolutiontradingpros.com",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/about",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/about"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/blog",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/blog"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/contact",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/contact"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/editorial-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/editorial-policy"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [
+					"https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room"
+				],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [
+					"https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room"
+				],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/mentorship",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/mentorship"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/our-mission",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/our-mission"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/privacy-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/privacy-policy"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/refund-policy",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/refund-policy"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/resources",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/resources"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/resources/etf-stocks-list"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/resources/stock-indexes-list"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/terms-of-service",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/terms-of-service"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/sunday-alpha-alerts",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": ["https://www.revolutiontradingpros.com/sunday-alpha-alerts"],
+				"robots": ["index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/blog/category/spx-options",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, follow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/blog/tag/0dte-options",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, follow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/blog/tag/risk-management",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, follow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/contrarian-distribution-and-shorting",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/institutional-risk-and-trader-psychology",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/macro-cycle-inflection-mastery",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/move-prior-to-the-move-masterclass",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/move-prior-to-the-move-ultra",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/options-greeks-and-volatility-mastery",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/small-account-compounding-blueprint",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/spx-0dte-and-index-gamma-execution",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/courses/working-pro-swing-trading-system",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/anchored-vwap-liquidity-bands",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/institutional-volume-absorption",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/move-prior-to-the-move-pro",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/move-prior-to-the-move-system",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/mp-early-in-n-out-pro",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/multi-timeframe-squeeze-pro",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/options-expected-move-corridor",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/spx-dealer-gamma-levels",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/indicators/volatility-regime-compass",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/high-octane-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/liquidity-sweep-stop-hunt-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/move-prior-to-the-move-radar",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/multi-timeframe-squeeze-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/opening-bell-gap-and-go-fade-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/small-account-affordable-options-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/smart-money-relative-volume-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/spx-dealer-gamma-iv-skew-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "https://www.revolutiontradingpros.com/store/scanners/working-pro-eod-swing-scanner",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"canonical": [],
+				"robots": ["noindex, nofollow"],
+				"xRobotsTag": null,
+				"jsonLdBlocks": 1
+			}
+		},
+		{
+			"name": "health identity",
+			"status": "passed",
+			"evidence": {
+				"status": "ok",
+				"db": {
+					"ok": true,
+					"latencyMs": 2
+				},
+				"analytics": {
+					"ok": true
+				},
+				"uptimeMs": 453930,
+				"version": "37a23f2",
+				"requestId": "9298e0f1-b377-44e7-8853-73c47bdc3347"
+			}
+		},
+		{
+			"name": "maintenance disabled",
+			"status": "passed",
+			"evidence": {
+				"maintenance": false
+			}
+		},
+		{
+			"name": "anonymous admin protection",
+			"status": "passed",
+			"evidence": {
+				"status": 401
+			}
+		},
+		{
+			"name": "unknown article",
+			"status": "passed",
+			"evidence": {
+				"status": 404
+			}
+		},
+		{
+			"name": "canonical sitemap inventory",
+			"status": "passed",
+			"evidence": [
+				"https://www.revolutiontradingpros.com",
+				"https://www.revolutiontradingpros.com/about",
+				"https://www.revolutiontradingpros.com/alert-services/spx-profit-pulse",
+				"https://www.revolutiontradingpros.com/blog",
+				"https://www.revolutiontradingpros.com/contact",
+				"https://www.revolutiontradingpros.com/editorial-policy",
+				"https://www.revolutiontradingpros.com/live-trading-rooms/day-trading-room",
+				"https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room",
+				"https://www.revolutiontradingpros.com/live-trading-rooms/swing-trading-room",
+				"https://www.revolutiontradingpros.com/mentorship",
+				"https://www.revolutiontradingpros.com/our-mission",
+				"https://www.revolutiontradingpros.com/privacy-policy",
+				"https://www.revolutiontradingpros.com/refund-policy",
+				"https://www.revolutiontradingpros.com/resources",
+				"https://www.revolutiontradingpros.com/resources/etf-stocks-list",
+				"https://www.revolutiontradingpros.com/resources/stock-indexes-list",
+				"https://www.revolutiontradingpros.com/sunday-alpha-alerts",
+				"https://www.revolutiontradingpros.com/terms-of-service",
+				"https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide"
+			]
+		},
+		{
+			"name": "robots blog crawlability",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"body": "# ============================================================================\n# Revolution Trading Pros — Production robots.txt (RFC 9309 & Google Compliant)\n# Domain: https://www.revolutiontradingpros.com\n# ============================================================================\n\n# 1. Google Search, Discover, Images, Video & Shopping Crawlers (Explicit)\nUser-agent: Googlebot\nUser-agent: Googlebot-Image\nUser-agent: Googlebot-Video\nUser-agent: Googlebot-News\nUser-agent: Storebot-Google\nUser-agent: GoogleOther\nAllow: /\nAllow: /_app/immutable/\nDisallow: /api/\nDisallow: /member-login$\nDisallow: /member-login/\nDisallow: /account/\nDisallow: /*?session_id=\nDisallow: /*?token=\n\n# 2. Google AI Overviews & Gemini Grounding Control Token\nUser-agent: Google-Extended\nAllow: /\n\n# 3. Apple Search & Apple Intelligence Grounding Tokens\nUser-agent: Applebot\nUser-agent: Applebot-Extended\nAllow: /\nDisallow: /api/\nDisallow: /member-login$\nDisallow: /member-login/\nDisallow: /account/\n\n# 4. OpenAI, Anthropic & Perplexity Search / Grounding Crawlers\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nUser-agent: GPTBot\nUser-agent: Claude-SearchBot\nUser-agent: ClaudeBot\nUser-agent: PerplexityBot\nAllow: /\nDisallow: /api/\nDisallow: /member-login$\nDisallow: /member-login/\nDisallow: /account/\n\n# 5. All Other Standard Search Crawlers (Bingbot, DuckDuckBot, etc.)\nUser-agent: *\nAllow: /\nAllow: /_app/immutable/\nDisallow: /api/\nDisallow: /member-login$\nDisallow: /member-login/\nDisallow: /account/\nDisallow: /*?session_id=\nDisallow: /*?token=\n\n# Note: /admin, /login and /checkout are deliberately NOT disallowed. Google cannot read a noindex\n# on a blocked URL and may still list it; those routes are kept out of search with noindex\n# (X-Robots-Tag and meta robots). See docs/seo/DECISIONS.md section 5.\n\n# 6. Canonical XML Sitemap\nSitemap: https://www.revolutiontradingpros.com/sitemap.xml"
+			}
+		},
+		{
+			"name": "standalone compiled brand CSS",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"cacheControl": "no-cache",
+				"bytes": 20605
+			}
+		},
+		{
+			"name": "search policy /blog?search=gamma",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"cacheControl": "private, no-store, no-cache, must-revalidate",
+				"robots": ["noindex, follow"]
+			}
+		},
+		{
+			"name": "search policy /blog/category/spx-options?search=gamma",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"cacheControl": "private, no-store, no-cache, must-revalidate",
+				"robots": ["noindex, follow"]
+			}
+		},
+		{
+			"name": "search policy /blog/tag/risk-management?search=gamma",
+			"status": "passed",
+			"evidence": {
+				"status": 200,
+				"cacheControl": "private, no-store, no-cache, must-revalidate",
+				"robots": ["noindex, follow"]
+			}
+		},
+		{
+			"name": "legacy product redirect",
+			"status": "passed",
+			"evidence": {
+				"status": 308,
+				"location": "./sunday-alpha-alerts?ref=release-check"
+			}
+		}
+	],
+	"passed": 63,
+	"failed": 0
+}

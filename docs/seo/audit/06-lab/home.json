@@ -1,0 +1,55 @@
+{
+	"template": "home",
+	"url": "/",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 2,
+		"fcpMs": 60,
+		"lcpMs": 60,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.hero-lead"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.BkijQ6Wq.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.C_Q6TqHS.css",
+			"http://localhost:4280/_app/immutable/assets/4.B4hDcnvI.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-cyrillic-ext-wght-normal.CO5hGrJv.woff2",
+			"/_app/immutable/assets/montserrat-cyrillic-wght-normal.EAA9jha_.woff2",
+			"/_app/immutable/assets/montserrat-vietnamese-wght-normal.k7S-YeeD.woff2",
+			"/_app/immutable/assets/montserrat-latin-ext-wght-normal.BsZE-iaG.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/montserrat-cyrillic-ext-wght-italic.B5MGXMAg.woff2",
+			"/_app/immutable/assets/montserrat-cyrillic-wght-italic.CVbpa0t4.woff2",
+			"/_app/immutable/assets/montserrat-vietnamese-wght-italic.BGJhoCPh.woff2",
+			"/_app/immutable/assets/montserrat-latin-ext-wght-italic.C8utfXoj.woff2",
+			"/_app/immutable/assets/montserrat-latin-wght-italic.jzfX-GOl.woff2",
+			"/_app/immutable/assets/sofia-sans-cyrillic-wght-normal.waSyF_sL.woff2",
+			"/_app/immutable/assets/sofia-sans-greek-wght-normal.BVXOQ11m.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-ext-wght-normal.WAXdtJoO.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/sofia-sans-cyrillic-wght-italic.CKaeip3q.woff2",
+			"/_app/immutable/assets/sofia-sans-greek-wght-italic.CxIBfaDM.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-ext-wght-italic.uVR0QtHd.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+		],
+		"totalTransferBytes": 827994
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 0,
+		"undersizedTapTargetExamples": []
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

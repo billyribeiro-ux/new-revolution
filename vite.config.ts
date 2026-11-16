@@ -1,0 +1,299 @@
+// vp migrate: merged .oxlintrc.json (848c2551d8a87211766ea4c37515cb4e).
+import { mdsvex } from 'mdsvex';
+import { enhancedImages } from '@sveltejs/enhanced-img';
+import { defineConfig, lazyPlugins } from 'vite-plus';
+import { playwright } from 'vite-plus/test/browser-playwright';
+import adapter from '@sveltejs/adapter-vercel';
+import { sveltekit } from '@sveltejs/kit/vite';
+
+export default defineConfig({
+	build: {
+		rolldownOptions: {
+			output: {
+				codeSplitting: {
+					groups: [
+						{
+							name: 'editor-engine',
+							test: /node_modules[\\/](?:@tiptap[\\/]|prosemirror-)/,
+							minSize: 50_000,
+							maxSize: 300_000,
+							priority: 20
+						}
+					]
+				}
+			}
+		}
+	},
+	server: {
+		watch: {
+			ignored: ['**/.vercel/**', '**/.svelte-kit/output/**', '**/build/**']
+		}
+	},
+	ssr: {
+		// Bundle the CJS sanitizer and its ESM parser for serverless loaders, and pre-bundle CJS in dev SSR.
+		noExternal: ['sanitize-html', 'htmlparser2'],
+		optimizeDeps: {
+			include: ['sanitize-html']
+		}
+	},
+	lint: {
+		plugins: ['oxc', 'typescript', 'unicorn'],
+		categories: {
+			correctness: 'warn'
+		},
+		env: {
+			builtin: true,
+			browser: true,
+			node: true
+		},
+		ignorePatterns: [
+			'**/node_modules',
+			'**/package-lock.json',
+			'**/yarn.lock',
+			'**/bun.lock',
+			'**/bun.lockb',
+			'**/.output',
+			'**/.vercel',
+			'**/.netlify',
+			'**/.wrangler',
+			'.svelte-kit',
+			'build',
+			'**/.DS_Store',
+			'**/Thumbs.db',
+			'**/.env',
+			'**/.env.*',
+			'!**/.env.example',
+			'!**/.env.test',
+			'**/vite.config.js.timestamp-*',
+			'**/vite.config.ts.timestamp-*',
+			'**/test-results',
+			'.data',
+			'**/.claude',
+			'**/.gemini',
+			'**/TOC-plugin',
+			'**/retired'
+		],
+		rules: {
+			'constructor-super': 'error',
+			'for-direction': 'error',
+			'getter-return': 'error',
+			'no-async-promise-executor': 'error',
+			'no-case-declarations': 'error',
+			'no-class-assign': 'error',
+			'no-compare-neg-zero': 'error',
+			'no-cond-assign': 'error',
+			'no-const-assign': 'error',
+			'no-constant-binary-expression': 'error',
+			'no-constant-condition': 'error',
+			'no-control-regex': 'error',
+			'no-debugger': 'error',
+			'no-delete-var': 'error',
+			'no-dupe-class-members': 'error',
+			'no-dupe-else-if': 'error',
+			'no-dupe-keys': 'error',
+			'no-duplicate-case': 'error',
+			'no-empty': 'error',
+			'no-empty-character-class': 'error',
+			'no-empty-pattern': 'error',
+			'no-empty-static-block': 'error',
+			'no-ex-assign': 'error',
+			'no-extra-boolean-cast': 'error',
+			'no-fallthrough': 'error',
+			'no-func-assign': 'error',
+			'no-global-assign': 'error',
+			'no-import-assign': 'error',
+			'no-invalid-regexp': 'error',
+			'no-irregular-whitespace': 'error',
+			'no-loss-of-precision': 'error',
+			'no-misleading-character-class': 'error',
+			'no-new-native-nonconstructor': 'error',
+			'no-nonoctal-decimal-escape': 'error',
+			'no-obj-calls': 'error',
+			'no-prototype-builtins': 'error',
+			'no-redeclare': 'error',
+			'no-regex-spaces': 'error',
+			'no-self-assign': 'error',
+			'no-setter-return': 'error',
+			'no-shadow-restricted-names': 'error',
+			'no-sparse-arrays': 'error',
+			'no-this-before-super': 'error',
+			'no-unassigned-vars': 'error',
+			'no-undef': 'error',
+			'no-unexpected-multiline': 'error',
+			'no-unreachable': 'error',
+			'no-unsafe-finally': 'error',
+			'no-unsafe-negation': 'error',
+			'no-unsafe-optional-chaining': 'error',
+			'no-unused-labels': 'error',
+			'no-unused-private-class-members': 'error',
+			'no-unused-vars': 'error',
+			'no-useless-assignment': 'error',
+			'no-useless-backreference': 'error',
+			'no-useless-catch': 'error',
+			'no-useless-escape': 'error',
+			'no-with': 'error',
+			'preserve-caught-error': 'error',
+			'require-yield': 'error',
+			'use-isnan': 'error',
+			'valid-typeof': 'error',
+			'no-array-constructor': 'error',
+			'no-unused-expressions': 'error',
+			'typescript/ban-ts-comment': 'error',
+			'typescript/no-duplicate-enum-values': 'error',
+			'typescript/no-empty-object-type': 'error',
+			'typescript/no-explicit-any': 'error',
+			'typescript/no-extra-non-null-assertion': 'error',
+			'typescript/no-misused-new': 'error',
+			'typescript/no-namespace': 'error',
+			'typescript/no-non-null-asserted-optional-chain': 'error',
+			'typescript/no-require-imports': 'error',
+			'typescript/no-this-alias': 'error',
+			'typescript/no-unnecessary-type-constraint': 'error',
+			'typescript/no-unsafe-declaration-merging': 'error',
+			'typescript/no-unsafe-function-type': 'error',
+			'typescript/no-wrapper-object-types': 'error',
+			'typescript/prefer-as-const': 'error',
+			'typescript/prefer-namespace-keyword': 'error',
+			'typescript/triple-slash-reference': 'error'
+		},
+		overrides: [
+			{
+				files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
+				rules: {
+					'constructor-super': 'off',
+					'getter-return': 'off',
+					'no-class-assign': 'off',
+					'no-const-assign': 'off',
+					'no-dupe-class-members': 'off',
+					'no-dupe-keys': 'off',
+					'no-func-assign': 'off',
+					'no-import-assign': 'off',
+					'no-new-native-nonconstructor': 'off',
+					'no-obj-calls': 'off',
+					'no-redeclare': 'off',
+					'no-setter-return': 'off',
+					'no-this-before-super': 'off',
+					'no-undef': 'off',
+					'no-unreachable': 'off',
+					'no-unsafe-negation': 'off',
+					'no-var': 'error',
+					'no-with': 'off',
+					'prefer-const': 'error',
+					'prefer-rest-params': 'error',
+					'prefer-spread': 'error'
+				}
+			},
+			{
+				files: ['*.svelte', '**/*.svelte'],
+				rules: {
+					'no-inner-declarations': 'off',
+					'no-self-assign': 'off'
+				},
+				globals: {
+					$state: 'readonly',
+					$derived: 'readonly',
+					$effect: 'readonly',
+					$props: 'readonly',
+					$bindable: 'readonly',
+					$inspect: 'readonly',
+					$host: 'readonly'
+				}
+			}
+		],
+		options: {
+			typeAware: true,
+			typeCheck: false
+		}
+	},
+	fmt: {
+		useTabs: true,
+		singleQuote: true,
+		trailingComma: 'none',
+		printWidth: 100,
+		sortPackageJson: false,
+		svelte: {},
+		associations: [
+			{
+				files: ['*.svelte'],
+				language: 'svelte'
+			}
+		],
+		ignorePatterns: [
+			'pnpm-lock.yaml',
+			'/static/',
+			'/drizzle/',
+			'/.gemini/',
+			'/.claude/',
+			'/TOC-plugin/',
+			'/blogs/',
+			'/retired/'
+		]
+	},
+	plugins: lazyPlugins(() => [
+		{
+			name: 'dev-static-font-cache',
+			enforce: 'pre',
+			configureServer(server) {
+				server.middlewares.use((req, res, next) => {
+					if (
+						req.url &&
+						(req.url.startsWith('/fonts/') ||
+							req.url.startsWith('/@imagetools/') ||
+							req.url.startsWith('/_app/immutable/') ||
+							req.url.startsWith('/favicon') ||
+							req.url.startsWith('/apple-touch-icon'))
+					) {
+						res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+					}
+					next();
+				});
+			}
+		},
+		enhancedImages(),
+		sveltekit({
+			compilerOptions: {
+				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
+				runes: ({ filename }) =>
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
+				experimental: { async: true }
+			},
+			adapter: adapter({ runtime: 'nodejs24.x' }),
+			preprocess: [mdsvex({ extensions: ['.svx', '.md'] })],
+			extensions: ['.svelte', '.svx', '.md'],
+			experimental: { remoteFunctions: true }
+		})
+	]),
+	test: {
+		// Bound concurrent PGlite and type-aware ESLint startup without extending test timeouts.
+		maxWorkers: 4,
+		expect: { requireAssertions: true },
+		projects: [
+			{
+				extends: './vite.config.ts',
+				optimizeDeps: {
+					include: ['@tiptap/pm/model']
+				},
+				test: {
+					name: 'client',
+					browser: {
+						enabled: true,
+						provider: playwright(),
+						instances: [{ browser: 'chromium', headless: true }]
+					},
+					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
+					exclude: ['src/lib/server/**']
+				}
+			},
+
+			{
+				extends: './vite.config.ts',
+				test: {
+					name: 'server',
+					environment: 'node',
+					include: ['src/**/*.{test,spec}.{js,ts}', 'scripts/**/*.{test,spec}.{js,ts}'],
+					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
+				}
+			}
+		]
+	}
+});

@@ -1,0 +1,296 @@
+{
+	"date": "2026-11-05",
+	"svelteVersion": "5.57.3",
+	"tool": "Official Svelte MCP svelte_autofixer",
+	"count": 41,
+	"notes": "Plain TypeScript attachments were analyzed in module mode; component mode does not parse TypeScript modules. These checks complement Svelte diagnostics, lint and real-browser tests.",
+	"files": [
+		{
+			"path": "src/lib/attachments/article-toc.ts",
+			"analysisFilename": "article-toc.svelte.ts",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/KpiCard.svelte",
+			"analysisFilename": "KpiCard.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/admin/PostEditor.svelte",
+			"analysisFilename": "PostEditor.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/ArchiveControls.svelte",
+			"analysisFilename": "ArchiveControls.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/ArchiveResults.svelte",
+			"analysisFilename": "ArchiveResults.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/BlogArchive.svelte",
+			"analysisFilename": "BlogArchive.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/PostCard.svelte",
+			"analysisFilename": "PostCard.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/blog/size-card-image.ts",
+			"analysisFilename": "size-card-image.svelte.ts",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/home/BlogSection.svelte",
+			"analysisFilename": "BlogSection.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/home/PersonasSection.svelte",
+			"analysisFilename": "PersonasSection.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/home/StoreToolsSection.svelte",
+			"analysisFilename": "StoreToolsSection.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/layout/Navbar.svelte",
+			"analysisFilename": "Navbar.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/lib/components/layout/PressStrip.svelte",
+			"analysisFilename": "PressStrip.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/+layout.svelte",
+			"analysisFilename": "+layout.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/about/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/+layout.svelte",
+			"analysisFilename": "+layout.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/calls/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/campaigns/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/consent/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/sequences/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/admin/subscribers/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/alert-services/spx-profit-pulse/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/category/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/blog/tag/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/live-trading-rooms/day-trading-room/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/live-trading-rooms/small-accounts-room/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/live-trading-rooms/swing-trading-room/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/mentorship/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/our-mission/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/refund-policy/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/resources/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/resources/etf-stocks-list/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/courses/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/courses/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/indicators/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/indicators/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/scanners/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/store/scanners/[slug]/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		},
+		{
+			"path": "src/routes/sunday-alpha-alerts/+page.svelte",
+			"analysisFilename": "+page.svelte",
+			"issues": [],
+			"suggestions": [],
+			"require_another_tool_call_after_fixing": false
+		}
+	]
+}

@@ -1,0 +1,709 @@
+{
+	"referenceDate": "2026-11-05",
+	"source": "Official Svelte MCP list_sections + get_documentation",
+	"scope": "All section paths beginning kit/ or svelte/ returned by the MCP, including migrations, reference APIs, diagnostics and legacy pages. Separate CLI/AI product documentation is outside this corpus.",
+	"sectionCount": 164,
+	"combinedRetrievedCharacters": 1135316,
+	"coverage": [
+		{
+			"reviewer": "parent",
+			"first": "kit/introduction",
+			"last": "kit/remote-functions",
+			"sections": 11,
+			"status": "read full sections, including examples; truncated attempts re-read in smaller chunks"
+		},
+		{
+			"reviewer": "svelte_file_editor_kit_review",
+			"first": "kit/environment-variables",
+			"last": "kit/$env-static-public",
+			"sections": 67,
+			"characters": 490362,
+			"status": "read entire response in contiguous untruncated slices"
+		},
+		{
+			"reviewer": "svelte_file_editor_core_review",
+			"first": "svelte/overview",
+			"last": "svelte/v5-migration-guide",
+			"sections": 55,
+			"characters": 251868,
+			"status": "read entire response in contiguous untruncated slices"
+		},
+		{
+			"reviewer": "svelte_file_editor_api_review",
+			"first": "svelte/faq",
+			"last": "svelte/legacy-component-api",
+			"sections": 31,
+			"characters": 229457,
+			"status": "read entire response in contiguous untruncated slices"
+		}
+	],
+	"versions": {
+		"installedSvelte": "5.57.3",
+		"installedKit": "3.1.1",
+		"kit32": "not verified; official changelog starts at 3.1.1 and the 3.2.0 release-tag URL returned 404"
+	},
+	"limitations": [
+		"Currently served, unversioned documentation; not an immutable historical snapshot or version-pinned 3.2 manual.",
+		"Coverage is a collaborative review, not a claim that one context permanently memorizes all documentation.",
+		"MCP corpus text is not vendored; this ledger records section coverage and conclusions rather than a content hash.",
+		"No application implementation, hosted verification or new runtime tests performed by this documentation-only follow-up."
+	],
+	"sections": [
+		{
+			"path": "kit/introduction",
+			"url": "https://svelte.dev/docs/kit/introduction"
+		},
+		{
+			"path": "kit/creating-a-project",
+			"url": "https://svelte.dev/docs/kit/creating-a-project"
+		},
+		{
+			"path": "kit/project-types",
+			"url": "https://svelte.dev/docs/kit/project-types"
+		},
+		{
+			"path": "kit/project-structure",
+			"url": "https://svelte.dev/docs/kit/project-structure"
+		},
+		{
+			"path": "kit/web-standards",
+			"url": "https://svelte.dev/docs/kit/web-standards"
+		},
+		{
+			"path": "kit/routing",
+			"url": "https://svelte.dev/docs/kit/routing"
+		},
+		{
+			"path": "kit/load",
+			"url": "https://svelte.dev/docs/kit/load"
+		},
+		{
+			"path": "kit/form-actions",
+			"url": "https://svelte.dev/docs/kit/form-actions"
+		},
+		{
+			"path": "kit/page-options",
+			"url": "https://svelte.dev/docs/kit/page-options"
+		},
+		{
+			"path": "kit/state-management",
+			"url": "https://svelte.dev/docs/kit/state-management"
+		},
+		{
+			"path": "kit/remote-functions",
+			"url": "https://svelte.dev/docs/kit/remote-functions"
+		},
+		{
+			"path": "kit/environment-variables",
+			"url": "https://svelte.dev/docs/kit/environment-variables"
+		},
+		{
+			"path": "kit/building-your-app",
+			"url": "https://svelte.dev/docs/kit/building-your-app"
+		},
+		{
+			"path": "kit/adapters",
+			"url": "https://svelte.dev/docs/kit/adapters"
+		},
+		{
+			"path": "kit/adapter-auto",
+			"url": "https://svelte.dev/docs/kit/adapter-auto"
+		},
+		{
+			"path": "kit/adapter-node",
+			"url": "https://svelte.dev/docs/kit/adapter-node"
+		},
+		{
+			"path": "kit/adapter-bun",
+			"url": "https://svelte.dev/docs/kit/adapter-bun"
+		},
+		{
+			"path": "kit/adapter-static",
+			"url": "https://svelte.dev/docs/kit/adapter-static"
+		},
+		{
+			"path": "kit/single-page-apps",
+			"url": "https://svelte.dev/docs/kit/single-page-apps"
+		},
+		{
+			"path": "kit/adapter-cloudflare",
+			"url": "https://svelte.dev/docs/kit/adapter-cloudflare"
+		},
+		{
+			"path": "kit/adapter-cloudflare-workers",
+			"url": "https://svelte.dev/docs/kit/adapter-cloudflare-workers"
+		},
+		{
+			"path": "kit/adapter-netlify",
+			"url": "https://svelte.dev/docs/kit/adapter-netlify"
+		},
+		{
+			"path": "kit/adapter-vercel",
+			"url": "https://svelte.dev/docs/kit/adapter-vercel"
+		},
+		{
+			"path": "kit/writing-adapters",
+			"url": "https://svelte.dev/docs/kit/writing-adapters"
+		},
+		{
+			"path": "kit/advanced-routing",
+			"url": "https://svelte.dev/docs/kit/advanced-routing"
+		},
+		{
+			"path": "kit/hooks",
+			"url": "https://svelte.dev/docs/kit/hooks"
+		},
+		{
+			"path": "kit/errors",
+			"url": "https://svelte.dev/docs/kit/errors"
+		},
+		{
+			"path": "kit/link-options",
+			"url": "https://svelte.dev/docs/kit/link-options"
+		},
+		{
+			"path": "kit/service-workers",
+			"url": "https://svelte.dev/docs/kit/service-workers"
+		},
+		{
+			"path": "kit/server-only-modules",
+			"url": "https://svelte.dev/docs/kit/server-only-modules"
+		},
+		{
+			"path": "kit/snapshots",
+			"url": "https://svelte.dev/docs/kit/snapshots"
+		},
+		{
+			"path": "kit/shallow-routing",
+			"url": "https://svelte.dev/docs/kit/shallow-routing"
+		},
+		{
+			"path": "kit/observability",
+			"url": "https://svelte.dev/docs/kit/observability"
+		},
+		{
+			"path": "kit/packaging",
+			"url": "https://svelte.dev/docs/kit/packaging"
+		},
+		{
+			"path": "kit/auth",
+			"url": "https://svelte.dev/docs/kit/auth"
+		},
+		{
+			"path": "kit/performance",
+			"url": "https://svelte.dev/docs/kit/performance"
+		},
+		{
+			"path": "kit/icons",
+			"url": "https://svelte.dev/docs/kit/icons"
+		},
+		{
+			"path": "kit/images",
+			"url": "https://svelte.dev/docs/kit/images"
+		},
+		{
+			"path": "kit/accessibility",
+			"url": "https://svelte.dev/docs/kit/accessibility"
+		},
+		{
+			"path": "kit/seo",
+			"url": "https://svelte.dev/docs/kit/seo"
+		},
+		{
+			"path": "kit/faq",
+			"url": "https://svelte.dev/docs/kit/faq"
+		},
+		{
+			"path": "kit/integrations",
+			"url": "https://svelte.dev/docs/kit/integrations"
+		},
+		{
+			"path": "kit/debugging",
+			"url": "https://svelte.dev/docs/kit/debugging"
+		},
+		{
+			"path": "kit/migrating-to-sveltekit-2",
+			"url": "https://svelte.dev/docs/kit/migrating-to-sveltekit-2"
+		},
+		{
+			"path": "kit/migrating-to-sveltekit-3",
+			"url": "https://svelte.dev/docs/kit/migrating-to-sveltekit-3"
+		},
+		{
+			"path": "kit/migrating",
+			"url": "https://svelte.dev/docs/kit/migrating"
+		},
+		{
+			"path": "kit/additional-resources",
+			"url": "https://svelte.dev/docs/kit/additional-resources"
+		},
+		{
+			"path": "kit/glossary",
+			"url": "https://svelte.dev/docs/kit/glossary"
+		},
+		{
+			"path": "kit/@sveltejs-kit",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit"
+		},
+		{
+			"path": "kit/@sveltejs-kit-adapter",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-adapter"
+		},
+		{
+			"path": "kit/@sveltejs-kit-env",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-env"
+		},
+		{
+			"path": "kit/@sveltejs-kit-hooks",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-hooks"
+		},
+		{
+			"path": "kit/@sveltejs-kit-node",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-node"
+		},
+		{
+			"path": "kit/@sveltejs-kit-params",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-params"
+		},
+		{
+			"path": "kit/@sveltejs-kit-vite",
+			"url": "https://svelte.dev/docs/kit/@sveltejs-kit-vite"
+		},
+		{
+			"path": "kit/$app-env",
+			"url": "https://svelte.dev/docs/kit/$app-env"
+		},
+		{
+			"path": "kit/$app-env-private",
+			"url": "https://svelte.dev/docs/kit/$app-env-private"
+		},
+		{
+			"path": "kit/$app-env-public",
+			"url": "https://svelte.dev/docs/kit/$app-env-public"
+		},
+		{
+			"path": "kit/$app-forms",
+			"url": "https://svelte.dev/docs/kit/$app-forms"
+		},
+		{
+			"path": "kit/$app-manifest",
+			"url": "https://svelte.dev/docs/kit/$app-manifest"
+		},
+		{
+			"path": "kit/$app-navigation",
+			"url": "https://svelte.dev/docs/kit/$app-navigation"
+		},
+		{
+			"path": "kit/$app-paths",
+			"url": "https://svelte.dev/docs/kit/$app-paths"
+		},
+		{
+			"path": "kit/$app-server",
+			"url": "https://svelte.dev/docs/kit/$app-server"
+		},
+		{
+			"path": "kit/$app-service-worker",
+			"url": "https://svelte.dev/docs/kit/$app-service-worker"
+		},
+		{
+			"path": "kit/$app-state",
+			"url": "https://svelte.dev/docs/kit/$app-state"
+		},
+		{
+			"path": "kit/$app-tsconfig",
+			"url": "https://svelte.dev/docs/kit/$app-tsconfig"
+		},
+		{
+			"path": "kit/$app-tsconfig-service-worker",
+			"url": "https://svelte.dev/docs/kit/$app-tsconfig-service-worker"
+		},
+		{
+			"path": "kit/$app-types",
+			"url": "https://svelte.dev/docs/kit/$app-types"
+		},
+		{
+			"path": "kit/$lib",
+			"url": "https://svelte.dev/docs/kit/$lib"
+		},
+		{
+			"path": "kit/cli",
+			"url": "https://svelte.dev/docs/kit/cli"
+		},
+		{
+			"path": "kit/types",
+			"url": "https://svelte.dev/docs/kit/types"
+		},
+		{
+			"path": "kit/$service-worker",
+			"url": "https://svelte.dev/docs/kit/$service-worker"
+		},
+		{
+			"path": "kit/$app-environment",
+			"url": "https://svelte.dev/docs/kit/$app-environment"
+		},
+		{
+			"path": "kit/$app-stores",
+			"url": "https://svelte.dev/docs/kit/$app-stores"
+		},
+		{
+			"path": "kit/$env-dynamic-private",
+			"url": "https://svelte.dev/docs/kit/$env-dynamic-private"
+		},
+		{
+			"path": "kit/$env-dynamic-public",
+			"url": "https://svelte.dev/docs/kit/$env-dynamic-public"
+		},
+		{
+			"path": "kit/$env-static-private",
+			"url": "https://svelte.dev/docs/kit/$env-static-private"
+		},
+		{
+			"path": "kit/$env-static-public",
+			"url": "https://svelte.dev/docs/kit/$env-static-public"
+		},
+		{
+			"path": "svelte/overview",
+			"url": "https://svelte.dev/docs/svelte/overview"
+		},
+		{
+			"path": "svelte/getting-started",
+			"url": "https://svelte.dev/docs/svelte/getting-started"
+		},
+		{
+			"path": "svelte/svelte-files",
+			"url": "https://svelte.dev/docs/svelte/svelte-files"
+		},
+		{
+			"path": "svelte/svelte-js-files",
+			"url": "https://svelte.dev/docs/svelte/svelte-js-files"
+		},
+		{
+			"path": "svelte/what-are-runes",
+			"url": "https://svelte.dev/docs/svelte/what-are-runes"
+		},
+		{
+			"path": "svelte/$state",
+			"url": "https://svelte.dev/docs/svelte/$state"
+		},
+		{
+			"path": "svelte/$derived",
+			"url": "https://svelte.dev/docs/svelte/$derived"
+		},
+		{
+			"path": "svelte/$effect",
+			"url": "https://svelte.dev/docs/svelte/$effect"
+		},
+		{
+			"path": "svelte/$props",
+			"url": "https://svelte.dev/docs/svelte/$props"
+		},
+		{
+			"path": "svelte/$bindable",
+			"url": "https://svelte.dev/docs/svelte/$bindable"
+		},
+		{
+			"path": "svelte/$inspect",
+			"url": "https://svelte.dev/docs/svelte/$inspect"
+		},
+		{
+			"path": "svelte/$host",
+			"url": "https://svelte.dev/docs/svelte/$host"
+		},
+		{
+			"path": "svelte/basic-markup",
+			"url": "https://svelte.dev/docs/svelte/basic-markup"
+		},
+		{
+			"path": "svelte/if",
+			"url": "https://svelte.dev/docs/svelte/if"
+		},
+		{
+			"path": "svelte/each",
+			"url": "https://svelte.dev/docs/svelte/each"
+		},
+		{
+			"path": "svelte/key",
+			"url": "https://svelte.dev/docs/svelte/key"
+		},
+		{
+			"path": "svelte/await",
+			"url": "https://svelte.dev/docs/svelte/await"
+		},
+		{
+			"path": "svelte/snippet",
+			"url": "https://svelte.dev/docs/svelte/snippet"
+		},
+		{
+			"path": "svelte/@render",
+			"url": "https://svelte.dev/docs/svelte/@render"
+		},
+		{
+			"path": "svelte/@html",
+			"url": "https://svelte.dev/docs/svelte/@html"
+		},
+		{
+			"path": "svelte/@attach",
+			"url": "https://svelte.dev/docs/svelte/@attach"
+		},
+		{
+			"path": "svelte/@const",
+			"url": "https://svelte.dev/docs/svelte/@const"
+		},
+		{
+			"path": "svelte/@debug",
+			"url": "https://svelte.dev/docs/svelte/@debug"
+		},
+		{
+			"path": "svelte/declaration-tags",
+			"url": "https://svelte.dev/docs/svelte/declaration-tags"
+		},
+		{
+			"path": "svelte/bind",
+			"url": "https://svelte.dev/docs/svelte/bind"
+		},
+		{
+			"path": "svelte/use",
+			"url": "https://svelte.dev/docs/svelte/use"
+		},
+		{
+			"path": "svelte/transition",
+			"url": "https://svelte.dev/docs/svelte/transition"
+		},
+		{
+			"path": "svelte/in-and-out",
+			"url": "https://svelte.dev/docs/svelte/in-and-out"
+		},
+		{
+			"path": "svelte/animate",
+			"url": "https://svelte.dev/docs/svelte/animate"
+		},
+		{
+			"path": "svelte/style",
+			"url": "https://svelte.dev/docs/svelte/style"
+		},
+		{
+			"path": "svelte/class",
+			"url": "https://svelte.dev/docs/svelte/class"
+		},
+		{
+			"path": "svelte/await-expressions",
+			"url": "https://svelte.dev/docs/svelte/await-expressions"
+		},
+		{
+			"path": "svelte/scoped-styles",
+			"url": "https://svelte.dev/docs/svelte/scoped-styles"
+		},
+		{
+			"path": "svelte/global-styles",
+			"url": "https://svelte.dev/docs/svelte/global-styles"
+		},
+		{
+			"path": "svelte/custom-properties",
+			"url": "https://svelte.dev/docs/svelte/custom-properties"
+		},
+		{
+			"path": "svelte/nested-style-elements",
+			"url": "https://svelte.dev/docs/svelte/nested-style-elements"
+		},
+		{
+			"path": "svelte/svelte-boundary",
+			"url": "https://svelte.dev/docs/svelte/svelte-boundary"
+		},
+		{
+			"path": "svelte/svelte-window",
+			"url": "https://svelte.dev/docs/svelte/svelte-window"
+		},
+		{
+			"path": "svelte/svelte-document",
+			"url": "https://svelte.dev/docs/svelte/svelte-document"
+		},
+		{
+			"path": "svelte/svelte-body",
+			"url": "https://svelte.dev/docs/svelte/svelte-body"
+		},
+		{
+			"path": "svelte/svelte-head",
+			"url": "https://svelte.dev/docs/svelte/svelte-head"
+		},
+		{
+			"path": "svelte/svelte-element",
+			"url": "https://svelte.dev/docs/svelte/svelte-element"
+		},
+		{
+			"path": "svelte/svelte-options",
+			"url": "https://svelte.dev/docs/svelte/svelte-options"
+		},
+		{
+			"path": "svelte/stores",
+			"url": "https://svelte.dev/docs/svelte/stores"
+		},
+		{
+			"path": "svelte/context",
+			"url": "https://svelte.dev/docs/svelte/context"
+		},
+		{
+			"path": "svelte/lifecycle-hooks",
+			"url": "https://svelte.dev/docs/svelte/lifecycle-hooks"
+		},
+		{
+			"path": "svelte/imperative-component-api",
+			"url": "https://svelte.dev/docs/svelte/imperative-component-api"
+		},
+		{
+			"path": "svelte/hydratable",
+			"url": "https://svelte.dev/docs/svelte/hydratable"
+		},
+		{
+			"path": "svelte/best-practices",
+			"url": "https://svelte.dev/docs/svelte/best-practices"
+		},
+		{
+			"path": "svelte/testing",
+			"url": "https://svelte.dev/docs/svelte/testing"
+		},
+		{
+			"path": "svelte/typescript",
+			"url": "https://svelte.dev/docs/svelte/typescript"
+		},
+		{
+			"path": "svelte/custom-elements",
+			"url": "https://svelte.dev/docs/svelte/custom-elements"
+		},
+		{
+			"path": "svelte/browser-support",
+			"url": "https://svelte.dev/docs/svelte/browser-support"
+		},
+		{
+			"path": "svelte/v4-migration-guide",
+			"url": "https://svelte.dev/docs/svelte/v4-migration-guide"
+		},
+		{
+			"path": "svelte/v5-migration-guide",
+			"url": "https://svelte.dev/docs/svelte/v5-migration-guide"
+		},
+		{
+			"path": "svelte/faq",
+			"url": "https://svelte.dev/docs/svelte/faq"
+		},
+		{
+			"path": "svelte/svelte",
+			"url": "https://svelte.dev/docs/svelte/svelte"
+		},
+		{
+			"path": "svelte/svelte-action",
+			"url": "https://svelte.dev/docs/svelte/svelte-action"
+		},
+		{
+			"path": "svelte/svelte-animate",
+			"url": "https://svelte.dev/docs/svelte/svelte-animate"
+		},
+		{
+			"path": "svelte/svelte-attachments",
+			"url": "https://svelte.dev/docs/svelte/svelte-attachments"
+		},
+		{
+			"path": "svelte/svelte-compiler",
+			"url": "https://svelte.dev/docs/svelte/svelte-compiler"
+		},
+		{
+			"path": "svelte/svelte-easing",
+			"url": "https://svelte.dev/docs/svelte/svelte-easing"
+		},
+		{
+			"path": "svelte/svelte-events",
+			"url": "https://svelte.dev/docs/svelte/svelte-events"
+		},
+		{
+			"path": "svelte/svelte-legacy",
+			"url": "https://svelte.dev/docs/svelte/svelte-legacy"
+		},
+		{
+			"path": "svelte/svelte-motion",
+			"url": "https://svelte.dev/docs/svelte/svelte-motion"
+		},
+		{
+			"path": "svelte/svelte-reactivity-window",
+			"url": "https://svelte.dev/docs/svelte/svelte-reactivity-window"
+		},
+		{
+			"path": "svelte/svelte-reactivity",
+			"url": "https://svelte.dev/docs/svelte/svelte-reactivity"
+		},
+		{
+			"path": "svelte/svelte-server",
+			"url": "https://svelte.dev/docs/svelte/svelte-server"
+		},
+		{
+			"path": "svelte/svelte-store",
+			"url": "https://svelte.dev/docs/svelte/svelte-store"
+		},
+		{
+			"path": "svelte/svelte-transition",
+			"url": "https://svelte.dev/docs/svelte/svelte-transition"
+		},
+		{
+			"path": "svelte/compiler-errors",
+			"url": "https://svelte.dev/docs/svelte/compiler-errors"
+		},
+		{
+			"path": "svelte/compiler-warnings",
+			"url": "https://svelte.dev/docs/svelte/compiler-warnings"
+		},
+		{
+			"path": "svelte/runtime-errors",
+			"url": "https://svelte.dev/docs/svelte/runtime-errors"
+		},
+		{
+			"path": "svelte/runtime-warnings",
+			"url": "https://svelte.dev/docs/svelte/runtime-warnings"
+		},
+		{
+			"path": "svelte/legacy-overview",
+			"url": "https://svelte.dev/docs/svelte/legacy-overview"
+		},
+		{
+			"path": "svelte/legacy-let",
+			"url": "https://svelte.dev/docs/svelte/legacy-let"
+		},
+		{
+			"path": "svelte/legacy-reactive-assignments",
+			"url": "https://svelte.dev/docs/svelte/legacy-reactive-assignments"
+		},
+		{
+			"path": "svelte/legacy-export-let",
+			"url": "https://svelte.dev/docs/svelte/legacy-export-let"
+		},
+		{
+			"path": "svelte/legacy-$$props-and-$$restProps",
+			"url": "https://svelte.dev/docs/svelte/legacy-$$props-and-$$restProps"
+		},
+		{
+			"path": "svelte/legacy-on",
+			"url": "https://svelte.dev/docs/svelte/legacy-on"
+		},
+		{
+			"path": "svelte/legacy-slots",
+			"url": "https://svelte.dev/docs/svelte/legacy-slots"
+		},
+		{
+			"path": "svelte/legacy-$$slots",
+			"url": "https://svelte.dev/docs/svelte/legacy-$$slots"
+		},
+		{
+			"path": "svelte/legacy-svelte-fragment",
+			"url": "https://svelte.dev/docs/svelte/legacy-svelte-fragment"
+		},
+		{
+			"path": "svelte/legacy-svelte-component",
+			"url": "https://svelte.dev/docs/svelte/legacy-svelte-component"
+		},
+		{
+			"path": "svelte/legacy-svelte-self",
+			"url": "https://svelte.dev/docs/svelte/legacy-svelte-self"
+		},
+		{
+			"path": "svelte/legacy-component-api",
+			"url": "https://svelte.dev/docs/svelte/legacy-component-api"
+		}
+	]
+}

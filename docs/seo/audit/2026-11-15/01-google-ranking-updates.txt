@@ -1,0 +1,52 @@
+History | Google Search Status Dashboard
+Google Search Status Dashboard
+Incidents
+Google Search Status Dashboard
+ This page provides status information on the services that are part of Google Search. Check back here to view the current status of the services listed below. If you are experiencing an issue not listed here, please contact Support. Learn more about what's posted on the dashboard in this FAQ. For additional information on these services, please visit https://developers.google.com/search/help/status-dashboard.
+ Available
+ Service information
+ Service disruption
+ Service outage
+ History of incidents reported by product
+ Crawling
+ No recent incidents reported.
+ See more for Crawling
+ Indexing
+ No recent incidents reported.
+ See more for Indexing
+ Ranking
+ Summary Date Duration
+ November 2026 core update November 2026 core update 10 Nov 2026
+ Information
+ September 2026 spam update September 2026 spam update 24 Sep 2026
+ 13 days, 16 hours
+ August 2026 spam update August 2026 spam update 18 Aug 2026
+ 2 days, 16 hours
+ June 2026 spam update June 2026 spam update 24 Jun 2026
+ 2 days, 1 hour
+ May 2026 core update May 2026 core update 21 May 2026
+ 11 days, 21 hours
+ March 2026 core update March 2026 core update 27 Mar 2026
+ 12 days, 4 hours
+ March 2026 spam update March 2026 spam update 24 Mar 2026
+ 19 hours, 30 minutes
+ February 2026 Discover update February 2026 Discover update 5 Feb 2026
+ 21 days, 17 hours
+ December 2025 core update December 2025 core update 11 Dec 2025
+ 18 days, 2 hours
+ See more for Ranking
+ Serving
+ Summary Date Duration
+ Serving was experiencing an issue
+ Serving was experiencing an issue
+ 24 Feb 2026
+ 15 minutes
+ See more for Serving
+View timeline
+All times are US/Pacific
+Documentation
+RSS Feed
+ JSON History | Schema
+ JSON Product Catalog | Schema
+Send feedback
+Privacy policy

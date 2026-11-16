@@ -1,0 +1,536 @@
+{
+	"cases": [
+		{
+			"width": 320,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 24,
+				"y": 374.46875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 24,
+				"y": 527.84375,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 24,
+				"y": 434.859375,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 24,
+				"y": 156.59375,
+				"width": 272,
+				"height": 76.3125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "none",
+			"documentHeight": 753,
+			"requestedViewport": {
+				"width": 320,
+				"height": 568
+			}
+		},
+		{
+			"width": 360,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 24,
+				"y": 409.359375,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 24,
+				"y": 562.734375,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 24,
+				"y": 469.75,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 24,
+				"y": 191.484375,
+				"width": 312,
+				"height": 76.3125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "none",
+			"documentHeight": 800,
+			"requestedViewport": {
+				"width": 360,
+				"height": 800
+			}
+		},
+		{
+			"width": 390,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 24,
+				"y": 461.546875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 24,
+				"y": 554.53125,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 170.953125,
+				"y": 461.546875,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 24,
+				"y": 243.671875,
+				"width": 338.78125,
+				"height": 76.3125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "none",
+			"documentHeight": 844,
+			"requestedViewport": {
+				"width": 390,
+				"height": 844
+			}
+		},
+		{
+			"width": 480,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 24,
+				"y": 472.046875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 24,
+				"y": 565.03125,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 170.953125,
+				"y": 472.046875,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 24,
+				"y": 254.171875,
+				"width": 338.78125,
+				"height": 76.3125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "none",
+			"documentHeight": 844,
+			"requestedViewport": {
+				"width": 480,
+				"height": 844
+			}
+		},
+		{
+			"width": 640,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 24,
+				"y": 497.65625,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 24,
+				"y": 590.640625,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 170.953125,
+				"y": 497.65625,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 24,
+				"y": 306.96875,
+				"width": 338.78125,
+				"height": 76.3125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "none",
+			"documentHeight": 900,
+			"requestedViewport": {
+				"width": 640,
+				"height": 900
+			}
+		},
+		{
+			"width": 768,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 32,
+				"y": 391.1875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 32,
+				"y": 484.171875,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 178.953125,
+				"y": 391.1875,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 32,
+				"y": 185.6875,
+				"width": 390.265625,
+				"height": 87.90625
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "block",
+			"documentHeight": 1024,
+			"requestedViewport": {
+				"width": 768,
+				"height": 1024
+			}
+		},
+		{
+			"width": 1024,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 48,
+				"y": 535.5,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 48,
+				"y": 628.484375,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 194.953125,
+				"y": 535.5,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 48,
+				"y": 271.890625,
+				"width": 496.328125,
+				"height": 117.21875
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "block",
+			"documentHeight": 900,
+			"requestedViewport": {
+				"width": 1024,
+				"height": 900
+			}
+		},
+		{
+			"width": 1280,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 60,
+				"y": 445.75,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 60,
+				"y": 538.734375,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 206.953125,
+				"y": 445.75,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 60,
+				"y": 181.625,
+				"width": 608,
+				"height": 146.53125
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "block",
+			"documentHeight": 720,
+			"requestedViewport": {
+				"width": 1280,
+				"height": 720
+			}
+		},
+		{
+			"width": 1440,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 140,
+				"y": 538.796875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 140,
+				"y": 631.78125,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 286.953125,
+				"y": 538.796875,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 140,
+				"y": 268.578125,
+				"width": 608,
+				"height": 152.625
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "block",
+			"documentHeight": 900,
+			"requestedViewport": {
+				"width": 1440,
+				"height": 900
+			}
+		},
+		{
+			"width": 1536,
+			"status": 503,
+			"cache": "no-store, max-age=0",
+			"overflow": 0,
+			"primary": {
+				"x": 188,
+				"y": 538.796875,
+				"width": 134.953125,
+				"height": 48.390625
+			},
+			"email": {
+				"x": 188,
+				"y": 631.78125,
+				"width": 255.796875,
+				"height": 19
+			},
+			"retry": {
+				"x": 334.953125,
+				"y": 538.796875,
+				"width": 167.03125,
+				"height": 48.390625
+			},
+			"title": {
+				"x": 188,
+				"y": 268.578125,
+				"width": 608,
+				"height": 152.625
+			},
+			"headingFont": "\"Montserrat Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"bodyFont": "\"Sofia Sans Variable\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+			"loadedFonts": ["Montserrat Variable", "Sofia Sans Variable"],
+			"chartDisplay": "block",
+			"documentHeight": 900,
+			"requestedViewport": {
+				"width": 1536,
+				"height": 900
+			}
+		}
+	],
+	"focus": {
+		"active": "maintenance-main",
+		"hash": "#maintenance-main"
+	},
+	"before": "rgb(220, 255, 101)",
+	"hover": "rgb(239, 255, 174)",
+	"requests": [
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/about?audit=redesign",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/",
+			"status": 503
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"status": 200
+		},
+		{
+			"url": "http://127.0.0.1:4317/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"status": 200
+		}
+	],
+	"failed": [],
+	"errors": []
+}

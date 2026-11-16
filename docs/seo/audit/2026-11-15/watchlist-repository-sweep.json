@@ -1,0 +1,1921 @@
+{
+	"filesScanned": 858,
+	"activeDestinationMatches": [],
+	"historicalMatches": [
+		{
+			"path": "CHANGELOG.md",
+			"line": 192,
+			"historical": true,
+			"excerpt": "### 2026-11-08 \u2014 Standardize Sunday Alpha Protocol (`/alert-services/sunday-alpha-protocol`), eliminate legacy `/watchlist` & `Explosive Swings` paths, enforce zero-`href` static Geist fonts & zero `#` URL fragments"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 195,
+			"historical": true,
+			"excerpt": "- **Removed:** Eliminate all legacy `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, `/sunday-alpha-alerts`, and `/alert-services/sunday-alpha-alerts` paths, redirects (`LEGACY_SUNDAY_ALPHA_PATHS` in `src/hooks.server.ts`), iden"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 232,
+			"historical": true,
+			"excerpt": "### 2026-11-06 \u2014 Unify breadcrumb layout, Google BreadcrumbList hierarchy & remove `/watchlist` route folder"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 237,
+			"historical": true,
+			"excerpt": "- **Removed:** Delete the legacy `src/routes/watchlist/` directory (`src/routes/watchlist/+server.ts`) and centralize `308 Permanent Redirect` handling for `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, and `/alert-services/su"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 267,
+			"historical": true,
+			"excerpt": "- Move the product to `/sunday-alpha-alerts`, preserve `/watchlist` 308 query/fragment navigation, and update navigation, metadata, graph, sitemap discovery and URL inventory. Remove the faux RTP mark and opening content-obscuring shutter; label simu"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 273,
+			"historical": true,
+			"excerpt": "- Squash-merge PR #37 as `e62c340` and promote exact Production deployment `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8` after staged acceptance. Public health identifies the new application; nine live browser cases across Chromium, Firefox and WebKit verify th"
+		},
+		{
+			"path": "CHANGELOG.md",
+			"line": 291,
+			"historical": true,
+			"excerpt": "- Updated navigation, marketing copy, internal references and structured data to name the existing `/watchlist` Sunday Alpha Protocol."
+		},
+		{
+			"path": "docs/reviews/blog-audit-2026-11-05/AUDIT.md",
+			"line": 78,
+			"historical": true,
+			"excerpt": "| Product claims and CTAs (lines 193,243\u2013246,288\u2013292)                                                                                       | Broken URLs; promises need confirmation     | `/spx-profit-pulse`, `/live-trading-rooms/day-trading`, `/memb"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md",
+			"line": 15,
+			"historical": true,
+			"excerpt": "- The live homepage, blog index, real article and `/watchlist` passed **24 browser cases**: Chromium, Firefox and WebKit at 320px and 1440px. Each case checks status, canonical, indexing metadata, one H1, horizontal overflow, font readiness, broken l"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 49,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 52,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 107,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 110,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 165,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 168,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 223,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 226,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 281,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 284,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 339,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/browser-proof.json",
+			"line": 342,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/product-labels.json",
+			"line": 9,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/public-proof.json",
+			"line": 46,
+			"historical": true,
+			"excerpt": "\t\t\"/watchlist\": {"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/public-proof.json",
+			"line": 51,
+			"historical": true,
+			"excerpt": "\t\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/public-proof.json",
+			"line": 101,
+			"historical": true,
+			"excerpt": "\t\t\"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/redirects.json",
+			"line": 88,
+			"historical": true,
+			"excerpt": "\t\t\"source\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/redirects.json",
+			"line": 90,
+			"historical": true,
+			"excerpt": "\t\t\"location\": \"https://www.revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/sitemap-crawl.json",
+			"line": 126,
+			"historical": true,
+			"excerpt": "\t\t\t\"url\": \"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/sitemap-crawl.json",
+			"line": 128,
+			"historical": true,
+			"excerpt": "\t\t\t\"canonical\": \"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/stage-proof.json",
+			"line": 46,
+			"historical": true,
+			"excerpt": "\t\t\"/watchlist\": {"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/stage-proof.json",
+			"line": 51,
+			"historical": true,
+			"excerpt": "\t\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/stage-proof.json",
+			"line": 96,
+			"historical": true,
+			"excerpt": "\t\t\"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/verify-browser.mjs",
+			"line": 8,
+			"historical": true,
+			"excerpt": "const paths = ['/', '/blog', '/blog/0dte-spx-options-strategy-guide', '/watchlist'];"
+		},
+		{
+			"path": "docs/reviews/blog-indexing-release-2026-11-05/verify-browser.mjs",
+			"line": 59,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\tpath: `${out}/${engine}-${path === '/' ? 'home' : path === '/blog' ? 'archive' : path === '/watchlist' ? 'watchlist' : 'article'}-${width}.png`,"
+		},
+		{
+			"path": "docs/reviews/blog-layout-system-2026-11-05/PLAN.md",
+			"line": 13,
+			"historical": true,
+			"excerpt": "- Rename canonical product route to `/sunday-alpha-alerts`; `/watchlist` 308 preserves query and browser fragments. Update navigation/schema/metadata/links/inventories/tests. Remove fake RTP emblem. Align shared layout; correct hypothetical demo clai"
+		},
+		{
+			"path": "docs/reviews/blog-layout-system-2026-11-05/SEARCH_IMPLEMENTATION.md",
+			"line": 63,
+			"historical": true,
+			"excerpt": "- `/watchlist?utm_source=audit` returns 308; browser navigation retains `#pricing`. Destination H1, breadcrumb and canonical agree on Sunday Alpha Alerts; graph and visible links contain no old watchlist/explosive-swings URL."
+		},
+		{
+			"path": "docs/reviews/blog-layout-system-2026-11-05/release/verify-http.mjs",
+			"line": 193,
+			"historical": true,
+			"excerpt": "\tconst path = '/watchlist?ref=release-check',"
+		},
+		{
+			"path": "docs/reviews/blog-layout-system-2026-11-05/release/verify-public-runtime.mjs",
+			"line": 106,
+			"historical": true,
+			"excerpt": "\t\tconst response = await page.goto(`${origin}/watchlist?ref=public-proof#pricing`, {"
+		},
+		{
+			"path": "docs/reviews/first-blog-2026-11-05/public-links.json",
+			"line": 28,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/first-blog-2026-11-05/source-links.json",
+			"line": 117,
+			"historical": true,
+			"excerpt": "\t\t\t\"url\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/first-blog-2026-11-05/source-links.json",
+			"line": 119,
+			"historical": true,
+			"excerpt": "\t\t\t\"finalUrl\": \"http://localhost:4184/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md",
+			"line": 7,
+			"historical": true,
+			"excerpt": "The actual article and watchlist passed **six normal-browser cases and three JavaScript-disabled deep-link cases** across Chromium, Firefox and WebKit. Each normal case verifies the primary loaded FontFace families, same-origin font/stylesheet reques"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/live-baseline.json",
+			"line": 4959,
+			"historical": true,
+			"excerpt": "\t\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 114,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 157,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": \"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 243,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 281,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": \"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 406,
+			"historical": true,
+			"excerpt": "\t\t\"path\": \"/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/browser.json",
+			"line": 450,
+			"historical": true,
+			"excerpt": "\t\t\"canonical\": \"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/public-http.json",
+			"line": 46,
+			"historical": true,
+			"excerpt": "\t\t\"/watchlist\": {"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/public-http.json",
+			"line": 51,
+			"historical": true,
+			"excerpt": "\t\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/public-http.json",
+			"line": 101,
+			"historical": true,
+			"excerpt": "\t\t\"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/stage-http.json",
+			"line": 46,
+			"historical": true,
+			"excerpt": "\t\t\"/watchlist\": {"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/stage-http.json",
+			"line": 51,
+			"historical": true,
+			"excerpt": "\t\t\t\"canonical\": [\"https://www.revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/stage-http.json",
+			"line": 101,
+			"historical": true,
+			"excerpt": "\t\t\"https://www.revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/verify-browser.mjs",
+			"line": 13,
+			"historical": true,
+			"excerpt": "\t\tfor (const path of [article, '/watchlist']) {"
+		},
+		{
+			"path": "docs/reviews/font-fragment-audit-2026-11-05/release/verify-browser.mjs",
+			"line": 100,
+			"historical": true,
+			"excerpt": "\t'9 live cases passed: article/watchlist fonts and interactions plus no-JavaScript deep links across three browser engines.'"
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 33,
+			"historical": true,
+			"excerpt": "\t\t\t\"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 169,
+			"historical": true,
+			"excerpt": "\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3422,
+			"historical": true,
+			"excerpt": "\t\t\t\"url\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3423,
+			"historical": true,
+			"excerpt": "\t\t\t\"route\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3429,
+			"historical": true,
+			"excerpt": "\t\t\t\"finalUrl\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3465,
+			"historical": true,
+			"excerpt": "\t\t\t\t\"canonicals\": [\"https://revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3471,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"og:url\": [\"https://revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3503,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"href\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3507,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"href\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3511,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"href\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3597,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3908,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#webpage\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3909,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3917,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#protocol\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3923,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#breadcrumb\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3927,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3933,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3935,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3958,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#protocol\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3971,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3980,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3989,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 3996,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#breadcrumb\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4008,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"item\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4014,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4015,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#faq\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4017,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#webpage\""
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4022,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq-sunday-dispatch-time\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4031,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq-markets-and-asset-classes\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4040,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq-risk-to-reward-math\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4049,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq-screen-time-requirements\","
+		},
+		{
+			"path": "docs/seo/audit/03-baseline.json",
+			"line": 4058,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#faq-cancellation-policy\","
+		},
+		{
+			"path": "docs/seo/audit/03-matrix-baseline.md",
+			"line": 48,
+			"historical": true,
+			"excerpt": "| `SD-03`    | `all`                                                                              | `FAIL`    | `/`, `/about`, `/our-mission`, `/mentorship`, `/watchlist`, `/alert-services/spx-profit-pulse`, `/live-trading-rooms/*`, `/resources*`, `/"
+		},
+		{
+			"path": "docs/seo/audit/03-matrix-baseline.md",
+			"line": 50,
+			"historical": true,
+			"excerpt": "| `SD-05`    | `profile`, `static`, `membership-product`, `listing`, `product`, `blog-listing`    | `FAIL`    | `/about`, `/mentorship`, `/watchlist`, `/resources/stock-indexes-list`, `/store/courses`, `/store/indicators`, `/store/scanners`, `/store/"
+		},
+		{
+			"path": "docs/seo/audit/03-matrix-baseline.md",
+			"line": 90,
+			"historical": true,
+			"excerpt": "| `HTML-04`  | `all`                                                                              | `FAIL`    | `/watchlist`, `/store/indicators/move-prior-to-the-move-system`, `/store/scanners/high-octane-scanner`, `/blog/institutional-order-flow-an"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 38,
+			"historical": true,
+			"excerpt": "\t\t\t\"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 449,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 626,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 630,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 815,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 991,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 1282,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 1459,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 1463,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 1697,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 1959,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2136,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2140,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2391,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2562,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2739,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2743,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 2974,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3145,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3322,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3326,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3557,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3728,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3905,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 3909,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4140,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4311,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4488,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4492,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4723,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 4894,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5071,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5075,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5306,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5563,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5740,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 5744,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6011,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6073,
+			"historical": true,
+			"excerpt": "\t\t\t\"url\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6074,
+			"historical": true,
+			"excerpt": "\t\t\t\"route\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6080,
+			"historical": true,
+			"excerpt": "\t\t\t\"finalUrl\": \"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6116,
+			"historical": true,
+			"excerpt": "\t\t\t\t\"canonicals\": [\"https://revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6122,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"og:url\": [\"https://revolutiontradingpros.com/watchlist\"],"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6234,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6411,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6415,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6552,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#webpage\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6553,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6561,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#protocol\""
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6567,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#breadcrumb\""
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6572,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6574,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6597,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#protocol\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6611,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6620,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6629,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist#pricing\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6636,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#breadcrumb\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6648,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"item\": \"https://revolutiontradingpros.com/watchlist\""
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 6731,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7016,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7193,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7197,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7464,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7713,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7890,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 7894,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 8151,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 8400,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 8577,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 8581,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 8838,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9087,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9264,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9268,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9525,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9716,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9893,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 9897,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 10161,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 10516,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 10693,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 10697,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 11003,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 11519,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 11696,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 11700,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 12004,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 12405,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 12582,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 12586,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 12877,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 13139,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 13316,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 13320,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 13611,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 13873,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14050,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14054,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14391,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14677,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14854,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 14858,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 15145,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 15426,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 15603,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 15607,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 15894,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 16175,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 16352,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 16356,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 16643,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 16924,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17101,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17105,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17392,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17673,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17850,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 17854,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 18141,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 18422,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 18599,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 18603,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 18890,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 19171,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 19348,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 19352,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 19639,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 19920,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20097,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20101,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20388,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20669,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20846,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 20850,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 21137,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 21418,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 21595,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 21599,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 21876,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 22153,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 22330,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 22334,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 22611,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 22886,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23063,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23067,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23344,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23621,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23798,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 23802,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 24079,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 24356,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 24533,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 24537,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 24814,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 25089,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 25266,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 25270,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 25547,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 25824,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26001,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26005,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26282,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26559,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26736,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 26740,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27017,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27294,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27471,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27475,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27752,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 27961,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 28170,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 28381,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 28590,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 28799,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29008,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29217,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29426,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29707,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29884,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 29888,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 30161,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 30442,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 30619,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 30623,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 30896,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 31177,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 31354,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 31358,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 31631,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 31912,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32089,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32093,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32366,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32647,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32824,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 32828,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 33101,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 33382,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 33559,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 33563,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 33836,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 34117,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 34294,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 34298,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 34571,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 34852,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35029,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35033,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35306,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35587,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\"raw\": \"{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@graph\\\":[{\\\"@type\\\":\\\"EducationalOrganization\\\",\\\"@id\\\":\\\"https://revolutiontradingpros.com/#organization\\\",\\\"name\\\":\\\"Revolution Trading Pros\\\",\\\"alternateName\\\":\\\"RTP\\\",\\\"url\\\":\\\"https://revolut"
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35764,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"@id\": \"https://revolutiontradingpros.com/watchlist#service\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 35768,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\t\t\t\t\t\t\"url\": \"https://revolutiontradingpros.com/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 36041,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 36461,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 36960,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 37464,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 37811,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 38197,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-final.json",
+			"line": 40453,
+			"historical": true,
+			"excerpt": "\t\t\t\t\t\"/watchlist\","
+		},
+		{
+			"path": "docs/seo/audit/06-matrix-final.md",
+			"line": 28,
+			"historical": true,
+			"excerpt": "| `IDX-04`   | `home`, `listing`, `article`                                                       | `PASS` | None         | **1.** `[CODE src/lib/data/homepage.ts:515-555]`, `[CODE src/routes/resources/+page.svelte:92-125]`, `[CODE src/lib/components"
+		},
+		{
+			"path": "docs/seo/audit/06-matrix-final.md",
+			"line": 53,
+			"historical": true,
+			"excerpt": "| `SD-08`    | `product`, `membership-product`                                                    | `PASS` | None         | Per owner decision in `[CODE docs/seo/DECISIONS.md:11-26]`, `/watchlist` emits `Product` + 3 `Offer` nodes (`$47.00`, `$127.00"
+		},
+		{
+			"path": "docs/seo/audit/06-matrix-final.md",
+			"line": 90,
+			"historical": true,
+			"excerpt": "| `HTML-04`  | `all`                                                                              | `PASS` | None         | `[HTTP]` `06-final.json` (`orphanUrls: []`, `clickDepthFromHome <= 2` across all 27 indexable URLs). `[CODE src/lib/data/indic"
+		},
+		{
+			"path": "docs/seo/audit/08-report.md",
+			"line": 54,
+			"historical": true,
+			"excerpt": "| `SD-08`    | `product`, `membership-product`                                                    | `BLOCKED`       | **`PASS`**   | `[CODE docs/seo/DECISIONS.md:11-26]`, `[CODE src/lib/seo/structured-data.ts:1959-1997]` (`Product` + 3 `Offer` nodes "
+		},
+		{
+			"path": "docs/seo/audit/08-report.md",
+			"line": 133,
+			"historical": true,
+			"excerpt": "| `/watchlist`                                               | `membership-product` | 58           | 158                | `Sunday Alpha Protocol\u2122 Watchlist \\| Revolution Trading Pros`   |"
+		},
+		{
+			"path": "docs/seo/audit/08-report.md",
+			"line": 202,
+			"historical": true,
+			"excerpt": "     - `/watchlist` (`Product` + 3 `Offer` nodes, `Service`, `BreadcrumbList`)"
+		}
+	],
+	"scope": "Tracked/unignored text source, content, scripts, tests and docs; dependency/build/.git directories excluded. Historical snapshots preserved; ordinary trading-watchlist nouns are not retired route references."
+}

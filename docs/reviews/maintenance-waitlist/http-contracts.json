@@ -1,0 +1,68 @@
+[
+	{
+		"path": "/api/waitlist/signup",
+		"method": "GET",
+		"status": 405,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/waitlist/signup",
+		"method": "POST",
+		"status": 503,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/waitlist/confirm",
+		"method": "GET",
+		"status": 405,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/waitlist/unsubscribe",
+		"method": "GET",
+		"status": 405,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/cron/waitlist-email",
+		"method": "GET",
+		"status": 401,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/cron/waitlist-email",
+		"method": "POST",
+		"status": 405,
+		"cache": "no-store"
+	},
+	{
+		"path": "/api/webhooks/resend",
+		"method": "GET",
+		"status": 405,
+		"cache": "no-store"
+	},
+	{
+		"path": "/waitlist/confirm",
+		"method": "GET",
+		"status": 200,
+		"cache": "no-store"
+	},
+	{
+		"path": "/waitlist/unsubscribe",
+		"method": "GET",
+		"status": 200,
+		"cache": "no-store"
+	},
+	{
+		"path": "/waitlist/confirm",
+		"method": "HEAD",
+		"status": 200,
+		"cache": "no-store"
+	},
+	{
+		"path": "/waitlist/confirm",
+		"method": "OPTIONS",
+		"status": 405,
+		"cache": "no-store"
+	}
+]

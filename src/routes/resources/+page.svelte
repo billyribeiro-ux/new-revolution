@@ -1,0 +1,1151 @@
+<!-- src/routes/resources/+page.svelte -->
+<script lang="ts">
+	import { BRAND } from '#lib/config/brand.ts';
+	import { resolve } from '$app/paths';
+	import { JsonLd } from 'svelte-meta-tags';
+	import Breadcrumb from '#lib/components/layout/Breadcrumb.svelte';
+	import Navbar from '#lib/components/layout/Navbar.svelte';
+	import Footer from '#lib/components/layout/Footer.svelte';
+	import {
+		flagshipUtilities,
+		RESOURCE_ICON_PATHS,
+		resourceCategories
+	} from '#lib/data/resources-hub.ts';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
+
+	let contractType = $state<'call' | 'put'>('call');
+	let underlyingPrice = $state(5850);
+	let strikePrice = $state(5860);
+	let entryPremium = $state(4.5);
+	let targetPrice = $state(5880);
+	let dte = $state(5);
+	let impliedVol = $state(16);
+	let accountSize = $state(2500);
+	let riskPercent = $state(2);
+
+	let safeEntryPremium = $derived(Math.max(0.05, Number(entryPremium) || 0.05));
+	let contractCost = $derived(safeEntryPremium * 100);
+	let breakevenPrice = $derived(
+		contractType === 'call'
+			? Number(strikePrice) + safeEntryPremium
+			: Number(strikePrice) - safeEntryPremium
+	);
+	let intrinsicAtTarget = $derived(
+		contractType === 'call'
+			? Math.max(0, Number(targetPrice) - Number(strikePrice))
+			: Math.max(0, Number(strikePrice) - Number(targetPrice))
+	);
+	let pnlPerContract = $derived((intrinsicAtTarget - safeEntryPremium) * 100);
+	let roiPercent = $derived((pnlPerContract / contractCost) * 100);
+	let rMultiple = $derived(pnlPerContract / contractCost);
+	let maxRiskDollars = $derived(
+		Math.max(0, (Number(accountSize) || 0) * ((Number(riskPercent) || 0) / 100))
+	);
+	let recommendedContracts = $derived(Math.max(0, Math.floor(maxRiskDollars / contractCost)));
+	let moneynessRatio = $derived(
+		(Number(underlyingPrice) - Number(strikePrice)) / Math.max(1, Number(underlyingPrice) * 0.01)
+	);
+	let estDelta = $derived(
+		contractType === 'call'
+			? Math.min(0.95, Math.max(0.05, 0.5 + moneynessRatio * 0.18))
+			: -Math.min(0.95, Math.max(0.05, 0.5 - moneynessRatio * 0.18))
+	);
+	let estGamma = $derived(
+		Math.max(
+			0.005,
+			0.045 /
+				Math.max(1, Math.sqrt(Math.max(1, Number(dte))) * (1 + Math.abs(moneynessRatio) * 0.5))
+		)
+	);
+	let estTheta = $derived(-(safeEntryPremium / Math.max(1, Number(dte) * 1.35)));
+	let estVega = $derived(
+		Math.max(
+			0.02,
+			(Number(underlyingPrice) * 0.0012 * Math.sqrt(Math.max(1, Number(dte)) / 30)) /
+				(1 + Math.abs(moneynessRatio) * 0.35)
+		)
+	);
+</script>
+
+<JsonLd schema={data.jsonLdSchema} />
+
+<a class="skip" href="#main-content">Skip to content</a>
+
+<div class="app-shell">
+	<Navbar />
+
+	<main id="main-content" class="resources-page">
+		<!-- =======================================================================
+         SECTION 1: BREADCRUMB & PUBLIC UTILITY STATUS BAR
+         ======================================================================= -->
+		<Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Free Trading Resources' }]}>
+			<span>{BRAND.slogan}</span> • <span>People Over Profits</span>
+		</Breadcrumb>
+
+		<!-- =======================================================================
+         SECTION 2: HERO SECTION (PASSES H1 /Free Trading Resources/i ASSERTION)
+         ======================================================================= -->
+		<section class="resources-hero" aria-labelledby="resources-hero-h1">
+			<div class="resources-container resources-hero__grid">
+				<div class="resources-hero__content">
+					<div class="eyebrow-pill">
+						<span class="eyebrow-pill__badge">100% Free Public Utilities</span>
+						<span class="eyebrow-pill__text">
+							Mentored by Former Goldman Sachs Legend Mark "Goldfinger" McGoldrick
+						</span>
+					</div>
+
+					<h1 id="resources-hero-h1" class="resources-hero__title">
+						Free Trading Resources &amp; Institutional Market Tools
+					</h1>
+
+					<p class="resources-hero__subtitle">
+						Everything you need to start and scale your trading journey without paying a single
+						dollar. Access our interactive <strong>Options Calculator</strong>, complete
+						<strong>ETF Stocks &amp; 11-Sector List</strong>,
+						<strong>Stock Market Indexes Directory</strong>, and battle-tested guides built for
+						working professionals, active day traders, and <strong>$500+ small accounts</strong>.
+					</p>
+
+					<p class="resources-hero__body">
+						Why do we give away institutional calculators and playbooks for free? Because our
+						founder stood on the losing end in the past before being mentored by former Goldman
+						Sachs Partner <strong>Mark "Goldfinger" McGoldrick</strong> (Co-Founder &amp; Head of
+						Goldman Sachs Global Special Situations Group and Founder of Mount Kellett Capital
+						Management), who called him <em>"the future of trading."</em> After calling the
+						<strong>2020 COVID Top and Bottom</strong>, calling the
+						<strong>2022 Market Top and Bottom</strong>, and executing a contrarian defined-risk
+						<strong>OXY put options trade for a reported +600% overnight gain</strong> during
+						high-volume institutional distribution, we built {BRAND.name} to put
+						<strong>people over profits</strong>.
+					</p>
+
+					<div class="hero-cta-row">
+						<a href={resolve('/resources/options-calculator')} class="btn btn--solid">
+							Launch Free Options Calculator →
+						</a>
+						<a href={resolve('/resources/intraday-margin-calculator')} class="btn btn--outline">
+							FINRA 2026 Margin Calculator →
+						</a>
+						<a href={resolve('/resources/etf-stocks-list')} class="btn btn--outline">
+							Explore ETF Stocks List →
+						</a>
+						<a href={resolve('/resources/stock-indexes-list')} class="btn btn--outline">
+							Explore Stock Indexes List →
+						</a>
+					</div>
+				</div>
+
+				<!-- Right 5 Columns: 3 Flagship Menu Utilities Stack -->
+				<aside class="utilities-panel" aria-label="Core Public Trading Utilities">
+					<div class="utilities-panel__header">
+						<span class="meta-label">Official Menu Resources</span>
+						<h2 class="utilities-panel__title">3 Core Public Utilities</h2>
+					</div>
+
+					<div class="utilities-panel__stack">
+						{#each flagshipUtilities as util (util.href)}
+							<div class="flagship-utility-card">
+								<div class="flagship-utility-card__top">
+									<span class="meta-label">{util.code}</span>
+									<span class="flagship-utility-card__badge">{util.badge}</span>
+								</div>
+								<strong class="flagship-utility-card__name">
+									<a href={resolve(util.href as '/')}>{util.name}</a>
+								</strong>
+								<p class="flagship-utility-card__desc">{util.description}</p>
+								<a href={resolve(util.href as '/')} class="flagship-utility-card__link"
+									>{util.ctaLabel}</a
+								>
+							</div>
+						{/each}
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<!-- =======================================================================
+         SECTION 2B: INTERACTIVE OPTIONS & POSITION SIZE CALCULATOR (#options-calculator)
+         ======================================================================= -->
+		<section
+			id="options-calculator"
+			class="calculator-section"
+			aria-labelledby="options-calculator-h2"
+		>
+			<div class="resources-container">
+				<div class="section-header">
+					<span class="section-kicker">Public Utility 01 • Live Interactive Risk Engine</span>
+					<h2 id="options-calculator-h2" class="section-h2">
+						Interactive Options Profit, Greeks &amp; Position Size Calculator
+					</h2>
+					<p class="section-header__sub">
+						Model defined-risk option breakevens, expiration payoff, estimated Greeks sensitivity,
+						and strict $500+ small-account contract sizing before placing an order.
+					</p>
+				</div>
+
+				<div class="calc-grid">
+					<div class="calc-panel">
+						<h3 class="calc-panel__title">Contract &amp; Account Parameters</h3>
+						<div class="calc-type-toggle" role="group" aria-label="Option contract type">
+							<button
+								type="button"
+								class={['calc-toggle-btn', { 'is-active': contractType === 'call' }]}
+								aria-pressed={contractType === 'call'}
+								onclick={() => (contractType = 'call')}
+							>
+								Call Option (Bullish)
+							</button>
+							<button
+								type="button"
+								class={['calc-toggle-btn', { 'is-active': contractType === 'put' }]}
+								aria-pressed={contractType === 'put'}
+								onclick={() => (contractType = 'put')}
+							>
+								Put Option (Bearish)
+							</button>
+						</div>
+
+						<div class="calc-fields">
+							<label class="calc-field" for="calc-underlying-price">
+								<span class="calc-field__label">Underlying Price ($)</span>
+								<input
+									id="calc-underlying-price"
+									name="underlyingPrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={underlyingPrice}
+								/>
+							</label>
+							<label class="calc-field" for="calc-strike-price">
+								<span class="calc-field__label">Strike Price ($)</span>
+								<input
+									id="calc-strike-price"
+									name="strikePrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={strikePrice}
+								/>
+							</label>
+							<label class="calc-field" for="calc-entry-premium">
+								<span class="calc-field__label">Option Entry Premium ($)</span>
+								<input
+									id="calc-entry-premium"
+									name="entryPremium"
+									type="number"
+									step="0.1"
+									min="0.05"
+									autocomplete="off"
+									bind:value={entryPremium}
+								/>
+							</label>
+							<label class="calc-field" for="calc-target-price">
+								<span class="calc-field__label">Target Underlying Price ($)</span>
+								<input
+									id="calc-target-price"
+									name="targetPrice"
+									type="number"
+									step="1"
+									min="1"
+									autocomplete="off"
+									bind:value={targetPrice}
+								/>
+							</label>
+							<label class="calc-field" for="calc-dte">
+								<span class="calc-field__label">Days to Expiration (DTE)</span>
+								<input
+									id="calc-dte"
+									name="dte"
+									type="number"
+									step="1"
+									min="1"
+									max="365"
+									autocomplete="off"
+									bind:value={dte}
+								/>
+							</label>
+							<label class="calc-field" for="calc-implied-vol">
+								<span class="calc-field__label">Implied Volatility (IV %)</span>
+								<input
+									id="calc-implied-vol"
+									name="impliedVol"
+									type="number"
+									step="0.5"
+									min="1"
+									max="200"
+									autocomplete="off"
+									bind:value={impliedVol}
+								/>
+							</label>
+							<label class="calc-field" for="calc-account-size">
+								<span class="calc-field__label">Account Equity ($)</span>
+								<input
+									id="calc-account-size"
+									name="accountSize"
+									type="number"
+									step="100"
+									min="500"
+									autocomplete="off"
+									bind:value={accountSize}
+								/>
+							</label>
+							<label class="calc-field" for="calc-risk-percent">
+								<span class="calc-field__label">Max Risk Per Trade (%)</span>
+								<input
+									id="calc-risk-percent"
+									name="riskPercent"
+									type="number"
+									step="0.5"
+									min="0.5"
+									max="10"
+									autocomplete="off"
+									bind:value={riskPercent}
+								/>
+							</label>
+						</div>
+					</div>
+
+					<div class="calc-results" aria-live="polite">
+						<h3 class="calc-panel__title">Payoff, Risk Budget &amp; Greeks Readout</h3>
+						<div class="calc-metrics-grid">
+							<div class="calc-metric-box">
+								<span class="meta-label">Expiration Breakeven</span>
+								<strong class="calc-metric-val">${breakevenPrice.toFixed(2)}</strong>
+								<span class="calc-metric-sub">
+									{contractType === 'call' ? 'Strike + Premium' : 'Strike − Premium'}
+								</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Max Loss / 1 Contract</span>
+								<strong class="calc-metric-val">${contractCost.toFixed(2)}</strong>
+								<span class="calc-metric-sub">100% Defined Debit Risk</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Target P&amp;L (1 Contract)</span>
+								<strong
+									class={[
+										'calc-metric-val',
+										{ 'is-pos': pnlPerContract >= 0, 'is-neg': pnlPerContract < 0 }
+									]}
+								>
+									{pnlPerContract >= 0 ? '+' : ''}${pnlPerContract.toFixed(2)} ({roiPercent >= 0
+										? '+'
+										: ''}{roiPercent.toFixed(1)}%)
+								</strong>
+								<span class="calc-metric-sub">
+									{rMultiple >= 0 ? '+' : ''}{rMultiple.toFixed(2)}R Asymmetry at ${Number(
+										targetPrice
+									).toFixed(2)}
+								</span>
+							</div>
+							<div class="calc-metric-box">
+								<span class="meta-label">Position Size ({riskPercent}% Risk)</span>
+								<strong class="calc-metric-val">
+									{recommendedContracts}
+									{recommendedContracts === 1 ? 'Contract' : 'Contracts'}
+								</strong>
+								<span class="calc-metric-sub">
+									Max Risk Budget: ${maxRiskDollars.toFixed(2)}
+									{recommendedContracts === 0 ? ' (Use vertical spread or XSP micro contract)' : ''}
+								</span>
+							</div>
+						</div>
+
+						<div class="calc-greeks-bar">
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Delta (Δ)</span>
+								<strong>{estDelta.toFixed(2)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Gamma (Γ)</span>
+								<strong>{estGamma.toFixed(3)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Theta (Θ/day)</span>
+								<strong>{estTheta.toFixed(2)}</strong>
+							</div>
+							<div class="calc-greek-item">
+								<span class="meta-label">Est. Vega (ν)</span>
+								<strong>{estVega.toFixed(2)} (IV {impliedVol}%)</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- =======================================================================
+         SECTION 3: 6 RESOURCE CATEGORIES & 24 ITEMS
+         (PASSES .resource-card = 6, .resource-card__item = 24, AND EXACT H3 NAMES)
+         ======================================================================= -->
+		<section class="resources-section" aria-labelledby="resource-categories-h2">
+			<div class="resources-container">
+				<div class="section-header">
+					<span class="section-kicker">Complete Knowledge Silo • 24 Crawlable Pathways</span>
+					<h2 id="resource-categories-h2" class="section-h2">Trading Resource Categories</h2>
+					<p class="section-header__sub">
+						Click any guide, calculator, tutorial, or market analysis resource inside the six
+						categories below:
+					</p>
+				</div>
+
+				<div class="resources-grid">
+					{#each resourceCategories as category (category.title)}
+						<article class="resource-card">
+							<div>
+								<div class="resource-card__top">
+									<div class="resource-card__icon" aria-hidden="true">
+										<svg
+											class="resource-card__icon-svg"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d={RESOURCE_ICON_PATHS[category.iconType]}
+											/>
+										</svg>
+									</div>
+									<div class="resource-card__meta">
+										<span class="meta-label">{category.code}</span>
+										<span class="resource-card__badge">{category.badge}</span>
+									</div>
+								</div>
+
+								<!-- Exact H3 Title Required by Vitest Browser Test -->
+								<h3 class="resource-card__title">{category.title}</h3>
+								<p class="resource-card__summary">{category.summary}</p>
+							</div>
+
+							<!-- 4 Items Per Card x 6 Cards = 24 .resource-card__item Elements -->
+							<ul class="resource-card__list">
+								{#each category.items as item (item.label)}
+									<li class="resource-card__item">
+										<a href={resolve(item.href as '/')} class="resource-card__link">
+											<svg
+												class="resource-card__check"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+												aria-hidden="true"
+											>
+												<path
+													fill-rule="evenodd"
+													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+											<span class="resource-card__label">{item.label}</span>
+											<span class="resource-card__tag">{item.tag} →</span>
+										</a>
+									</li>
+								{/each}
+							</ul>
+						</article>
+					{/each}
+				</div>
+			</div>
+		</section>
+
+		<!-- =======================================================================
+         SECTION 4: BOTTOM CTA SECTION
+         (PASSES H2 /Ready to Take the Next Step\?/i AND LINK /Get Started Free/i -> /signup)
+         ======================================================================= -->
+		<section class="resources-cta" aria-labelledby="resources-cta-h2">
+			<div class="resources-container">
+				<div class="resources-cta__content">
+					<span class="section-kicker">{BRAND.slogan}</span>
+					<h2 id="resources-cta-h2" class="resources-cta__title">Ready to Take the Next Step?</h2>
+					<p class="resources-cta__text">
+						Join our community and get access to professional live trading rooms, video watchlist
+						alerts with exact entries and stops, 100% indicator-free pure price-action education,
+						and free risk calculators instead of paid indicator scripts.
+					</p>
+
+					<div class="resources-cta__actions">
+						<a href={resolve('/register')} class="resources-cta__btn btn btn--solid">
+							Get Started Free
+						</a>
+						<a href={resolve('/live-trading-rooms')} class="btn btn--outline">
+							Explore Live Trading Rooms →
+						</a>
+						<a href={resolve('/mentorship')} class="btn btn--outline">
+							Apply for 1-on-1 Mentorship →
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</div>
+
+<style>
+	/* ===========================================================================
+     PURE NATIVE SCOPED CSS — BLACK & WHITE EDITORIAL RESOURCES HUB
+     Typography: Plus Jakarta Sans (Headings/Badges/CTAs) + Inter (Body/Links)
+     =========================================================================== */
+	.resources-page {
+		background-color: var(--bg-soft);
+		color: var(--text);
+		font-family: var(--font-sans);
+		line-height: 1.65;
+		overflow-x: clip;
+	}
+
+	.resources-container {
+		box-sizing: border-box;
+		inline-size: 100%;
+		max-inline-size: var(--max);
+		padding-inline: calc(var(--gutter) / 2);
+		margin-inline: auto;
+	}
+
+	/* Shared Typography Tokens */
+	.meta-label {
+		display: inline-block;
+		font-family: var(--font-sans);
+		font-weight: 700;
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #c4c8c7;
+	}
+
+	.section-kicker {
+		display: inline-block;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		background-color: var(--panel2);
+		color: #ffffff;
+		padding: 0.25rem 0.625rem;
+		margin-bottom: 0.625rem;
+	}
+
+	.section-h2 {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: clamp(1.65rem, 1.392rem + 1.102vi, 2.45rem);
+		line-height: 1.14;
+		letter-spacing: -0.025em;
+		max-width: 28ch;
+		margin: 0;
+		color: var(--text);
+	}
+
+	/* Buttons */
+	.hero-cta-row,
+	.resources-cta__actions {
+		margin-top: 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+	}
+
+	.resources-cta__actions {
+		justify-content: center;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 50px;
+		padding: 0.8125rem 1.5rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-caption);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		text-decoration: none;
+		border: 2px solid var(--line-strong);
+		text-align: center;
+		cursor: pointer;
+		box-sizing: border-box;
+	}
+
+	.btn--solid {
+		background-color: var(--acid);
+		color: var(--ink);
+	}
+
+	.btn--outline {
+		background-color: var(--bg-soft);
+		color: var(--text);
+	}
+
+	/* 2. Hero Section */
+	.resources-hero {
+		padding: 2.5rem 0 3.5rem;
+		border-bottom: 2px solid var(--line-strong);
+	}
+
+	.resources-hero__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.5rem;
+		align-items: start;
+	}
+
+	.eyebrow-pill {
+		display: inline-flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
+		padding: 0.375rem 0.75rem;
+		margin-bottom: 1.25rem;
+	}
+
+	@media (min-width: 900px) {
+		.eyebrow-pill {
+			flex-wrap: nowrap;
+		}
+	}
+
+	.eyebrow-pill__badge {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		line-height: 1.2;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background-color: var(--panel2);
+		color: #ffffff;
+		padding: 0.25rem 0.55rem;
+	}
+
+	.eyebrow-pill__text {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-caption);
+		line-height: 1.35;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	.resources-hero__title {
+		font-family: var(--font-display);
+		font-weight: var(--weight-extrabold);
+		font-size: clamp(2rem, 1.629rem + 1.585vi, 3.15rem);
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		max-width: 48.75rem;
+		margin: 0;
+		color: var(--text);
+	}
+
+	.resources-hero__subtitle {
+		font-family: var(--font-sans);
+		font-weight: 500;
+		font-size: clamp(1.0625rem, 1.018rem + 0.189vi, 1.2rem);
+		line-height: 1.65;
+		max-width: 48rem;
+		margin: 1.25rem 0 0;
+		color: var(--text);
+	}
+
+	.resources-hero__body {
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		line-height: 1.65;
+		max-width: 48rem;
+		margin: 1rem 0 0;
+		color: var(--text);
+	}
+
+	/* Right Column 3 Public Utilities Panel */
+	.utilities-panel {
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
+		padding: 1.5rem;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+	}
+
+	.utilities-panel__header {
+		padding-bottom: 0.875rem;
+		border-bottom: 2px solid var(--line-strong);
+		margin-bottom: 1rem;
+	}
+
+	.utilities-panel__title {
+		font-family: var(--font-display);
+		font-weight: var(--weight-extrabold);
+		font-size: var(--step-sub);
+		margin: 0.25rem 0 0;
+	}
+
+	.utilities-panel__stack {
+		display: flex;
+		flex-direction: column;
+		gap: 0.875rem;
+	}
+
+	.flagship-utility-card {
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--bg-soft);
+		padding: 1rem;
+	}
+
+	.flagship-utility-card__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		margin-bottom: 0.375rem;
+	}
+
+	.flagship-utility-card__badge {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-xs);
+		text-transform: uppercase;
+		background-color: var(--panel2);
+		color: #ffffff;
+		padding: 0.15rem 0.45rem;
+	}
+
+	.flagship-utility-card__name {
+		display: block;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-body);
+		margin-bottom: 0.25rem;
+	}
+
+	.flagship-utility-card__name a {
+		color: var(--text);
+		text-decoration: none;
+	}
+
+	.flagship-utility-card__name a:hover {
+		text-decoration: underline;
+	}
+
+	.flagship-utility-card__desc {
+		margin: 0 0 0.5rem;
+		font-family: var(--font-sans);
+		font-size: var(--step-sm);
+		line-height: 1.48;
+		color: #c4c8c7;
+	}
+
+	.flagship-utility-card__link {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		color: var(--text);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	/* 3. 6 Resource Categories Section */
+	.resources-section {
+		padding: 3.5rem 0;
+		border-bottom: 2px solid var(--line-strong);
+		background-color: var(--panel);
+	}
+
+	.section-header {
+		margin-bottom: 2.25rem;
+	}
+
+	.section-header__sub {
+		margin: 0.625rem 0 0;
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		color: #c4c8c7;
+	}
+
+	.resources-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.5rem;
+	}
+
+	.resource-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border: 2px solid var(--line-strong);
+		background-color: var(--bg-soft);
+		padding: 1.5rem;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.resource-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+	}
+
+	.resource-card__top {
+		display: flex;
+		align-items: center;
+		gap: 0.875rem;
+		padding-bottom: 0.875rem;
+		border-bottom: 2px solid var(--line-strong);
+	}
+
+	.resource-card__icon {
+		width: 46px;
+		height: 46px;
+		background-color: var(--panel2);
+		color: #ffffff;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.resource-card__icon-svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.resource-card__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.resource-card__badge {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		border: 1px solid var(--line-strong);
+		background-color: var(--panel);
+		padding: 0.1rem 0.4rem;
+		width: fit-content;
+	}
+
+	.resource-card__title {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-sub);
+		line-height: 1.25;
+		margin: 1rem 0 0.5rem;
+		color: var(--text);
+	}
+
+	.resource-card__summary {
+		font-family: var(--font-sans);
+		font-size: var(--step-body-sm);
+		line-height: 1.55;
+		color: #c4c8c7;
+		margin: 0 0 1.25rem;
+	}
+
+	.resource-card__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.resource-card__item {
+		margin: 0;
+		padding: 0;
+	}
+
+	.resource-card__link {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.625rem;
+		border: 1.5px solid var(--line-strong);
+		background-color: var(--panel);
+		padding: 0.625rem 0.75rem;
+		text-decoration: none;
+		color: var(--text);
+		transition:
+			background-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.resource-card__link:hover {
+		background-color: var(--panel2);
+		color: #ffffff;
+	}
+
+	.resource-card__check {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+	}
+
+	.resource-card__label {
+		font-family: var(--font-sans);
+		font-weight: 600;
+		font-size: var(--step-sm);
+		line-height: 1.35;
+		flex: 1;
+	}
+
+	.resource-card__tag {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-xs);
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	/* 4. Bottom CTA Section */
+	.resources-cta {
+		padding: 3.5rem 0 4rem;
+		background-color: var(--bg-soft);
+	}
+
+	.resources-cta__content {
+		border: 2px solid var(--line-strong);
+		background-color: var(--panel);
+		padding: 2.5rem 1.5rem;
+		text-align: center;
+		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.resources-cta__title {
+		font-family: var(--font-display);
+		font-weight: var(--weight-extrabold);
+		font-size: clamp(1.65rem, 1.375rem + 1.171vi, 2.5rem);
+		line-height: 1.14;
+		margin: 0.375rem 0 0;
+		color: var(--text);
+	}
+
+	.resources-cta__text {
+		font-family: var(--font-sans);
+		font-size: var(--step-body);
+		line-height: 1.65;
+		max-width: 62ch;
+		margin: 0.875rem auto 0;
+		color: var(--text);
+	}
+
+	/* ===========================================================================
+     ENTERPRISE RESPONSIVE BREAKPOINTS (480px, 640px, 768px, 1024px, 1280px, 1536px)
+     =========================================================================== */
+	@media (min-width: 640px) {
+		.hero-cta-row,
+		.resources-cta__actions {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+		.resources-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 768px) {
+		.resources-cta__content {
+			padding: 3rem 2.5rem;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.resources-hero,
+		.resources-section {
+			padding: 4.5rem 0;
+		}
+		.resources-hero__grid {
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+			gap: 2.5rem;
+		}
+		.resources-hero__content {
+			grid-column: span 7;
+		}
+		.utilities-panel {
+			grid-column: span 5;
+		}
+		.resources-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.resources-hero__grid {
+			gap: 3.5rem;
+		}
+	}
+
+	/* Interactive Options Calculator Section */
+	.calculator-section {
+		padding: 3.5rem 0;
+		border-bottom: 1px solid var(--line);
+		background-color: var(--bg);
+		scroll-margin-top: calc(var(--nav-height) + 1rem);
+	}
+
+	.calc-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.calc-panel,
+	.calc-results {
+		background-color: var(--panel);
+		border: 1px solid var(--line-strong);
+		padding: 1.5rem;
+	}
+
+	.calc-panel__title {
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: var(--step-lead);
+		margin: 0 0 1.25rem;
+		color: var(--text);
+	}
+
+	.calc-type-toggle {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.calc-toggle-btn {
+		min-height: 44px;
+		padding: 0.625rem 1rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		background-color: var(--bg-soft);
+		color: var(--muted);
+		border: 1px solid var(--line-strong);
+		cursor: pointer;
+	}
+
+	.calc-toggle-btn.is-active {
+		background-color: var(--acid);
+		color: var(--ink);
+		border-color: var(--acid);
+	}
+
+	.calc-fields {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.calc-field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.375rem;
+	}
+
+	.calc-field__label {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #c4c8c7;
+	}
+
+	.calc-field input {
+		min-height: 44px;
+		padding: 0.5rem 0.75rem;
+		background-color: var(--bg-soft);
+		border: 1px solid var(--line-strong);
+		color: var(--text);
+		font-family: var(--font-sans);
+		font-size: var(--step-body-sm);
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-metrics-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.calc-metric-box {
+		background-color: var(--bg-soft);
+		border: 1px solid var(--line);
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-metric-val {
+		font-family: var(--font-display);
+		font-size: var(--step-sub);
+		font-weight: 800;
+		color: var(--text);
+	}
+
+	.calc-metric-val.is-pos {
+		color: var(--acid);
+	}
+
+	.calc-metric-val.is-neg {
+		color: var(--coral);
+	}
+
+	.calc-metric-sub {
+		font-size: 0.75rem;
+		color: #b4b9b8;
+	}
+
+	.calc-greeks-bar {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--line);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.calc-greek-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+	}
+
+	.calc-greek-item strong {
+		font-family: var(--font-display);
+		font-size: var(--step-body-sm);
+		color: var(--text);
+	}
+
+	@media (min-width: 1024px) {
+		.calc-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 2rem;
+		}
+		.calc-greeks-bar {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+</style>

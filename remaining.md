@@ -1,0 +1,6 @@
+Your Pre-Launch Runbook (Only 3 Non-Code Steps Left Before Flipping Live)
+Drop In Your 3 Historical Chart Receipts: Place your dated chart screenshots/archives for the 2020 COVID Top & Bottom, 2022 Bear Market Peak & Low, and 2022 OXY +600% Put Options into static/images/case-studies/ and wire their exact filenames into the case-study <figure> slots on /methodology and /track-record.
+
+Run a 10-Second Brand Token Smoke Test Once You Pick the Name: Because PUBLIC_BRAND_NAME is still using the default fallback on Vercel (20–32 BRAND_HITS per route), set PUBLIC_BRAND_NAME and PUBLIC_SITE_URL to your new brand/domain in Vercel Preview first (keeping PUBLIC_ENV off production) and run curl -s [https://new-revolution-fawn.vercel.app/about](https://new-revolution-fawn.vercel.app/about) | grep -ci "Revolution"—confirming it returns 0 before going public.
+
+Flip PUBLIC_ENV=production After the November 2026 Core Update Finishes (~Nov 24–25): Once Google’s Search Status Dashboard marks the November 10 Core Update complete, attach your new production domain in Vercel, set PUBLIC_ENV=production, verify /robots.txt and /llms.txt automatically open up, and submit /sitemap.xml in Google Search Console on Day 1.

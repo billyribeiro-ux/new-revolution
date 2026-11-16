@@ -1,0 +1,13 @@
+# Audit environment — November 15, 2026
+
+Read the [blog handoff](../../../BLOG_AGENT_HANDOFF.md) and [Vite+ workflow](../../../VITE_PLUS_WORKFLOW.md) for operations. This is audit-first work; only the explicitly requested retired-link cleanup was implemented.
+
+- Production/canonical origin: `https://www.revolutiontradingpros.com`; single English locale. Existing owner decisions permit search/AI discovery and keep the store noindex. [CODE `src/lib/shared/site-origin.ts:2`; `docs/seo/DECISIONS.md:17`; `src/lib/data/launch-gate.ts:29`]
+- Local production preview: `http://127.0.0.1:4176`, started with `pnpm preview --host 127.0.0.1 --port 4176` after complete `pnpm build`. Local CMS seed data is distinct from the real Production database. [CMD `logs/preview.log`, `logs/build.log`; HTTP `preview-crawl.json`]
+- Node 26.13.0; pnpm 12.16.1. Installed: Svelte 5.57.3, Kit 3.1.1, adapter-vercel 7.0.2, Vite+ 1.4.0 (Vite core 8.3.5), Vitest 5.0.5, TypeScript 6.0.3, svelte-meta-tags 5.0.3. The `vite` alias package reports version 1.4.0; it is the Vite+ package, not evidence of Vite 1. [CMD installed package.json inspection; CODE `pnpm-lock.yaml`, `package.json`, `pnpm-workspace.yaml`; CMD `logs/build.log`]
+- Official remote Svelte MCP initialize/tools/list/list-sections/documentation succeeded via JSON-RPC. No MCP account/configuration change. Full responses archived in `sources.zip`. [HTTP `https://mcp.svelte.dev/mcp`, 200; CMD source archive]
+- Tool dependencies installed separately in `/tmp/revolution-seo-tools`; repository dependency inputs/lockfile unchanged. Playwright browsers installed for existing tests. Real axe-core, LHCI and Unlighthouse used; diagnostic versions are in `tool-versions.json`. [CMD `logs/browser-install.log`, `tool-versions.json`; `git diff -- package.json pnpm-lock.yaml`]
+- No branch creation: the current owner instruction requires only main. No commit/push/deployment occurred during the audit checkpoint; the subsequent owner-authorized integration is recorded in `release-handoff.md`. [CODE `docs/AGENT_COORDINATION.md:15`; CMD git status/branch inspection]
+- Production CMS access used the linked Vercel project's existing environment export through the installed CLI API and controlled built service calls. Secret values stayed in process memory and were not written to audit files. Only the one approved anchor was changed; exact hash equality and lifecycle effects are recorded. [CMD `cms-watchlist-correction.json`]
+
+Exact command failures, alternative worker run, skips and build warnings are retained in `logs/` and tabulated in `08-report.md`. No gate thresholds were reduced.

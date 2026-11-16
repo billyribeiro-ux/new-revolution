@@ -1,0 +1,212 @@
+{
+	"origin": "https://new-revolution-7fgvwhrug-will-ribeiros-projects.vercel.app",
+	"mode": "draft",
+	"cases": [
+		{
+			"engine": "chromium",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 375,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 768,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "chromium",
+			"width": 2420,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 375,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 768,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "firefox",
+			"width": 2420,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "webkit",
+			"width": 320,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "webkit",
+			"width": 375,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "webkit",
+			"width": 768,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "webkit",
+			"width": 1440,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		},
+		{
+			"engine": "webkit",
+			"width": 2420,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 200,
+			"draft": true,
+			"noHorizontalOverflow": true,
+			"actualImagesLoaded": true,
+			"metadataAndPlacement": true
+		}
+	],
+	"http": [
+		{
+			"path": "/maintenance-state.json",
+			"status": 200
+		},
+		{
+			"path": "/api/health",
+			"status": 200
+		},
+		{
+			"path": "/api/admin/posts",
+			"status": 401
+		},
+		{
+			"path": "/api/media/list",
+			"status": 401
+		},
+		{
+			"path": "/rss.xml",
+			"status": 200
+		},
+		{
+			"path": "/sitemap.xml",
+			"status": 200
+		},
+		{
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"status": 404
+		}
+	],
+	"graphCrops": [
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-16x9.webp",
+			"width": 1200,
+			"height": 675,
+			"bytes": 38096,
+			"format": "webp"
+		},
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-4x3.webp",
+			"width": 1200,
+			"height": 900,
+			"bytes": 43768,
+			"format": "webp"
+		},
+		{
+			"url": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-crop-1x1.webp",
+			"width": 900,
+			"height": 900,
+			"bytes": 37418,
+			"format": "webp"
+		}
+	],
+	"passed": true,
+	"verifiedPostId": 1,
+	"verifiedSavedBodySha256": "73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4"
+}

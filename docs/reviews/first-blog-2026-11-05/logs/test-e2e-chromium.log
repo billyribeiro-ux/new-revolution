@@ -1,0 +1,134 @@
+$ playwright install && playwright test --reporter=list,json
+[WebServer] $ vp build && node scripts/maintenance-build.mjs
+[WebServer] (node:11007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:11015) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:11015) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] [plugin builtin:vite-reporter] 
+[WebServer] (!) Some chunks are larger than 500 kB after minification. Consider:
+[WebServer] - Using dynamic import() to code-split the application
+[WebServer] - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+[WebServer] - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[WebServer] (node:11015) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.mjs
+[WebServer]     - @react-email/render
+[WebServer]   node_modules/.pnpm/resend@6.37.0/node_modules/resend/dist/index.cjs
+[WebServer]     - @react-email/render
+[WebServer]   .svelte-kit/output/server/chunks/auth.js
+[WebServer]     - @opentelemetry/api
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.mjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.mjs
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/utility.cjs
+[WebServer]     - @img/sharp-wasm32/versions
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/sharp.cjs
+[WebServer]     - @img/sharp-darwin-x64/sharp.node
+[WebServer]     - @img/sharp-linux-arm/sharp.node
+[WebServer]     - @img/sharp-linux-arm64/sharp.node
+[WebServer]     - @img/sharp-linux-ppc64/sharp.node
+[WebServer]     - @img/sharp-linux-riscv64/sharp.node
+[WebServer]     - @img/sharp-linux-s390x/sharp.node
+[WebServer]     - @img/sharp-linux-x64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-arm64/sharp.node
+[WebServer]     - @img/sharp-linuxmusl-x64/sharp.node
+[WebServer]     - @img/sharp-win32-arm64/sharp.node
+[WebServer]     - @img/sharp-win32-ia32/sharp.node
+[WebServer]     - @img/sharp-win32-x64/sharp.node
+[WebServer]     - @img/sharp-freebsd-wasm32/sharp.node
+[WebServer]     - @img/sharp-webcontainers-wasm32/sharp.node
+[WebServer]     - @img/sharp-wasm32/sharp.node
+[WebServer]     - @img/sharp-libvips-/package
+[WebServer]   node_modules/.pnpm/sharp@0.35.5_@types+node@26.6.6/node_modules/sharp/dist/libvips.cjs
+[WebServer]     - @img/sharp-libvips-dev/cplusplus
+[WebServer]     - @img/sharp-libvips-dev/include
+[WebServer] (node:11100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vp preview
+[WebServer] (node:11175) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:11183) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 44 tests using 8 workers
+
+(node:11212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11211) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11214) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11213) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11210) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11209) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11207) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 src/routes/demo/playwright/page.svelte.e2e.ts:3:1 › has expected h1 (240ms)
+  ✓   3 tests/seo/seo-standard.spec.ts:43:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › verifies robots.txt, sitemap.xml, rss.xml, and 404 error page contract (359ms)
+  ✓   5 src/routes/blog/blog-system.e2e.ts:29:2 › Blog System & Prose Parity E2E Suite › renders /blog index with category pills, featured cards, article grid, and Blog JSON-LD (366ms)
+  ✓   7 src/routes/page.svelte.e2e.ts:4:2 › Revolution Trading Pros Homepage Blueprint › enforces single H1 with whitespace separation and semantic H2/H3 outline (394ms)
+  ✓  10 src/routes/blog/blog-system.e2e.ts:54:2 › Blog System & Prose Parity E2E Suite › renders /blog/[slug] with stable TOC links, visible native <details> FAQ accordion, BlogPosting JSON-LD, author box, and X share link (182ms)
+  ✓  11 src/routes/page.svelte.e2e.ts:36:2 › Revolution Trading Pros Homepage Blueprint › renders enhanced brand logo and the 7-item navigation menu and submenus with visible Blog (200ms)
+  ✓  12 src/routes/blog/blog-system.e2e.ts:89:2 › Blog System & Prose Parity E2E Suite › enforces password gate on password_protected post and unlocks content with valid password (277ms)
+  ✓  14 src/routes/blog/blog-system.e2e.ts:117:2 › Blog System & Prose Parity E2E Suite › serves valid RSS 2.0 XML at /rss.xml with content:encoded, ETag, and 304 If-None-Match support (39ms)
+  ✓   1 tests/deployment/vercel-runtime.e2e.ts:10:1 › generated Vercel handler renders the SSR homepage and blog without Vite asset fallbacks (1.4s)
+  ✓  13 src/routes/page.svelte.e2e.ts:117:2 › Revolution Trading Pros Homepage Blueprint › keeps Blog navigation, footer and JSON-LD aligned and navigates on desktop and mobile (1.2s)
+  ✓   4 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin has its own title, a noindex robots meta and no marketing meta (765ms)
+  ✓  16 src/routes/page.svelte.e2e.ts:198:2 › Revolution Trading Pros Homepage Blueprint › applies SSOT color style guide (including WCAG AA #7E3C34 fix) and Fontsource typography (196ms)
+  ✓   6 tests/maintenance/navigation.e2e.ts:17:1 › an open app navigates to maintenance and recovers after deactivation (1.8s)
+  ✓   9 tests/seo/seo-standard.spec.ts:88:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › crawls every indexable URL in 02-inventory.json and enforces metadata, canonical, JSON-LD, breadcrumb, image, and YMYL rules (1.7s)
+  ✓  19 tests/maintenance/navigation.e2e.ts:74:1 › maintenance page fits a mobile viewport and honours reduced motion (138ms)
+  ✓  15 src/routes/blog/blog-system.e2e.ts:139:2 › Blog System & Prose Parity E2E Suite › verifies Prose Parity (.prose-base and max-width: 900px) with real browser screenshots at 1280px and 1440px (1.3s)
+  ✓  17 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin/posts has its own title, a noindex robots meta and no marketing meta (550ms)
+  ✓  21 tests/maintenance/navigation.e2e.ts:96:1 › waitlist and chart reflow from 320px to desktop and preserve keyboard access (205ms)
+  ✓  18 src/routes/page.svelte.e2e.ts:291:2 › Revolution Trading Pros Homepage Blueprint › handles desktop dropdown keyboard focus traversal and outside-click dismissal (714ms)
+  ✓  20 tests/seo/seo-standard.spec.ts:252:2 › SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) › enforces noindex and no canonical on non-indexable routes in 02-inventory.json (IDX-08) (815ms)
+  ✓  24 src/routes/page.svelte.e2e.ts:327:2 › Revolution Trading Pros Homepage Blueprint › renders US/Canada hreflang tags, JSON-LD EducationalOrganization schema, OpenGraph/Twitter image metadata, robots.txt, and clean sitemap.xml (259ms)
+  ✓  22 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin/posts/new has its own title, a noindex robots meta and no marketing meta (604ms)
+  ✓  26 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin/media has its own title, a noindex robots meta and no marketing meta (603ms)
+  ✓  23 tests/maintenance/navigation.e2e.ts:128:1 › playback can pause and restart; form shows provider-independent saved/error states (1.6s)
+  ✓  27 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin/leads has its own title, a noindex robots meta and no marketing meta (555ms)
+  ✓  28 tests/maintenance/navigation.e2e.ts:160:1 › retry performs a document navigation and preserves the requested path and query (243ms)
+  ✓  30 tests/maintenance/navigation.e2e.ts:194:1 › the core notice remains usable with JavaScript and web fonts unavailable (88ms)
+  ✓  31 tests/maintenance/navigation.e2e.ts:223:1 › unconfigured capture shows a prepared disabled waitlist with honest availability (120ms)
+  ✓  32 tests/maintenance/navigation.e2e.ts:235:1 › enabled capture has identified controls and dimensioned images without JavaScript (80ms)
+  ✓  29 src/routes/admin/admin-shell.e2e.ts:49:3 › Admin shell › /admin/integrations has its own title, a noindex robots meta and no marketing meta (559ms)
+  ✓  34 src/routes/admin/admin-shell.e2e.ts:64:2 › Admin shell › an unknown admin URL is a real 404 with its own title and noindex (39ms)
+  ✓  35 src/routes/admin/admin-shell.e2e.ts:71:2 › Admin shell › the blog editor has exactly one h1 (538ms)
+  ✓  33 tests/maintenance/navigation.e2e.ts:264:1 › chart crosshair inspects historical candles and returns to playback on leave (1.1s)
+  ✓   8 src/routes/admin/image-flow.e2e.ts:158:2 › Admin image flow: upload, feature, insert, publish, public page › creates a post with featured and inline images, saves a draft, reloads, and publishes (4.7s)
+  ✓  25 src/routes/page.svelte.e2e.ts:490:2 › Revolution Trading Pros Homepage Blueprint › verifies /about route has zero duplicate meta tags, valid AboutPage/ProfilePage JSON-LD, strict H1->H2->H3 hierarchy, and noindex on /demo/* (3.2s)
+  ✓  38 src/routes/page.svelte.e2e.ts:1154:2 › Revolution Trading Pros Homepage Blueprint › scales cleanly across 320px base and all 6 enterprise breakpoints (480px, 640px, 768px, 1024px, 1280px, 1536px) with zero horizontal overflow (275ms)
+  ✓  39 src/routes/page.svelte.e2e.ts:1255:2 › Revolution Trading Pros Homepage Blueprint › handles mobile menu toggle, 48px tap targets, resize cleanup, and Escape key (255ms)
+  ✓  40 src/routes/page.svelte.e2e.ts:1288:2 › Revolution Trading Pros Homepage Blueprint › keeps all .reveal section elements visible (opacity: 1) when JavaScript is disabled (95ms)
+  ✓  36 src/routes/admin/admin-shell.e2e.ts:77:2 › Admin shell › admin checkboxes are at least 24x24 CSS px (WCAG 2.2 SC 2.5.8) (1.6s)
+  ✓  41 src/routes/admin/admin-shell.e2e.ts:92:2 › Admin shell › Lead Captures shows an empty state, never bars, when the period has no leads (557ms)
+  ✓  37 src/routes/admin/image-flow.e2e.ts:305:2 › Admin image flow: upload, feature, insert, publish, public page › publishing automatically adds one real card to homepage and blog without a rebuild (3.7s)
+  ✓  42 src/routes/admin/image-flow.e2e.ts:359:2 › Admin image flow: upload, feature, insert, publish, public page › keeps wide CMS tables and code locally scrollable without widening the article (385ms)
+  ✓  43 src/routes/admin/image-flow.e2e.ts:416:2 › Admin image flow: upload, feature, insert, publish, public page › aligns every blog surface with the shared site container from mobile to ultrawide (2.2s)
+  ✓  44 src/routes/admin/image-flow.e2e.ts:477:2 › Admin image flow: upload, feature, insert, publish, public page › public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap (683ms)
+
+  44 passed (25.9s)

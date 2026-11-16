@@ -1,0 +1,19 @@
+{
+	"checkedAt": "2026-11-15T19:33:48.216Z",
+	"sources": [
+		"https://viteplus.dev/guide/upgrade-project",
+		"https://viteplus.dev/guide/migrate",
+		"https://viteplus.dev/guide/migrate-rules",
+		"https://viteplus.dev/guide/vitest-v5",
+		"https://svelte.dev/docs/svelte/typescript",
+		"https://svelte.dev/docs/kit/@sveltejs-kit-vite",
+		"https://registry.npmjs.org/typescript",
+		"https://registry.npmjs.org/@sveltejs%2fkit/3.2.0",
+		"https://registry.npmjs.org/svelte-check/4.7.8",
+		"https://registry.npmjs.org/typescript-eslint/8.72.2",
+		"https://d3js.org/d3-transition/selecting",
+		"https://d3js.org/d3-transition/control-flow",
+		"https://github.com/sveltejs/kit/releases/tag/@sveltejs%2Fkit@3.2.0",
+		"https://github.com/voidzero-dev/vite-plus/releases/tag/v1.6.0"
+	]
+}

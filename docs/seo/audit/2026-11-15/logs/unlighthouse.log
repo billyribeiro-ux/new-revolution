@@ -1,0 +1,464 @@
+[Unlighthouse] ⚙ Starting Unlighthouse at root: /tmp/revolution-seo-tools cwd: /private/tmp/revolution-seo-tools
+[Unlighthouse] ⚙ Discovered config definition { site: 'http://127.0.0.1:4176',
+  urls:
+   [ '/',
+     '/about',
+     '/alert-services/spx-profit-pulse',
+     '/alert-services/sunday-alpha-protocol',
+     '/blog',
+     '/blog/category/market-structure',
+     '/blog/institutional-order-flow-and-gamma-flip-playbook',
+     '/blog/private-desk-quarterly-gamma-levels-briefing',
+     '/blog/tag/spx-options',
+     '/blog/zero-dte-risk-management-and-position-sizing-rules',
+     '/contact',
+     '/editorial-policy',
+     '/live-trading-rooms/day-trading-room',
+     '/live-trading-rooms/small-accounts-room',
+     '/live-trading-rooms/swing-trading-room',
+     '/mentorship',
+     '/our-mission',
+     '/privacy-policy',
+     '/refund-policy',
+     '/resources',
+     '/resources/etf-stocks-list',
+     '/resources/stock-indexes-list',
+     '/store/courses',
+     '/store/courses/contrarian-distribution-and-shorting',
+     '/store/courses/institutional-risk-and-trader-psychology',
+     '/store/courses/macro-cycle-inflection-mastery',
+     '/store/courses/move-prior-to-the-move-masterclass',
+     '/store/courses/move-prior-to-the-move-ultra',
+     '/store/courses/options-greeks-and-volatility-mastery',
+     '/store/courses/small-account-compounding-blueprint',
+     '/store/courses/spx-0dte-and-index-gamma-execution',
+     '/store/courses/working-pro-swing-trading-system',
+     '/store/indicators',
+     '/store/indicators/anchored-vwap-liquidity-bands',
+     '/store/indicators/institutional-volume-absorption',
+     '/store/indicators/move-prior-to-the-move-pro',
+     '/store/indicators/move-prior-to-the-move-system',
+     '/store/indicators/mp-early-in-n-out-pro',
+     '/store/indicators/multi-timeframe-squeeze-pro',
+     '/store/indicators/options-expected-move-corridor',
+     '/store/indicators/spx-dealer-gamma-levels',
+     '/store/indicators/volatility-regime-compass',
+     '/store/scanners',
+     '/store/scanners/high-octane-scanner',
+     '/store/scanners/liquidity-sweep-stop-hunt-scanner',
+     '/store/scanners/move-prior-to-the-move-radar',
+     '/store/scanners/multi-timeframe-squeeze-scanner',
+     '/store/scanners/opening-bell-gap-and-go-fade-scanner',
+     '/store/scanners/small-account-affordable-options-scanner',
+     '/store/scanners/smart-money-relative-volume-scanner',
+     '/store/scanners/spx-dealer-gamma-iv-skew-scanner',
+     '/store/scanners/working-pro-eod-swing-scanner',
+     '/terms-of-service' ],
+  scanner: { samples: 1, dynamicSampling: false, robotsTxt: false, sitemap: false },
+  puppeteerOptions:
+   { executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' },
+  puppeteerClusterOptions: { maxConcurrency: 2 },
+  outputPath: '/tmp/revolution-unlighthouse',
+  ci: { budget: 90, buildStatic: true } }
+[Unlighthouse] ⚙ Unable to locale page files, disabling route discovery.
+[Unlighthouse] ⚙ Testing system Chrome installation.
+[Unlighthouse] ⚙ Post config resolution { routerPrefix: '/',
+  apiPrefix: '/api',
+  cache: false,
+  client:
+   { groupRoutesKey: 'route.definition.name',
+     columns:
+      { overview: [Array],
+        performance: [Array],
+        accessibility: [Array],
+        'best-practices': [Array],
+        seo: [Array] } },
+  scanner:
+   { customSampling: {},
+     ignoreI18nPages: true,
+     maxRoutes: 200,
+     skipJavascript: true,
+     samples: 1,
+     throttle: false,
+     crawler: true,
+     dynamicSampling: false,
+     sitemap: false,
+     robotsTxt: false,
+     device: 'mobile',
+     exclude: [ '/cdn-cgi/*' ] },
+  server: { port: 5678, showURL: false, open: true },
+  discovery: false,
+  root: '/tmp/revolution-seo-tools',
+  outputPath: '/tmp/revolution-unlighthouse',
+  debug: false,
+  puppeteerOptions:
+   { headless: true,
+     ignoreHTTPSErrors: true,
+     timeout: 0,
+     protocolTimeout: 0,
+     executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+     defaultViewport:
+      { mobile: true, width: 412, height: 823, deviceScaleFactor: 1.75, disabled: false },
+     logger: [Function: debug] },
+  puppeteerClusterOptions:
+   { timeout: 300000,
+     monitor: true,
+     workerCreationDelay: 500,
+     retryLimit: 3,
+     maxConcurrency: 2,
+     skipDuplicateUrls: false,
+     retryDelay: 2000,
+     concurrency: 3 },
+  lighthouseOptions:
+   { onlyCategories: [ 'performance', 'accessibility', 'best-practices', 'seo' ],
+     throttlingMethod: 'provided',
+     throttling:
+      { rttMs: 0,
+        throughputKbps: 0,
+        cpuSlowdownMultiplier: 1,
+        requestLatencyMs: 0,
+        downloadThroughputKbps: 0,
+        uploadThroughputKbps: 0 },
+     formFactor: 'mobile',
+     screenEmulation:
+      { mobile: true, width: 412, height: 823, deviceScaleFactor: 1.75, disabled: false },
+     emulatedUserAgent:
+      'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36' },
+  site: 'http://127.0.0.1:4176',
+  urls:
+   [ '/',
+     '/about',
+     '/alert-services/spx-profit-pulse',
+     '/alert-services/sunday-alpha-protocol',
+     '/blog',
+     '/blog/category/market-structure',
+     '/blog/institutional-order-flow-and-gamma-flip-playbook',
+     '/blog/private-desk-quarterly-gamma-levels-briefing',
+     '/blog/tag/spx-options',
+     '/blog/zero-dte-risk-management-and-position-sizing-rules',
+     '/contact',
+     '/editorial-policy',
+     '/live-trading-rooms/day-trading-room',
+     '/live-trading-rooms/small-accounts-room',
+     '/live-trading-rooms/swing-trading-room',
+     '/mentorship',
+     '/our-mission',
+     '/privacy-policy',
+     '/refund-policy',
+     '/resources',
+     '/resources/etf-stocks-list',
+     '/resources/stock-indexes-list',
+     '/store/courses',
+     '/store/courses/contrarian-distribution-and-shorting',
+     '/store/courses/institutional-risk-and-trader-psychology',
+     '/store/courses/macro-cycle-inflection-mastery',
+     '/store/courses/move-prior-to-the-move-masterclass',
+     '/store/courses/move-prior-to-the-move-ultra',
+     '/store/courses/options-greeks-and-volatility-mastery',
+     '/store/courses/small-account-compounding-blueprint',
+     '/store/courses/spx-0dte-and-index-gamma-execution',
+     '/store/courses/working-pro-swing-trading-system',
+     '/store/indicators',
+     '/store/indicators/anchored-vwap-liquidity-bands',
+     '/store/indicators/institutional-volume-absorption',
+     '/store/indicators/move-prior-to-the-move-pro',
+     '/store/indicators/move-prior-to-the-move-system',
+     '/store/indicators/mp-early-in-n-out-pro',
+     '/store/indicators/multi-timeframe-squeeze-pro',
+     '/store/indicators/options-expected-move-corridor',
+     '/store/indicators/spx-dealer-gamma-levels',
+     '/store/indicators/volatility-regime-compass',
+     '/store/scanners',
+     '/store/scanners/high-octane-scanner',
+     '/store/scanners/liquidity-sweep-stop-hunt-scanner',
+     '/store/scanners/move-prior-to-the-move-radar',
+     '/store/scanners/multi-timeframe-squeeze-scanner',
+     '/store/scanners/opening-bell-gap-and-go-fade-scanner',
+     '/store/scanners/small-account-affordable-options-scanner',
+     '/store/scanners/smart-money-relative-volume-scanner',
+     '/store/scanners/spx-dealer-gamma-iv-skew-scanner',
+     '/store/scanners/working-pro-eod-swing-scanner',
+     '/terms-of-service' ],
+  ci: { budget: 90, buildStatic: true },
+  configFile: '/tmp/revolution-seo-tools/unlighthouse.config.mjs',
+  hooks: { 'resolved-config': [AsyncFunction: resolved-config] },
+  chrome:
+   { useSystem: true,
+     useDownloadFallback: true,
+     downloadFallbackCacheDir: '/Users/billyribeiro/.unlighthouse' } }
+[Unlighthouse] ⚙ Testing Site http://127.0.0.1:4176 is valid.
+[Unlighthouse] ✔ Successfully connected to http://127.0.0.1:4176. (Status: 200).
+[Unlighthouse] ℹ Creating Unlighthouse using config from /private/tmp/revolution-seo-tools/unlighthouse.config.mjs
+[Unlighthouse] ⚙ Setting Unlighthouse Site URL [Site: http://127.0.0.1:4176/]
+[Unlighthouse] ⚙ Setting Unlighthouse CI Context [Site: http://127.0.0.1:4176]
+[Unlighthouse] ⚙ cache is disabled, clearing output folder: /tmp/revolution-unlighthouse
+[Unlighthouse] ⚙ Starting Unlighthouse [Server: N/A Site: http://127.0.0.1:4176 Debug: false]
+[Unlighthouse] ℹ The url config has been provided with 53 paths for scanning. Disabling sitemap, robots, sampling and crawler.
+[Unlighthouse] ⚙ Resolved reportable routes 53
+[Unlighthouse] ⚙ Route has been queued. Path: / Name: _index.
+[Unlighthouse] ⚙ Route has been queued. Path: /about Name: about.
+[Unlighthouse] ⚙ Route has been queued. Path: /alert-services/spx-profit-pulse Name: alert-services-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /alert-services/sunday-alpha-protocol Name: alert-services-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog Name: blog.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog/category/market-structure Name: blog-category-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog/institutional-order-flow-and-gamma-flip-playbook Name: blog-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog/private-desk-quarterly-gamma-levels-briefing Name: blog-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog/tag/spx-options Name: blog-tag-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /blog/zero-dte-risk-management-and-position-sizing-rules Name: blog-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /contact Name: contact.
+[Unlighthouse] ⚙ Route has been queued. Path: /editorial-policy Name: editorial-policy.
+[Unlighthouse] ⚙ Route has been queued. Path: /live-trading-rooms/day-trading-room Name: live-trading-rooms-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /live-trading-rooms/small-accounts-room Name: live-trading-rooms-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /live-trading-rooms/swing-trading-room Name: live-trading-rooms-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /mentorship Name: mentorship.
+[Unlighthouse] ⚙ Route has been queued. Path: /our-mission Name: our-mission.
+[Unlighthouse] ⚙ Route has been queued. Path: /privacy-policy Name: privacy-policy.
+[Unlighthouse] ⚙ Route has been queued. Path: /refund-policy Name: refund-policy.
+[Unlighthouse] ⚙ Route has been queued. Path: /resources Name: resources.
+[Unlighthouse] ⚙ Route has been queued. Path: /resources/etf-stocks-list Name: resources-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /resources/stock-indexes-list Name: resources-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses Name: store-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/contrarian-distribution-and-shorting Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/institutional-risk-and-trader-psychology Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/macro-cycle-inflection-mastery Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/move-prior-to-the-move-masterclass Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/move-prior-to-the-move-ultra Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/options-greeks-and-volatility-mastery Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/small-account-compounding-blueprint Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/spx-0dte-and-index-gamma-execution Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/courses/working-pro-swing-trading-system Name: store-courses-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators Name: store-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/anchored-vwap-liquidity-bands Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/institutional-volume-absorption Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/move-prior-to-the-move-pro Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/move-prior-to-the-move-system Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/mp-early-in-n-out-pro Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/multi-timeframe-squeeze-pro Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/options-expected-move-corridor Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/spx-dealer-gamma-levels Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/indicators/volatility-regime-compass Name: store-indicators-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners Name: store-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/high-octane-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/liquidity-sweep-stop-hunt-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/move-prior-to-the-move-radar Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/multi-timeframe-squeeze-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/opening-bell-gap-and-go-fade-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/small-account-affordable-options-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/smart-money-relative-volume-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/spx-dealer-gamma-iv-skew-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /store/scanners/working-pro-eod-swing-scanner Name: store-scanners-slug.
+[Unlighthouse] ⚙ Route has been queued. Path: /terms-of-service Name: terms-of-service.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176 response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/about response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/alert-services/spx-profit-pulse response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/alert-services/sunday-alpha-protocol response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog/category/market-structure response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog/institutional-order-flow-and-gamma-flip-playbook response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog/private-desk-quarterly-gamma-levels-briefing response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog/zero-dte-risk-management-and-position-sizing-rules response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/contact response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/editorial-policy response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/live-trading-rooms/day-trading-room response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/live-trading-rooms/small-accounts-room response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/live-trading-rooms/swing-trading-room response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/mentorship response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/blog/tag/spx-options response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/our-mission response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/privacy-policy response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/refund-policy response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/resources response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/resources/stock-indexes-list response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/resources/etf-stocks-list response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/contrarian-distribution-and-shorting response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/macro-cycle-inflection-mastery response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/institutional-risk-and-trader-psychology response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/move-prior-to-the-move-masterclass response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/options-greeks-and-volatility-mastery response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/move-prior-to-the-move-ultra response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/spx-0dte-and-index-gamma-execution response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/small-account-compounding-blueprint response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/courses/working-pro-swing-trading-system response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/institutional-volume-absorption response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/anchored-vwap-liquidity-bands response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/move-prior-to-the-move-pro response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/move-prior-to-the-move-system response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/mp-early-in-n-out-pro response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/multi-timeframe-squeeze-pro response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/options-expected-move-corridor response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/spx-dealer-gamma-levels response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/indicators/volatility-regime-compass response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/high-octane-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/liquidity-sweep-stop-hunt-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/move-prior-to-the-move-radar response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/multi-timeframe-squeeze-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/opening-bell-gap-and-go-fade-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/small-account-affordable-options-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/smart-money-relative-volume-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/spx-dealer-gamma-iv-skew-scanner response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/terms-of-service response succeeded.
+[Unlighthouse] ⚙ HTML extract of http://127.0.0.1:4176/store/scanners/working-pro-eod-swing-scanner response succeeded.
+[Unlighthouse] ✔ Unlighthouse has finished scanning http://127.0.0.1:4176: 53 routes in 506s.
+[Unlighthouse] ℹ Running score budgets. 90
+
+[Unlighthouse]  ERROR  /alert-services/spx-profit-pulse has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /alert-services/sunday-alpha-protocol has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /blog/private-desk-quarterly-gamma-levels-briefing has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /blog/tag/spx-options has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /live-trading-rooms/day-trading-room has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /live-trading-rooms/small-accounts-room has invalid score 0.82 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses has invalid score 0.82 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/contrarian-distribution-and-shorting has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/contrarian-distribution-and-shorting has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/institutional-risk-and-trader-psychology has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/institutional-risk-and-trader-psychology has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/macro-cycle-inflection-mastery has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/macro-cycle-inflection-mastery has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/move-prior-to-the-move-masterclass has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/move-prior-to-the-move-masterclass has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/move-prior-to-the-move-ultra has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/options-greeks-and-volatility-mastery has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/options-greeks-and-volatility-mastery has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/small-account-compounding-blueprint has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/spx-0dte-and-index-gamma-execution has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/courses/spx-0dte-and-index-gamma-execution has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/courses/working-pro-swing-trading-system has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators has invalid score 0.82 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/indicators has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/anchored-vwap-liquidity-bands has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/institutional-volume-absorption has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/move-prior-to-the-move-pro has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/move-prior-to-the-move-system has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/indicators/move-prior-to-the-move-system has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/mp-early-in-n-out-pro has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/multi-timeframe-squeeze-pro has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/indicators/multi-timeframe-squeeze-pro has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/options-expected-move-corridor has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/indicators/options-expected-move-corridor has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/spx-dealer-gamma-levels has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/indicators/volatility-regime-compass has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners has invalid score 0.82 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/scanners has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/high-octane-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/liquidity-sweep-stop-hunt-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/move-prior-to-the-move-radar has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/multi-timeframe-squeeze-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/opening-bell-gap-and-go-fade-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/small-account-affordable-options-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/smart-money-relative-volume-scanner has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/scanners/smart-money-relative-volume-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/spx-dealer-gamma-iv-skew-scanner has invalid score 0.66 for category seo.
+
+
+[Unlighthouse]  ERROR  /store/scanners/working-pro-eod-swing-scanner has invalid score 0.85 for category performance.
+
+
+[Unlighthouse]  ERROR  /store/scanners/working-pro-eod-swing-scanner has invalid score 0.66 for category seo.
+
+[Unlighthouse] ✔ Generated jsonSimple report ./../revolution-unlighthouse/ci-result.json
+[Unlighthouse] ℹ Generating static report.
+[Unlighthouse] ⚙ Looking for index.*.js files in: /private/tmp/revolution-seo-tools/node_modules/.pnpm/@unlighthouse+client@0.19.1_470c9943173a38227a34ef35faa3f00f/node_modules/@unlighthouse/client/dist/assets
+[Unlighthouse] ⚙ Found index files: [ 'index-Dt2Aw1lO.js' ]
+[Unlighthouse] ⚙ Processing index file: /private/tmp/revolution-seo-tools/node_modules/.pnpm/@unlighthouse+client@0.19.1_470c9943173a38227a34ef35faa3f00f/node_modules/@unlighthouse/client/dist/assets/index-Dt2Aw1lO.js -> /tmp/revolution-unlighthouse/assets/index-Dt2Aw1lO.js
+[Unlighthouse] ⚙ Deleting 54 files not required for static build.
+[Unlighthouse] ✔ Static report is ready for uploading: ./../revolution-unlighthouse
+[Unlighthouse] ℹ You can preview the static report using npx sirv-cli ./../revolution-unlighthouse.
+[Unlighthouse] ℹ For deployment demos, see https://unlighthouse.dev/guide/guides/generating-static-reports#interactive-html-reports

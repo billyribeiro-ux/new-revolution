@@ -1,0 +1,2680 @@
+[
+	{
+		"width": 390,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 555.5999999996275,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -778.75,
+				"width": 375,
+				"height": 13827.71875,
+				"top": -778.75,
+				"right": 375,
+				"bottom": 13048.96875,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -652.15625,
+				"width": 351,
+				"height": 207.8125,
+				"top": -652.15625,
+				"right": 363,
+				"bottom": -444.34375,
+				"left": 12
+			},
+			"scrollHeight": 17506,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1639,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 347.25,
+				"width": 375,
+				"height": 74,
+				"top": 347.25,
+				"right": 375,
+				"bottom": 421.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 485.25,
+				"width": 375,
+				"height": 363.9375,
+				"top": 485.25,
+				"right": 375,
+				"bottom": 849.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": 557.84375,
+				"width": 293,
+				"height": 71.65625,
+				"top": 557.84375,
+				"right": 334,
+				"bottom": 629.5,
+				"left": 41
+			},
+			"scrollHeight": 4170,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "no-preference",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 407.59999999962747,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -777.75,
+				"width": 375,
+				"height": 17107.8125,
+				"top": -777.75,
+				"right": 375,
+				"bottom": 16330.0625,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -538.484375,
+				"width": 351,
+				"height": 299.71875,
+				"top": -538.484375,
+				"right": 363,
+				"bottom": -238.765625,
+				"left": 12
+			},
+			"scrollHeight": 20787,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1490.7000000011176,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 486.25,
+				"width": 375,
+				"height": 363.9375,
+				"top": 486.25,
+				"right": 375,
+				"bottom": 850.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": 558.84375,
+				"width": 293,
+				"height": 71.65625,
+				"top": 558.84375,
+				"right": 334,
+				"bottom": 630.5,
+				"left": 41
+			},
+			"scrollHeight": 4171,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 399.80000000074506,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -713.75,
+				"width": 375,
+				"height": 363.9375,
+				"top": -713.75,
+				"right": 375,
+				"bottom": -349.8125,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": -641.15625,
+				"width": 293,
+				"height": 71.65625,
+				"top": -641.15625,
+				"right": 334,
+				"bottom": -569.5,
+				"left": 41
+			},
+			"scrollHeight": 4171,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1479.7000000011176,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 422.25,
+				"width": 375,
+				"height": 17107.8125,
+				"top": 422.25,
+				"right": 375,
+				"bottom": 17530.0625,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 661.515625,
+				"width": 351,
+				"height": 299.71875,
+				"top": 661.515625,
+				"right": 363,
+				"bottom": 961.234375,
+				"left": 12
+			},
+			"scrollHeight": 20787,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 449.2999999988824,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -778.75,
+				"width": 375,
+				"height": 13827.71875,
+				"top": -778.75,
+				"right": 375,
+				"bottom": 13048.96875,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -652.15625,
+				"width": 351,
+				"height": 207.8125,
+				"top": -652.15625,
+				"right": 363,
+				"bottom": -444.34375,
+				"left": 12
+			},
+			"scrollHeight": 17506,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1527.7999999988824,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 347.25,
+				"width": 375,
+				"height": 74,
+				"top": 347.25,
+				"right": 375,
+				"bottom": 421.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 485.25,
+				"width": 375,
+				"height": 363.9375,
+				"top": 485.25,
+				"right": 375,
+				"bottom": 849.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": 557.84375,
+				"width": 293,
+				"height": 71.65625,
+				"top": 557.84375,
+				"right": 334,
+				"bottom": 629.5,
+				"left": 41
+			},
+			"scrollHeight": 4170,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "reduce",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 412.40000000037253,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -777.75,
+				"width": 375,
+				"height": 17107.8125,
+				"top": -777.75,
+				"right": 375,
+				"bottom": 16330.0625,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -538.484375,
+				"width": 351,
+				"height": 299.71875,
+				"top": -538.484375,
+				"right": 363,
+				"bottom": -238.765625,
+				"left": 12
+			},
+			"scrollHeight": 20787,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1495,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 486.25,
+				"width": 375,
+				"height": 363.9375,
+				"top": 486.25,
+				"right": 375,
+				"bottom": 850.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": 558.84375,
+				"width": 293,
+				"height": 71.65625,
+				"top": 558.84375,
+				"right": 334,
+				"bottom": 630.5,
+				"left": 41
+			},
+			"scrollHeight": 4171,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 399.5,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -713.75,
+				"width": 375,
+				"height": 363.9375,
+				"top": -713.75,
+				"right": 375,
+				"bottom": -349.8125,
+				"left": 0
+			},
+			"h1": {
+				"x": 41,
+				"y": -641.15625,
+				"width": 293,
+				"height": 71.65625,
+				"top": -641.15625,
+				"right": 334,
+				"bottom": -569.5,
+				"left": 41
+			},
+			"scrollHeight": 4171,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1480.5999999996275,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 422.25,
+				"width": 375,
+				"height": 17107.8125,
+				"top": 422.25,
+				"right": 375,
+				"bottom": 17530.0625,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 661.515625,
+				"width": 351,
+				"height": 299.71875,
+				"top": 661.515625,
+				"right": 363,
+				"bottom": 961.234375,
+				"left": 12
+			},
+			"scrollHeight": 20787,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 461.30000000074506,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 7642.96875,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 6749.671875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -743.890625,
+				"width": 756.390625,
+				"height": 209.6875,
+				"top": -743.890625,
+				"right": 788.390625,
+				"bottom": -534.203125,
+				"left": 32
+			},
+			"scrollHeight": 9394,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26565)",
+					"top": 327.5000305175781
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26565)",
+					"top": 515.875
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26565)",
+					"top": 515.875
+				}
+			]
+		},
+		"last": {
+			"t": 1495.5,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.703125,
+				"width": 1425,
+				"height": 309.75,
+				"top": 370.703125,
+				"right": 1425,
+				"bottom": 680.453125,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": 444.296875,
+				"width": 538,
+				"height": 35.828125,
+				"top": 444.296875,
+				"right": 981.5,
+				"bottom": 480.125,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 63,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "no-preference",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 410.30000000074506,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 8779.578125,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 7886.28125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -663.90625,
+				"width": 767.25,
+				"height": 319.6875,
+				"top": -663.90625,
+				"right": 799.25,
+				"bottom": -344.21875,
+				"left": 32
+			},
+			"scrollHeight": 10531,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1443.699999999255,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.703125,
+				"width": 1425,
+				"height": 309.75,
+				"top": 370.703125,
+				"right": 1425,
+				"bottom": 680.453125,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": 444.296875,
+				"width": 538,
+				"height": 35.828125,
+				"top": 444.296875,
+				"right": 981.5,
+				"bottom": 480.125,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 63,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 397.19999999925494,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -829.296875,
+				"width": 1425,
+				"height": 309.75,
+				"top": -829.296875,
+				"right": 1425,
+				"bottom": -519.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": -755.703125,
+				"width": 538,
+				"height": 35.828125,
+				"top": -755.703125,
+				"right": 981.5,
+				"bottom": -719.875,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1444,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 8779.578125,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 9086.28125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 536.09375,
+				"width": 767.25,
+				"height": 319.6875,
+				"top": 536.09375,
+				"right": 799.25,
+				"bottom": 855.78125,
+				"left": 32
+			},
+			"scrollHeight": 10531,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 442.69999999925494,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 7642.96875,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 6749.671875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -743.890625,
+				"width": 756.390625,
+				"height": 209.6875,
+				"top": -743.890625,
+				"right": 788.390625,
+				"bottom": -534.203125,
+				"left": 32
+			},
+			"scrollHeight": 9394,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 326.234375
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 514.609375
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 514.609375
+				}
+			]
+		},
+		"last": {
+			"t": 1509.5999999996275,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.703125,
+				"width": 1425,
+				"height": 309.75,
+				"top": 370.703125,
+				"right": 1425,
+				"bottom": 680.453125,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": 444.296875,
+				"width": 538,
+				"height": 35.828125,
+				"top": 444.296875,
+				"right": 981.5,
+				"bottom": 480.125,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 65,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "reduce",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 413.69999999925494,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 8779.578125,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 7886.28125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -663.90625,
+				"width": 767.25,
+				"height": 319.6875,
+				"top": -663.90625,
+				"right": 799.25,
+				"bottom": -344.21875,
+				"left": 32
+			},
+			"scrollHeight": 10531,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1446.5999999996275,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.703125,
+				"width": 1425,
+				"height": 309.75,
+				"top": 370.703125,
+				"right": 1425,
+				"bottom": 680.453125,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": 444.296875,
+				"width": 538,
+				"height": 35.828125,
+				"top": 444.296875,
+				"right": 981.5,
+				"bottom": 480.125,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 63,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 400,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -829.296875,
+				"width": 1425,
+				"height": 309.75,
+				"top": -829.296875,
+				"right": 1425,
+				"bottom": -519.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 443.5,
+				"y": -755.703125,
+				"width": 538,
+				"height": 35.828125,
+				"top": -755.703125,
+				"right": 981.5,
+				"bottom": -719.875,
+				"left": 443.5
+			},
+			"scrollHeight": 2189,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1449.0999999996275,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 8779.578125,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 9086.28125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 536.09375,
+				"width": 767.25,
+				"height": 319.6875,
+				"top": 536.09375,
+				"right": 799.25,
+				"bottom": 855.78125,
+				"left": 32
+			},
+			"scrollHeight": 10531,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 460.90000000037253,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -892.078125,
+				"width": 1905,
+				"height": 7643.625,
+				"top": -892.078125,
+				"right": 1905,
+				"bottom": 6751.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -742.671875,
+				"width": 783.890625,
+				"height": 209.6875,
+				"top": -742.671875,
+				"right": 1024.390625,
+				"bottom": -532.984375,
+				"left": 240.5
+			},
+			"scrollHeight": 9396,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26716)",
+					"top": 333.50152587890625
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26716)",
+					"top": 523.2827758789062
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26716)",
+					"top": 523.2827758789062
+				}
+			]
+		},
+		"last": {
+			"t": 1494.4000000003725,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 219.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 219.921875,
+				"right": 1905,
+				"bottom": 307.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 371.921875,
+				"width": 1905,
+				"height": 309.984375,
+				"top": 371.921875,
+				"right": 1905,
+				"bottom": 681.90625,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": 445.515625,
+				"width": 538,
+				"height": 35.828125,
+				"top": 445.515625,
+				"right": 1221.5,
+				"bottom": 481.34375,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 63,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "no-preference",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 414.5,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.078125,
+				"width": 1905,
+				"height": 8748.21875,
+				"top": -893.078125,
+				"right": 1905,
+				"bottom": 7855.140625,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -663.6875,
+				"width": 804,
+				"height": 319.6875,
+				"top": -663.6875,
+				"right": 1044.5,
+				"bottom": -344,
+				"left": 240.5
+			},
+			"scrollHeight": 10500,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1460.4000000003725,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.921875,
+				"width": 1905,
+				"height": 310.984375,
+				"top": 370.921875,
+				"right": 1905,
+				"bottom": 681.90625,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": 445.515625,
+				"width": 538,
+				"height": 35.828125,
+				"top": 445.515625,
+				"right": 1221.5,
+				"bottom": 481.34375,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 400.09999999962747,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -829.078125,
+				"width": 1905,
+				"height": 310.984375,
+				"top": -829.078125,
+				"right": 1905,
+				"bottom": -518.09375,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": -754.484375,
+				"width": 538,
+				"height": 35.828125,
+				"top": -754.484375,
+				"right": 1221.5,
+				"bottom": -718.65625,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1446.9000000003725,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.921875,
+				"width": 1905,
+				"height": 8748.21875,
+				"top": 306.921875,
+				"right": 1905,
+				"bottom": 9055.140625,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 536.3125,
+				"width": 804,
+				"height": 319.6875,
+				"top": 536.3125,
+				"right": 1044.5,
+				"bottom": 856,
+				"left": 240.5
+			},
+			"scrollHeight": 10500,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 459.80000000074506,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -892.078125,
+				"width": 1905,
+				"height": 7643.625,
+				"top": -892.078125,
+				"right": 1905,
+				"bottom": 6751.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -742.671875,
+				"width": 783.890625,
+				"height": 209.6875,
+				"top": -742.671875,
+				"right": 1024.390625,
+				"bottom": -532.984375,
+				"left": 240.5
+			},
+			"scrollHeight": 9396,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 332.234375
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 522.015625
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 522.015625
+				}
+			]
+		},
+		"last": {
+			"t": 1509.6000000014901,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 219.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 219.921875,
+				"right": 1905,
+				"bottom": 307.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 371.921875,
+				"width": 1905,
+				"height": 309.984375,
+				"top": 371.921875,
+				"right": 1905,
+				"bottom": 681.90625,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": 445.515625,
+				"width": 538,
+				"height": 35.828125,
+				"top": 445.515625,
+				"right": 1221.5,
+				"bottom": 481.34375,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "reduce",
+		"from": "/about",
+		"to": "/blog",
+		"shifts": [],
+		"first": {
+			"t": 418.5,
+			"path": "/about",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.078125,
+				"width": 1905,
+				"height": 8748.21875,
+				"top": -893.078125,
+				"right": 1905,
+				"bottom": 7855.140625,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -663.6875,
+				"width": 804,
+				"height": 319.6875,
+				"top": -663.6875,
+				"right": 1044.5,
+				"bottom": -344,
+				"left": 240.5
+			},
+			"scrollHeight": 10500,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1466.0999999996275,
+			"path": "/blog",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 370.921875,
+				"width": 1905,
+				"height": 310.984375,
+				"top": 370.921875,
+				"right": 1905,
+				"bottom": 681.90625,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": 445.515625,
+				"width": 538,
+				"height": 35.828125,
+				"top": 445.515625,
+				"right": 1221.5,
+				"bottom": 481.34375,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/about",
+		"shifts": [],
+		"first": {
+			"t": 404.5,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -829.078125,
+				"width": 1905,
+				"height": 310.984375,
+				"top": -829.078125,
+				"right": 1905,
+				"bottom": -518.09375,
+				"left": 0
+			},
+			"h1": {
+				"x": 683.5,
+				"y": -754.484375,
+				"width": 538,
+				"height": 35.828125,
+				"top": -754.484375,
+				"right": 1221.5,
+				"bottom": -718.65625,
+				"left": 683.5
+			},
+			"scrollHeight": 2190,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1447.800000000745,
+			"path": "/about",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.921875,
+				"width": 1905,
+				"height": 8748.21875,
+				"top": 306.921875,
+				"right": 1905,
+				"bottom": 9055.140625,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 536.3125,
+				"width": 804,
+				"height": 319.6875,
+				"top": 536.3125,
+				"right": 1044.5,
+				"bottom": 856,
+				"left": 240.5
+			},
+			"scrollHeight": 10500,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 64,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 462.5,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -778.75,
+				"width": 375,
+				"height": 15341.359375,
+				"top": -778.75,
+				"right": 375,
+				"bottom": 14562.609375,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -652.15625,
+				"width": 351,
+				"height": 207.8125,
+				"top": -652.15625,
+				"right": 363,
+				"bottom": -444.34375,
+				"left": 12
+			},
+			"scrollHeight": 19020,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1579.0999999996275,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 347.25,
+				"width": 375,
+				"height": 74,
+				"top": 347.25,
+				"right": 375,
+				"bottom": 421.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 421.25,
+				"width": 375,
+				"height": 19376.21875,
+				"top": 421.25,
+				"right": 375,
+				"bottom": 19797.46875,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 567.234375,
+				"width": 351,
+				"height": 69.90625,
+				"top": 567.234375,
+				"right": 363,
+				"bottom": 637.140625,
+				"left": 12
+			},
+			"scrollHeight": 23055,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 68,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 418.30000000074506,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -777.75,
+				"width": 375,
+				"height": 2397.109375,
+				"top": -777.75,
+				"right": 375,
+				"bottom": 1619.359375,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -638.765625,
+				"width": 351,
+				"height": 72.21875,
+				"top": -638.765625,
+				"right": 363,
+				"bottom": -566.546875,
+				"left": 12
+			},
+			"scrollHeight": 6076,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1500.5,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 422.25,
+				"width": 375,
+				"height": 19700.53125,
+				"top": 422.25,
+				"right": 375,
+				"bottom": 20122.78125,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 568.234375,
+				"width": 351,
+				"height": 69.90625,
+				"top": 568.234375,
+				"right": 363,
+				"bottom": 638.140625,
+				"left": 12
+			},
+			"scrollHeight": 23380,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 448.7999999988824,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -778.75,
+				"width": 375,
+				"height": 15341.359375,
+				"top": -778.75,
+				"right": 375,
+				"bottom": 14562.609375,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -652.15625,
+				"width": 351,
+				"height": 207.8125,
+				"top": -652.15625,
+				"right": 363,
+				"bottom": -444.34375,
+				"left": 12
+			},
+			"scrollHeight": 19020,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1548.0999999996275,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 347.25,
+				"width": 375,
+				"height": 74,
+				"top": 347.25,
+				"right": 375,
+				"bottom": 421.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 421.25,
+				"width": 375,
+				"height": 19376.21875,
+				"top": 421.25,
+				"right": 375,
+				"bottom": 19797.46875,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 567.234375,
+				"width": 351,
+				"height": 69.90625,
+				"top": 567.234375,
+				"right": 363,
+				"bottom": 637.140625,
+				"left": 12
+			},
+			"scrollHeight": 23055,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 67,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 390,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 421.30000000074506,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 375,
+				"height": 74,
+				"top": 0,
+				"right": 375,
+				"bottom": 74,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -777.75,
+				"width": 375,
+				"height": 2397.109375,
+				"top": -777.75,
+				"right": 375,
+				"bottom": 1619.359375,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": -638.765625,
+				"width": 351,
+				"height": 72.21875,
+				"top": -638.765625,
+				"right": 363,
+				"bottom": -566.546875,
+				"left": 12
+			},
+			"scrollHeight": 6076,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1488.199999999255,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 348.25,
+				"width": 375,
+				"height": 74,
+				"top": 348.25,
+				"right": 375,
+				"bottom": 422.25,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 422.25,
+				"width": 375,
+				"height": 19700.53125,
+				"top": 422.25,
+				"right": 375,
+				"bottom": 20122.78125,
+				"left": 0
+			},
+			"h1": {
+				"x": 12,
+				"y": 568.234375,
+				"width": 351,
+				"height": 69.90625,
+				"top": 568.234375,
+				"right": 363,
+				"bottom": 638.140625,
+				"left": 12
+			},
+			"scrollHeight": 23380,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 65,
+		"navHeightRange": [74, 74]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 445.8999999985099,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 8509.84375,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 7616.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -743.890625,
+				"width": 756.390625,
+				"height": 209.6875,
+				"top": -743.890625,
+				"right": 788.390625,
+				"bottom": -534.203125,
+				"left": 32
+			},
+			"scrollHeight": 10261,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26694)",
+					"top": 327.5013122558594
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26694)",
+					"top": 515.8762817382812
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26694)",
+					"top": 515.8762817382812
+				}
+			]
+		},
+		"last": {
+			"t": 1547.5999999996275,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 13074.546875,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 13381.25,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 433.296875,
+				"width": 1361,
+				"height": 52.421875,
+				"top": 433.296875,
+				"right": 1393,
+				"bottom": 485.71875,
+				"left": 32
+			},
+			"scrollHeight": 14826,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 67,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 415.7999999988824,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 1714.015625,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 820.71875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -746.5,
+				"width": 849.59375,
+				"height": 112,
+				"top": -746.5,
+				"right": 881.59375,
+				"bottom": -634.5,
+				"left": 32
+			},
+			"scrollHeight": 3465,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1482.5,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 13206.109375,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 13512.8125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 433.296875,
+				"width": 1361,
+				"height": 52.421875,
+				"top": 433.296875,
+				"right": 1393,
+				"bottom": 485.71875,
+				"left": 32
+			},
+			"scrollHeight": 14957,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 65,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 463.8999999985099,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 8509.84375,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 7616.546875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -743.890625,
+				"width": 756.390625,
+				"height": 209.6875,
+				"top": -743.890625,
+				"right": 788.390625,
+				"bottom": -534.203125,
+				"left": 32
+			},
+			"scrollHeight": 10261,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 326.234375
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 514.609375
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 514.609375
+				}
+			]
+		},
+		"last": {
+			"t": 1565.0999999996275,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 13074.546875,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 13381.25,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 433.296875,
+				"width": 1361,
+				"height": 52.421875,
+				"top": 433.296875,
+				"right": 1393,
+				"bottom": 485.71875,
+				"left": 32
+			},
+			"scrollHeight": 14826,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 67,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1440,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 423.19999999925494,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1425,
+				"height": 88,
+				"top": 0,
+				"right": 1425,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.296875,
+				"width": 1425,
+				"height": 1714.015625,
+				"top": -893.296875,
+				"right": 1425,
+				"bottom": 820.71875,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": -746.5,
+				"width": 849.59375,
+				"height": 112,
+				"top": -746.5,
+				"right": 881.59375,
+				"bottom": -634.5,
+				"left": 32
+			},
+			"scrollHeight": 3465,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1490.0999999996275,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.703125,
+				"width": 1425,
+				"height": 88,
+				"top": 218.703125,
+				"right": 1425,
+				"bottom": 306.703125,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.703125,
+				"width": 1425,
+				"height": 13206.109375,
+				"top": 306.703125,
+				"right": 1425,
+				"bottom": 13512.8125,
+				"left": 0
+			},
+			"h1": {
+				"x": 32,
+				"y": 433.296875,
+				"width": 1361,
+				"height": 52.421875,
+				"top": 433.296875,
+				"right": 1393,
+				"bottom": 485.71875,
+				"left": 32
+			},
+			"scrollHeight": 14957,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 65,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "no-preference",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 465.19999999925494,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -892.078125,
+				"width": 1905,
+				"height": 8510.4375,
+				"top": -892.078125,
+				"right": 1905,
+				"bottom": 7618.359375,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -742.671875,
+				"width": 783.890625,
+				"height": 209.6875,
+				"top": -742.671875,
+				"right": 1024.390625,
+				"bottom": -532.984375,
+				"left": 240.5
+			},
+			"scrollHeight": 10263,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26638)",
+					"top": 333.5007629394531
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26638)",
+					"top": 523.281982421875
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "matrix(1, 0, 0, 1, 0, 1.26638)",
+					"top": 523.281982421875
+				}
+			]
+		},
+		"last": {
+			"t": 1563.4000000003725,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 219.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 219.921875,
+				"right": 1905,
+				"bottom": 307.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 307.921875,
+				"width": 1905,
+				"height": 12951.15625,
+				"top": 307.921875,
+				"right": 1905,
+				"bottom": 13259.078125,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 434.515625,
+				"width": 1424,
+				"height": 52.421875,
+				"top": 434.515625,
+				"right": 1664.5,
+				"bottom": 486.9375,
+				"left": 240.5
+			},
+			"scrollHeight": 14704,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 67,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "no-preference",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 419.2000000011176,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.078125,
+				"width": 1905,
+				"height": 1725.265625,
+				"top": -893.078125,
+				"right": 1905,
+				"bottom": 832.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -745.28125,
+				"width": 849.59375,
+				"height": 112,
+				"top": -745.28125,
+				"right": 1090.09375,
+				"bottom": -633.28125,
+				"left": 240.5
+			},
+			"scrollHeight": 3477,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1501.7000000011176,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.921875,
+				"width": 1905,
+				"height": 13112.671875,
+				"top": 306.921875,
+				"right": 1905,
+				"bottom": 13419.59375,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 433.515625,
+				"width": 1424,
+				"height": 52.421875,
+				"top": 433.515625,
+				"right": 1664.5,
+				"bottom": 485.9375,
+				"left": 240.5
+			},
+			"scrollHeight": 14864,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "reduce",
+		"from": "/",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 466,
+			"path": "/",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -892.078125,
+				"width": 1905,
+				"height": 8510.4375,
+				"top": -892.078125,
+				"right": 1905,
+				"bottom": 7618.359375,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -742.671875,
+				"width": 783.890625,
+				"height": 209.6875,
+				"top": -742.671875,
+				"right": 1024.390625,
+				"bottom": -532.984375,
+				"left": 240.5
+			},
+			"scrollHeight": 10263,
+			"scrollBehavior": "auto",
+			"reveals": [
+				{
+					"class": "manifesto-intro reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 332.234375
+				},
+				{
+					"class": "manifesto-card negative reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 522.015625
+				},
+				{
+					"class": "manifesto-card positive reveal svelte-1ala15l in-view",
+					"transform": "none",
+					"top": 522.015625
+				}
+			]
+		},
+		"last": {
+			"t": 1566.1000000014901,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 219.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 219.921875,
+				"right": 1905,
+				"bottom": 307.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 307.921875,
+				"width": 1905,
+				"height": 12951.15625,
+				"top": 307.921875,
+				"right": 1905,
+				"bottom": 13259.078125,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 434.515625,
+				"width": 1424,
+				"height": 52.421875,
+				"top": 434.515625,
+				"right": 1664.5,
+				"bottom": 486.9375,
+				"left": 240.5
+			},
+			"scrollHeight": 14704,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 67,
+		"navHeightRange": [88, 88]
+	},
+	{
+		"width": 1920,
+		"reducedMotion": "reduce",
+		"from": "/blog",
+		"to": "/blog/0dte-spx-options-strategy-guide",
+		"shifts": [],
+		"first": {
+			"t": 424.59999999962747,
+			"path": "/blog",
+			"y": 1200,
+			"nav": {
+				"x": 0,
+				"y": 0,
+				"width": 1905,
+				"height": 88,
+				"top": 0,
+				"right": 1905,
+				"bottom": 88,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": -893.078125,
+				"width": 1905,
+				"height": 1725.265625,
+				"top": -893.078125,
+				"right": 1905,
+				"bottom": 832.1875,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": -745.28125,
+				"width": 849.59375,
+				"height": 112,
+				"top": -745.28125,
+				"right": 1090.09375,
+				"bottom": -633.28125,
+				"left": 240.5
+			},
+			"scrollHeight": 3477,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"last": {
+			"t": 1507.7999999988824,
+			"path": "/blog/0dte-spx-options-strategy-guide",
+			"y": 0,
+			"nav": {
+				"x": 0,
+				"y": 218.921875,
+				"width": 1905,
+				"height": 88,
+				"top": 218.921875,
+				"right": 1905,
+				"bottom": 306.921875,
+				"left": 0
+			},
+			"main": {
+				"x": 0,
+				"y": 306.921875,
+				"width": 1905,
+				"height": 13112.671875,
+				"top": 306.921875,
+				"right": 1905,
+				"bottom": 13419.59375,
+				"left": 0
+			},
+			"h1": {
+				"x": 240.5,
+				"y": 433.515625,
+				"width": 1424,
+				"height": 52.421875,
+				"top": 433.515625,
+				"right": 1664.5,
+				"bottom": 485.9375,
+				"left": 240.5
+			},
+			"scrollHeight": 14864,
+			"scrollBehavior": "auto",
+			"reveals": []
+		},
+		"count": 66,
+		"navHeightRange": [88, 88]
+	}
+]

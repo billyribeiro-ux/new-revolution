@@ -1,0 +1,237 @@
+# Enterprise CSS Architecture & Typography Standards
+
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.
+
+> **Single Source of Truth (SSOT):** [`src/app.css`](../src/app.css) (unified global stylesheet including tokens, `@font-face`, layout, and shared `.inner-page` system)  
+> **Token Governance Script:** [`scripts/check-css-tokens.mjs`](../scripts/check-css-tokens.mjs) (`pnpm check:css`)
+
+This document is the authoritative CSS and typography engineering standard for the Revolution Trading Pros (`new-revolution-web`) repository. Every new route, layout, and Svelte 5 component must conform to these rules.
+
+---
+
+## 1. Architecture Overview & Ownership Model
+
+The styling architecture is organized into two primary tiers (plus isolated domain stylesheets where raw HTML requires unscoped selectors, such as `prose.css` for database blog HTML):
+
+| Tier                           | Location                    | Scope & Responsibility                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| :----------------------------- | :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Unified Global SSOT**     | `src/app.css`               | `@font-face` declarations, CSS cascade layers (`@layer`), canonical `:root` design tokens, document reset, institutional typography primitives (`.display-xl`, `.h2`, `.eyebrow`, `.kicker`, `.lead`), global grid/container layout (`.container`, `.section`), shared interactive primitives (`.btn`, `.skip`, `.reveal`), shared `.inner-page` marketing primitives (`.page-hero`, `.content-section`, `.section-header`, `.section-kicker`, `.section-h2`, `.card-grid`, `.info-card`, `.pricing-card`, `.faq-list`, `.cta-banner`, `.disclaimer-strip`), and the responsive cascade. |
+| **2. Component-Scoped Styles** | `<style>` inside `*.svelte` | Component- and page-specific layout, state, and visual refinements automatically scoped by the Svelte 5 compiler. Consumes tokens from `src/app.css`; never redefines global tokens.                                                                                                                                                                                                                                                                                                                                                                                                     |
+
+### Cascade Layer Order (`src/app.css`)
+
+```css
+@layer reset, tokens, base, typography, layout, components, utilities, responsive;
+```
+
+- Do **not** introduce Tailwind, Sass/SCSS, Less, PostCSS plugins, or CSS-in-JS runtimes. Native CSS + Svelte 5 scoped `<style>` is the only permitted styling system.
+- Do **not** use `!important` to win specificity wars. The only permitted `!important` rules are inside `@media (prefers-reduced-motion: reduce)` in `src/app.css` to neutralize animations for accessibility.
+
+---
+
+## 2. Single Source of Truth (SSOT) Design Tokens
+
+All shared design tokens are declared **once** inside `@layer tokens` (`:root`) in `src/app.css`.
+
+### 2.1 Core Brand & Surface Tokens
+
+| Token           | Value     | Semantic Role                                                                  |
+| :-------------- | :-------- | :----------------------------------------------------------------------------- |
+| `--bg`          | `#0b0e12` | Primary dark obsidian canvas (`body` background)                               |
+| `--bg-soft`     | `#11151a` | Elevated dark section background                                               |
+| `--panel`       | `#151a20` | Primary dark card / panel surface                                              |
+| `--panel2`      | `#1b2027` | Secondary elevated panel / hover surface / interactive control background      |
+| `--line`        | `#2b313a` | Primary structural hairline border (`1px solid var(--line)`)                   |
+| `--line-strong` | `#394149` | Emphasized hairline / panel border                                             |
+| `--off`         | `#f3f2ed` | Primary warm daylight surface (`.section--light`, `.content-section.is-light`) |
+| `--off2`        | `#eae9e2` | Secondary warm daylight surface                                                |
+| `--ink`         | `#11151a` | High-contrast dark ink text on `--off`, `--off2`, and `--acid` surfaces        |
+| `--acid`        | `#dcff65` | Primary institutional chartreuse accent (CTAs, active indicators, focus rings) |
+| `--acid2`       | `#b9e64f` | Secondary chartreuse accent (hover gradients, secondary borders)               |
+| `--coral`       | `#ff7969` | Risk / warning / negative variance accent                                      |
+
+### 2.2 Text & Interactive Tokens
+
+| Token                        | Value     | Contrast & Usage Notes                                                                              |
+| :--------------------------- | :-------- | :-------------------------------------------------------------------------------------------------- |
+| `--text`                     | `#f4f5f0` | Primary copy on dark surfaces (>16:1 on `--bg`)                                                     |
+| `--text-secondary`           | `#aab3b7` | Long-form secondary copy on dark surfaces (>8.2:1 on `--bg`)                                        |
+| `--muted`                    | `#a0a7ad` | Muted metadata / labels on dark surfaces (>7.3:1 on `--bg`)                                         |
+| `--lightmuted`               | `#58616b` | Secondary copy on light `--off` surfaces (>5.7:1 on `--off`; **never** use for body text on `--bg`) |
+| `--btn-acid-hover`           | `#efffae` | Hover background for primary `.btn--acid` / `.btn--solid` buttons                                   |
+| `--btn-dark-hover`           | `#30373e` | Hover background for `.btn--dark` buttons                                                           |
+| `--btn-outline-border`       | `#5a6067` | Border for `.btn--outline` on dark surfaces                                                         |
+| `--btn-outline-light-border` | `#8b9088` | Border for `.btn--outline-light` on light surfaces                                                  |
+
+### 2.3 Elevation & Layout Tokens
+
+| Token           | Value                                      | Role                                           |
+| :-------------- | :----------------------------------------- | :--------------------------------------------- |
+| `--shadow-card` | `0 18px 44px rgba(0, 0, 0, 0.32)`          | Standard elevated card shadow                  |
+| `--shadow-md`   | `0 12px 30px rgba(0, 0, 0, 0.28)`          | Medium interactive hover shadow                |
+| `--shadow-lg`   | `0 28px 72px rgba(0, 0, 0, 0.4)`           | Deep modal / featured panel shadow             |
+| `--max`         | `96rem` (1536px at 16px root)              | Shared border-box cap including inline padding |
+| `--gutter`      | `24px`–`112px` (responsive, not monotonic) | Total gutter, split between inline sides       |
+| `--nav-height`  | `73px`                                     | Sticky navigation bar height offset            |
+| `--ease-out`    | `cubic-bezier(0.22, 1, 0.36, 1)`           | Standard institutional motion easing           |
+
+### 2.4 Contextual Component Custom Properties
+
+Components may define **scoped contextual custom properties** on a local selector when a child rule needs to adapt between dark and light sections (for example, `.inner-page .content-section.is-light { --kicker-color: #4b5f1d; }`).
+
+**Automated Governance (`pnpm check:css`):**
+Every `var(--token)` referenced anywhere in `src/**/*.{css,svelte}` is verified against declared `--token:` properties by `scripts/check-css-tokens.mjs`. Never reference an undeclared custom property; in CSS, an undeclared `var(--missing)` without a fallback makes the declaration invalid at computed-value time (`background` falls back to `transparent`, which can render dark text invisible on a dark page).
+
+---
+
+## 3. Mandatory Self-Hosted Static Typography
+
+All website fonts are self-hosted `.woff2` files stored in `static/fonts/` (`PlusJakartaSans-{SemiBold,Bold,ExtraBold}.woff2`, `Inter-{Regular,Medium,SemiBold}.woff2`, and `GeistMono-Variable.woff2`) and declared via `@font-face` **exclusively** at the top of `src/app.css`.
+
+### 3.1 Font Pairing & Tokens
+
+| Token            | Aliases                              | Family Stack                                                                                            | Weights Shipped        | Primary Usage                                                                                     |
+| :--------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------ | :--------------------- | :------------------------------------------------------------------------------------------------ |
+| `--font-display` | `--font-heading`, `--font-secondary` | `'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', -apple-system, BlinkMacSystemFont, sans-serif`      | `600`, `700`, `800`    | Hero headlines, `h1`–`h4`, `.eyebrow`, `.seo-kicker`, navigation, buttons, KPI callouts           |
+| `--font-sans`    | `--font-body`, `--font-primary`      | `'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, sans-serif`                              | `400`, `500`, `600`    | `body`, `.lead`, long-form editorial copy, FAQ answers, form controls, UI descriptions            |
+| `--font-mono`    | —                                    | `'Geist Mono', 'Geist Mono Fallback', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace` | `100`–`900` (variable) | Ticker symbols, option strikes, timestamps, D3/SVG chart telemetry, breadcrumbs, code/rule blocks |
+
+### 3.2 Mandatory Font Rules
+
+1. **Zero Font `href` Tags Anywhere:** Never add `<link rel="preload" as="font" href="...">`, `<link href="https://fonts.googleapis.com/...">`, `<link href="https://cdn.jsdelivr.net/...">`, or external `@import url(...)` rules. All fonts are loaded strictly via static `@font-face { src: url(...) }` declarations in `src/app.css`.
+2. **Single Declaration Location (`src/app.css`):** Declare `@font-face` rules **only** in `src/app.css`. Never import font CSS or declare `@font-face` inside `+layout.svelte` or individual page/component `<script>` / `<style>` blocks.
+3. **No Framework Font Preload Links:** `shouldPreload` in `src/hooks.server.ts` returns `true` only for `js` and `css` (`input.type === 'js' || input.type === 'css'`) and `false` for `font`, ensuring SvelteKit never injects `<link rel="preload" as="font" href="...">` into HTML responses.
+4. **Always Reference Tokens:** Always use `var(--font-display)`, `var(--font-sans)`, or `var(--font-mono)` in components and stylesheets; `pnpm check:css` (`scripts/check-css-tokens.mjs` and `scripts/font-policy.mjs`) enforces token usage and rejects any font `<link href>`.
+5. **Licensing:** Full OFL-1.1 license attributions are maintained in [`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt).
+
+### 3.3 Always-Fluid Typography Scale (`clamp()` + `cqi` SSOT Standard)
+
+Typography across the site is **always fluid** — never hardcoded to static `px` or fixed `rem` steps above the `0.75rem` (`12px`) minimum HTML legibility floor.
+
+1. **Aligned `375px` → `1536px` (`--max: 96rem`) Linear Fluid Ramps:**
+   Every global typography token in `@layer tokens` (`:root` in `src/app.css`) interpolates linearly from the `375px` (`23.4375rem`) mobile baseline to the exact `1536px` (`96rem`, `--max`) shared `.container` outer cap so there is **zero dead zone** when resizing below `1536px`:
+
+   $$\text{slope} = \frac{F_{\max} - F_{\min}}{1536 - 375}, \qquad \text{intercept (rem)} = \frac{F_{\min} - \text{slope} \times 375}{16}$$
+
+   | Token (`:root` SSOT) | Aliases                                       | Fluid Formula (`375px` → `1536px`)                 | Range (`px` @ `16px` root) |
+   | :------------------- | :-------------------------------------------- | :------------------------------------------------- | :------------------------- |
+   | `--step-hero`        | `--text-hero`, `--text-display-h1`            | `clamp(2rem, 1.637rem + 1.55vi, 3.125rem)`         | `32px` → `50px`            |
+   | `--step-h1`          | `--text-h1`, `--blog-h1`                      | `clamp(1.75rem, 1.459rem + 1.24vi, 2.65rem)`       | `28px` → `42.4px`          |
+   | `--step-h2`          | `--text-h2`, `--text-section-h2`, `--blog-h2` | `clamp(1.5rem, 1.258rem + 1.034vi, 2.25rem)`       | `24px` → `36px`            |
+   | `--step-h3`          | `--text-h3`, `--text-card-h3`, `--blog-h3`    | `clamp(1.125rem, 1.044rem + 0.345vi, 1.375rem)`    | `18px` → `22px`            |
+   | `--step-sub`         | `--text-sub`                                  | `clamp(1.0625rem, 1.002rem + 0.258vi, 1.25rem)`    | `17px` → `20px`            |
+   | `--step-lead`        | `--text-lead`                                 | `clamp(1.0625rem, 1.022rem + 0.172vi, 1.1875rem)`  | `17px` → `19px`            |
+   | `--step-h4`          | `--text-h4`, `--blog-h4`                      | `clamp(0.9375rem, 0.917rem + 0.086vi, 1rem)`       | `15px` → `16px`            |
+   | `--step-body`        | `--text-body`, `--blog-body`                  | `clamp(0.9375rem, 0.917rem + 0.086vi, 1rem)`       | `15px` → `16px`            |
+   | `--step-body-sm`     | `--text-body-sm`                              | `clamp(0.84375rem, 0.813rem + 0.129vi, 0.9375rem)` | `13.5px` → `15px`          |
+   | `--text-eyebrow`     | —                                             | `clamp(0.75rem, 0.669rem + 0.345vi, 1rem)`         | `12px` → `16px`            |
+   | `--step-sm`          | `--text-sm`, `--text-seo-kicker`              | `clamp(0.75rem, 0.71rem + 0.172vi, 0.875rem)`      | `12px` → `14px`            |
+   | `--step-caption`     | `--text-caption`                              | `clamp(0.75rem, 0.729rem + 0.086vi, 0.8125rem)`    | `12px` → `13px`            |
+   | `--step-xs`          | `--text-xs`                                   | `0.75rem`                                          | `12px` legibility floor    |
+
+2. **WCAG 1.4.4 Zoom Rule (Never Pure `vw` / `vi`):**
+   Never write `clamp(12px, 1.2vw, 16px)` with a bare `vw`/`vi`/`cqi` middle term. Pure viewport/container units ignore user root-font scaling (`200%` text zoom). Always combine a `rem` intercept (`interceptRem + slopeVi` or `interceptRem + slopeCqi`) with `rem` minimum and maximum bounds.
+3. **Split-Column Container Query Rule (`container-type: inline-size` + `min(viRamp, cqiRamp)`):**
+   When a hero or feature section splits into asymmetric columns on desktop (such as `HeroSection.svelte` switching from `1fr` below `1024px` to `minmax(0, 1.17fr) minmax(395px, 0.83fr)` at `>=1024px`), viewport units (`vi`) overestimate the copy column's width at `1024px`, while standalone `cqi` jumps upward when the grid collapses back to a wider single column at `1023px`.
+   - Set `container-type: inline-size;` on the copy column (`.hero-copy`, `.inner-page .hero-section__content`, `.inner-page .hero-section__main`).
+   - Drive its fluid type with $C^0$-continuous `clamp(minRem, min(viRamp, cqiRamp), maxRem)` calibrated so `cqiRamp` matches `viRamp` at the `1024px` split boundary (`536px` column) and reaches `maxRem` at `1536px` (`775px` column with `scrollbar-gutter: stable`). That guarantees **strictly monotonic scaling across every single pixel from `1536px` down to `375px`** with `0.00px` step across `1024px ↔ 1023px` and `0.0000` CLS.
+4. **Font-Relative Ornaments (`em`):**
+   Decorative bars and inline gaps paired with fluid type (such as `.eyebrow::before` and `.eyebrow { gap }`) must be sized in `em` (`inline-size: 1.4375em; gap: 0.75em`), never fixed `px` or `rem`, so ornaments scale proportionally with the text.
+5. **Semantic Weights, Unitless Line-Heights, Scoped OpenType & Numeric Discipline:**
+   - Use semantic weight tokens (`--weight-regular: 400`, `--weight-medium: 500`, `--weight-semibold: 600`, `--weight-bold: 700`, `--weight-extrabold: 800`) aligned 1-to-1 with shipped WOFF2 faces (`font-synthesis-weight: none; font-synthesis-style: none;` prevents blurry browser faux-bold/faux-oblique synthesis).
+   - Always write unitless `line-height` ratios (`--leading-*`), never fixed `px`/`rem` values (`line-height: 1.5rem` fails WCAG `1.4.4`/`1.4.12`).
+   - Scope `Inter`-specific OpenType features (`'cv02', 'cv03', 'cv04', 'cv11'`) to `body` / `--font-sans` — never globally on `html` where they corrupt `Plus Jakarta Sans` and `Geist Mono` glyph indices.
+   - Apply `font-variant-numeric: tabular-nums` purposefully to financial numbers, prices, tables, KPIs, counters, badges, and chart axes while keeping running body prose proportional.
+6. **Protected Blog Layout Exception (`docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md`):**
+   `/blog` and `/blog/[slug]` use the **exact same SSOT fluid typography scale** (`--blog-h1..h4`, `--blog-body`, `--step-*`), while strictly preserving their container-flush `1424px` inner width (`max-inline-size: 100%` in `src/lib/styles/prose.css` — never adding a `65ch` cap onto `.prose-base`) and the `118.75rem` (`1900px`) external left-margin TOC rail.
+
+---
+
+## 4. Svelte 5 Idiomatic Styling Rules
+
+1. **Component-Scoped `<style>` by Default:** Keep component-specific layout and states inside the component's `<style>` block.
+2. **Svelte 5 Class Array/Object Syntax:** Use Svelte 5's native `class` attribute array/object syntax for conditional states instead of string concatenation:
+   ```svelte
+   <button
+   	type="button"
+   	class={['filter-chip', { 'is-active': selectedCategory === category.id }]}
+   	onclick={() => (selectedCategory = category.id)}
+   >
+   	{category.label}
+   </button>
+   ```
+3. **Minimal `:global(...)` Usage:** Use `:global(...)` only when styling child component roots or framework states (such as `body.menu-open` or `.reveal.in-view`), and always scope it to a local parent selector when inside a component.
+4. **Sharp Architectural Geometry:** The Revolution Trading Pros visual system uses crisp `0px` (`border-radius: 0`) corners on primary cards, buttons, and structural panels, paired with `1px solid var(--line)` hairlines. Do not introduce arbitrary pill-rounded buttons or blue SaaS cards on marketing pages.
+5. **Share Repeated Page Chrome as Scoped Components, Not Copied CSS:** `src/lib/components/layout/Breadcrumb.svelte` is the reference: scoped `<style>`, content through a snippet (`children`), and a `class` prop typed `ClassValue` applied to the inner box. Pass custom properties or `class`; never reach into a child with `:global`. It is for pages that do **not** use the `.inner-page` system (`/resources`, `/resources/etf-stocks-list`). Pages wrapped in `.inner-page` keep the inline breadcrumb markup styled by `src/app.css` (`.inner-page .breadcrumb-bar`); using the component there would double-style it.
+6. **Static Page Content Lives in `src/lib/data/*.ts`, Not the Component:** Module-scope data is created once and can be shared with the JSON-LD builders in `src/lib/seo/structured-data.ts` (see `etf-stocks-list.ts`, `resources-hub.ts`). FAQ copy has exactly one owner (an `*_FAQ_ITEMS` export in `structured-data.ts`); the page renders from it so visible text and shared page data cannot drift; never emit restricted FAQPage JSON-LD.
+7. **State Belongs in ARIA, Styling Follows It:** Style toggles from `aria-pressed` / `aria-current` (`.filter-tab[aria-pressed='true']`) so the visual and accessible state cannot diverge. Use `role="group"` + `aria-pressed` for filter buttons; only use `role="tablist"` with real `tabpanel`s and arrow-key handling.
+8. **Every Page Ships a Skip Link:** `<a class="skip" href="#<main id>">Skip to content</a>` before the shell (the `.skip` styles are global in `src/app.css`).
+9. **Internal Links Use `resolve()`.** Routes that do not exist yet are linked through the single `as '/'` cast and 404 at prerender only because `PLANNED_ROUTE_PATTERN` in `vite.config.ts` is a section-prefix regex. When you build one of those pages, follow the wiring steps in [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md) §4 (the regex entry can only be removed when its whole section is complete) and drop the cast at its call sites.
+
+10. **The Catalog Card Family (references: `src/lib/components/ui/CatalogCard.svelte`, `CatalogGrid.svelte`, `FilterChips.svelte`; consumers `store/CourseCard.svelte`, `store/IndicatorCard.svelte`, `blog/BlogCard.svelte`):**
+    - **Shell vs content.** `CatalogCard` owns everything that must be identical across cards: the box, hover, focus ring, body layout, footer/CTA, the 12px text floor, 44px tap targets, and the SSOT breakpoints (480/768/1280). A consumer owns only its content, passed as snippets (`media`, `top`, `eyebrow`, `title`, `intro`, `children`, `footer`) and styled in its own scoped `<style>`. Never copy the shell's CSS into a card.
+    - **The title contract.** The `title` snippet must render exactly one `<a class="catalog-card__link" href={...}>`; the shell stretches that link over the whole card (`::after { position: absolute; inset: 0 }`). The consumer resolves the `href` itself (`resolve('/store/courses/[slug]', { slug })`) because `resolve()` is typed per route and the `svelte/no-navigation-without-resolve` lint rule must see it beside the anchor. Any `<a>`, `<button>` or `<summary>` in a snippet is raised above the stretched link automatically; wrap other interactive containers (e.g. `<details>`) in `position: relative; z-index: 1`. The visible CTA is `aria-hidden`, so the title is the only link.
+    - **Theming.** Two mechanisms, both custom properties (no `:global` overrides). (1) Accent: set `--card-accent` on a parent (default `var(--acid)`). (2) Tone: `tone="light"` on `CatalogCard` / `CatalogGrid` / `FilterChips` for light sections (white card, ink text, `--acid-text-on-light` for accent text). Inside a card's CSS read only the shell's semantic internals (`--_text`, `--_text-2`, `--_muted`, `--_line`, `--_line-strong`, `--_band`, `--_inset`, `--_accent` for fills and borders, `--_accent-text` for text and focus rings), never the raw `--text`/`--line` tokens, so one rule works on both tones. Pass `tone` to the cards you render inside a light grid. An element drawn on top of a cover image (e.g. the audio badge) keeps fixed dark-surface colors on both tones.
+    - **Contrast rules learned the hard way.** `--acid` is a fill, never text or an outline on a light surface (about 1.2:1 on white): use `--_accent-text` (resolves to `--acid-text-on-light`, AA) for text and for the keyboard focus ring. Run the automated contrast pass (§ verify below) on every tone you ship.
+    - **Layout lives in the host.** `CatalogGrid` is the host: 1 column below 768px, 2 columns from 768px, 3 columns from 1280px (a 4th column starves text-heavy cards), a featured item spans a full row on tablets and two of three columns on desktop, plus a live "Showing N of M" status and an empty state. Do not write a per-page grid.
+    - **Rules proven on this family:** hover lift only inside `@media (hover: hover) and (pointer: fine)`; the keyboard ring goes on the card via `:has(.catalog-card__link:focus-visible)` because the link's own outline is suppressed; collapsible content is a native `<details>` so it stays in the HTML (open by default on the featured card, which otherwise stretches to its taller row neighbour and leaves a void); decorative SVG is `aria-hidden` and takes its colors from tokens, never hex; images always carry `width`/`height` and an `aspect-ratio`.
+    - **Verify** at 320, 360, 390, 430, 600, 744, 768, 820, 1024, 1180, 1280, 1440 and 1920px: no horizontal overflow, no tap target under 44px, no HTML text under 12px; then test real behavior (card click, disclosure toggle, keyboard ring, hover with a fine pointer, touch tap, filter + status).
+    - **Cover layout (image-background cards, e.g. `BlogCard`).** `layout="cover"` makes the `media` image the card; `eyebrow` + `title` sit over the top part, `children` + `footer` over the bottom, each on its own scrim that follows the text block: the top scrim is solid for the whole block and fades over a fixed 44px, the bottom one fades in over a fixed 56px of padding before the text starts. Never express the solid zone as a percentage of the block's height (on some widths the fade then cuts through the last title line). The scrim opacity is `--card-scrim`, the crop anchor is `--card-focus`, the accent is `--card-accent`; secondary text on a cover is near-white (`--off2`), never the gray secondary token. Proportions follow the SSOT breakpoints so the artwork always keeps a visible window between the two text blocks: 3:4 below 480px, 1:1 from 480px (one wide column), 4:5 from 768px, 16:9 for a featured card. An `aspect-ratio` card that must grow with its content needs all four of: `overflow: clip` (not `hidden`, which drops the automatic minimum size), `block-size: auto` (a `100%` pins it to the ratio height), a definite `inline-size: 100%` (otherwise the browser transfers the grown height back through the ratio and makes the card wider than its column, a 60px horizontal overflow at 320px), and `align-self: stretch` inside a `display: grid` grid item (aspect-ratio items do not stretch by default), so cards in a row stay equal height. The CTA is icon-only below 480px so it shares the meta row. Never hide the excerpt on phones: it is also the BlogPosting `description` and structured data must stay visible; clamp it instead.
+    - **Screenshot harness trap.** A full-page screenshot does not scroll, so far-down `loading="lazy"` covers never load and the cards look empty; walk the page and wait for every `img.complete` before capturing (this misled one design review).
+    - **Prove cover legibility by brute force, not by eye.** For every text block: hide the text, put a pure white image behind the scrim, photograph the backdrop, and compute contrast against the brightest pixel. That is the worst case any photo can produce; the blog cards measure 6.74:1 minimum (AA needs 4.5).
+    - **Known follow-up:** `src/lib/components/blog/PostCard.svelte` (the DB-backed `/blog` list) is a separate card with a 14px radius and `rgba()` literals; converge it onto `CatalogCard` through an adapter that maps its `PostCardItem` to `BlogCardPost`.
+
+---
+
+## 5. Responsive Design & Accessibility Standards
+
+### 5.1 Six-Breakpoint Mobile-First Cascade
+
+Base styles target `320px+` viewports first, scaling upward via `min-width` media queries:
+
+| Breakpoint | Media Query     | `--max` Container | `--gutter`  |
+| :--------- | :-------------- | :---------------- | :---------- |
+| **Base**   | Default320px+   | 96rem cap         | 24px total  |
+| **xs**     | min-width480px  | same cap          | 36px total  |
+| **sm**     | min-width640px  | same cap          | 44px total  |
+| **md**     | min-width768px  | same cap          | 56px total  |
+| **lg**     | min-width1024px | same cap          | 40px total  |
+| **xl**     | min-width1280px | same cap          | 64px total  |
+| **2xl**    | min-width1536px | same cap          | 112px total |
+
+### 5.2 Accessibility & Contrast Requirements (WCAG 2.2 AA vs. House Quality Floor)
+
+- **Legal WCAG 2.2 AA Criteria vs. Visual-Quality Legibility Floor:**
+  - WCAG 2.2 sets **no mandatory pixel minimum**; the `0.75rem` (`12px`) `--step-xs` baseline is our **engineering visual-quality legibility floor** for HTML copy.
+  - **OS / Browser Root Preference:** `html` uses `font-size: 100%` (never `16px` fixed) so `1rem` equals `16px` by default while honoring user OS/browser default font-size preferences.
+  - **SC 1.4.4 (`200%` Text Resize) & SC 1.4.10 (`320px` Reflow):** Every fluid token satisfies $F_{\max} / F_{\min} \le 2.5$, `200%` root font enlargement (`32px`) causes zero clipped/overlapping controls, and `320px` reflow produces zero document-level horizontal scroll (`scrollWidth <= 320`).
+  - **SC 1.4.12 (Text Spacing):** User text-spacing overrides (`line-height: 1.5`, `letter-spacing: 0.12em`, `word-spacing: 0.16em`, `p` bottom margin `2em`) cause zero text clipping or interactive overlap.
+- **WCAG 2.2 AA Contrast (SC 1.4.3):**
+  - Normal text (< 18pt / 24px): minimum **4.5:1** contrast ratio against its rendered background.
+  - Large text (≥ 18pt / 24px or ≥ 14pt / 18.66px bold): minimum **3.0:1** contrast ratio.
+  - **Light-Section Rule (`.section--light` / `.content-section.is-light`):** Never use `var(--acid)` (`#dcff65`) as text on a light `--off` (`#f3f2ed`) background (1.13:1 contrast). Inside `.is-light` sections, kickers and accent labels must use `--kicker-color: #4b5f1d` (6.36:1 contrast on `--off`) and headings/copy must use `var(--ink)` (`#11151a`) or `var(--lightmuted)` (`#58616b`).
+  - **Acid Badge / Button Rule:** Any badge, ribbon, or button with a `var(--acid)` or `var(--acid2)` background **must** use `color: var(--ink)` (`#11151a`, >14:1 contrast).
+- **Keyboard Focus:** Every interactive element (`<a>`, `<button>`, `<input>`, `<select>`, `<summary>`) inherits `:focus-visible { outline: 3px solid var(--acid); outline-offset: 4px; }` from `src/app.css`. Never set `outline: none` without providing an equally high-contrast `:focus-visible` indicator.
+- **Reduced Motion:** Respect `@media (prefers-reduced-motion: reduce)`—all scroll-reveal elements (`.reveal`) and transitions automatically snap to their final visible state in `src/app.css`.
+
+---
+
+## 6. Mandatory CSS Verification Checklist
+
+Before committing any CSS or component change, follow the existing [Vite+ workflow](VITE_PLUS_WORKFLOW.md) and run:
+
+```bash
+pnpm check:css       # Verifies 0 undeclared CSS custom properties and 0 hardcoded font family names across src/
+pnpm check           # svelte-check (0 errors, 0 warnings, including unused CSS selectors)
+pnpm lint            # Oxfmt + Oxlint + ESLint for Svelte files
+pnpm test:unit --run # Vite+ server and browser-component tests
+pnpm build           # Complete Vite+ build, including maintenance output
+pnpm check:pages     # Prerendered-page contract (h1, skip link, canonical, FAQ parity)
+pnpm test:e2e        # Playwright end-to-end verification
+```
+
+For the step-by-step procedure to add a page or component (files, wiring, tests, visual diff, known debt), follow [`NEW_PAGE_PLAYBOOK.md`](NEW_PAGE_PLAYBOOK.md).

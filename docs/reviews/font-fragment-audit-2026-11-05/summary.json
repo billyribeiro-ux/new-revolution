@@ -1,0 +1,78 @@
+{
+	"date": "2026-11-05",
+	"baselineApplication": "33a1346",
+	"trackedRepositoryFiles": 1020,
+	"publicBrowserPages": 55,
+	"fontResponseCount": 153,
+	"externalFontOrStylesheetRequests": 0,
+	"uncaughtPageErrors": 0,
+	"article": {
+		"fontResponses": [
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			},
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			},
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			},
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			},
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			},
+			{
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2",
+				"status": 200,
+				"contentType": "font/woff2"
+			}
+		],
+		"fontPreloads": [
+			{
+				"href": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"rel": "preload"
+			},
+			{
+				"href": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"rel": "preload"
+			}
+		],
+		"loadedFaces": [
+			{
+				"family": "Montserrat Variable",
+				"style": "normal",
+				"weight": "100 900"
+			},
+			{
+				"family": "Sofia Sans Variable",
+				"style": "normal",
+				"weight": "1 1000"
+			},
+			{
+				"family": "Sofia Sans Variable",
+				"style": "italic",
+				"weight": "1 1000"
+			},
+			{
+				"family": "Sofia Sans Variable Fallback",
+				"style": "italic",
+				"weight": "1 549"
+			}
+		]
+	},
+	"investigationSourceSha256": "89cc20f6c29e9d3285df36d0ea9335566b1a4cbebb5c4498d49d864d9fbd9486",
+	"untrackedWordPressReferenceFiles": 68,
+	"untrackedWordPressReferenceCompiled": false
+}

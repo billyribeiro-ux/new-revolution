@@ -1,0 +1,42 @@
+{
+	"tags": {
+		"test": "0.0.2-g9a3a310d.20260303-0757",
+		"alpha": "0.1.21-alpha.7",
+		"latest": "1.6.0"
+	},
+	"version": "1.6.0",
+	"time": "2026-11-11T04:13:24.647Z",
+	"peerDependencies": {
+		"tsx": "^4.8.1",
+		"jiti": ">=1.21.0",
+		"less": "^4.0.0",
+		"sass": "^1.70.0",
+		"yaml": "^2.4.2",
+		"unrun": "*",
+		"stylus": ">=0.54.8",
+		"terser": "^5.16.0",
+		"esbuild": "^0.27.0 || ^0.28.0",
+		"publint": "^0.3.8",
+		"sugarss": "^5.0.0",
+		"vue-tsc": "~3.2.0 || ~3.3.0",
+		"typescript": "^5.0.0 || ^6.0.0 || ^7.0.0",
+		"@types/node": "^20.19.0 || >=22.12.0",
+		"sass-embedded": "^1.70.0",
+		"unplugin-unused": ">=0.5.0",
+		"@vitejs/devtools": "^0.7.1 || ^0.8.0",
+		"@volar/typescript": "~2.4.0",
+		"@vue/language-core": "~3.2.0 || ~3.3.0",
+		"@arethetypeswrong/core": "^0.18.1",
+		"@typescript/native-preview": "*"
+	},
+	"engines": {
+		"node": "^20.19.0 || ^22.18.0 || >=24.11.0"
+	},
+	"dependencies": {
+		"postcss": "^8.5.32",
+		"yuku-parser": "0.19.0",
+		"lightningcss": "^1.33.0",
+		"@oxc-project/types": "=0.158.0",
+		"@oxc-project/runtime": "=0.158.0"
+	}
+}

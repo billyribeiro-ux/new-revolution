@@ -1,0 +1,51 @@
+# Published blog availability and layout stability, November 11, 2026
+
+## Verified incident
+
+The public `/blog` initially returned Vercel HTTP 404 `DEPLOYMENT_NOT_FOUND`. The current project's assigned `new-revolution-ruby.vercel.app/blog` returned HTTP 503. These were different failures, before successful article rendering.
+
+The previously linked project was `prj_tZfGFo3Kzo7NSQvtGl9s1VJRY5kE`. The current project, `prj_TJA4UdRjIDz2qHNcLV7cZ5OckArX`, was created on November 11 and had **zero environment variables**, no custom-domain assignment, and no connected CMS/media resources. Runtime logs for `dpl_4DbqGTzpdH9XwLBo4xbWdngUuUJX` show `ENOENT` while creating `/var/task/.svelte-kit/pglite-blog`. A READY build had therefore been serving a broken CMS. This evidence establishes the configuration loss; it does not establish who recreated the project or why.
+
+Read-only verification found the original Production database still intact: post 1, `0dte-spx-options-strategy-guide`, published/public/featured, published at `2026-11-05T21:29:51.520Z`, with six active media rows. Its exact stored body SHA-256 remains `73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4`, identical to the [original publication record](../first-blog-2026-11-05/production.json). See [incident facts](hosting-incident.json).
+
+## Recovery and prevention
+
+Reconnected the existing `revolution-production` Neon resource to Production and the separate `revolution-preview` resource to Preview. Reconnected `revolution-production-media` to **Production only**. Restored missing origin and signing settings after read-only checks confirmed zero users, sessions, protected posts or trashed posts. Restored `www.revolutiontradingpros.com` and the apex 308 redirect to www, and restored the documented `autoAssignCustomDomains: false` control. Preview authentication remains enabled. No database, article, media, author, taxonomy, revision, account, migration or email was created or modified in Production.
+
+Recovery deployment `dpl_8pEs4aEJPQqBDiCRtP7oNaS1xXZn` serves `/blog` and the full article with HTTP 200; apex `/blog` redirects once to the matching www path. The observed error-log window after recovery contains zero error records.
+
+`pnpm build` now checks hosted database configuration **before bundling**. The runtime applies the same guard before considering local PGlite fallback. Missing, placeholder and local-only URLs fail with an actionable configuration error without exposing credentials. Explicit local development/test databases remain supported. A generated-function regression exercises the actual missing-configuration path and requires HTTP 503 with the configuration diagnosis, without `ENOENT`/`mkdir` fallback. This prevents accidental empty development databases from masquerading as the published CMS; it does not replace connection, content or deployed-browser checks.
+
+## Browser findings and bounded fixes
+
+Chromium PerformanceObserver and frame-by-frame geometry reproduced an enlarged-text hydration shift: desktop brand text used a three-row grid before the measured compact navigation mode, then changed to flex. At 1440px/200% text the header moved from 98.890625px to 88px; at 1920px it moved from 101.625px to 88px. Delaying fonts reproduced the same change. The fix retains that grid across desktop compact selection. No font, width breakpoint or animation migration was needed.
+
+The new regression fails on the original compiled output (9.890625px brand-position change at 1024px versus the existing 1px stability invariant) and passes the corrected compiled component at 1024/1280/1440/1920px. It delays hydration, captures pre/post frame geometry and records actual navigation-attributed layout-shift entries. Shared navigation tests also cover 320px/200% text with JavaScript disabled.
+
+The lead blog card violated the [existing layout contract](../../blog/LAYOUT_AND_CONTENT_CONTRACT.md): 1361px at a 1440px viewport versus the documented 75rem/1200px cap. Restored that cap and adjusted the desktop responsive-image upper bound to half its split width. Existing browser coverage checks card widths and decoded media.
+
+The earlier 1536px frame failures were incorrect test expectations, not a reason to remove the stable scrollbar gutter. Browser measurement shows a 1536px viewport with a **1521px root layout box**; `documentElement.clientWidth` can still report 1536px in headless Chromium. The shared container correctly fills available layout width up to 96rem. Tests now compare against that independent root box and root font size, preserving all existing alignment/overflow checks and their tolerances.
+
+After correcting the frame assertions, the full browser suite exposed an actual TOC boundary defect: one-sided reserved scrollbar space left only 8.5px screen padding at 1900px. Reserving symmetric gutters **only from the existing 118.75rem TOC breakpoint**, consistently across public routes, restores 16px screen padding while retaining the 194px minimum TOC width, 28px gap, centered 96rem cap and breakpoint. Smaller viewports keep their existing available width. An initial all-width symmetric-gutter experiment passed E2E but component tests correctly caught premature compact navigation at 1024px: warm-font intrinsic requirements were 956.359375px versus 954px available; the scoped rule restores 969px available. No navigation fonts, labels or minimum gaps were reduced. See [boundary geometry](toc-boundary.json) and [browser experiments](symmetric-gutter-check.json). The [final scoped experiment](scoped-gutter-check.json) passes sixteen archive/article cases, including 320px/200% without JavaScript, restored 1024px navigation space and the 1899/1900px TOC boundary.
+
+Initial cold-load tests at 390/1024/1280/1440/1920px and eighteen scrolled transitions across home/about/blog at 390/1440/1920px, with normal/reduced motion, plus twelve actual card-to-finished-article transitions, produced zero layout-shift entries and immediate destination scroll position zero. These negative results do not prove universal zero CLS. The existing 18px reveal transform changes visual position without changing document geometry; it was not misreported as a layout-shift defect.
+
+The article-specific local harness copies the public body/media/taxonomy into an isolated PGlite database. Its serial sequences are reset and only the local article's featured flag is disabled to coexist with the development fixture; the eligible newest article still leads discovery. Production's featured flag and content remain unchanged. Initial harness errors from copied sequences and the development feature uniqueness constraint were corrected before accepting any article-specific measurements.
+
+At 390px and 1440px the full article returns 200, renders 21,805 body characters / 3,192 visible words, eight numbered h2 sections, three h3 sections, five FAQs and its bottom risk disclosure/footer. All seven main images decode with nonzero natural dimensions; there are no page errors or horizontal overflow. Screenshots were inspected at both sizes. Word count differences from the CMS's stored 3,199 are renderer/text-extraction differences, not a missing-body claim.
+
+## Validation and deployment
+
+Final scoped-gutter source passes `pnpm check:css`, `pnpm check` (zero errors/warnings), `pnpm lint`, `pnpm test:unit --run` (688 tests / 89 files), the complete `pnpm build` invoked by `pnpm test:e2e`, all 79 browser tests (including the full three-case SEO inventory gate, every authenticated media/editor case, both navigation regressions and the generated-function checks), and `pnpm check:pages` (46 contracts). Three disposable local administrators from the complete-suite runs were revoked, including their sessions/accounts. No tests were skipped or thresholds lowered in the final run. Official Svelte MCP analyzed both changed components with complete source after corrections.
+
+The core repair is on sole `main` as `5642f18`; Vercel CI `ClxgUwuSz5FPlVKhAelTuCqv` succeeds and its hosted build is READY. The final scoped-gutter application and deployed browser identity are verified separately below. All browser data writes are isolated from Production.
+
+## Final public release
+
+Application `905bd56d7cb6cd9acc1a94eef478e8ce86cacb5f` is promoted as `dpl_74zQRHL4QkNrDwDvWWZ58bgL56iH` (`new-revolution-337gpwluo-will-ribeiros-projects.vercel.app`). Resolving the www domain through Vercel confirms that exact deployment. Hosted CI `M8OVC0nPl7gI7EBOy01zYeSa` passes lint and typecheck. The Linux x64 packaged image/HTML-email proof passes; no real email is sent. The pre-promotion HTTP checks were accepted only after the READY build returned actual CMS HTML, not the earlier HTTP-200 provider building screen. [Release identity](release.json).
+
+The [public browser proof](public/browser.json) checks cold Chromium contexts at 390/1024/1440/1899/1900/1920px, navigates from the archive card to the finished article and scrolls through its complete body. Every case has CLS 0, zero page errors/overflow, eight article sections, five FAQs, five decoded public main images and scroll position zero on arrival. The card caps at 1200px. The TOC stays hidden at 1899px and is visible with 16px left padding at 1900/1920px. Browser screenshots are retained under `public/`; analytics pageview requests were intercepted to avoid adding Production analytics records. These are measured laboratory scenarios, not a claim of universal zero field CLS.
+
+The [final read-only CMS comparison](final-cms-integrity.json) has **zero changed post columns**, six media rows, zero users and zero sessions. The original body hash still matches November 5. Production resource reconnection and deployment did not republish or rewrite the article.
+
+Public [HTTP checks](public/http.json) confirm homepage/blog/article HTTP 200 with www canonicals and article discovery in the sitemap. Cart, checkout and paid-subscription paths still return HTTP 403/noindex. The [offer-dialog check](public/commerce-dialog.json) confirms an actual proposed offer opens the concept-only dialog and Escape closes it. An initial supplemental probe used the nonexistent `/memberships` path; that selector timeout was discarded and corrected to the existing swing-trading-room offer route before accepting this result.

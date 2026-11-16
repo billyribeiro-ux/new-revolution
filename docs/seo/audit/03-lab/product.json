@@ -1,0 +1,51 @@
+{
+	"template": "product",
+	"url": "/store/courses/move-prior-to-the-move-ultra",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 64,
+		"lcpMs": 64,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "p.hero-subtitle"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/0.Coy2fAva.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DL99yUmh.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.D0og6f--.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+		],
+		"totalTransferBytes": 368986
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 27,
+		"undersizedTapTargetExamples": [
+			"a[35x15]: Home",
+			"a[112x15]: Trading Courses",
+			"a[135x21]: Included in Package ↑",
+			"a[135x21]: Included in Package ↑",
+			"a[135x21]: Included in Package ↑",
+			"a[135x21]: Included in Package ↑",
+			"a[135x21]: Included in Package ↑",
+			"a[109x17]: Day Trading Room",
+			"a[123x17]: Swing Trading Room",
+			"a[133x17]: Small Accounts Room"
+		]
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"generatedAt": "2026-11-15T18:51:43.768Z",
+	"postCount": 1,
+	"findings": [
+		{
+			"id": 1,
+			"slug": "0dte-spx-options-strategy-guide",
+			"status": "published",
+			"fields": ["content"],
+			"anchors": ["<a href=\"/watchlist\">Sunday Alpha watchlist</a>"],
+			"updatedAt": "2026-11-05T21:29:51.520Z",
+			"contentHash": "73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4"
+		}
+	]
+}

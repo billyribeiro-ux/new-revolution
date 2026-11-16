@@ -1,0 +1,5 @@
+. preinstall$ node scripts/check-package-manager.mjs
+. preinstall: Done
+✓ Lockfile passes supply-chain policies (verified 2m ago)
+Lockfile is up to date, resolution step is skipped
+Done in 99ms using pnpm v12.16.1

@@ -1,0 +1,32 @@
+[
+	{
+		"gate": "css",
+		"exitCode": 0,
+		"args": ["check:css"]
+	},
+	{
+		"gate": "check",
+		"exitCode": 0,
+		"args": ["check"]
+	},
+	{
+		"gate": "lint",
+		"exitCode": 1,
+		"args": ["lint"]
+	},
+	{
+		"gate": "unit",
+		"exitCode": 0,
+		"args": ["test:unit", "--run", "--maxWorkers", "4"]
+	},
+	{
+		"gate": "build",
+		"exitCode": 0,
+		"args": ["build"]
+	},
+	{
+		"gate": "pages",
+		"exitCode": 0,
+		"args": ["check:pages"]
+	}
+]

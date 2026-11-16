@@ -1,0 +1,9 @@
+> **Layout, typography and copy contract: November 5, 2026.** Follow the [shared 1536px (96rem), two-font and blog interaction contract](docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md). This supersedes older width, editor-family and automatic dash-replacement recipes.
+
+@AGENTS.md
+@docs/VITE_PLUS_WORKFLOW.md
+@docs/BLOG_AGENT_HANDOFF.md
+
+> **Blog work — November 5, 2026:** Read the [mandatory blog handoff](docs/BLOG_AGENT_HANDOFF.md) before adding or changing articles, editor workflows, blog SEO or automation. It distinguishes the existing CMS workflow from the proposed intake tooling.
+
+> **Fonts and article fragments — November 5, 2026:** Follow the [verified policy](docs/FONT_AND_FRAGMENT_POLICY.md). Fonts are strictly self-hosted via static `@font-face` rules in `src/app.css` (zero font `href` / `<link as="font">` tags anywhere), and `#` URL fragments are strictly forbidden.

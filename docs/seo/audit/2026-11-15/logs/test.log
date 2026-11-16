@@ -1,0 +1,49 @@
+$ pnpm run test:unit --run && pnpm run test:e2e
+$ vp test --run
+
+ RUN  v5.0.5 /Users/billyribeiro/dev/new-revolution-web
+
+ ❯ |server| scripts/tooling-policy.spec.ts (5 tests | 1 failed) 7778ms
+   ❯ ESLint coverage after moving JavaScript plugins out of Oxlint (3)
+     × continues to detect missing Svelte each-block keys 5160ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| scripts/tooling-policy.spec.ts > ESLint coverage after moving JavaScript plugins out of Oxlint > continues to detect missing Svelte each-block keys
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/tooling-policy.spec.ts:29:2
+     27|  });
+     28|
+     29|  it('continues to detect missing Svelte each-block keys', async () => {
+       |  ^
+     30|   const eslint = new ESLint();
+     31|   const [result] = await eslint.lintText(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: listen EPERM: operation not permitted ::1:63315
+ ❯ Server.setupListenHandle [as _listen2] node:net:2368:21
+ ❯ listenInCluster node:net:2499:12
+ ❯ GetAddrInfoReqWrap.callback node:net:2728:7
+ ❯ GetAddrInfoReqWrap.onlookupall [as oncomplete] node:dns:134:8
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'EPERM', errno: -1, syscall: 'listen', address: '::1', port: 63315 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed | 52 passed (53)
+      Tests  1 failed | 500 passed (501)
+     Errors  1 error
+   Start at  13:40:36
+   Duration  13.93s (tests 64%, transform 22%, import 13%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Test failed. See above for more details.

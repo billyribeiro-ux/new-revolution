@@ -1,0 +1,98 @@
+[
+	{
+		"path": "/",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/watchlist",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/about",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/our-mission",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/mentorship",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/resources/etf-stocks-list",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/alert-services/spx-profit-pulse",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/live-trading-rooms/day-trading-room",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/live-trading-rooms/swing-trading-room",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/live-trading-rooms/small-accounts-room",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/courses",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/courses/move-prior-to-the-move-ultra",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/indicators",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/indicators/move-prior-to-the-move-system",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/scanners",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	},
+	{
+		"path": "/store/scanners/high-octane-scanner",
+		"status": 200,
+		"sundayAlphaProtocolPresent": true,
+		"oldProductLabelPresent": false
+	}
+]

@@ -1,0 +1,15 @@
+{
+	"at": "2026-11-15T18:51:45.093Z",
+	"id": 1,
+	"slug": "0dte-spx-options-strategy-guide",
+	"operation": "patchPost with expectedUpdatedAt and minorEdit",
+	"beforeContentHash": "73d9ccd75661dae8685cd49585e00f86c1cc3e7fcea7b4f321a515d6cbbb93f4",
+	"expectedContentHash": "2ddf9b9906103fca8e2424b4fc45610103d4e8f5a5ac35c85589825d9441f406",
+	"afterContentHash": "2ddf9b9906103fca8e2424b4fc45610103d4e8f5a5ac35c85589825d9441f406",
+	"exactContentMatch": true,
+	"changedFields": ["content", "searchText", "tableOfContents", "updatedAt", "contentUpdatedAt"],
+	"publishedAtUnchanged": true,
+	"contentUpdatedAtUnchanged": false,
+	"statusUnchanged": true,
+	"remainingRetiredPath": false
+}

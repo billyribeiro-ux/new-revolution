@@ -1,0 +1,1600 @@
+{
+	"results": [
+		{
+			"width": 320,
+			"path": "/blog",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure & Options Blog | Revolution Trading Pros",
+			"description": "Institutional stock, ETF, and options trading research, market structure case studies, Options Greeks tutorials, and risk management playbooks.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Stock & Options Trading Blog"
+				},
+				{
+					"level": "H2",
+					"text": "Featured Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "All Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 320,
+			"documentWidth": 320,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/about",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules"
+			],
+			"breadcrumbDom": ["Home", "Blog"],
+			"breadcrumbSchema": ["Home", "Blog"],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"CollectionPage",
+				"Blog"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 320,
+			"path": "/blog/category/market-structure",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure Trading Articles | Revolution Trading Pros",
+			"description": "Explore 2 institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under Market Structure.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Market Structure"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Categories"
+				}
+			],
+			"viewportWidth": 320,
+			"documentWidth": 320,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "Market Structure"],
+			"breadcrumbSchema": ["Home", "Blog", "Market Structure"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 320,
+			"path": "/blog/tag/spx-options",
+			"status": 200,
+			"errors": [],
+			"title": "#SPX Options Trading Articles | Revolution Trading Pros",
+			"description": "Browse 2 stock and options trading articles tagged with #SPX Options from Revolution Trading Pros.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "#SPX Options"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Topics & Tags"
+				}
+			],
+			"viewportWidth": 320,
+			"documentWidth": 320,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/tag/spx-options",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "SPX Options"],
+			"breadcrumbSchema": ["Home", "Blog", "SPX Options"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 320,
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 200,
+			"errors": [],
+			"title": "SPX Order Flow & Gamma Flip Playbook",
+			"description": "Learn how institutional options desks map SPX dealer gamma flip zones, dark pool liquidity levels, and strict intraday risk management rules.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Key Takeaways for Institutional Order Flow"
+				},
+				{
+					"level": "H2",
+					"text": "Mapping the SPX Gamma Flip Zone"
+				},
+				{
+					"level": "H3",
+					"text": "Intraday Liquidity Confirmation"
+				},
+				{
+					"level": "H2",
+					"text": "Execution Checklist and Position Sizing"
+				},
+				{
+					"level": "H2",
+					"text": "Execute Institutional Order Flow With Defined Risk"
+				},
+				{
+					"level": "H2",
+					"text": "Frequently Asked Questions"
+				},
+				{
+					"level": "H3",
+					"text": "What is the SPX gamma flip level?"
+				},
+				{
+					"level": "H3",
+					"text": "How should traders adjust position size in negative gamma?"
+				},
+				{
+					"level": "H2",
+					"text": "Billy Ribeiro"
+				},
+				{
+					"level": "H2",
+					"text": "Related Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 320,
+			"documentWidth": 324,
+			"overflowElements": [
+				{
+					"tag": "ARTICLE",
+					"class": "blog-post-card svelte-17o5h7x",
+					"right": 324
+				},
+				{
+					"tag": "A",
+					"class": "card-media-link svelte-17o5h7x",
+					"right": 323
+				},
+				{
+					"tag": "IMG",
+					"class": "card-cover-img svelte-17o5h7x",
+					"right": 323
+				},
+				{
+					"tag": "DIV",
+					"class": "card-body svelte-17o5h7x",
+					"right": 323
+				}
+			],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/category/market-structure",
+				"/about",
+				"/blog/tag/spx-options",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/live-trading-rooms/day-trading-room",
+				"/store/indicators",
+				"/about",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog"
+			],
+			"breadcrumbDom": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"breadcrumbSchema": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"WebPage",
+				"Person",
+				"Article"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "1200",
+					"height": "630",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/logo.png",
+					"width": "72",
+					"height": "72",
+					"complete": true,
+					"naturalWidth": 3163,
+					"alt": "Billy Ribeiro"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": false,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			]
+		},
+		{
+			"width": 375,
+			"path": "/blog",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure & Options Blog | Revolution Trading Pros",
+			"description": "Institutional stock, ETF, and options trading research, market structure case studies, Options Greeks tutorials, and risk management playbooks.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Stock & Options Trading Blog"
+				},
+				{
+					"level": "H2",
+					"text": "Featured Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "All Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 375,
+			"documentWidth": 375,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/about",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules"
+			],
+			"breadcrumbDom": ["Home", "Blog"],
+			"breadcrumbSchema": ["Home", "Blog"],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"CollectionPage",
+				"Blog"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 375,
+			"path": "/blog/category/market-structure",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure Trading Articles | Revolution Trading Pros",
+			"description": "Explore 2 institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under Market Structure.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Market Structure"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Categories"
+				}
+			],
+			"viewportWidth": 375,
+			"documentWidth": 375,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "Market Structure"],
+			"breadcrumbSchema": ["Home", "Blog", "Market Structure"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			]
+		},
+		{
+			"width": 375,
+			"path": "/blog/tag/spx-options",
+			"status": 200,
+			"errors": [],
+			"title": "#SPX Options Trading Articles | Revolution Trading Pros",
+			"description": "Browse 2 stock and options trading articles tagged with #SPX Options from Revolution Trading Pros.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "#SPX Options"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Topics & Tags"
+				}
+			],
+			"viewportWidth": 375,
+			"documentWidth": 375,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/tag/spx-options",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "SPX Options"],
+			"breadcrumbSchema": ["Home", "Blog", "SPX Options"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 375,
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 200,
+			"errors": [],
+			"title": "SPX Order Flow & Gamma Flip Playbook",
+			"description": "Learn how institutional options desks map SPX dealer gamma flip zones, dark pool liquidity levels, and strict intraday risk management rules.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Key Takeaways for Institutional Order Flow"
+				},
+				{
+					"level": "H2",
+					"text": "Mapping the SPX Gamma Flip Zone"
+				},
+				{
+					"level": "H3",
+					"text": "Intraday Liquidity Confirmation"
+				},
+				{
+					"level": "H2",
+					"text": "Execution Checklist and Position Sizing"
+				},
+				{
+					"level": "H2",
+					"text": "Execute Institutional Order Flow With Defined Risk"
+				},
+				{
+					"level": "H2",
+					"text": "Frequently Asked Questions"
+				},
+				{
+					"level": "H3",
+					"text": "What is the SPX gamma flip level?"
+				},
+				{
+					"level": "H3",
+					"text": "How should traders adjust position size in negative gamma?"
+				},
+				{
+					"level": "H2",
+					"text": "Billy Ribeiro"
+				},
+				{
+					"level": "H2",
+					"text": "Related Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 375,
+			"documentWidth": 375,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/category/market-structure",
+				"/about",
+				"/blog/tag/spx-options",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/live-trading-rooms/day-trading-room",
+				"/store/indicators",
+				"/about",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog"
+			],
+			"breadcrumbDom": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"breadcrumbSchema": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"WebPage",
+				"Person",
+				"Article"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "1200",
+					"height": "630",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/logo.png",
+					"width": "72",
+					"height": "72",
+					"complete": true,
+					"naturalWidth": 3163,
+					"alt": "Billy Ribeiro"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": false,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			]
+		},
+		{
+			"width": 768,
+			"path": "/blog",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure & Options Blog | Revolution Trading Pros",
+			"description": "Institutional stock, ETF, and options trading research, market structure case studies, Options Greeks tutorials, and risk management playbooks.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Stock & Options Trading Blog"
+				},
+				{
+					"level": "H2",
+					"text": "Featured Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "All Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 768,
+			"documentWidth": 768,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/about",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules"
+			],
+			"breadcrumbDom": ["Home", "Blog"],
+			"breadcrumbSchema": ["Home", "Blog"],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"CollectionPage",
+				"Blog"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 768,
+			"path": "/blog/category/market-structure",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure Trading Articles | Revolution Trading Pros",
+			"description": "Explore 2 institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under Market Structure.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Market Structure"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Categories"
+				}
+			],
+			"viewportWidth": 768,
+			"documentWidth": 768,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "Market Structure"],
+			"breadcrumbSchema": ["Home", "Blog", "Market Structure"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 768,
+			"path": "/blog/tag/spx-options",
+			"status": 200,
+			"errors": [],
+			"title": "#SPX Options Trading Articles | Revolution Trading Pros",
+			"description": "Browse 2 stock and options trading articles tagged with #SPX Options from Revolution Trading Pros.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "#SPX Options"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Topics & Tags"
+				}
+			],
+			"viewportWidth": 768,
+			"documentWidth": 768,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/tag/spx-options",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "SPX Options"],
+			"breadcrumbSchema": ["Home", "Blog", "SPX Options"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 768,
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 200,
+			"errors": [],
+			"title": "SPX Order Flow & Gamma Flip Playbook",
+			"description": "Learn how institutional options desks map SPX dealer gamma flip zones, dark pool liquidity levels, and strict intraday risk management rules.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Key Takeaways for Institutional Order Flow"
+				},
+				{
+					"level": "H2",
+					"text": "Mapping the SPX Gamma Flip Zone"
+				},
+				{
+					"level": "H3",
+					"text": "Intraday Liquidity Confirmation"
+				},
+				{
+					"level": "H2",
+					"text": "Execution Checklist and Position Sizing"
+				},
+				{
+					"level": "H2",
+					"text": "Execute Institutional Order Flow With Defined Risk"
+				},
+				{
+					"level": "H2",
+					"text": "Frequently Asked Questions"
+				},
+				{
+					"level": "H3",
+					"text": "What is the SPX gamma flip level?"
+				},
+				{
+					"level": "H3",
+					"text": "How should traders adjust position size in negative gamma?"
+				},
+				{
+					"level": "H2",
+					"text": "Billy Ribeiro"
+				},
+				{
+					"level": "H2",
+					"text": "Related Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 768,
+			"documentWidth": 768,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/category/market-structure",
+				"/about",
+				"/blog/tag/spx-options",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/live-trading-rooms/day-trading-room",
+				"/store/indicators",
+				"/about",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog"
+			],
+			"breadcrumbDom": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"breadcrumbSchema": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"WebPage",
+				"Person",
+				"Article"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "1200",
+					"height": "630",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/logo.png",
+					"width": "72",
+					"height": "72",
+					"complete": true,
+					"naturalWidth": 3163,
+					"alt": "Billy Ribeiro"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			]
+		},
+		{
+			"width": 1440,
+			"path": "/blog",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure & Options Blog | Revolution Trading Pros",
+			"description": "Institutional stock, ETF, and options trading research, market structure case studies, Options Greeks tutorials, and risk management playbooks.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Stock & Options Trading Blog"
+				},
+				{
+					"level": "H2",
+					"text": "Featured Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "All Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 1440,
+			"documentWidth": 1440,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/about",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules"
+			],
+			"breadcrumbDom": ["Home", "Blog"],
+			"breadcrumbSchema": ["Home", "Blog"],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"CollectionPage",
+				"Blog"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 1440,
+			"path": "/blog/category/market-structure",
+			"status": 200,
+			"errors": [],
+			"title": "Market Structure Trading Articles | Revolution Trading Pros",
+			"description": "Explore 2 institutional stock, ETF, and options trading articles, case studies, and execution playbooks filed under Market Structure.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Market Structure"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Categories"
+				}
+			],
+			"viewportWidth": 1440,
+			"documentWidth": 1440,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "Market Structure"],
+			"breadcrumbSchema": ["Home", "Blog", "Market Structure"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 1440,
+			"path": "/blog/tag/spx-options",
+			"status": 200,
+			"errors": [],
+			"title": "#SPX Options Trading Articles | Revolution Trading Pros",
+			"description": "Browse 2 stock and options trading articles tagged with #SPX Options from Revolution Trading Pros.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "#SPX Options"
+				},
+				{
+					"level": "H2",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				},
+				{
+					"level": "H2",
+					"text": "Topics & Tags"
+				}
+			],
+			"viewportWidth": 1440,
+			"documentWidth": 1440,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/category/market-structure",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/tag/spx-options",
+				"/blog"
+			],
+			"breadcrumbDom": ["Home", "Blog", "SPX Options"],
+			"breadcrumbSchema": ["Home", "Blog", "SPX Options"],
+			"graphTypes": ["EducationalOrganization", "WebSite", "BreadcrumbList", "CollectionPage"],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			]
+		},
+		{
+			"width": 1440,
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 200,
+			"errors": [],
+			"title": "SPX Order Flow & Gamma Flip Playbook",
+			"description": "Learn how institutional options desks map SPX dealer gamma flip zones, dark pool liquidity levels, and strict intraday risk management rules.",
+			"h1Count": 1,
+			"headings": [
+				{
+					"level": "H1",
+					"text": "Institutional Order Flow and Gamma Flip Playbook"
+				},
+				{
+					"level": "H2",
+					"text": "Key Takeaways for Institutional Order Flow"
+				},
+				{
+					"level": "H2",
+					"text": "Mapping the SPX Gamma Flip Zone"
+				},
+				{
+					"level": "H3",
+					"text": "Intraday Liquidity Confirmation"
+				},
+				{
+					"level": "H2",
+					"text": "Execution Checklist and Position Sizing"
+				},
+				{
+					"level": "H2",
+					"text": "Execute Institutional Order Flow With Defined Risk"
+				},
+				{
+					"level": "H2",
+					"text": "Frequently Asked Questions"
+				},
+				{
+					"level": "H3",
+					"text": "What is the SPX gamma flip level?"
+				},
+				{
+					"level": "H3",
+					"text": "How should traders adjust position size in negative gamma?"
+				},
+				{
+					"level": "H2",
+					"text": "Billy Ribeiro"
+				},
+				{
+					"level": "H2",
+					"text": "Related Articles"
+				},
+				{
+					"level": "H3",
+					"text": "Zero DTE Risk Management and Position Sizing Rules"
+				}
+			],
+			"viewportWidth": 1440,
+			"documentWidth": 1440,
+			"overflowElements": [],
+			"bodyLinks": [
+				"/",
+				"/blog",
+				"/blog/category/market-structure",
+				"/blog/category/market-structure",
+				"/about",
+				"/blog/tag/spx-options",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/blog/institutional-order-flow-and-gamma-flip-playbook",
+				"/live-trading-rooms/day-trading-room",
+				"/store/indicators",
+				"/about",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/category/market-structure",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog/zero-dte-risk-management-and-position-sizing-rules",
+				"/blog"
+			],
+			"breadcrumbDom": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"breadcrumbSchema": [
+				"Home",
+				"Blog",
+				"Market Structure",
+				"Institutional Order Flow and Gamma Flip Playbook"
+			],
+			"graphTypes": [
+				"EducationalOrganization",
+				"WebSite",
+				"BreadcrumbList",
+				"WebPage",
+				"Person",
+				"Article"
+			],
+			"images": [
+				{
+					"src": "/og-image.png",
+					"width": "1200",
+					"height": "630",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Institutional SPX gamma exposure and order flow chart"
+				},
+				{
+					"src": "/logo.png",
+					"width": "72",
+					"height": "72",
+					"complete": true,
+					"naturalWidth": 3163,
+					"alt": "Billy Ribeiro"
+				},
+				{
+					"src": "/og-image.png",
+					"width": "800",
+					"height": "450",
+					"complete": true,
+					"naturalWidth": 1200,
+					"alt": "Zero DTE options risk management matrix"
+				}
+			],
+			"fontUrls": [
+				"http://127.0.0.1:4173/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2",
+				"http://127.0.0.1:4173/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			]
+		}
+	],
+	"links": [
+		{
+			"path": "/",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/about",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/blog",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/blog/category/market-structure",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/blog/zero-dte-risk-management-and-position-sizing-rules",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/blog/tag/spx-options",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/live-trading-rooms/day-trading-room",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/store/indicators",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/spx-profit-pulse",
+			"status": 404,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/live-trading-rooms/day-trading",
+			"status": 404,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/memberships",
+			"status": 404,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/resources",
+			"status": 200,
+			"type": "text/html",
+			"placeholder": false,
+			"location": null
+		},
+		{
+			"path": "/images/blog/0dte-spx-gex-execution-hero.webp",
+			"status": 200,
+			"type": "image/svg+xml; charset=utf-8",
+			"placeholder": true,
+			"location": null
+		},
+		{
+			"path": "/images/blog/not-a-real-file.webp",
+			"status": 200,
+			"type": "image/svg+xml; charset=utf-8",
+			"placeholder": true,
+			"location": null
+		}
+	]
+}

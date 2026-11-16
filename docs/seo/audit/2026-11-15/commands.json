@@ -1,0 +1,216 @@
+[
+	{
+		"command": "pnpm install --frozen-lockfile",
+		"exitCode": 0,
+		"log": "logs/install.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm check:css",
+		"exitCode": 0,
+		"log": "logs/check-css.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm check",
+		"exitCode": 0,
+		"log": "logs/check.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm lint",
+		"exitCode": 0,
+		"log": "logs/lint.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm test",
+		"exitCode": 1,
+		"log": "logs/test-final.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm test:unit --run --maxWorkers=4",
+		"exitCode": 0,
+		"log": "logs/unit-limited.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm build",
+		"exitCode": 0,
+		"log": "logs/build.log",
+		"warningLines": [
+			"(node:16555) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:16555) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:"
+		]
+	},
+	{
+		"command": "pnpm check:pages",
+		"exitCode": 0,
+		"log": "logs/check-pages.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm test:seo",
+		"exitCode": 0,
+		"log": "logs/seo-tests.log",
+		"warningLines": [
+			"[WebServer] (node:18753) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18761) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18761) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18761) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:",
+			"[WebServer] (node:18795) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18865) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:18873) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:18875) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+		]
+	},
+	{
+		"command": "pnpm test:e2e",
+		"exitCode": 0,
+		"log": "logs/e2e-tests.log",
+		"warningLines": [
+			"[WebServer] (node:19916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:19924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:19924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:19924) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:",
+			"[WebServer] (node:19959) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:19960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:20031) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:20039) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20041) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20050) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20045) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20047) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20046) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20049) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:20051) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+		]
+	},
+	{
+		"command": "pnpm audit --json",
+		"exitCode": 1,
+		"log": "logs/dependency-audit.json",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm --dir /tmp/revolution-seo-tools exec lhci collect (nine URLs; see logs)",
+		"exitCode": 0,
+		"log": "logs/lighthouse.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm --dir /tmp/revolution-seo-tools exec unlighthouse-ci --root /tmp/revolution-seo-tools --config-file /tmp/revolution-seo-tools/unlighthouse.config.mjs --build-static --no-cache",
+		"exitCode": 1,
+		"log": "logs/unlighthouse.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm lint (final artifact check)",
+		"exitCode": 0,
+		"log": "logs/lint-final.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm check:css",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-check-css.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm check",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-check.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm lint",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-lint.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm test:unit --run",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-unit.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm build",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-build.log",
+		"warningLines": [
+			"(node:30160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30160) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:"
+		]
+	},
+	{
+		"command": "pnpm check:pages",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-pages.log",
+		"warningLines": []
+	},
+	{
+		"command": "pnpm test:seo",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-seo.log",
+		"warningLines": [
+			"[WebServer] (node:30387) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30395) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30395) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30395) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:",
+			"[WebServer] (node:30425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30426) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30497) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30505) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30506) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+		]
+	},
+	{
+		"command": "pnpm test:e2e",
+		"phase": "Owner-authorized pre-push verification",
+		"exitCode": 0,
+		"log": "logs/prepush-e2e.log",
+		"warningLines": [
+			"[WebServer] (node:30669) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30682) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30682) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30682) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] Warning: The following modules failed to locate dependencies that may (or may not) be required for your app to work:",
+			"[WebServer] (node:30739) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30811) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"[WebServer] (node:30819) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30827) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30828) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30822) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30830) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30826) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30823) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30825) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30821) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(node:30829) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set."
+		]
+	}
+]

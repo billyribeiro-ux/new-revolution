@@ -1,0 +1,465 @@
+[
+	{
+		"engine": "chromium",
+		"path": "/blog/0dte-spx-options-strategy-guide",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/PostCard.BFb1LsLV.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/25.BlXfxjCi.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/prose.CSPqEIXB.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/3.CpvK72yF.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/PostCard.BFb1LsLV.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/25.BlXfxjCi.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/prose.CSPqEIXB.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/3.CpvK72yF.css"
+			}
+		],
+		"errors": [],
+		"families": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable Fallback"
+		],
+		"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "\"Montserrat Variable\", \"Montserrat Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"bodyFamily": "\"Sofia Sans Variable\", \"Sofia Sans Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"details": {
+			"hash": "#1-what-0dte-changes-about-the-trade",
+			"numericIdLookup": true
+		}
+	},
+	{
+		"engine": "chromium",
+		"path": "/watchlist",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/48.DaUj-o5m.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-greek-wght-normal.BVXOQ11m.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			}
+		],
+		"errors": [],
+		"families": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable Fallback"
+		],
+		"canonical": "https://www.revolutiontradingpros.com/watchlist",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "\"Montserrat Variable\", \"Montserrat Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"bodyFamily": "\"Sofia Sans Variable\", \"Sofia Sans Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"details": {
+			"tokens": ["var(--font-mono)"],
+			"resolved": ["ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"]
+		}
+	},
+	{
+		"engine": "chromium",
+		"path": "/blog/0dte-spx-options-strategy-guide#1-what-0dte-changes-about-the-trade",
+		"javaScriptEnabled": false,
+		"targetTop": 114.90625
+	},
+	{
+		"engine": "firefox",
+		"path": "/blog/0dte-spx-options-strategy-guide",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/PostCard.BFb1LsLV.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/25.BlXfxjCi.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/prose.CSPqEIXB.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/3.CpvK72yF.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			}
+		],
+		"errors": [],
+		"families": ["Montserrat Variable", "Sofia Sans Variable", "Sofia Sans Variable"],
+		"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "\"Montserrat Variable\", \"Montserrat Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"bodyFamily": "\"Sofia Sans Variable\", \"Sofia Sans Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"details": {
+			"hash": "#1-what-0dte-changes-about-the-trade",
+			"numericIdLookup": true
+		}
+	},
+	{
+		"engine": "firefox",
+		"path": "/watchlist",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/48.DaUj-o5m.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-greek-wght-normal.BVXOQ11m.woff2"
+			}
+		],
+		"errors": [],
+		"families": ["Montserrat Variable", "Sofia Sans Variable", "Sofia Sans Variable"],
+		"canonical": "https://www.revolutiontradingpros.com/watchlist",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "\"Montserrat Variable\", \"Montserrat Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"bodyFamily": "\"Sofia Sans Variable\", \"Sofia Sans Variable Fallback\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+		"details": {
+			"tokens": ["var(--font-mono)"],
+			"resolved": ["ui-monospace, \"SFMono-Regular\", Menlo, Monaco, Consolas, monospace"]
+		}
+	},
+	{
+		"engine": "firefox",
+		"path": "/blog/0dte-spx-options-strategy-guide#1-what-0dte-changes-about-the-trade",
+		"javaScriptEnabled": false,
+		"targetTop": 111.10000610351562
+	},
+	{
+		"engine": "webkit",
+		"path": "/blog/0dte-spx-options-strategy-guide",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/PostCard.BFb1LsLV.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/25.BlXfxjCi.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/prose.CSPqEIXB.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-italic.BgGMKfL-.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/3.CpvK72yF.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/PostCard.BFb1LsLV.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/25.BlXfxjCi.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/prose.CSPqEIXB.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/3.CpvK72yF.css"
+			}
+		],
+		"errors": [],
+		"families": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable Fallback"
+		],
+		"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "Montserrat Variable, Montserrat Variable Fallback, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+		"bodyFamily": "Sofia Sans Variable, Sofia Sans Variable Fallback, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+		"details": {
+			"hash": "#1-what-0dte-changes-about-the-trade",
+			"numericIdLookup": true
+		}
+	},
+	{
+		"engine": "webkit",
+		"path": "/watchlist",
+		"status": 200,
+		"resources": [
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/0.Bkx1Tq0q.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/Footer.C1Tjj5m1.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/48.DaUj-o5m.css"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/inner-page.DHhM1VJ_.css"
+			},
+			{
+				"type": "font",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/sofia-sans-greek-wght-normal.BVXOQ11m.woff2"
+			},
+			{
+				"type": "stylesheet",
+				"url": "https://www.revolutiontradingpros.com/_app/immutable/assets/1.CbOR3lif.css"
+			}
+		],
+		"errors": [],
+		"families": [
+			"Montserrat Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable",
+			"Sofia Sans Variable Fallback"
+		],
+		"canonical": "https://www.revolutiontradingpros.com/watchlist",
+		"robots": "index, follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1",
+		"headingFamily": "Montserrat Variable, Montserrat Variable Fallback, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+		"bodyFamily": "Sofia Sans Variable, Sofia Sans Variable Fallback, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+		"details": {
+			"tokens": ["var(--font-mono)"],
+			"resolved": ["ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"]
+		}
+	},
+	{
+		"engine": "webkit",
+		"path": "/blog/0dte-spx-options-strategy-guide#1-what-0dte-changes-about-the-trade",
+		"javaScriptEnabled": false,
+		"targetTop": 110.796875
+	}
+]

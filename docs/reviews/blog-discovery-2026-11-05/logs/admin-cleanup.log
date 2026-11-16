@@ -1,0 +1,5 @@
+Database: PGlite (local file) /private/tmp/wt-blog-audit-20261105/.svelte-kit/pglite-blog
+Revoked: deleted user czHQ89mB1ft2pBTPYPwopXcAgkJMMKtt ([local verification value redacted]); ON DELETE CASCADE removed 4 session(s) and 1 account row(s).
+
+$ node --env-file-if-exists=.env scripts/seed-admin.ts --revoke
+.env not found. Continuing without it.

@@ -1,0 +1,448 @@
+{
+	"before": {
+		"engine": "chromium",
+		"viewport": 320,
+		"documentWidth": 539,
+		"tableWrapperWidths": [296, 296],
+		"tableContentWidths": [438, 527],
+		"tableOverflow": "visible",
+		"codeOverflow": "auto"
+	},
+	"after": [
+		{
+			"engine": "chromium",
+			"width": 320,
+			"documentWidth": 320,
+			"viewport": 320,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 438,
+					"scrolled": 142,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 527,
+					"scrolled": 231,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 294,
+					"content": 762,
+					"scrolled": 468,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "chromium",
+			"width": 375,
+			"documentWidth": 375,
+			"viewport": 375,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 438,
+					"scrolled": 87,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 527,
+					"scrolled": 176,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 349,
+					"content": 762,
+					"scrolled": 413,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "chromium",
+			"width": 768,
+			"documentWidth": 768,
+			"viewport": 768,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 710,
+					"content": 762,
+					"scrolled": 52,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "chromium",
+			"width": 1440,
+			"documentWidth": 1440,
+			"viewport": 1440,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "chromium",
+			"width": 2420,
+			"documentWidth": 2420,
+			"viewport": 2420,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "firefox",
+			"width": 320,
+			"documentWidth": 320,
+			"viewport": 320,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 439,
+					"scrolled": 143,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 527,
+					"scrolled": 231,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 294,
+					"content": 763,
+					"scrolled": 469,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "firefox",
+			"width": 375,
+			"documentWidth": 375,
+			"viewport": 375,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 439,
+					"scrolled": 88,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 527,
+					"scrolled": 176,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 349,
+					"content": 763,
+					"scrolled": 414,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "firefox",
+			"width": 768,
+			"documentWidth": 768,
+			"viewport": 768,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 710,
+					"content": 763,
+					"scrolled": 53,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "firefox",
+			"width": 1440,
+			"documentWidth": 1440,
+			"viewport": 1440,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "firefox",
+			"width": 2420,
+			"documentWidth": 2420,
+			"viewport": 2420,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "webkit",
+			"width": 320,
+			"documentWidth": 320,
+			"viewport": 320,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 438,
+					"scrolled": 142,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 296,
+					"content": 527,
+					"scrolled": 231,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 294,
+					"content": 781,
+					"scrolled": 487,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "webkit",
+			"width": 375,
+			"documentWidth": 375,
+			"viewport": 375,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 438,
+					"scrolled": 87,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 351,
+					"content": 527,
+					"scrolled": 176,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 349,
+					"content": 781,
+					"scrolled": 432,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "webkit",
+			"width": 768,
+			"documentWidth": 768,
+			"viewport": 768,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 712,
+					"content": 712,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 710,
+					"content": 781,
+					"scrolled": 71,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "webkit",
+			"width": 1440,
+			"documentWidth": 1440,
+			"viewport": 1440,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		},
+		{
+			"engine": "webkit",
+			"width": 2420,
+			"documentWidth": 2420,
+			"viewport": 2420,
+			"regions": [
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "table",
+					"width": 900,
+					"content": 900,
+					"scrolled": 0,
+					"overflow": "auto"
+				},
+				{
+					"kind": "code",
+					"width": 898,
+					"content": 898,
+					"scrolled": 0,
+					"overflow": "auto"
+				}
+			]
+		}
+	]
+}

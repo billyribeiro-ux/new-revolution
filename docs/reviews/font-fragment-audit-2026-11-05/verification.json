@@ -1,0 +1,79 @@
+{
+	"unit": {
+		"passed": 588,
+		"skipped": 0,
+		"logTail": [
+			"",
+			"",
+			" Test Files  81 passed (81)",
+			"      Tests  588 passed (588)",
+			"   Start at  19:46:51",
+			"   Duration  10.68s (worker 47%, tests 28%, transform 15%, import 10%)",
+			""
+		]
+	},
+	"chromiumFull": {
+		"passed": 58,
+		"skipped": 0,
+		"logTail": [
+			"  \u2713  54 src/routes/admin/admin-shell.e2e.ts:92:2 \u203a Admin shell \u203a Lead Captures shows an empty state, never bars, when the period has no leads (549ms)",
+			"  \u2713  50 src/routes/admin/image-flow.e2e.ts:305:2 \u203a Admin image flow: upload, feature, insert, publish, public page \u203a publishing automatically adds one real card to homepage and blog without a rebuild (3.6s)",
+			"  \u2713  56 src/routes/admin/image-flow.e2e.ts:371:2 \u203a Admin image flow: upload, feature, insert, publish, public page \u203a keeps wide CMS tables and code locally scrollable without widening the article (366ms)",
+			"  \u2713  57 src/routes/admin/image-flow.e2e.ts:428:2 \u203a Admin image flow: upload, feature, insert, publish, public page \u203a aligns every blog surface with the shared site container from mobile to ultrawide (2.1s)",
+			"  \u2713  58 src/routes/admin/image-flow.e2e.ts:489:2 \u203a Admin image flow: upload, feature, insert, publish, public page \u203a public post serves the cover, srcset, og:image, 3 JSON-LD crops, body image and launch-aware sitemap (674ms)",
+			"",
+			"  58 passed (25.5s)"
+		]
+	},
+	"firefoxTargeted": {
+		"passed": 14,
+		"skipped": 0,
+		"logTail": [
+			"  \u2713  10 [firefox] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /admin/login (783ms)",
+			"  \u2713  11 [firefox] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /maintenance/index.html (646ms)",
+			"  \u2713  12 [firefox] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /font-audit-not-found (681ms)",
+			"  \u2713  13 [firefox] \u203a src/routes/blog/font-and-fragment.e2e.ts:45:1 \u203a keeps article entry and passive scrolling clean while native TOC deep links remain usable (1.2s)",
+			"  \u2713  14 [firefox] \u203a src/routes/blog/font-and-fragment.e2e.ts:71:1 \u203a uses the shared monospace token in watchlist SVG charts (577ms)",
+			"",
+			"  14 passed (19.7s)"
+		]
+	},
+	"webkitTargeted": {
+		"passed": 14,
+		"skipped": 0,
+		"logTail": [
+			"  \u2713  10 [webkit] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /admin/login (713ms)",
+			"  \u2713  11 [webkit] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /maintenance/index.html (685ms)",
+			"  \u2713  12 [webkit] \u203a src/routes/blog/font-and-fragment.e2e.ts:13:2 \u203a serves fonts and stylesheets from the page origin on /font-audit-not-found (699ms)",
+			"  \u2713  13 [webkit] \u203a src/routes/blog/font-and-fragment.e2e.ts:45:1 \u203a keeps article entry and passive scrolling clean while native TOC deep links remain usable (525ms)",
+			"  \u2713  14 [webkit] \u203a src/routes/blog/font-and-fragment.e2e.ts:71:1 \u203a uses the shared monospace token in watchlist SVG charts (362ms)",
+			"",
+			"  14 passed (18.6s)"
+		]
+	},
+	"standaloneSeo": {
+		"passed": 3,
+		"skipped": 0,
+		"logTail": [
+			"(node:9996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.",
+			"(Use `node --trace-warnings ...` to show where the warning was created)",
+			"  \u2713  1 tests/seo/seo-standard.spec.ts:43:2 \u203a SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) \u203a verifies robots.txt, sitemap.xml, rss.xml, and 404 error page contract (214ms)",
+			"  \u2713  2 tests/seo/seo-standard.spec.ts:88:2 \u203a SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) \u203a crawls every indexable URL in 02-inventory.json and enforces metadata, canonical, JSON-LD, breadcrumb, image, and YMYL rules (1.6s)",
+			"  \u2713  3 tests/seo/seo-standard.spec.ts:252:2 \u203a SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03) \u203a enforces noindex and no canonical on non-indexable routes in 02-inventory.json (IDX-08) (630ms)",
+			"",
+			"  3 passed (12.6s)"
+		]
+	},
+	"svelteDiagnostics": {
+		"errors": 0,
+		"warnings": 0
+	},
+	"fontAndCssPolicy": "passed",
+	"prerenderedPageContracts": 46,
+	"lint": "blocked only by unchanged blogs/first-blog.md and blogs/head-to-head-blog.md formatting",
+	"oxlint": "passed",
+	"svelteEslint": "passed",
+	"svelteMcp": "article and watchlist full-file analysis passed with no findings",
+	"throwawayLocalAdmins": "revoked; temporary credential file removed",
+	"previewPort": 4573
+}

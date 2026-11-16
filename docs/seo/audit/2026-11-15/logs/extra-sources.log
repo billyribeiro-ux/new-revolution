@@ -1,0 +1,80 @@
+[
+  {
+    "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/lazy-loading",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/crawling-indexing/javascript/lazy-loading",
+    "lastUpdated": [
+      "Last updated 2025-12-10 UTC.",
+      "Last updated 2025-12-10 UTC.\"],[],[\"Lazy-loading should load content when visible in the viewport using methods "
+    ],
+    "error": null
+  },
+  {
+    "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps",
+    "lastUpdated": [
+      "Last updated 2025-12-10 UTC.",
+      "Last updated 2025-12-10 UTC.\"],[],[\"Image sitemaps inform Google about images on a site, including those found v"
+    ],
+    "error": null
+  },
+  {
+    "url": "https://developers.google.com/search/docs/monitor-debug/prevent-abuse",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/monitor-debug/prevent-abuse",
+    "lastUpdated": [
+      "Last updated 2026-10-26 UTC.",
+      "Last updated 2026-10-26 UTC.\"],[],[\"To prevent spam, establish clear abuse policies and allow users to report sp"
+    ],
+    "error": null
+  },
+  {
+    "url": "https://svelte.dev/docs/kit/configuration",
+    "status": 200,
+    "finalUrl": "https://svelte.dev/docs/kit/@sveltejs-kit-vite",
+    "lastUpdated": [],
+    "error": null
+  },
+  {
+    "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+    "lastUpdated": [
+      "Last updated 2026-04-14 UTC.",
+      "Last updated 2026-04-14 UTC.\"],[],[\"URL redirection guides visitors and search engines to a new page location. P"
+    ],
+    "error": null
+  },
+  {
+    "url": "https://web.dev/articles/vitals",
+    "status": 200,
+    "finalUrl": "https://web.dev/articles/vitals",
+    "lastUpdated": [
+      "Last updated: October 31, 2024",
+      "Last updated 2024-10-31 UTC.",
+      "Last updated 2024-10-31 UTC.\"],[],[]]"
+    ],
+    "error": null
+  },
+  {
+    "url": "https://developers.google.com/search/docs/appearance/google-images",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/appearance/google-images",
+    "lastUpdated": [
+      "Last updated 2026-03-02 UTC.",
+      "Last updated 2026-03-02 UTC.\"],[],[\"To optimize images for Google Search, use HTML image elements, including `\\u"
+    ],
+    "error": null
+  },
+  {
+    "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "status": 200,
+    "finalUrl": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "lastUpdated": [
+      "Last updated 2026-07-10 UTC.",
+      "Last updated 2026-07-10 UTC.\"],[],[]]"
+    ],
+    "error": null
+  }
+]

@@ -1,0 +1,135 @@
+{
+	"date": "2026-11-05",
+	"baseline": "54caa06",
+	"stack": {
+		"svelte": "5.57.3",
+		"kit": "3.1.1",
+		"adapter": "7.0.2",
+		"packageManager": "pnpm12.16.1"
+	},
+	"repositoryLint": {
+		"status": "fails at formatting stage",
+		"unchangedReferences": [
+			"blogs/first-blog.md",
+			"blogs/head-to-head-blog.md",
+			"docs/reviews/font-fragment-audit-2026-11-05/release/verify-browser.mjs"
+		],
+		"codeLintRunSeparately": true,
+		"criteriaRelaxed": false
+	},
+	"database": {
+		"migration": "0004_post_search_projection.sql",
+		"productionExistingRows": 1,
+		"previewExistingRows": 0,
+		"sourceRowsIdentical": true,
+		"pending": 0
+	},
+	"accounts": {
+		"disposableLocalAdminsRevoked": 4,
+		"productionAccountsCreated": 0
+	},
+	"followup": {
+		"reason": "Visually observed sole-featured remainder repeated the overall total in an empty section",
+		"unitComponent": {
+			"passed": 678,
+			"files": 88
+		},
+		"authenticatedChromium": {
+			"passed": 71,
+			"skipped": 0
+		},
+		"focusedArchiveComponent": {
+			"passed": 8,
+			"newCases": 4
+		},
+		"svelteDiagnostics": {
+			"errors": 0,
+			"warnings": 0
+		},
+		"cssFontPolicy": "passed",
+		"codeAndSvelteLint": "passed",
+		"staticPages": 46,
+		"mcp": "ArchiveResults final analysis clean; see release/archive-remainder-mcp.json",
+		"deployment": {
+			"applicationCommit": "09d310a15d450a46d7b76d659917de25fd958907",
+			"id": "dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm",
+			"stagedHttp": 63,
+			"stagedBrowser": 57,
+			"stagedFontSurfaces": 57,
+			"stagedRemainder": "passed",
+			"publicHttp": 63,
+			"publicBrowser": 57,
+			"publicFontSurfaces": 57,
+			"additionalPublicRuntime": 30,
+			"publicRemainder": "passed",
+			"maintenance": false
+		},
+		"firefoxFocused": 26,
+		"webkitFocused": 26
+	},
+	"initialResults": {
+		"unitComponent": {
+			"passed": 674,
+			"files": 88
+		},
+		"authenticatedChromium": {
+			"passed": 71,
+			"skipped": 0
+		},
+		"firefoxFocused": {
+			"passed": 26
+		},
+		"webkitFocused": {
+			"passed": 26
+		},
+		"standaloneSeo": {
+			"passed": 3
+		},
+		"staticPages": {
+			"passed": 46
+		},
+		"maintenanceOutput": {
+			"passed": 4
+		},
+		"svelteMcp": {
+			"files": 41,
+			"issues": 0,
+			"suggestions": 0
+		},
+		"svelteDiagnostics": {
+			"errors": 0,
+			"warnings": 0
+		},
+		"cssFontPolicy": "passed",
+		"codeLint": "passed",
+		"svelteEslint": "passed",
+		"ownedFormatting": "passed",
+		"finalLocalReleaseProbe": {
+			"passed": 57,
+			"failed": 0,
+			"engines": ["chromium", "firefox", "webkit"],
+			"sameWindowObserverCounts": [1, 0, 1],
+			"faqBoundary": "passed all three engines",
+			"numericAuthoredPrefix": "not present in local fixture; verify published article"
+		}
+	},
+	"initialDeployment": {
+		"applicationCommit": "37a23f29491f872dbc736cb67ad701cb89112941",
+		"id": "dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG",
+		"stagedHttp": 63,
+		"stagedBrowser": 57,
+		"stagedFontSurfaces": 57,
+		"publicHttp": 63,
+		"publicBrowser": 57,
+		"publicFontSurfaces": 57,
+		"additionalPublicRuntime": 30,
+		"maintenance": false
+	},
+	"currentRelease": {
+		"applicationCommit": "09d310a15d450a46d7b76d659917de25fd958907",
+		"deploymentId": "dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm",
+		"publicOrigin": "https://www.revolutiontradingpros.com",
+		"verified": true,
+		"evidence": "release/final/identity.json"
+	}
+}

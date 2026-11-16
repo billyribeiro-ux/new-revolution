@@ -1,0 +1,5 @@
+$ vp fmt --check . && vp lint . && eslint .
+Checking formatting...
+
+All matched files use the correct format.
+Finished in 1258ms on 898 files using 28 threads.

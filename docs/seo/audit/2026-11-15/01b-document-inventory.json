@@ -1,0 +1,1002 @@
+[
+	{
+		"path": "CHANGELOG.md",
+		"lines": 907,
+		"sha256": "2287f48b5f05b51485f49ac237de6f21cbc633460e9c00da64f10ae6f48863c8",
+		"historical": false,
+		"retiredDestinationReferences": [
+			[
+				192,
+				"### 2026-11-08 \u2014 Standardize Sunday Alpha Protocol (`/alert-services/sunday-alpha-protocol`), eliminate legacy `/watchlist` & `Explosive Swings` paths, enforce zero-`href` static Geist fonts & zero `#` URL fragments"
+			],
+			[
+				195,
+				"- **Removed:** Eliminate all legacy `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, `/sunday-alpha-alerts`, and `/alert-services/sunday-alpha-alerts` paths, redirects (`LEGACY_SUNDAY_ALPHA_PATHS` i"
+			],
+			[
+				232,
+				"### 2026-11-06 \u2014 Unify breadcrumb layout, Google BreadcrumbList hierarchy & remove `/watchlist` route folder"
+			],
+			[
+				237,
+				"- **Removed:** Delete the legacy `src/routes/watchlist/` directory (`src/routes/watchlist/+server.ts`) and centralize `308 Permanent Redirect` handling for `/watchlist`, `/explosive-swings`, `/alert-services/explosive-sw"
+			],
+			[
+				267,
+				"- Move the product to `/sunday-alpha-alerts`, preserve `/watchlist` 308 query/fragment navigation, and update navigation, metadata, graph, sitemap discovery and URL inventory. Remove the faux RTP mark and opening content"
+			],
+			[
+				273,
+				"- Squash-merge PR #37 as `e62c340` and promote exact Production deployment `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8` after staged acceptance. Public health identifies the new application; nine live browser cases across Chromium"
+			],
+			[
+				291,
+				"- Updated navigation, marketing copy, internal references and structured data to name the existing `/watchlist` Sunday Alpha Protocol."
+			]
+		]
+	},
+	{
+		"path": "investigate.md",
+		"lines": 61,
+		"sha256": "07aa626c9f43bb1327a1707e7bfbf975b391b79a43c06a0643440a1f7c7eb289",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blog-editor-report.md",
+		"lines": 609,
+		"sha256": "62d39ffd74cabbae13042282df7421268f00aa310845e462021497f46661a404",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blog-sample.md",
+		"lines": 972,
+		"sha256": "cb097945a9fc08991d19de54a87cf4226cb63d0bbe451c7ab30eff9b352c5e0c",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "urls.md",
+		"lines": 88,
+		"sha256": "619af746db4374337492a7e4496f9e2334f7add779019d1d9649ddc38675d162",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "todo.md",
+		"lines": 19,
+		"sha256": "78d401d361e0c4b92a26ab9e0a6283bb98a80f83f9fc49c7737c65a79951df9c",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "README.md",
+		"lines": 53,
+		"sha256": "1d41203fe41b9713f9a5d4051da59c36df69deaa528d8658e7376820ff458c6e",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "full-blog.md",
+		"lines": 402,
+		"sha256": "133b394209f5d83b6c5ac545e2e310c93f374fa3e9de78d6c14e16ebf4b2affc",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blog-sample-fixed.md",
+		"lines": 1816,
+		"sha256": "3b817811d1bd7e92312bd2966d7c9caf035b702cdca8f24ec01b8955caff681d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "seo-verify.md",
+		"lines": 160,
+		"sha256": "18d15eb9584d170b0f27d3f3ec555d4205d00a3990f0386b264d5d8464d36d9c",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blog-posts.md",
+		"lines": 1816,
+		"sha256": "6fdbc404a8c7f2e9aa1dbfb970be13a768022e77341654e4ee5fe24f6b28c1da",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "seo-audit.md",
+		"lines": 364,
+		"sha256": "557b1dc089ce1f2db0ea75cf5e0accd84c300988caa430802a1e7135ad804ece",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "GEMINI.md",
+		"lines": 41,
+		"sha256": "bcf6fb48a1ebde8a730c63b22aebee28549a03da6a1b72ad7f710274763295ae",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "AGENTS.md",
+		"lines": 208,
+		"sha256": "6b14da4406cc95247ad8caa9fc254e3ca066b6380af9249a88037963c7b4bb2d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "first-blog.md",
+		"lines": 408,
+		"sha256": "54bba25243108bc7faf5fe8e1556bd15b104d288053e6d9f2962783f5d446d4b",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "CLAUDE.md",
+		"lines": 9,
+		"sha256": "6c9cee9e23570669d185067ce0992b8a4c32ec95a79568f31d247e3212f5b79a",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blog implementation.md",
+		"lines": 249,
+		"sha256": "e756d4859326e21f5fc21bb80ca4d5d1f34591133fc67d40fe9a1cebcb10459e",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/head-to-head-blog.md",
+		"lines": 468,
+		"sha256": "a37fccb260087f6ca34d58957565c59f16e07183e2ffa65d3b807ec3ea13a76e",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/next-spx-blog.md",
+		"lines": 408,
+		"sha256": "ebd88da337663ead3f72c41f73cc6e1de0face897154e646c3b0b335f879369d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/0DTE-spx-options-strategy.md",
+		"lines": 340,
+		"sha256": "be6fe165308fe703c4c925c8f1cf7b4ec7737492cbee63014066185908a437f8",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/next-blog-now.md",
+		"lines": 510,
+		"sha256": "a6d9e29026fa7881bbefc22f8fd7069dd68121fa7b809ee4fb20eebb80167ac3",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/40_seo_ai_geo_blog_blueprints_20_gaps_20_head_to_head_nov_5_2026.md",
+		"lines": 507,
+		"sha256": "1eba37360e048a2b252266ce790f5612c06fad93f33ecc29caf77fdf6e12340a",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "blogs/first-blog.md",
+		"lines": 560,
+		"sha256": "f5bf237796c146283b58b948d18d7bc3452c16eb7bbc10d750320769ee4c3f47",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/VITE_PLUS_WORKFLOW.md",
+		"lines": 112,
+		"sha256": "d9996bc2d4423e977cab0b32f70de3ad8dbf62322d66cf8011d0a59a3137795c",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/TEMPORARY.md",
+		"lines": 56,
+		"sha256": "2dd514baedb4a259b10c1ec330005379c278380a9b14266756981b3d6b7d88fc",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/ADMIN_AUTH_PLAN.md",
+		"lines": 261,
+		"sha256": "8e4e85029b75caad37569069599839029eee1607ecf6cad186042e315cc581fd",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/AGENT_COORDINATION.md",
+		"lines": 117,
+		"sha256": "78d48e44108d3de453d5ee1677ca27430d0a7e8d7e11ca0fb4ede1aac3ab39c9",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/CSS_STANDARDS.md",
+		"lines": 191,
+		"sha256": "4cad9974807b8634a978f3d7d422db3d2b7ec6fef746b53789164bd733b575b6",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/WAITLIST_SETUP.md",
+		"lines": 142,
+		"sha256": "ddf2c20f21bcad2a53a0450997103edbfa99a6eb99422ae0301ac5bbc19c0bd6",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/README.md",
+		"lines": 67,
+		"sha256": "c1cb680e2a9ff24e2a01a2c40072689086bce95d9d990c8a341a9a7b236515d7",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/ADMIN_LOCAL_LOGIN.md",
+		"lines": 189,
+		"sha256": "7f6d3e11a97f64aeb7580bc90d79dd054198c3b1cf2e7ad867f5b45e692b7a15",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/BLOG_AGENT_HANDOFF.md",
+		"lines": 110,
+		"sha256": "bc9fca0afdf7ecc2a0ccdf7db867b54f4fbc54c21d6b97bfbbb9af127a3c83a2",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/SEO_EVIDENCE.md",
+		"lines": 93,
+		"sha256": "d612d6d566ab8291676de58570127bf15175963dffead9c691c9b9469973d8d5",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/NEW_PAGE_PLAYBOOK.md",
+		"lines": 500,
+		"sha256": "be572a7cafad029c0c4da946b1695a45d02fbe60ad2b759f956312da4c1497bb",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/MEDIA_UI_CONTRACT.md",
+		"lines": 93,
+		"sha256": "df223d1e824d54eb27518f34ef39ff08412ff2a75563486172ddb208232c516a",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/FONT_AND_FRAGMENT_POLICY.md",
+		"lines": 22,
+		"sha256": "9deb385716f66fa986d30000b98067887c760573d4fa9023fa6d1f85e276c6aa",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/MEDIA_STORAGE.md",
+		"lines": 64,
+		"sha256": "0f0d59f5ef042256063b976e375240ce4d4079a1b06fa189df31b87264123415",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/MAINTENANCE_EXPERIENCE_PLAN.md",
+		"lines": 349,
+		"sha256": "de61957cce2b9bc772bd43ed0dc9f77412a51419fbb6c8b040dfc7a1488adec2",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/MAINTENANCE.md",
+		"lines": 105,
+		"sha256": "700246aa30dc73d968eeb91ea759e919a24956145534b626c9584880d42fcd88",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/blog-editor-implementation-prompt.md",
+		"lines": 660,
+		"sha256": "072c01a2a5ee5a2414a2c5f58a5dab29a66ff2bb0a7522ce31579a97a389ed85",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/BLOG_ADAPTATION_MAP.md",
+		"lines": 25,
+		"sha256": "6d9980717b7bfdad3f81a285c05a2ce26e44663800e34c9d990042e0da879ff7",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md",
+		"lines": 45,
+		"sha256": "6667cab2fa7b749d096c7fae0d960d31b85f8363635047ec3c8fb5a084827c7d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/blog/AUTOMATION_PLAN.md",
+		"lines": 138,
+		"sha256": "33383a6a7a1f2ec83ca7b86b04d2ab68c843cc5968217554c624e74dff7765bd",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/blog/FRESHNESS.md",
+		"lines": 45,
+		"sha256": "cd42207fa8e468e5de90ab644def480054b07ec4950ec7cab28ce3a54e1d7eb1",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/blog/COVERAGE_MATRIX.md",
+		"lines": 98,
+		"sha256": "f1554f665c1afb90639f806c94e7148d7a1d21ee3ae4c5dbecd76bc1e406bf1e",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/SEO_STANDARD.md",
+		"lines": 218,
+		"sha256": "315ac8e66d72e2d600d72a68dd296ccfcde2655019e29fc93e1d3eb67bf3fc50",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/OPERATIONS.md",
+		"lines": 103,
+		"sha256": "3ff5d6b1f944e47fe3e0a5c3efb263fd74a19e2738a01bf3991aa3e7c23436eb",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/LAUNCH_TRACKER.md",
+		"lines": 84,
+		"sha256": "a970b77db67b3163585862262cd13f2f9a7f32263b0af55be8123ba259034fad",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/DECISIONS.md",
+		"lines": 91,
+		"sha256": "40b94136975b985f222a5e70a0c25616fe55e7c1a2b41f1a7556c7794e66418b",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md",
+		"lines": 64,
+		"sha256": "cd6246215eb791ad68356bde6e44e5ad9e9c1848efefb844c4e7cce18ea6ff14",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/maintenance-waitlist/OPERATIONS.md",
+		"lines": 118,
+		"sha256": "98b00d9e6293b87077017ce38cf1407b43f7b6809f675ec5d2c3272472652422",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/maintenance-waitlist/VERIFICATION.md",
+		"lines": 104,
+		"sha256": "a67e776c9e992b0f553b5cd1d4f0648198b2a54b2afd65de4d362df3e9cc1ac5",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md",
+		"lines": 52,
+		"sha256": "4a84dee9c7878d4dd6c1ba71b7bd2a80033503c0690b377e439a1399a22b5a07",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-availability-cls-2026-11-11/VERIFICATION.md",
+		"lines": 51,
+		"sha256": "1ce8e35b724dbcae6a9b110dc3b0010bf0444614a189ea9b9f017e5c961aae1a",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/maintenance-design/IMPLEMENTATION.md",
+		"lines": 52,
+		"sha256": "2ed8b80de0c4b0acabe45ff43bdee8bec7e0e44bc94ec15a65dd17f4b72c46bb",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/maintenance-design/PRODUCTION_DEPLOYMENT.md",
+		"lines": 29,
+		"sha256": "083f90ace913f76b454a6352176a86641f40ba40338c70ad288badad4681e18f",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/first-blog-2026-11-05/VERIFICATION.md",
+		"lines": 69,
+		"sha256": "6c9e16ca4bbbba3fd44ec68ebd57999023b1d7ad7ecd7bc28aff20e4a9200705",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/maintenance-release/VERIFICATION.md",
+		"lines": 55,
+		"sha256": "d595466f649bde265410c49c3e82a3da226e856be4dc7445d525a76365a3f0c9",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/INDEPENDENT_REVIEW.md",
+		"lines": 12,
+		"sha256": "a6e9070fac4ee403f5420b50e33cce3262f9fe93394f125bdfc6df11c2482078",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/copy-evidence.md",
+		"lines": 918,
+		"sha256": "ec8579fab37ece0597d08a99df577bf5bfed219164f56a7cd07212fce3f3c23c",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/VERIFICATION.md",
+		"lines": 50,
+		"sha256": "1a51619798c15e1e91c18107e8dcc00bdcd987c8d9932fc97a8a91d37c38666f",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/RELEASE.md",
+		"lines": 54,
+		"sha256": "6520604cb200257cbef4be4b759768515609fdb898ac52e3bdf94a19cfeaed78",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/MEDIA.md",
+		"lines": 103,
+		"sha256": "d6d21ebb3f5a0ec852198ba1fdcf4d04e1090c31de987654ea002c244a37a627",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/PLAN.md",
+		"lines": 33,
+		"sha256": "2999c58b58da1810ef343895a8c0bdc96bcb3e0e5d7db40582ef494b10785fef",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				13,
+				"- Rename canonical product route to `/sunday-alpha-alerts`; `/watchlist` 308 preserves query and browser fragments. Update navigation/schema/metadata/links/inventories/tests. Remove fake RTP emblem. Align shared layout; "
+			]
+		]
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/data-copy-review.md",
+		"lines": 13,
+		"sha256": "62f5599a8d9852967e11b3645bf10881a2eaa92ca787d8c80eb1fee4ec480d3a",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/SEARCH_IMPLEMENTATION.md",
+		"lines": 64,
+		"sha256": "b8147237b609662c018f8a1bb5a921a17c79506b51b55db0d4d064d3d24cda51",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				63,
+				"- `/watchlist?utm_source=audit` returns 308; browser navigation retains `#pricing`. Destination H1, breadcrumb and canonical agree on Sunday Alpha Alerts; graph and visible links contain no old watchlist/explosive-swings"
+			]
+		]
+	},
+	{
+		"path": "docs/reviews/maintenance-ready/VERIFICATION.md",
+		"lines": 91,
+		"sha256": "3fd21f70efa79f1e76d7c5aa789a7c521412805d13586f6d51a8c31d7330c84c",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md",
+		"lines": 58,
+		"sha256": "ac65e7d4ec108dd88e95583124c9ec7a1d0e22c68007d026f4639c0534fd8f53",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/article-toc-2026-11-05/VERIFICATION.md",
+		"lines": 25,
+		"sha256": "f4ec9b593911d21df6d0be8242e6ab236dfb08ddd95369d95d3d67f0662838bf",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-audit-2026-11-05/SOURCES.md",
+		"lines": 23,
+		"sha256": "bd46dcb79bf6fc084516a3802b9f033343df2f3a1e10c1c1cfb92f7adbe393ea",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-audit-2026-11-05/AUDIT.md",
+		"lines": 126,
+		"sha256": "35f3d8d9c535d5cf6b7b62ceebc5024cef9b823a4e59e90fce59c7fcc8c81bf7",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				78,
+				"| Product claims and CTAs (lines 193,243\u2013246,288\u2013292)                                                                                       | Broken URLs; promises need confirmation     | `/spx-profit-pulse`, `/live-trad"
+			]
+		]
+	},
+	{
+		"path": "docs/reviews/blog-audit-2026-11-05/VERIFICATION.md",
+		"lines": 86,
+		"sha256": "feb7ad35b95342abf9df5c217199150332c92fb0f4e8c96db0f0d43a458ab003",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-audit-2026-11-05/SVELTE_AUTOMATION_REVIEW.md",
+		"lines": 52,
+		"sha256": "2e72b9e3e4f624404c9569611f15cbfd79a60fff29dff0132573da7a568b9e69",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/font-fragment-audit-2026-11-05/AUDIT.md",
+		"lines": 55,
+		"sha256": "0aacdf19039dd4c8e1a392ebaa249c09808b623756555e2e769bdeffec217267",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md",
+		"lines": 15,
+		"sha256": "e5e8b88d05cf2cc31edca54b17867c15a576b8951047e156935b6cfc53ebbe1f",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				7,
+				"The actual article and watchlist passed **six normal-browser cases and three JavaScript-disabled deep-link cases** across Chromium, Firefox and WebKit. Each normal case verifies the primary loaded FontFace families, same"
+			]
+		]
+	},
+	{
+		"path": "docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md",
+		"lines": 30,
+		"sha256": "cba6f0f809b6c63493166c2208577db5ccfb42de2d0f8e2da109c532628a70f1",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				15,
+				"- The live homepage, blog index, real article and `/watchlist` passed **24 browser cases**: Chromium, Firefox and WebKit at 320px and 1440px. Each case checks status, canonical, indexing metadata, one H1, horizontal over"
+			]
+		]
+	},
+	{
+		"path": "docs/reviews/repository-diagnostics/VERIFICATION.md",
+		"lines": 38,
+		"sha256": "ad895ad947739f1d6ceaaa86a80d01271cf77f7c2775bc8f48832999149c16de",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/tooling-warnings-2026-11-11/VERIFICATION.md",
+		"lines": 101,
+		"sha256": "81a6537ceb89f5e1882a63132cce5d3a59730d3d3e03a48ae8b9f9cd764afc42",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-design-2026-11-05/VERIFICATION.md",
+		"lines": 13,
+		"sha256": "34ab8e8cbb6101c5f0ce34f9aa7ee90f815c545f2fa91848c46010d94591bfca",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/reviews/blog-layout-system-2026-11-05/release/README.md",
+		"lines": 59,
+		"sha256": "71193fb49ffffeb65a70c7096f4ebce8cbfbe5108df48a81ea57f11d9b80d582",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/audit/03-matrix-baseline.md",
+		"lines": 115,
+		"sha256": "89d5987d480fc224ff6f6eca3bee47f58f4d30cb3defca7addd0bc257997dabe",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				48,
+				"| `SD-03`    | `all`                                                                              | `FAIL`    | `/`, `/about`, `/our-mission`, `/mentorship`, `/watchlist`, `/alert-services/spx-profit-pulse`, `/live-tradi"
+			],
+			[
+				50,
+				"| `SD-05`    | `profile`, `static`, `membership-product`, `listing`, `product`, `blog-listing`    | `FAIL`    | `/about`, `/mentorship`, `/watchlist`, `/resources/stock-indexes-list`, `/store/courses`, `/store/indicators"
+			],
+			[
+				90,
+				"| `HTML-04`  | `all`                                                                              | `FAIL`    | `/watchlist`, `/store/indicators/move-prior-to-the-move-system`, `/store/scanners/high-octane-scanner`, `/bl"
+			]
+		]
+	},
+	{
+		"path": "docs/seo/audit/06-matrix-final.md",
+		"lines": 115,
+		"sha256": "2bc7ce74ff4e4716ccc354487df7eba03756967468efa3ef6d4634c7030b0d9d",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				28,
+				"| `IDX-04`   | `home`, `listing`, `article`                                                       | `PASS` | None         | **1.** `[CODE src/lib/data/homepage.ts:515-555]`, `[CODE src/routes/resources/+page.svelte:92-12"
+			],
+			[
+				53,
+				"| `SD-08`    | `product`, `membership-product`                                                    | `PASS` | None         | Per owner decision in `[CODE docs/seo/DECISIONS.md:11-26]`, `/watchlist` emits `Product` + 3 `Of"
+			],
+			[
+				90,
+				"| `HTML-04`  | `all`                                                                              | `PASS` | None         | `[HTTP]` `06-final.json` (`orphanUrls: []`, `clickDepthFromHome <= 2` across all 27 indexable UR"
+			]
+		]
+	},
+	{
+		"path": "docs/seo/audit/04-plan.md",
+		"lines": 154,
+		"sha256": "08e15111bdf9ebd6b3b0b632fb5e6df88ac1c7140cee62b388289c9bf1f71d25",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/audit/06-diff.md",
+		"lines": 54,
+		"sha256": "48e668b945ffd9d4983002b61827da58b69342129c72162d8c5a931e04c19b15",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/audit/08-report.md",
+		"lines": 259,
+		"sha256": "35e4ec268d4c9b0a0cd05533f382d7bd8f3998f809126dd3b058f52d523e4a02",
+		"historical": true,
+		"retiredDestinationReferences": [
+			[
+				54,
+				"| `SD-08`    | `product`, `membership-product`                                                    | `BLOCKED`       | **`PASS`**   | `[CODE docs/seo/DECISIONS.md:11-26]`, `[CODE src/lib/seo/structured-data.ts:1959-1997]`"
+			],
+			[
+				133,
+				"| `/watchlist`                                               | `membership-product` | 58           | 158                | `Sunday Alpha Protocol\u2122 Watchlist \\| Revolution Trading Pros`   |"
+			],
+			[202, "     - `/watchlist` (`Product` + 3 `Offer` nodes, `Service`, `BreadcrumbList`)"]
+		]
+	},
+	{
+		"path": "docs/seo/audit/00-environment.md",
+		"lines": 67,
+		"sha256": "ee3c284cad006859a3af50c8b1c22c53032ee0a3510638b2f41ebbd14dab1791",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/audit/03-static.md",
+		"lines": 108,
+		"sha256": "2d503d4b177e0b4d0c7fe37f269f728f251ae8eae098c3daea4e41cb20cf13bb",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "docs/seo/audit/01-sources.md",
+		"lines": 58,
+		"sha256": "e5d626b5e60f25d82b38448a038fe1f621e38de2081f836db3872ce47fdc41c4",
+		"historical": true,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-04-zero-dte-risk-management-and-position-sizing-rules.md",
+		"lines": 935,
+		"sha256": "50acd014cc679ea6b799a5f035e78f42fcd7c0301483dc8dd67130f6fe84f240",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-32-abandoned-price-bar-climax-volume-reversal-guide.md",
+		"lines": 1000,
+		"sha256": "2da6a0abc2a17fc3915c38365b475dc53e4b25529dc2a960490acfa47e5fc0d2",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-21-vanna-and-charm-options-second-order-greeks.md",
+		"lines": 1084,
+		"sha256": "264e45b568b64df6584eb07ebec1be9363c741b736ca2332316c6370afee84dc",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-19-institutional-liquidity-sweeps-stop-hunts-order-flow.md",
+		"lines": 1019,
+		"sha256": "2802d1ba9279c48cb19637e7f90d3514a73ede15ef629c0168024c0f2942cabf",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-14-swing-trading-options-with-a-full-time-job-watchlist-routine.md",
+		"lines": 1042,
+		"sha256": "7a5c67ff23e9ebfe577bcef821688ee687012407894160eb56e5a6b43d26c401",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-07-spx-vs-spy-options-xsp-section-1256-taxes.md",
+		"lines": 1082,
+		"sha256": "8d354075a490869c22dc46cb9d7460115a4a2ef67db1c16acab45a392474d4bb",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-03-institutional-order-flow-and-gamma-flip-playbook.md",
+		"lines": 969,
+		"sha256": "37d5fbac183ab303e7caff9c52a3f2500768b2b723185b087534a6b56c91a6bc",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-27-cash-secured-puts-wheel-strategy-small-accounts.md",
+		"lines": 1044,
+		"sha256": "264851002a7e9eea078947d4c8c4d0bc75f1bb53a97c1de5bdb59b31225ced40",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-12-why-repainted-holy-grail-indicators-destroy-retail-accounts.md",
+		"lines": 1002,
+		"sha256": "3d6b8d63dcb94967e2e67e1b2d15502a53cf1c82883d512a55d2ec28a143baed",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-16-risk-management-essentials-for-active-traders.md",
+		"lines": 1010,
+		"sha256": "a78e2e22285c5590680648e807270a3ee0b54fa620151338ae4c0824a58d4eba",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-05-growing-a-500-dollar-small-options-account-without-blowing-up.md",
+		"lines": 1034,
+		"sha256": "c51c065ce2ca7fd7bf99bb38277dd0dd1116b4061eba0c0481107f9e1d0e98d5",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-39-trading-journal-expectancy-audit-r-multiple-math.md",
+		"lines": 1085,
+		"sha256": "df0118f50f48bc621566d20db7784ed7658ea6b2580a1228e35ab546b13e038f",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-33-relative-volume-rvol-cumulative-delta-absorption.md",
+		"lines": 1105,
+		"sha256": "28ddb707e0cd26d4a86920e5299c0e7acfa9b0e57a5595c4b479d398dda2a84b",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-11-the-move-prior-to-the-move-2020-2022-market-calls.md",
+		"lines": 1082,
+		"sha256": "1c5e62c484eecca90a512e555a5b29b207b9c88f8bb654becb06d455f2b5c19d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-30-pre-market-gap-and-go-vs-gap-fade-options-playbook.md",
+		"lines": 992,
+		"sha256": "2c14424b5803aac13f96b8b58e65c36606eea9b4bc25b4545829e3e955f354ef",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-06-cash-account-t1-settlement-options-day-trading.md",
+		"lines": 1172,
+		"sha256": "22e0f43cd47fe6467433b26f7965d7eacb105a7b9ff32ebd1d5dddf4cb81d6d3",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-29-opening-range-breakout-vwap-rvol-options-strategy.md",
+		"lines": 1020,
+		"sha256": "55177c50088816c34a196b0f2b035d253e69a9af64998eb3e205c35102f0c35a",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-01-ultimate-guide-to-options-greeks.md",
+		"lines": 1334,
+		"sha256": "308783d7ecf2902004d3c06897ad061a4573a95ee862185d246e326bd735de0f",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-40-iwm-russell-2000-vs-spy-qqq-options-trading-map.md",
+		"lines": 1090,
+		"sha256": "f69dd4d05e2ce398d892a63d4251fdf3a97bc449eb413170a0fef119487dbbcb",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-23-iron-condor-adjustment-rules-21-dte-theta-guide.md",
+		"lines": 1045,
+		"sha256": "1c78fbcc3e43ef2b6ddbfd364c2d5ef981e713b4cee67e5cb30ffe0e9da2fcae",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-13-multi-timeframe-volatility-squeeze-options-strategy.md",
+		"lines": 1058,
+		"sha256": "50d109664b4419797ea3796f4bf2f9ee369912ad5b03f4963fa762cacfe169f1",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-31-volume-profile-trading-poc-value-area-options-map.md",
+		"lines": 1033,
+		"sha256": "0b96d6b80ee5b7145a6f415763a1da1ce5f2e47fcce065e6ac71af77880e5151",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-34-options-bid-ask-spread-liquidity-slippage-filter.md",
+		"lines": 1049,
+		"sha256": "1a71b91d2bed6d1901c6aa44a7229f555645c3dda9d0cd5c259846565b21ec0c",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-15-oco-bracket-orders-thinkorswim-tradingview-swing-guide.md",
+		"lines": 1011,
+		"sha256": "403ca9d485846bd84ae5b79632f2f40f4fb4cc2bde51f806a03d4a621af4f182",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-24-spx-0dte-butterfly-broken-wing-afternoon-pin.md",
+		"lines": 1058,
+		"sha256": "f29a625fd3147cdd1a0142ac821d330e5f46cb8166c72e88e7d7c2f75e807bf4",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-02-spx-0dte-options-gamma-exposure-guide.md",
+		"lines": 1080,
+		"sha256": "37cf1e56b4d5d46577d9739e43e34ef2c4361cecf98289e4e040e99d9137f2e0",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-18-sp500-sector-etf-rotation-swing-trading-guide.md",
+		"lines": 1182,
+		"sha256": "e35e48ad41c3af9051cb0be38c92bd6c0e826efd7dd2fcc1982befbe6ab04007",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-36-rolling-options-credit-spreads-covered-calls-map.md",
+		"lines": 1016,
+		"sha256": "64f987a2cd989105a5a4ddfbe906bfda0ad5249d67fe801c39299e1e4a2da467",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-26-vix-term-structure-contango-backwardation-options.md",
+		"lines": 1076,
+		"sha256": "e88bd0e0594fd65fe3d4eefb9a4604b53c4663ade36a186278fc20d86a212137",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-22-poor-mans-covered-call-diagonal-spread-playbook.md",
+		"lines": 1057,
+		"sha256": "dcfeaba09785f50919903e3a16bba9836c0da4e3726d4eec4db4adf26f8159fe",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-20-defined-risk-vertical-spreads-small-account-options.md",
+		"lines": 988,
+		"sha256": "b9d7dd5b93e17fbfc6bddb1c62a77e4b7a9858b3a7d77b15624f1980e0f943d1",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-09-30-45-dte-credit-spreads-theta-decay-blueprint.md",
+		"lines": 990,
+		"sha256": "05035fc0aa5cc35ef8cc52a3b171627fc02b5de9dff3e1eb103e62c8d082038e",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-35-sunday-evening-swing-trading-watchlist-routine-pro.md",
+		"lines": 1054,
+		"sha256": "811aff1ab7dc4bafcfd0247f0a964dc8be05bbc5dfd8167461eb6be6beccfc98",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-28-unusual-options-activity-dark-pool-sweeps-guide.md",
+		"lines": 1007,
+		"sha256": "bceb8940d66703b9a14fb19c85a1f46bfc0e0d2fae12d17f157cd576830d80a0",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-25-ndx-vs-qqq-options-mnx-section-1256-tax-guide.md",
+		"lines": 1129,
+		"sha256": "4681c16a8216a818fb3de4d2ea06a75e54a3dcc2c0307c6f19a717b2884653a5",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-08-3-best-options-strategies-for-consistent-income.md",
+		"lines": 1053,
+		"sha256": "34febd6b71a6bfdabce7c03a6079faf0752639394a92f99360ed808600f17c49",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-37-portfolio-hedging-put-debit-spreads-vix-calls-map.md",
+		"lines": 1101,
+		"sha256": "9552a197701753b38e9f95d50a3eeb35ac0d4bc7d9c453b8fec007bac832eee1",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-10-how-we-shorted-oxy-put-options-600-percent-overnight.md",
+		"lines": 1055,
+		"sha256": "4be60f5183f5882a1f8c4cfe4647733834980c2366c67bf15d09720b23663b92",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-17-avoid-iv-crush-earnings-options-vega-strategy.md",
+		"lines": 999,
+		"sha256": "464412445ea1957cfd770c8e55809957c3aa541f7eae46281357373ff465726f",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/blog-posts/blog-post-38-eliminate-revenge-trading-fomo-circuit-breakers.md",
+		"lines": 1076,
+		"sha256": "6726330a50b95f08588969426befe937ecfdf06686b6988917ce6fbd32434134",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/articles/0dte-spx-options-strategy-guide/PUBLISHED.md",
+		"lines": 7,
+		"sha256": "c8b0726a954ffe5129b1a339d29726dbd4effd59e607d33cd924a06d451de90d",
+		"historical": false,
+		"retiredDestinationReferences": []
+	},
+	{
+		"path": "content/articles/0dte-spx-options-strategy-guide/CLAIM_LEDGER.md",
+		"lines": 41,
+		"sha256": "46f937976bd631438dd3cae4ebabd680e2cee429fa326c9de5f079457b0bde22",
+		"historical": false,
+		"retiredDestinationReferences": []
+	}
+]

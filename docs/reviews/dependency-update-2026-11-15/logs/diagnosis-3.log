@@ -1,0 +1,105 @@
+CONSOLE error TypeError: t.selectAll(...).interrupt is not a function
+    at P (http://localhost:4673/_app/immutable/chunks/KsPQWT-B.js:1:3375)
+    at I (http://localhost:4673/_app/immutable/chunks/KsPQWT-B.js:11:533)
+    at http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:2:12283
+    at Cr (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:23736)
+    at Dr (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:24874)
+    at Qt (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:13714)
+    at #m (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:9620)
+    at t.flush (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:11133)
+    at Array.<anonymous> (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:12932)
+    at S (http://localhost:4673/_app/immutable/chunks/iDdW7pS8.js:1:653)
+Dashboard http://localhost:4673/admin 500: Page Not Found | Revolution Trading Pros
+RAW_ADMIN 200 Dashboard | Admin | Revolution Trading Pros
+OVERFLOW 320 { overflow: -15, nodes: [] }
+OVERFLOW 1440 { overflow: -15, nodes: [] }
+OVERFLOW 1536 { overflow: -15, nodes: [] }
+OVERFLOW 1920 {
+  overflow: -30,
+  nodes: [
+    {
+      tag: 'ASIDE',
+      cls: 'article-toc-aside svelte-1teoznn',
+      x: -179,
+      width: 194,
+      text: 'Table of Contents  Key Takeaways for Institutional Order Flow Mapping the SPX Ga'
+    },
+    {
+      tag: 'DETAILS',
+      cls: 'toc-details svelte-1teoznn',
+      x: -179,
+      width: 194,
+      text: 'Table of Contents  Key Takeaways for Institutional Order Flow Mapping the SPX Ga'
+    },
+    {
+      tag: 'SUMMARY',
+      cls: 'toc-summary svelte-1teoznn',
+      x: -178,
+      width: 192,
+      text: 'Table of Contents '
+    },
+    {
+      tag: 'SPAN',
+      cls: '',
+      x: -146,
+      width: 152.609375,
+      text: 'Table of Contents'
+    },
+    {
+      tag: 'NAV',
+      cls: 'svelte-1teoznn',
+      x: -178,
+      width: 192,
+      text: 'Key Takeaways for Institutional Order Flow Mapping the SPX Gamma Flip Zone Execu'
+    },
+    {
+      tag: 'OL',
+      cls: 'toc-list svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Key Takeaways for Institutional Order Flow Mapping the SPX Gamma Flip Zone Execu'
+    },
+    {
+      tag: 'LI',
+      cls: 'toc-item svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Key Takeaways for Institutional Order Flow '
+    },
+    {
+      tag: 'A',
+      cls: 'toc-link toc-link--active svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Key Takeaways for Institutional Order Flow'
+    },
+    {
+      tag: 'LI',
+      cls: 'toc-item svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Mapping the SPX Gamma Flip Zone '
+    },
+    {
+      tag: 'A',
+      cls: 'toc-link svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Mapping the SPX Gamma Flip Zone'
+    },
+    {
+      tag: 'LI',
+      cls: 'toc-item svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Execution Checklist and Position Sizing '
+    },
+    {
+      tag: 'A',
+      cls: 'toc-link svelte-1teoznn',
+      x: -157.203125,
+      width: 150.40625,
+      text: 'Execution Checklist and Position Sizing'
+    }
+  ]
+}

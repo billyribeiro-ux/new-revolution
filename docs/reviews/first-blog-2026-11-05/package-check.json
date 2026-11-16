@@ -1,0 +1,67 @@
+{
+	"checkedAt": "2026-11-05T20:30:50.977Z",
+	"sourcePreserved": true,
+	"titleLength": 31,
+	"descriptionLength": 149,
+	"bodySha256": "7565348e2efeb306d38465ae9487256db0d1995213ebf630cb2c1958ce1758a2",
+	"metadataSha256": "329c1df1789c625f96700dee4b805a12e202236f423edb95196f1e825add5621",
+	"figures": 5,
+	"inlineFigures": 4,
+	"tables": 2,
+	"faqs": 5,
+	"images": [
+		{
+			"key": "execution-map",
+			"width": 1600,
+			"height": 900,
+			"bytes": 62810,
+			"sha256": "ab3d4a54f5aaad366e44c0b2d2fe275ef2dc0d70e80b0e7d1b65e0ced009bd94"
+		},
+		{
+			"key": "tax-comparison",
+			"width": 1200,
+			"height": 675,
+			"bytes": 43032,
+			"sha256": "97da5ba1d9d7f3e2057856c2fb2191862ca911b38f6f476d6de86d5a0e8dd1c1"
+		},
+		{
+			"key": "dealer-hedging",
+			"width": 1200,
+			"height": 675,
+			"bytes": 50628,
+			"sha256": "1a9140d45210b4e420f0c76330effe1e328ed4ef0599c3bc3fbbd3c2afcdefcd"
+		},
+		{
+			"key": "spread-payoffs",
+			"width": 1200,
+			"height": 675,
+			"bytes": 44138,
+			"sha256": "ea23e316785b2e582bd228e68cdccd99b716cd61f31fe8ee0b2660f1ed58e8b8"
+		},
+		{
+			"key": "session-plan",
+			"width": 1200,
+			"height": 675,
+			"bytes": 48132,
+			"sha256": "0f6b13d45993d3b10dbdb01a2da6b2e6dde67bbd23dd7b49f7cf111e556d1420"
+		},
+		{
+			"key": "execution-map-card",
+			"width": 800,
+			"height": 450,
+			"bytes": 26474,
+			"sha256": "2008a16059853dada1684e98128bec899d5734e4555c4ec221c7e297c533d6e8"
+		},
+		{
+			"key": "execution-map-social",
+			"width": 1200,
+			"height": 630,
+			"bytes": 37422,
+			"sha256": "ca1a6bd883d0e29456068f5cd69b87e85c69243470bfeec970d014f39eb0c357"
+		}
+	],
+	"independentSettlementScenarios": 21,
+	"taxAndBudgetArithmetic": true,
+	"ownerPublicationDecision": "not inferred by this verifier",
+	"thinkorswimRuntime": "not tested"
+}

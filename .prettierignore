@@ -1,0 +1,8 @@
+# Package Manager
+pnpm-lock.yaml
+
+# Miscellaneous
+/static/
+/drizzle/
+/.gemini/
+/.claude/

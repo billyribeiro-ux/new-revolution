@@ -1,0 +1,171 @@
+import { collectRootTheme, writeBrandUiCss } from './brand-ui-build.mjs';
+import { mkdir, readFile, writeFile, cp } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { build } from 'vite';
+import { demonstrationBars } from '../src/lib/maintenance/data.ts';
+import { CONSENT_VERSION, CONSENT_TEXT } from '../src/lib/shared/waitlist-consent.ts';
+
+const sourceRoot = fileURLToPath(new URL('../', import.meta.url));
+const entry = await build({
+	configFile: false,
+	base: '/_app/immutable/maintenance/',
+	root: sourceRoot,
+	publicDir: false,
+	logLevel: 'warn',
+	build: {
+		outDir: resolve('.svelte-kit/output/client/_app/immutable/maintenance'),
+		emptyOutDir: true,
+		manifest: true,
+		rollupOptions: {
+			input: join(sourceRoot, 'src/lib/maintenance/client.ts'),
+			output: { entryFileNames: 'desk-[hash].js', chunkFileNames: '[name]-[hash].js' }
+		}
+	}
+});
+if (!entry || Array.isArray(entry) || !('output' in entry))
+	throw new Error('Unexpected maintenance bundle');
+const clientEntry = entry.output.find((item) => item.type === 'chunk' && item.isEntry)?.fileName;
+if (!clientEntry) throw new Error('Missing maintenance entry');
+await mkdir('.vercel/output/static/_app/immutable', { recursive: true });
+await cp(
+	'.svelte-kit/output/client/_app/immutable/maintenance',
+	'.vercel/output/static/_app/immutable/maintenance',
+	{ recursive: true }
+);
+
+// Resolve assets from this build, never from hardcoded hashes or a second font import.
+async function renderMaintenancePage() {
+	const clientDir = '.svelte-kit/output/client';
+	const theme = await collectRootTheme(clientDir);
+	await writeBrandUiCss(clientDir, theme);
+	const template = await readFile(new URL('./templates/maintenance.html', import.meta.url), 'utf8');
+	const localTokens = new Set([...template.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
+	for (const match of template.matchAll(/var\((--[\w-]+)/g)) {
+		if (!theme.includes(`${match[1]}:`) && !localTokens.has(match[1]))
+			throw new Error(`Undeclared maintenance token: ${match[1]}`);
+	}
+	if (/<\/style/i.test(theme)) throw new Error('Unexpected closing style tag in root stylesheet');
+	// The existing square emblem avoids shrinking the full horizontal wordmark
+	// into an unreadable 40px image. Embed it so the brand survives network failures.
+	const data = (await readFile(new URL('../static/icon-192.png', import.meta.url))).toString(
+		'base64'
+	);
+	// Show the prepared email section; native controls stay disabled until capture is configured.
+	const signupsEnabled = process.env.WAITLIST_SIGNUPS_ENABLED === 'true';
+	const html = template
+		.replace('<!-- maintenance:introduction -->', () =>
+			signupsEnabled
+				? 'We’re working on the next chapter of Revolution Trading Pros. Leave your email for occasional launch updates and a note when we reopen.'
+				: 'We’re working on the next chapter of Revolution Trading Pros. Our email waitlist is coming soon. In the meantime, our support desk is here to help.'
+		)
+		.replace(
+			/<!-- maintenance:signup:start -->([\s\S]*?)<!-- maintenance:signup:end -->/,
+			(_, form) => form
+		)
+		.replace('<!-- maintenance:signup-state -->', () => String(signupsEnabled))
+		.replace('<!-- maintenance:consent-version -->', () => CONSENT_VERSION)
+		.replace('<!-- maintenance:consent-text -->', () =>
+			CONSENT_TEXT.replace(/[&<>]/g, (value) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[value])
+		)
+		.replace('disabled="maintenance-signups-disabled"', () => (signupsEnabled ? '' : 'disabled'))
+		.replace('<!-- maintenance:signup-message -->', () =>
+			signupsEnabled
+				? 'Ready to join? Enter your email and choose the updates you agree to receive.'
+				: 'Email signup is not available yet. Please check back soon or contact support.'
+		)
+		.replace('<!-- maintenance:noscript -->', () =>
+			signupsEnabled
+				? 'The signup works without JavaScript. Refresh this page to check whether access has been restored.'
+				: 'Refresh this page to check whether access has been restored.'
+		)
+		.replace(
+			'<!-- maintenance:client -->',
+			() => `<script type="module" src="/_app/immutable/maintenance/${clientEntry}"></script>`
+		)
+		.replace('<!-- maintenance:table -->', () =>
+			demonstrationBars()
+				.slice(60, 160)
+				.map(
+					(b) =>
+						`<tr><th scope="row">${new Date(b.time * 1000).toISOString().slice(11, 16)}</th><td>${b.open.toFixed(2)}</td><td>${b.high.toFixed(2)}</td><td>${b.low.toFixed(2)}</td><td>${b.close.toFixed(2)}</td><td>${b.volume}</td></tr>`
+				)
+				.join('')
+		)
+		.replace('<!-- maintenance:theme -->', () => `<style data-maintenance-theme>${theme}</style>`)
+		.replace(
+			'<!-- maintenance:emblem -->',
+			() =>
+				`<img class="maintenance-emblem" src="data:image/png;base64,${data}" alt="" width="40" height="40" />`
+		);
+	if (/<!-- maintenance:|maintenance-signups-disabled/.test(html))
+		throw new Error('Unresolved maintenance template marker');
+	for (const output of [
+		`${clientDir}/maintenance/index.html`,
+		'.vercel/output/static/maintenance/index.html'
+	]) {
+		await mkdir(dirname(output), { recursive: true });
+		await writeFile(output, html);
+	}
+	return html;
+}
+
+// Run after adapter-vercel and add small, independent Build Output API functions.
+const filename = '.vercel/output/config.json';
+const config = JSON.parse(await readFile(filename, 'utf8'));
+if (config.version !== 3 || !Array.isArray(config.routes)) {
+	throw new Error('Unexpected Vercel Build Output API configuration');
+}
+const noStore = {
+	'cache-control': 'no-store, max-age=0',
+	'cdn-cache-control': 'no-store',
+	'vercel-cdn-cache-control': 'no-store',
+	'x-content-type-options': 'nosniff'
+};
+const maintenanceHtml = await renderMaintenancePage();
+async function createFunction(name, status, contentType, body) {
+	const dir = `.vercel/output/functions/${name}.func`;
+	await mkdir(dir, { recursive: true });
+	await writeFile(
+		`${dir}/.vc-config.json`,
+		JSON.stringify({ runtime: 'nodejs24.x', handler: 'index.cjs' })
+	);
+	const headers = { ...noStore, 'content-type': contentType };
+	if (status === 503) headers['x-robots-tag'] = 'noindex, nofollow';
+	const code = `module.exports = (req, res) => {\n  res.writeHead(${status}, ${JSON.stringify(headers)});\n  res.end(req.method === 'HEAD' ? undefined : ${JSON.stringify(body)});\n};\n`;
+	await writeFile(`${dir}/index.cjs`, code);
+}
+await createFunction(
+	'__maintenance_state',
+	200,
+	'application/json; charset=utf-8',
+	'{"maintenance":false}'
+);
+// The marker must be dynamic: Vercel's static handler can replace cache headers.
+config.routes.unshift(
+	{ src: '^/brand-ui\\.css$', headers: { 'cache-control': 'no-cache' }, continue: true },
+	{ src: '^/maintenance-state\\.json$', dest: '/__maintenance_state' }
+);
+if (process.env.MAINTENANCE_MODE === 'true') {
+	await createFunction('__maintenance_page', 503, 'text/html; charset=utf-8', maintenanceHtml);
+	await createFunction(
+		'__maintenance_api',
+		503,
+		'application/json; charset=utf-8',
+		'{"error":"Service temporarily unavailable for maintenance"}'
+	);
+	// Only exact health, waitlist, provider-event and privacy paths escape the gate.
+	// Admin, auth, unrelated APIs and other cron jobs remain unavailable.
+	config.routes.unshift(
+		{
+			src: '^/api/(?!health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$).*',
+			dest: '/__maintenance_api'
+		},
+		{
+			src: '^/(?!api/(health/?$|waitlist/(signup|confirm|unsubscribe)/?$|cron/waitlist-email/?$|webhooks/resend/?$)|waitlist/(confirm|unsubscribe)/?$|privacy-policy/?$|_app/immutable/|brand-ui\\.css$).*',
+			dest: '/__maintenance_page'
+		}
+	);
+	console.log('Maintenance routes installed in Vercel build output.');
+}
+await writeFile(filename, `${JSON.stringify(config, null, '\t')}\n`);

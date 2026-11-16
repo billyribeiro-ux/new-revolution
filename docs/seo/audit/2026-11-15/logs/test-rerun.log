@@ -1,0 +1,57 @@
+$ pnpm run test:unit --run && pnpm run test:e2e
+$ vp test --run
+
+ RUN  v5.0.5 /Users/billyribeiro/dev/new-revolution-web
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: browserType.launch: Executable doesn't exist at /Users/billyribeiro/Library/Caches/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-mac-arm64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     pnpm exec playwright install                           ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+ ❯ node_modules/.pnpm/@vitest+browser-playwright@5.0.5_@voidzero-dev+vite-plus-core@1.4.0_@types+node@26.6.6__70d120fc43eaebb0471a3da2d983fcc0/node_modules/@vitest/browser-playwright/dist/index.js:1098:55
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { log: [] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  53 passed (89)
+      Tests  501 passed (501)
+     Errors  1 error
+   Start at  13:42:19
+   Duration  13.18s (tests 72%, import 21%, transform 6%)
+
+error during close browserType.launch: Executable doesn't exist at /Users/billyribeiro/Library/Caches/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-mac-arm64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     pnpm exec playwright install                           ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+    at /Users/billyribeiro/dev/new-revolution-web/node_modules/.pnpm/@vitest+browser-playwright@5.0.5_@voidzero-dev+vite-plus-core@1.4.0_@types+node@26.6.6__70d120fc43eaebb0471a3da2d983fcc0/node_modules/@vitest/browser-playwright/dist/index.js:1098:55 {
+  log: [],
+  name: 'Error',
+  type: 'Unhandled Error',
+  stacks: [
+    {
+      method: '',
+      file: '/Users/billyribeiro/dev/new-revolution-web/node_modules/.pnpm/@vitest+browser-playwright@5.0.5_@voidzero-dev+vite-plus-core@1.4.0_@types+node@26.6.6__70d120fc43eaebb0471a3da2d983fcc0/node_modules/@vitest/browser-playwright/dist/index.js',
+      line: 1098,
+      column: 55
+    }
+  ]
+}
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Test failed. See above for more details.

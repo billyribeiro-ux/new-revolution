@@ -1,0 +1,38 @@
+{"host":"ep-ancient-haze-bb1jaiq7-pooler.c-15.us-east-1.aws.neon.tech","database":"neondb","migrations":["0000_blog_system.sql","0001_content_updated_at_backfill.sql","0002_waitlist.sql","0003_waitlist_updates.sql"],"apply":true}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42701',
+  message: 'column "role" of relation "user" already exists, skipping',
+  file: 'tablecmds.c',
+  line: '7688',
+  routine: 'check_for_column_name_collision'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42701',
+  message: 'column "user_agent" of relation "page_views" already exists, skipping',
+  file: 'tablecmds.c',
+  line: '7688',
+  routine: 'check_for_column_name_collision'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42701',
+  message: 'column "session_id" of relation "page_views" already exists, skipping',
+  file: 'tablecmds.c',
+  line: '7688',
+  routine: 'check_for_column_name_collision'
+}
+{
+  severity_local: 'NOTICE',
+  severity: 'NOTICE',
+  code: '42701',
+  message: 'column "country" of relation "page_views" already exists, skipping',
+  file: 'tablecmds.c',
+  line: '7688',
+  routine: 'check_for_column_name_collision'
+}
+Forward migrations applied successfully.

@@ -1,0 +1,41 @@
+{
+	"template": "listing",
+	"url": "/store/courses",
+	"status": 200,
+	"viewport": {
+		"width": 375,
+		"height": 812
+	},
+	"cwv": {
+		"ttfbMs": 1,
+		"fcpMs": 60,
+		"lcpMs": 60,
+		"cls": 0,
+		"tbtMs": 0,
+		"lcpElement": "span.hero-h1__display"
+	},
+	"resources": {
+		"renderBlockingUrls": [
+			"http://localhost:4280/_app/immutable/assets/41.crvd42Yu.css",
+			"http://localhost:4280/_app/immutable/assets/FilterChips.Da8Fub1q.css",
+			"http://localhost:4280/_app/immutable/assets/0.DTYmaTHk.css",
+			"http://localhost:4280/_app/immutable/assets/Footer.DNivZvuu.css",
+			"http://localhost:4280/_app/immutable/assets/inner-page.oocXqaRA.css"
+		],
+		"externalFontUrls": [],
+		"selfHostedFontUrls": [
+			"/_app/immutable/assets/montserrat-latin-wght-normal.l_AIctKy.woff2",
+			"/_app/immutable/assets/sofia-sans-latin-wght-normal.B9fg0t1U.woff2"
+		],
+		"totalTransferBytes": 306714
+	},
+	"mobileUsability": {
+		"hasHorizontalOverflow": false,
+		"undersizedTapTargetsCount": 0,
+		"undersizedTapTargetExamples": []
+	},
+	"a11y": {
+		"score": 100,
+		"violations": []
+	}
+}

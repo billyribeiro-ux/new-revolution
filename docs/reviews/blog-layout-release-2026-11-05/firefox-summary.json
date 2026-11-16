@@ -1,0 +1,22 @@
+{
+	"stats": {
+		"startTime": "2026-11-05T19:25:41.425Z",
+		"duration": 40734.901999999995,
+		"expected": 14,
+		"skipped": 0,
+		"unexpected": 0,
+		"flaky": 0
+	},
+	"screenshots": [
+		"firefox-cms-card-home-320.png",
+		"firefox-cms-card-home-1440.png",
+		"firefox-cms-card-blog-320.png",
+		"firefox-cms-card-blog-1440.png",
+		"firefox-layout-index-2420.png",
+		"firefox-layout-category-320.png",
+		"firefox-layout-tag-320.png",
+		"firefox-layout-article-2420.png",
+		"firefox-navbar-desktop.png",
+		"firefox-navbar-mobile.png"
+	]
+}

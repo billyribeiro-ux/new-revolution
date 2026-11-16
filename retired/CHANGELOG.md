@@ -1,0 +1,947 @@
+# Changelog
+
+All notable changes to this repository. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Newest first. **Every PR adds an entry under `[Unreleased]`** (agents: see
+[`docs/AGENT_COORDINATION.md`](docs/AGENT_COORDINATION.md)). Entries that add anything
+**temporary** are tagged `TEMPORARY` and must also appear in [`docs/TEMPORARY.md`](docs/TEMPORARY.md).
+
+Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
+
+## [Unreleased]
+
+### 2026-11-15 — Site-wide SSOT fluid typography scale (`clamp()` + `cqi`), 3-font pipeline alignment, and WCAG 2.2 AA typography suite
+
+- **Changed:** Re-anchor the `:root` fluid typography scale in `src/app.css` linearly from `375px` to `1536px` (`--max: 96rem`) using WCAG 1.4.4-compliant `rem + vi` formulas, add missing intermediate rungs (`--step-sub`, `--step-body-sm`, `--step-caption`), convert `--step-h4`, `--step-sm`, `--text-eyebrow`, and `--text-seo-kicker` from fixed `rem` steps to fluid `clamp()` tokens, add $C^0$-continuous `container-type: inline-size` + `min(vi, cqi)` scaling to split-column heroes (`HeroSection.svelte` and `.inner-page`), and eliminate all remaining static `> 0.75rem` and bare-`vw` declarations across 36 Svelte components/routes (`ea72bea`).
+- **Changed:** Execute the full Google L8++ Enterprise Typography Specification (`killer-prompt.md`): switch `html` to `font-size: 100%` (honoring OS/browser root preferences) with `font-synthesis-weight: none; font-synthesis-style: none;` to prevent browser faux-bold/faux-oblique synthesis, ship `static/fonts/GeistMono-Variable.woff2` (`100`–`900`) + `Geist Mono Fallback`, add semantic `--weight-*` tokens, scope `Inter` OpenType `'cv02'..'cv11'` features off `html` onto `body`, scope `tabular-nums` to numeric/table/telemetry/SVG selectors, convert fixed `1.5rem` line-heights to unitless `1.5`, and raise unjustified sub-`12px` badges/breadcrumbs to the `0.75rem` (`12px`) visual legibility floor while preserving the protected `/blog/**` `1424px` container-flush layout and `1900px` external TOC contract.
+- **Added:** Add automated Vitest SSOT/fluid-math verification (`scripts/typography-standard.spec.ts`) and Playwright WCAG 2.2 AA E2E verification (`src/routes/typography-wcag.e2e.ts`) covering `[320..1920]` monotonic scaling, `320px` reflow (`SC 1.4.10`), `200%` root text resize (`SC 1.4.4`), and normative text-spacing overrides (`SC 1.4.12`), and strengthen `scripts/check-css-tokens.mjs`.
+- **Docs:** Reconcile `AGENTS.md`, `docs/CSS_STANDARDS.md`, `docs/FONT_AND_FRAGMENT_POLICY.md`, `docs/NEW_PAGE_PLAYBOOK.md`, `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md`, `static/fonts/LICENSES.txt`, and `killer-prompt.md` on the canonical 3-font (`Plus Jakarta Sans` + `Inter` + `Geist Mono`) architecture.
+
+### 2026-11-15 — Site-wide link-graph audit, dedicated `[TODO]` placeholder routes, `/live-trading-rooms` full wiring, and FINRA Rule 4210 regulatory update
+
+- **Added (TEMPORARY T16):** Create central `[TODO]` destination registry (`src/lib/data/todo-pages.ts`) and reusable `<TodoPageShell />` (`src/lib/components/layout/TodoPageShell.svelte`) rendering exact Page Name, `[TODO]` status badge, canonical route, planned build checklist, and live related links with `robots: 'noindex, nofollow'` and `canonical: undefined` (`IDX-08`) across:
+  - 8 static hubs/portals/disclosures: `/login`, `/register`, `/memberships`, `/alert-services`, `/store`, `/track-record`, `/risk-disclosure`, and `/mentorship/apply`.
+  - 23 `/resources/[slug]` tools, calculators, beginner guides, video tutorials, market-analysis explainers, and psychology playbooks (including `/resources/options-calculator` and `/resources/position-size-calculator`; removed the temporary 308 redirect from `src/hooks.server.ts`).
+  - 8 `/enroll/[slug]` membership & flagship store enrollment routes (`day-trading-room`, `swing-trading-room`, `small-accounts-room`, `spx-profit-pulse`, `sunday-alpha-protocol`, `move-prior-to-the-move-ultra`, `move-prior-to-the-move-system`, `high-octane-scanner`).
+  - All 21 non-flagship `/store/{courses,indicators,scanners}/[slug]` routes (replacing misleading shared flagship template fallbacks with each item's exact title, category, description, and `[TODO]` scope).
+- **Changed:** Wire the built `/live-trading-rooms` hub end-to-end across `FULL_NAVIGATION`, `FULL_FOOTER_COLUMNS`, `+error.svelte`, 3-level child room breadcrumbs + JSON-LD `BreadcrumbList` (`SD-05` 1-to-1 parity; also aligned `/alert-services/*` 3-level breadcrumbs), inner-page CTAs, `sitemap.xml`, and `docs/seo/audit/02-inventory.json`.
+- **Fixed:** Eliminate all misleading destination fallbacks across `Navbar.svelte` (`/admin/login` -> `/login`, `/live-trading-rooms/day-trading-room` -> `/memberships`), `HeroSection.svelte`, `homepage.ts`, `resources-hub.ts`, and inner room/alert/mentorship/about/mission/resource/store pages (including fixing the broken `/about` link to `/blog`).
+- **Fixed:** Eliminate Hero Fit Guide vertical height jitter (`0px` delta across all 3 persona tabs) on `/live-trading-rooms` using CSS Grid `grid-area: 1 / 1` ghost stacking, and update regulatory copy site-wide for November 15, 2026 accuracy (replacing legacy $25,000 PDT references with FINRA Rule 4210 intraday margin `$2,000` baseline effective June 4, 2026 + T+1 cash settlement).
+- **Docs:** Overhaul `todo.md` from the stale November 5 indexing note into the complete, prioritized master roadmap reconciling all 94 prerendered contracts, SSR surfaces, `[TODO]` placeholder routes (`T16`), open November 15 SEO audit items (`F03`–`F15`), and owner launch prerequisites.
+
+### 2026-11-15 — Toggle public concept banners off via `CONCEPT_PREVIEW` and build unwired `/live-trading-rooms` hub
+
+- **Changed (TEMPORARY T14):** Wire `CONCEPT_PREVIEW` (`false`) in `src/lib/shared/development-status.ts` across `DevelopmentNotice.svelte`, `ConceptPurchaseDialog.svelte`, `Footer.svelte`, homepage sections, and inner marketing/room/alert/store pages so all concept/AI banners, top `disclaimer-strip` notices, and dialog buttons are turned off cleanly without deleting any component, guard, or copy (`COMMERCE_ENABLED = false` remains enforced).
+- **Added:** Build unwired `/live-trading-rooms` parent hub (`src/routes/live-trading-rooms/+page.ts`, `+page.svelte`, `page.svelte.spec.ts`, `src/lib/data/live-trading-rooms-hub.ts`, and `buildLiveTradingRoomsHubJsonLd` in `src/lib/seo/structured-data.ts`) for visual layout and copywriting review prior to navigation/sitemap wiring.
+
+### 2026-11-15 — Requested dependency and aligned Vite+ updates
+
+- Update all 45 requested package entries, including SvelteKit 3.2.0, adapter-vercel 7.0.3, Playwright 1.65.1, the complete Tiptap 3.34.0 family, Better Auth 1.7.25 and the listed application libraries. Refresh the pnpm lockfile and remove the obsolete PGlite 0.5.15 release-age exception.
+- Run the target Vite+ 1.6.0 migrator before other updates; align its core alias, Vitest 5.1.0 and official browser provider through the existing catalog. Preserve project scripts, lint coverage and test thresholds; no full setup or generated compatibility settings are needed. Bound unit/component concurrency to four workers after repeated cold ESLint startup timeouts under unrestricted parallelism, keeping every test and its existing time limit.
+- Fix the dashboard hydration failure exposed by D3 7.9.2: explicitly import its transition setup through a shared entry used by all four animated charts, preserving selection transition/interruption methods in the production bundle. The unchanged baseline passes all 79 authenticated browser tests; retain the failing upgrade evidence and final verification.
+- Retain TypeScript 6.0.3: it remains the newest stable 6.x patch, while SvelteKit 3.2.0, Svelte Check 4.7.8 and typescript-eslint 8.72.2 do not support the registry's TypeScript 7.0.2 latest release. Refresh current stack documentation and record primary registry metadata.
+- Validation: 688 unit/component tests through the standard command, 79 authenticated browser cases with no skips, 46 page contracts and three SEO checks pass. Initial failures, security advisories and environment limits: [dependency verification](docs/reviews/dependency-update-2026-11-15/VERIFICATION.md).
+
+### 2026-11-15 — Repository SEO audit and retired destination cleanup
+
+- Audit current routes, metadata, schema and operational standards against fresh primary sources, built/live output, response variants, real axe-core, LHCI and Unlighthouse. Record unresolved defects and an ordered implementation plan; the missing Live Trading Rooms overview is not implemented during this audit-first phase.
+- Correct the sole remaining retired watchlist destination in the published CMS article through the existing concurrent-write-guarded post service, linking and labeling Sunday Alpha Protocol. Verify the exact body replacement, public article/feed and zero-match current CMS/active repository scans. Preserve original publication date/status; document the existing PATCH minor-edit propagation gap and resulting editorial modification timestamp.
+- Align the two prepared article/reader anchor labels with the current service name. Preserve dated evidence and historical revisions; no application, dependency, font, hosting or indexing change and no deployment.
+- Evidence, command failures/skips, independent review and remaining owner actions: [November 15 audit](docs/seo/audit/2026-11-15/08-report.md).
+- Owner-authorized integration on `main`: refreshed pre-push checks pass, including the unmodified default 688-test unit/component run, complete build, 46 prerender contracts, three SEO tests and 62 E2E tests. Seventeen credential-dependent E2E cases remain skipped; original audit failures and open findings remain documented. [Integration validation](docs/seo/audit/2026-11-15/release-handoff.md).
+
+### 2026-11-11 — Restore published blog availability and stable navigation
+
+- Diagnose the recreated Vercel project with zero environment variables, unassigned public domains and a hosted PGlite filesystem failure. Reconnect the original Production/Preview databases and Production-only media store, restore origin/signing settings and canonical domains; preserve the published article bytes, media and dates.
+- Reject unconfigured hosted CMS builds and runtime database fallback, with build-process and generated-function regressions.
+- Keep the desktop brand grid stable when hydration selects compact navigation at enlarged text sizes; restore the documented 75rem featured-card cap. Reserve symmetric scrollbar gutters from the existing wide-screen TOC breakpoint to preserve its screen padding. Correct geometry assertions to measure available layout width including the reserved scrollbar gutter, retaining existing tolerances.
+- Evidence and validation: [hosting and layout-shift verification](docs/reviews/blog-availability-cls-2026-11-11/VERIFICATION.md).
+
+### 2026-11-11 — Evidence-based build and CI repair
+
+- Use the supported Node `26.x` deployment range and retain local `26.13.0` pins. Replace fake package-manager engine versions with `devEngines.packageManager` and a local pnpm-only preinstall guard.
+- TEMPORARY (T15): remove Oxlint JavaScript-plugin arena allocation while preserving native/type-aware rules, all 37 explicit Svelte rules, and the installed Vite+ import-policy visitor through ESLint. The baseline reproduces exit 134 and the fixed command passes under the same Linux resource limit. Add the `typecheck` alias required by Vercel CI.
+- Split the measured admin-editor chunk from 798,843 bytes to a largest client chunk of 339,070 bytes without increasing the warning threshold or changing toolchain versions.
+- Make complete builds verify actual packaged native image processing and offline HTML/text email behavior. Audit expected optional tracer warnings without suppressing them or installing unused platform binaries. Evidence and verification limits: `docs/reviews/tooling-warnings-2026-11-11/VERIFICATION.md`.
+
+### 2026-11-11 — Owner-requested single-branch workflow
+
+- The owner requires only `main` locally and on GitHub. Integrate the concept disclosure via PR #45, remove its temporary branch, and preserve the single-branch instruction in `docs/AGENT_COORDINATION.md`. This supersedes the earlier feature-branch workflow; no source history is rewritten.
+
+### 2026-11-11 — Public concept disclosure and unavailable-offer dialog
+
+- Added prominent development/AI notices and an accessible informational dialog on proposed offer controls. The owner confirmed purchases and paid subscriptions have never been available; the stated public purpose is browser testing and search visibility.
+- Blocked direct cart, checkout, payment, billing, and paid-subscription endpoint paths before routing. Public-page indexing and the existing store launch gate remain independent.
+- Removed prototype testimonials, unverified recognition defaults, priced Sunday Alpha offers and `InStock` schema; aligned legal pages, metadata and FAQs with development status. No CMS article body, payment service, hosted configuration or production deployment was changed.
+- TEMPORARY: concept mode and commerce guard remain until a separately authorized product launch (T14). Validation is recorded in `docs/AGENT_COORDINATION.md`.
+
+### 2026-11-08 — Consolidate `src/lib/styles/inner-page.css` into `src/app.css`, establish top-down eyebrow/kicker hierarchy (`16px` / `14px`), and upgrade single-line brand lockup
+
+- **Changed:** Permanently merged `src/lib/styles/inner-page.css` (7,798 lines) into `src/app.css` inside `@layer components` directly before Section 6 (`@layer utilities`), and deleted `src/lib/styles/inner-page.css`:
+  - Eliminates the multi-file global CSS split so `src/app.css` is the sole global stylesheet (containing all `@font-face` declarations, `:root` design tokens, reset, typography, layout, shared `.inner-page` marketing primitives, utilities, and responsive rules).
+  - Removed all `import '#lib/styles/inner-page.css';` statements from `src/routes/+layout.svelte`, `src/lib/components/blog/BlogArchive.svelte`, `src/routes/blog/+error.svelte`, and `src/routes/blog/[slug]/+page.svelte`.
+  - Updated `AGENTS.md`, `docs/CSS_STANDARDS.md`, and `docs/NEW_PAGE_PLAYBOOK.md` so future contributors and AI agents use `src/app.css` as the single global SSOT and write component/page-specific CSS in scoped `<style>` blocks inside `.svelte` files.
+  - Verified 100% bit-for-bit DOM geometry and computed-style parity across 19 routes (3,509 elements verified, 0 diffs).
+- **Changed:** Establish top-down typographic hierarchy for section eyebrows (`16px`), H1 SEO kickers (`14px`), and inner-page lineage pills:
+  - Updated `--text-eyebrow` to `1rem` (`16px`) for `.eyebrow`, `.section-kicker`, and `.comparison-label`, and introduced `--text-seo-kicker: var(--step-sm)` (`0.875rem` = `14px`) for `.h1-query`, `.seo-kicker`, `.inner-page .hero-h1__kicker`, and `.inner-page .hero-h1__seo-kicker`.
+  - Consolidated `.inner-page .eyebrow-box`, `.inner-page .eyebrow-pill`, and `.inner-page .eyebrow-banner` in `src/app.css` (plus `sunday-alpha-protocol.css`, `resources/+page.svelte`, and `etf-stocks-list/+page.svelte`) to use `var(--font-display)` (`Plus Jakarta Sans`) `font-weight: 800` (ExtraBold) on both badges (`0.75rem`) and lineage text (`0.8125rem`).
+- **Changed:** Upgrade `Navbar.svelte` and `Footer.svelte` brand lockup to render `REVOLUTION TRADING PROS` on one single line above `EDUCATE • INNOVATE • PROSPER` in `Plus Jakarta Sans` ExtraBold (`800`), aligned left-to-right across breakpoints.
+
+### 2026-11-08 — Eradicate layout shifts (CLS 0.0000), eliminate dev server 304 delays, stabilize logo geometry, and resolve form autofill compliance
+
+- **Fixed:** Restore root layout import of `inner-page.css` in `src/routes/+layout.svelte`:
+  - Root Cause: In a previous refactoring (`e519e24`), `import '#lib/styles/inner-page.css'` was deleted from 21 individual marketing routes under the assumption it was in the root layout, but it was missing there. Consequently, the initial server-rendered HTML for all marketing pages (`/about`, `/mentorship`, `/our-mission`, `/store/**`, `/live-trading-rooms/**`, `/alert-services/**`) was delivered with 0 `.inner-page` CSS rules. On client-side hydration, 7,798 lines of inner-page styles suddenly applied, causing severe layout shifts (e.g. initial CLS of 0.0790 on `/about`).
+  - Added `import '#lib/styles/inner-page.css';` to `src/routes/+layout.svelte` immediately after `app.css`. The server-rendered HTML now delivers 1,163 `.inner-page` CSS rules synchronously in `<style data-sveltekit>` on the very first byte.
+- **Fixed:** Eliminate development server 304 conditional font revalidations and font swap shifts in `vite.config.ts`:
+  - Root Cause: While `vercel.json` serves `/fonts/*` with `Cache-Control: public, max-age=31536000, immutable` in production, Vite's development server lacked this configuration and defaulted to `Cache-Control: no-cache`. On every browser refresh, the browser issued 7-12 conditional HTTP requests for fonts, waited 60-80ms for 304 Not Modified responses, and temporarily rendered system fallback fonts before swapping to the web fonts. This caused the navbar to expand by 35.5px and section headings to shift vertically.
+  - Added `dev-static-font-cache` middleware in `vite.config.ts` to attach `Cache-Control: public, max-age=31536000, immutable` to all `/fonts/*` requests in development mode. The browser now serves self-hosted WOFF2 fonts instantaneously from memory/disk cache on frame 0 without issuing 304 requests or undergoing font swap shifts.
+- **Fixed:** Stabilize brand logo geometry, layout containment, synchronous decoding, and font weights in `Navbar.svelte` and `Footer.svelte`:
+  - Root Cause: `.brand-logo-wrap` had erratic dimensions across breakpoints (36px -> 46px -> 34px -> 38px -> 46px -> 42px), shrinking from 46px to 42px above 1536px, and lacked CSS layout containment. The `<enhanced:img>` had `decoding="async"`, delaying initial emblem rasterization. Additionally, `.brand-name` requested `font-weight: 900` (while `@font-face` only declared weights 600, 700, 800) and `.brand-tagline` requested `font-weight: 700` (while Inter only declared 400, 500, 600), triggering synthetic font bolding and glyph metric shifts on webfont swap.
+  - In `Navbar.svelte`: added `contain: layout size; aspect-ratio: 1 / 1;` to `.brand-logo-wrap`, set `aspect-ratio: 1 / 1; display: block;` on `.brand-logo-wrap :global(img)`, aligned desktop logo size to a stable `42px` across all desktop viewports (>= 1440px), changed `decoding="async"` to `decoding="sync"` for the emblem, aligned `.brand-name` to `font-weight: 800` (ExtraBold) and `.brand-tagline` to `font-weight: 600` (SemiBold).
+  - In `Footer.svelte`: added matching `aspect-ratio: 1 / 1; contain: layout size;` and font-weight alignment (`800` / `600`).
+- **Fixed:** Prevent typographic orphan wraps on mentorship protocol section heading and cards on large displays:
+  - In `src/routes/mentorship/+page.svelte`: changed heading to `Inside the Four-Phase <span class="text-nowrap">1&#8209;on&#8209;1</span> Transformation Architecture` using non-breaking hyphen `&#8209;` (`U+2011`) and `.text-nowrap`, eliminating "4-Phase 1-on-1" adjacent number collisions and guaranteeing that no browser can break "1-on-1" or drop a single "1" to a new line. Applied `1&#8209;on&#8209;1` to Phase 04 card title.
+- **Fixed:** Resolve Chrome DevTools form autofill compliance across all forms:
+  - In `src/routes/mentorship/+page.svelte`: added `autocomplete="on"` to `<form>`, and explicit `autocomplete="off"` to non-autofill fields (`capitalTier`, `scheduleType`, `primaryBottleneck`, `candidateTrack`, `coachabilityPledge`).
+  - In `src/routes/resources/etf-stocks-list/+page.svelte`, `src/routes/resources/stock-indexes-list/+page.svelte`, and `src/routes/alert-services/sunday-alpha-protocol/+page.svelte`: added explicit `autocomplete="off"` to search and filter inputs.
+  - Eliminates Chrome DevTools Issue: _"A form field has an id or name attribute that the browser's autofill recognizes. However, it doesn’t have an autocomplete attribute assigned."_
+- **Evidence & Verification:**
+  - Automated Playwright audit across 16 primary routes confirmed **0.0000 Cumulative Layout Shift (CLS)** on reload across all 16 routes.
+  - Automated Playwright viewport sweep across 19 routes and 6 viewports (375px, 768px, 1024px, 1440px, 1536px, 2560px Mac Studio Display — 114 test runs) confirmed **0 horizontal overflows** site-wide.
+  - Brand container reload test confirmed sub-pixel width delta of 0.015px (stable 42px x 42px logo geometry).
+  - All verification suites passed: `check:css`, `svelte-check` (0 errors, 0 warnings), `pnpm lint` (0 errors, 0 warnings across 809 files), 86 test files (677 unit tests), production build, `check:pages` (46 pages), and Playwright SEO tests (3/3).
+
+### 2026-11-08 — Unify stylesheet architecture, eradicate layout shifts, and eliminate base-element CSS conflicts
+
+- **Fixed:** Consolidate stylesheet pipeline into a single deterministic root bundle (`src/routes/+layout.svelte`):
+  - Previously, `app.css` was imported in the root layout while `inner-page.css` was imported separately across 21 individual page routes. This created two asynchronous `<link rel="stylesheet">` tags in the document `<head>`, causing race conditions, flash of unstyled content, and Cumulative Layout Shift (CLS) on refresh.
+  - Imported `inner-page.css` directly in `src/routes/+layout.svelte` immediately after `app.css`, allowing Vite to compile all global design tokens, base typography, and component primitives into one atomic stylesheet bundle delivered synchronously on first byte.
+  - Removed redundant `import '#lib/styles/inner-page.css';` from all 21 individual marketing and inner page components (`/about`, `/our-mission`, `/mentorship`, `/store/**`, `/live-trading-rooms/**`, `/alert-services/**`, `/contact`, `/resources/stock-indexes-list`, legal pages, and `+error.svelte`), preserving the dedicated layout and prose contract for blog routes (`/blog/**` and `BlogArchive.svelte`).
+- **Fixed:** Eliminate base-element typography conflicts and artificial character caps in `src/app.css`:
+  - Removed restrictive `max-inline-size: min(16.608em, 780px)` and `.hero-h1` from base `h1`, allowing hero and page headers to be sized by their parent grid layouts rather than an arbitrary character clamp.
+  - Removed `max-inline-size: min(28ch, 760px)` from base `h2` and `max-inline-size: 34ch` from base `h3`, preventing card titles, pricing headers, and section headings from wrapping prematurely into narrow columns before component styles apply.
+  - Separated `p` and `li` base typography rules: kept readable `max-inline-size: min(70ch, 680px)` on `p` body copy while removing it from `li`, ensuring navigation items, dropdowns, card lists, and breadcrumbs are never artificially clamped to 680px.
+- **Fixed:** Align manifesto comparison labels and card geometry across the homepage and inner pages:
+  - In `src/app.css`, `src/lib/components/home/ManifestoSection.svelte`, and `src/lib/styles/inner-page.css`, standardise `.comparison-label` with `display: inline-flex; align-items: center; gap: 0.75rem;` and a 23px horizontal accent bar (`::before`), matching `.eyebrow` and `.section-kicker` site-wide.
+  - In `src/lib/components/home/ManifestoSection.svelte`, add a crisp 1px border (`border: 1px solid var(--line)`) to `.manifesto-card.positive`, matching `.manifesto-card.negative` and comparison card geometry across the repository.
+- **Evidence & Verification:**
+  - Automated Playwright audit across 12 production preview routes (`/`, `/about`, `/our-mission`, `/mentorship`, `/store/courses`, `/store/indicators`, `/store/scanners`, `/live-trading-rooms/day-trading-room`, `/alert-services/spx-profit-pulse`, `/alert-services/sunday-alpha-protocol`, `/resources`, `/blog`) confirmed `initialCls = 0.0000`, `refreshCls = 0.0000`, and `0` shifts on reload across all tested routes.
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check` (0 errors, 0 warnings), and `pnpm lint` (0 errors, 0 warnings across 809 files) passed.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO (3/3) and E2E suites (55 passed, 17 skipped) passed.
+
+### 2026-11-08 — Fix breadcrumb font size from the ground up across all routes with direct element selectors
+
+- **Fixed:** Resolve breadcrumbs rendering at 16px Inter regular body text instead of 11px Geist Mono compact navigation telemetry:
+  - Root Cause: In `src/app.css`, global `p, li` sets `font-family: var(--font-sans); font-size: var(--step-body) (16px); font-weight: 450;`. Because previous breadcrumb rules only targeted `.breadcrumb-list` on the parent `<ol>`, the browser applied the direct `li` tag styles, preventing `li` and `a` from inheriting the 11px monospace telemetry styles.
+  - In `src/app.css`: add a primary Breadcrumbs & Compact Navigation Telemetry block targeting `.breadcrumb-list li, .breadcrumb-list a, .breadcrumb-list span, .breadcrumb-nav ol li, .breadcrumb-nav ol a, .breadcrumb-nav ol span, .breadcrumb-bar__status, .breadcrumb-bar__mandate, .breadcrumb-bar__telemetry, .breadcrumb-bar__member` with `font-family: var(--font-mono); font-weight: 600; font-size: var(--text-breadcrumb) (11px); letter-spacing: var(--tracking-breadcrumb) (0.04em); line-height: 1.4; text-transform: uppercase; max-inline-size: none;`.
+  - In `src/lib/styles/inner-page.css`: update `.inner-page .breadcrumb-list` and `.inner-page .hero-inner .breadcrumb-nav ol` to directly target `li, a, span`, guaranteeing that `p, li` can never override breadcrumb typography on any inner page.
+  - In `src/lib/components/layout/Breadcrumb.svelte`: update `.breadcrumb-list` scoped styles to directly target `li, a, span`.
+- **Evidence & Verification:**
+  - Automated Playwright verification across `/about`, `/store/courses`, `/store/indicators`, `/live-trading-rooms/day-trading-room`, `/alert-services/spx-profit-pulse`, `/our-mission`, and `/blog` confirmed exact computed styles: `liFontSize: 11px`, `liFontFamily: Geist Mono`, `liFontWeight: 600`, `aFontSize: 11px` (down from 15.952px Inter 450).
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check`, and `pnpm lint` passed with 0 errors.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO and E2E suites passed.
+
+### 2026-11-08 — Harmonize manifesto comparison section typography and card content width with site-wide standards
+
+- **Fixed:** Align "WHAT WE AIM TO DELIVER / THE REVOLUTION STANDARD" and "WHAT YOU LEAVE BEHIND / THE HYPE TRAP" typography on the homepage (`src/lib/components/home/ManifestoSection.svelte`):
+  - In `src/app.css`: move `.comparison-label` out of the monospace telemetry tag cluster (`font-family: var(--font-mono); font-weight: 500;`) into the primary display eyebrow cluster (`.eyebrow, .h1-query, .seo-kicker, .comparison-label`), assigning it `font-family: var(--font-display); font-weight: 800; font-size: var(--text-eyebrow); line-height: var(--leading-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;`.
+  - In `src/lib/components/home/ManifestoSection.svelte`: explicitly declare `font-family: var(--font-display); font-weight: 800;` on `.comparison-label`, ensuring the card kickers match the bold ExtraBold 800 Plus Jakarta Sans weight and letter-spacing of the section eyebrow ("PEOPLE OVER PROFITS / THE ANTI-HYPE STANDARD") and all comparison kickers across the repository.
+  - In `src/lib/styles/inner-page.css`: harmonize `.inner-page .comparison-block .meta-label` ("What We Reject" / "What We Built" on `/about`) to share the same `font-family: var(--font-display); font-weight: 800;` hierarchy.
+- **Fixed:** Eliminate artificial width constraints in manifesto comparison cards:
+  - In `src/lib/components/home/ManifestoSection.svelte`: remove `max-inline-size: 34.8em` (522px clamp) from `.comparison-list li`, setting `max-inline-size: 100%`, and set `max-inline-size: 100%` on `.manifesto-card h3`. This allows the card heading and list items to naturally fill the full 596px content width inside the 680px card on desktop, eliminating the dead 158px whitespace on the right and matching comparison card layouts across the repo.
+- **Evidence & Verification:**
+  - Automated Playwright verification confirmed `fontFamily: "Plus Jakarta Sans"`, `fontWeight: "800"`, `fontSize: "12px"`, and full 596px width on both manifesto card labels.
+  - All 86 test files (677 unit tests) passed.
+  - `pnpm check:css`, `pnpm check`, and `pnpm lint` passed with 0 errors.
+  - Full production build and `check:pages` (46 pages) passed.
+  - All Playwright SEO and E2E suites passed.
+
+### 2026-11-08 — Eliminate Cumulative Layout Shift (CLS) on refresh site-wide with font-display optional, immutable font caching, and stable layout geometry
+
+- **Fixed:** Eradicate Cumulative Layout Shift (CLS) on refresh across all routes (tested and verified with Playwright `PerformanceObserver` layout-shift tracking):
+  - Transition `@font-face` declarations in `src/app.css` from `font-display: swap` to `font-display: optional`, following W3C CSS Fonts 4 and Google Core Web Vitals standards. On refresh / reload or repeat visits, cached fonts render immediately on first paint with zero swap and zero font-switch layout shift.
+  - Add immutable 1-year cache headers (`Cache-Control: public, max-age=31536000, immutable`) in `vercel.json` for all `/fonts/(.*)` static assets, eliminating network revalidation round-trips (`max-age=0, must-revalidate`) on page refresh.
+  - Recalibrate system fallback font metrics in `src/app.css`:
+    - `Plus Jakarta Sans Fallback`: adjust `size-adjust` to `102%` to match geometric sans character widths.
+    - `Inter Fallback`: adjust `size-adjust` to `104.5%` to accurately match `BlinkMacSystemFont` on macOS / iOS.
+- **Fixed:** Replace fragile `ch` / `em` line-wrapping width caps with stable `rem` units across hero headers:
+  - In `src/lib/styles/inner-page.css`: change `.inner-page .hero-h1__display` from `max-width: 22ch` to `max-width: 48.75rem` and kickers from `max-width: 65ch` to `max-width: 55rem`, eliminating the 133px width collapse in fallback mode that caused headings to wrap to 4 lines and snap upwards by 56px when fonts loaded.
+  - In `src/app.css`: remove `max-inline-size: 44.5362em` from `.eyebrow, .h1-query, .seo-kicker` (setting `max-inline-size: 100%`), eliminating the 18.6px upward jump on the homepage hero.
+  - In `src/routes/resources/+page.svelte`: change `.resources-hero__title` from `22ch` to `48.75rem`, body from `66ch` to `48rem`, and add `@media (min-width: 900px) { flex-wrap: nowrap; }` to `.eyebrow-pill`, dropping refresh CLS on `/resources` from `0.1854` to `0.0000`.
+  - In `src/lib/styles/sunday-alpha-protocol.css`: change `.hero-grid` from `align-items: center` to `align-items: start`, and add desktop nowrap to `.eyebrow-pill`, dropping refresh CLS on `/alert-services/sunday-alpha-protocol` from `0.0968` to `0.0000`.
+- **Fixed:** Eliminate forced reflow and layout shift in `src/lib/components/layout/Navbar.svelte`:
+  - Optimize `naturalWidth(element)` in `fitNavigation` to check `if (element.offsetParent !== null) return element.scrollWidth;`, measuring rendered navigation links and action buttons directly without dirtying inline `style.cssText` or triggering synchronous style recalculations.
+- **Evidence & Verification:**
+  - Measured 15 core routes on production build preview: all 15 routes achieved `0.0000` initial load CLS and `0.0000` refresh CLS.
+  - 86 test files (677 unit tests) passed.
+  - 46 prerendered pages verified in `check:pages`.
+  - All Playwright SEO and E2E specs passed.
+
+### 2026-11-08 — Consolidate documentation to eliminate contradictions, prune redundant files & remove boilerplate test scaffolds
+
+- **Removed:** Eliminate contradictory, redundant, and obsolete non-blog `.md` files to provide a single, unified source of truth for AI agents:
+  - Remove `ARCHCITECURE_AND_SEO.md` (misspelled, legacy directive containing contradictions on sitemap hreflang, inline `<svelte:head>` noindex, and outdated typography).
+  - Remove duplicate root `SEO_STANDARD.md` (preserving `docs/seo/SEO_STANDARD.md` as the sole SSOT for technical SEO and structured data).
+  - Remove `SEO-Prompt.md` (historical one-time audit prompt from October 2026).
+- **Removed:** Prune unused boilerplate template code and demo tests:
+  - Delete `src/lib/vitest-examples/` (`Welcome.svelte`, `Welcome.svelte.spec.ts`, `greet.ts`, `greet.spec.ts`), removing dead template scaffold code and unneeded tests while preserving all 86 core application test suites (677 tests).
+- **Changed:** Align references across documentation and CSS comments:
+  - Update `src/app.css` breakpoint section comment to link to `docs/CSS_STANDARDS.md`.
+  - Update `seo-audit.md` document audit list to remove reference to `SEO-Prompt.md`.
+  - Clean up unused variable and import in `src/routes/store/courses/+page.svelte` for 100% clean ESLint pass.
+
+### 2026-11-08 — Fix CatalogGrid stretching on syllabus disclosure, add Courses Coming Soon notice & gate Store navigation on published production
+
+- **Fixed:** Prevent sibling cards in `CatalogGrid` from stretching row height when a course syllabus accordion is expanded:
+  - Add `align-items: start;` to `.catalog-grid` in `src/lib/components/ui/CatalogGrid.svelte`, eliminating unexpected vertical footer drops on sibling cards (verified 0px shift on Course 03 when Course 04 syllabus opens).
+- **Added:** Render prominent institutional **"COURSES COMING SOON!"** notice on `/store/courses` (`src/routes/store/courses/+page.svelte`):
+  - Highlight Billy Ribeiro's proprietary Goldman Sachs prop desk lineage, "The Move Prior to The Move™", and high-definition video masterclasses in active production.
+  - Bridge to live floor execution with direct CTAs to Live Trading Rooms (`/live-trading-rooms/day-trading-room`) and 1-on-1 Mentorship (`/mentorship`).
+  - Outline four upcoming curriculum tracks (Foundations, Small Account Compounding, Options Greeks, Working Pro Swing) with strict heading hierarchy compliance (zero `h4` tags).
+  - Include interactive track filtering and catalog preview capability with updated unit test assertions in `src/routes/store/courses/page.svelte.spec.ts`.
+- **Changed:** Gate Store navigation visibility on published production builds while preserving offline development workflow:
+  - Configure `isNavigationHrefVisible()` in `src/lib/data/launch-gate.ts`, `getMainNavigation()`, and `getFooterColumns()` in `src/lib/data/homepage.ts` so `/store` and `/store/*` are hidden from public production navigation (`Navbar` 7 items, `Footer` Company column with `/our-mission`), while remaining discoverable in local development (`import.meta.env.DEV`) to allow editing and testing offline with exact published styles.
+  - Align E2E test suites in `src/routes/page.svelte.e2e.ts` to assert the 7-item navigation on published production builds and 0 store submenu links.
+
+### 2026-11-08 — Restore Store navigation menu with submenus, enlarge navbar typography & optimize responsive button wraps
+
+- **Added:** Restore the **Store** dropdown menu item to primary navigation with its three submenus (**Courses**, **Indicators**, and **Scanners**) in `src/lib/components/layout/Navbar.svelte` and `src/lib/data/homepage.ts`:
+  - Decouple visible navigation link rendering from search-engine indexing gates by updating `isNavigationHrefVisible()` in `src/lib/data/launch-gate.ts` to expose `/store` and `/store/*` in navigation while preserving canonical indexing and structured-data protections.
+  - Update `FOOTER_COLUMNS` in `src/lib/data/homepage.ts` to surface the Store section in footer navigation, with updated unit test coverage in `src/lib/data/homepage.spec.ts` and `src/lib/seo/structured-data.spec.ts`.
+- **Changed:** Enlarge primary navigation typography and refine responsive desktop layout in `src/lib/components/layout/Navbar.svelte`:
+  - Increase desktop nav link font sizes: `0.71875rem` (11.5px) at `1024px`, `0.8125rem` (13px) at `1280px`, `0.875rem` (14px) at `1440px`, and `0.9375rem` (15px) at `1536px+`.
+  - Enlarge dropdown submenu link labels to `0.9375rem` (15px) across all desktop views.
+  - Optimize CTA button inline sizes (`11rem`–`12rem`) and nav gaps to ensure all 8 top-level items, logo, and dual CTA buttons fit symmetrically without triggering compact mode.
+- **Fixed:** Prevent button text overflow on mobile viewports by setting `white-space: normal; text-align: center; max-inline-size: min(380px, 100%);` on `.btn` in `src/app.css` and `src/lib/styles/inner-page.css`.
+- **Fixed:** Align E2E test suites in `src/routes/page.svelte.e2e.ts` and `src/routes/blog/font-and-fragment.e2e.ts` to assert the 8-item navigation contract, Store submenus, self-hosted font loading, and updated institutional typography tokens.
+
+### 2026-11-08 — Master site-wide typography harmonization, compact monospace breadcrumbs & 50px hero ceiling
+
+- **Changed:** Harmonize site-wide typography scale, font weights, and letter-spacing across the entire website (excluding `/blog` and `/blog/**`):
+  - Calibrate `--step-hero` from `3.75rem` (60px) to `3.125rem` (`50px` desktop ceiling, `32px` mobile) in `src/app.css` and align hero titles in `src/lib/styles/inner-page.css`, `src/lib/styles/sunday-alpha-protocol.css`, and `src/lib/components/home/ClosingSection.svelte`.
+  - Loosen squished negative letter-spacing tokens (`--tracking-display-h1: -0.01em`, `--tracking-section-h2: -0.01em`, `--tracking-h3: 0em`) to restore natural typographic breathing room.
+  - Standardize compact monospace navigation breadcrumbs (`font-family: var(--font-mono)`, `font-weight: 600`, `font-size: var(--text-breadcrumb)` [11px], `letter-spacing: 0.04em`, `line-height: 1.4`) with tight `8px` mobile / `10px` desktop vertical padding across `src/lib/components/layout/Breadcrumb.svelte` and `src/lib/styles/inner-page.css`.
+  - Restore `.eyebrow` to `--font-display` (Plus Jakarta Sans ExtraBold 800) with `0.08em` tracking in `src/app.css`, eliminating unwanted thin monospace overrides.
+  - Bold card links (`.info-card a`, `.audience-card .text-link`, `.tool-body .text-link`) with `--font-display` 800 ExtraBold so call-to-actions are prominent and clear.
+  - Align `<em>` and `<strong>` font weights in `src/lib/styles/inner-page.css` so quotes and key phrases (e.g., `"the future of trading"`) match the bold 700 thickness of surrounding bright white emphasis text, with high-contrast AA pairing (`var(--acid-text-on-light)`) on `.is-light` surfaces.
+  - Unify card heading levels, body line heights, and margins across homepage sections ([CaseStudies](src/lib/components/home/CaseStudiesSection.svelte), [Personas](src/lib/components/home/PersonasSection.svelte), [Memberships](src/lib/components/home/MembershipsSection.svelte), [Mentorship](src/lib/components/home/MentorshipSection.svelte), [StoreTools](src/lib/components/home/StoreToolsSection.svelte), [Ebook](src/lib/components/home/EbookSection.svelte), [Faq](src/lib/components/home/FaqSection.svelte), [HaveQuestions](src/lib/components/layout/HaveQuestions.svelte), and [CatalogCard](src/lib/components/ui/CatalogCard.svelte)).
+
+### 2026-11-08 — Standardize Sunday Alpha Protocol (`/alert-services/sunday-alpha-protocol`), eliminate legacy `/watchlist` & `Explosive Swings` paths, enforce zero-`href` static Geist fonts & zero `#` URL fragments
+
+- **Changed:** Standardize the swing trade alert service route, CSS, and data module to **Sunday Alpha Protocol** at `/alert-services/sunday-alpha-protocol` (`src/routes/alert-services/sunday-alpha-protocol/+page.svelte`, `src/routes/alert-services/sunday-alpha-protocol/+page.ts`, `src/routes/alert-services/sunday-alpha-protocol/page.svelte.spec.ts`, `src/lib/styles/sunday-alpha-protocol.css`, `src/lib/data/sunday-alpha-protocol.ts`) alongside `/alert-services/spx-profit-pulse`.
+- **Removed:** Eliminate all legacy `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, `/sunday-alpha-alerts`, and `/alert-services/sunday-alpha-alerts` paths, redirects (`LEGACY_SUNDAY_ALPHA_PATHS` in `src/hooks.server.ts`), identifiers, and product copy across all 15 route pages, navigation (`src/lib/components/layout/Navbar.svelte`, `src/lib/components/layout/Footer.svelte`, `src/lib/components/layout/nav-icons.ts`), data modules (`src/lib/data/homepage.ts`, `src/lib/data/courses.ts`, `src/lib/data/etf-stocks-list.ts`, `src/lib/data/resources-hub.ts`), structured data (`src/lib/seo/structured-data.ts`, `src/lib/seo/structured-data.spec.ts`), sitemap inventory (`docs/seo/audit/02-inventory.json`, `urls.md`, `todo.md`), content files, and delete obsolete prototype `SundayAlphaProtocol.html`.
+- **Changed:** Self-host static `Geist Mono` (weights `100`–`900` normal and italic) and `Geist Sans` (weights `100`–`900` normal) WOFF2/WOFF font files in `src/lib/assets/fonts/`, declared exclusively via `@font-face` in `src/app.css` (`--font-display`, `--font-mono`, `--font-sans`) and mirrored in `src/lib/tiptap/font-family.ts`, `static/fonts/LICENSES.txt`, and `docs/CSS_STANDARDS.md`.
+- **Fixed:** Enforce a strict zero-`href` static font policy across the entire codebase: update `shouldPreload` in `src/hooks.server.ts` (`src/hooks.server.spec.ts`) to preload only `js` and `css` (never emitting `<link rel="preload" as="font" href="...">`), and add static/build guards in `scripts/font-policy.mjs` (`scripts/font-policy.spec.ts`) rejecting any `<link>` element with `as="font"`, `type="font/..."`, or a font file `href`.
+- **Fixed:** Calibrate desktop navigation typography and button sizing at `@media (min-width: 1024px)` in `src/lib/components/layout/Navbar.svelte` so all 7 top-level items, brand mark, and dual CTA buttons fit symmetrically in `Geist Mono` from `1024px` through `2560px` without false `.is-compact` fallback (`src/lib/components/layout/Navbar.svelte.spec.ts`).
+- **Removed:** Eliminate all `#` URL fragments across every route, component, attachment (`src/lib/attachments/c4-system.ts`, `src/lib/attachments/article-toc.ts`), and JSON-LD `@id` entity (`src/lib/seo/structured-data.ts`, `src/lib/seo/blog-seo.ts`), replacing in-page anchor jumps with programmatic `scrollToSection` buttons and slash-delimited canonical schema URIs; consolidate CSS & typography documentation solely into `docs/CSS_STANDARDS.md`.
+
+### 2026-11-07 — Forensic CSS cascade remediation, blog cover double-download fix & inline responsive `srcset`
+
+- **Fixed:** Eliminate the `DPR=2` hydration double-download (`1200w.webp` -> `1600w.webp`) on `/blog` lead `PostCard` images by updating `sourceSizes` in `src/lib/components/blog/PostCard.svelte` to `(min-width: 48rem) min(44.5rem, calc(50vw - 1.75rem)), calc(100vw - 1.5rem)` (`712px` half-width inside the `1424px` `.container`) and passing `sizes="(min-width: 48rem) min(37.5rem, 50vw), min(75rem, 100vw)"` in `src/lib/components/home/BlogSection.svelte` (`75rem` homepage cap).
+- **Fixed:** Add `<link rel="preload" as="image" ...>` for the article hero cover in `<svelte:head>` and wrap `<figure class="article-cover-figure">` in `{#key data.post.slug}` in `src/routes/blog/[slug]/+page.svelte` to prevent blank-box flashing on entry and stale bitmap persistence on article-to-article navigation.
+- **Fixed:** Extend `lazyifyAndDimensionContentImages` and `mediaDimensionsByUrl` in `src/routes/blog/[slug]/+page.server.ts` to inject stored responsive `srcset` and `sizes` onto inline blog content `<img>` elements from `media.variantsJson`.
+- **Fixed:** Wrap `src/lib/styles/inner-page.css` and `src/lib/styles/prose.css` in `@layer components { ... }` so they respect the `@layer` hierarchy declared in `src/app.css`, deduplicate and scope all 16 colliding top-level `.inner-page` selectors in `src/lib/styles/inner-page.css`, add `.inner-page .content-section:not(.error-box):not(.locked-article-section):has(> .container) { max-inline-size: none; padding-inline: 0; }`, and synchronize `:root` typography and `--blog-*` tokens in `src/app.css` 1-to-1 with active approved rules (`0` unused `:root` tokens).
+
+### 2026-11-06 — Master architectural & typographic remediation, `/blog` topic deduplication, standing cards, TOC `#` suppression & Sunday Alpha Protocol redesign
+
+- **Added:** Declare the full Tier A (`--text-eyebrow` through `--text-display-h1`, including `--leading-*` and `--tracking-*` tokens) and Tier B (`--blog-measure`, `--blog-h1` through `--blog-toc`) typography scale custom properties, explicit `html { font-size: 100%; -webkit-text-size-adjust: 100%; }`, and `font-variant-numeric: tabular-nums` on dossier badges/pills in `src/app.css` while preserving self-hosted `'Montserrat Variable'` and `'Sofia Sans Variable'` Fontsource stacks (`--font-mono: var(--font-sans)`).
+- **Fixed:** Enforce `100%` container-flush width (`1424px × 801px` at `>=1536px`), `aspect-ratio: 16 / 9`, and explicit fallback `width`/`height` dimensions on all inline blog images in `src/lib/styles/prose.css`, `src/routes/blog/[slug]/+page.svelte`, `src/routes/blog/[slug]/+page.server.ts`, and `src/lib/components/blog/PostCard.svelte` so every blog image matches the cover image size with zero lazy-load CLS.
+- **Added:** Mount the interactive Options Profit, Greeks & Position Size Calculator (`#options-calculator`) directly on `/resources` (`src/routes/resources/+page.svelte`) with scoped component CSS, and update `src/lib/data/resources-hub.ts`, `src/routes/about/+page.svelte`, `src/routes/live-trading-rooms/day-trading-room/+page.svelte`, and `src/hooks.server.ts` so all calculator links scroll to `#options-calculator` and all blog links point to live published articles (`/blog/0dte-spx-options-strategy-guide`).
+- **Fixed:** Route Header `Explore Memberships` (`src/lib/components/layout/Navbar.svelte`) and Footer `All Memberships` (`src/lib/data/homepage.ts`) to `/#memberships`, capitalize `Chris M.` in `src/routes/alert-services/spx-profit-pulse/+page.svelte`, add screen-reader-accessible label text inside `src/lib/components/layout/SocialShareBar.svelte`, and semanticize `<ul class="article-tag-list article-tags" aria-label="Article tags">` with separator spans in `src/routes/blog/[slug]/+page.svelte`.
+- **Fixed:** Replace the leaked `"Pricing is intentionally not shown in this blueprint."` sentence in `src/lib/components/home/MembershipsSection.svelte`, split the legal risk disclosure in `src/lib/components/layout/Footer.svelte` into two readable paragraphs (regulatory registration status and trading/options risk warning), enforce the `0.75rem` (`12px`) font-size floor on `.chart-illus-label` (`HeroSection.svelte`), `.press__label` (`PressStrip.svelte`), and `.article-tag-chip`/`.pn-label`/`.locked-badge` (`src/routes/blog/[slug]/+page.svelte`), and add Oxford commas to `DOCUMENTATION_STANDARD_ITEMS` in `src/lib/data/homepage.ts`.
+- **Fixed:** Add a permanent `308` redirect from `/resources/options-calculator` to `/resources` in `src/hooks.server.ts` and convert raw parenthetical URL strings (`(/store/courses)`, `(/store/indicators)`, `(/store/scanners)`, `(/resources)`, `(/resources/etf-stocks-list)`, `(/resources/stock-indexes-list)`, `(/blog)`, `(/alert-services/spx-profit-pulse)`, `(/sunday-alpha-alerts)`, and the broken `(/resources/options-calculator)` reference) across `src/routes/about/+page.svelte`, `src/routes/live-trading-rooms/day-trading-room/+page.svelte`, `src/routes/store/courses/+page.svelte`, and `src/lib/seo/structured-data.ts` into clean inline `<a href={resolve(...)}>` links or clean prose.
+- **Fixed:** Repair the hero `<h1>` grammatical fragment (`"Our Goal Is to Help You Build Your Dreams, Not Drain Your Capital."`) and double-space anchor text (`custom indicator` and `institutional scanner`) in `src/routes/our-mission/+page.svelte`.
+- **Changed:** Standardize `"People Over Making Money"` / `"we focus on PEOPLE, not making money"` to `"People Over Profits"` / `"we put people over profits"`, update `"Institutional Pedigree Verified"` to `"Institutional Lineage & Risk-First Execution"`, and calibrate YMYL historical trade and authority phrasing across `src/routes/about/+page.svelte`, `src/routes/mentorship/+page.svelte`, `src/routes/our-mission/+page.svelte`, `src/routes/resources/+page.svelte`, `src/routes/live-trading-rooms/*/+page.svelte`, `src/routes/alert-services/spx-profit-pulse/+page.svelte`, `src/routes/store/*`, `src/lib/seo/structured-data.ts`, and `src/routes/alert-services/spx-profit-pulse/page.svelte.spec.ts`.
+- **Fixed:** Reconcile duplicate `"Options & Greeks Mastery"` topic labels on `/blog` by expanding `CATEGORY_LABELS` in `scripts/import-markdown-posts.ts`, reconciling legacy category names on DB initialization in `src/lib/server/db/index.ts`, and deduplicating public category pills by normalized name in `src/lib/server/services/categories.ts`.
+- **Fixed:** Enforce `1:1` width (`216px`), height (`42px`), and font-size (`0.8125rem`) symmetry between `.btn-nav-secondary` (`1-on-1 Mentorship`) and `.btn-nav-cta` (`Explore Memberships`) at desktop viewports in `src/lib/components/layout/Navbar.svelte`.
+- **Changed:** Automatically promote newly published public blog posts to `featured = true` (demoting previous featured posts in the same transaction) in `src/lib/server/db/save-post.ts` and `src/lib/server/services/cron.ts` so the previous featured article rotates into `More articles` when a new post is published.
+- **Changed:** Convert `/blog` `More articles` from a horizontal row list into a 3-column vertical standing card grid (`repeat(3, minmax(0, 1fr))` desktop, 2-column tablet, 1-column mobile) in `src/lib/components/blog/ArchiveResults.svelte` and `src/lib/components/blog/PostCard.svelte`.
+- **Fixed:** Restrict blog article TOC extraction (`src/lib/shared/seo/toc.ts`) to `<h2>` section headings (`[2]`), intercept TOC anchor clicks in `src/lib/attachments/article-toc.ts` to scroll smoothly without polluting `window.location` with `#fragment` hashes, and stabilize `--toc-nav-limit` to the viewport budget so sticky TOC height never squishes near the bottom of an article.
+- **Changed:** Redesign `/sunday-alpha-alerts` (`src/routes/sunday-alpha-alerts/+page.svelte`, `src/lib/styles/sunday-alpha-alerts.css`, `src/lib/data/sunday-alpha-alerts.ts`, `src/lib/seo/structured-data.ts`) as **Sunday Alpha Protocol** with full `1536px` (`.container`) alignment, acid-lime/obsidian brand tokens, interactive video watchlist preview, and programmatic scroll to `#pricing` without `#pricing` URL hash pollution.
+
+### 2026-11-06 — Align blog article layout 100% flush with `.container` & move TOC to external left margin (`>=1900px`)
+
+- **Fixed:** Unify `.prose-base` (`src/lib/styles/prose.css`) to `max-width: 100%; margin-inline: 0;` and set `max-inline-size: 100%` on `.prose-base` headings (`h1`–`h6`), paragraphs (`p`), lists (`ul`, `ol`, `li`), and blockquotes (`blockquote`) so both the Admin Blog Editor canvas (`RichTextEditor.svelte`) and public blog posts share `100%` full-container width parity without premature `28ch`/`34ch`/`680px` line cutoffs.
+- **Fixed:** Align `.article-header`, `.article-h1`, `.article-subtitle`, `.article-excerpt`, `.article-cover-figure`, `.article-body-layout`, `.article-main-column`, `.article-service-cta`, `.article-faq-section`, and `.author-bio-box` in `src/routes/blog/[slug]/+page.svelte` `100%` flush (`0px` delta) with the website's `.container` inner left and right edges (`1424px` max inner width at `>=1536px`), matching `<Navbar />`, `.breadcrumb-bar__inner`, `.related-articles-section`, and `<Footer />`.
+- **Changed:** Relocate `.article-toc-aside` in `src/routes/blog/[slug]/+page.svelte` and `src/lib/attachments/article-toc.ts` out of the internal article column into the external left viewport margin at `@media (min-width: 118.75rem)` (`1900px+`, where `(100vw - 1424px) / 2 >= 238px` provides `>=16px` left screen padding + `194px–260px` TOC width + `28px–40px` padding before the article), hiding the TOC below `1900px` so it never shifts or cramps the blog content.
+- **Changed:** Update `src/routes/blog/toc-layout.e2e.ts`, `src/lib/attachments/article-toc.svelte.spec.ts`, `src/lib/components/admin/editor-components.svelte.spec.ts`, `src/routes/blog/blog-system.e2e.ts`, `src/routes/admin/image-flow.e2e.ts`, `AGENTS.md`, and `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md` to enforce the `100%` container-flush blog reading column and `118.75rem` (`1900px`) external left-margin TOC contract.
+
+### 2026-11-06 — Unify breadcrumb layout, Google BreadcrumbList hierarchy & remove `/watchlist` route folder
+
+- **Fixed:** Standardize `src/lib/components/layout/Breadcrumb.svelte` to use the shared `.container` (`max-inline-size: var(--max)` = `96rem` / `1536px` with `calc(var(--gutter) / 2)` inline padding), eliminating the `-24px` horizontal misalignment on `/resources` and `/resources/etf-stocks-list`.
+- **Fixed:** Replace the unstyled `<nav class="breadcrumb-nav">` on `/resources/stock-indexes-list` (`src/routes/resources/stock-indexes-list/+page.svelte`) with `<Breadcrumb>` (fixing the `138px`-tall vertical numbered `<ol>`) and upgrade `/sunday-alpha-alerts` (`src/routes/sunday-alpha-alerts/+page.svelte`) plus the 5 trust/legal routes (`/contact`, `/privacy-policy`, `/terms-of-service`, `/refund-policy`, `/editorial-policy`) to the top `.breadcrumb-bar` strip directly beneath `<Navbar />`.
+- **Fixed:** Align parent-to-child breadcrumb hierarchy names `1:1` across visible DOM and JSON-LD `BreadcrumbList` in `src/lib/seo/structured-data.ts` (`Trading Courses` on `/store/courses*`, `Trading Indicators` on `/store/indicators*`, `Trading Scanners` on `/store/scanners*`, and `Stock Indexes List` on `/resources/stock-indexes-list`), and add computed DOM/CSS layout assertions in `tests/seo/seo-standard.spec.ts`.
+- **Removed:** Delete the legacy `src/routes/watchlist/` directory (`src/routes/watchlist/+server.ts`) and centralize `308 Permanent Redirect` handling for `/watchlist`, `/explosive-swings`, `/alert-services/explosive-swings`, and `/alert-services/sunday-alpha-alerts` to `/sunday-alpha-alerts` in `src/hooks.server.ts` (`resolveBlogRedirect`), preserving query strings and URL fragments.
+- **Changed:** Rename `src/lib/data/sunday-alpha-protocol.ts` → `src/lib/data/sunday-alpha-alerts.ts`, `src/lib/styles/sunday-alpha-protocol.css` → `src/lib/styles/sunday-alpha-alerts.css`, and `explosive-swings` service/FAQ/nav-icon IDs to `sunday-alpha-alerts`, and remove duplicate `'Sunday Alpha Alerts Alerts'` labels across 10 route/data files.
+
+### 2026-11-06 — Standardize 96rem (1536px) outer layout, desktop navbar, blog article grid and 200% text reflow
+
+- **Changed:** Restore `--max: 96rem` (`1536px` at `16px` root) in `src/app.css` as the shared border-box container cap across all routes and update `docs/blog/LAYOUT_AND_CONTENT_CONTRACT.md`, `docs/CSS_STANDARDS.md`, `AGENTS.md`, `GEMINI.md`, `docs/BLOG_AGENT_HANDOFF.md`, and active runbooks to match.
+- **Fixed:** Repair desktop navigation in `src/lib/components/layout/Navbar.svelte` so `.nav-links` centers symmetrically (`margin-inline: auto`) between `.brand` and `.nav-actions`, fits inside the `1424px` usable content width at `1536px+` (`145.92px` headroom, preventing false `.is-compact` fallback), and initializes/resets `openMobileSubmenuId = null` so the mobile drawer opens with all submenus collapsed.
+- **Fixed:** Standardize `src/routes/blog/[slug]/+page.svelte` with a symmetric 5-track desktop grid (`minmax(0, 1fr) clamp(260px, 20vw, 300px) 2.5rem minmax(0, 900px) minmax(0, 1fr)`), aligning `.related-articles-section` and `.back-to-blog-row` `1:1` with the shared outer container content edge while keeping the `TOC + 900px` reading column centered.
+- **Fixed:** Add shared `.inner-page` container/card primitives in `src/lib/styles/inner-page.css` and `minmax(0, ...fr)` / `flex-wrap: wrap` / `:focus-visible` refinements in `src/lib/styles/sunday-alpha-protocol.css` so all audited routes pass `320px` and `200%` root font scaling (`32px`) with `0px` horizontal overflow.
+- **Fixed:** Pre-bundle `sanitize-html` in `vite.config.ts` (`ssr.optimizeDeps.include: ['sanitize-html']`) and ignore `.vercel/` / `.svelte-kit/output/` / `build/` in `server.watch.ignored` to resolve the `pnpm dev` CJS `require is not defined` runtime error and build-output reload loop.
+
+### 2026-11-05 — Promote and verify the final archive correction
+
+- Squash-merge PR #40 as `09d310a` and promote exact verified deployment `dpl_2RgW73JmYBTwY6gu6LjKvvUNHSJm`. The real one-post blog now shows its featured article without an empty remainder; future remaining counts subtract the displayed lead.
+- Final staged and anonymous public acceptance each pass 63 HTTP, 57 three-engine browser and 57 font-surface cases, plus explicit sole-featured SSR checks; 30 additional public checks pass. Public health and Vercel inspection identify the expected deployment. Preserve two failed probe attempts and their document/route-readiness investigation; no application failure or threshold was hidden.
+- Record final 678 unit/component, 71 authenticated Chromium, 26 Firefox, 26 WebKit, 46 static page and clean diagnostics/code/MCP checks. All four local administrators are revoked and credentials deleted. Keep the three original reference-formatting exceptions explicit, maintenance off, store gated and Google index confirmation pending. Evidence: [final release](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md#final-archive-acceptance).
+
+### 2026-11-05 — Verify the shared-layout release and correct the featured-only archive
+
+- Squash-merge PR #39 as `37a23f2` and promote exact verified Production deployment `dpl_5jQtjbTdBmeHLYQBK8kMDZHRWZRG`. Staged and anonymous public checks each pass 63 HTTP, 57 three-engine browser and 57 font-surface cases; 30 additional public checks verify actual body-only searches, RSS, domain/fragment redirects and crawler-header behavior. Maintenance remains off. Evidence: [release report](docs/reviews/blog-layout-system-2026-11-05/RELEASE.md).
+- Final visual inspection found the sole featured post repeated as “1 article” under an empty “More articles” section. Omit that empty remainder and count only the remaining articles when a lead is displayed, preserving the service's total/count/privacy contract and zero-result/search/page controls. Add four focused browser component regressions; all 8 focused cases and the repeated complete 678-test unit/component and 71-case authenticated E2E suites pass. Svelte/CSS/code checks and official MCP reanalysis are clean; the same three original reference-formatting exceptions remain.
+- Record raw staged/public HTTP, browser, font and identity evidence plus representative screenshots. The font probe verifies the two exact local-only metric fallback aliases against their CSS rules and SSOT positions, and waits for hydration-discovered stylesheets. Keep real font/resource/CSP failures strict. The archive presentation follow-up requires its own staged/public acceptance before promotion.
+
+### 2026-11-05 — Repair shared layout, blog discovery and brand typography
+
+- Adopt the owner-selected 2440px outer layout as a 152.5rem border-box container including shared gutters. Align archive headings/results, navigation and footer; preserve 900px article reading measure and remove competing ETF/index/product caps.
+- Share archive/search/category/tag presentation, remove decorative tag hashes and empty sidebar columns, fix inherited 8px media-link padding, preserve informational 16:9 images and use verified media-record srcsets with responsive card limits.
+- Add visible-body search with semantic exclusions, shared topic/count/page filters and read-only repeatable-read pending fallback. Add forward-only migration 0004, paired internal projections, transactional writer coverage and compare-and-set backfill. Publication/privacy rules remain in force; rollout verification is recorded separately.
+- Keep native article anchors and authored numbering; measure actual header offsets, bound adaptive TOC navigation by the reading column and prevent FAQ boundary movement. Add small-screen removal, short-viewport, hover/number geometry, native history/noJS and cleanup regressions. Document actual Easy TOC 2.0.89 defaults and unverified WordPress configuration.
+- Enforce Montserrat/Sofia Sans across website/admin/editor/data. Normalize legacy inline families without rewriting stored originals/revisions; retain only the two editor choices. Generate standalone brand CSS from the root build, externalize small inlined font subsets for strict same-origin CSP and embed the licensed Sofia face in image-context placeholder SVGs.
+- Move the product to `/sunday-alpha-alerts`, preserve `/watchlist` 308 query/fragment navigation, and update navigation, metadata, graph, sitemap discovery and URL inventory. Remove the faux RTP mark and opening content-obscuring shutter; label simulations honestly and replace unsupported Recon enrollment with a contact enquiry.
+- Review unnecessary publisher em dashes contextually in public/admin copy and metadata, preserving quotations, attribution, symbols, code and URLs. Remove destructive punctuation save transforms; the editorial advisory is zero-point/nonblocking. Existing SEO/CWV thresholds remain unchanged.
+- Add the maintained layout/content contract and reconcile active agent/publishing/font/CSS guidance while preserving dated evidence and owner-supplied source material. Implementation plan, measurements, independent findings and validation: [implementation evidence](docs/reviews/blog-layout-system-2026-11-05/). Local gates passed: 674 unit/component tests across 88 files, 71 authenticated Chromium E2E cases, 26 Firefox and 26 WebKit cases, 3 SEO cases, 46 static page contracts, 4 maintenance build-output cases and 41 clean Svelte MCP analyses. The complete `pnpm build`, Svelte diagnostics, CSS/font guards, Vite+ code lint and Svelte ESLint pass; full `pnpm lint` retains three unchanged reference-formatting failures. A final local release probe passes 57 scenarios across three browser engines, including actual client cleanup and FAQ geometry. The scoped implementation is in PR #39; public release proof remains pending.
+
+### 2026-11-05 — Audit self-hosted fonts and article fragments
+
+- Squash-merge PR #37 as `e62c340` and promote exact Production deployment `dpl_9r7JU41ECYmh8n3opEhZH6XUqbM8` after staged acceptance. Public health identifies the new application; nine live browser cases across Chromium, Firefox and WebKit verify the real article/watchlist fonts, chart token, numeric/native TOC behavior and no-JavaScript deep links. Maintenance remains off and the private deployment hostname remains protected. Evidence: `docs/reviews/font-fragment-audit-2026-11-05/RELEASE.md`.
+
+- Verify 55 live surfaces and 153 font responses: fonts/stylesheets are same-origin, including the article's valid font preload hrefs. Preserve native TOC fragments, the published slug and numeric heading IDs after clean-load, scroll, click, reload and no-JavaScript checks.
+- Replace six unregistered watchlist chart font names with the shared monospace token. Add source/runtime font guards and sanitizer coverage. Reject fragment-bearing CMS canonical overrides and remove fragments from legacy overrides at render time; two pre-fix regressions reproduced the gap.
+- Correct stale font/CDN/width-axis/preload instructions and add the shared font/fragment policy across 40 existing agent documents, with the policy in the handoff's 41-file coverage list. Preserve original reference material and byte-identical SEO-standard copies. Evidence and supplied-document verdicts: `docs/reviews/font-fragment-audit-2026-11-05/AUDIT.md`.
+- The release-evidence follow-up compares absolute font/stylesheet URL origins with the canonical-origin SSOT, allowing valid same-origin hrefs while rejecting external lookalike hosts; this changes only the developer guard. Its repeated full unit/component suite passed 589 tests, with clean Svelte and font/CSS checks.
+- Add an optional E2E preview port and update maintenance tests to follow it; correct authenticated blog graph assertions for the www namespace. Full authenticated Chromium E2E: 58 passed without skips. Final local gates: 588 unit/component tests, 58 authenticated Chromium E2E, 14 targeted Firefox, 14 targeted WebKit, 3 SEO checks, 46 static page contracts, and clean Svelte MCP. Source-draft formatting exceptions remain unchanged; code/Svelte lint pass. Application promotion is recorded separately in the audit report.
+
+### 2026-11-05 — Promote and verify the public blog indexing release
+
+- Record release evidence in PR #36 and promote exact Production application `33a1346` from PR #35 as deployment `dpl_BsMg9eQAp53q2NAAbhG58Fc9TZyj`. Automatic custom-domain assignment was disabled, so the successful merged build had remained staged until this explicit promotion.
+- Verify both requested blog URLs are live, index-eligible, canonically www and listed in the generated sitemap. All 19 sitemap URLs passed public HTTP/canonical/Googlebot checks and one-hop non-www redirects. The 33 intentionally noindex store/thin-archive pages remain excluded.
+- Pass 24 live browser cases across three engines at 320px and 1440px and verify Sunday Alpha Protocol wording on 16 public pages. Maintenance stays off; the private deployment hostname remains authentication-protected. Record evidence in `docs/reviews/blog-indexing-release-2026-11-05/VERIFICATION.md`.
+- Refresh `urls.md`, `todo.md` and current agent/publishing/SEO instructions to describe the verified live state. Search Console submission and actual Google indexing remain unverified account-side tasks; no rankings are promised.
+
+### 2026-11-05 — Blog indexing, URL inventory and Sunday Alpha Protocol
+
+- Switched the shared production canonical origin, sitemap, RSS, robots sitemap reference and blog indexing notifications to the owner-selected `www` host. Eligible public CMS posts and qualifying archives are included in the generated sitemap automatically; store pages remain gated.
+- Updated navigation, marketing copy, internal references and structured data to name the existing `/watchlist` Sunday Alpha Protocol.
+- Added `urls.md`, a November 5 live-site URL snapshot, and `todo.md`, covering remaining store launch, production verification, Search Console and CMS freshness work. The snapshot records the pre-release live state and is not a claim that Google has indexed a URL.
+- Local verification: Svelte diagnostics, CSS and prerendered-page checks, production build, 576 unit/component tests, and the three-test SEO browser gate passed. The broader alternate-port browser run passed 23 tests and skipped 16; maintenance tests hard-code occupied port 4173 and were not verified in that run. The full lint command stopped on pre-existing formatting in `blogs/first-blog.md` and `blogs/head-to-head-blog.md`; the code lint and Svelte ESLint checks passed separately. Production verification remains outstanding.
+
+### 2026-11-05 — Article layout and desktop TOC
+
+- Squash-merge PR #33 as `63ca12c` and promote verified Production deployment `dpl_HLkaHmeEwoQsh3iL5zEBjn2wvN2f`. The real public article passed 24 viewport, no-JavaScript and reduced-motion browser cases; maintenance remains off.
+
+- Align article titles, covers and reading columns within the shared responsive container. Place a sticky table of contents beside the article at 1180px and wider; hide it on narrower layouts.
+- Implement accessible native collapse/expand, a visible caret, active-heading tracking, independently scrollable contents and semantic nested heading lists using the shared CMS heading data. Preserve the per-post setting, heading links and article content; update the publishing guide for future posts.
+- Verify the real 0DTE article across three browser engines and six widths, including keyboard, no-JavaScript and reduced-motion checks. The official Svelte MCP, 576 unit/component tests, 48 Chromium E2E, 24 Firefox and 23 WebKit checks, the build, 46 page contracts and three SEO checks passed. A separate HTTPS check verifies WebKit's protected-post secure-cookie flow. Two unchanged source drafts remain repository-wide formatting exceptions. See `docs/reviews/article-toc-2026-11-05/VERIFICATION.md` for scope and plugin parity limitations.
+
+### 2026-11-05 — Refine blog archive and disclosure layout
+
+- Squash-merge PR #31 as `7e31730` and promote verified Production deployment `dpl_9LaYzMKyN2JVb3eZrawor6Ntcfue`; 27 public browser cases pass across three engines and three widths. Maintenance remains off.
+
+- Redesign the archive around a concise editorial introduction, accessible search, topic navigation, a prominent uncropped featured article and a clear remaining-articles grid. Preserve CMS-driven discovery and metadata.
+- Align the complete risk disclosure to the shared responsive footer container and increase body-copy legibility; preserve its existing wording. Add responsive geometry, search and featured-media regressions.
+- Verification: 575 unit/component tests, 44 Chromium E2E, 15 Firefox and 15 WebKit, 3 SEO checks, production build, 46 prerender contracts, CSS/Svelte checks, and Svelte MCP. Full formatting flags only two unchanged pre-existing article drafts. Evidence: `docs/reviews/blog-design-2026-11-05/VERIFICATION.md`.
+
+### 2026-11-05 — Publish the verified first article
+
+- Under the owner’s explicit “Publish after verification” instruction, publish `/blog/0dte-spx-options-strategy-guide` through the existing CMS lifecycle as the featured article on both homepage and archive. Save the real publication time and automatic JSON-LD from the verified 3,199-word revision.
+- Connect a dedicated public Vercel Blob store to Production only; upload six verified originals/social media and generate actual variants/crops through the existing media service. Configure a secure Production preview-signing key after confirming no protected/trashed content; masked sensitive exports are not valid signing material.
+- Squash-merge PR #29 as `e94fc23`; verify and promote exact rebuilt Production `dpl_EbGSBSiqZEEQnmTdKQ21TQpTnhEg`. Keep maintenance off and the existing indexing gate. Evict the blog’s tagged caches explicitly; no automatic CDN purger is claimed.
+- Preserve the original source brief and prepared input package. Record the actual hosted draft/public acceptance and publication state in `docs/reviews/first-blog-2026-11-05/VERIFICATION.md` and `production.json`; update the publishing and operational handoffs.
+
+### 2026-11-05 — Evidence-based first article preparation
+
+- Prepare a complete, separately reviewed CMS package from `blogs/first-blog.md`, preserving the original brief. Correct regulatory transition, tax assumptions, dealer-inventory claims, payoff/EV distinctions, account-risk math and actual CTA routes using primary sources.
+- Create five original labeled diagrams plus card/social derivatives with verified WebP dimensions, byte budgets, provenance and font licensing. Keep hypothetical prices and unverified ThinkScript runtime limitations explicit.
+- Save and inspect the article through existing CMS/media services in an isolated local environment. Record exact content, claim, media, draft/privacy and rendering evidence; hosted publication remains a separate owner decision.
+- Fix actual rich-article mobile overflow: scope horizontal scrolling to CMS table wrappers. Add an authenticated regression for wide semantic tables and long code without changing the readable article width.
+- Acceptance: `docs/reviews/first-blog-2026-11-05/VERIFICATION.md`.
+
+### 2026-11-05 — Shared blog layout and owner-authorized maintenance-off release
+
+- Align the archive, search, category, tag, article and protected-article shells with the existing `.container` and responsive section spacing. Preserve 900px article readability and centered media; remove conflicting fixed shells and narrow-screen grid/form overflow.
+- Add browser assertions against the actual navbar container across 320–2420px, including a 1536px centered shell at 2420px. Correct the CSS standards table to match the implemented width/gutter tokens; update the blog handoff and publishing guide.
+- Catch and fix a hosted-only homepage500 before release: its remote desk-status prerender function now explicitly permits runtime calls after the SSR conversion. Add a regression against the actual generated Vercel handler, rather than Vite preview alone.
+- At the owner’s explicit request, switch maintenance off and squash-merge PR #27 as `b19c91f`. Promote exact verified Production `dpl_5QU1Tz3sngobduDUb1jKoqmaggpF`; staged and public three-engine acceptance each pass 18 rendering cases and eight HTTP checks. Initialize a separate free-plan Production Neon database with the four existing forward migrations; keep article preparation/publication for the subsequent discussion.
+- Evidence, exact release state and remaining article work are recorded in `docs/reviews/blog-layout-release-2026-11-05/VERIFICATION.md`.
+
+### 2026-11-05 — Visible Blog navigation and schema parity
+
+- Separate menu visibility from indexing policy: Blog appears in desktop/mobile navigation and the footer, while Store promotion and blog noindex/canonical/sitemap protections remain in place.
+- Derive navigation JSON-LD automatically from the same menu data. Add regression coverage for the visible Blog link, schema/DOM parity, actual navigation and responsive layouts; update the publishing guide and shared agent handoff with the exact policy.
+- Synchronize the saved-editor readiness assertion before reloading in Firefox; strengthen platform-aware keyboard focus assertions without changing product behavior or lowering thresholds. Verify saved CMS title/URL parity in archive and article JSON-LD.
+- Integrate the owner’s latest mission/editorial commit and format its eight inherited lint failures; the mission edit is trailing whitespace only. Preserve its authored text.
+- Full acceptance and protected Preview evidence are recorded in `docs/reviews/blog-navigation-2026-11-05/VERIFICATION.md`. Public Production maintenance remains unchanged.
+
+### 2026-11-05 — Automatic CMS blog placement
+
+Review: [draft PR #27](https://github.com/billyribeiro-ux/new-revolution/pull/27); no merge or Production promotion.
+
+- Replace hardcoded homepage blog placeholders with the same public CMS discovery service used by `/blog`. Marked featured content leads; otherwise the newest eligible publication leads automatically. Exclude the lead before paginating the remaining articles, with all older articles reachable and no duplicate lead card.
+- Render actual covers and CMS card data on both surfaces, with one featured lead, responsive regular grids, homepage pagination and honest empty/unavailable states. Preserve draft/private/fixture/expiry visibility rules and derive homepage schema from visible saved cards after launch.
+- Make the homepage an explicit SSR exception to static marketing rendering so publishing needs no rebuild; homepage/blog-index reads are no-store. Document the owner-requested homepage discovery exception while retaining public maintenance and other launch protections.
+- Add shared-query database tests and focused component tests; extend authenticated image-flow E2E to prove a draft is absent and its publication appears in initial HTML and mobile/desktop cards on both pages. Update the publishing guide, agent handoff, rendering policy and operational records. The separate intake automation and article import remain unimplemented.
+- Final checks: 575 unit/component tests, 40 authenticated E2E tests with no skips, 3 SEO tests and 46 static page contracts pass. Retain four reviewed mobile/desktop publishing screenshots and clean Svelte MCP results in `docs/reviews/blog-discovery-2026-11-05/VERIFICATION.md`; homepage SSR is verified separately from the remaining static pages.
+
+### 2026-11-05 — Blog handoff across agent documentation
+
+- Add `docs/BLOG_AGENT_HANDOFF.md` as the shared current-status and required-reading entry point for blog work, with an explicit inventory of 40 existing agent-facing Markdown files.
+- Add dated handoff references to agent configuration, README, engineering/SEO standards, prompts, playbooks and operational runbooks. Import the handoff explicitly from `CLAUDE.md`; preserve byte-identical SEO-standard copies and original editorial/evidence artifacts.
+- Make the current CMS workflow, automatic data-driven JSON-LD, proposed-but-unimplemented intake tooling, Svelte MCP review evidence and publication/launch boundaries discoverable from every inventoried entry point. No application or hosted content changes.
+- Correct the new-page playbook's obsolete instruction to edit the nonexistent `src/lib/data/blog-hub.ts`; point CMS card edits to saved post records and the publishing guide. Verify all 40 handoff references and their links, the Claude import, front matter and SEO-standard parity; check formatting across the 44 files in this documentation follow-up.
+
+### 2026-11-05 — Blog intake automation design
+
+- Add `docs/blog/AUTOMATION_PLAN.md` with a versioned package contract, shared preparation/report service, authenticated one-package draft intake, durable retry/conflict handling, real-media verification and content-specific preview acceptance criteria.
+- Clarify in `blog implementation.md` that post JSON-LD already derives from CMS fields and does not need a manual title entry. Link the proposed automation and distinguish it from the existing executable API workflow.
+- Review the official Svelte/SvelteKit MCP documentation and verify the installed Svelte 5.57.3 / Kit 3.1.1 baseline. Record that a 3.2.0 release could not be verified on November 5, 2026; preserve the existing toolchain and rendering architecture.
+- Documentation only: the intake tooling and publication/cache hardening remain implementation work. No application code, dependencies, CMS records, media, launch flags or deployments changed.
+
+### 2026-11-05 — Blog workflow audit and 0DTE publication plan
+
+- Audit the blog routes, editor, service/transaction lifecycle, previews, taxonomy, media, scheduled publishing, metadata, feeds, caching and launch gate. Preserve source, HTTP, browser, dependency and Svelte MCP evidence in `docs/reviews/blog-audit-2026-11-05/`.
+- Review `blogs/0DTE-spx-options-strategy.md` against the current CMS and primary exchange/regulatory sources. Record publication blockers, verified arithmetic, broken CTA paths, outdated PDT assumptions, unsupported claims and a phased implementation plan; preserve the original brief unchanged.
+- Add `blog implementation.md` and link it from `AGENTS.md` so future agents follow the actual CMS authoring workflow, service schemas, real-media checks, review/publish steps and launch boundaries. Document the legacy importer's overwrite/gate-bypass risks and discrepancies between current code and older instructions.
+- No application code, dependencies, launch flags, hosted data or deployments changed. Validation and existing defects remain explicit in the audit; a working publish score is not presented as proof of financial accuracy or production readiness.
+
+### 2026-11-04 — Published maintenance and development handoff
+
+- Promote the exact verified `6c35cf2` Production build, then independently verify both public domains and the maintenance experience across Chromium, Firefox and WebKit at 320px and 1440px. Keep future Production builds staged until verified.
+- Provide a stable Vercel-sign-in-protected normal development Preview. Document its snapshot behavior, how to repoint it after verification and the owner's deferred email/database hookup; capture stays visibly disabled.
+- Clarify the future hookup sequence: isolated native-flow test with its own matching origin, final staged Production configuration/API checks, then canonical delivery/callback/cron proof after promotion with rollback on failure.
+- Record the complete final integrated gate results and actual deployment evidence in `docs/reviews/maintenance-ready/VERIFICATION.md`. Format the changelog blank line introduced when merging the completed CLS work. No application source or dependencies changed in this handoff.
+
+### 2026-11-04 — Market playback and ready-to-connect waitlist
+
+- Use green/red candles, wicks and volume with bounded intrabar price reversals and historical crosshair readouts. Preserve the explicit simulated-data label, accessible candle table and reduced-motion controls.
+- Keep the completed email section visible, with native disabled controls and an honest availability note until capture is configured. Prepare an immediate thank-you/confirmation email and a targeted welcome receipt after confirmation.
+- Add separately consented progress-update campaigns with encrypted outbox delivery, dry-run-first queueing, legacy-consent protection and forward migration `0003_waitlist_updates.sql`. Supply configuration/migration helpers and the authenticated minute worker schedule.
+- Verify normal authenticated Preview development separately from public Production maintenance. The owner will connect the database/email services later; no service provisioning, Production migration or live email send is part of this change.
+
+### Fixed — home page font-swap layout shift (CLS)
+
+- Root cause (measured on a production build with fonts held back and then released, which isolates the swap; identical with JS blocked): when the web fonts arrived after first paint, text reflowed from the unadjusted `system-ui` fallback, and `ch`-based `max-inline-size` boxes changed width because `ch` follows the first available font. Swap CLS on `/` across 30 widths (320–1920 px): mean 0.0619, max 0.150, 9/30 widths > 0.1.
+- `src/app.css`: weight-banded, metric-matched fallback faces (`Montserrat Variable Fallback`, `Sofia Sans Variable Fallback`: Arial / Liberation Sans / Arimo with measured `size-adjust`, ascent/descent/line-gap overrides, limited to the Fontsource Latin `unicode-range`), added to `--font-display` / `--font-sans` (SEO_STANDARD PERF-05). Generator: `scripts/generate-font-fallbacks.mjs`.
+- The home page and shared footer `ch` widths are converted to the exact `em` equivalent of each rule's declared web font. The global `h2`/`h3`/`p` rules keep `ch`.
+- Result on `/`: mean 0.0078, max 0.0596, 0/30 widths > 0.1. Settled layout across all 47 prerendered pages × 3 widths matches the previous build to within 0.1 px (sub-pixel `ch` rounding); the only larger differences were a pulsing animation and an italic face that had not loaded yet.
+- Known gaps: Android (no Arial) keeps the old system fallback. Inner pages still have `ch` widths in `inner-page.css` and a breadcrumb that wraps differently before the swap (baseline swap CLS up to 0.42).
+
+### 2026-11-04 — Maintenance release and capture readiness
+
+- Keep the keyboard skip link's text on the SSOT ink color: the template's unlayered anchor styling otherwise overrides the shared layered rule and produces low-contrast white text on chartreuse. Verify the focused link in the browser.
+- Diagnose the public-domain mismatch: manual domain promotion left the November 3 deployment live after later successful builds. Add an explicit staged Production verification, promotion and public-domain completion checklist.
+- Render the signup form, invitation and no-JavaScript signup promise only when capture is explicitly enabled. Production currently lacks the required waitlist services, so the support notice and simulated chart remain usable without advertising failing capture.
+- Give every maintenance form input a unique identifier while preserving names and labels. Test actual generated documents in both capture states, native markup, explicit image dimensions and browser rendering.
+
+### 2026-11-04 — Vite+ documentation command policy
+
+- Require all new and updated operational documentation and agent prompts to follow the existing local Vite+ workflow and project pnpm scripts, including the complete build and separate Svelte diagnostics/ESLint gates.
+- Replace remaining actionable `npx` examples with `pnpm dlx`, align media-preview instructions with the actual Vite+ scripts, and add the complete build to the CSS verification checklist. Preserve dated command evidence as historical records.
+
+### 2026-11-04 — Consolidated repository history
+
+- Verify that all remaining branch changes are already integrated in `main`, including the Vite+ documentation, diagnostics fixes, production maintenance rollout and verified waitlist.
+- At the owner's explicit request, replace the complete `main` history with one root commit and remove the redundant local and remote branches. Preserve the original refs and history in `.git/backups/before-consolidation-20261104.bundle`.
+- Close the stale YMYL coordination claim. The former `develop` branch is retired; existing deployment records describe its historical Preview setup, and future branch-based development needs a new Preview branch.
+
+### 2026-11-04 — Maintenance chart and verified reopening waitlist
+
+- Replace the static SVG with a bundled Lightweight Charts candlestick/volume/EMA panel and GSAP entrance; preserve mobile rendering, readable candle data, reduced motion and explicit pause/restart. Owner requested continuous playback; demonstration candles are explicitly simulated rather than attributed to an exchange.
+- Add forward-only Drizzle waitlist storage, hashed purpose-specific tokens, row-bound encrypted email outbox, durable abuse limits, provider retries/fencing, signed-event reconciliation, opt-out/suppression, retention and dry-run-first reopening batches.
+- Add operational signup/confirmation/unsubscribe/worker handlers and exact maintenance exceptions; preserve blocked admin/auth/lead routes. Document independent Production configuration and outstanding staged-cloud/mailbox checks. No deployment, production migration or live email send performed.
+
+### 2026-11-03 — Maintenance chart and verified waitlist plan
+
+- Document a repository-specific GSAP/Lightweight Charts redesign and durable Drizzle/Resend waitlist, including confirmation, retry/suppression semantics, exact maintenance exceptions, acceptance tests and Production provisioning requirements. Planning only; no application or deployment changes.
+
+### 2026-11-03 — Production maintenance and development Preview
+
+- Resume Vercel behind temporary authentication, publish the verified maintenance build, and keep normal application development on a separate protected Preview URL. Scope maintenance settings to Production and Preview independently; retain manual production promotion.
+- Provision a separate free-plan Neon Preview database and initialize the existing migrations on the verified empty database.
+- Bundle `sanitize-html` and its ESM parser in the server build: deployed Node 24 rejected their external CommonJS-to-ESM require before API handlers could execute. No sanitizer rules or dependency versions changed.
+
+### 2026-11-03 — Repository diagnostics and validation repairs
+
+- Specialize the generic catalog component in a typed Svelte test fixture so both Svelte diagnostics and plain TypeScript can check the tests. Include the SEO test tooling in the TypeScript project and prompt VS Code to use the workspace SDK; document type-generation and editor recovery.
+- Replace unsafe object-to-string coercions with scalar checks in editor hydration, article unlock/custom fields and error handling; narrow CSV inputs, correct test mocks and remove redundant constructs reported by lint. Add focused malformed-input regressions.
+- Reject malformed breadcrumb names in the SEO crawler; align the admin image-flow sitemap assertions with the existing blog launch gate, and await the Svelte DOM update explicitly in the image-menu test.
+- Format the six existing evidence/prompt files that blocked the full lint command; evidence JSON values are preserved.
+
+### 2026-11-03 — Vite+ agent documentation
+
+- Added a sourced Vite+ workflow for project scripts, Svelte-specific checks, test authoring and explicitly requested upgrades; linked it from the agent entry points and README.
+- Corrected stale formatter, adapter/version and SEO test-command references in the engineering playbooks and audit instructions. No toolchain dependencies or test thresholds changed.
+
+### 2026-11-03 — Dependency updates
+
+#### Added (2026-11-03)
+
+- `lightweight-charts` `^5.2.1` (TradingView; latest on npm as of 2026-11-03, published 2026-08-12; Apache-2.0). Installed only: nothing imports it yet.
+
+#### Changed (2026-11-03)
+
+- Updated to the latest published releases: `@threlte/core` 8.6.1 → 8.7.0, `@threlte/extras` 9.23.0 → 9.23.1, `better-auth` and `auth` (CLI) 1.7.14 → 1.7.15, `@electric-sql/pglite` (dev) 0.5.13 → 0.5.15, `svelte-check` (dev) 4.7.7 → 4.7.8, `globals` (dev) 17.13.0 → 17.14.0, `shiki` 4.5.0 → 4.6.0.
+- **Not bumped: `vitest` and `@vitest/browser-playwright` stay at 5.0.5** (`pnpm-workspace.yaml` catalog). Bumping both to 5.1.0 broke 107 browser-mode tests (`browserTraceDomSnapshot` is undefined inside `vitest-browser-svelte` `render`). The cause is `vite-plus@1.4.0` (latest release), which pins its own `vitest` and `@vitest/browser-*` at exactly 5.0.5, so the test runner is 5.0.5 whatever the direct devDependency says. At 5.0.5, all 70 unit files (520 tests) pass and `pnpm peers check` is clean. Revisit when a `vite-plus` release pins vitest 5.1.0.
+- **Not bumped: `typescript` stays at 6.0.3**, which `AGENTS.md` pins. `7.0.2` is available; that is a separate decision.
+- `pnpm-workspace.yaml` `minimumReleaseAgeExclude` lists `@electric-sql/pglite@0.5.15`, so the install passes the release-age policy for that version.
+- Gate on this tree (2026-11-03): `pnpm check` 0 errors, 0 warnings (2117 files); `pnpm test:unit --run` 70 files, 520 tests passed; `pnpm build` exit 0; `pnpm check:css` OK (90 properties); `pnpm check:pages` 47 pages satisfy the contract; `pnpm test:seo` 3 passed; `pnpm test:e2e` 19 passed, 13 skipped (admin-credential gated, `HAS_ADMIN_CREDENTIALS`); `vp lint .` and `eslint "**/*.svelte"` exit 0. `vp fmt --check .` fails on `follow-up-prompt.md` and `improve-layout-prompt.md`, which fail the same way on `origin/main` and are not touched here.
+
+#### Docs (2026-11-03)
+
+- Version references updated to the new ranges: `README.md` (Key Dependency Versions), `GEMINI.md` (Key Dependencies; `@sveltejs/kit` corrected to `^3.1.1` to match `package.json`), `docs/BLOG_ADAPTATION_MAP.md` (better-auth, shiki), `docs/ADMIN_AUTH_PLAN.md` (better-auth). The `@better-auth/core` `disableSignUp` line reference (`init-options.d.mts` line 704) still matches 1.7.15.
+- `docs/seo/audit/00-environment.md`: dated addendum; the 2026-10-31 evidence rows are unchanged.
+
+### 2026-11-03 — Maintenance desk notice design
+
+- Replaced the oversized maintenance hero and repeated contact section with a compact branded notice, direct support link, readable status, responsive illustrative chart and a document retry control with a no-JavaScript fallback.
+- Reuse the compiled root CSS and its existing Fontsource assets; embed the square brand emblem and validate template tokens and asset references during the build. The 320 px overflow is covered by regression tests.
+- Preserve deployment-time activation, 503/no-store responses and route exceptions. Add narrow-screen, retry/recovery, keyboard, reduced-motion and font-failure checks.
+
+### 2026-11-03 — Deployment-time maintenance mode
+
+- Added a self-contained maintenance experience and Vercel Build Output API routing/functions for 503 responses, with a client-navigation state check and a documented deployment-time switch. Health and immutable application assets remain available; other application and API requests are blocked.
+- Added route/function regression tests and a browser navigation test. The source signup is replaced by the existing support contact because its in-memory storage is not durable. Vercel preview verification remains required.
+
+### 2026-11-02 — Blog engine Phase 3: removal and redirect integrity (G10)
+
+#### Added (2026-11-02)
+
+- `src/lib/server/posts/redirect-integrity.ts`: pure graph analysis (self-loop, cycle, chain, dangling target), an in-transaction loop/cycle check, a read-only full audit (`findRedirectIntegrityIssues`) and `isLiveBlogPath`.
+- Tests: `redirect-integrity.db.spec.ts` (13) and 2 article-loader cases in `blog-pagination.spec.ts` (draft and trashed articles answer 404 with no cache headers).
+
+#### Changed (2026-11-02)
+
+- `savePostWithRedirect` retires any active redirect whose source is the slug being saved (a live post owns its URL), and aborts and rolls back with `REDIRECT_INTEGRITY` if the active redirect graph would contain a loop, cycle or chain.
+- The redirect hook no longer serves a 301 whose target is unpublished, trashed or gone; the requested URL falls through to the router and answers 404.
+
+### 2026-11-02 — Blog engine Phase 2: trustworthy modified date (G3)
+
+Plan: [`blog-editor-report.md`](blog-editor-report.md) Part C, Phase 2.
+
+#### Changed (2026-11-02)
+
+- The modification date behind JSON-LD `dateModified`, RSS and sitemap `lastmod` is now `contentUpdatedAt`, else `publishedAt`, else none. It no longer falls back to `updatedAt` (moved by any row write) or `createdAt`.
+- `contentUpdatedAt` now also moves when the excerpt or cover image changes (was title and body only). `updatePost` accepts `minorEdit: true` to save an editorial change without moving it; the editor UI toggle is not built yet.
+- `dateModified` / `datePublished` are omitted when unknown instead of emitting `1970-01-01`. `updatedAt` is no longer sent to the public blog pages or read by the sitemap query.
+- `ensureDbReady`, `createTestDatabase` and `scripts/seed-admin.ts` now apply every `drizzle/NNNN_*.sql` in order (was `0000` only).
+
+#### Added (2026-11-02)
+
+- `drizzle/0001_content_updated_at_backfill.sql`: forward-only, idempotent. Fills published posts with no editorial date from `published_at`; never-published rows stay NULL. **Not run against production** (needs owner authorization).
+- Tests: `src/lib/server/db/modified-date.db.spec.ts` (featured toggle leaves the date alone while `updated_at` moves; body, title, excerpt and cover move it; minor edit; legacy row; backfill and its idempotence), `src/lib/shared/seo/modified-date.spec.ts`.
+
+### 2026-11-02 — Blog engine Phase 1a: cache headers, tags, pagination and 404 handling
+
+Plan and evidence: [`blog-editor-report.md`](blog-editor-report.md), [`docs/blog/COVERAGE_MATRIX.md`](docs/blog/COVERAGE_MATRIX.md), [`docs/blog/FRESHNESS.md`](docs/blog/FRESHNESS.md).
+
+#### Added (2026-11-02)
+
+- `src/lib/shared/blog/pagination.ts`, `src/lib/server/posts/cache-tags.ts`, `scripts/blog-coverage-probe.mjs`, `docs/blog/*`.
+- Every public blog response carries a `Vercel-Cache-Tag` (`blog-post:<slug>`, `blog-lists`, `blog-feed`, `blog-sitemap`). `invalidatePublicBlogCache` maps invalidated paths to tags and calls a registered `BlogCachePurger` (none registered yet; purge failures are logged, never swallowed).
+
+#### Changed (2026-11-02)
+
+- Public `Cache-Control` is `s-maxage=300, stale-while-revalidate=60, stale-if-error=3600` (was `swr=86400`, `sie=86400`), so removed content can be served for at most about 6 minutes instead of up to 24 hours.
+- Index, category and tag pages 2+ are indexable with their own `?page=n` canonical and a `(Page n)` title suffix (were `noindex` with no canonical). Search results stay `noindex`.
+- Pagination links go through `pageHref`; page 1 always links to the bare URL.
+
+#### Fixed (2026-11-02)
+
+- `?page=` beyond the last page, or malformed (`abc`, `0`, `1.5`, `01`), returned HTTP 200 with no articles (soft 404); now 404, uncached.
+- Unknown category and tag URLs returned a 404 with public cache headers, which Vercel's CDN caches; now uncached.
+
+### 2026-11-02 — YMYL and launch-readiness hardening (`feat/ymyl-launch-hardening`)
+
+Audit of the temporary Vercel deployment against a launch-readiness brief. Each item was checked against the built output, the live temp URL and Google/Vercel/SvelteKit primary sources first; what the evidence disproved was left alone and is listed in [`docs/seo/LAUNCH_TRACKER.md`](docs/seo/LAUNCH_TRACKER.md) §E.
+
+#### Added (2026-11-02)
+
+- **Launch gate** (`src/lib/data/launch-gate.ts`, `TEMPORARY` T10): `/store/*` and `/blog/*` are removed from the navigation, footer, homepage sections, sitemap, offer-catalog and homepage JSON-LD, and emit `noindex` with no canonical (`isNoIndexRoute`, store product pages, `buildBlogPageMetaTags`). `static/robots.txt` is unchanged on purpose (`docs/seo/DECISIONS.md` §5).
+- **`VerifiedCaseStudy` + `isPublishableCaseStudy`** (`homepage.ts`, `TEMPORARY` T11): the homepage "receipts" section renders only fully documented trades (contract symbol, strike, expiration, entry/exit timestamps, size, maximum risk, result, 1200×675 chart with alt). There are none yet, so it does not render.
+- **`vercel.json` headers:** `X-Robots-Tag: noindex, nofollow, noarchive` on hosts ending `.vercel.app` (prerendered pages never reach the `handle` hook), plus `X-Content-Type-Options`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy`.
+- **Footer "Risk Disclosure"** link to `/terms-of-service#options-leverage-risk-disclosure`; `id="institutional-mentorship"` on the About mentorship heading.
+- `FOUNDER` in `src/lib/data/site.ts` (one name and title for the byline and the schema `Person`).
+- Docs: `docs/seo/LAUNCH_TRACKER.md`, `docs/seo/DECISIONS.md` §5, `docs/SEO_EVIDENCE.md` rows 34-39.
+
+#### Changed (2026-11-02)
+
+- **Homepage copy is free of authoring text:** removed "Evidence publication pending", "PROOF PENDING", three "DOCUMENTATION PENDING" cards, the "SVELTE 5 / SVELTEKIT 3.1 ENTERPRISE BLUEPRINT" watermark, the "Preview route…" toast and its link interception (it also swallowed any `href` with a `#fragment`), and the footer sentence "…must be reviewed before launch." The hero panel now restates `/editorial-policy`; the founder's mentorship is worded as the founder's own account with a link to `/about#institutional-mentorship`; the CTA "See Track Record & Evidence" is "Meet the Founder".
+- **Fonts:** `shouldPreload` in `src/hooks.server.ts` preloads 2 of 18 font files (upright Latin faces only). Lab result on a mobile profile, same machine, median of 5: LCP 1248 → 852 ms, CLS 0.0055 → 0, 18 → 3 font requests.
+- **Logo:** `?w=360` on both `<enhanced:img>` (was a 3163 px source for a ~46 px box); `width="360" height="95"`, AVIF 5.9 KB (was 25–32 KB), `decoding="async"`.
+- **Schema:** founder `Person` description no longer asserts mentorship or performance claims and its `jobTitle` matches the visible byline; Organization `contactPoint` adds `telephone`/`email` only from `SUPPORT_CONTACT` (empty today).
+- Homepage HTML 141,988 → 107,481 bytes.
+
+#### Removed (2026-11-02)
+
+- The homepage eBook form, the announcement-bar eBook link and the footer eBook link are hidden (`FREE_EBOOK_AVAILABLE = false`): the form only validated and sent nothing, and the eBook does not exist.
+
+#### Fixed (2026-11-02)
+
+- **`/sitemap.xml` returned HTTP 500 on the deployed temp URL** because it queried a blog database that is not connected there. While `/blog` is gated it runs no blog queries. (`/blog` and `/rss.xml` still 500 there until `DATABASE_URL` is set; `LAUNCH_TRACKER.md` §A.)
+- `/editorial-policy` heading said "Four Editorial Commitments" above three cards.
+- Tests: updated for the gate and new copy (`homepage.spec.ts`, `HomeSections.svelte.spec.ts`, `blog-seo.spec.ts`, `blog-routes.spec.ts`, `page.svelte.e2e.ts`, `tests/seo/seo-standard.spec.ts`, `docs/seo/audit/02-inventory.json`); added `launch-gate.spec.ts`, the `shouldPreload` cases, and structured-data cases. `page.svelte.e2e.ts` `.reveal` floor 20 → 15 because three sections are gated (17 present).
+
+### 2026-11-02 — Toolchain migrated to Vite+ (`vp`)
+
+#### Changed (2026-11-02)
+
+- **Vite+ 1.4.0 via `vp migrate --no-interactive --no-agent --no-editor --no-hooks`** (run from the repo root; no agent, editor or git-hook files written). `vite` and `vitest` now resolve through the pnpm catalog (`vite` → `@voidzero-dev/vite-plus-core@1.4.0`, `vitest` 5.0.5, `vite-plus` 1.4.0). Prerequisites met before migrating: Vite 8.3.5, Vitest 5.0.5, Node 26.13.0 (Vite+ requires `^22.18.0 || ^24.11.0 || >=26.0.0`).
+- `vite.config.ts` imports from `vite-plus` and `vite-plus/test*`. Lint and format settings moved into its `lint` and `fmt` blocks. `dev`, `build`, `preview` and `test:unit` run through `vp`. `format` is `vp fmt .`.
+- **Formatting moved from Prettier to Oxfmt.** `prettier.config.js` and the Prettier devDependencies were removed, and the same options live in the `fmt` block. Oxfmt changed union-type layout in 84 files; no code changed.
+- Test files import `describe`/`expect`/`it` from `vite-plus/test`, and `page` from `vite-plus/test/browser`. Browser specs now `await render(...)`: `vitest-browser-svelte` 3.1.0 types `render` as returning a `Promise`, and the previous calls left that promise unhandled.
+- `vite.config.ts` lint block: Oxlint type-aware rules on, TypeScript compiler diagnostics off (`typeCheck: false`). `pnpm check` (svelte-check) stays the type gate, as before the migration.
+- **Vitest v4 and tsdown compatibility settings: none generated.** The migrator found nothing to insert in this project (no `pack` block, no Vitest v4 settings to add), so there were none to remove.
+
+#### Kept (2026-11-02)
+
+- **ESLint still lints `.svelte` files.** `eslint.config.js` and its devDependencies are restored, and `lint` runs `eslint "**/*.svelte"` after `vp lint`. Reason: Oxlint selects 109 `.svelte` files, but zero `svelte/*` rules are registered in `vp lint --rules`, and a probe `{@html}` file passed Oxlint while ESLint fails it with `svelte/no-at-html-tags`. Vite+'s lint guide does not document Svelte support, so the rules that enforce `svelte/no-navigation-without-resolve` (AGENTS.md) would have silently stopped. Revisit when Oxlint runs `eslint-plugin-svelte` rules on `.svelte` files.
+- `eslint-disable` directives in `.svelte` files are unchanged; they are valid again because ESLint runs on them. The migrator converted the directives in three `.ts` files to `oxlint-disable` because Oxlint lints those files.
+
+#### Fixed (2026-11-02)
+
+- **Unsafe optional-chaining call in the `/store/indicators` spec.** `(closed?.querySelector('summary') as HTMLElement).click()` would throw a `TypeError` instead of failing an assertion when `closed` is null. It now asserts `closed` is not null, then clicks with `?.`.
+
+#### Verified (2026-11-02)
+
+- `pnpm lint`: exit 0 (formatting clean, Oxlint 0 errors, ESLint on `.svelte` 0 problems).
+- `pnpm check` (svelte-check): 0 errors, 0 warnings, 2105 files. `vp check`: 0 errors, 48 warnings.
+- `pnpm check:css`: 90 custom properties, all declared. `pnpm check:pages`: 47 prerendered pages pass.
+- `pnpm run test:unit --run` (`vp test`): 375 of 375 tests pass across 63 files. The count matches the pre-migration run.
+- `pnpm build` (`vp build`): passes.
+- E2E against the built app on port 4174 (the port 4173 was held by another project's preview server, so the run used a temporary Playwright override that was then deleted): `test:seo` 3/3, full suite 30/30 with nothing skipped. Admin specs ran against the seeded local PGlite (`pnpm db:seed-admin`, `DATABASE_URL=pglite://local`).
+- `pnpm install --frozen-lockfile`: lockfile up to date. `pnpm dev` (`vp dev`) served `/`, `/blog`, `/admin/login`, `/store/indicators`, `/resources` with 200, an unknown route with 404, and logged no errors.
+
+#### Known warnings and gaps (2026-11-02)
+
+- **48 Oxlint warnings remain, unchanged.** 39 are `no-base-to-string` on `unknown`/`Record<string, unknown>` values in `src/lib/components/admin/post-editor/form-actions.ts` (`hydrateFromFullPost`), `src/lib/server/services/*`, and `src/routes/blog/[slug]/+page.server.ts`. They are type-aware warnings for pre-existing code the old non-type-aware ESLint never checked. A typed hydration schema would remove them. Also: 2 `no-useless-fallback-in-spread`, 2 `no-misused-spread`, 1 `no-new-array`, 1 `no-empty-file` (`src/lib/index.ts`), 1 `no-duplicate-type-constituents`, 1 `no-redundant-type-constituents`, 1 `await-thenable`.
+- `tests/` is outside `tsconfig.json` `include`, so its TypeScript is not type-checked, as before the migration.
+- The build reports a chunk-size warning and a missing `@img/sharp-libvips-dev/cplusplus` module; not compared against a pre-migration build yet.
+- The docs in `docs/NEW_PAGE_PLAYBOOK.md` now name the `vp` commands; the README's original scaffold command is historical and unchanged.
+
+### 2026-11-01 — Local run verified as if deployed (production build with the real `.env`, and dev mode)
+
+#### Verified (2026-11-01)
+
+- Booted the app both ways (`vite preview` after a production build, and `vite dev`) with the real `.env`, and walked all 27 sitemap pages, an unknown URL, all 14 admin routes, and a real editor session in a browser (type a title and body, open every panel, add an FAQ item, save a draft, see it in the list, trash and permanently delete it). Console errors, page errors, failed requests and 4xx/5xx: none, apart from the deliberate 404 probe.
+
+#### Fixed (2026-11-01)
+
+- **Five public pages requested a founder photo from `https://revolutiontradingpros.com/wp-content/uploads/...`**, a legacy WordPress path this app does not serve (the host returned an HTML page for it), so the image failed on every product and alert page (`net::ERR_CERT_COMMON_NAME_INVALID` locally, a broken image after deploy). The four hard-coded URLs are replaced by one `FOUNDER_PORTRAIT` constant in `src/lib/data/site.ts` pointing at the square brand emblem (`/icon-512.png`) with an honest alt text. The real portrait is not in the repository and was not recreated; it is tracked as temporary item T9 in `docs/TEMPORARY.md`.
+- Owner follow-up: the support phone `+1 (203) 721-0940` shown on the product pages (`supportPhone` in `src/routes/store/{indicators,courses,scanners}/[slug]/+page.svelte`) will be updated by the owner; `docs/seo/DECISIONS.md` and `SUPPORT_CONTACT` still publish no phone number.
+
+### 2026-11-01 — Svelte MCP audit of all 113 Svelte files; admin shell and blog editor coherence pass
+
+#### Audit (2026-11-01)
+
+- Ran `svelte-autofixer` (Svelte 5) on every `.svelte` and `.svelte.ts` file in `src` (109 + 4): 0 issues. 9 files returned suggestions, all reviewed against the Svelte docs and left unchanged with reasons: the D3 sparkline/chart attachments and the inbox/leads deep-link effects only touch the DOM or defer a remote call behind a cleaned-up timer (no state is assigned in the effect); `ImageControlMenu` uses `untrack` as a deliberate edge trigger; the "unused `eslint-disable`" hint for `consent.svelte.ts` is wrong for this repo's ESLint config (removing it fails `prefer-rest-params`). One reported `await` issue in `about/+page.svelte` did not reproduce when re-run directly.
+- The admin e2e tests that were skipped for lack of credentials now run against the seeded local admin (`docs/ADMIN_LOCAL_LOGIN.md`): 7 passed.
+- Browser audit of all 15 admin routes at 1440 px and 4 at 390 px (console errors, failed requests, labels, overflow, targets).
+
+#### Fixed (2026-11-01)
+
+- **Every admin page showed the public home page title** ("Stock & Options Trading Rooms | ...") and the marketing description and Open Graph tags. `src/routes/+layout.svelte` now skips `<MetaTags>` for the whole `/admin` tree; `src/routes/admin/+layout.svelte` sets one title per page from its nav list (`Posts | Admin | Revolution Trading Pros`, `New post`, `Edit post`) plus `noindex, nofollow`.
+- **Blog editor had no `<h1>`**: the "Add New Post" / "Edit Post" label in `PostEditorTopBar.svelte` is now an `<h1>`.
+- **Charts drew full-height bars for zero data** (`SparkBar`, `SparkArea`, `KpiCard`): `max(data) ?? 1` left a degenerate `[0, 0]` domain when every value is 0 (d3 maps all values to mid-range; the old code drew bars of height 37 of 78). Now `|| 1`, and a true zero is a 1 px hairline. The dashboard's Lead Captures card shows "No leads captured in this period." instead of a chart when the period has no leads.
+- **Dashboard KPI grid** orphaned the seventh tile ("Unread inbox"): seven columns on wide screens, four below 1280 px.
+- **Checkboxes were 13x13 px** (post table selects, category/tag lists, robots flags, integrations): all admin checkboxes are now 24x24 (WCAG 2.2 SC 2.5.8), accent-coloured; the rich-text editor's own task boxes are untouched. The media grid's 20 px select box is 24 px.
+- Post table Actions buttons no longer wrap onto a second line.
+- Corrected a code comment in `+layout.svelte` that repeated the false "favicon multiple of 48px" claim.
+
+#### Tests (2026-11-01)
+
+- `src/lib/components/admin/SparkBar.svelte.spec.ts` (fails on the old code: height 37 for zero values).
+- `src/routes/admin/admin-shell.e2e.ts`: per-page titles, robots and absent marketing meta, editor `<h1>`, checkbox sizes, Lead Captures empty state.
+
+### 2026-11-01 — SEO audit prompt hardened (`seo-audit.md`)
+
+#### Docs (2026-11-01)
+
+- `seo-audit.md`: added evidence rules 11-16 (primary sources only, page through truncated fetches, nothing inherited is trusted, no residual †, built-output proof, agent must find defects itself), Phase 1B (audit every SEO document against Google, the changelog and the code), Phase 3e (adversarial sweep), a completion gate, and extra report sections. `AGENTS.md` §0, `SEO-Prompt.md` and `seo-verify.md` now point to them.
+
+### 2026-11-01 — SEO markdown files re-verified against Google docs fetched 2026-11-01
+
+#### Docs (2026-11-01)
+
+- `docs/seo/SEO_STANDARD.md` (and its root copy `SEO_STANDARD.md`): every `G:` row re-fetched; corrected META-07 (favicon: no "multiple of 48px" rule), SD-04, SD-07, SD-08, SD-09, SD-10 (dated retirements; Speakable/Course-list still in gallery), SD-13 (`hasPart`/`cssSelector` are recommended, not required), IDX-05 (410 not special), IDX-07, IDX-12, SPAM-11 (Google's actual wording), section 11 header, MON-02 (primary source; unverified "June 2026 announcement" removed), MON-03; IDX-04 verified against installed `@sveltejs/kit` types.
+- `docs/SEO_EVIDENCE.md`: rows 22-33 added, row 1 and row 14 corrected, §3 pruned.
+- `docs/seo/DECISIONS.md`: Google-Extended citation fixed; FAQ date fixed; `/contact` description now matches the built page (no phone or mailing address).
+- `docs/NEW_PAGE_PLAYBOOK.md`: template no longer shows a `FAQPage` or `Course` node. `docs/seo/OPERATIONS.md`: pre-launch data and preview-noindex checklist.
+
+### 2026-11-01 — Removed request-header `noindex` switch from `handle` (IDX-09, security)
+
+#### Security (2026-11-01)
+
+- `isNonProductionHost` (`src/hooks.server.ts`) no longer honors the `x-seo-nonprod-test: 1` request header. On a CDN-cacheable SSR route (e.g. `/blog`, `Cache-Control: public, s-maxage=300`) any client could make the origin answer `X-Robots-Tag: noindex, nofollow` and have it cached for everyone. Nothing in `src`/`tests` used the header. Regression test: `src/hooks.server.spec.ts`.
+
+### 2026-11-01 — AGENTS.md schema-type history corrected against fetched Google docs
+
+#### Docs (2026-11-01)
+
+- `AGENTS.md` §3.3: FAQPage/HowTo/Speakable/Course status restated from Google pages fetched 2026-11-01 (FAQ feature ended 2026-05-07; Speakable remains in the gallery as a beta feature).
+
+### 2026-11-01 — Restricted schema types can no longer enter blog JSON-LD via custom JSON-LD (SD-10/SD-15)
+
+#### Fixed (2026-11-01, verification pass)
+
+- The admin `__customJsonLd` field could still inject `HowTo`/`FAQPage` (and other restricted types) into public post JSON-LD. `dropRestrictedJsonLdNodes` (`src/lib/seo/blog-seo.ts`) now filters them in `src/routes/blog/[slug]/+page.server.ts`; `blog-routes.spec.ts` previously asserted `HowTo` was emitted and now asserts it is dropped while an allowed type is kept.
+
+### 2026-11-01 — Retired `HowTo` schema type removed from blog posts (SD-15)
+
+#### Fixed (2026-11-01)
+
+- `HowTo` is no longer selectable as a post Schema Type (`src/lib/shared/schemas/posts.ts`, `src/lib/shared/seo/autofill.ts`), and `buildBlogPostJsonLd` (`src/lib/seo/blog-seo.ts`) maps a legacy `HowTo` value to `BlogPosting`, so the retired type can no longer reach public JSON-LD. Regression test added in `src/lib/seo/blog-seo.spec.ts`.
+- Corrected the admin FAQ note (`PostEditorMainColumn.svelte`), which wrongly claimed FAQPage markup is emitted; only the visible accordion is rendered.
+
+### 2026-10-31 18:16 EDT (`2026-10-31T22:16:00Z`) — Complete `/dev/tc` Executive Backend Admin Dashboard Port (All 14 Sections, Services, Remote Functions, API Routes, D3 Charts & Audit Fixes)
+
+#### Added (2026-10-31 18:16 EDT)
+
+- **Complete `/dev/tc` Database Schema & Idempotent SQL Migration (`src/lib/server/db/schema.ts`, `drizzle/0000_blog_system.sql`, `src/lib/server/db/index.ts`, `src/lib/types/db.ts`)**:
+  - Extended `page_views` (`pageViews`) with `user_agent`, `session_id`, and `country` columns and indexes (`page_views_session_id_idx`, `page_views_post_created_idx`).
+  - Added all 29 `/dev/tc` backend tables, Drizzle relations, indexes, and exported row/insert types: `leads`, `contact_submissions`, `email_events`, `user_journeys`, `series`, `users`, `comments`, `webhooks`, `editorial_notes`, `site_settings`, `content_templates`, `admin_sessions`, `rate_limit_buckets`, `password_reset_tokens`, `auth_events`, `admin_notifications`, `click_events`, `click_events_hourly`, `notification_preferences`, `integration_connections`, `integration_test_runs`, `email_sequences`, `email_sequence_steps`, `email_enrollments`, `email_sends`, `email_suppressions`, `scheduled_calls`, `campaigns`, `campaign_variants`, and `campaign_events`, plus `consent_records`.
+  - Seeded default admin row `id = 1` in `users` (`welberribeirodrums@gmail.com`, `role = 'admin'`) idempotently inside `drizzle/0000_blog_system.sql` so foreign keys referencing `users.id` resolve out of the box.
+  - Added `batch<const U extends readonly PromiseLike<unknown>[]>(queries: U)` helper on `db` and `AppDatabase` in `src/lib/server/db/index.ts` for parallel multi-KPI dashboard and analytics queries.
+- **Full 14-Section Collapsible Admin Shell & All Admin Route Modules (`src/routes/admin/**`)**:
+  - Upgraded `src/routes/admin/+layout.svelte` to the `/dev/tc` collapsible sidebar shell (`224px` expanded / `60px` rail collapsed, persisted in `localStorage['admin-sidebar-collapsed']`) with grouped navigation across all 14 admin sections (`Overview`: Dashboard; `Content`: Posts, Media; `Audience & CRM`: Leads, Subscribers, Sequences, Email Analytics, Calls, Inbox, Notifications; `System`: Analytics, Consent, Campaigns, Integrations), mobile drawer, `AdminNotifications` bell popover, `ConfirmDialogHost`, `Toast`, and Better Auth sign-out.
+  - Replaced `src/routes/admin/+page.svelte` with the full `/dev/tc` Executive Overview Dashboard (7-day/30-day/90-day range selector, 6 `KpiCard` tiles with D3 sparklines, `D3AreaChart` traffic & lead velocity, `D3FunnelChart` conversion funnel, `D3DonutChart` lead status & traffic sources, `D3HeatmapCalendar` publishing & lead cadence, `D3BarList` top posts & top click targets, and live recent leads & contact inbox tables).
+  - Added `/admin/leads` (`src/routes/admin/leads/+page.ts`, `+page.svelte`) — CRM pipeline with status filters, search, bulk actions, lead detail drawer, notes, Resend delivery timeline, and CSV export.
+  - Added `/admin/subscribers` (`src/routes/admin/subscribers/+page.ts`, `+page.svelte`) — newsletter subscriber management, status filtering, and CSV export.
+  - Added `/admin/sequences` (`src/routes/admin/sequences/+page.ts`, `+page.svelte`, `[id]/+page.ts`, `[id]/+page.svelte`) — automated drip email sequence builder, step editor, enrollment inspector, and suppression manager.
+  - Added `/admin/email-analytics` (`src/routes/admin/email-analytics/+page.ts`, `+page.svelte`) — Resend delivery, open, click, bounce, and cohort retention analytics.
+  - Added `/admin/calls` (`src/routes/admin/calls/+page.ts`, `+page.svelte`) — Calendly scheduled calls pipeline, status management, and CSV export.
+  - Added `/admin/inbox` (`src/routes/admin/inbox/+page.ts`, `+page.svelte`) — contact form submission inbox, status workflow, and reply actions.
+  - Added `/admin/notifications` (`src/routes/admin/notifications/+page.server.ts`, `+page.svelte`) — real-time admin notification center and per-category notification preferences.
+  - Added `/admin/analytics` (`src/routes/admin/analytics/+page.ts`, `+page.svelte`) — unified site traffic, click tracking, Google Search Console, and user journey analytics.
+  - Added `/admin/consent` (`src/routes/admin/consent/+page.ts`, `+page.svelte`) — GDPR/CCPA cookie consent audit log, breakdown charts, and CSV export.
+  - Added `/admin/campaigns` (`src/routes/admin/campaigns/+page.ts`, `+page.svelte`, `[id]/+page.ts`, `[id]/+page.svelte`) — promotional campaign & A/B variant manager with conversion attribution.
+  - Added `/admin/integrations` (`src/routes/admin/integrations/+page.ts`, `+page.svelte`) — encrypted third-party integration credentials manager (Resend, Calendly, Google Search Console, IndexNow, webhooks) with live connection test runner.
+- **Admin D3 Visualization Suite & Shared UI Components (`src/lib/components/admin/**`, `src/lib/components/**`)**:
+  - Added `AdminNotifications.svelte`, `ChartCard.svelte`, `CollapsibleMetaBox.svelte`, `ConfirmDialogHost.svelte`, `D3AreaChart.svelte`, `D3BarList.svelte`, `D3DonutChart.svelte`, `D3FunnelChart.svelte`, `D3HeatmapCalendar.svelte`, `KpiCard.svelte`, `Skeleton.svelte`, `SparkArea.svelte`, `SparkBar.svelte`, `action-error.ts`, `SEO.svelte`, and `Toast.svelte`.
+- **Complete Backend Services, Remote Functions & API Endpoints (`src/lib/server/services/**`, `src/lib/remote/**`, `src/routes/api/**`)**:
+  - Added 22 server services in `src/lib/server/services/`: `analytics-unified.ts`, `analytics.ts`, `campaigns.ts`, `click-tracking.ts`, `consent-ip.ts`, `consent.ts`, `contacts.ts`, `dashboard.ts`, `email-analytics.ts`, `email-cohort.ts`, `email-sequences.ts`, `google-search-console.ts`, `indexnow.ts`, `integrations.ts`, `lead-email.ts`, `leads.ts`, `metrics.ts`, `notification-preferences.ts`, `notifications.ts`, `scheduled-calls.ts`, `search-engines.ts`, and `search.ts`.
+  - Added server infrastructure modules: `src/lib/server/{logger,background,auth-guards,service-errors,api-response,audit-log,unsubscribe-ingress}.ts`, `src/lib/server/config/runtime.ts`, `src/lib/server/analytics/{path-filter,ingest}.ts`, `src/lib/server/integrations/{crypto,providers}.ts`, `src/lib/server/email/{lead-welcome,sequence-step,unsubscribe-request,unsubscribe-signature,unsubscribe-token}.ts`, and `src/lib/server/assets/finance-checklist-pdf-base64.ts`.
+  - Added 14 SvelteKit remote function modules in `src/lib/remote/{contact,lead}.remote.ts` and `src/lib/remote/admin/{analytics,calls,campaigns,consent,contacts,dashboard,email-analytics,integrations,leads,notifications,sequences,subscribers}.remote.ts`.
+  - Added 17 API endpoints under `src/routes/api/`: `/api/admin/events`, `/api/admin/leads`, `/api/admin/leads/[id]`, `/api/admin/notifications/head`, `/api/campaign-events`, `/api/campaigns/active`, `/api/consent`, `/api/cron/analytics-daily`, `/api/cron/analytics-weekly`, `/api/cron/send-sequence-emails`, `/api/health`, `/api/lead`, `/api/page-view`, `/api/track/click`, `/api/unsubscribe`, `/api/webhooks/calendly`, and `/api/webhooks/resend`.
+  - Added shared Valibot schemas (`src/lib/shared/schemas/{analytics,auth,calls,campaigns,categories,click-events,consent,contacts,integrations,lead,leads,notifications,sequences,subscribers,tags}.ts`), stores (`src/lib/stores/{confirm,consent,theme,toast}.svelte.ts`), utilities (`src/lib/shared/{campaigns,safe-href}.ts`, `src/lib/utils/{http-error,notification-time}.ts`, `src/lib/attachments/focusTrap.ts`), and site config (`src/lib/config/{env,site,index}.ts`).
+
+#### Fixed (2026-10-31 18:16 EDT)
+
+- **Resend Webhook Sequence Email Attribution (`[DATA-1]` from `/dev/tc` Audit)**:
+  - Fixed `POST /api/webhooks/resend` (`src/routes/api/webhooks/resend/+server.ts`) so that when `data.email_id` does not match `leads.resendMessageId` (e.g., drip sequence emails recorded in `email_sends`), the webhook falls back to looking up `emailSends.resendMessageId` -> `emailEnrollments.leadId` before inserting into `emailEvents`, preventing silent loss of sequence email open/click/bounce events.
+- **CSV Export Formula-Injection Sanitization (`[SEC-5]` from `/dev/tc` Audit)**:
+  - Hardened `escapeCsv` in `src/lib/server/services/{leads,email-sequences,scheduled-calls,consent}.ts` to prefix values starting with `=`, `+`, `-`, `@`, `\t`, or `\r` with a leading single quote (`'`) and wrap in double quotes, neutralizing spreadsheet formula injection when opening exported CSVs in Excel or Google Sheets.
+- **Reactive D3 Chart & Sparkline Re-Rendering (`[UI-1]` from `/dev/tc` Audit)**:
+  - Fixed `src/lib/components/admin/D3AreaChart.svelte` and `src/lib/components/admin/KpiCard.svelte` by reading reactive props (`data`, `sparkData`, `height`, `color`) at the top of the `{@attach}` callback before the `ResizeObserver` setup so Svelte 5 re-runs the D3 render whenever chart data updates without waiting for a DOM resize event.
+- **Better Auth Principal Bridge & Request Context (`src/lib/server/auth-guards.ts`, `src/hooks.server.ts`, `src/app.d.ts`)**:
+  - Bridged Better Auth's `event.locals.user` (`role === 'admin'`) to `/dev/tc`'s `Principal` interface (`id: 1`, `userId: 1`, `isAdmin: true`) in `src/lib/server/auth-guards.ts` and populated `event.locals.reqId` and `event.locals.logger` in `src/hooks.server.ts`.
+
+### 2026-10-31 17:08 EDT (`2026-10-31T21:08:00Z`) — End-to-End Admin Dashboard, RichTextEditor, TOC & Public Blog Hardening (Phases 1–6)
+
+#### Added (2026-10-31 17:08 EDT)
+
+- **Idempotent 40-Article Markdown Blog Importer (`[NRW-CONTENT-1]`)**:
+  - Moved all 40 production Markdown blog posts (`blog-post-01-*.md` through `blog-post-40-*.md`) from the repository root into `content/blog-posts/`.
+  - Added `scripts/import-markdown-posts.ts` and `"db:import-posts": "node --env-file-if-exists=.env scripts/import-markdown-posts.ts"` in `package.json` (supports `--dry-run` to validate parsing without DB writes and `--publish` to import as `'published'`, defaulting to `'draft'` while preserving existing `'published'` rows).
+  - Parses Markdown frontmatter metadata (`Slug`, `Meta Title`, `Meta Description`, `Excerpt`, `Focus Keyword`, `Secondary Keywords`, `Category`, `Tags`, `Schema Type`, `Is Pillar`, `Cover Image`, `Cover Image Alt`, `Cover Image Caption`), converts the Markdown body and FAQ blocks into sanitized HTML (`sanitizePostHtml`) and structured `faqItems` JSON, normalizes H2/H3 headings and extracts `tableOfContents` (`normalizePostHeadings`), computes `wordCount` and `readingTime`, and upserts authors, categories, tags, and posts idempotently.
+- **Full-Table Sitemap Blog Query (`[NRW-SEO-2]`)**:
+  - Added `listSitemapBlogEntries()` in `src/lib/server/services/posts.ts` to select `slug`, `updatedAt`, `contentUpdatedAt`, `publishedAt`, `coverImage`, `coverImageAlt`, and `title` for all publicly visible, indexable blog posts in a single lightweight query without a 50-post pagination cap.
+- **Interactive Admin Sidebar TOC Jump (`[NRW-TOC-5]`)**:
+  - Upgraded the Table of Contents preview inside `src/lib/components/admin/PostEditorSidebar.svelte` from static `<span>` items to interactive `<button type="button" class="toc-preview-btn">` elements that scroll the corresponding heading inside `.rich-text-editor-prosemirror` into view and briefly highlight it.
+- **Public Article `Updated <date>` Badge (`[NRW-SEO-7]`)**:
+  - Added a visible `Updated <date>` `<time>` element in `src/routes/blog/[slug]/+page.svelte` whenever `post.contentUpdatedAt` is at least 60 seconds newer than `post.publishedAt`, matching the `dateModified` emitted in the article's Schema.org JSON-LD.
+
+#### Changed (2026-10-31 17:08 EDT)
+
+- **Unified `/blogs` -> `/blog` Architecture (`[NRW-SEO-1]`, closes `T5` in `docs/TEMPORARY.md`)**:
+  - Updated `resolveBlogRedirect` in `src/hooks.server.ts` so `/blogs` 308-redirects to `/blog` and `/blogs/<slug>` 308-redirects to `/blog/<slug>` (while still consulting `post_redirects` first).
+  - Updated `handleApp` in `src/hooks.server.ts` to call `await ensureDbReady()` (when `!building`) before `auth.api.getSession(...)`, preventing `relation "session" does not exist` on first request to non-blog routes when a fresh local PGlite database is initialized.
+  - Updated primary navigation, footer, homepage, mission page, and resource hub blog links in `src/lib/data/homepage.ts`, `src/lib/data/homepage.spec.ts`, `src/lib/components/home/BlogSection.svelte`, `src/routes/+page.svelte`, `src/routes/our-mission/+page.svelte`, `src/lib/data/resources-hub.ts`, and `src/routes/page.svelte.e2e.ts` to point directly to `/blog`.
+- **Restore Trashed Posts as `'draft'` (`[NRW-BE-6]`, Owner Decision A3)**:
+  - Updated `restoreTrashedPost` in `src/lib/server/services/posts.ts` to restore trashed posts with `status: 'draft'` and `published: false` (instead of immediately re-publishing to the live site) and to recompute `wordCount`, `readingTime`, and `tableOfContents` (`JSON.stringify(toc)`) on restore.
+- **TypeScript Configuration & Native Node 26 Script Imports**:
+  - Added `"scripts/**/*.ts"` to `tsconfig.json` `include` so `pnpm check` (`svelte-check`) typechecks all TypeScript scripts under `scripts/`.
+  - Added explicit `.ts` extensions to relative imports in `src/lib/server/db/index.ts`, `src/lib/server/db/schema.ts`, and `src/lib/server/posts/visibility.ts` for compatibility with Node 26 native TypeScript execution.
+
+#### Fixed (2026-10-31 17:08 EDT)
+
+- **Password-Protected Post Updates (`[NRW-BE-1]`)**:
+  - Fixed `applyPostLifecycleRefinements` in `src/lib/shared/schemas/posts.ts` by introducing `{ requirePasswordWhenProtected?: boolean }`. `postCreateSchema` still requires a non-empty password (`>= 4` chars) when `visibility === 'password_protected'`, whereas `postUpdateSchema` and `postPatchSchema` allow omitting `password` to preserve the existing stored `passwordHash` in `posts.ts` (while still rejecting explicitly short passwords or `clearPassword: true` while remaining `password_protected`).
+  - Updated `src/lib/components/admin/PostEditorSidebar.svelte` so checking "Clear existing password" automatically resets `form.visibility` to `'public'`.
+  - Added unit test coverage in `src/lib/shared/schemas/posts.spec.ts`.
+- **Scheduled Featured Post Promotion Transaction (`[NRW-BE-2]`)**:
+  - Fixed `promoteDueScheduledPosts` in `src/lib/server/services/cron.ts` by wrapping each scheduled-to-published promotion inside a `db.transaction` that demotes any existing published `featured = true` posts before promoting a due scheduled post with `featured = true`, preventing unique index violations (`23505`) on `posts_single_live_featured_idx`.
+  - Added integration test coverage in `src/lib/server/services/posts.db.spec.ts`.
+- **Pageview Analytics Table Separation (`[NRW-BE-3]`)**:
+  - Fixed `POST /api/analytics/pageview` (`src/routes/api/analytics/pageview/+server.ts`) to insert into `pageViews` (`page_views`) instead of `audit_log`, with 5-second per-IP+post deduplication so public traffic cannot pollute admin audit history.
+- **Admin Unsaved-Changes Navigation Guard & New-Post `goto()` Race (`[NRW-UI-1]`, `[NRW-UI-2]`, `[NRW-UI-3]`)**:
+  - Registered SvelteKit `beforeNavigate` inside `src/lib/components/admin/PostEditor.svelte` (wrapped in a `try/catch` for standalone component unit tests) to prompt before SPA link navigation when `isDirty` is true, and added `allowProgrammaticNavigation` bypass for intentional post-save redirects.
+  - Fixed the competing double-`goto()` race in `persistForm` and `publishNow` when saving or publishing a new post from `/admin/posts/new` (`isNew` transitioned from `/admin/posts/${saved.id}` or `/admin/posts`).
+- **Client-Server SEO Score Parity (`[NRW-UI-4]`)**:
+  - Updated `seoResult` `$derived.by` in `src/lib/components/admin/PostEditor.svelte` to pass the current form state through `applyPostAutofill` before calling `getSeoScore`, ensuring the live client SEO score and checklist match the server's `enforcePublishSeoGate` calculation 1-to-1 even when `metaTitle`, `metaDescription`, `excerpt`, or `slug` rely on autofill.
+- **Public Article TOC Scroll-Spy, Sticky Overflow & Smooth-Scroll Polish (`[NRW-TOC-1]`, `[NRW-TOC-2]`, `[NRW-TOC-3]`)**:
+  - Replaced `el.offsetTop <= scrollTop + 150` with viewport-relative `el.getBoundingClientRect().top <= 150` in `src/routes/blog/[slug]/+page.svelte` so active TOC highlighting stays accurate regardless of offset parent positioning.
+  - Added `max-height: calc(100vh - 120px); overflow-y: auto; overscroll-behavior: contain;` to `.article-toc-aside` at `min-width: 1180px` in `src/routes/blog/[slug]/+page.svelte` so long TOCs remain scrollable on desktop viewports.
+  - Updated `scrollToHeading` in `src/routes/blog/[slug]/+page.svelte` to honor `prefers-reduced-motion: reduce`, sync the URL hash via `history.replaceState(null, '', '#...')`, and auto-close the mobile `<details class="toc-mobile">` disclosure when a TOC item is selected.
+- **Deterministic UTC Date Formatting (`[NRW-SEO-3]`)**:
+  - Added `timeZone: 'UTC'` to `Intl.DateTimeFormat` in `src/routes/blog/[slug]/+page.svelte` and `src/lib/components/blog/PostCard.svelte` to prevent hydration date-shift mismatches between UTC servers and negative-offset client timezones.
+- **RichTextEditor Selection Performance, Bubble Bar & Popover Accessibility (`[NRW-UI-5]`, `[NRW-UI-7]`, `[NRW-UI-8]`)**:
+  - Updated `refreshToolbarState(ed, recountContent)` in `src/lib/components/admin/RichTextEditor.svelte` so `onSelectionUpdate` only refreshes toolbar active states without calling `ed.getHTML()` and regex word counting on every cursor movement (`recountContent = true` runs only on `onCreate` and `onUpdate`).
+  - Added `Strike`, `Code`, `Link (⌘K)`, and `Clear` formatting buttons to `.selection-bubble-bar` in `src/lib/components/admin/RichTextEditor.svelte`.
+  - Added `aria-haspopup="dialog"` to toolbar popover triggers and a window `Escape` key handler that closes open toolbar popovers (`showLinkPopover`, `showColorPopover`, `showTablePopover`, `showCalloutPopover`, `showEmbedPopover`, `showTocConfigPopover`) and returns focus to the editor.
+- **Structured RPC Error Surfacing on `/admin/posts` (`[NRW-UI-6]`)**:
+  - Updated all catch blocks in `src/routes/admin/posts/+page.svelte` (`runFilter`, `handleDeleteConfirm`, `handleRestore`, `handlePermanentDeleteConfirm`, `runBulkAction`) to format errors via `rpcErrorMessage(err, fallback)`.
+- **ConfirmDialog Focus Trap (`[NRW-UI-9]`)**:
+  - Added `Tab` / `Shift+Tab` keyboard focus-trap cycling across focusable elements inside `src/lib/components/admin/ConfirmDialog.svelte`.
+- **Multi-Field Revision Diffs (`[NRW-UI-10]`)**:
+  - Enhanced `src/lib/components/admin/RevisionDiffViewer.svelte` with `All | Content | Title | Excerpt` diff tabs, `+added / -removed` word delta badges, and `htmlToStructuredText` conversion that preserves `[IMAGE: alt (src)]` and `[LINK: href]` structural markers in diffs.
+- **MediaLibrary Explicit Alt Text Contract (`[NRW-UI-11]`)**:
+  - Removed the `|| selectedItem.title` fallback in `handleInsert` inside `src/lib/components/admin/MediaLibrary.svelte` so inserting an image with empty `altText` stays `''` and triggers the editor's explicit alt-text warning.
+- **Sitemap & RSS Feed Query Optimization (`[NRW-SEO-2]`, `[NRW-BE-4]`)**:
+  - Wired `src/routes/sitemap.xml/+server.ts` to `listSitemapBlogEntries()`.
+  - Updated `src/routes/rss.xml/+server.ts` to filter `media` rows with `inArray(media.blobUrl, coverUrls)` instead of loading the entire `media` table into memory.
+- **Retired `SearchAction` Schema Removal (`[NRW-SEO-4]`)**:
+  - Removed the retired `potentialAction` (`SearchAction`) block from `buildBlogWebsiteEntity` in `src/lib/seo/blog-seo.ts` per Google's Sitelinks Search Box retirement (`docs/SEO_EVIDENCE.md`).
+
+#### Security (2026-10-31 17:08 EDT)
+
+- **Password-Unlock Cookie Scope (`[NRW-BE-5]`)**:
+  - Changed the `rtp_post_unlock_<id>` cookie `path` from `'/'` to `'/blog'` in `src/routes/blog/[slug]/+page.server.ts`.
+- **Production Auth, Preview Token & Seed Password Hardening (`[NRW-BE-7]`)**:
+  - Set `disableSignUp: process.env.NODE_ENV === 'production'` in `src/lib/server/auth-options.ts` so public Better Auth email/password sign-up is disabled in production while remaining enabled in local/dev for `scripts/seed-admin.spec.ts`.
+  - Updated `seedPreviewBaselineIfEmpty` in `src/lib/server/db/index.ts` to store `hashPostPassword('AlphaDesk2026!')` (scrypt) instead of plaintext `'AlphaDesk2026!'`.
+  - Updated `getDraftPreviewSecret` in `src/lib/server/posts/visibility.ts` to throw in production when `BETTER_AUTH_SECRET` is missing or shorter than 16 characters instead of falling back to a hardcoded dev string.
+
+#### Removed (2026-10-31 17:08 EDT)
+
+- **Deprecated Static Mock `/blogs` Route (`[NRW-SEO-1]`, `T5`)**:
+  - Deleted `src/routes/blogs/+page.svelte`, `src/routes/blogs/+page.ts`, `src/routes/blogs/page.svelte.spec.ts`, `src/lib/data/blog-hub.ts`, `src/lib/components/blog/BlogCard.svelte`, `src/lib/components/blog/BlogCard.svelte.spec.ts`, and `static/blog-mocks/*.svg`.
+
+#### Docs (2026-10-31 17:08 EDT)
+
+- Updated `docs/TEMPORARY.md` (marked `T5` as `removed`), `docs/AGENT_COORDINATION.md` (recorded session completion and verification summary), and `CHANGELOG.md`.
+
+### Added (Earlier)
+
+- Editor images (parity with the reference app): floating `ImageControlMenu` (alignment incl. Full width, width presets that keep the aspect ratio, alt, title, caption, Replace image through the media picker, Remove), keyboard and touch usable; an editor-only "Add alt text" chip and dashed outline on every image with empty alt (`src/lib/tiptap/image-alt-warning.ts`, never saved); the Featured Image panel is its own component (`FeaturedImagePanel.svelte`: saved-URL preview with real dimensions when picked, load-failure alert, required-alt indicator, Remove). Pure helpers in `src/lib/tiptap/image-actions.ts`, `post-editor/image-pick.ts`, `src/lib/shared/cover-srcset.ts`. Specs: `ImageControlMenu.svelte.spec.ts`, `RichTextEditor.images.svelte.spec.ts`, `image-actions.svelte.spec.ts`, `FeaturedImagePanel.svelte.spec.ts`, `image-pick.spec.ts`, `cover-srcset.spec.ts`, and cover cases in `blog-routes.spec.ts`.
+- Media picker (`MediaLibrary.svelte`): XHR upload with per-file progress (`<progress>`), unique queue ids (fixes the duplicate-key error for same-named files), drag and drop onto the Library tab, multi-select with shift-range, bulk move and bulk delete via the single-item endpoints with bounded concurrency and per-item failure reporting (409 in-use lists the posts), focus restore to the opener, persistent live regions, arrow-key grid navigation, stale list responses ignored. Split into `MediaModalHeader`, `MediaToolbar`, `MediaBulkBar`, `MediaGrid`, `MediaSidebar`, `MediaUploadPanel`, `MediaUploadQueue`, `media-client.ts`, `media-library.css`; props and `MediaInsertPayload` unchanged. Contract: docs/MEDIA_UI_CONTRACT.md. Specs: `MediaLibrary.svelte.spec.ts`, `media-client.spec.ts`.
+- Media cover crops: uploads store 16x9, 4x3 and 1x1 WebP crops (>= 50,000 px, never upscaled) in `variants_json` (`kind: 'crop'`); `getMediaCropsForUrl` and `buildBlogPostJsonLd({ coverImageCrops })` emit an Article `image` ImageObject array; the backfill script adds crops to existing media. See docs/MEDIA_STORAGE.md and docs/MEDIA_UI_CONTRACT.md.
+- `TEMPORARY` Persistent local disk media storage (T8): `src/lib/server/media-storage.ts` holds the Vercel Blob driver and a
+  disk driver (`.data/media`, atomic writes, strict path-traversal checks, absolute `<ORIGIN>/media/<path>` URLs because post
+  image fields require absolute URLs); `selectMediaStorageDriver(env)` picks Blob with `BLOB_READ_WRITE_TOKEN`, disk in
+  development, and THROWS on Vercel/production without a token unless `MEDIA_STORAGE=disk`. New `GET|HEAD /media/[...path]`
+  route (allow-listed image types, immutable cache, nosniff, weak ETag/304, locked-down CSP on SVG; 404 unless the disk driver
+  is active). Env keys `BLOB_READ_WRITE_TOKEN` and `MEDIA_STORAGE` documented in `.env.example` and `src/env.ts`.
+  How-to: `docs/MEDIA_STORAGE.md`. Specs: `media-storage.spec.ts`, `media-route.spec.ts`, `media-pipeline.db.spec.ts`.
+- `TEMPORARY` `pnpm db:seed-admin` (`scripts/seed-admin.ts`): creates or repairs a local admin account from
+  `ADMIN_SEED_EMAIL` / `ADMIN_SEED_PASSWORD`; `--reset-password` and `--revoke`; refuses when `NODE_ENV=production`
+  or `VERCEL` is set unless the database is the local PGlite file; never prints the password. Registered as T2.
+  Spec: `scripts/seed-admin.spec.ts`. How-to: `docs/ADMIN_LOCAL_LOGIN.md`.
+- `.env.example`: `TEMPORARY` placeholder keys `ADMIN_SEED_EMAIL` and `ADMIN_SEED_PASSWORD`.
+- Admin sign-in at `/admin/login` (P2): form action on Better Auth `signInEmail`; generic
+  "Email or password is incorrect." message; rate limit per client IP and per hashed email (`consumeRateLimit`);
+  non-admin accounts get 403 and their session is revoked; `next` is accepted only through `safeAdminNext()`
+  (`src/routes/admin/login/safe-next.ts`, open-redirect rules documented there). Specs:
+  `safe-next.spec.ts`, `admin-access.spec.ts`, `login-page.svelte.spec.ts`.
+- Admin shell (P2): `src/routes/admin/+layout.server.ts` redirects anonymous visitors to login (303, `next` kept),
+  returns 403 for non-admins, and sends `X-Robots-Tag: noindex, nofollow` on every `/admin/**` page. `+layout.svelte`
+  adds a skip link, nav (Dashboard, Posts, Media, View site) with `aria-current`, and a POST sign-out form
+  (`src/routes/admin/logout/+server.ts`).
+- Admin dashboard (P2) at `/admin`: counts of drafts, scheduled, published, trashed (plus in review and archived so the
+  totals add up), and the five most recently updated posts, computed from `listAdminPosts` and `listTrashedPosts`.
+  Quick links: New post, All posts, Media.
+- E2E: `src/routes/admin/image-flow.e2e.ts` drives the owner image flow through the real UI (login, upload a generated PNG, featured + inline image, publishing checklist, Save Draft, reload, Publish, public cover/srcset/og:image/JSON-LD crops/sitemap) and deletes everything it created. `playwright.config.ts` webServer now sets `ORIGIN=http://localhost:4173` and `MEDIA_STORAGE=disk` for the preview. Found by it and fixed: `requireAdmin` no longer reads `event.url` on POST (it threw `remote_request_property` inside queries refreshed by a command's single-flight response, so the refresh silently failed and the client refetched); the CSRF host now comes from `event.request.url` (spec in `auth-guard.spec.ts`).
+
+### Changed
+
+- Better Auth options shared by `src/lib/server/auth.ts` and the seed script now live in
+  `src/lib/server/auth-options.ts` (`userAdditionalFields`, `emailAndPasswordOptions`). Behaviour unchanged.
+
+### Fixed
+
+- Sitemap: stop emitting the deprecated `<image:title>` (Google removed it from the image sitemap docs, `docs/SEO_EVIDENCE.md` row 18); `<image:loc>` only.
+- `requireAdmin` no longer reads `event.url` inside remote queries (it threw `remote_request_property`, 500 on slug checks and query refreshes).
+  (editor and public images)
+
+- Alt text is never invented: the editor no longer stores `Article image` (or the filename or media title) as alt; an empty alt stays empty, is flagged in the editor and blocks publishing through the existing `missing_cover_alt` rule (cover). The picker's title fallback is dropped in the editor wiring (`pickedAlt`).
+- The picker's "Full Width" alignment was silently dropped by the editor and the sanitizer; it is now stored as `data-align="full"`, survives server sanitisation and renders full width on the public post (rules already in `prose.css`). Image `title` now survives sanitisation (plain text, 300 chars max).
+- Width presets changed only `width`, leaving a stale `height`; they now set both from the real aspect ratio (100% restores the natural size).
+- Image insert used `setImage(...).updateAttributes(...)`, which lost the extra attributes when the selection was not on the new node; images are now inserted with all attributes in one `insertContent`.
+- Public cover `srcset` listed a `-1200w` file that does not exist for originals narrower than 1200 px. It is built from the media row's real files (capped at the chosen cover, crops skipped), with the `-{w}w.webp` naming rule as fallback (also used by `PostCard`).
+- Public cover `width`/`height` are the stored media dimensions; when unknown the attributes are omitted instead of claiming 1200x675.
+- Body images no longer get `/ decoding="async"` (attributes appended after the self-closing slash).
+- The Featured Image panel previews the saved URL, defaults to the `large` (1200w) variant, and shows an error when the URL does not load.
+
+### Fixed (media server)
+
+- Uploaded images were saved as rows with a fake `https://revolutiontradingpros.com/media/...` URL backed by an in-process
+  `Map` that nothing served and that was lost on restart; the Map and `getLocalBlobBuffer` are removed.
+- Variant uploads used `Promise.all`, so a failed put orphaned the puts that had succeeded; now `allSettled`, the successful
+  blobs are deleted and the original error is rethrown (upload fails with 500, no row).
+- An audit-log (or folder registry) failure after a successful insert deleted the blobs of the already-saved row; those writes
+  now log with `console.error` and the row and blobs are kept.
+- Restore after delete resurrected rows whose files were already deleted. Decision: restore is refused with 409
+  `MEDIA_RESTORE_UNAVAILABLE` because `deleteMediaItem` deletes the blobs first (same as a permanent delete, Section 9.5);
+  keeping blobs on soft delete would orphan storage forever (no purge job). Re-upload instead.
+- `toRestErrorResponse`/`throwRpcServiceError` no longer return raw exception text on 500 and now `console.error` the error.
+- Backfill script reads `/media/...` sources through the disk driver (no network fallback; a missing file is an error).
+
+### Fixed (P4: publishing through `/admin`, verified in a browser)
+
+- A refused publish now shows its reasons. The SEO gate refusal (`SEO_GATE_BLOCKED`) is parsed into one list item per
+  issue (blocking items marked, then warnings) in a `role="alert"` box at the top of the editor, focus moves to it, and
+  the SEO panel opens. Before, the reason was a raw multi-line string at the top of the page, out of view from the
+  Publish button, and the SEO panel's issue list sat in a hidden tab. `src/lib/components/admin/post-editor/publish-gate.ts`
+  (spec: `publish-gate.spec.ts`); `PostEditorMainColumn.revealSeoPanel()`.
+- The gate's error text no longer labels non-blocking errors as "Blocking errors": items are marked `[BLOCKING]` where
+  they stop publishing on their own (`src/lib/shared/seo/score.ts`, `enforcePublishSeoGate`).
+- Publish button label: an existing draft showed "Update and close", but that button publishes. Drafts now show
+  "Publish" (top bar, sidebar, mobile bar). "Update and close" is shown only for a published post.
+- Server errors from author, category, tag and other remote calls showed a generic "Failed to ..." message because the
+  remote error is not an `Error` instance. The server message is now shown (e.g. `Author slug "x" already exists.`) via
+  `post-editor/rpc-error.ts` (spec: `rpc-error.spec.ts`).
+- Login email field: `value=` was replaced by `defaultValue=` so hydration no longer clears an email typed before
+  JavaScript loaded. Before, the cleared required field blocked the native submit (no POST). `/admin/login`.
+
+### Removed
+
+- `/demo/better-auth` scaffold (`TEMPORARY` T6, now `removed`): it had a public sign-up form and linked to a
+  non-existent `/auth/verification-success`. Replaced by `/admin/login`. The `/demo` index no longer lists it.
+
+### Docs
+
+- Add `docs/ADMIN_AUTH_PLAN.md`: evidence-based audit of the admin/auth/blog backend and the phased plan
+  to make `/admin` reachable (Better Auth login, temporary admin account). (docs/admin-auth-plan)
+- Add `docs/TEMPORARY.md` (registry of temporary code, credentials and bypasses with removal criteria)
+  and `docs/AGENT_COORDINATION.md` (multi-session protocol and active-work board).
+- Add this `CHANGELOG.md`.
+
+### Security (see `docs/ADMIN_AUTH_PLAN.md` section 2)
+
+- F2 fixed: Better Auth now exposes `user.role` (`additionalFields`, `input: false`), so `requireAdmin` accepts real admins.
+  `App.Locals.user` is typed from `auth.$Infer`. Regression test: `src/lib/server/auth-role.db.spec.ts`.
+- F3 fixed: removed the `x-rtp-e2e-test` header bypass from `src/hooks.server.ts` (`TEMPORARY` T1, now `removed`). Admin e2e
+  tests log in through `/admin/login` and skip when `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` are unset.
+- F5 fixed: `requireAdmin` now runs the CSRF origin check on every non-GET/HEAD/OPTIONS request, so a mutation with neither
+  `Origin` nor `Referer` gets 403. Unit tests: `src/lib/server/auth-guard.spec.ts`.
+
+## [0.1.0-pre] - 2026-10-30 to 2026-10-31
+
+Entries reconstructed from `git log` (merged PRs #1 to #6), not written at the time.
+
+### Added
+
+- Dynamic blog system and admin dashboard (TipTap editor, SEO tools, media library) - `350e8c7`.
+- `CatalogCard` shell and `CourseCard`, `IndicatorCard`, `BlogCard` (PR #4, #6).
+- SEO evidence log, new-page playbook, CSS standards docs.
+
+### Changed
+
+- `@sveltejs/kit` 3.1.0 to 3.1.1, `@sveltejs/adapter-vercel` 7.0.1 to 7.0.2 (security fixes) - PR #5.
+
+> Open, unmerged: PR #7 `feat/blog-cover-cards` (image-background blog cards, mock covers).

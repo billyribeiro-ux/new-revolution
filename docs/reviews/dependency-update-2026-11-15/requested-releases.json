@@ -1,0 +1,695 @@
+[
+	{
+		"name": "@electric-sql/pglite",
+		"old": "0.5.15",
+		"version": "0.5.16",
+		"repository": {
+			"url": "git+https://github.com/electric-sql/pglite.git",
+			"type": "git",
+			"directory": "packages/pglite"
+		},
+		"integrity": "sha512-Nj8KcIsJL748W408U2N8q4+9IlONdpRIU8MJypIAAINMJ5nqKyqpX7Mgg/5XKkXiAib3AoZGR6hnJFlrlLBrcg=="
+	},
+	{
+		"name": "@sveltejs/adapter-vercel",
+		"old": "7.0.2",
+		"version": "7.0.3",
+		"peerDependencies": {
+			"@sveltejs/kit": "^3.0.0-next.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/sveltejs/kit.git",
+			"type": "git",
+			"directory": "packages/adapter-vercel"
+		},
+		"integrity": "sha512-F7LcjE2wEqDAvDduYQ8HgzoQux7JV3QNOFPMNYUex7piC1hMwbG4WgXKuMvAMeBAiMYv6ygJXFnJhUg/uIVDvw=="
+	},
+	{
+		"name": "@sveltejs/enhanced-img",
+		"old": "1.0.0",
+		"version": "1.0.1",
+		"peerDependencies": {
+			"vite": ">=8.0.12",
+			"svelte": "^5.0.0",
+			"@sveltejs/vite-plugin-svelte": "^7.0.0"
+		},
+		"engines": {
+			"node": ">=22"
+		},
+		"repository": {
+			"url": "git+https://github.com/sveltejs/kit.git",
+			"type": "git",
+			"directory": "packages/enhanced-img"
+		},
+		"integrity": "sha512-BWCjkVq+uUQlNDu5+ZOPaSoH45Tlt4dD/G+7eXxi3TVLYx0+q1T+4BtKQrZfU5ry1mCtcyamI7EN0ekZp9C3mA=="
+	},
+	{
+		"name": "auth",
+		"old": "1.7.15",
+		"version": "1.7.25",
+		"engines": {
+			"node": ">=22.12.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/better-auth/better-auth.git",
+			"type": "git",
+			"directory": "packages/cli"
+		},
+		"integrity": "sha512-VWIrdcWJWSuTmjyOOVR9vwyXAbDapmozEsgHjrpQUJoRb5C3CMiXnVVCYDpr16LVI2OXT9amfz8YuJtVskzUPQ=="
+	},
+	{
+		"name": "better-auth",
+		"old": "1.7.15",
+		"version": "1.7.25",
+		"peerDependencies": {
+			"pg": "^8.0.0",
+			"vue": "^3.0.0",
+			"next": "^14.0.0 || ^15.0.0 || ^16.0.0",
+			"react": "^18.0.0 || ^19.0.0",
+			"mysql2": "^3.0.0",
+			"prisma": "^5.0.0 || ^6.0.0 || ^7.0.0",
+			"svelte": "^4.0.0 || ^5.0.0",
+			"vitest": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0",
+			"mongodb": "^6.0.0 || ^7.0.0",
+			"solid-js": "^1.0.0",
+			"react-dom": "^18.0.0 || ^19.0.0",
+			"drizzle-kit": ">=0.31.4 || >=1.0.0-beta.1",
+			"drizzle-orm": "^0.45.2 || >=1.0.0-rc.1 <2.0.0",
+			"@sveltejs/kit": "^2.0.0 || ^3.0.0",
+			"@lynx-js/react": "*",
+			"@prisma/client": "^5.0.0 || ^6.0.0 || ^7.0.0",
+			"@tanstack/react-start": "^1.0.0",
+			"@tanstack/solid-start": "^1.0.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/better-auth/better-auth.git",
+			"type": "git",
+			"directory": "packages/better-auth"
+		},
+		"integrity": "sha512-OglRnzasyXpZHMceZBW76tQRbS6lSJhqkxm0l/7db1qJ415ecD1YkKHgOUCvmPbVDLJiB4/fumD2vw2hf+1VCQ=="
+	},
+	{
+		"name": "d3",
+		"old": "7.9.0",
+		"version": "7.9.2",
+		"engines": {
+			"node": ">=12"
+		},
+		"repository": {
+			"url": "git+https://github.com/d3/d3.git",
+			"type": "git"
+		},
+		"integrity": "sha512-ZKb/mONPVKzaO5UlcWcwN8bS4ezvQaYu+bsou+XgNABdGC800kwH651ADTbbTxMPHW13UlvbQafdmJQDk1w7Mg=="
+	},
+	{
+		"name": "gsap",
+		"old": "3.15.0",
+		"version": "3.15.1",
+		"repository": {
+			"url": "git+https://github.com/greensock/GSAP.git",
+			"type": "git"
+		},
+		"integrity": "sha512-63yjWRFWj3QRP1UOuD8kcidCcy3nxb1mMRpwHr/xJRvPfm9GtWOXFAYUiL0ro1fgPq2nY53LR+98pAgy9BumBg=="
+	},
+	{
+		"name": "sanitize-html",
+		"old": "2.18.1",
+		"version": "2.18.2",
+		"engines": {
+			"node": ">=22.12.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/apostrophecms/apostrophe.git",
+			"type": "git",
+			"directory": "packages/sanitize-html"
+		},
+		"integrity": "sha512-LTQVNHBeKB5qIae9x2J2Fw68ORnES++8vzYaG7DFT8P4GVCJFeHffHnRUzf5Mrxfx+4GweIvMRqkBPHHodaVNg=="
+	},
+	{
+		"name": "typescript-eslint",
+		"old": "8.72.1",
+		"version": "8.72.2",
+		"peerDependencies": {
+			"eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+			"typescript": ">=4.8.4 <6.1.0"
+		},
+		"engines": {
+			"node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+		},
+		"repository": {
+			"url": "https://github.com/typescript-eslint/typescript-eslint.git",
+			"type": "git",
+			"directory": "packages/typescript-eslint"
+		},
+		"integrity": "sha512-c/+AKMW1KB81r28Sp0AAdcyXj5dzNmAsZFcsrxKbZTKmcBK2xIwBR31dcSYSDu3bKmzXe8GKrSxO+eDQ401Uzg=="
+	},
+	{
+		"name": "@playwright/test",
+		"old": "1.64.1",
+		"version": "1.65.1",
+		"engines": {
+			"node": ">=20"
+		},
+		"repository": {
+			"url": "git+https://github.com/microsoft/playwright.git",
+			"type": "git"
+		},
+		"integrity": "sha512-y+NCIRm2LvY4slUVWvGh1nujJ8RF/hEisIsq2mtUPgdQC4L701bq5hZGMhrpeXjACvwvO9tj5dJqhvM6TP9lbw=="
+	},
+	{
+		"name": "@sveltejs/kit",
+		"old": "3.1.1",
+		"version": "3.2.0",
+		"peerDependencies": {
+			"vite": "^8.0.12",
+			"svelte": "^5.57.1",
+			"typescript": "^6.0.0",
+			"@opentelemetry/api": "^1.0.0",
+			"@sveltejs/vite-plugin-svelte": "^7.0.0"
+		},
+		"engines": {
+			"node": ">=22.17"
+		},
+		"repository": {
+			"url": "git+https://github.com/sveltejs/kit.git",
+			"type": "git",
+			"directory": "packages/kit"
+		},
+		"integrity": "sha512-zhb8GTeFd/6BwfqaY4wKIF7eFACYOgn/KNppV6UHFBHk174B4d7xTtN7x0PxaPPlwnCTgbnpaYF6r9lirz0Biw=="
+	},
+	{
+		"name": "@tiptap/core",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/pm": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/core"
+		},
+		"integrity": "sha512-PwpE5MAXt586AxIO5bW2RyJ3OUXdPfG5M1M5v/LIMCkDwIgRKegx8uERlABoI6575mWqaH/P6Xm+tequJ5UUnw=="
+	},
+	{
+		"name": "@tiptap/extension-character-count",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extensions": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages-deprecated/extension-character-count"
+		},
+		"integrity": "sha512-bV0agK3QzB5nXFDEkuq4VNhaNCsPQh7YlBVaFbgxXAzRKo1oYOhBtVErXB8LKIg3vJmnl9pQc3xwTBqCT8JVcA=="
+	},
+	{
+		"name": "@tiptap/extension-color",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-text-style": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-color"
+		},
+		"integrity": "sha512-LabGUO3ikEkp91aWTq4xga8flzSxM5Bd+Oizcj0g19YRQzg00hwF4+5Ug/CfsXTcE3hf9YL3XSp/seGOuTCGIQ=="
+	},
+	{
+		"name": "@tiptap/extension-highlight",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-highlight"
+		},
+		"integrity": "sha512-1N/FfU9rZjFQnWZV1gxA1CnKXMY49q3H0PGYZiqQeh4GdNQ8CkOj5TZK1w6WXFVb4vbaInqaOV4cndwCtLMK4A=="
+	},
+	{
+		"name": "@tiptap/extension-image",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-image"
+		},
+		"integrity": "sha512-IC8PfiTKWnRE9USYM/gI9aZkrGsgJ3IhduQX1JceE5wMp3ce2QKzEkDkFZrjk2EYgCPNCuvIIg5L0nbmogcKsg=="
+	},
+	{
+		"name": "@tiptap/extension-link",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/pm": "3.34.0",
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-link"
+		},
+		"integrity": "sha512-yd/pHa4T/J/3oY4BMB4qHJHkde1z5V6c/2fY7OsG86R8oMrCim3Vo19yCHc7xsZC8RwjgWoCth1lAIdwvHNnLQ=="
+	},
+	{
+		"name": "@tiptap/extension-placeholder",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extensions": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages-deprecated/extension-placeholder"
+		},
+		"integrity": "sha512-MdvR7G6Mz0Ie89hbM7zXgHCFMcLZYGbwJyOCVHObAtXUaXgBpWvRVcV45U+aNcZKhD0tWzpROf9WTPsfsc6//w=="
+	},
+	{
+		"name": "@tiptap/extension-subscript",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/pm": "3.34.0",
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-subscript"
+		},
+		"integrity": "sha512-W1bDZuVhdlN8Ntngx1bhNGB9lzwLfgTqpwmLwlMhEuHoAOltcyuOTJ4sDj5dSjGcCAFluSRVZ0wul5+avFSCkw=="
+	},
+	{
+		"name": "@tiptap/extension-superscript",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/pm": "3.34.0",
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-superscript"
+		},
+		"integrity": "sha512-y4uMgJhyruAcsdOD81pUDhTqs7L05Y1lI1spH9NzQ9uUAY4KCidVdCUeU3rOfZ6aFt0Ev+7X9IlAGgcHA24OGg=="
+	},
+	{
+		"name": "@tiptap/extension-table",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/pm": "3.34.0",
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-table"
+		},
+		"integrity": "sha512-pcBsmniI9Bk2lPgbPfi8YgA/K0PjxLbtAJho83Mu/KL3FIZBVP/POBETqXYTznTBCGuyaYZt/HGyIUWZTMOCEA=="
+	},
+	{
+		"name": "@tiptap/extension-table-cell",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-table": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-table-cell"
+		},
+		"integrity": "sha512-Rx80M/BoQKP7zVBxUyCeqGfMqjVMupFk8BrxNx2MnfiC85TwPnEqE1nG+JFBoaaIeW3a7U/Bvm6optIgR6F14A=="
+	},
+	{
+		"name": "@tiptap/extension-table-header",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-table": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-table-header"
+		},
+		"integrity": "sha512-cFvfqeQkMQxDPR/N0hteh8lPPL3vpwX74YeCW/hMMgFieRc8r5t5Wpu5jGccfqPVwS/ebOIUJSRJqQ3izzu1Mw=="
+	},
+	{
+		"name": "@tiptap/extension-table-row",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-table": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-table-row"
+		},
+		"integrity": "sha512-ymi2CB8y8mytSHryElNRoK982hkjiMH6WEdmrwOkAlVxAp1hEZdTZxdQFqR5QBYlH/3MvJtnxzBJ/pQszpZ9ow=="
+	},
+	{
+		"name": "@tiptap/extension-task-item",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-list": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-task-item"
+		},
+		"integrity": "sha512-XBDnXafk7JkygB3adeGzWuBYLS7rIa6dOzRLeyD2px2nyG+s+zB31t9hYyYP8iNvKqDdyD9Mek9YLUXEdoXbQQ=="
+	},
+	{
+		"name": "@tiptap/extension-task-list",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/extension-list": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-task-list"
+		},
+		"integrity": "sha512-tnqE4j04CAf8rTqNNJ8gUEe/gTxUzLOioFnjo+0DuR+87LiqR+BbyiakskEcX0sz5blcys6czuDAzotrgkIlqA=="
+	},
+	{
+		"name": "@tiptap/extension-text-align",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-text-align"
+		},
+		"integrity": "sha512-wr/Y25vaLxreeAGgUTkNt3lz8yrRyv/OuglEeVlZxrL0gQzc9cTdzYI4UAVH+rBGC3I3XOMGvdXr0NC+P8+Bxw=="
+	},
+	{
+		"name": "@tiptap/extension-text-style",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-text-style"
+		},
+		"integrity": "sha512-BVal16CwQwutQyRXqUyXP+BnFFRn3hGguWE+juBMdS9MJlzg/S9/aCBX7f/9ZEzfNvOSSPvekcKG6abJ15W4Zw=="
+	},
+	{
+		"name": "@tiptap/extension-typography",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-typography"
+		},
+		"integrity": "sha512-9TUYoDTuIo3gn9AkpmmWhSDIYFKuSklNKMs2V38oeI6g+yOBx7mDADlMrQIA8nGZNk4A9kSNpCaeO4gx9AjjvQ=="
+	},
+	{
+		"name": "@tiptap/extension-underline",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-underline"
+		},
+		"integrity": "sha512-4/Di2L96tCUo31SalwjeElOQC64bP2lIqXsruYNndo510fAkYEmzGHhfu4Eh0a4Z94lyA9BYI9zAgJS2yTdq8w=="
+	},
+	{
+		"name": "@tiptap/extension-youtube",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"peerDependencies": {
+			"@tiptap/core": "3.34.0"
+		},
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/extension-youtube"
+		},
+		"integrity": "sha512-uXOVcofxAiElHsBeoGiBnC44vjsmOs0owuqF1j5KBSv0GNI3CZ2Djlr3nyuPxqq8dE6pHYXDkjkN+dqs2SY1eA=="
+	},
+	{
+		"name": "@tiptap/pm",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/pm"
+		},
+		"integrity": "sha512-/r64RekPVaLw/YUjGes8tH5voz5PYWLW6gahMf+nDZKs6nK4RtoZ4O6YFI+nV8XD1hygseQZPeJkT5OOkI4AdA=="
+	},
+	{
+		"name": "@tiptap/starter-kit",
+		"old": "3.32.2",
+		"version": "3.34.0",
+		"repository": {
+			"url": "https://github.com/ueberdosis/tiptap",
+			"type": "git",
+			"directory": "packages/starter-kit"
+		},
+		"integrity": "sha512-SPlLjlGD8KpTBsUQJfNuRLprSCV8d69QACBloPZXCF0XGfpTmJWFzt1vGTfBzisRrI1iV/goXJJr8qw2SAIpiw=="
+	},
+	{
+		"name": "@vercel/blob",
+		"old": "2.8.2",
+		"version": "2.9.0",
+		"engines": {
+			"node": ">=20.0.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/vercel/storage.git",
+			"type": "git",
+			"directory": "packages/blob"
+		},
+		"integrity": "sha512-o+1CMRlT8/RvGo1aGkFv40F7v3MLdSOaVaIccepBXWrXgonKId3hHKSKGQ+iBDPoSe03crmHfhpHtTs0CCXiig=="
+	},
+	{
+		"name": "@vitest/browser-playwright",
+		"old": "5.0.5",
+		"version": "5.1.0",
+		"peerDependencies": {
+			"vitest": "5.1.0",
+			"playwright": "*"
+		},
+		"repository": {
+			"url": "git+https://github.com/vitest-dev/vitest.git",
+			"type": "git",
+			"directory": "packages/browser-playwright"
+		},
+		"integrity": "sha512-3PbVvX/KNeUEzUeTTXw5bQDyfJS+WqU/UJ8RNWIojHb0mE6d/IBjuLmt+i7OpJ00tjNWv0O6XBm5ler/tEf3eg=="
+	},
+	{
+		"name": "@voidzero-dev/vite-plus-core",
+		"old": "1.4.0",
+		"version": "1.6.0",
+		"peerDependencies": {
+			"tsx": "^4.8.1",
+			"jiti": ">=1.21.0",
+			"less": "^4.0.0",
+			"sass": "^1.70.0",
+			"yaml": "^2.4.2",
+			"unrun": "*",
+			"stylus": ">=0.54.8",
+			"terser": "^5.16.0",
+			"esbuild": "^0.27.0 || ^0.28.0",
+			"publint": "^0.3.8",
+			"sugarss": "^5.0.0",
+			"vue-tsc": "~3.2.0 || ~3.3.0",
+			"typescript": "^5.0.0 || ^6.0.0 || ^7.0.0",
+			"@types/node": "^20.19.0 || >=22.12.0",
+			"sass-embedded": "^1.70.0",
+			"unplugin-unused": ">=0.5.0",
+			"@vitejs/devtools": "^0.7.1 || ^0.8.0",
+			"@volar/typescript": "~2.4.0",
+			"@vue/language-core": "~3.2.0 || ~3.3.0",
+			"@arethetypeswrong/core": "^0.18.1",
+			"@typescript/native-preview": "*"
+		},
+		"engines": {
+			"node": "^20.19.0 || ^22.18.0 || >=24.11.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/voidzero-dev/vite-plus.git",
+			"type": "git",
+			"directory": "packages/core"
+		},
+		"integrity": "sha512-0UFh0AVjt3ZynvRk0BTCwysCeURhyZCoEGabEptwOzlvQjV2eGRcf5jPTfLGaKwgw2dKOQYH4vq/N3H7WUdIyw=="
+	},
+	{
+		"name": "carbon-icons-svelte",
+		"old": "13.17.0",
+		"version": "13.18.0",
+		"repository": {
+			"url": "git+https://github.com/carbon-design-system/carbon-icons-svelte.git",
+			"type": "git"
+		},
+		"integrity": "sha512-9Ga25DuZkqWuxdofqHwE5mjGiS0uM22bfdSNz6NVEGCpl//kDpUrAE9rDiZE4IbhHZoWl3rBx9GX6f7wDL9kmA=="
+	},
+	{
+		"name": "eslint",
+		"old": "10.14.0",
+		"version": "10.15.0",
+		"peerDependencies": {
+			"jiti": "*"
+		},
+		"engines": {
+			"node": "^20.19.0 || ^22.13.0 || >=24"
+		},
+		"repository": {
+			"url": "git+https://github.com/eslint/eslint.git",
+			"type": "git"
+		},
+		"integrity": "sha512-+5Wg4p+ze3sG1WErYgUO/3H1IQIfFBymVUA0Fo/XTeBOLS6UQIUekpSJ8sdRkn7O7wjh84b55w/roqavH2aScg=="
+	},
+	{
+		"name": "eslint-plugin-svelte",
+		"old": "3.23.1",
+		"version": "3.24.1",
+		"peerDependencies": {
+			"eslint": "^8.57.1 || ^9.0.0 || ^10.0.0",
+			"svelte": "^3.37.0 || ^4.0.0 || ^5.0.0"
+		},
+		"engines": {
+			"node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/sveltejs/eslint-plugin-svelte.git",
+			"type": "git",
+			"directory": "packages/eslint-plugin-svelte"
+		},
+		"integrity": "sha512-XYzp318u8UkDH4ZdRkdSomOYnwMTeJP2Zw9u6DuBj3mViFZD8zS+mhfTYq34plm3SH9eF7ZaiYJfQYq2xMhPHg=="
+	},
+	{
+		"name": "lightweight-charts",
+		"old": "5.2.1",
+		"version": "5.3.0",
+		"repository": {
+			"url": "git+https://github.com/tradingview/lightweight-charts.git",
+			"type": "git"
+		},
+		"integrity": "sha512-w16fu2/FteUkIJdgc9G2tOCKs1fwFSqnqF8+kMgHGv0uGIfcfpEJhziSaQbML1yrkbeg4nQXV3msjmhBzhLNhw=="
+	},
+	{
+		"name": "playwright",
+		"old": "1.64.1",
+		"version": "1.65.1",
+		"engines": {
+			"node": ">=20"
+		},
+		"repository": {
+			"url": "git+https://github.com/microsoft/playwright.git",
+			"type": "git"
+		},
+		"integrity": "sha512-vJ1FuoOrNwOKHUIVEvSt3jT1L+wjjDpwhwIstKtfvTh8XIG4FG4bIFuvNdMxi81LGfAhUgUZleVFaOLY4RIUUw=="
+	},
+	{
+		"name": "postgres",
+		"old": "4.0.0",
+		"version": "4.1.1",
+		"engines": {
+			"node": ">=18"
+		},
+		"repository": {
+			"url": "git+https://github.com/porsager/postgres.git",
+			"type": "git"
+		},
+		"integrity": "sha512-1kJDojqNZC+iTHHXh6eif0J98LUtyLAePe/qkW1GK35eh2JixlsAiIKq3FGI+xqI+SUGTNodzf7TScVeIIyUug=="
+	},
+	{
+		"name": "resend",
+		"old": "6.37.0",
+		"version": "6.38.1",
+		"peerDependencies": {
+			"@react-email/render": "*"
+		},
+		"engines": {
+			"node": ">=20"
+		},
+		"repository": {
+			"url": "git+https://github.com/resend/resend-node.git",
+			"type": "git"
+		},
+		"integrity": "sha512-166POyY8qTbxQQwYXQJ6hx7y1vnL51iB9WW76Xe1/bJsW03lCOWYW3eJW7nNlfvWM5ohI3WtUHnqO3rofiO8Lw=="
+	},
+	{
+		"name": "vite-plus",
+		"old": "1.4.0",
+		"version": "1.6.0",
+		"peerDependencies": {
+			"playwright": "*",
+			"@vitest/browser-playwright": "5.1.0",
+			"@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+		},
+		"engines": {
+			"node": "^22.18.0 || ^24.11.0 || >=26.0.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/voidzero-dev/vite-plus.git",
+			"type": "git",
+			"directory": "packages/cli"
+		},
+		"integrity": "sha512-h6aIA80QcAhICBp2Xga8lPM9jOZm2VvPn7Ls531C7RjD9herrT1rPDUMY72IdFf1XyWDmFVEwO+W3EgXtSSMLQ=="
+	},
+	{
+		"name": "vitest",
+		"old": "5.0.5",
+		"version": "5.1.0",
+		"peerDependencies": {
+			"vite": "^6.4.0 || ^7.0.0 || ^8.0.0",
+			"jsdom": "*",
+			"happy-dom": "*",
+			"@vitest/ui": "5.1.0",
+			"@types/node": "^22.0.0 || >=24.0.0",
+			"@edge-runtime/vm": "*",
+			"@opentelemetry/api": "^1.9.0",
+			"@vitest/coverage-v8": "5.1.0",
+			"@vitest/browser-preview": "5.1.0",
+			"@vitest/coverage-istanbul": "5.1.0",
+			"@vitest/browser-playwright": "5.1.0",
+			"@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+		},
+		"engines": {
+			"node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+		},
+		"repository": {
+			"url": "git+https://github.com/vitest-dev/vitest.git",
+			"type": "git",
+			"directory": "packages/vitest"
+		},
+		"integrity": "sha512-MzmNFnrwa8v8lF1bLxw3UJ4EREwVOVb75VqJZmUDRjJ6EluK/x9th7qTbaeDk41WxE1GxWqmTXcdsfobfH5sOA=="
+	}
+]

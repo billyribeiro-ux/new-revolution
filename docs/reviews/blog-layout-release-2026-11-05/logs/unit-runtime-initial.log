@@ -1,0 +1,28 @@
+$ vp test --run
+
+ RUN  v5.0.5 /private/tmp/wt-blog-audit-20261105
+
+ ❯ |server| src/lib/server/auth-role.db.spec.ts (3 tests | 3 skipped) 10177ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| src/lib/server/auth-role.db.spec.ts > Better Auth user.role (auth-role.db.spec)
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ src/lib/server/auth-role.db.spec.ts:49:2
+     47|  let auth: typeof import('./auth.ts').auth;
+     48|
+     49|  beforeAll(async () => {
+       |  ^
+     50|   process.env.BETTER_AUTH_SECRET = 'test-secret-with-at-least-32-chara…
+     51|   testEnv = await createTestDatabase();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 78 passed (79)
+      Tests  572 passed | 3 skipped (575)
+   Start at  14:20:58
+   Duration  31.13s (worker 42%, tests 29%, transform 17%, import 12%)
+
+[ELIFECYCLE] Command failed with exit code 1.

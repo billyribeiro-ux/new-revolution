@@ -1,0 +1,3 @@
+$ node --env-file-if-exists=.env scripts/import-markdown-posts.ts --dry-run
+.env not found. Continuing without it.
+[import-markdown-posts] Completed (dry-run): 40 imported, 0 updated, 201 image placeholders synced (status=draft).

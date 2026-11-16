@@ -1,0 +1,17 @@
+[
+	{
+		"stage": "seed",
+		"args": ["db:seed-admin"],
+		"exitCode": 0
+	},
+	{
+		"stage": "e2e",
+		"args": ["test:e2e"],
+		"exitCode": 1
+	},
+	{
+		"stage": "revoke",
+		"args": ["db:seed-admin", "--revoke"],
+		"exitCode": 0
+	}
+]

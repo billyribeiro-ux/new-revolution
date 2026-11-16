@@ -1,0 +1,34 @@
+[
+	{
+		"file": "src/lib/components/home/BlogSection.svelte",
+		"version": "5.57.3",
+		"compilerAsync": true,
+		"issues": [],
+		"suggestions": [],
+		"require_another_tool_call_after_fixing": false
+	},
+	{
+		"file": "src/lib/components/blog/PostCard.svelte",
+		"version": "5.57.3",
+		"compilerAsync": true,
+		"issues": [],
+		"suggestions": [],
+		"require_another_tool_call_after_fixing": false
+	},
+	{
+		"file": "src/routes/+page.svelte",
+		"version": "5.57.3",
+		"compilerAsync": true,
+		"issues": [],
+		"suggestions": [],
+		"require_another_tool_call_after_fixing": false
+	},
+	{
+		"file": "src/routes/blog/+page.svelte",
+		"version": "5.57.3",
+		"compilerAsync": true,
+		"issues": [],
+		"suggestions": [],
+		"require_another_tool_call_after_fixing": false
+	}
+]

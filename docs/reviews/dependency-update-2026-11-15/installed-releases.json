@@ -1,0 +1,272 @@
+[
+	{
+		"name": "@electric-sql/pglite",
+		"previous": "0.5.15",
+		"requested": "0.5.16",
+		"installed": "0.5.16"
+	},
+	{
+		"name": "@sveltejs/adapter-vercel",
+		"previous": "7.0.2",
+		"requested": "7.0.3",
+		"installed": "7.0.3"
+	},
+	{
+		"name": "@sveltejs/enhanced-img",
+		"previous": "1.0.0",
+		"requested": "1.0.1",
+		"installed": "1.0.1"
+	},
+	{
+		"name": "auth",
+		"previous": "1.7.15",
+		"requested": "1.7.25",
+		"installed": "1.7.25"
+	},
+	{
+		"name": "better-auth",
+		"previous": "1.7.15",
+		"requested": "1.7.25",
+		"installed": "1.7.25"
+	},
+	{
+		"name": "d3",
+		"previous": "7.9.0",
+		"requested": "7.9.2",
+		"installed": "7.9.2"
+	},
+	{
+		"name": "gsap",
+		"previous": "3.15.0",
+		"requested": "3.15.1",
+		"installed": "3.15.1"
+	},
+	{
+		"name": "sanitize-html",
+		"previous": "2.18.1",
+		"requested": "2.18.2",
+		"installed": "2.18.2"
+	},
+	{
+		"name": "typescript-eslint",
+		"previous": "8.72.1",
+		"requested": "8.72.2",
+		"installed": "8.72.2"
+	},
+	{
+		"name": "@playwright/test",
+		"previous": "1.64.1",
+		"requested": "1.65.1",
+		"installed": "1.65.1"
+	},
+	{
+		"name": "@sveltejs/kit",
+		"previous": "3.1.1",
+		"requested": "3.2.0",
+		"installed": "3.2.0"
+	},
+	{
+		"name": "@tiptap/core",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-character-count",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-color",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-highlight",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-image",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-link",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-placeholder",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-subscript",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-superscript",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-table",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-table-cell",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-table-header",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-table-row",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-task-item",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-task-list",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-text-align",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-text-style",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-typography",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-underline",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/extension-youtube",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/pm",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@tiptap/starter-kit",
+		"previous": "3.32.2",
+		"requested": "3.34.0",
+		"installed": "3.34.0"
+	},
+	{
+		"name": "@vercel/blob",
+		"previous": "2.8.2",
+		"requested": "2.9.0",
+		"installed": "2.9.0"
+	},
+	{
+		"name": "@vitest/browser-playwright",
+		"previous": "5.0.5",
+		"requested": "5.1.0",
+		"installed": "5.1.0"
+	},
+	{
+		"name": "vite",
+		"previous": "1.4.0",
+		"requested": "1.6.0",
+		"installed": "1.6.0"
+	},
+	{
+		"name": "carbon-icons-svelte",
+		"previous": "13.17.0",
+		"requested": "13.18.0",
+		"installed": "13.18.0"
+	},
+	{
+		"name": "eslint",
+		"previous": "10.14.0",
+		"requested": "10.15.0",
+		"installed": "10.15.0"
+	},
+	{
+		"name": "eslint-plugin-svelte",
+		"previous": "3.23.1",
+		"requested": "3.24.1",
+		"installed": "3.24.1"
+	},
+	{
+		"name": "lightweight-charts",
+		"previous": "5.2.1",
+		"requested": "5.3.0",
+		"installed": "5.3.0"
+	},
+	{
+		"name": "playwright",
+		"previous": "1.64.1",
+		"requested": "1.65.1",
+		"installed": "1.65.1"
+	},
+	{
+		"name": "postgres",
+		"previous": "4.0.0",
+		"requested": "4.1.1",
+		"installed": "4.1.1"
+	},
+	{
+		"name": "resend",
+		"previous": "6.37.0",
+		"requested": "6.38.1",
+		"installed": "6.38.1"
+	},
+	{
+		"name": "vite-plus",
+		"previous": "1.4.0",
+		"requested": "1.6.0",
+		"installed": "1.6.0"
+	},
+	{
+		"name": "vitest",
+		"previous": "5.0.5",
+		"requested": "5.1.0",
+		"installed": "5.1.0"
+	}
+]

@@ -1,0 +1,23 @@
+{
+	"handoffReferences": 40,
+	"claudeImport": true,
+	"seoCopiesIdentical": true,
+	"applicationHashesMatchTestedRelease": true,
+	"inheritedMarkdownFormattingLeftUnchanged": ["blogs/first-blog.md", "blogs/head-to-head-blog.md"],
+	"gates": {
+		"repositoryLint": {
+			"exitCode": 1,
+			"cause": "Inherited formatting in two owner-authored drafts; preserved unchanged"
+		},
+		"ownedFormatting": {
+			"exitCode": 0
+		},
+		"oxlint": {
+			"exitCode": 0
+		},
+		"svelteEslint": {
+			"exitCode": 0
+		},
+		"applicationSourceDiffAgainstPublishedCommit": false
+	}
+}

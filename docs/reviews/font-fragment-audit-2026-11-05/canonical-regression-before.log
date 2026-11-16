@@ -1,0 +1,49 @@
+note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
+
+ RUN  v5.0.5 /private/tmp/wt-font-fragment-audit-20261105
+
+ ❯ |server| src/lib/shared/schemas/posts.spec.ts (8 tests | 1 failed) 13ms
+   ❯ Shared Zod Schemas (Section 7.2) (8)
+     × rejects canonical fragments on new and updated posts while preserving section links in content 6ms
+ ❯ |server| src/lib/seo/blog-seo.spec.ts (13 tests | 1 failed) 6ms
+   ❯ buildBlogPageMetaTags (5)
+     × removes a section fragment from a legacy canonical override and og:url 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |server| src/lib/seo/blog-seo.spec.ts > buildBlogPageMetaTags > removes a section fragment from a legacy canonical override and og:url
+AssertionError: expected 'https://www.revolutiontradingpros.com…' to be 'https://www.revolutiontradingpros.com…' // Object.is equality
+
+Expected: "https://www.revolutiontradingpros.com/blog/article"
+Received: "https://www.revolutiontradingpros.com/blog/article#1-risk"
+
+ ❯ src/lib/seo/blog-seo.spec.ts:136:41
+    134|    canonicalOverride: 'https://www.revolutiontradingpros.com/blog/arti…
+    135|   });
+    136|   expect(result.pageMetaTags.canonical).toBe('https://www.revolutiontr…
+       |                                         ^
+    137|   expect(result.pageMetaTags.openGraph?.url).toBe('https://www.revolut…
+    138|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |server| src/lib/shared/schemas/posts.spec.ts > Shared Zod Schemas (Section 7.2) > rejects canonical fragments on new and updated posts while preserving section links in content
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/lib/shared/schemas/posts.spec.ts:19:52
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 19 passed (21)
+   Start at  19:37:42
+   Duration  330ms (transform 72%, import 22%, tests 5%, worker 1%)
+

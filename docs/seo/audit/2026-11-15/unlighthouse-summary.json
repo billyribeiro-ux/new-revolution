@@ -1,0 +1,426 @@
+[
+	{
+		"path": "/",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/about",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/alert-services/spx-profit-pulse",
+		"score": 0.96,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/alert-services/sunday-alpha-protocol",
+		"score": 0.96,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/blog",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/blog/category/market-structure",
+		"score": 0.99,
+		"performance": 0.97,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/blog/institutional-order-flow-and-gamma-flip-playbook",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/blog/private-desk-quarterly-gamma-levels-briefing",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/blog/tag/spx-options",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/blog/zero-dte-risk-management-and-position-sizing-rules",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/contact",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/editorial-policy",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/live-trading-rooms/day-trading-room",
+		"score": 0.96,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/live-trading-rooms/small-accounts-room",
+		"score": 0.96,
+		"performance": 0.82,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/live-trading-rooms/swing-trading-room",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/mentorship",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/our-mission",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/privacy-policy",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/refund-policy",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/resources",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/resources/etf-stocks-list",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/resources/stock-indexes-list",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 0.99,
+		"best-practices": 1,
+		"seo": 1
+	},
+	{
+		"path": "/store/courses",
+		"score": 0.87,
+		"performance": 0.82,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/contrarian-distribution-and-shorting",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/institutional-risk-and-trader-psychology",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/macro-cycle-inflection-mastery",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/move-prior-to-the-move-masterclass",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/move-prior-to-the-move-ultra",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/options-greeks-and-volatility-mastery",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/small-account-compounding-blueprint",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/spx-0dte-and-index-gamma-execution",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/courses/working-pro-swing-trading-system",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators",
+		"score": 0.87,
+		"performance": 0.82,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/anchored-vwap-liquidity-bands",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/institutional-volume-absorption",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/move-prior-to-the-move-pro",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/move-prior-to-the-move-system",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/mp-early-in-n-out-pro",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/multi-timeframe-squeeze-pro",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/options-expected-move-corridor",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/spx-dealer-gamma-levels",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/indicators/volatility-regime-compass",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners",
+		"score": 0.87,
+		"performance": 0.82,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/high-octane-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/liquidity-sweep-stop-hunt-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/move-prior-to-the-move-radar",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/multi-timeframe-squeeze-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/opening-bell-gap-and-go-fade-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/small-account-affordable-options-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/smart-money-relative-volume-scanner",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/spx-dealer-gamma-iv-skew-scanner",
+		"score": 0.92,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/store/scanners/working-pro-eod-swing-scanner",
+		"score": 0.88,
+		"performance": 0.85,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 0.66
+	},
+	{
+		"path": "/terms-of-service",
+		"score": 1,
+		"performance": 1,
+		"accessibility": 1,
+		"best-practices": 1,
+		"seo": 1
+	}
+]

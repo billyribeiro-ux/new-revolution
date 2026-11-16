@@ -1,0 +1,176 @@
+[
+	{
+		"width": 390,
+		"status": 200,
+		"errors": [],
+		"images": [
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-480w.webp",
+				"width": 366,
+				"height": 205,
+				"complete": true,
+				"alt": "Hypothetical SPX price path between illustrative 7,650 and 7,750 levels, alongside contract, payoff and evidence checks."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-480w.webp",
+				"width": 366,
+				"height": 205,
+				"complete": true,
+				"alt": "Illustrative base-rate calculation on $100,000 of gains: $26,800 using a 60/40 split and assumed 20% and 37% rates, versus $37,000 at an assumed 37% rate."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-480w.webp",
+				"width": 366,
+				"height": 205,
+				"complete": true,
+				"alt": "Conditional hedging diagram: a long-gamma dealer sells underlying after a rise and buys after a fall; a short-gamma dealer does the opposite."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-480w.webp",
+				"width": 366,
+				"height": 205,
+				"complete": true,
+				"alt": "Three hypothetical expiration payoff charts for a $300-credit iron condor, a $320-debit bear put spread and a $140-debit equal-wing call butterfly."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-480w.webp",
+				"width": 366,
+				"height": 205,
+				"complete": true,
+				"alt": "Illustrative full-session workflow: observe the open, evaluate conditions, manage risk and review exit exposure; 2:30 p.m. is marked as an optional planning checkpoint."
+			},
+			{
+				"src": "http://localhost:4580/og-image.png",
+				"width": 1200,
+				"height": 630,
+				"complete": true,
+				"alt": "Institutional SPX gamma exposure and order flow chart"
+			},
+			{
+				"src": "http://localhost:4580/og-image.png",
+				"width": 1200,
+				"height": 630,
+				"complete": true,
+				"alt": "Zero DTE options risk management matrix"
+			}
+		],
+		"title": "0DTE SPX Options Strategy Guide",
+		"bodyCharacters": 21805,
+		"bodyWords": 3192,
+		"sectionHeadings": [
+			"1. What 0DTE changes about the trade",
+			"2. SPX, XSP and SPY: settlement and tax differences",
+			"3. Gamma exposure: useful model, incomplete inventory",
+			"4. Three spread structures and what their math proves",
+			"The iron condor: a high win rate can still lose",
+			"The bear put spread: check moneyness and price",
+			"The butterfly: attractive peak, narrow target",
+			"5. Build a session plan instead of a universal time signal",
+			"6. A chart study that does not pretend to measure GEX",
+			"7. Margin eligibility and a consistent loss budget",
+			"8. Next steps and risk disclosure"
+		],
+		"sectionCount": 8,
+		"lastBodyText": "e descriptions and\n\trisk disclosure before deciding\n\twhether an offering fits your needs.\n\n\n\tRisk disclosure: This material is general financial education, not an\n\tindividualized recommendation, tax opinion or offer to transact. Options can lose the entire\n\tpremium or the maximum loss of an intact spread quickly. Fees, slippage, liquidity, exercise\n\tinstructions and changes to the legs affect outcomes. Hypothetical calculations are not actual\n\tperformance. Read the OCC's\n\tCharacteristics and Risks of Standardized Options, obtain your broker's current requirements and consult qualified financial and tax professionals\n\tabout your circumstances.",
+		"faqCount": 5,
+		"footerPresent": true,
+		"horizontalOverflow": -15,
+		"articleRect": {
+			"x": 12,
+			"y": -20890.578125,
+			"width": 351,
+			"height": 15502.0625,
+			"top": -20890.578125,
+			"right": 363,
+			"bottom": -5388.515625,
+			"left": 12
+		}
+	},
+	{
+		"width": 1440,
+		"status": 200,
+		"errors": [],
+		"images": [
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/execution-map-bf2c94c74c13-1600w.webp",
+				"width": 1376,
+				"height": 774,
+				"complete": true,
+				"alt": "Hypothetical SPX price path between illustrative 7,650 and 7,750 levels, alongside contract, payoff and evidence checks."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/tax-comparison-7594e3466764-1200w.webp",
+				"width": 1376,
+				"height": 774,
+				"complete": true,
+				"alt": "Illustrative base-rate calculation on $100,000 of gains: $26,800 using a 60/40 split and assumed 20% and 37% rates, versus $37,000 at an assumed 37% rate."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/dealer-hedging-323e5d294f61-1200w.webp",
+				"width": 1376,
+				"height": 774,
+				"complete": true,
+				"alt": "Conditional hedging diagram: a long-gamma dealer sells underlying after a rise and buys after a fall; a short-gamma dealer does the opposite."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/spread-payoffs-ec2b2821a264-1200w.webp",
+				"width": 1376,
+				"height": 774,
+				"complete": true,
+				"alt": "Three hypothetical expiration payoff charts for a $300-credit iron condor, a $320-debit bear put spread and a $140-debit equal-wing call butterfly."
+			},
+			{
+				"src": "https://zwossun6na8dj1wl.public.blob.vercel-storage.com/session-plan-357f2de8fc94-1200w.webp",
+				"width": 1376,
+				"height": 774,
+				"complete": true,
+				"alt": "Illustrative full-session workflow: observe the open, evaluate conditions, manage risk and review exit exposure; 2:30 p.m. is marked as an optional planning checkpoint."
+			},
+			{
+				"src": "http://localhost:4580/og-image.png",
+				"width": 1200,
+				"height": 630,
+				"complete": true,
+				"alt": "Institutional SPX gamma exposure and order flow chart"
+			},
+			{
+				"src": "http://localhost:4580/og-image.png",
+				"width": 1200,
+				"height": 630,
+				"complete": true,
+				"alt": "Zero DTE options risk management matrix"
+			}
+		],
+		"title": "0DTE SPX Options Strategy Guide",
+		"bodyCharacters": 21805,
+		"bodyWords": 3192,
+		"sectionHeadings": [
+			"1. What 0DTE changes about the trade",
+			"2. SPX, XSP and SPY: settlement and tax differences",
+			"3. Gamma exposure: useful model, incomplete inventory",
+			"4. Three spread structures and what their math proves",
+			"The iron condor: a high win rate can still lose",
+			"The bear put spread: check moneyness and price",
+			"The butterfly: attractive peak, narrow target",
+			"5. Build a session plan instead of a universal time signal",
+			"6. A chart study that does not pretend to measure GEX",
+			"7. Margin eligibility and a consistent loss budget",
+			"8. Next steps and risk disclosure"
+		],
+		"sectionCount": 8,
+		"lastBodyText": "e descriptions and\n\trisk disclosure before deciding\n\twhether an offering fits your needs.\n\n\n\tRisk disclosure: This material is general financial education, not an\n\tindividualized recommendation, tax opinion or offer to transact. Options can lose the entire\n\tpremium or the maximum loss of an intact spread quickly. Fees, slippage, liquidity, exercise\n\tinstructions and changes to the legs affect outcomes. Hypothetical calculations are not actual\n\tperformance. Read the OCC's\n\tCharacteristics and Risks of Standardized Options, obtain your broker's current requirements and consult qualified financial and tax professionals\n\tabout your circumstances.",
+		"faqCount": 5,
+		"footerPresent": true,
+		"horizontalOverflow": -15,
+		"articleRect": {
+			"x": 32,
+			"y": -12404.609375,
+			"width": 1361,
+			"height": 9757.546875,
+			"top": -12404.609375,
+			"right": 1393,
+			"bottom": -2647.0625,
+			"left": 32
+		}
+	}
+]

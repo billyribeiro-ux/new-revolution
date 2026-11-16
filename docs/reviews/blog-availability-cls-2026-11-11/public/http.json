@@ -1,0 +1,47 @@
+[
+	{
+		"path": "/",
+		"status": 200,
+		"robotsHeader": null,
+		"canonical": "https://www.revolutiontradingpros.com",
+		"articlePresent": true
+	},
+	{
+		"path": "/blog",
+		"status": 200,
+		"robotsHeader": null,
+		"canonical": "https://www.revolutiontradingpros.com/blog",
+		"articlePresent": true
+	},
+	{
+		"path": "/blog/0dte-spx-options-strategy-guide",
+		"status": 200,
+		"robotsHeader": null,
+		"canonical": "https://www.revolutiontradingpros.com/blog/0dte-spx-options-strategy-guide",
+		"articlePresent": true
+	},
+	{
+		"path": "/sitemap.xml",
+		"status": 200,
+		"robotsHeader": "noindex",
+		"articlePresent": true
+	},
+	{
+		"path": "/cart",
+		"status": 403,
+		"robotsHeader": "noindex, nofollow",
+		"articlePresent": false
+	},
+	{
+		"path": "/checkout",
+		"status": 403,
+		"robotsHeader": "noindex, nofollow",
+		"articlePresent": false
+	},
+	{
+		"path": "/api/subscriptions",
+		"status": 403,
+		"robotsHeader": "noindex, nofollow",
+		"articlePresent": false
+	}
+]

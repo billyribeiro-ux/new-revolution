@@ -1,12 +1,17 @@
-import { STATIC_TODO_PAGES, buildTodoPageMetaTags } from '#lib/data/todo-pages.ts';
+import { definePageMetaTags } from 'svelte-meta-tags';
+import {
+	buildMembershipsJsonLd,
+	getCanonicalUrl,
+	MEMBERSHIPS_DESCRIPTION,
+	SITE_ORIGIN
+} from '#lib/seo/structured-data.ts';
 import type { PageLoad } from './$types';
-
 export const prerender = true;
-
-export const load: PageLoad = () => {
-	const spec = STATIC_TODO_PAGES['/memberships'];
-	return {
-		...buildTodoPageMetaTags(spec),
-		todoSpec: spec
-	};
-};
+export const load: PageLoad = ({ url }) => ({
+	...definePageMetaTags({
+		title: 'Compare Trading Memberships',
+		description: MEMBERSHIPS_DESCRIPTION,
+		canonical: getCanonicalUrl(url)
+	}),
+	jsonLdSchema: buildMembershipsJsonLd(SITE_ORIGIN)
+});

@@ -130,14 +130,16 @@
 					<span class="eyebrow-pill__text">Black-Scholes Greeks · Vertical Spreads · Sizing</span>
 				</div>
 
-				<h1 id="opt-calc-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Options Profit, Breakeven &amp; Greeks Calculator
-					</span>
-					<span class="hero-h1__display">
-						Model Delta, Daily Theta Bleed &amp; Small-Account Risk Before You Route an Order.
-					</span>
-				</h1>
+					</p>
+					<h1 id="opt-calc-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Model Delta, Daily Theta Bleed &amp; Small-Account Risk Before You Route an Order.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Calling the structural direction on a chart is half the battle — overpaying for implied

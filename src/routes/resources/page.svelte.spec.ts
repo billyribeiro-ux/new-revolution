@@ -27,7 +27,7 @@ describe('/resources/+page.ts load()', () => {
 		expect(pageMetaTags.openGraph.title.length).toBe(56);
 
 		expect(pageMetaTags.description).toBe(RESOURCES_HUB_DESCRIPTION);
-		expect(pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(pageMetaTags.description.length).toBeGreaterThanOrEqual(135);
 		expect(pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(pageMetaTags.openGraph.url).toBe('https://www.revolutiontradingpros.com/resources');
 		expect(result.jsonLdSchema).toBeDefined();

@@ -54,7 +54,7 @@ describe('/alert-services/spx-profit-pulse/+page.svelte', () => {
 
 		const h1s = document.querySelectorAll('h1');
 		expect(h1s.length).toBe(1);
-		expect(h1s[0].querySelector('.seo-kicker')?.textContent?.trim()).toContain(
+		expect(document.querySelector('hgroup > .seo-kicker')?.textContent?.trim()).toContain(
 			'SPX Profit Pulse • Real-Time S&P 500 & 0DTE Index Options Trade Alert Service'
 		);
 		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain(

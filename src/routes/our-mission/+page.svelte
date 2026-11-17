@@ -242,15 +242,17 @@
 					<span class="eyebrow-pill__text">Why We Focus on People Over Profits</span>
 				</div>
 
-				<h1 id="mission-h1" class="hero-h1">
-					<span class="hero-h1__kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__kicker seo-kicker">
 						Our Mission: Honest Stock &amp; Options Trading Education, Live Execution &amp; Member
 						Success
-					</span>
-					<span class="hero-h1__display">
-						Our Goal Is to Help You Build Your Dreams, Not Drain Your Capital.
-					</span>
-				</h1>
+					</p>
+					<h1 id="mission-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Our Goal Is to Help You Build Your Dreams, Not Drain Your Capital.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Most trading education services are built with a single, predatory goal: extract as much

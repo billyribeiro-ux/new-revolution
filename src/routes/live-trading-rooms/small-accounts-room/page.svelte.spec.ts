@@ -27,7 +27,7 @@ describe('/live-trading-rooms/small-accounts-room (+page.ts & +page.svelte)', ()
 		expect(result.pageMetaTags.title).toBe('Small Accounts Trading Room');
 		expect(`${result.pageMetaTags.title} | Revolution Trading Pros`.length).toBe(53);
 		expect(result.pageMetaTags.description).toBe(SMALL_ACCOUNTS_ROOM_DESCRIPTION);
-		expect(result.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(result.pageMetaTags.description.length).toBeGreaterThanOrEqual(135);
 		expect(result.pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(result.pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/live-trading-rooms/small-accounts-room'

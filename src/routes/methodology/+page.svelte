@@ -54,14 +54,14 @@
 					<span class="eyebrow-pill__text">Zero Lagging Oscillators · Pure Market Structure</span>
 				</div>
 
-				<h1 id="methodology-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
-						Price Action Trading Without Indicators
-					</span>
-					<span class="hero-h1__display">
-						Inside {BRAND.methodology}: Monthly-to-1-Minute Pure Price Structure.
-					</span>
-				</h1>
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">Price Action Trading Without Indicators</p>
+					<h1 id="methodology-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Inside {BRAND.methodology}: Monthly-to-1-Minute Pure Price Structure.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					<strong>{BRAND.methodology}</strong> is {BRAND.founder.name}’s 100% indicator-free

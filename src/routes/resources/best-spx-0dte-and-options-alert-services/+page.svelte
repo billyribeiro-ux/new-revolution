@@ -46,14 +46,16 @@
 					<span class="eyebrow-pill__text">5-Point Blueprints vs. Raw SMS/Discord Pings</span>
 				</div>
 
-				<h1 id="alerts-comp-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Best SPX 0DTE &amp; Options Alert Services (2026)
-					</span>
-					<span class="hero-h1__display">
-						Why Pre-Trade Structural Blueprints Beat Blind “Buy Now” Signal Chats.
-					</span>
-				</h1>
+					</p>
+					<h1 id="alerts-comp-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Why Pre-Trade Structural Blueprints Beat Blind “Buy Now” Signal Chats.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					On fast-moving SPX 0DTE and weekly options, a raw “BTO Strike @ $3.20” ping with zero

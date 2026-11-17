@@ -294,7 +294,7 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 		}
 	});
 
-	test('enforces noindex and no canonical on non-indexable routes in 02-inventory.json (IDX-08)', async ({
+	test('enforces noindex and self-canonical URLs on non-indexable routes in 02-inventory.json (IDX-08)', async ({
 		page
 	}) => {
 		for (const nonIndexUrl of [
@@ -325,8 +325,8 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 			expect(robots, `${nonIndexUrl} must be noindex`).toContain('noindex');
 			await expect(
 				page.locator('head link[rel="canonical"]'),
-				`${nonIndexUrl} must not emit rel="canonical"`
-			).toHaveCount(0);
+				`${nonIndexUrl} must emit its production canonical`
+			).toHaveAttribute('href', `${ORIGIN}${nonIndexUrl}`);
 		}
 	});
 });

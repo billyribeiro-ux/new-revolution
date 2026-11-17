@@ -62,7 +62,9 @@ This document is the authoritative CSS, design-token, 3-font pipeline, fluid-typ
 
 ---
 
-## 3. Self-Hosted 3-Font Pipeline & Zero Font `href` Policy
+> **November 16 owner master-spec override:** Exactly two same-origin critical WOFF2 preloads are permitted in `src/app.html`: Plus Jakarta Sans Bold and Inter Regular. No other font links or external font providers are permitted; framework automatic font preload injection remains disabled.
+
+## 3. Self-Hosted 3-Font Pipeline & Critical Preload Policy
 
 All fonts are self-hosted `.woff2` binaries in `static/fonts/` (`PlusJakartaSans-{SemiBold,Bold,ExtraBold}.woff2`, `Inter-{Regular,Medium,SemiBold}.woff2`, and `GeistMono-Variable.woff2`), licensed under `OFL-1.1` ([`static/fonts/LICENSES.txt`](../static/fonts/LICENSES.txt)), and declared via `@font-face` **exclusively** in `src/app.css` with `font-display: optional`.
 
@@ -76,7 +78,7 @@ All fonts are self-hosted `.woff2` binaries in `static/fonts/` (`PlusJakartaSans
 
 ### 3.2 Mandatory Font Loading Rules & Documented Exceptions
 
-1. **Zero Font `href` Tags Anywhere:** Never emit `<link rel="preload" as="font" href="...">`, `<link href="...woff2">`, external font stylesheet `<link>` tags, or external `@import url(...)`.
+1. **Two Critical Preloads:** Only `src/app.html` may preload the same-origin Plus Jakarta Sans Bold and Inter Regular WOFF2 files, with anonymous crossorigin. All other font links, external font stylesheet links, and external CSS imports remain forbidden.
 2. **No Framework Font Preload Injection:** `shouldPreload` in [`src/hooks.server.ts`](../src/hooks.server.ts) returns `true` only for `input.type === 'js' || input.type === 'css'` and `false` for `font`.
 3. **Immutable Caching:** `/fonts/*` is served with `Cache-Control: public, max-age=31536000, immutable` in both `vercel.json` (production) and `dev-static-font-cache` in `vite.config.ts` (development), eliminating `304` revalidation swaps (`0.0000` refresh CLS).
 4. **Editor Font Normalization:** Rich-text CMS parsing/sanitization ([`src/lib/shared/brand-font.ts`](../src/lib/shared/brand-font.ts)) normalizes supported display/body families to `var(--font-display)` / `var(--font-sans)` and strips unsupported font declarations without mutating stored revision history.

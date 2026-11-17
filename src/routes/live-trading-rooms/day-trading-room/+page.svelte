@@ -216,15 +216,17 @@
 					</span>
 				</div>
 
-				<h1 id="day-room-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Live Stock, ETF &amp; Options Day Trading Room • Real-Time Voice &amp; Screen Share
-					</span>
-					<span class="hero-h1__display">
-						Stop Trading Alone Against Wall Street Algorithms. Trade the Opening Bell Live With Our
-						Desk.
-					</span>
-				</h1>
+					</p>
+					<h1 id="day-room-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Stop Trading Alone Against Wall Street Algorithms. Trade the Opening Bell Live With
+							Our Desk.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					When you log into our <strong>Live Day Trading Room</strong>, you immediately know you

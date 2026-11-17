@@ -310,15 +310,17 @@
 						</span>
 					</div>
 
-					<h1 id="scanners-h1" class="hero-h1" itemprop="name">
-						<span class="hero-h1__seo-kicker seo-kicker">
+					<hgroup>
+						<p class="hero-h1__seo-kicker seo-kicker">
 							Live Stock, ETF &amp; Options Trading Scanners • Institutional Order Flow &amp;
 							Squeeze Radar
-						</span>
-						<span class="hero-h1__display">
-							Stop Flipping Through 500 Charts by Hand. Let Institutional Order Flow Come to You.
-						</span>
-					</h1>
+						</p>
+						<h1 id="scanners-h1" class="hero-h1" itemprop="name">
+							<span class="hero-h1__display">
+								Stop Flipping Through 500 Charts by Hand. Let Institutional Order Flow Come to You.
+							</span>
+						</h1>
+					</hgroup>
 
 					<p class="lead-copy" itemprop="description">
 						By the time a ticker trends on social media or trips a basic retail stock screener, the

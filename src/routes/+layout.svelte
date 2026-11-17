@@ -33,12 +33,6 @@
 		stripLocationHash();
 	});
 
-	$effect(() => {
-		stripLocationHash();
-		window.addEventListener('hashchange', stripLocationHash);
-		return () => window.removeEventListener('hashchange', stripLocationHash);
-	});
-
 	// A deployment can replace prerendered pages with maintenance responses.
 	// Check on client navigation as well, including when Kit has preloaded a page.
 	onNavigate(async ({ to }) => {
@@ -80,12 +74,14 @@
 			return {
 				...merged,
 				additionalRobotsProps: undefined,
-				canonical: undefined
+				canonical: merged.canonical || `${BRAND.domain}${page.url.pathname}`
 			};
 		}
 		return merged;
 	});
 </script>
+
+<svelte:window onhashchange={stripLocationHash} />
 
 <svelte:head>
 	<!-- Brand emblem icons (static/). Google: square favicon, larger than 48x48 recommended, crawlable at a stable URL. -->

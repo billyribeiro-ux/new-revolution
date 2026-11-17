@@ -280,10 +280,12 @@
 							<span class="eyebrow-pill__badge">{indicatorConfig.eyebrowBadge}</span>
 						</div>
 
-						<h1 id="product-h1" class="hero-h1">
-							<span class="hero-h1__kicker">{indicatorConfig.seoKicker}</span>
-							<span class="hero-h1__display">{indicatorConfig.heroTitle}</span>
-						</h1>
+						<hgroup>
+							<p class="hero-h1__kicker">{indicatorConfig.seoKicker}</p>
+							<h1 id="product-h1" class="hero-h1">
+								<span class="hero-h1__display">{indicatorConfig.heroTitle}</span>
+							</h1>
+						</hgroup>
 
 						<div class="instructor-strip">
 							<img

@@ -1,3 +1,4 @@
+import { consolidateJsonLdGraph } from './graph';
 import { BRAND } from '#lib/config/brand.ts';
 import { ALERT_SERVICE_CARDS } from '#lib/data/alert-services-hub.ts';
 import { coursesCatalog } from '#lib/data/courses.ts';
@@ -210,7 +211,7 @@ export const SWING_TRADING_ROOM_DESCRIPTION =
 	'Multi-day stock, ETF, and options swing trading room for 9-to-5 working professionals with Sunday macro plans, evening reviews, and defined invalidation.';
 
 export const SMALL_ACCOUNTS_ROOM_DESCRIPTION =
-	'Dedicated $500+ small-account stock and options room built for T+1 cash settlement, FINRA Rule 4210 intraday margin, XSP contracts, and strict risk caps.';
+	'Dedicated $500+ small-account stock and options room built for T+1 cash rotation, FINRA Rule 4210 margin, mini-XSP, and strict risk caps.';
 
 export const ABOUT_FAQ_ITEMS: readonly FaqItem[] = [
 	{
@@ -410,7 +411,7 @@ export function buildHomepageJsonLd(origin: string, articles: readonly BlogCardP
 	// Discoverable schema respects launch policy and never advertises unsaved editorial placeholders.
 	const blogListed = isLaunchedHref('/blog') && articles.length > 0;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -464,13 +465,13 @@ export function buildHomepageJsonLd(origin: string, articles: readonly BlogCardP
 					]
 				: [])
 		]
-	};
+	});
 }
 
 export function buildAboutJsonLd(origin: string) {
 	const aboutUrl = `${origin}/about`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -514,7 +515,7 @@ export function buildAboutJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
@@ -548,7 +549,7 @@ export const MISSION_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildMissionJsonLd(origin: string) {
 	const missionUrl = `${origin}/our-mission`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -585,7 +586,7 @@ export function buildMissionJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
@@ -618,7 +619,7 @@ export const MENTORSHIP_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildMentorshipJsonLd(origin: string) {
 	const pageUrl = `${origin}/mentorship`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -666,7 +667,7 @@ export function buildMentorshipJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
@@ -708,7 +709,7 @@ export const DAY_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildDayTradingRoomJsonLd(origin: string) {
 	const pageUrl = `${origin}/live-trading-rooms/day-trading-room`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -758,7 +759,7 @@ export function buildDayTradingRoomJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
@@ -799,7 +800,7 @@ export const SWING_TRADING_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildSwingTradingRoomJsonLd(origin: string) {
 	const pageUrl = `${origin}/live-trading-rooms/swing-trading-room`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -850,7 +851,7 @@ export function buildSwingTradingRoomJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
@@ -891,7 +892,7 @@ export const SMALL_ACCOUNTS_ROOM_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildSmallAccountsRoomJsonLd(origin: string) {
 	const pageUrl = `${origin}/live-trading-rooms/small-accounts-room`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -941,11 +942,11 @@ export function buildSmallAccountsRoomJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const LIVE_TRADING_ROOMS_HUB_DESCRIPTION =
-	'Compare our three live stock, ETF, and options trading rooms across intraday opening-bell, multi-day swing, and $500+ small-account formats and risk rules.';
+	'Compare three live stock, ETF, and options trading rooms built for opening-bell day trading, 9-to-5 swing setups, and $500+ small accounts.';
 
 export const LIVE_TRADING_ROOMS_HUB_FAQ_ITEMS: readonly FaqItem[] = CONCEPT_PREVIEW
 	? [
@@ -1034,7 +1035,7 @@ export const LIVE_TRADING_ROOMS_HUB_FAQ_ITEMS: readonly FaqItem[] = CONCEPT_PREV
 export function buildLiveTradingRoomsHubJsonLd(origin: string) {
 	const pageUrl = `${origin}/live-trading-rooms`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1077,13 +1078,13 @@ export function buildLiveTradingRoomsHubJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export function buildBlogsHubJsonLd(origin: string) {
 	const pageUrl = `${origin}/blogs`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1121,7 +1122,7 @@ export function buildBlogsHubJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
@@ -1154,7 +1155,7 @@ export const INDICATORS_STORE_FAQ_ITEMS: FaqItem[] = [
 export function buildIndicatorsStoreJsonLd(origin: string) {
 	const pageUrl = `${origin}/store/indicators`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1199,7 +1200,7 @@ export function buildIndicatorsStoreJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
@@ -1235,7 +1236,7 @@ export const COURSES_STORE_FAQ_ITEMS: FaqItem[] = [
 export function buildCoursesStoreJsonLd(origin: string) {
 	const pageUrl = `${origin}/store/courses`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1280,7 +1281,7 @@ export function buildCoursesStoreJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const SINGLE_COURSE_FAQ_ITEMS: FaqItem[] = [
@@ -1321,7 +1322,7 @@ export const SINGLE_COURSE_FAQ_ITEMS: FaqItem[] = [
 export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-the-move-ultra') {
 	const pageUrl = `${origin}/store/courses/${slug}`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1372,7 +1373,7 @@ export function buildSingleCourseJsonLd(origin: string, slug = 'move-prior-to-th
 				]
 			}
 		]
-	};
+	});
 }
 
 export const SINGLE_INDICATOR_FAQ_ITEMS: FaqItem[] = [
@@ -1407,7 +1408,7 @@ export const SINGLE_INDICATOR_FAQ_ITEMS: FaqItem[] = [
 export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to-the-move-system') {
 	const pageUrl = `${origin}/store/indicators/${slug}`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1459,7 +1460,7 @@ export function buildSingleIndicatorJsonLd(origin: string, slug = 'move-prior-to
 				}
 			}
 		]
-	};
+	});
 }
 
 export const SPX_PROFIT_PULSE_DESCRIPTION =
@@ -1497,7 +1498,7 @@ export const SPX_PROFIT_PULSE_FAQ_ITEMS: FaqItem[] = [
 export function buildSpxProfitPulseJsonLd(origin: string) {
 	const pageUrl = `${origin}/alert-services/spx-profit-pulse`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1552,7 +1553,7 @@ export function buildSpxProfitPulseJsonLd(origin: string) {
 				)
 			}
 		]
-	};
+	});
 }
 
 export const SCANNERS_STORE_FAQ_ITEMS: FaqItem[] = [
@@ -1629,7 +1630,7 @@ const SCANNERS_STORE_CATALOG_ITEMS = [
 export function buildScannersStoreJsonLd(origin: string) {
 	const pageUrl = `${origin}/store/scanners`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1678,7 +1679,7 @@ export function buildScannersStoreJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const SINGLE_SCANNER_FAQ_ITEMS: FaqItem[] = [
@@ -1717,7 +1718,7 @@ export const SINGLE_SCANNER_FAQ_ITEMS: FaqItem[] = [
 export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-scanner') {
 	const pageUrl = `${origin}/store/scanners/${slug}`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1769,7 +1770,7 @@ export function buildSingleScannerJsonLd(origin: string, slug = 'high-octane-sca
 				}
 			}
 		]
-	};
+	});
 }
 
 export const ETF_STOCKS_LIST_FAQ_ITEMS: FaqItem[] = [
@@ -1803,7 +1804,7 @@ export const ETF_STOCKS_LIST_FAQ_ITEMS: FaqItem[] = [
 export function buildEtfStocksListJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/etf-stocks-list`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1851,7 +1852,7 @@ export function buildEtfStocksListJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const STOCK_INDEXES_LIST_FAQ_ITEMS: FaqItem[] = [
@@ -1901,12 +1902,12 @@ const STOCK_INDEXES_LIST_ITEMS = [
 ] as const;
 
 export const STOCK_INDEXES_LIST_DESCRIPTION =
-	'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, early assignment risk, and 60/40 IRS Section 1256 tax rules.';
+	'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, assignment risk, and Section 1256 60/40 taxes.';
 
 export function buildStockIndexesListJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/stock-indexes-list`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -1953,11 +1954,11 @@ export function buildStockIndexesListJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const RESOURCES_HUB_DESCRIPTION =
-	'Free options profit & Greeks calculator, FINRA 2026 Rule 4210 intraday margin calculator, S&P 500 ETF directory, index guide, and price-action playbooks.';
+	'Free Black-Scholes options & Greeks calculator, FINRA 2026 Rule 4210 margin sizer, S&P 500 ETF directory, and cash-settled index guides.';
 
 export const RESOURCES_HUB_UTILITIES = [
 	{
@@ -1985,7 +1986,7 @@ export const RESOURCES_HUB_UTILITIES = [
 export function buildResourcesHubJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2029,7 +2030,7 @@ export function buildResourcesHubJsonLd(origin: string) {
 				}))
 			}
 		]
-	};
+	});
 }
 
 export const SUNDAY_ALPHA_PROTOCOL_DESCRIPTION =
@@ -2072,26 +2073,11 @@ export const SUNDAY_ALPHA_PROTOCOL_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildSundayAlphaProtocolJsonLd(origin: string) {
 	const pageUrl = `${origin}/alert-services/sunday-alpha-protocol`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
 			buildOfferCatalogEntity(origin),
-			{
-				'@type': 'Person',
-				'@id': `${origin}/#billy-ribeiro`,
-				name: 'Billy Ribeiro',
-				jobTitle: 'Chief Market Strategist & Founder',
-				affiliation: {
-					'@type': 'Organization',
-					'@id': `${origin}/#organization`,
-					name: BRAND_NAME,
-					url: origin
-				},
-				description:
-					'Creator of The Move Prior to The Move™ 100% indicator-free multi-timeframe price-action methodology for U.S. equities, ETFs, and index options.',
-				sameAs: ['https://twitter.com/BillyRibeiro', 'https://tradingview.com/u/BillyRibeiro']
-			},
 			{
 				'@type': 'WebPage',
 				'@id': `${pageUrl}#webpage`,
@@ -2099,7 +2085,8 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				name: `Sunday Alpha Protocol | ${BRAND.name}`,
 				description: SUNDAY_ALPHA_PROTOCOL_DESCRIPTION,
 				inLanguage: 'en-US',
-				about: { '@id': `${pageUrl}#protocol` },
+				about: { '@id': `${pageUrl}#service` },
+				mainEntity: { '@id': `${pageUrl}#service` },
 				primaryImageOfPage: { '@id': `${origin}/#logo` },
 				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
 			},
@@ -2123,18 +2110,6 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				)
 			},
 			{
-				'@type': 'Product',
-				'@id': `${pageUrl}#protocol`,
-				name: 'Sunday Alpha Protocol',
-				description: describeProposedConcept(
-					'Weekly high-conviction swing trading intelligence for U.S. large-cap equity and ETF options traders. Delivers 5 to 7 structured trade setups with confirmation triggers, binary stop invalidations, and explicit options contracts every Sunday at 5:00 PM ET.'
-				),
-				image: `${origin}${BRAND_SOCIAL_IMAGE_PATH}`,
-				brand: {
-					'@id': `${origin}/#organization`
-				}
-			},
-			{
 				'@type': 'BreadcrumbList',
 				'@id': `${pageUrl}#breadcrumb`,
 				itemListElement: [
@@ -2154,7 +2129,7 @@ export function buildSundayAlphaProtocolJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export function buildTrustPageJsonLd(
@@ -2168,7 +2143,7 @@ export function buildTrustPageJsonLd(
 	}
 ) {
 	const pageUrl = `${origin}${config.path}`;
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2193,7 +2168,7 @@ export function buildTrustPageJsonLd(
 				]
 			}
 		]
-	};
+	});
 }
 
 export const CONTACT_PAGE_DESCRIPTION = `Contact ${BRAND.name} regarding trading rooms, alert services, 1-on-1 mentorship inquiries, editorial corrections, and U.S. or Canada support.`;
@@ -2330,7 +2305,7 @@ export const METHODOLOGY_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildMethodologyJsonLd(origin: string) {
 	const pageUrl = `${origin}/methodology`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2370,7 +2345,7 @@ export function buildMethodologyJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const ALERT_SERVICES_HUB_DESCRIPTION =
@@ -2406,7 +2381,7 @@ export const ALERT_SERVICES_HUB_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildAlertServicesHubJsonLd(origin: string) {
 	const pageUrl = `${origin}/alert-services`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2445,7 +2420,7 @@ export function buildAlertServicesHubJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const TRACK_RECORD_PAGE_DESCRIPTION =
@@ -2481,7 +2456,7 @@ export const TRACK_RECORD_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildTrackRecordJsonLd(origin: string) {
 	const pageUrl = `${origin}/track-record`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2519,7 +2494,7 @@ export function buildTrackRecordJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const OPTIONS_CALCULATOR_DESCRIPTION =
@@ -2555,7 +2530,7 @@ export const OPTIONS_CALCULATOR_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildOptionsCalculatorJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/options-calculator`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2608,7 +2583,7 @@ export function buildOptionsCalculatorJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const INTRADAY_MARGIN_CALCULATOR_DESCRIPTION =
@@ -2645,7 +2620,7 @@ export const INTRADAY_MARGIN_CALCULATOR_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildIntradayMarginCalculatorJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/intraday-margin-calculator`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2698,11 +2673,11 @@ export function buildIntradayMarginCalculatorJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const FINRA_INTRADAY_MARGIN_GUIDE_DESCRIPTION =
-	'Complete trader guide to FINRA Regulatory Notice 26-10 replacing the $25,000 PDT rule with Rule 4210(d)(2) Intraday Margin Level (IML) through Oct 2027.';
+	'Trader guide to FINRA Notice 26-10 replacing the $25,000 PDT rule with Rule 4210(d)(2) Intraday Margin Level (IML) through October 2027.';
 
 export const FINRA_INTRADAY_MARGIN_GUIDE_FAQ_ITEMS: readonly FaqItem[] = [
 	{
@@ -2736,7 +2711,7 @@ export const FINRA_INTRADAY_MARGIN_GUIDE_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildFinraIntradayMarginGuideJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/finra-intraday-margin-rule-2026`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2787,7 +2762,7 @@ export function buildFinraIntradayMarginGuideJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const BEST_TRADING_ROOMS_DESCRIPTION =
@@ -2824,7 +2799,7 @@ export const BEST_TRADING_ROOMS_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildBestTradingRoomsComparisonJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/best-live-options-and-day-trading-rooms`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2875,11 +2850,11 @@ export function buildBestTradingRoomsComparisonJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
 }
 
 export const BEST_OPTIONS_ALERTS_DESCRIPTION =
-	'Objective 2026 comparison of SPX 0DTE and options swing alert services evaluated by pre-trade thesis depth, Section 1256 structure, and hard stop rules.';
+	'2026 comparison of SPX 0DTE and options swing alert services audited by pre-trade thesis depth, Section 1256 structure, and hard stops.';
 
 export const BEST_OPTIONS_ALERTS_FAQ_ITEMS: readonly FaqItem[] = [
 	{
@@ -2912,7 +2887,7 @@ export const BEST_OPTIONS_ALERTS_FAQ_ITEMS: readonly FaqItem[] = [
 export function buildBestOptionsAlertsComparisonJsonLd(origin: string) {
 	const pageUrl = `${origin}/resources/best-spx-0dte-and-options-alert-services`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@graph': [
 			buildOrganizationEntity(origin),
 			buildFounderEntity(origin),
@@ -2963,5 +2938,36 @@ export function buildBestOptionsAlertsComparisonJsonLd(origin: string) {
 				]
 			}
 		]
-	};
+	});
+}
+
+export const MEMBERSHIPS_DESCRIPTION =
+	'Compare three live trading rooms, two stock and options alert services, and private mentorship. Find the education format that fits your trading routine.';
+export function buildMembershipsJsonLd(origin: string) {
+	const pageUrl = `${origin}/memberships`;
+	return consolidateJsonLdGraph({
+		'@context': 'https://schema.org',
+		'@graph': [
+			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			{
+				'@type': 'CollectionPage',
+				'@id': `${pageUrl}#webpage`,
+				url: pageUrl,
+				name: 'Compare Trading Memberships',
+				description: MEMBERSHIPS_DESCRIPTION,
+				mainEntity: { '@id': `${origin}/#offer-catalog` },
+				breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+			},
+			{
+				'@type': 'BreadcrumbList',
+				'@id': `${pageUrl}#breadcrumb`,
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+					{ '@type': 'ListItem', position: 2, name: 'Memberships', item: pageUrl }
+				]
+			}
+		]
+	});
 }

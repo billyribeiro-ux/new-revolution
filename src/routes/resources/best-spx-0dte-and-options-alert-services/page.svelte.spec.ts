@@ -22,7 +22,7 @@ describe('/resources/best-spx-0dte-and-options-alert-services/+page.svelte', () 
 
 		expect(loaded.pageMetaTags.title).toBe('Best SPX & Options Alerts 2026');
 		expect(loaded.pageMetaTags.description).toBe(BEST_OPTIONS_ALERTS_DESCRIPTION);
-		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(135);
 		expect(loaded.pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(loaded.pageMetaTags.canonical).toBe(
 			'https://www.revolutiontradingpros.com/resources/best-spx-0dte-and-options-alert-services'

@@ -51,13 +51,15 @@
 					<span class="eyebrow-pill__text">FINRA Notice 26-10 · Amended Rule 4210(d)(2)</span>
 				</div>
 
-				<h1 id="finra-guide-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker"> FINRA Intraday Margin Rule (2026) </span>
-					<span class="hero-h1__display">
-						How Amended Rule 4210(d)(2) Replaces the $25,000 PDT Rule for Options &amp; Equity
-						Traders.
-					</span>
-				</h1>
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">FINRA Intraday Margin Rule (2026)</p>
+					<h1 id="finra-guide-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							How Amended Rule 4210(d)(2) Replaces the $25,000 PDT Rule for Options &amp; Equity
+							Traders.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					<strong>68-Word Regulatory Summary:</strong> Through FINRA Regulatory Notice 26-10

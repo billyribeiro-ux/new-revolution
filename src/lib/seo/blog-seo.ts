@@ -1,3 +1,4 @@
+import { consolidateJsonLdGraph } from './graph';
 import { definePageMetaTags } from 'svelte-meta-tags';
 import { BRAND } from '#lib/config/brand.ts';
 import {
@@ -5,6 +6,9 @@ import {
 	BRAND_SOCIAL_IMAGE_PATH,
 	BRAND_SOCIAL_IMAGE_WIDTH,
 	buildOrganizationEntity,
+	buildFounderEntity,
+	buildOfferCatalogEntity,
+	buildWebSiteEntity,
 	isNoIndexRoute
 } from './structured-data';
 import { pageHref } from '#lib/shared/blog/pagination';
@@ -116,7 +120,7 @@ export function buildBlogPageMetaTags(input: BlogSeoHeadInput) {
 		title: input.title,
 		titleTemplate,
 		description: input.description,
-		canonical: indexable ? canonicalUrl : undefined,
+		canonical: canonicalUrl,
 		robots: robotsDirective,
 		additionalRobotsProps: indexable
 			? {
@@ -204,10 +208,13 @@ export function buildBlogIndexJsonLd(
 	const topTen = posts.slice(0, 10);
 	const brandName = BRAND.name;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@context': 'https://schema.org',
 		'@graph': [
 			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
 			buildBreadcrumbEntity(origin, pageUrl, [
 				{ name: 'Home', path: '/' },
 				{ name: 'Blog', path: '/blog' }
@@ -237,16 +244,20 @@ export function buildBlogIndexJsonLd(
 					...(p.coverImage ? { image: p.coverImage } : {}),
 					...(p.author
 						? {
-								author: {
-									'@type': 'Person',
-									name: p.author.name
-								}
+								author:
+									p.author.slug === 'billy-ribeiro'
+										? { '@id': `${origin}/#founder` }
+										: {
+												'@type': 'Person',
+												'@id': `${origin}/#author-${p.author.slug}`,
+												name: p.author.name
+											}
 							}
 						: {})
 				}))
 			}
 		]
-	};
+	});
 }
 
 const CROP_ORDER = ['16x9', '4x3', '1x1'] as const;
@@ -286,17 +297,76 @@ const RESTRICTED_SCHEMA_TYPES: ReadonlySet<string> = new Set([
 	'CourseInstance',
 	'SpeakableSpecification',
 	'SpecialAnnouncement',
-	'ClaimReview'
+	'ClaimReview',
+	'SearchAction'
 ]);
 
 export function dropRestrictedJsonLdNodes(
-	nodes: readonly Record<string, unknown>[]
+	nodes: readonly Record<string, unknown>[],
+	reservedIds: ReadonlySet<string> = new Set()
 ): Record<string, unknown>[] {
-	return nodes.filter((node) => {
-		const type = node['@type'];
-		const types = Array.isArray(type) ? type : [type];
-		return !types.some((t) => typeof t === 'string' && RESTRICTED_SCHEMA_TYPES.has(t));
-	});
+	const seen = new Set(reservedIds);
+	function sanitize(value: unknown): unknown {
+		if (Array.isArray(value)) return value.map(sanitize).filter((item) => item !== undefined);
+		if (!value || typeof value !== 'object') return value;
+		const node = value as Record<string, unknown>;
+		const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']];
+		if (types.includes('Product') && !node.offers) return undefined;
+		if (types.some((type) => typeof type === 'string' && RESTRICTED_SCHEMA_TYPES.has(type)))
+			return undefined;
+		const id = typeof node['@id'] === 'string' ? node['@id'] : undefined;
+		if (id && Object.keys(node).length > 1) {
+			if (seen.has(id)) return { '@id': id };
+			seen.add(id);
+		}
+		return Object.fromEntries(
+			Object.entries(node)
+				.map(([key, item]) => [key, sanitize(item)])
+				.filter(([, item]) => item !== undefined)
+		);
+	}
+	let retained = nodes
+		.map(sanitize)
+		.filter((node): node is Record<string, unknown> => Boolean(node && typeof node === 'object'));
+	const canonicalOrigin = new URL(BRAND.domain).origin;
+	function definitionIds(value: unknown, ids = new Set(reservedIds)): Set<string> {
+		if (Array.isArray(value)) {
+			for (const item of value) definitionIds(item, ids);
+		} else if (value && typeof value === 'object') {
+			const node = value as Record<string, unknown>;
+			if (typeof node['@id'] === 'string' && Object.keys(node).length > 1) ids.add(node['@id']);
+			for (const item of Object.values(node)) definitionIds(item, ids);
+		}
+		return ids;
+	}
+	function pruneUnresolved(value: unknown, ids: ReadonlySet<string>): unknown {
+		if (Array.isArray(value)) {
+			return value.map((item) => pruneUnresolved(item, ids)).filter((item) => item !== undefined);
+		}
+		if (!value || typeof value !== 'object') return value;
+		const node = value as Record<string, unknown>;
+		const id = node['@id'];
+		if (typeof id === 'string' && Object.keys(node).length === 1 && !ids.has(id)) {
+			try {
+				if (new URL(id, BRAND.domain).origin === canonicalOrigin) return undefined;
+			} catch {
+				return undefined;
+			}
+		}
+		return Object.fromEntries(
+			Object.entries(node)
+				.map(([key, item]) => [key, pruneUnresolved(item, ids)])
+				.filter(([, item]) => item !== undefined)
+		);
+	}
+	// Removing a prohibited definition must also remove references to it. Repeat if
+	// pruning collapses a definition into a reference, so chains cannot leave orphans.
+	for (;;) {
+		const ids = definitionIds(retained);
+		const cleaned = pruneUnresolved(retained, ids) as Record<string, unknown>[];
+		if (definitionIds(cleaned).size === ids.size) return cleaned;
+		retained = cleaned;
+	}
 }
 
 export function buildBlogPostJsonLd(
@@ -348,17 +418,23 @@ export function buildBlogPostJsonLd(
 
 	// Section 7.15: Locked posts emit ONLY Organization and BreadcrumbList (WebSite stays homepage-only per SD-04)
 	if (input.locked) {
-		return {
+		return consolidateJsonLdGraph({
 			'@context': 'https://schema.org',
 			'@graph': [
 				buildOrganizationEntity(origin),
+				buildFounderEntity(origin),
+				buildOfferCatalogEntity(origin),
+				buildWebSiteEntity(origin),
 				buildBreadcrumbEntity(origin, pageUrl, breadcrumbs)
 			]
-		};
+		});
 	}
 
 	const graph: Record<string, unknown>[] = [
 		buildOrganizationEntity(origin),
+		buildFounderEntity(origin),
+		buildOfferCatalogEntity(origin),
+		buildWebSiteEntity(origin),
 		buildBreadcrumbEntity(origin, pageUrl, breadcrumbs),
 		{
 			'@type': 'WebPage',
@@ -373,32 +449,36 @@ export function buildBlogPostJsonLd(
 
 	let authorId = `${origin}/#organization`;
 	if (input.author) {
-		authorId = `${origin}/#author-${input.author.slug}`;
+		authorId =
+			input.author.slug === 'billy-ribeiro'
+				? `${origin}/#founder`
+				: `${origin}/#author-${input.author.slug}`;
 		const sameAs = [input.author.linkedin, input.author.twitter, input.author.website].filter(
 			(u): u is string => Boolean(u && u.trim())
 		);
 
-		graph.push({
-			'@type': 'Person',
-			'@id': authorId,
-			name: input.author.name,
-			url: input.author.website || `${origin}/about`,
-			...(input.author.jobTitle ? { jobTitle: input.author.jobTitle } : {}),
-			...(input.author.shortBio || input.author.bio
-				? { description: input.author.shortBio || input.author.bio }
-				: {}),
-			...(input.author.avatar ? { image: input.author.avatar } : {}),
-			...(sameAs.length > 0 ? { sameAs } : {}),
-			worksFor: { '@id': `${origin}/#organization` },
-			...(input.author.expertise
-				? {
-						knowsAbout: input.author.expertise
-							.split(',')
-							.map((s) => s.trim())
-							.filter(Boolean)
-					}
-				: {})
-		});
+		if (input.author.slug !== 'billy-ribeiro')
+			graph.push({
+				'@type': 'Person',
+				'@id': authorId,
+				name: input.author.name,
+				url: input.author.website || `${origin}/about`,
+				...(input.author.jobTitle ? { jobTitle: input.author.jobTitle } : {}),
+				...(input.author.shortBio || input.author.bio
+					? { description: input.author.shortBio || input.author.bio }
+					: {}),
+				...(input.author.avatar ? { image: input.author.avatar } : {}),
+				...(sameAs.length > 0 ? { sameAs } : {}),
+				worksFor: { '@id': `${origin}/#organization` },
+				...(input.author.expertise
+					? {
+							knowsAbout: input.author.expertise
+								.split(',')
+								.map((s) => s.trim())
+								.filter(Boolean)
+						}
+					: {})
+			});
 	}
 
 	// HowTo rich results were retired (SD-15); a legacy row must not leak it into the graph.
@@ -464,10 +544,10 @@ export function buildBlogPostJsonLd(
 		...(input.category ? { articleSection: input.category.name } : {})
 	});
 
-	return {
+	return consolidateJsonLdGraph({
 		'@context': 'https://schema.org',
 		'@graph': graph
-	};
+	});
 }
 
 export function buildTaxonomyCollectionJsonLd(
@@ -483,10 +563,13 @@ export function buildTaxonomyCollectionJsonLd(
 	const pagePath = `/blog/${input.kind}/${input.slug}`;
 	const pageUrl = `${origin}${pagePath}`;
 
-	return {
+	return consolidateJsonLdGraph({
 		'@context': 'https://schema.org',
 		'@graph': [
 			buildOrganizationEntity(origin),
+			buildFounderEntity(origin),
+			buildOfferCatalogEntity(origin),
+			buildWebSiteEntity(origin),
 			buildBreadcrumbEntity(origin, pageUrl, [
 				{ name: 'Home', path: '/' },
 				{ name: 'Blog', path: '/blog' },
@@ -511,5 +594,5 @@ export function buildTaxonomyCollectionJsonLd(
 				}
 			}
 		]
-	};
+	});
 }

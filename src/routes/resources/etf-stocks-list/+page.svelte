@@ -81,15 +81,17 @@
 						</span>
 					</div>
 
-					<h1 id="etf-h1" class="hero-h1">
-						<span class="hero-h1__kicker">
+					<hgroup>
+						<p class="hero-h1__kicker">
 							Complete Exchange-Traded Funds (ETF) Directory • Index, Sector &amp; Options Guide
-						</span>
-						<span class="hero-h1__display">
-							The Institutional ETF Stocks List: Master Liquidity, Sector Rotation &amp; Options
-							Execution.
-						</span>
-					</h1>
+						</p>
+						<h1 id="etf-h1" class="hero-h1">
+							<span class="hero-h1__display">
+								The Institutional ETF Stocks List: Master Liquidity, Sector Rotation &amp; Options
+								Execution.
+							</span>
+						</h1>
+					</hgroup>
 
 					<p class="lead-copy">
 						Your comprehensive reference guide to <strong>Exchange-Traded Funds (ETFs)</strong>.

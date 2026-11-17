@@ -46,14 +46,16 @@
 					<span class="eyebrow-pill__text">Indicator Dependency · Liquidity · Stop Governance</span>
 				</div>
 
-				<h1 id="rooms-comp-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Best Live Options &amp; Day Trading Rooms (2026)
-					</span>
-					<span class="hero-h1__display">
-						Pure Price Structure vs. Indicator-Heavy &amp; Low-Float Momentum Chatrooms.
-					</span>
-				</h1>
+					</p>
+					<h1 id="rooms-comp-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Pure Price Structure vs. Indicator-Heavy &amp; Low-Float Momentum Chatrooms.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Most traders choose a live trading room based on flashy P&amp;L clips — only to discover

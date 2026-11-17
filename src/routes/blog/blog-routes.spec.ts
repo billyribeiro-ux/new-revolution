@@ -204,7 +204,7 @@ describe('Public Blog Routes, Redirect Hook, Feeds & Password Unlock', () => {
 		expect(personNodes).toHaveLength(1);
 		const articleNode = graph.find((n) => n['@type'] === 'BlogPosting');
 		expect(articleNode?.author).toEqual({
-			'@id': 'https://www.revolutiontradingpros.com/#author-billy-ribeiro'
+			'@id': 'https://www.revolutiontradingpros.com/#founder'
 		});
 	});
 

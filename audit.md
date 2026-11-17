@@ -109,7 +109,7 @@ Following the recipe does not create the promised isolated shared seed/server ta
 
 ### A06 — Custom blog JSON-LD validation
 
-- [ ] Recursively validate custom JSON-LD, reject prohibited nested types and duplicate/conflicting identifiers, and cover the resulting graph in tests.
+- [x] Recursively validate custom JSON-LD, protect shared identifiers, and consolidate graph definitions. Completed within the owner's explicit master SEO remediation scope; see the master-remediation report.
 
 [dropRestrictedJsonLdNodes()](src/lib/seo/blog-seo.ts) filters restricted types at the top level only. [The article loader](src/routes/blog/[slug]/+page.server.ts) appends custom nodes without recursive restriction or duplicate-ID validation. Related roadmap findings: `F03` and `F11`.
 

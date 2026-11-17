@@ -1,3 +1,4 @@
+import { CONTENT_SECURITY_POLICY, PERMISSIONS_POLICY } from '#lib/shared/security-policy.ts';
 import { randomUUID } from 'node:crypto';
 import type { Handle } from '@sveltejs/kit/hooks';
 import { building } from '$app/env';
@@ -24,7 +25,7 @@ const SKIPPED_REDIRECT_PREFIXES = [
 ];
 
 /**
- * Only preload JS and CSS chunks. Never emit font preload link tags in HTML:
+ * Only preload JS and CSS chunks. Automatic font preloads remain disabled; src/app.html owns the two approved critical preloads:
  * all fonts are self-hosted statically in `src/app.css` without any font `href` tags.
  */
 export function shouldPreload(input: { type: string; path: string; filename?: string }): boolean {
@@ -188,7 +189,10 @@ function isStaticAssetPath(pathname: string): boolean {
 }
 
 export function resolveRobotsAndSecurityHeaders(input: StagingShieldInput): Record<string, string> {
-	const out: Record<string, string> = {};
+	const out: Record<string, string> = {
+		'Content-Security-Policy': CONTENT_SECURITY_POLICY,
+		'Permissions-Policy': PERMISSIONS_POLICY
+	};
 	const isProdEnv = input.isProduction && !isNonProductionHost(input.hostname);
 
 	if (!isProdEnv) {

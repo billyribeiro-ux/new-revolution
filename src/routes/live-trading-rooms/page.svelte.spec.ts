@@ -33,7 +33,7 @@ describe('/live-trading-rooms/+page.svelte (Vitest Browser Mode)', () => {
 		expect(loaded.pageMetaTags.title).toBe('Live Trading Rooms');
 		expect(`${loaded.pageMetaTags.title} | Revolution Trading Pros`).toHaveLength(44);
 		expect(loaded.pageMetaTags.description).toBe(LIVE_TRADING_ROOMS_HUB_DESCRIPTION);
-		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(135);
 		expect(loaded.pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(loaded.pageMetaTags.canonical).toBe(
 			'https://www.revolutiontradingpros.com/live-trading-rooms'

@@ -1,5 +1,6 @@
 <!-- src/routes/live-trading-rooms/swing-trading-room/+page.svelte -->
 <script lang="ts">
+	import HistoricalDisclosure from '#lib/components/shared/HistoricalDisclosure.svelte';
 	import { BRAND } from '#lib/config/brand.ts';
 	import { CONCEPT_PREVIEW, openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
@@ -216,15 +217,17 @@
 					</span>
 				</div>
 
-				<h1 id="swing-room-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Stock, ETF &amp; Options Swing Trading Room for Working Professionals
-					</span>
-					<span class="hero-h1__display">
-						Capture Institutional Multi-Day Moves Without Quitting Your Career or Staring at Screens
-						All Day.
-					</span>
-				</h1>
+					</p>
+					<h1 id="swing-room-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Capture Institutional Multi-Day Moves Without Quitting Your Career or Staring at
+							Screens All Day.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					When you step into the <strong>{BRAND.name} Swing Trading Room</strong>, you immediately
@@ -258,6 +261,7 @@
 					past performance is not indicative of future results). Now, we hand you that exact multi-day
 					institutional playbook in 15 to 20 minutes a day.
 				</p>
+				<HistoricalDisclosure />
 
 				<blockquote class="editorial-quote">
 					"Pure price structure, asymmetric risk, and live execution. You don't need six monitors or

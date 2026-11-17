@@ -29,7 +29,7 @@ export const load: LayoutLoad = ({ url }) => {
 					maxVideoPreview: -1
 				},
 		description: HOME_PAGE_DESCRIPTION,
-		canonical: noIndex ? undefined : canonicalUrl,
+		canonical: canonicalUrl,
 		openGraph: {
 			type: 'website',
 			url: canonicalUrl,

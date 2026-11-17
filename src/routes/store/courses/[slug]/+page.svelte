@@ -351,10 +351,12 @@
 							<span class="eyebrow-pill__text">{courseConfig.platformsSupported}</span>
 						</div>
 
-						<h1 id="course-hero-h1" class="hero-h1">
-							<span class="hero-h1__kicker">{courseConfig.seoKicker}</span>
-							<span class="hero-h1__display">{courseConfig.heroTitle}</span>
-						</h1>
+						<hgroup>
+							<p class="hero-h1__kicker">{courseConfig.seoKicker}</p>
+							<h1 id="course-hero-h1" class="hero-h1">
+								<span class="hero-h1__display">{courseConfig.heroTitle}</span>
+							</h1>
+						</hgroup>
 
 						<p class="hero-subtitle">
 							{courseConfig.heroSubtitle}

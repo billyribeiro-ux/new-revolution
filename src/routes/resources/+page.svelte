@@ -1,5 +1,7 @@
 <!-- src/routes/resources/+page.svelte -->
 <script lang="ts">
+	import { isTodoRoute } from '#lib/data/todo-pages.ts';
+	import HistoricalDisclosure from '#lib/components/shared/HistoricalDisclosure.svelte';
 	import { BRAND } from '#lib/config/brand.ts';
 	import { resolve } from '$app/paths';
 	import { JsonLd } from 'svelte-meta-tags';
@@ -121,6 +123,7 @@
 						high-volume institutional distribution, we built {BRAND.name} to put
 						<strong>people over profits</strong>.
 					</p>
+					<HistoricalDisclosure />
 
 					<div class="hero-cta-row">
 						<a href={resolve('/resources/options-calculator')} class="btn btn--solid">
@@ -430,22 +433,30 @@
 							<ul class="resource-card__list">
 								{#each category.items as item (item.label)}
 									<li class="resource-card__item">
-										<a href={resolve(item.href as '/')} class="resource-card__link">
-											<svg
-												class="resource-card__check"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-												aria-hidden="true"
-											>
-												<path
-													fill-rule="evenodd"
-													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-													clip-rule="evenodd"
-												/>
-											</svg>
-											<span class="resource-card__label">{item.label}</span>
-											<span class="resource-card__tag">{item.tag} →</span>
-										</a>
+										{#if isTodoRoute(item.href)}
+											<div class="resource-card__link" aria-disabled="true">
+												<span class="resource-card__label">{item.label}</span><span
+													class="resource-card__tag">Coming Soon</span
+												>
+											</div>
+										{:else}
+											<a href={resolve(item.href as '/')} class="resource-card__link">
+												<svg
+													class="resource-card__check"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+													aria-hidden="true"
+												>
+													<path
+														fill-rule="evenodd"
+														d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+														clip-rule="evenodd"
+													/>
+												</svg>
+												<span class="resource-card__label">{item.label}</span>
+												<span class="resource-card__tag">{item.tag} →</span>
+											</a>
+										{/if}
 									</li>
 								{/each}
 							</ul>

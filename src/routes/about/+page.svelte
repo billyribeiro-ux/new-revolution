@@ -1,5 +1,6 @@
 <!-- src/routes/about/+page.svelte -->
 <script lang="ts">
+	import HistoricalDisclosure from '#lib/components/shared/HistoricalDisclosure.svelte';
 	import { BRAND } from '#lib/config/brand.ts';
 	import { resolve } from '$app/paths';
 	import { CONCEPT_PREVIEW, openConceptOffer } from '#lib/shared/development-status.ts';
@@ -207,15 +208,17 @@
 					<span class="eyebrow-box__text">The True Story Behind {BRAND.name}</span>
 				</div>
 
-				<h1 id="about-h1" class="hero-h1">
-					<span class="hero-h1__kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__kicker seo-kicker">
 						About {BRAND.name} • Institutional Stock &amp; Options Trading Lineage
-					</span>
-					<span class="hero-h1__display">
-						I Stood on the Losing Side First. Now I Bring Institutional Order-Flow Discipline and
-						Risk-First Execution to Self-Directed Traders.
-					</span>
-				</h1>
+					</p>
+					<h1 id="about-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							I Stood on the Losing Side First. Now I Bring Institutional Order-Flow Discipline and
+							Risk-First Execution to Self-Directed Traders.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-paragraph">
 					When you log into our website, my #1 goal is that you immediately know you finally found
@@ -249,6 +252,7 @@
 					performance is not indicative of future results). I built {BRAND.name} not to steal your money,
 					but to help you achieve your dreams.
 				</p>
+				<HistoricalDisclosure />
 
 				<blockquote class="editorial-quote">
 					"I do not use indicators, I use my system. I trade the charts and not the noise. I buy

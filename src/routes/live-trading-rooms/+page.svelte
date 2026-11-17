@@ -32,6 +32,28 @@
 	let selectedCapital = $state<AccountSizeBracket>('2500-to-25k');
 
 	let recommendation = $derived(resolveRoomRecommendation(selectedSchedule, selectedCapital));
+	let selectedRoom = $state<string | null>(null);
+	const activeRoom = $derived(
+		LIVE_TRADING_ROOMS_CARDS.find(
+			(room) => room.id === (selectedRoom ?? recommendation.primaryRoomId)
+		) ?? LIVE_TRADING_ROOMS_CARDS[0]
+	);
+	function handleRoomKey(event: KeyboardEvent) {
+		const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+		if (!keys.includes(event.key)) return;
+		event.preventDefault();
+		const index = LIVE_TRADING_ROOMS_CARDS.findIndex((room) => room.id === activeRoom.id);
+		const next =
+			event.key === 'Home'
+				? 0
+				: event.key === 'End'
+					? LIVE_TRADING_ROOMS_CARDS.length - 1
+					: (index + (event.key === 'ArrowRight' ? 1 : -1) + LIVE_TRADING_ROOMS_CARDS.length) %
+						LIVE_TRADING_ROOMS_CARDS.length;
+		selectedRoom = LIVE_TRADING_ROOMS_CARDS[next].id;
+		const list = (event.currentTarget as HTMLElement).parentElement;
+		list?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+	}
 </script>
 
 <JsonLd schema={data.jsonLdSchema} />
@@ -69,14 +91,14 @@
 					<span class="eyebrow-pill__text">Defined Risk Parameters · Recorded Archives</span>
 				</div>
 
-				<h1 id="rooms-hub-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
-						Stock, ETF &amp; Options Trading Rooms
-					</span>
-					<span class="hero-h1__display">
-						Three Dedicated Rooms. Structured Around Your Schedule and Capital.
-					</span>
-				</h1>
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">Stock, ETF &amp; Options Trading Rooms</p>
+					<h1 id="rooms-hub-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Three Dedicated Rooms. Structured Around Your Schedule and Capital.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy hub-hero__lead">
 					Intraday execution at the 9:30 AM ET opening bell, multi-day swing planning outside work
@@ -132,7 +154,10 @@
 									type="button"
 									class={['fit-pill', { 'is-selected': selectedSchedule === choice.id }]}
 									aria-pressed={selectedSchedule === choice.id}
-									onclick={() => (selectedSchedule = choice.id)}
+									onclick={() => {
+										selectedSchedule = choice.id;
+										selectedRoom = null;
+									}}
 								>
 									<span class="fit-pill__label">{choice.label}</span>
 									<span class="fit-pill__sub">{choice.sublabel}</span>
@@ -151,7 +176,10 @@
 									type="button"
 									class={['fit-pill', { 'is-selected': selectedCapital === choice.id }]}
 									aria-pressed={selectedCapital === choice.id}
-									onclick={() => (selectedCapital = choice.id)}
+									onclick={() => {
+										selectedCapital = choice.id;
+										selectedRoom = null;
+									}}
 								>
 									<span class="fit-pill__label">{choice.label}</span>
 									<span class="fit-pill__sub">{choice.sublabel}</span>
@@ -171,12 +199,32 @@
 						<span class="fit-result__badge fit-result__live">{recommendation.primaryBadge}</span>
 					</div>
 
-					<h3 class="fit-result__title">
-						{#each LIVE_TRADING_ROOMS_CARDS as room (`title-${room.id}`)}
-							<span class="fit-result__ghost" aria-hidden="true">{room.title}</span>
-						{/each}
-						<span class="fit-result__live">{recommendation.primaryTitle}</span>
-					</h3>
+					<div class="room-tabs" role="tablist" aria-label="Compare live trading rooms">
+						{#each LIVE_TRADING_ROOMS_CARDS as room (room.id)}<button
+								type="button"
+								role="tab"
+								id={`room-tab-${room.id}`}
+								aria-selected={activeRoom.id === room.id}
+								aria-controls="room-fit-panel"
+								tabindex={activeRoom.id === room.id ? 0 : -1}
+								onclick={() => (selectedRoom = room.id)}
+								onkeydown={handleRoomKey}>{room.title}</button
+							>{/each}
+					</div>
+					<div
+						role="tabpanel"
+						id="room-fit-panel"
+						aria-labelledby={`room-tab-${activeRoom.id}`}
+						tabindex="0"
+					>
+						<h3 class="fit-result__title">
+							<span class="fit-result__live">{activeRoom.title}</span>
+						</h3>
+						<p class="fit-result__copy">{activeRoom.summary}</p>
+						<a class="fit-result__alt" href={resolve(activeRoom.href)}
+							>Explore {activeRoom.title} →</a
+						>
+					</div>
 
 					<!-- Pure CSS Grid 1/1 Intrinsic Prose Stack: identical <p> tags guarantee 0px height delta across all 9 states -->
 					<div class="fit-result__prose-stack">
@@ -544,6 +592,26 @@
 <Footer />
 
 <style>
+	.room-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-block: 1rem;
+	}
+	.room-tabs button {
+		font: inherit;
+		font-size: var(--step-sm);
+		color: var(--text);
+		background: var(--panel);
+		border: 1px solid var(--line);
+		padding: 0.75rem;
+		cursor: pointer;
+	}
+	.room-tabs button[aria-selected='true'] {
+		color: var(--ink);
+		background: var(--acid);
+	}
+
 	/* ---------- Section 1: Compact Hero + Inline Room Fit Selector ---------- */
 	.hub-hero {
 		padding-block: 44px 56px;

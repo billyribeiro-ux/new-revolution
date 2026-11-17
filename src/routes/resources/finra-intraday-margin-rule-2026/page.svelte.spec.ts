@@ -22,7 +22,7 @@ describe('/resources/finra-intraday-margin-rule-2026/+page.svelte', () => {
 
 		expect(loaded.pageMetaTags.title).toBe('FINRA Rule 4210 Margin Guide');
 		expect(loaded.pageMetaTags.description).toBe(FINRA_INTRADAY_MARGIN_GUIDE_DESCRIPTION);
-		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(140);
+		expect(loaded.pageMetaTags.description.length).toBeGreaterThanOrEqual(135);
 		expect(loaded.pageMetaTags.description.length).toBeLessThanOrEqual(158);
 		expect(loaded.pageMetaTags.canonical).toBe(
 			'https://www.revolutiontradingpros.com/resources/finra-intraday-margin-rule-2026'

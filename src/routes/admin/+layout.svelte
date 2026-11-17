@@ -68,6 +68,7 @@
 
 <!-- The login page sets its own head. Everything else under /admin is private: noindex, no marketing meta. -->
 <svelte:head>
+	<link rel="canonical" href={`${BRAND.domain}${page.url.pathname}`} />
 	{#if !isLoginRoute}
 		<title>{pageTitle} | Admin | {BRAND.name}</title>
 		<meta name="robots" content="noindex, nofollow" />

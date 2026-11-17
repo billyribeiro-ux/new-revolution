@@ -21,7 +21,7 @@
 3. **Shared Archive, Lead Card & Search Rules (`BlogArchive`, `ArchiveControls`, `ArchiveResults`, `PostCard`):**
    - Unfiltered `/blog` displays one featured (or newest) lead card above the `"More articles"` 3-column standing grid (`repeat(3, minmax(0, 1fr))` desktop, `2` cols tablet, `1` col mobile). Regular cards cap at `25rem`; single-result/lead cards cap at `75rem`.
    - When only 1 published post exists (and leads the page), `"More articles"` is omitted rather than duplicating the lead or showing an empty remainder (`ArchiveResults.svelte`).
-   - Query parameter is `search` (accepts legacy `q`), preserved across category/tag switches while resetting `page`. Search responses emit `Cache-Control: private, no-store`, `robots: 'noindex, nofollow'`, and `canonical: undefined`.
+   - Query parameter is `search` (accepts legacy `q`), preserved across category/tag switches while resetting `page`. Search responses emit `Cache-Control: private, no-store`, `robots: 'noindex, nofollow'`, and a self-referencing archive canonical (including `?page=n` for page 2+).
 
 ---
 

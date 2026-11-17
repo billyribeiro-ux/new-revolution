@@ -34,15 +34,17 @@
 	<div class="container hero-grid">
 		<div class="hero-copy">
 			<div class="eyebrow">WALL STREET THINKING. BUILT FOR MAIN STREET TRADERS.</div>
-			<h1 class="hero-h1" id="hero-title">
-				<span class="h1-query seo-kicker">
+			<hgroup>
+				<p class="h1-query seo-kicker">
 					Live Stock, ETF &amp; Options Trading Room, Mentorship &amp; Pure Price Action
-				</span>
-				<span class="h1-emotional">
-					You Finally Found What You’ve Been Searching For.
-					<em>Zero Hype. People Over Profits.</em>
-				</span>
-			</h1>
+				</p>
+				<h1 class="hero-h1" id="hero-title">
+					<span class="h1-emotional">
+						You Finally Found What You’ve Been Searching For.
+						<em>Zero Hype. People Over Profits.</em>
+					</span>
+				</h1>
+			</hgroup>
 			<p class="hero-lead">
 				Tired of expensive indicator upsells, hindsight screenshots, and lagging oscillators that
 				react after the move is over? {BRAND.name} executes

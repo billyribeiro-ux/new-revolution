@@ -60,14 +60,16 @@
 					<span class="eyebrow-pill__text">Pre-Trade Thesis · Binary Stops · Full Retention</span>
 				</div>
 
-				<h1 id="ledger-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Public Trade Ledger &amp; Historical Case Studies
-					</span>
-					<span class="hero-h1__display">
-						Every Setup Logged With Its Pre-Trade Stop — Wins and Stop-Outs Alike.
-					</span>
-				</h1>
+					</p>
+					<h1 id="ledger-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Every Setup Logged With Its Pre-Trade Stop — Wins and Stop-Outs Alike.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Retail chatrooms market hindsight peak-of-day screenshots while quietly deleting

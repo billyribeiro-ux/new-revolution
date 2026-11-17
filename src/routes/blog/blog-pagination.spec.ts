@@ -161,11 +161,11 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 			expect(data.pageMetaTags.title).toContain('(Page 2)');
 		});
 
-		it('never makes search results indexable and gives them no canonical', async () => {
+		it('keeps search results noindex with an archive canonical', async () => {
 			const { evt } = event<IndexEvent>('/blog?search=fixture');
 			const data = (await loadBlogIndex(evt)) as unknown as Meta;
 			expect(data.pageMetaTags.robots).toMatch(/^noindex/);
-			expect(data.pageMetaTags.canonical).toBeUndefined();
+			expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog`);
 		});
 
 		it.each(['3', '99', '100000'])(
@@ -210,7 +210,7 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 				expect(data.pagination.total).toBe(POST_COUNT);
 				expect(data.posts).toHaveLength(2);
 				expect(data.pageMetaTags.robots).toContain('noindex');
-				expect(data.pageMetaTags.canonical).toBeUndefined();
+				expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog/${kind}/${slug}?page=2`);
 				expect(headers['Cache-Control']).toContain('no-store');
 			}
 		);
@@ -231,7 +231,7 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 				};
 				expect(data.posts).toEqual([]);
 				expect(data.pagination).toMatchObject({ total: 0, totalPages: 1 });
-				expect(data.pageMetaTags.canonical).toBeUndefined();
+				expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog/${kind}/${slug}`);
 				expect(headers['Cache-Control']).toContain('no-store');
 			}
 		);
@@ -260,7 +260,7 @@ describe('Blog pagination, 404 handling and cache tags', () => {
 			if (data.pageMetaTags.robots?.startsWith('index')) {
 				expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog/tag/pagination-tag?page=2`);
 			} else {
-				expect(data.pageMetaTags.canonical).toBeUndefined();
+				expect(data.pageMetaTags.canonical).toBe(`${ORIGIN}/blog/tag/pagination-tag?page=2`);
 			}
 		});
 

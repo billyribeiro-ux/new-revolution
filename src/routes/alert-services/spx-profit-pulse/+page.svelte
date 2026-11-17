@@ -335,15 +335,17 @@
 						</span>
 					</div>
 
-					<h1 id="spx-h1" class="hero-h1">
-						<span class="hero-h1__kicker seo-kicker">
+					<hgroup>
+						<p class="hero-h1__kicker seo-kicker">
 							SPX Profit Pulse • Real-Time S&amp;P 500 &amp; 0DTE Index Options Trade Alert Service
-						</span>
-						<span class="hero-h1__display">
-							Get Precise SPX Options Alerts: Catch the Big Index Moves Without Staring at Screens
-							All Day.
-						</span>
-					</h1>
+						</p>
+						<h1 id="spx-h1" class="hero-h1">
+							<span class="hero-h1__display">
+								Get Precise SPX Options Alerts: Catch the Big Index Moves Without Staring at Screens
+								All Day.
+							</span>
+						</h1>
+					</hgroup>
 
 					<p class="lead-copy">
 						When you step inside <strong>SPX Profit Pulse</strong>, you immediately know you finally

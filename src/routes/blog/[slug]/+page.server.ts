@@ -1,3 +1,4 @@
+import { consolidateJsonLdGraph } from '#lib/seo/graph';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { and, eq, inArray, isNull } from 'drizzle-orm';
 import {
@@ -364,6 +365,11 @@ export const load: PageServerLoad = async ({
 		faqItems: parsedFaqs
 	});
 
+	const reservedGraphIds = new Set(
+		(jsonLdSchema['@graph'] as Record<string, unknown>[])
+			.map((node) => node['@id'])
+			.filter((id): id is string => typeof id === 'string')
+	);
 	if (customJsonLdRaw) {
 		try {
 			const parsedSchema: unknown = JSON.parse(customJsonLdRaw);
@@ -374,7 +380,10 @@ export const load: PageServerLoad = async ({
 						...jsonLdSchema,
 						'@graph': [
 							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
-							...dropRestrictedJsonLdNodes(customObj['@graph'] as Record<string, unknown>[])
+							...dropRestrictedJsonLdNodes(
+								customObj['@graph'] as Record<string, unknown>[],
+								reservedGraphIds
+							)
 						]
 					};
 				} else if (
@@ -387,7 +396,7 @@ export const load: PageServerLoad = async ({
 						...jsonLdSchema,
 						'@graph': [
 							...(jsonLdSchema['@graph'] as Record<string, unknown>[]),
-							...dropRestrictedJsonLdNodes([restNode])
+							...dropRestrictedJsonLdNodes([restNode], reservedGraphIds)
 						]
 					};
 				}
@@ -397,6 +406,7 @@ export const load: PageServerLoad = async ({
 		}
 	}
 
+	jsonLdSchema = consolidateJsonLdGraph(jsonLdSchema as { '@graph': Record<string, unknown>[] });
 	return {
 		...metaTags,
 		jsonLdSchema,

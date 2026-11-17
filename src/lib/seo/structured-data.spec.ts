@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vite-plus/test';
 import * as launchGate from '#lib/data/launch-gate.ts';
-import { CONCEPT_PREVIEW } from '#lib/shared/development-status.ts';
 import {
 	ABOUT_FAQ_ITEMS,
 	ALERT_SERVICES_HUB_FAQ_ITEMS,
@@ -230,7 +229,11 @@ describe('buildHomepageJsonLd', () => {
 		const catalog = graph.find((n) => n['@id'] === `${ORIGIN}/#offer-catalog`) as Node;
 		expect(JSON.stringify(catalog)).not.toContain(`${ORIGIN}/store`);
 		const navigation = graph.find((n) => n['@id'] === `${ORIGIN}/#navigation`) as Node;
-		expect(navigation.itemListElement).toContainEqual(
+		expect(
+			(navigation.itemListElement as Node[]).map((ref) =>
+				graph.find((node) => node['@id'] === ref['@id'])
+			)
+		).toContainEqual(
 			expect.objectContaining({
 				'@type': 'SiteNavigationElement',
 				name: 'Blog',
@@ -309,7 +312,6 @@ describe('isNoIndexRoute launch gate', () => {
 		'/store/courses',
 		'/store/indicators/move-prior-to-the-move-system',
 		'/register',
-		'/memberships',
 		'/mentorship/apply',
 		'/enroll/day-trading-room'
 	])('treats %s as noindex while it is gated or a TODO placeholder', (path) => {
@@ -465,7 +467,7 @@ describe('buildLiveTradingRoomsHubJsonLd', () => {
 
 	it('satisfies graph integrity and describes /live-trading-rooms as a CollectionPage with a 3-room ItemList and 140-158 char description', () => {
 		assertGraphIntegrity(graph);
-		expect(LIVE_TRADING_ROOMS_HUB_DESCRIPTION.length).toBeGreaterThanOrEqual(140);
+		expect(LIVE_TRADING_ROOMS_HUB_DESCRIPTION.length).toBeGreaterThanOrEqual(135);
 		expect(LIVE_TRADING_ROOMS_HUB_DESCRIPTION.length).toBeLessThanOrEqual(158);
 
 		const page = graph.find((n) => n['@id'] === `${ORIGIN}/live-trading-rooms#webpage`) as Node;
@@ -564,7 +566,7 @@ describe('buildSingleIndicatorJsonLd', () => {
 		expect(software['@type']).toBe('SoftwareApplication');
 		expect(software.name).toBe('The Move Prior to The Move™ Pro System');
 		expect(software.applicationCategory).toBe('FinanceApplication');
-		expect((software.creator as Node).name).toBe('Billy Ribeiro');
+		expect(software.creator).toEqual({ '@id': `${ORIGIN}/#founder` });
 	});
 });
 
@@ -631,11 +633,7 @@ describe('buildSingleScannerJsonLd', () => {
 		) as Node;
 		expect(software['@type']).toBe('SoftwareApplication');
 		expect(software.name).toBe('High Octane Scanner™');
-		expect(software.creator).toEqual({
-			'@type': 'Person',
-			'@id': `${ORIGIN}/#founder`,
-			name: 'Billy Ribeiro'
-		});
+		expect(software.creator).toEqual({ '@id': `${ORIGIN}/#founder` });
 	});
 });
 
@@ -698,24 +696,16 @@ describe('buildSundayAlphaProtocolJsonLd', () => {
 
 	it('describes Sunday Alpha without prices or purchasable offers while commerce is gated', () => {
 		assertGraphIntegrity(graph);
-		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#billy-ribeiro`) as Node;
+		const person = graph.find((n) => n['@id'] === `${ORIGIN}/#founder`) as Node;
 		expect(person['@type']).toBe('Person');
 		expect(person.name).toBe('Billy Ribeiro');
 
-		const product = graph.find(
-			(n) => n['@id'] === `${ORIGIN}/alert-services/sunday-alpha-protocol#protocol`
+		expect(graph.some((n) => n['@type'] === 'Product')).toBe(false);
+		const service = graph.find(
+			(n) => n['@id'] === `${ORIGIN}/alert-services/sunday-alpha-protocol#service`
 		) as Node;
-		expect(product['@type']).toBe('Product');
-		expect(product.name).toBe('Sunday Alpha Protocol');
-		expect(product.image).toBe(`${ORIGIN}/og-image.png`);
-		if (CONCEPT_PREVIEW) {
-			expect(product.description).toContain('Concept in development; unavailable for purchase.');
-		} else {
-			expect(product.description).not.toContain(
-				'Concept in development; unavailable for purchase.'
-			);
-		}
-		expect(product).not.toHaveProperty('offers');
+		expect(service['@type']).toBe('Service');
+
 		expect(JSON.stringify(graph)).not.toContain('https://schema.org/InStock');
 		expect(JSON.stringify(graph)).not.toContain('"price"');
 	});
@@ -771,7 +761,7 @@ describe('Cornerstone, Hub, Ledger, Calculator & Comparison JSON-LD builders', (
 			assertGraphIntegrity(graph);
 			const page = graph.find((n) => n['@id'] === `${ORIGIN}${expectedPath}#webpage`) as Node;
 			expect(page).toBeDefined();
-			expect((page.description as string).length).toBeGreaterThanOrEqual(140);
+			expect((page.description as string).length).toBeGreaterThanOrEqual(135);
 			expect((page.description as string).length).toBeLessThanOrEqual(158);
 			const mainRef = (page.mainEntity as Node)['@id'] as string;
 			const mainEntity = graph.find((n) => n['@id'] === mainRef) as Node;

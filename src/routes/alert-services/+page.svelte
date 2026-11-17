@@ -60,14 +60,16 @@
 					<span class="eyebrow-pill__text">5-Point Pre-Trade Structure · Zero Blind Pings</span>
 				</div>
 
-				<h1 id="alerts-hub-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Price-Action Options &amp; SPX Alert Services
-					</span>
-					<span class="hero-h1__display">
-						Prepared Structural Blueprints for Self-Directed SPX &amp; Swing Traders.
-					</span>
-				</h1>
+					</p>
+					<h1 id="alerts-hub-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Prepared Structural Blueprints for Self-Directed SPX &amp; Swing Traders.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Raw “Buy Strike X Now” chat pings fail working traders because option gamma reprices

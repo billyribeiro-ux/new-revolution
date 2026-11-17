@@ -216,15 +216,17 @@
 					</span>
 				</div>
 
-				<h1 id="small-room-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						Small Accounts Stock &amp; Options Trading Room • $500+ Compounding &amp; Risk Control
-					</span>
-					<span class="hero-h1__display">
-						You Don’t Need $25,000 to Trade Like an Institution. You Need a Playbook Built for $500+
-						Reality.
-					</span>
-				</h1>
+					</p>
+					<h1 id="small-room-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							You Don’t Need $25,000 to Trade Like an Institution. You Need a Playbook Built for
+							$500+ Reality.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					When you log into our <strong>Small Accounts Room</strong>, you immediately know you

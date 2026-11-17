@@ -96,10 +96,9 @@ describe('buildBlogPostJsonLd image crops', () => {
 		expect(webPage?.['@id']).toBe(`${ORIGIN}/blog/post#webpage`);
 		expect(techArticle).toBeDefined();
 		expect(techArticle?.mainEntityOfPage).toEqual({
-			'@type': 'WebPage',
 			'@id': `${ORIGIN}/blog/post#webpage`
 		});
-		expect(person?.url).toBe('https://revolutiontradingpros.com/about');
+		expect(person?.url).toBe(`${ORIGIN}/about`);
 	});
 });
 
@@ -174,7 +173,7 @@ describe('buildBlogPageMetaTags', () => {
 		expect(second.pageMetaTags.robots).toMatch(/^index/);
 	});
 
-	it('keeps a non-indexable page free of a canonical whatever its page number', () => {
+	it('keeps non-indexable archives self-canonical at their actual page number', () => {
 		const meta = buildBlogPageMetaTags({
 			title: 'Search results',
 			description: 'Search results are never indexable.',
@@ -182,7 +181,7 @@ describe('buildBlogPageMetaTags', () => {
 			page: 3,
 			indexable: false
 		});
-		expect(meta.pageMetaTags.canonical).toBeUndefined();
+		expect(meta.pageMetaTags.canonical).toBe(`${ORIGIN}/guides/archive?page=3`);
 		expect(meta.pageMetaTags.robots).toMatch(/^noindex/);
 	});
 
@@ -209,6 +208,6 @@ describe('buildBlogPageMetaTags', () => {
 			nofollow: true
 		});
 		expect(previewMeta.pageMetaTags.robots).toBe('noindex, nofollow');
-		expect(previewMeta.pageMetaTags.canonical).toBeUndefined();
+		expect(previewMeta.pageMetaTags.canonical).toBe(`${ORIGIN}/guides/draft-preview`);
 	});
 });

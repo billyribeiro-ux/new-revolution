@@ -89,7 +89,7 @@ export const load: PageLoad = ({ url }) => {
 };
 ```
 
-- **Non-Indexable Routes (`IDX-08`):** For member-auth, enrollment, launch-gated, or `[TODO]` routes, pass `robots: 'noindex, nofollow'`, `additionalRobotsProps: undefined`, and `canonical: undefined`.
+- **Non-Indexable Routes (`IDX-08`):** For member-auth, enrollment, launch-gated, or `[TODO]` routes, pass `robots: 'noindex, nofollow'`, `additionalRobotsProps: undefined`, and `canonical: getCanonicalUrl(url)`.
 
 ### Step 3.4 — Svelte 5 Page Component: `src/routes/<route>/+page.svelte`
 
@@ -215,3 +215,5 @@ pnpm exec playwright test
 - [ ] `pnpm check:pages` passes all `99`+ prerendered contracts (`1` `<h1>`, valid `.skip` link, `https://www.revolutiontradingpros.com` canonical or clean `noindex` without canonical, valid JSON-LD).
 - [ ] Zero horizontal overflow (`scrollWidth <= clientWidth`) across `320px`, `375px`, `768px`, `1024px`, `1280px`, `1440px`, `1536px`, and `1920px`, and under `200%` root font scaling (`32px`).
 - [ ] Zero literal font-family names, zero `<link as="font">` tags, zero navigable `#fragment` links, zero `outline: none` without `:focus-visible`, and zero legacy $25k PDT claims.
+
+Owner master-spec update (November 16, 2026): keep developer planning details in the source registry and roadmap; public unavailable routes render `AvailabilityPage` through `TodoPageShell`, without TODO strings or build checklists. Noindex utility pages retain production self-canonicals. Use `consolidateJsonLdGraph` to emit each named entity once; blog graphs include shared Website/Founder/Catalog entities.

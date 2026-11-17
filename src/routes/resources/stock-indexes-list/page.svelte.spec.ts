@@ -28,9 +28,9 @@ describe('/resources/stock-indexes-list page', () => {
 		);
 		expect(pageMetaTags.openGraph.title.length).toBe(59);
 		expect(pageMetaTags.description).toBe(
-			'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, early assignment risk, and 60/40 IRS Section 1256 tax rules.'
+			'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, assignment risk, and Section 1256 60/40 taxes.'
 		);
-		expect(pageMetaTags.description.length).toBe(154);
+		expect(pageMetaTags.description.length).toBe(140);
 		expect(pageMetaTags.openGraph.url).toBe(
 			'https://www.revolutiontradingpros.com/resources/stock-indexes-list'
 		);

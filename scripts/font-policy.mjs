@@ -50,7 +50,12 @@ export function findFontPolicyViolations(filename, source) {
 			/\btype\s*=\s*['"]font\//i.test(tag) ||
 			/\bhref\s*=\s*['"][^'"]*\.(?:woff2?|ttf|otf|eot)(?:[?#][^'"]*)?['"]/i.test(tag)
 		) {
-			violations.push('font link href is forbidden');
+			const allowedCriticalFont =
+				filename === 'src/app.html' &&
+				/rel="preload"/.test(tag) &&
+				/href="\/fonts\/(?:PlusJakartaSans-Bold|Inter-Regular)\.woff2"/.test(tag) &&
+				/crossorigin="anonymous"/.test(tag);
+			if (!allowedCriticalFont) violations.push('font link href is forbidden');
 		}
 	}
 	const svgFontAsset = filename === 'src/lib/server/svg-brand-font.ts';

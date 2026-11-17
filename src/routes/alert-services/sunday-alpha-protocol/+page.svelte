@@ -1,4 +1,5 @@
 <script lang="ts">
+	import HistoricalDisclosure from '#lib/components/shared/HistoricalDisclosure.svelte';
 	import { BRAND } from '#lib/config/brand.ts';
 	import { CONCEPT_PREVIEW, openConceptOffer } from '#lib/shared/development-status.ts';
 	import '#lib/styles/sunday-alpha-protocol.css';
@@ -524,11 +525,14 @@
 						</span>
 					</div>
 
-					<h1 id="sap-hero-h1" class="hero-title sap-gsap-hero">
-						<span class="title-line">THE SUNDAY</span>
-						<span class="title-line title-gold">ALPHA</span>
-						<span class="title-line">PROTOCOL.</span>
-					</h1>
+					<hgroup>
+						<p class="eyebrow">Sunday Alpha Protocol • Weekly Stock, ETF &amp; Options Watchlist</p>
+						<h1 id="sap-hero-h1" class="hero-title sap-gsap-hero">
+							<span class="title-line"
+								>Sunday Alpha Protocol: Institutional Multi-Day Swing Blueprints</span
+							>
+						</h1>
+					</hgroup>
 
 					<p class="hero-lead sap-gsap-hero">
 						{#if CONCEPT_PREVIEW}
@@ -1057,6 +1061,7 @@
 								</div>
 								<h3>{receipt.title}</h3>
 								<p>{receipt.description}</p>
+								<HistoricalDisclosure />
 							</div>
 						{/each}
 					</div>

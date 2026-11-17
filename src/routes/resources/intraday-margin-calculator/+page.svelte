@@ -48,15 +48,17 @@
 					>
 				</div>
 
-				<h1 id="iml-page-h1" class="hero-h1">
-					<span class="hero-h1__seo-kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__seo-kicker seo-kicker">
 						FINRA Rule 4210(d)(2) Intraday Margin &amp; Position Sizer
-					</span>
-					<span class="hero-h1__display">
-						Calculate Your Real-Time Intraday Margin Level (IML), De Minimis Buffer &amp; Safe
-						Contract Size.
-					</span>
-				</h1>
+					</p>
+					<h1 id="iml-page-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							Calculate Your Real-Time Intraday Margin Level (IML), De Minimis Buffer &amp; Safe
+							Contract Size.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					Under FINRA Regulatory Notice 26-10 (effective June 4, 2026, with an 18-month broker

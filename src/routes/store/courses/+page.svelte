@@ -220,14 +220,16 @@
 						</span>
 					</div>
 
-					<h1 id="courses-h1" class="hero-h1">
-						<span class="hero-h1__seo-kicker">
+					<hgroup>
+						<p class="hero-h1__seo-kicker">
 							Self-Paced Stock, ETF &amp; Options Trading Courses • Institutional Curriculum
-						</span>
-						<span class="hero-h1__display">
-							Stop Paying $3,000 for Recycled Retail Theory. Learn Real Wall Street Execution.
-						</span>
-					</h1>
+						</p>
+						<h1 id="courses-h1" class="hero-h1">
+							<span class="hero-h1__display">
+								Stop Paying $3,000 for Recycled Retail Theory. Learn Real Wall Street Execution.
+							</span>
+						</h1>
+					</hgroup>
 
 					<p class="lead-copy">
 						When you step inside our <strong>Stock &amp; Options Trading Courses</strong>, you

@@ -242,7 +242,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: '0DTE Risk & Position Sizing Playbook',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/resources/finra-intraday-margin-rule-2026',
 				description: 'Read our published institutional position-sizing research article.'
 			},
 			{
@@ -436,7 +436,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: '0DTE Risk Management Playbook',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/resources/finra-intraday-margin-rule-2026',
 				description: 'Read our live deep-dive on options Gamma and position sizing.'
 			},
 			{
@@ -475,7 +475,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: '0DTE Risk Management Playbook',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/resources/finra-intraday-margin-rule-2026',
 				description: 'Read our published risk-architecture article.'
 			},
 			{
@@ -548,7 +548,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: 'Institutional Order Flow & Gamma Flip Playbook',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/methodology',
 				description: 'Read our published market-structure guide.'
 			},
 			{
@@ -717,7 +717,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: 'Institutional Order Flow & Gamma Flip Playbook',
-				href: '/blog/institutional-order-flow-and-gamma-flip-playbook',
+				href: '/methodology',
 				description: 'Read our published dealer-gamma playbook on the blog.'
 			},
 			{
@@ -853,7 +853,7 @@ export const RESOURCE_TODO_PAGES: readonly TodoPageSpec[] = [
 		relatedLinks: [
 			{
 				label: '0DTE Risk Management Playbook',
-				href: '/blog/zero-dte-risk-management-and-position-sizing-rules',
+				href: '/resources/finra-intraday-margin-rule-2026',
 				description: 'Read our published drawdown and position-sizing rules.'
 			},
 			{
@@ -1315,7 +1315,7 @@ export const TODO_NOINDEX_PREFIXES = [
 ] as const;
 
 const EXACT_TODO_PATHS = new Set<string>([
-	...Object.keys(STATIC_TODO_PAGES),
+	...Object.keys(STATIC_TODO_PAGES).filter((path) => path !== '/memberships'),
 	...RESOURCE_TODO_PAGES.map((p) => p.route)
 ]);
 
@@ -1347,25 +1347,23 @@ export function getEnrollTodoSpec(slug: string): TodoPageSpec | undefined {
 /**
  * Helper to build consistent `noindex, nofollow` (`canonical: undefined`) metadata for any TODO route.
  */
+export function cleanPlannedLabel(label: string): string {
+	return label.replace(/\s*—\s*TODO\b|\s*\[TODO\]|\s*\(TODO\)|\bTODO\b/g, '').trim();
+}
+
 export function buildTodoPageMetaTags(
 	spec: Pick<TodoPageSpec, 'route' | 'metaTitle' | 'metaDescription'>
 ) {
+	const title = cleanPlannedLabel(spec.metaTitle);
+	const description = `Explore ${title} at ${BRAND.name}. Review current availability, find published resources, or contact the desk for guidance.`;
 	const ogUrl = `${SITE_ORIGIN}${spec.route}`;
 	return definePageMetaTags({
-		title: spec.metaTitle,
-		description: spec.metaDescription,
-		canonical: undefined,
+		title,
+		description,
+		canonical: ogUrl,
 		robots: 'noindex, nofollow',
 		additionalRobotsProps: undefined,
-		openGraph: {
-			type: 'website',
-			url: ogUrl,
-			title: `${spec.metaTitle} | ${TODO_BRAND_NAME}`,
-			description: spec.metaDescription
-		},
-		twitter: {
-			title: `${spec.metaTitle} | ${TODO_BRAND_NAME}`,
-			description: spec.metaDescription
-		}
+		openGraph: { type: 'website', url: ogUrl, title: `${title} | ${TODO_BRAND_NAME}`, description },
+		twitter: { title: `${title} | ${TODO_BRAND_NAME}`, description }
 	});
 }

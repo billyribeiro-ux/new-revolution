@@ -51,7 +51,9 @@ describe('/alert-services/sunday-alpha-protocol/+page.svelte (Sunday Alpha Proto
 
 		const h1s = document.querySelectorAll('h1');
 		expect(h1s.length).toBe(1);
-		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain('THE SUNDAY ALPHA PROTOCOL.');
+		expect(h1s[0].textContent?.replace(/\s+/g, ' ').trim()).toContain(
+			'Sunday Alpha Protocol: Institutional Multi-Day Swing Blueprints'
+		);
 
 		expect(document.querySelectorAll('h4').length).toBe(0);
 		expect(document.querySelectorAll('main a[href*="#"]').length).toBe(0);

@@ -172,15 +172,17 @@
 						</span>
 					</div>
 
-					<h1 id="indicators-h1" class="hero-h1">
-						<span class="hero-h1__seo-kicker">
+					<hgroup>
+						<p class="hero-h1__seo-kicker">
 							Proprietary Stock, ETF &amp; Options Trading Indicators • ThinkorSwim &amp;
 							TradingView
-						</span>
-						<span class="hero-h1__display">
-							No Fake "Holy Grail" Arrows. Just Reproducible Chart-Structure Telemetry.
-						</span>
-					</h1>
+						</p>
+						<h1 id="indicators-h1" class="hero-h1">
+							<span class="hero-h1__display">
+								No Fake "Holy Grail" Arrows. Just Reproducible Chart-Structure Telemetry.
+							</span>
+						</h1>
+					</hgroup>
 
 					<p class="lead-copy">
 						When you load our custom indicators onto your charts, you immediately see what 95% of

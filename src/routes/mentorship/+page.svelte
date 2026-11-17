@@ -1,5 +1,6 @@
 <!-- src/routes/mentorship/+page.svelte -->
 <script lang="ts">
+	import HistoricalDisclosure from '#lib/components/shared/HistoricalDisclosure.svelte';
 	import { BRAND } from '#lib/config/brand.ts';
 	import { CONCEPT_PREVIEW, openConceptOffer } from '#lib/shared/development-status.ts';
 	import { resolve } from '$app/paths';
@@ -203,15 +204,17 @@
 					</span>
 				</div>
 
-				<h1 id="mentorship-h1" class="hero-h1">
-					<span class="hero-h1__kicker seo-kicker">
+				<hgroup>
+					<p class="hero-h1__kicker seo-kicker">
 						Private <span class="text-nowrap">1-on-1</span> Stock &amp; Options Trading Mentorship for
 						Portfolio Managers, Pro Traders &amp; Struggling Traders
-					</span>
-					<span class="hero-h1__display">
-						You Cannot Buy Your Way Into This Room. You Have to Be Approved.
-					</span>
-				</h1>
+					</p>
+					<h1 id="mentorship-h1" class="hero-h1">
+						<span class="hero-h1__display">
+							You Cannot Buy Your Way Into This Room. You Have to Be Approved.
+						</span>
+					</h1>
+				</hgroup>
 
 				<p class="lead-copy">
 					If our goal were making quick money off subscriptions, there would be a "Buy Now" checkout
@@ -241,6 +244,7 @@
 					is not indicative of future results). Now, we open a strictly limited number of private 1-on-1
 					seats each quarter to pass that exact institutional edge directly to you.
 				</p>
+				<HistoricalDisclosure />
 
 				<blockquote class="hero-quote">
 					"Mark 'Goldfinger' McGoldrick passed down institutional special-situations risk discipline
@@ -483,6 +487,7 @@
 					<div class="proof-box">
 						<span class="meta-label">Proof 02 // Contrarian Options Execution</span>
 						<p class="proof-box__metric">+600% Overnight on OXY</p>
+						<HistoricalDisclosure />
 						<h3 class="proof-box__title">Shorted OXY Live vs. Warren Buffett’s Long</h3>
 						<p class="proof-box__copy">
 							While Warren Buffett bought millions in Occidental Petroleum (OXY) and retail chased
@@ -490,6 +495,7 @@
 								>600% overnight on OXY Put Options live</strong
 							>.
 						</p>
+						<HistoricalDisclosure />
 					</div>
 
 					<div class="proof-box">

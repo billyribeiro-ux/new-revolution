@@ -446,12 +446,14 @@
 							<span class="eyebrow-pill__badge">{scannerConfig.eyebrowBadge}</span>
 						</div>
 
-						<h1 id="scanner-h1" class="hero-h1">
-							<span class="hero-h1__kicker">{scannerConfig.seoKicker}</span>
-							<span class="hero-h1__display">
-								{scannerConfig.name}: {scannerConfig.heroTitle}
-							</span>
-						</h1>
+						<hgroup>
+							<p class="hero-h1__kicker">{scannerConfig.seoKicker}</p>
+							<h1 id="scanner-h1" class="hero-h1">
+								<span class="hero-h1__display">
+									{scannerConfig.name}: {scannerConfig.heroTitle}
+								</span>
+							</h1>
+						</hgroup>
 
 						<div class="creator-strip">
 							<img

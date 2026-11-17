@@ -1344,9 +1344,6 @@ export function getEnrollTodoSpec(slug: string): TodoPageSpec | undefined {
 	return ENROLL_TODO_MAP.get(slug);
 }
 
-/**
- * Helper to build consistent `noindex, nofollow` (`canonical: undefined`) metadata for any TODO route.
- */
 export function cleanPlannedLabel(label: string): string {
 	return label.replace(/\s*—\s*TODO\b|\s*\[TODO\]|\s*\(TODO\)|\bTODO\b/g, '').trim();
 }
@@ -1355,7 +1352,25 @@ export function buildTodoPageMetaTags(
 	spec: Pick<TodoPageSpec, 'route' | 'metaTitle' | 'metaDescription'>
 ) {
 	const title = cleanPlannedLabel(spec.metaTitle);
-	const description = `Explore ${title} at ${BRAND.name}. Review current availability, find published resources, or contact the desk for guidance.`;
+	const descriptions: Record<string, string> = {
+		'/login': `Sign in to your ${BRAND.name} member portal to access live trading rooms, video watchlists, and session archives.`,
+		'/register': `Create a ${BRAND.name} member account to access free trading calculators, market directories, and room updates.`,
+		'/mentorship/apply': `Submit your application dossier for selective 1-on-1 stock and options trading mentorship with ${BRAND.founder.name}.`,
+		'/enroll/day-trading-room': `Review enrollment availability and membership onboarding for the Live Day Trading Room at ${BRAND.name}.`,
+		'/enroll/swing-trading-room': `Review enrollment availability and membership onboarding for the Live Swing Trading Room at ${BRAND.name}.`,
+		'/enroll/small-accounts-room': `Review enrollment availability and membership onboarding for the Small Accounts Room ($500+) at ${BRAND.name}.`,
+		'/enroll/spx-profit-pulse': `Review enrollment availability and membership onboarding for SPX Profit Pulse index options alerts at ${BRAND.name}.`,
+		'/enroll/sunday-alpha-protocol': `Review enrollment availability and membership onboarding for Sunday Alpha Protocol swing blueprints at ${BRAND.name}.`,
+		'/enroll/move-prior-to-the-move-ultra': `Review enrollment availability and onboarding for the Move Prior to The Move™ Ultra course at ${BRAND.name}.`,
+		'/enroll/move-prior-to-the-move-system': `Review access availability and onboarding for the Move Prior to The Move™ indicator suite at ${BRAND.name}.`,
+		'/enroll/high-octane-scanner': `Review access availability and onboarding for the High Octane Scanner at ${BRAND.name}.`
+	};
+	const subject = title.replace(/^Enroll:\s*/i, '');
+	const description =
+		descriptions[spec.route] ??
+		(spec.route.startsWith('/enroll/')
+			? `Review enrollment availability and membership onboarding for ${subject} at ${BRAND.name}.`
+			: `Review current availability for ${subject} at ${BRAND.name}. Find published resources or contact the desk for guidance.`);
 	const ogUrl = `${SITE_ORIGIN}${spec.route}`;
 	return definePageMetaTags({
 		title,

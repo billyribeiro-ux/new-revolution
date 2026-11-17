@@ -175,6 +175,8 @@ Tracked from the November 15 SEO audit (`docs/seo/audit/2026-11-15/`), [`docs/TE
 ### Next session — preserved frontend and documentation work
 
 - [ ] **Documentation cleanup and SSOT rebuild:** Preserve unfinished implementation requirements and the owner-selected essential files, inventory stale or duplicated guidance and local agent artifacts, then rebuild one consistent set of project rules. The owner deferred this work until the next session.
+- [ ] **Warning-free production packaging:** Resolve the existing Vercel adapter optional-dependency tracing warning block through an approved dependency/toolchain plan. Current builds and native runtime checks pass, while the packaging warning remains visible.
+- [ ] **Intermittent enlarged-text reflow check:** Investigate the `/blog` 200% root-font overflow detected once in a concurrent full E2E run. The unchanged targeted rerun and final full rerun passed; retain the original failure and passing traces under `/private/tmp/rtp-micro-polish-gate/`.
 - [ ] **Enlarged-text TOC rail:** Correct the existing horizontal displacement when the root font is programmatically doubled at a 1920px viewport. Vertical scrolling is bounded, while the external rail can move left of the viewport.
 - [ ] **Deep-reading initial TOC selection:** Preserve the exact active section before hydration on deep saved-position reloads. The top-of-page initial active-row fade is repaired, while a deep reload can initially identify the first section before calculating the current section.
 - [ ] **Hosted performance acceptance:** Verify the requested sub-100ms hosted article TTFB after deployment. The retained existing-deployment CDN HIT samples measured 121.25–122.28ms.

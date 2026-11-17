@@ -60,6 +60,7 @@ test('full rendered public crawl has clean availability copy, canonicals, links 
 	}));
 	const visited = new Set<string>();
 	const failures: string[] = [];
+	const positionStubLinks: string[] = [];
 	const samples: Array<{ path: string; status: number; canonical?: string }> = [];
 	while (queue.length) {
 		const item = queue.shift()!;
@@ -108,22 +109,28 @@ test('full rendered public crawl has clean availability copy, canonicals, links 
 				if (id.startsWith(ORIGIN) && !definitions.has(id))
 					failures.push(`${item.path}: unresolved entity ${id}`);
 		}
-		if (item.depth < 3)
-			for (const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
-				const url = new URL(match[1].replaceAll('&amp;', '&'), response.url());
-				if (url.origin !== new URL(response.url()).origin && url.origin !== ORIGIN) continue;
-				if (url.pathname.startsWith('/admin/') && url.pathname !== '/admin/login') continue;
-				queue.push({ path: url.pathname + url.search, depth: item.depth + 1 });
-			}
+		for (const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
+			const href = match[1].replaceAll('&amp;', '&').trim();
+			// Keep same-document skip links valid on the availability page itself.
+			if (href.startsWith('#')) continue;
+			const url = new URL(href, response.url());
+			if (url.origin !== new URL(response.url()).origin && url.origin !== ORIGIN) continue;
+			if (url.pathname.replace(/\/+$/, '') === '/resources/position-size-calculator')
+				positionStubLinks.push(`${item.path}: ${href}`);
+			if (item.depth >= 3) continue;
+			if (url.pathname.startsWith('/admin/') && url.pathname !== '/admin/login') continue;
+			queue.push({ path: url.pathname + url.search, depth: item.depth + 1 });
+		}
 	}
 	const reportPath = testInfo.outputPath('rendered-crawl.json');
 	mkdirSync(dirname(reportPath), { recursive: true });
-	writeFileSync(reportPath, JSON.stringify({ samples, failures }, null, 2));
+	writeFileSync(reportPath, JSON.stringify({ samples, failures, positionStubLinks }, null, 2));
 	await testInfo.attach('rendered-crawl', {
-		body: JSON.stringify({ samples, failures }, null, 2),
+		body: JSON.stringify({ samples, failures, positionStubLinks }, null, 2),
 		contentType: 'application/json'
 	});
 	expect(samples.length).toBeGreaterThanOrEqual(100);
+	expect(positionStubLinks).toEqual([]);
 	expect(failures).toEqual([]);
 });
 

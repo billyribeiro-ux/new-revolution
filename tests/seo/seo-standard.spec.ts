@@ -297,13 +297,31 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 	test('enforces noindex and self-canonical URLs on non-indexable routes in 02-inventory.json (IDX-08)', async ({
 		page
 	}) => {
+		const descriptions: Record<string, string> = {
+			'/login':
+				'Sign in to your Revolution Trading Pros member portal to access live trading rooms, video watchlists, and session archives.',
+			'/register':
+				'Create a Revolution Trading Pros member account to access free trading calculators, market directories, and room updates.',
+			'/mentorship/apply':
+				'Submit your application dossier for selective 1-on-1 stock and options trading mentorship with Billy Ribeiro.',
+			'/enroll/day-trading-room':
+				'Review enrollment availability and membership onboarding for the Live Day Trading Room at Revolution Trading Pros.',
+			'/enroll/swing-trading-room':
+				'Review enrollment availability and membership onboarding for the Live Swing Trading Room at Revolution Trading Pros.',
+			'/enroll/small-accounts-room':
+				'Review enrollment availability and membership onboarding for the Small Accounts Room ($500+) at Revolution Trading Pros.',
+			'/enroll/spx-profit-pulse':
+				'Review enrollment availability and membership onboarding for SPX Profit Pulse index options alerts at Revolution Trading Pros.',
+			'/enroll/sunday-alpha-protocol':
+				'Review enrollment availability and membership onboarding for Sunday Alpha Protocol swing blueprints at Revolution Trading Pros.'
+		};
 		for (const nonIndexUrl of [
+			...Object.keys(descriptions),
 			'/demo/playwright',
-			'/login',
-			'/register',
 			'/store',
-			'/mentorship/apply',
-			'/enroll/day-trading-room',
+			'/enroll/move-prior-to-the-move-ultra',
+			'/enroll/move-prior-to-the-move-system',
+			'/enroll/high-octane-scanner',
 			// Gated by launch-gate.ts: store URLs remain noindex until launch, flagship products included.
 			'/store/courses',
 			'/store/indicators',
@@ -326,6 +344,23 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 				page.locator('head link[rel="canonical"]'),
 				`${nonIndexUrl} must emit its production canonical`
 			).toHaveAttribute('href', `${ORIGIN}${nonIndexUrl}`);
+			if (descriptions[nonIndexUrl]) {
+				expect(robots).toBe('noindex, nofollow');
+				for (const selector of [
+					'meta[name="description"]',
+					'meta[property="og:description"]',
+					'meta[name="twitter:description"]'
+				])
+					await expect(page.locator(`head ${selector}`)).toHaveAttribute(
+						'content',
+						descriptions[nonIndexUrl]
+					);
+			}
+			if (nonIndexUrl.startsWith('/enroll/'))
+				await expect(page.locator('head meta[name="description"]')).not.toHaveAttribute(
+					'content',
+					/Explore Enroll:|Explore Member Login|\bTODO\b/
+				);
 		}
 	});
 });

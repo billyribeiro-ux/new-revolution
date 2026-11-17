@@ -9,6 +9,13 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-16 — Final internal-link and gate-description polish
+
+- **Fixed:** Route the remaining live-trading-rooms position-sizing link to the live intraday margin calculator. Keep resource directory availability entries non-clickable and preserve the safe direct position-size-calculator route.
+- **Changed:** Apply the owner's exact descriptions to login, registration, mentorship application, and the five named room/alert enrollment routes. Share each description across normal, Open Graph, and Twitter metadata while preserving noindex directives and production self-canonicals. Replace the remaining generated enrollment wording with natural product-specific copy.
+- **Added:** Extend the existing rendered crawl to reject navigable links to the position-size-calculator stub, and verify exact descriptions and social-tag parity on all eight named routes.
+- **Verified:** All eight release commands exited 0. Confirm 24 exact description tags across eight routes, eight production self-canonicals with noindex/nofollow, zero robotic descriptions in prerendered output, and zero navigable stub links across the 106-page rendered crawl. `pnpm check` reports 0 errors and 0 warnings. `pnpm build` succeeds with one pre-existing Vercel optional-dependency tracing warning block. An unchanged targeted rerun and the final full run passed after one intermittent blog reflow failure; retain that follow-up in `todo.md`.
+
 ### 2026-11-16 — Shared frontend refresh and fluid typography repairs
 
 - **Restored:** “Educate. Innovate. Prosper.” beneath the shared header and footer logo through the central brand configuration.

@@ -383,8 +383,8 @@
 				<div class="desk-protocol-bar">
 					<p>
 						Evaluate position sizing and contract risk independently using our free educational
-						<a href={resolve('/resources/[slug]', { slug: 'position-size-calculator' })}
-							>Position Size Calculator</a
+						<a href={resolve('/resources/intraday-margin-calculator')}
+							>Intraday Margin &amp; Position Sizing Calculator</a
 						>
 						and
 						<a href={resolve('/resources/options-calculator')}>Options Risk Calculator</a>, or

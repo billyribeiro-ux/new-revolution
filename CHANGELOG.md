@@ -9,6 +9,10 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-16 — Defer backend implementation at owner request
+
+- **Changed (Docs):** Consolidate unfinished backend implementation, test infrastructure, customer features, provider integrations, and shared dependency/CI work in `todo.md` §7.1. Record the owner's decision to address these requirements during the proper backend build, defer a separate repair workstream, retain evidence/open requirements, and preserve commerce/domain decisions. Align backend-report.md with that decision. No application behavior changes.
+
 ### 2026-11-16 — Frontend accessibility repairs and real axe verification
 
 - **Fixed:** Add named, keyboard-accessible table scroll regions and inset focus indicators to six confirmed routes and three additional gated store templates; mark redundant Phosphor icons decorative on the stock-index directory; repair enlarged-text wrapping in room/course headers, ETF card labels/links, and narrow grids, including text previously hidden by clipping.

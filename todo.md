@@ -59,6 +59,8 @@ Build these first so top-level navbar buttons, homepage primary CTAs, and footer
 
 ## 4. Priority 3 — Member Portal, Onboarding, Admissions & Enrollment Flows
 
+**Backend implementation deferred by the owner on November 16, 2026.** Retain these requirements; resume backend work only when the owner requests it. See §7.1 for the consolidated backend backlog. Frontend completion and backend integration remain separate milestones.
+
 - [ ] **`/login` — Member Login Portal** (distinct from internal staff `/admin/login`; stays `noindex, nofollow`).
 - [ ] **`/register` — Free Member Account Registration** (email verification, risk-disclosure acknowledgment, experience-track onboarding; stays `noindex, nofollow`).
 - [ ] **`/mentorship/apply` — 1-on-1 Private Mentorship Application Flow** (structured suitability & bottleneck intake form, server validation, admin leads queue notification; stays `noindex, nofollow`).
@@ -167,6 +169,31 @@ Tracked from the November 15 SEO audit (`docs/seo/audit/2026-11-15/`), [`docs/TE
 - [ ] **SEO Audit `F14` (CI Gate Automation):** Add versioned GitHub/CI workflow running `pnpm check:css`, `pnpm check`, `pnpm lint`, `pnpm test:unit --run`, `pnpm build`, `pnpm check:pages`, `pnpm test:seo`, and Playwright E2E on every push.
 - [ ] **SEO Audit `F15` (`pnpm audit`):** Review and remediate the 4 transitive dependency advisories (`@vercel/blob` → `@vercel/cli-config` `zod`, `glob`, `minimatch`, `deepmerge`) safely as upstream releases land.
 - [ ] **CMS Intake Automation & CDN Purge (`docs/BLOG_CONTRACT.md` §2–§3):** Implement read-only package validator/draft-intake CLI, scheduled-publication worker, and Phase 1b hosted CDN cache-tag purge integration.
+
+---
+
+### 7.1 Owner-Deferred Backend Backlog — November 16, 2026
+
+**Status: Deferred at the owner's request.** Record the work now and leave backend implementation, provider activation, and related operational wiring for a later backend workstream. Keep these requirements unchecked until the backend is properly built and verified.
+
+Track these items as unfinished backend build and integration requirements. Address the observed behavior as part of completing the backend end to end, without starting a separate repair workstream now. Source and runtime evidence remain in [backend-report.md](backend-report.md) and [the claim-verification report](docs/audit/2026-11-16/verification-report.md). Existing overlapping `F*` entries in §7 remain open and refer to the same work.
+
+| Item                                                     | Kind                      | Required outcome when backend work resumes                                                                                                                                              |
+| -------------------------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [ ] **A04 — Database and authenticated test isolation**  | Test infrastructure       | Seed and application honor the same disposable database path; authenticated admin E2E tests run against that database and clean up safely.                                              |
+| [ ] **A01 — Authentication configuration**               | Unfinished implementation | Production rejects missing, weak, and known development authentication secrets, with isolated positive/negative regression coverage.                                                    |
+| [ ] **A06 / F03, F11 — CMS structured data**             | Unfinished implementation | Validate nested custom JSON-LD and reject prohibited types and conflicting entity identifiers in the resulting graph.                                                                   |
+| [ ] **A07 / F12 — Editorial modification dates**         | Unfinished implementation | Declare and forward PATCH `minorEdit`; preserve dates for minor edits while ordinary editorial updates still advance them.                                                              |
+| [ ] **A05 / F13 — Missing media responses**              | Unfinished implementation | Distinguish real production assets from development/test placeholders and verify intended publishable media.                                                                            |
+| [ ] **A03 — Analytics and sequence-email schedules**     | Operational wiring        | Verify intended services/provider readiness, then configure daily/weekly analytics and sequence-email invocation with observable failures.                                              |
+| [ ] **Customer accounts and member access**              | Unfinished feature        | Complete registration, email verification, login, member access, and experience/risk-disclosure onboarding; retain the staff/member authorization distinction.                          |
+| [ ] **Mentorship applications**                          | Unfinished feature        | Validate and persist applications server-side, connect the admin leads queue, and verify notification behavior.                                                                         |
+| [ ] **Eight enrollment flows and commerce**              | Unfinished integration    | Connect enrollment persistence, payment processing, webhook-driven entitlements, and end-to-end failure/recovery states. Activation still requires explicit owner approval.             |
+| [ ] **CMS package intake and hosted cache invalidation** | Unfinished automation     | Implement the package validator/intake workflow and wire the existing cache-invalidation abstraction to the hosted provider.                                                            |
+| [ ] **Production email and waitlist delivery**           | Provider integration      | Verify sending-domain, API/webhook configuration, consent, and delivery/retry behavior before enabling capture or sending.                                                              |
+| [ ] **A02 / F15 and A09 / F14 — Dependencies and CI**    | Shared engineering        | Refresh advisory evidence before remediation; automate the repository gates with isolated data and explicit authenticated coverage. Backend-related work is deferred with this backlog. |
+
+When the owner resumes backend work, establish the complete architecture and service contracts, incorporate these requirements into that build, and verify the resulting workflows end to end. Keep `COMMERCE_ENABLED = false`, store launch gating, and the intentional custom-domain removal in their current states.
 
 ---
 

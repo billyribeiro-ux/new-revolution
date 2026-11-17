@@ -6,11 +6,15 @@
 
 **Sources:** [Repository audit](audit.md), [claim-verification report](docs/audit/2026-11-16/verification-report.md), and the implementation references below.
 
+## Owner decision — November 16, 2026
+
+Backend work is deferred until the owner resumes the proper backend build. Track the items below as unfinished implementation, integration, and verification requirements in [todo.md §7.1](todo.md). Incorporate the recorded behavior into that build rather than starting a separate repair workstream now. The evidence remains a record of what the partial implementation currently does.
+
 ## How much of the audit concerns the backend?
 
 **Six of the twelve findings (50%) are primarily backend-related.** Another **two findings partially overlap backend work**.
 
-This classifies the existing audit findings. It does **not** mean the backend is 50% complete, that half the backend is broken, or that every unfinished workflow is a defect. A backend completion percentage would require a separate inventory of intended features, their implementation, integrations, and acceptance criteria.
+This classifies the existing audit findings. It does **not** mean the backend is 50% complete, that half the backend is broken, or that every unfinished workflow needs a separate repair project. A backend completion percentage would require a separate inventory of intended features, their implementation, integrations, and acceptance criteria.
 
 The backend already contains substantial CMS, staff authentication, database, media, leads, email, analytics, and operational code. Several customer workflows and integrations remain unfinished or unwired. Implementation presence and a working end-to-end customer flow are different checks.
 
@@ -18,11 +22,11 @@ The backend already contains substantial CMS, staff authentication, database, me
 
 | Audit ID | Area                                  | Evidence-backed finding                                                                                                                                                                                               | Classification and limits                                                                                                                            |
 | -------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **A01**  | Authentication configuration          | Missing `BETTER_AUTH_SECRET` resolves to a known development fallback. Production-generated auth also accepts an eight-character test secret, with warnings.                                                          | Validation gap in existing authentication. Actual hosted secret strength and production compromise were not established.                             |
+| **A01**  | Authentication configuration          | Missing `BETTER_AUTH_SECRET` resolves to a known development fallback. Production-generated auth also accepts an eight-character test secret, with warnings.                                                          | Incomplete production authentication validation. Actual hosted secret strength and production compromise were not established.                       |
 | **A03**  | Scheduled jobs                        | Repository and inspected Vercel configuration schedule publishing and waitlist delivery only. Daily analytics, weekly analytics, and sequence-email handlers exist without those configured schedules.                | Incomplete operational wiring. Another external scheduler was not inspected; absence of these schedules does not prove every related job has failed. |
 | **A04**  | Database and authenticated test setup | Seed/app filesystem PGlite selection ignores the requested disposable path. Playwright uses `PLAYWRIGHT_DATABASE_URL`, otherwise `memory://e2e`, while the runbook assumes `DATABASE_URL` supplies the shared target. | Test infrastructure and documentation mismatch. This does not demonstrate corruption or failure of the hosted database.                              |
 | **A05**  | Media responses                       | A nonexistent image on the inspected Vercel deployment returns a generated placeholder SVG with `200 OK`.                                                                                                             | Existing fallback behavior can conceal missing intended assets from status checks. This does not establish that all published media is missing.      |
-| **A06**  | Server-side structured data           | The actual article loader removes a prohibited top-level node but retains a nested prohibited node and a conflicting duplicate entity ID.                                                                             | Validation gap in an implemented CMS/SEO path. Reproduced with isolated fixtures; equivalent payloads were not demonstrated in live CMS content.     |
+| **A06**  | Server-side structured data           | The actual article loader removes a prohibited top-level node but retains a nested prohibited node and a conflicting duplicate entity ID.                                                                             | Incomplete validation in the current CMS/SEO path. Reproduced with isolated fixtures; equivalent payloads were not demonstrated in live CMS content. |
 | **A07**  | Post-update dates                     | Full update preserves the editorial date when `minorEdit` is true; PATCH advances it. PATCH omits the field in both its schema and its update mapping.                                                                | Inconsistent support for a caller intending a minor edit. Normal editorial changes should still advance the modification date.                       |
 
 ### Implementation and evidence references
@@ -65,8 +69,8 @@ These can affect backend delivery or launch readiness, but their principal findi
 
 ## How to use this report while the backend is unfinished
 
-- Distinguish defects in implemented paths (**A01, A05, A06, A07**) from incomplete operational wiring (**A03**), test infrastructure (**A04**), and planned customer workflow construction (**A10**).
-- Make database/test isolation reliable before using authenticated test or seed instructions against any shared data.
+- Incorporate the partial-path requirements (**A01, A05, A06, A07**), operational wiring (**A03**), test infrastructure (**A04**), and customer workflows (**A10**) into the future backend build.
+- During that build, establish reliable database/test isolation before using authenticated test or seed instructions against shared data.
 - Confirm a service is intended to operate and its provider configuration is ready before enabling its scheduled jobs. A schedule alone does not complete the underlying workflow.
 - Keep commerce, store, and eBook gates in their documented states until the relevant implementation and owner authorization are complete. See [development flags](src/lib/shared/development-status.ts) and [launch gates](src/lib/data/launch-gate.ts).
 - Treat the owner's deliberate main-domain removal as intentional. It is not a backend defect and does not authorize reattaching the domain.

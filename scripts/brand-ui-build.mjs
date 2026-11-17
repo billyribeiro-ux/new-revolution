@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { access, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { join, posix } from 'node:path';
 
-/** Use this build's root stylesheet, including its only Fontsource imports. */
+/** Follow the root layout stylesheet imports and URL assets from this build. */
 export async function collectRootTheme(clientDir) {
 	const manifest = JSON.parse(await readFile(`${clientDir}/.vite/manifest.json`, 'utf8'));
 	const root = Object.entries(manifest).find(([, entry]) => entry.name === 'nodes/0');
@@ -16,6 +16,9 @@ export async function collectRootTheme(clientDir) {
 		if (!entry) throw new Error(`Missing manifest entry: ${key}`);
 		for (const imported of entry.imports ?? []) collectStyles(imported);
 		for (const css of entry.css ?? []) styles.add(css);
+		for (const asset of entry.assets ?? []) {
+			if (asset.endsWith('.css')) styles.add(asset);
+		}
 	}
 	collectStyles(root[0]);
 	if (!styles.size) throw new Error('Maintenance assets missing: root stylesheet');

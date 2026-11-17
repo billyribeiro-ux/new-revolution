@@ -203,7 +203,7 @@
 	/* Inline & Block Code */
 	.prose-base code {
 		font-family: var(--font-mono);
-		font-size: 0.88em;
+		font-size: var(--step-sm);
 		padding: 0.18em 0.42em;
 		border-radius: 5px;
 		background: var(--panel2);

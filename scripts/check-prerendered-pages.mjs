@@ -71,12 +71,15 @@ for (const file of files) {
 	const h1s = (html.match(/<h1[\s>]/g) ?? []).length;
 	if (h1s !== 1) problems.push(`expected exactly 1 <h1>, found ${h1s}`);
 
-	const skip =
-		html.match(/<a[^>]*class="skip"[^>]*href="#([^"]+)"/) ??
-		html.match(/<a[^>]*href="#([^"]+)"[^>]*class="skip"/);
-	if (!skip) problems.push('missing <a class="skip" href="#...">');
-	else if (!html.includes(`id="${skip[1]}"`))
-		problems.push(`skip link target #${skip[1]} does not exist`);
+	// Svelte adds a scope class to styled anchors; inspect the class token rather
+	// than requiring the entire class attribute to equal "skip".
+	const skip = (html.match(/<a[\s>][^>]*>/g) ?? []).find((anchor) =>
+		(anchor.match(/\sclass="([^"]*)"/)?.[1].split(/\s+/) ?? []).includes('skip')
+	);
+	const skipTarget = skip?.match(/\shref="#([^"]+)"/)?.[1];
+	if (!skipTarget) problems.push('missing <a class="skip" href="#...">');
+	else if (!html.includes(`id="${skipTarget}"`))
+		problems.push(`skip link target #${skipTarget} does not exist`);
 
 	const canonical = html.match(/rel="canonical" href="([^"]+)"/)?.[1];
 	if (!canonical || !canonical.startsWith(ORIGIN)) {

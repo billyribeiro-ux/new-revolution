@@ -695,6 +695,7 @@
 					<div class="trader-box__grid">
 						<div class="trader-box__profile">
 							<img
+								decoding="sync"
 								src={FOUNDER_PORTRAIT.src}
 								alt={FOUNDER_PORTRAIT.alt}
 								width="190"

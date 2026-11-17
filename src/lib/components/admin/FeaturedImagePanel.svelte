@@ -59,7 +59,7 @@
 					src={coverImage}
 					alt={coverImageAlt}
 					style:aspect-ratio={aspect}
-					decoding="async"
+					decoding="sync"
 					onerror={() => (failedUrl = coverImage)}
 				/>
 			{/if}

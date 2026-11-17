@@ -17,6 +17,7 @@ function getObserver(): IntersectionObserver | null {
 				for (const entry of entries) {
 					if (entry.isIntersecting) {
 						entry.target.classList.add('in-view');
+						entry.target.classList.remove('reveal-pending');
 						obs.unobserve(entry.target);
 					}
 				}
@@ -43,9 +44,17 @@ export const revealOnScroll: Attachment<HTMLElement> = (node) => {
 		return;
 	}
 
+	const bounds = node.getBoundingClientRect();
+	if (bounds.bottom > 0 && bounds.top < window.innerHeight + 65) {
+		node.classList.add('in-view');
+		return;
+	}
+
+	node.classList.add('reveal-pending');
 	observer.observe(node);
 
 	return () => {
 		observer.unobserve(node);
+		node.classList.remove('reveal-pending');
 	};
 };

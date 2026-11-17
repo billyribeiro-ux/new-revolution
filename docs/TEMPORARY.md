@@ -4,7 +4,7 @@ Everything **temporary** in `new-revolution-web` — development seed accounts, 
 
 ---
 
-## 1. Temporary Items & Feature-Gate Registry (`T1`–`T16`)
+## 1. Temporary Items & Feature-Gate Registry (`T1`–`T17`)
 
 **Rule:** Never ship an undocumented bypass, placeholder asset, or temporary gate. Tag corresponding [`CHANGELOG.md`](../CHANGELOG.md) entries with `TEMPORARY` and update this table whenever an item is added, modified, or retired.
 
@@ -27,6 +27,8 @@ Everything **temporary** in `new-revolution-web` — development seed accounts, 
 | **T15** | ESLint bridge for Svelte & Vite+ import rules                          | `vite.config.ts`, `eslint.config.js`, `package.json` (`pnpm lint`)                                                                                                          | Moving JS-plugin execution out of Oxlint prevented a Linux 10-GiB arena allocator crash (`exit 134`) in CI while keeping all 37 Svelte rules + `vite-plus/prefer-vite-plus-imports` | `pnpm lint` runs `vp fmt --check . && vp lint . && eslint "**/*.svelte"` cleanly in local & hosted CI                                                                                    | Re-evaluate when upstream Oxlint natively supports `eslint-plugin-svelte` without JS-plugin arena overhead | `active`  |
 | **T16** | Dedicated `[TODO]` placeholder routes (`67` prerendered shells)        | Internal registry of unfinished resource, account, enrollment, and store destinations; public pages render clean availability states; memberships comparison is implemented | Eliminate 404s and misleading fallback destinations across navbar, footer, resource hub, and store cards while pages are built incrementally                                        | Owner master spec: no visible TODO/developer copy; noindex plus production self-canonical; no purchase/account success simulation                                                        | Graduate routes one by one per `todo.md` Priorities 1–5 and `docs/NEW_PAGE_PLAYBOOK.md` §4                 | `active`  |
 
+| **T17** | Preserve development SSR component styles through hydration | `src/hooks.server.ts` (`transformRenderedHtml`) | Pinned Kit 3.2 removes its critical style during development startup, rebuilding CSS FontFaces and visibly repainting optional fonts | Development-only HTML transform renames the removal marker to `data-rtp-ssr-css`; generated component rules stay present while later Vite styles/HMR updates take cascade precedence. Font declarations remain solely in `src/app.css`. Production uses the standard Kit delivery path. | Remove when an owner-approved Kit/browser update preserves font identity and first-paint pixels across the same cold-refresh controls | `active` |
+
 ---
 
 ## 2. Multi-Session Coordination on Sole `main`
@@ -42,11 +44,13 @@ The owner runs AI agent sessions directly against `main` (locally and on GitHub)
 
 ### Active Work
 
-| Branch | Session / Agent | Claimed Files / Scope                                                                                                                  | Started    | Status      |
-| :----- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :---------- |
-| main   | Codex           | Four-phase owner remediation spec: public availability states, headings/tabs, JSON-LD, SEO/assets/headers, tests and aligned contracts | 2026-11-16 | In progress |
+| Branch | Session / Agent | Claimed Files / Scope   | Started | Status |
+| :----- | :-------------- | :---------------------- | :------ | :----- |
+| —      | —               | No active claimed edits | —       | —      |
 
 ### Recently Finished
+
+- **2026-11-16 — Owner Master Remediation and Frontend Refresh Repairs (`main`; Codex):** Completed the requested master scope and shared frontend repairs, restored the logo tagline, and retained final evidence in [the report](audit/2026-11-16/master-remediation.md). Ordinary inspection covers 105 public pages plus the demo through 360 captures. The T17 development bridge addresses the proven font-face rebuild. Final release checks all exited 0: CSS (130 token references), Svelte/TypeScript (0 errors and warnings), lint, unit (106 files, 758 tests), production build including native runtime/email checks, pages (99), SEO (3 tests), and Playwright (87 passed, 19 existing expected skips). Production output contains zero T17 markers. Next-session frontend follow-ups and documentation/SSOT cleanup are saved in `todo.md`.
 
 - **2026-11-16 — Owner-Deferred Backend Build Requirements (`main`; Codex):** Added 12 consolidated open requirements in `todo.md` §7.1 and aligned `backend-report.md` with the owner's instruction to address them during the proper backend build. Backend implementation and related integrations remain deferred until the owner resumes them; evidence is retained. Documentation-only change across four Markdown files; formatting and local links verified. Required gate commands all exited 0: `pnpm check:css` (130 token references), `pnpm check` (0 errors/warnings), `pnpm lint`, `pnpm test:unit --run` (105 files, 750 tests), `pnpm build`, `pnpm check:pages` (99 pages), `pnpm test:seo` (3 tests), and `pnpm exec playwright test` (78 passed, 19 existing expected skips). Logs: `/private/tmp/new-revolution-backend-deferral-gate/`.
 

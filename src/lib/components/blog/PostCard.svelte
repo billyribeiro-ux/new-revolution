@@ -73,7 +73,7 @@
 				height={post.coverImageHeight || 450}
 				loading={eager ? 'eager' : 'lazy'}
 				fetchpriority={eager ? 'high' : 'auto'}
-				decoding="async"
+				decoding="sync"
 				class="card-cover-img"
 				{@attach (image) => sizeCardImage(image, sourceSizes)}
 			/>
@@ -221,7 +221,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-family: var(--font-mono);
-		font-size: 0.75rem;
+		font-size: var(--step-caption);
 	}
 
 	.card-category-badge {
@@ -245,7 +245,7 @@
 		background: var(--post-card-inset);
 		border: 1px solid var(--post-card-line-strong);
 		color: var(--post-card-text);
-		font-size: 0.75rem;
+		font-size: var(--step-caption);
 	}
 
 	.card-reading-time {
@@ -256,7 +256,7 @@
 	.card-title {
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: var(--step-sub);
+		font-size: var(--blog-h3);
 		font-weight: 800;
 		line-height: 1.3;
 		overflow-wrap: anywhere;
@@ -331,7 +331,7 @@
 		}
 
 		.is-lead .card-title {
-			font-size: clamp(1.3rem, 1.155rem + 0.62vi, 1.75rem);
+			font-size: var(--blog-h2);
 		}
 
 		.is-lead .card-body {

@@ -172,6 +172,13 @@ Tracked from the November 15 SEO audit (`docs/seo/audit/2026-11-15/`), [`docs/TE
 
 ---
 
+### Next session — preserved frontend and documentation work
+
+- [ ] **Documentation cleanup and SSOT rebuild:** Preserve unfinished implementation requirements and the owner-selected essential files, inventory stale or duplicated guidance and local agent artifacts, then rebuild one consistent set of project rules. The owner deferred this work until the next session.
+- [ ] **Enlarged-text TOC rail:** Correct the existing horizontal displacement when the root font is programmatically doubled at a 1920px viewport. Vertical scrolling is bounded, while the external rail can move left of the viewport.
+- [ ] **Deep-reading initial TOC selection:** Preserve the exact active section before hydration on deep saved-position reloads. The top-of-page initial active-row fade is repaired, while a deep reload can initially identify the first section before calculating the current section.
+- [ ] **Hosted performance acceptance:** Verify the requested sub-100ms hosted article TTFB after deployment. The retained existing-deployment CDN HIT samples measured 121.25–122.28ms.
+
 ### 7.1 Owner-Deferred Backend Backlog — November 16, 2026
 
 **Status: Deferred at the owner's request.** Record the work now and leave backend implementation, provider activation, and related operational wiring for a later backend workstream. Keep these requirements unchecked until the backend is properly built and verified.

@@ -56,7 +56,7 @@
 							src="#lib/assets/REvolution-Trading-Pros-logo.png?w=360"
 							alt="{BRAND.name} emblem"
 							loading="lazy"
-							decoding="async"
+							decoding="sync"
 						/>
 					</span>
 					<span class="brand-text">

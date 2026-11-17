@@ -435,12 +435,14 @@
 		letter-spacing: 0em;
 	}
 
-	/* 12 / Standard Body Copy (<p>, <li>) */
+	/* 12 / Body copy inherits the role defined by its prose or component parent.
+	 * The body supplies the default size and leading. Direct element defaults must
+	 * not override a denser list, caption, or editorial reading scale. */
 	p {
 		font-family: var(--font-sans);
-		font-size: var(--step-body);
+		font-size: inherit;
 		font-weight: var(--weight-regular);
-		line-height: var(--leading-body);
+		line-height: inherit;
 		letter-spacing: normal;
 		max-inline-size: min(70ch, 680px);
 		text-wrap: pretty;
@@ -448,9 +450,9 @@
 
 	li {
 		font-family: var(--font-sans);
-		font-size: var(--step-body);
+		font-size: inherit;
 		font-weight: var(--weight-regular);
-		line-height: var(--leading-body);
+		line-height: inherit;
 		letter-spacing: normal;
 		text-wrap: pretty;
 	}
@@ -8677,11 +8679,15 @@
 
 	@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
 		.reveal {
-			opacity: 0;
-			transform: translateY(18px);
 			transition:
 				opacity 0.75s var(--ease-out),
 				transform 0.75s var(--ease-out);
+		}
+
+		/* Only offscreen elements explicitly enrolled by the attachment may start hidden. */
+		.reveal.reveal-pending {
+			opacity: 0;
+			transform: translateY(18px);
 		}
 
 		.reveal.in-view {

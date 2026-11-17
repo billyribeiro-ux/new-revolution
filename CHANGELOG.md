@@ -9,6 +9,28 @@ Categories: Added, Changed, Deprecated, Removed, Fixed, Security, Docs.
 
 ## [Unreleased]
 
+### 2026-11-16 — Shared frontend refresh and fluid typography repairs
+
+- **Restored:** “Educate. Innovate. Prosper.” beneath the shared header and footer logo through the central brand configuration.
+
+- **Fixed:** Use synchronous decoding for all 21 frontend image elements across 16 Svelte files. Direct article-cover and blog-lead captures confirmed that asynchronous decoding produced a blank first bitmap frame on refresh. Image dimensions, loading behavior, and fetch priority are retained.
+- **Fixed:** Move early saved-position reload restoration into the root layout after the same delayed scroll jump was reproduced on mentorship. A validated, single-use snapshot restores the matching page before client startup. The mentorship before/after trace confirms that its 23.7ms top-to-reading-position jump is removed.
+- **Fixed (TEMPORARY T17):** Preserve Kit’s generated development SSR component stylesheet through hydration using the existing HTML transform hook. Causal controls confirmed that removing this stylesheet rebuilt CSS FontFaces and caused the remaining cold text repaint. Production retains the standard Kit path.
+- **Fixed:** Load the shared CSS entry through a persistent native stylesheet link. Correct global paragraph and list-item size/leading inheritance so prose, footer copy, course lists, and the TOC use their component's shared type roles. Reserve the expanded TOC panel height and render its initial active row on the server.
+- **Fixed:** Keep reveal sections visible in server-rendered content. The attachment enrolls only offscreen elements for reveal animation, preventing visible sections from disappearing during hydration.
+- **Fixed (Build):** Include CSS URL assets when collecting the root build stylesheet so maintenance and brand assets continue to use the shared CSS source.
+- **Changed:** Align the blog archive, category/tag archives, article titles, card headings, controls, captions, and error page with shared fluid typography tokens. All 53 font-size declarations across the inspected blog scope now use SSOT tokens or inheritance.
+- **Verified:** Inspect 105 public pages and the development demo through ordinary cold, warm, and saved-position browser refreshes. The final sweep records 360 captures with stable heading geometry, loaded image paint, reveal visibility, and saved-position paints. Strong-reference and pixel controls confirm T17 removes the remaining cold text repaint. Preserve exact coverage, limitations, and final release results in the remediation reports. Earlier implementation is recorded in the owner master-spec entry below.
+
+- **Release verification:** All eight required checks passed, including 758 unit tests in 106 files, 99 page checks, 3 SEO tests, and 87 end-to-end passes with 19 existing expected skips. Earlier frontend remediation and accessibility changes were included. Preserve unfinished work and the owner-deferred documentation/SSOT rebuild in `todo.md`.
+
+### 2026-11-16 — Owner master staging remediation
+
+- **Changed:** Replace public developer shells with accurate availability states, implement the six-format memberships comparison, decouple planned resources from live links, separate hero context from primary headings, and add keyboard-operated room tabs. Preserve the exact Sunday Alpha Protocol name and deferred account/commerce backend scope.
+- **Fixed:** Consolidate schema entity definitions, unify founder identity, remove Sunday Alpha Product markup, close blog graph references, and protect custom graph input. Apply owner-requested self-canonicals and six exact descriptions; add manifest/security assets, two guarded critical font preloads, security headers, and adjacent historical-result disclosures.
+- **Fixed:** Repair TOC list-item font inheritance, reserve its expanded CSS height, and remove competing attachment sizing. Restore article reload position before client startup and use synchronous cover decoding after direct captures identified a blank bitmap frame.
+- **Verified:** Track the exact scope, rendered crawl, regressions, article-cover investigation, and final checks in [the master remediation report](docs/audit/2026-11-16/master-remediation.md). Raw evidence remains outside Git.
+
 ### 2026-11-16 — Defer backend implementation at owner request
 
 - **Changed (Docs):** Consolidate unfinished backend implementation, test infrastructure, customer features, provider integrations, and shared dependency/CI work in `todo.md` §7.1. Record the owner's decision to address these requirements during the proper backend build, defer a separate repair workstream, retain evidence/open requirements, and preserve commerce/domain decisions. Align backend-report.md with that decision. No application behavior changes.

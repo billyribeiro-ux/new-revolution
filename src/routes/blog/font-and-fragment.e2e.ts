@@ -49,7 +49,9 @@ for (const path of [
 		expect(loadedFamilies.some((f) => ['Inter', 'Geist Sans', 'Geist Mono'].includes(f))).toBe(
 			true
 		);
-		expect(await page.locator('link[as="font"], link[href*=".woff"]').count()).toBe(2);
+		expect(await page.locator('link[as="font"], link[href*=".woff"]').count()).toBe(
+			path === '/maintenance/index.html' ? 0 : 2
+		);
 	});
 }
 

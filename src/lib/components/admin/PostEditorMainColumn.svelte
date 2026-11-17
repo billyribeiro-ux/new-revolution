@@ -619,6 +619,7 @@
 				{#if form.twitterImage || form.ogImage || form.coverImage}
 					<div class="twitter-preview-img-wrap">
 						<img
+							decoding="sync"
 							src={form.twitterImage || form.ogImage || form.coverImage}
 							alt="Social card preview"
 							class="cover-preview-img"

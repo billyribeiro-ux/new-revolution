@@ -123,6 +123,7 @@
 					>
 						<span class="media-thumb-wrap">
 							<img
+								decoding="sync"
 								src={item.urls.thumbnail}
 								alt={item.alt_text || item.filename}
 								width="300"
@@ -208,6 +209,7 @@
 						{/if}
 						<td>
 							<img
+								decoding="sync"
 								src={item.urls.thumbnail}
 								alt={item.alt_text || item.filename}
 								width="48"

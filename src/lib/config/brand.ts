@@ -107,7 +107,7 @@ export const BRAND = {
 	},
 	slogan: DEFAULT_SLOGAN,
 	upperSlogan: DEFAULT_SLOGAN.toUpperCase(),
-	navTagline: 'PURE STRUCTURE • LIVE DESK',
+	navTagline: 'EDUCATE. INNOVATE. PROSPER.',
 	methodology: 'The Move Prior to The Move™',
 	philosophyQuotes: [
 		'I do not use indicators, I use my system.',

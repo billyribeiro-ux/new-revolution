@@ -138,8 +138,10 @@ async function extendLocalToc(page: import('@playwright/test').Page) {
 	await expect
 		.poll(() =>
 			page
-				.locator('.toc-details')
-				.evaluate((panel) => (panel as HTMLElement).style.getPropertyValue('--toc-nav-limit'))
+				.locator('.article-container')
+				.evaluate((article) =>
+					(article as HTMLElement).style.getPropertyValue('--article-header-height')
+				)
 		)
 		.not.toBe('');
 	await page.locator('.toc-list').evaluate((list) => {

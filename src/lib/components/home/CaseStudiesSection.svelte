@@ -58,7 +58,7 @@
 							height={study.chart.height}
 							alt={study.chart.alt}
 							loading="lazy"
-							decoding="async"
+							decoding="sync"
 						/>
 						<dl class="case-facts">
 							<div>

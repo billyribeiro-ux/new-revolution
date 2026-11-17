@@ -93,7 +93,7 @@
 	h2 {
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: clamp(1.35rem, 1.205rem + 0.62vi, 1.8rem);
+		font-size: var(--blog-h2);
 		overflow-wrap: anywhere;
 	}
 	.featured-grid,

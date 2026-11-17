@@ -28,6 +28,7 @@
 	// Server (getPublicPostViewBySlug) already runs normalizePostHeadings once (SSOT)
 	// and supplies 1:1 synchronized heading IDs and TOC items.
 	let toc = $derived((data.post?.toc ?? []).filter((item) => item.level === 2));
+	let visibleActiveHeadingId = $derived(activeHeadingId || toc[0]?.id || '');
 	let tocTree = $derived(buildTocTree(toc));
 	let processedContent = $derived(data.post?.content ?? '');
 	let customFields = $derived(parsePostCustomFields(data.post?.customFields));
@@ -321,7 +322,7 @@
 							height={data.post.coverHeight ?? 900}
 							loading="eager"
 							fetchpriority="high"
-							decoding="async"
+							decoding="sync"
 							class="article-cover-img"
 						/>
 						{#if data.post.coverImageCaption}
@@ -349,8 +350,11 @@
 										<a
 											href={`#${item.id}`}
 											data-toc-id={item.id}
-											class={['toc-link', { 'toc-link--active': activeHeadingId === item.id }]}
-											aria-current={activeHeadingId === item.id ? 'location' : undefined}
+											class={[
+												'toc-link',
+												{ 'toc-link--active': visibleActiveHeadingId === item.id }
+											]}
+											aria-current={visibleActiveHeadingId === item.id ? 'location' : undefined}
 											onclick={() => {
 												activeHeadingId = item.id;
 											}}>{item.text}</a
@@ -417,7 +421,7 @@
 									width="72"
 									height="72"
 									loading="lazy"
-									decoding="async"
+									decoding="sync"
 									class="author-avatar"
 								/>
 							{/if}
@@ -667,9 +671,9 @@
 		max-inline-size: 100%;
 		margin: 0 0 1rem;
 		font-family: var(--font-display);
-		font-size: clamp(1.9rem, 1.593rem + 1.309vi, 2.85rem);
+		font-size: var(--blog-h1);
 		font-weight: var(--weight-extrabold);
-		line-height: 1.15;
+		line-height: var(--leading-display-h1);
 		color: var(--text);
 	}
 
@@ -677,7 +681,7 @@
 		max-inline-size: 100%;
 		margin: -0.35rem 0 0.9rem;
 		font-family: var(--font-display);
-		font-size: clamp(1.15rem, 1.053rem + 0.413vi, 1.45rem);
+		font-size: var(--step-sub);
 		font-weight: 700;
 		line-height: 1.35;
 		color: var(--text);
@@ -834,12 +838,26 @@
 	}
 
 	.toc-details {
-		--toc-nav-limit: calc(100dvh - var(--article-header-height) - 5.375rem);
+		--toc-panel-size: max(0px, calc(100dvh - var(--article-header-height) - 1.5rem));
+		max-block-size: var(--toc-panel-size);
+		overflow: auto;
 		background: var(--panel);
 		border: 1px solid var(--line-strong);
 	}
 
+	/* Reserve the expanded rail before hydration so font wrapping cannot resize its shell. */
+	.toc-details[open] {
+		display: flex;
+		flex-direction: column;
+		block-size: var(--toc-panel-size);
+	}
+
+	.toc-details::details-content {
+		display: contents;
+	}
+
 	.toc-summary {
+		flex: 0 0 auto;
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: var(--step-caption);
@@ -893,7 +911,9 @@
 	}
 
 	.toc-details > nav {
-		max-height: max(0px, var(--toc-nav-limit));
+		flex: 1 1 0%;
+		/* Keep one text line scrollable when an enlarged summary needs the outer scrollport. */
+		min-block-size: calc(1.4 * var(--step-sm) + 1.5rem + 1px);
 		overflow-y: auto;
 		overscroll-behavior-y: auto;
 		scrollbar-width: thin;
@@ -909,6 +929,10 @@
 		flex-direction: column;
 		gap: 0.15rem;
 		font-size: var(--step-sm);
+	}
+
+	.toc-item {
+		font-size: inherit;
 	}
 
 	.toc-item a {

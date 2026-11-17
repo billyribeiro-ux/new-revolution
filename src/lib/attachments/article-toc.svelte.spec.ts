@@ -21,7 +21,7 @@ const settle = () =>
 		requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
 	);
 
-async function mount(width = 1920, height = 1000) {
+async function mount(width = 1920, height = 1000, attach = true) {
 	await page.viewport(width, height);
 	fixture = document.createElement('div');
 	const css = articleSource.match(/<style>([\s\S]*?)<\/style>/)?.[1];
@@ -36,7 +36,7 @@ async function mount(width = 1920, height = 1000) {
 		<article class="container article-container has-toc">
 			<header class="article-header"><h1>Article</h1></header>
 			<figure class="article-cover-figure" style="height:200px">Cover</figure>
-			<aside class="article-toc-aside"><details class="toc-details" open><summary class="toc-summary">Table of Contents</summary>
+			<aside class="article-toc-aside"><details class="toc-details" open><summary class="toc-summary"><span>Table of Contents</span><span class="toc-toggle-icon" aria-hidden="true">⌄</span></summary>
 				<nav aria-label="Article sections"><ol class="toc-list">${items.map(({ id, text }) => `<li class="toc-item"><a href="#${id}" data-toc-id="${id}">${text}</a></li>`).join('')}</ol></nav>
 			</details></aside>
 			<div class="article-body-layout"><div class="article-main-column">
@@ -49,15 +49,64 @@ async function mount(width = 1920, height = 1000) {
 	document.body.append(fixture);
 	const article = fixture.querySelector<HTMLElement>('article')!;
 	const changes: string[] = [];
-	cleanup = attachArticleNavigation(article, {
-		items,
-		onActiveHeadingChange: (id) => changes.push(id)
-	});
+	function connect() {
+		cleanup = attachArticleNavigation(article, {
+			items,
+			onActiveHeadingChange: (id) => changes.push(id)
+		});
+	}
+	if (attach) connect();
 	await settle();
-	return { article, changes, panel: article.querySelector<HTMLDetailsElement>('.toc-details')! };
+	return {
+		article,
+		changes,
+		connect,
+		panel: article.querySelector<HTMLDetailsElement>('.toc-details')!
+	};
 }
 
 describe('article navigation using the real article CSS', () => {
+	it('reserves the same expanded rail before attachment, after font reflow, and after hydration', async () => {
+		const { panel, connect } = await mount(1920, 1000, false);
+		const nav = panel.querySelector<HTMLElement>('nav')!;
+		const list = panel.querySelector<HTMLElement>('.toc-list')!;
+		const before = panel.getBoundingClientRect().height;
+		expect(before).toBe(888);
+		list.style.fontFamily = 'monospace';
+		list.style.fontSize = '200%';
+		await settle();
+		expect(panel.getBoundingClientRect().height).toBe(before);
+		expect(nav.scrollHeight).toBeGreaterThan(nav.clientHeight);
+		connect();
+		await settle();
+		expect(panel.getBoundingClientRect().height).toBe(before);
+		expect(panel.style.length).toBe(0);
+		nav.scrollTop = nav.scrollHeight;
+		expect(
+			panel.querySelector('li:last-child')!.getBoundingClientRect().bottom
+		).toBeLessThanOrEqual(nav.getBoundingClientRect().bottom);
+	});
+
+	it('keeps native summary toggling and natural collapsed height', async () => {
+		const { panel } = await mount();
+		const summary = panel.querySelector<HTMLElement>('summary')!;
+		summary.click();
+		await settle();
+		expect(panel.open).toBe(false);
+		expect(panel.getBoundingClientRect().height).toBe(summary.getBoundingClientRect().height + 2);
+		expect(panel.querySelector('nav')!.checkVisibility()).toBe(false);
+		summary.click();
+		await settle();
+		expect(panel.open).toBe(true);
+		expect(panel.getBoundingClientRect().height).toBe(888);
+	});
+
+	it('keeps the external rail hidden below the existing desktop breakpoint', async () => {
+		const { panel } = await mount(1899);
+		expect(panel.checkVisibility()).toBe(false);
+		expect(panel.querySelector('a')!.checkVisibility()).toBe(false);
+	});
+
 	it('keeps the sticky top and navigation height stable while bounded to article prose', async () => {
 		const { article, panel } = await mount();
 		const faq = article.querySelectorAll<HTMLDetailsElement>('.faq-details')[4];
@@ -98,7 +147,7 @@ describe('article navigation using the real article CSS', () => {
 	});
 
 	it('measures header changes and removes all observer/frame effects on disposal', async () => {
-		const { article, changes } = await mount();
+		const { article, changes, panel } = await mount();
 		const header = fixture!.querySelector<HTMLElement>('.nav-shell')!;
 		header.style.height = '132px';
 		await settle();
@@ -112,9 +161,7 @@ describe('article navigation using the real article CSS', () => {
 		window.dispatchEvent(new Event('resize'));
 		await settle();
 		expect(article.style.getPropertyValue('--article-header-height')).toBe('');
-		expect(
-			article.querySelector<HTMLElement>('.toc-details')!.style.getPropertyValue('--toc-nav-limit')
-		).toBe('');
+		expect(panel.style.length).toBe(0);
 		expect(changes).toHaveLength(count);
 	});
 
@@ -155,11 +202,22 @@ describe('article navigation using the real article CSS', () => {
 	it('keeps enlarged text inside the short viewport even when a full navigation row cannot fit', async () => {
 		document.documentElement.style.fontSize = '200%';
 		const { panel } = await mount(1920, 320);
+		panel.querySelector('summary > span')!.textContent = 'Table of Contents for This Article';
 		window.scrollTo({ top: 600, behavior: 'instant' });
 		await settle();
 		expect(panel.getBoundingClientRect().bottom).toBeLessThanOrEqual(innerHeight);
 		expect(panel.querySelector('summary')!.getBoundingClientRect().height).toBeGreaterThanOrEqual(
 			44
 		);
+		expect(panel.scrollHeight).toBeGreaterThan(panel.clientHeight);
+		panel.scrollTop = panel.scrollHeight;
+		const nav = panel.querySelector('nav')!;
+		const navStyles = getComputedStyle(nav);
+		const textSpace =
+			nav.clientHeight -
+			Number.parseFloat(navStyles.paddingTop) -
+			Number.parseFloat(navStyles.paddingBottom);
+		expect(textSpace).toBeGreaterThanOrEqual(30);
+		expect(nav.getBoundingClientRect().top).toBeLessThan(panel.getBoundingClientRect().bottom);
 	});
 });

@@ -367,6 +367,7 @@
 							<span class="meta-label">Created &amp; Hosted By:</span>
 							<div class="hosted-by-box__profile">
 								<img
+									decoding="sync"
 									src={courseConfig.instructorAvatar}
 									alt={FOUNDER_PORTRAIT.alt}
 									width="64"
@@ -1080,6 +1081,7 @@
 						<div class="instructor-box__grid">
 							<div class="instructor-box__profile">
 								<img
+									decoding="sync"
 									src={courseConfig.instructorAvatar}
 									alt={FOUNDER_PORTRAIT.alt}
 									width="220"

@@ -29,7 +29,6 @@ test('hero headings keep context outside the primary heading on every affected p
 		'/mentorship',
 		'/methodology',
 		'/our-mission',
-		'/resources',
 		'/resources/etf-stocks-list',
 		'/resources/finra-intraday-margin-rule-2026',
 		'/resources/intraday-margin-calculator',

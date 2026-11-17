@@ -700,8 +700,8 @@
 		"route": "/memberships",
 		"url": "/memberships",
 		"indexable": true,
-		"template": "todo",
-		"paramSource": "static TODO placeholder (src/routes/memberships/+page.ts prerender=true, isTodoRoute=true)"
+		"template": "listing",
+		"paramSource": "static membership comparison (src/routes/memberships/+page.ts prerender=true, isTodoRoute=false)"
 	},
 	{
 		"app": "root",

@@ -457,6 +457,7 @@
 
 						<div class="creator-strip">
 							<img
+								decoding="sync"
 								src={scannerConfig.creatorAvatar}
 								alt={FOUNDER_PORTRAIT.alt}
 								width="54"
@@ -1098,6 +1099,7 @@
 						<div class="creator-box__grid">
 							<div class="creator-box__left">
 								<img
+									decoding="sync"
 									src={scannerConfig.creatorAvatar}
 									alt={FOUNDER_PORTRAIT.alt}
 									width="180"

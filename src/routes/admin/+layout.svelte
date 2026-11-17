@@ -85,7 +85,14 @@
 			<div class="sidebar__header">
 				<a href={resolve('/admin')} class="sidebar__brand">
 					<span class="sidebar__brand-icon">
-						<img src="/logo.png" alt={BRAND.name} width="32" height="32" loading="eager" />
+						<img
+							decoding="sync"
+							src="/logo.png"
+							alt={BRAND.name}
+							width="32"
+							height="32"
+							loading="eager"
+						/>
 					</span>
 					{#if !sidebarCollapsed}<span class="sidebar__brand-text">Admin</span>{/if}
 				</a>

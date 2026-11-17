@@ -57,6 +57,7 @@
 	{#if item}
 		<div class="ml-preview">
 			<img
+				decoding="sync"
 				src={item.urls.medium}
 				alt={item.alt_text || item.filename}
 				width={item.width ?? 800}

@@ -17,9 +17,7 @@ export function attachArticleNavigation(
 	const header = document.querySelector<HTMLElement>('.nav-shell');
 	const rail = article.querySelector<HTMLElement>('.article-toc-aside');
 	const panel = rail?.querySelector<HTMLDetailsElement>('.toc-details');
-	const summary = panel?.querySelector<HTMLElement>('summary');
 	const nav = panel?.querySelector<HTMLElement>('nav');
-	const firstLink = nav?.querySelector<HTMLElement>('[data-toc-id]');
 	const desktop = window.matchMedia('(min-width: 118.75rem)');
 	const headings = items.map(({ id }) => ({ id, element: document.getElementById(id) }));
 	const links = Array.from(nav?.querySelectorAll<HTMLElement>('[data-toc-id]') ?? []);
@@ -29,7 +27,6 @@ export function attachArticleNavigation(
 	let currentId = '';
 	let lockedHeadingId = '';
 	let lockUntil = 0;
-	let lastNavLimit = -1;
 	let lastHeaderHeight = -1;
 
 	function getAnchorOffset(): number {
@@ -144,15 +141,8 @@ export function attachArticleNavigation(
 			}
 		}
 
-		let navLimit = -1;
 		let followDelta = 0;
-		if (desktop.matches && panel && summary && nav) {
-			const stickyTop = headerHeight + rem * 0.5;
-			const summaryHeight = summary.getBoundingClientRect().height + 2;
-			const viewportAvailable = window.innerHeight - stickyTop - rem;
-			// Constant viewport-bounded max-height so the TOC never squishes or slices text at the bottom
-			navLimit = Math.max(0, viewportAvailable - summaryHeight);
-
+		if (desktop.matches && panel && nav) {
 			const activeLink = links.find((link) => link.dataset.tocId === nextId);
 			if (
 				panel.open &&
@@ -161,7 +151,7 @@ export function attachArticleNavigation(
 			) {
 				const linkRect = activeLink.getBoundingClientRect();
 				const navRect = nav.getBoundingClientRect();
-				const bottom = navRect.top + Math.min(navRect.height, navLimit);
+				const bottom = Math.min(navRect.bottom, panel.getBoundingClientRect().bottom);
 				if (linkRect.top < navRect.top) followDelta = linkRect.top - navRect.top;
 				else if (linkRect.bottom > bottom) followDelta = linkRect.bottom - bottom;
 			}
@@ -171,11 +161,6 @@ export function attachArticleNavigation(
 		if (headerHeight !== lastHeaderHeight) {
 			article.style.setProperty('--article-header-height', `${headerHeight}px`);
 			lastHeaderHeight = headerHeight;
-		}
-		if (panel && navLimit !== lastNavLimit) {
-			if (navLimit < 0) panel.style.removeProperty('--toc-nav-limit');
-			else panel.style.setProperty('--toc-nav-limit', `${navLimit}px`);
-			lastNavLimit = navLimit;
 		}
 		if (followDelta && nav) nav.scrollTop += followDelta;
 		forceFollow = false;
@@ -193,9 +178,7 @@ export function attachArticleNavigation(
 		schedule();
 	}
 	const observer = new ResizeObserver(schedule);
-	for (const element of [header, summary, firstLink]) {
-		if (element) observer.observe(element);
-	}
+	if (header) observer.observe(header);
 	nav?.addEventListener('click', onNavClick);
 	window.addEventListener('hashchange', consumeLocationHash);
 	window.addEventListener('wheel', clearLockOnManualInput, { passive: true });
@@ -218,6 +201,5 @@ export function attachArticleNavigation(
 		desktop.removeEventListener('change', schedule);
 		panel?.removeEventListener('toggle', onToggle);
 		article.style.removeProperty('--article-header-height');
-		panel?.style.removeProperty('--toc-nav-limit');
 	};
 }

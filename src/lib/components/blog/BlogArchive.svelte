@@ -93,13 +93,14 @@
 		min-inline-size: 0;
 	}
 	.archive-header h1 {
+		font-size: var(--blog-h1);
 		max-inline-size: 24ch;
 		margin-block: 0.65rem 1rem;
 	}
 	.archive-summary {
 		max-inline-size: 65ch;
 		color: var(--text-secondary);
-		font-size: clamp(1.05rem, 1.008rem + 0.179vi, 1.18rem);
+		font-size: var(--step-lead);
 		line-height: 1.65;
 		margin: 0;
 	}

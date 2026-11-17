@@ -13,6 +13,14 @@ import { requestLogger } from '#lib/server/logger.ts';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 import { conceptCommerceResponse } from '#lib/server/commerce-guard';
 
+/** T17: Kit 3.2's dev stylesheet removal rebuilds CSS FontFaces and restarts optional-font rendering. */
+function transformRenderedHtml(html: string): string {
+	const escaped = escapeJsonLdBlocksInHtml(html);
+	return import.meta.env.DEV
+		? escaped.replace(/<style data-sveltekit(?=[\s>])/g, '<style data-rtp-ssr-css')
+		: escaped;
+}
+
 const SKIPPED_REDIRECT_PREFIXES = [
 	'/_app/',
 	'/api/',
@@ -283,10 +291,10 @@ const handleApp: Handle = async ({ event, resolve }) => {
 					? opts.transformPageChunk({ html, done })
 					: html;
 				if (typeof transformed === 'string') {
-					return escapeJsonLdBlocksInHtml(transformed);
+					return transformRenderedHtml(transformed);
 				}
 				return Promise.resolve(transformed).then((chunk) =>
-					typeof chunk === 'string' ? escapeJsonLdBlocksInHtml(chunk) : chunk
+					typeof chunk === 'string' ? transformRenderedHtml(chunk) : chunk
 				);
 			}
 		});

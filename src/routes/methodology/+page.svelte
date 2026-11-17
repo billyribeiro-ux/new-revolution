@@ -315,7 +315,7 @@
 									height={item.chartImage.height}
 									alt={item.chartImage.alt}
 									loading="lazy"
-									decoding="async"
+									decoding="sync"
 								/>
 							{:else}
 								<svg

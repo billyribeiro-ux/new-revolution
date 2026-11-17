@@ -73,7 +73,7 @@
 	.error-h1 {
 		margin: 0 0 0.75rem;
 		font-family: var(--font-display);
-		font-size: clamp(1.5rem, 1.339rem + 0.689vi, 2rem);
+		font-size: var(--blog-h1);
 	}
 
 	.error-sub {

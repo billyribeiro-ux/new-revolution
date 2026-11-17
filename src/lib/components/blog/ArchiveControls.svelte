@@ -117,7 +117,7 @@
 	}
 	.topic-label {
 		color: var(--muted);
-		font-size: 0.75rem;
+		font-size: var(--step-caption);
 		font-weight: 800;
 		letter-spacing: 0.07em;
 		text-transform: uppercase;

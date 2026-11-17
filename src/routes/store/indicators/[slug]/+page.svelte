@@ -289,6 +289,7 @@
 
 						<div class="instructor-strip">
 							<img
+								decoding="sync"
 								src={indicatorConfig.instructorAvatar}
 								alt={FOUNDER_PORTRAIT.alt}
 								width="54"
@@ -838,6 +839,7 @@
 						<div class="bio-card__grid">
 							<div class="bio-card__left">
 								<img
+									decoding="sync"
 									src={indicatorConfig.instructorAvatar}
 									alt={FOUNDER_PORTRAIT.alt}
 									width="200"

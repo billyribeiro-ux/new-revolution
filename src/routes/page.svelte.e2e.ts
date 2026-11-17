@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { CONCEPT_PREVIEW } from '#lib/shared/development-status.ts';
 
 const DAY_TRADING_ROOM_DESCRIPTION =
 	'Live opening-bell stock, ETF, and SPX options day trading room with 8:45 AM ET prep, voice screen share, pure price structure, and binary stop rules.';
@@ -8,16 +7,16 @@ const SWING_TRADING_ROOM_DESCRIPTION =
 	'Multi-day stock, ETF, and options swing trading room for 9-to-5 working professionals with Sunday macro plans, evening reviews, and defined invalidation.';
 
 const SMALL_ACCOUNTS_ROOM_DESCRIPTION =
-	'Dedicated $500+ small-account stock and options room built for T+1 cash settlement, FINRA Rule 4210 intraday margin, XSP contracts, and strict risk caps.';
+	'Dedicated $500+ small-account stock and options room built for T+1 cash rotation, FINRA Rule 4210 margin, mini-XSP, and strict risk caps.';
 
 const SPX_PROFIT_PULSE_DESCRIPTION =
 	'Cash-settled SPX and mini-XSP index options alert service delivering 5-point pre-trade price-action blueprints, strike specs, targets, and hard stops.';
 
 const RESOURCES_HUB_DESCRIPTION =
-	'Free options profit & Greeks calculator, FINRA 2026 Rule 4210 intraday margin calculator, S&P 500 ETF directory, index guide, and price-action playbooks.';
+	'Free Black-Scholes options & Greeks calculator, FINRA 2026 Rule 4210 margin sizer, S&P 500 ETF directory, and cash-settled index guides.';
 
 test.describe('Revolution Trading Pros Homepage Blueprint', () => {
-	test('enforces single H1 with whitespace separation and semantic H2/H3 outline', async ({
+	test('keeps the hero kicker outside the single H1 and preserves the semantic H2/H3 outline', async ({
 		page
 	}) => {
 		await page.setViewportSize({ width: 1440, height: 900 });
@@ -27,15 +26,12 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		const h1List = page.locator('h1');
 		await expect(h1List).toHaveCount(1);
 
-		// Flattened H1 text must separate .h1-query and .h1-emotional with whitespace (never "IndicatorsYou")
+		// Context and the primary headline remain separate semantic text nodes.
 		const h1Text = await h1List.first().textContent();
-		expect(h1Text).toBeTruthy();
-		expect(h1Text).not.toContain('ActionYou');
-		expect(h1Text).toMatch(
-			CONCEPT_PREVIEW
-				? /Proposed Tools\s+You Finally Found/
-				: /Pure Price Action\s+You Finally Found/
-		);
+		expect(h1Text?.trim()).toMatch(/^You Finally Found/);
+		expect(h1Text).not.toContain('Pure Price Action');
+		await expect(page.locator('h1 .h1-query, h1 .seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .h1-query')).toHaveText(/Pure Price Action/);
 
 		// The eBook does not exist yet (FREE_EBOOK_AVAILABLE=false in launch-gate.ts): no dead lead form on a YMYL page
 		await expect(page.locator('#ebook')).toHaveCount(0);
@@ -152,9 +148,13 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 				const graphs = scripts.flatMap(
 					(script) => JSON.parse(script.textContent || '{}')['@graph'] || []
 				);
-				return graphs.find(
+				const navigation = graphs.find(
 					(node) => node['@id'] === 'https://www.revolutiontradingpros.com/#navigation'
 				);
+				return navigation.itemListElement.map((reference: { '@id': string }) => {
+					const entity = graphs.find((node) => node['@id'] === reference['@id']);
+					return { name: entity?.name, url: entity?.url };
+				});
 			});
 		const visibleLinks = await page.locator('nav.nav-links a').evaluateAll((links) =>
 			links.map((link) => ({
@@ -164,12 +164,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 					new URL((link as HTMLAnchorElement).href).pathname
 			}))
 		);
-		expect(
-			navigationSchema.itemListElement.map((node: { name: string; url: string }) => ({
-				name: node.name,
-				url: node.url
-			}))
-		).toEqual(visibleLinks);
+		expect(navigationSchema).toEqual(visibleLinks);
 		await expect(
 			page.locator('footer').getByRole('link', { name: 'Blog', exact: true })
 		).toBeVisible();
@@ -489,7 +484,7 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		// Eligible blog pages and graduated /alert-services hub are included; the store and TODO placeholders remain gated.
 		expect(sitemapXml).toContain('/blog');
 		expect(sitemapXml).not.toContain('/store');
-		expect(sitemapXml).not.toContain('/memberships');
+		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/memberships</loc>');
 		expect(sitemapXml).toContain('<loc>https://www.revolutiontradingpros.com/alert-services</loc>');
 		expect(sitemapXml).toContain(
 			'<loc>https://www.revolutiontradingpros.com/live-trading-rooms</loc>'
@@ -573,9 +568,10 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			expectedAboutUrl
 		);
 
-		// Strict heading hierarchy on /about: single H1 with .seo-kicker, zero H4s, semantic H3 in FAQ summary
+		// The context kicker is a sibling of the single H1, with semantic FAQ headings.
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('details.faq-item summary h3.faq-item__heading')).toHaveCount(4);
 
@@ -594,13 +590,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 			aboutSchema['@graph'].find((n: { '@type': string }) => n['@type'] === 'FAQPage')
 		).toBeUndefined();
 
-		// Verify /demo/playwright automatically receives noindex, nofollow, no canonical, and zero hreflang tags
+		// Successful demo responses retain noindex, a production self-canonical, and zero hreflang tags.
 		await page.goto('/demo/playwright');
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute(
 			'content',
 			'noindex, nofollow'
 		);
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/demo/playwright`
+		);
 		await expect(page.locator('head link[rel="alternate"]')).toHaveCount(0);
 
 		// Verify /live-trading-rooms/day-trading-room route metadata, JSON-LD, and DOM parity
@@ -625,7 +624,8 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.schedule-card')).toHaveCount(4);
 		await expect(page.locator('.setup-card')).toHaveCount(4);
@@ -676,7 +676,8 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.workflow-card')).toHaveCount(4);
 		await expect(page.locator('.playbook-card')).toHaveCount(4);
@@ -727,7 +728,8 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.roadmap-card')).toHaveCount(4);
 		await expect(page.locator('.playbook-card')).toHaveCount(4);
@@ -840,12 +842,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(indicatorsDesc?.length).toBe(148);
 
 		// Store remains behind the launch gate.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/store/indicators`
+		);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.indicator-card')).toHaveCount(8);
 		await expect(page.locator('.comparison-table tbody tr')).toHaveCount(5);
@@ -888,12 +894,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(coursesDesc?.length).toBe(151);
 
 		// Store remains behind the launch gate.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/store/courses`
+		);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.course-card')).toHaveCount(8);
 		await expect(page.locator('.deliverable-card')).toHaveCount(6);
@@ -938,12 +948,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(singleCourseDesc?.length).toBe(154);
 
 		// Store remains behind the launch gate.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/store/courses/move-prior-to-the-move-ultra`
+		);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.package-card')).toHaveCount(2);
 		await expect(page.locator('.component-block')).toHaveCount(5);
@@ -989,12 +1003,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(singleIndicatorDesc?.length).toBe(153);
 
 		// Store remains behind the launch gate.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/store/indicators/move-prior-to-the-move-system`
+		);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.comp-card')).toHaveCount(6);
 		await expect(page.locator('.suitability-card')).toHaveCount(3);
@@ -1045,7 +1063,8 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.deliverable-card')).toHaveCount(6);
 		await expect(page.locator('.advantage-card')).toHaveCount(4);
@@ -1091,12 +1110,16 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 		expect(scannersDesc?.length).toBe(151);
 
 		// Store remains behind the launch gate.
-		await expect(page.locator('head link[rel="canonical"]')).toHaveCount(0);
+		await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			`${origin}/store/scanners`
+		);
 		await expect(page.locator('head meta[name="robots"]')).toHaveAttribute('content', /^noindex/);
 		await expect(page.locator('head link[rel="alternate"][hreflang]')).toHaveCount(0);
 
 		await expect(page.locator('h1')).toHaveCount(1);
-		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(1);
+		await expect(page.locator('h1 .hero-h1__seo-kicker')).toHaveCount(0);
+		await expect(page.locator('hgroup > .hero-h1__seo-kicker')).toHaveCount(1);
 		await expect(page.locator('h4')).toHaveCount(0);
 		await expect(page.locator('.scanner-card')).toHaveCount(8);
 		await expect(page.locator('.workflow-card')).toHaveCount(3);
@@ -1188,9 +1211,9 @@ test.describe('Revolution Trading Pros Homepage Blueprint', () => {
 
 		const indexesDesc = await page.locator('meta[name="description"]').getAttribute('content');
 		expect(indexesDesc).toBe(
-			'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, early assignment risk, and 60/40 IRS Section 1256 tax rules.'
+			'Compare SPX, XSP, NDX, RUT, and VIX cash-settled European index options vs. SPY and QQQ ETFs, assignment risk, and Section 1256 60/40 taxes.'
 		);
-		expect(indexesDesc!.length).toBe(154);
+		expect(indexesDesc!.length).toBe(140);
 
 		await expect(page.locator('h1')).toHaveCount(1);
 		await expect(page.locator('.sec1256-table tbody tr')).toHaveCount(4);

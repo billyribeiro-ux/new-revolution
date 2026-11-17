@@ -301,7 +301,6 @@ test.describe('SEO_STANDARD.md Full-Inventory E2E Gate (TOOL-03)', () => {
 			'/demo/playwright',
 			'/login',
 			'/register',
-			'/memberships',
 			'/store',
 			'/mentorship/apply',
 			'/enroll/day-trading-room',
